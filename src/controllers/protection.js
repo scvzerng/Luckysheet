@@ -10,6 +10,7 @@ import { replaceHtml,transformRangeToAbsolute,openSelfModel } from '../utils/uti
 import { selectionCopyShow } from './select';
 import tooltip from '../global/tooltip';
 import cleargridelement from '../global/cleargridelement';
+import CryptoJS from 'crypto-js';
 
 let isInitialProtection = false, isInitialProtectionAddRang = false, rangeItemListCache=[], isAddRangeItemState=true, updateRangeItemIndex = null, validationAuthority=null, updatingSheetFile=null, firstInputSheetProtectionPassword = true;
 let sqrefMapCache = {}, inputRangeProtectionPassword = {}, initialRangePasswordHtml=false;
@@ -302,11 +303,12 @@ export function initialEvent(file){
 
         if(aut.algorithmName!=null && aut.algorithmName!="None"){
             if(aut.saltValue!=null && aut.saltValue.length>0){
-                var hasher = CryptoApi.getHasher(aut.algorithmName);
-                password =CryptoApi.hmac(aut.saltValue, password, hasher);
+                var hmacHasher = CryptoJS.algo.HMAC.create(CryptoJS.algo.SHA256, aut.saltValue);
+                hmacHasher.update(password);
+                password = hmacHasher.finalize().toString(CryptoJS.enc.Hex);
             }
             else{
-                password = CryptoApi.hash(aut.algorithmName, password);
+                password = CryptoJS.SHA256(password).toString(CryptoJS.enc.Hex);
             }
         }
 
@@ -857,13 +859,13 @@ function openRangePasswordModal(rangeAut) {
         }
 
         if(rangeAut.algorithmName!=null && rangeAut.algorithmName!="None"){
-            // password = CryptoApi.hash(rangeAut.algorithmName, password);
             if(rangeAut.saltValue!=null && rangeAut.saltValue.length>0){
-                var hasher = CryptoApi.getHasher(rangeAut.algorithmName);
-                password =CryptoApi.hmac(rangeAut.saltValue, password, hasher);
+                var hmacHasher2 = CryptoJS.algo.HMAC.create(CryptoJS.algo.SHA256, rangeAut.saltValue);
+                hmacHasher2.update(password);
+                password = hmacHasher2.finalize().toString(CryptoJS.enc.Hex);
             }
             else{
-                password = CryptoApi.hash(rangeAut.algorithmName, password);
+                password = CryptoJS.SHA256(password).toString(CryptoJS.enc.Hex);
             }
         }
 

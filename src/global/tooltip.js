@@ -3,6 +3,7 @@ import browser from './browser';
 import { replaceHtml } from '../utils/util';
 import locale from '../locale/locale';
 import server from '../controllers/server';
+import clipboard from 'clipboard-polyfill';
 
 const tooltip = {
     info: function (title, content) {

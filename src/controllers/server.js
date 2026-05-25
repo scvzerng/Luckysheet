@@ -21,6 +21,8 @@ import json from '../global/json';
 import luckysheetConfigsetting from './luckysheetConfigsetting';
 import {customImageUpdate} from './imageUpdateCtrl';
 import method from '../global/method';
+import html2canvas from 'html2canvas';
+import localforage from 'localforage';
 
 const server = {
     gridKey: null,

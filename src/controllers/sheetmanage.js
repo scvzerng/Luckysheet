@@ -32,6 +32,7 @@ import menuButton from "./menuButton";
 import method from "../global/method";
 import { initialEvent } from "./protection";
 import luckysheetformula from "../global/formula";
+import localforage from 'localforage';
 
 const sheetmanage = {
     generateRandomSheetIndex: function(prefix) {

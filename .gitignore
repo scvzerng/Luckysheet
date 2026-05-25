@@ -1,12 +1,35 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# IDE
+.idea/
+.history/
+.vs/
+.vscode/
+*.swp
+*.swo
+
+# OS
 .DS_Store
-node_modules
-package-lock.json
-yarn.lock
-dist
-docs/.vuepress/dist
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Docs
+docs/.vuepress/dist/
+
+# Private files
 src/expendPlugins/print/print.js
 
-.idea
-.history
-.vs
-.vscode
+# Cache
+.eslintcache

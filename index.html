@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0" />
+    <title>Luckysheet Demo</title>
+    <script src="/node_modules/jquery/dist/jquery.js"></script>
+    <script src="/node_modules/jquery-ui/dist/jquery-ui.js"></script>
+    <script src="/node_modules/jquery-mousewheel/jquery.mousewheel.js"></script>
+    <script src="/node_modules/spectrum-colorpicker/spectrum.js"></script>
+    <script src="/src/plugins/js/jquery.sPage.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { width: 100%; height: 100%; overflow: hidden; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+        #app { display: flex; flex-direction: column; width: 100%; height: 100%; }
+        .header { display: flex; align-items: center; justify-content: space-between; padding: 8px 16px; background: #1a73e8; color: #fff; flex-shrink: 0; }
+        .header h1 { font-size: 16px; font-weight: 500; }
+        .header .links { display: flex; gap: 12px; }
+        .header .links a { color: #fff; font-size: 13px; text-decoration: none; opacity: 0.85; }
+        .header .links a:hover { opacity: 1; text-decoration: underline; }
+        #luckysheet { flex: 1; position: relative; }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="header">
+            <h1>Luckysheet Demo</h1>
+            <div class="links">
+                <a href="https://mengshukeji.gitee.io/LuckysheetDocs/" target="_blank">Docs</a>
+                <a href="https://github.com/mengshukeji/Luckysheet" target="_blank">GitHub</a>
+            </div>
+        </div>
+        <div id="luckysheet"></div>
+    </div>
+    <script type="module">
+        import { luckysheet } from './src/index.js';
+        window.luckysheet = luckysheet;
+
+        $(function () {
+            var celldata = [];
+            var headers = ['', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
+            for (var i = 0; i < headers.length; i++) {
+                celldata.push({ r: 0, c: i, v: { v: headers[i], m: headers[i], ct: { fa: 'General', t: 'g' }, bl: i === 0 ? 0 : 1, bg: i === 0 ? '#f0f0f0' : '#e8f0fe', fc: '#333' } });
+            }
+
+            var sampleData = [
+                { label: 'Name', values: ['Alice', 'Bob', 'Charlie', 'Diana', 'Edward'] },
+                { label: 'Age', values: [28, 35, 22, 41, 33] },
+                { label: 'Score', values: [92.5, 87.3, 95.1, 78.6, 88.9] },
+                { label: 'Pass', values: ['Yes', 'Yes', 'Yes', 'No', 'Yes'] },
+                { label: 'Salary', values: [8500, 12000, 6800, 15000, 9800] },
+                { label: 'Dept', values: ['Engineering', 'Marketing', 'Engineering', 'Sales', 'HR'] },
+                { label: 'Join Date', values: ['2020-03-15', '2018-07-22', '2022-01-10', '2015-11-03', '2019-05-18'] },
+                { label: 'Rating', values: [4.5, 3.8, 4.9, 2.7, 4.2] },
+                { label: 'Projects', values: [12, 8, 15, 5, 10] },
+            ];
+
+            for (var j = 0; j < sampleData.length; j++) {
+                celldata.push({ r: j + 1, c: 0, v: { v: sampleData[j].label, m: sampleData[j].label, ct: { fa: 'General', t: 'g' }, bl: 1, bg: '#f5f5f5' } });
+                for (var k = 0; k < sampleData[j].values.length; k++) {
+                    var val = sampleData[j].values[k];
+                    var isNum = typeof val === 'number';
+                    var isInt = isNum && Number.isInteger(val);
+                    celldata.push({
+                        r: j + 1, c: k + 1, v: {
+                            v: val,
+                            m: String(val),
+                            ct: { fa: isInt ? '0' : (isNum ? '#,##0.0' : 'General'), t: isNum ? 'n' : 'g' }
+                        }
+                    });
+                }
+            }
+
+            celldata.push({ r: 10, c: 0, v: { v: 'Total Salary', m: 'Total Salary', ct: { fa: 'General', t: 'g' }, bl: 1 } });
+            celldata.push({ r: 10, c: 1, v: { v: '', m: '', f: '=SUM(B6:F6)', ct: { fa: '#,##0', t: 'n' } } });
+            celldata.push({ r: 11, c: 0, v: { v: 'Average Score', m: 'Average Score', ct: { fa: 'General', t: 'g' }, bl: 1 } });
+            celldata.push({ r: 11, c: 1, v: { v: '', m: '', f: '=AVERAGE(C2:C6)', ct: { fa: '#,##0.00', t: 'n' } } });
+            celldata.push({ r: 12, c: 0, v: { v: 'Max Rating', m: 'Max Rating', ct: { fa: 'General', t: 'g' }, bl: 1 } });
+            celldata.push({ r: 12, c: 1, v: { v: '', m: '', f: '=MAX(H2:H6)', ct: { fa: '#,##0.0', t: 'n' } } });
+            celldata.push({ r: 13, c: 0, v: { v: 'Count', m: 'Count', ct: { fa: 'General', t: 'g' }, bl: 1 } });
+            celldata.push({ r: 13, c: 1, v: { v: '', m: '', f: '=COUNTA(A2:A6)', ct: { fa: '0', t: 'n' } } });
+
+            var formulaCelldata = [];
+            var formulaHeaders = ['Formula', 'Result', 'Description'];
+            for (var fi = 0; fi < formulaHeaders.length; fi++) {
+                formulaCelldata.push({ r: 0, c: fi, v: { v: formulaHeaders[fi], m: formulaHeaders[fi], ct: { fa: 'General', t: 'g' }, bl: 1, bg: '#e8f0fe' } });
+            }
+
+            var formulas = [
+                ['=PI()', 'Pi constant'],
+                ['=ABS(-42)', 'Absolute value'],
+                ['=ROUND(3.14159, 2)', 'Round to 2 decimals'],
+                ['=INT(8.9)', 'Integer part'],
+                ['=MOD(10, 3)', 'Modulo'],
+                ['=POWER(2, 10)', '2^10'],
+                ['=SQRT(144)', 'Square root'],
+                ['=LEN("Luckysheet")', 'String length'],
+                ['=UPPER("hello world")', 'To uppercase'],
+                ['=CONCATENATE("Hello", " ", "World")', 'Concatenate strings'],
+                ['=IF(1>2, "Yes", "No")', 'Conditional'],
+                ['=TODAY()', 'Today date'],
+            ];
+
+            for (var fi2 = 0; fi2 < formulas.length; fi2++) {
+                formulaCelldata.push({ r: fi2 + 1, c: 0, v: { v: formulas[fi2][0], m: formulas[fi2][0], ct: { fa: 'General', t: 'g' }, fc: '#1a73e8' } });
+                formulaCelldata.push({ r: fi2 + 1, c: 1, v: { v: '', m: '', f: formulas[fi2][0], ct: { fa: 'General', t: 'g' } } });
+                formulaCelldata.push({ r: fi2 + 1, c: 2, v: { v: formulas[fi2][1], m: formulas[fi2][1], ct: { fa: 'General', t: 'g' }, fc: '#666' } });
+            }
+
+            var formatCelldata = [];
+            var formatHeaders = ['Value', 'Format', 'Description'];
+            for (var hi = 0; hi < formatHeaders.length; hi++) {
+                formatCelldata.push({ r: 0, c: hi, v: { v: formatHeaders[hi], m: formatHeaders[hi], ct: { fa: 'General', t: 'g' }, bl: 1, bg: '#e8f0fe' } });
+            }
+
+            var formats = [
+                [1234.567, '#,##0.00', 'Thousands separator + 2 decimals'],
+                [0.85, '0%', 'Percentage'],
+                [0.1234, '0.00%', 'Percentage + 2 decimals'],
+                [44927, 'YYYY-MM-DD', 'Date format'],
+                [44927, 'YYYY/MM/DD HH:mm:ss', 'Date + Time'],
+                [1000000, '#,##0', 'Large number'],
+            ];
+
+            for (var fi3 = 0; fi3 < formats.length; fi3++) {
+                formatCelldata.push({ r: fi3 + 1, c: 0, v: { v: formats[fi3][0], m: String(formats[fi3][0]), ct: { fa: 'General', t: typeof formats[fi3][0] === 'number' ? 'n' : 'g' } } });
+                formatCelldata.push({ r: fi3 + 1, c: 1, v: { v: formats[fi3][1], m: formats[fi3][1], ct: { fa: 'General', t: 'g' }, fc: '#1a73e8' } });
+                formatCelldata.push({ r: fi3 + 1, c: 2, v: { v: formats[fi3][2], m: formats[fi3][2], ct: { fa: 'General', t: 'g' }, fc: '#666' } });
+            }
+
+            luckysheet.create({
+                container: 'luckysheet',
+                lang: 'zh',
+                forceCalculation: true,
+                showinfobar: false,
+                showsheetbar: true,
+                showstatisticBar: true,
+                data: [{
+                    name: 'Sample Data',
+                    color: '#1a73e8',
+                    status: 1,
+                    order: 0,
+                    celldata: celldata,
+                    config: {
+                        columnlen: { 0: 120, 1: 100, 2: 100, 3: 100, 4: 100, 5: 100 },
+                        rowlen: { 0: 28 },
+                        borderInfo: [{
+                            rangeType: 'range',
+                            borderType: 'border-all',
+                            style: '1',
+                            color: '#ddd',
+                            range: [{ row: [0, 13], column: [0, 6] }]
+                        }],
+                    },
+                    row: 30,
+                    column: 15,
+                    defaultRowHeight: 24,
+                    defaultColWidth: 88,
+                }, {
+                    name: 'Formulas',
+                    color: '#34a853',
+                    status: 0,
+                    order: 1,
+                    celldata: formulaCelldata,
+                    config: {
+                        columnlen: { 0: 250, 1: 150, 2: 250 },
+                        borderInfo: [{
+                            rangeType: 'range',
+                            borderType: 'border-all',
+                            style: '1',
+                            color: '#ddd',
+                            range: [{ row: [0, 12], column: [0, 2] }]
+                        }],
+                    },
+                    row: 30,
+                    column: 10,
+                }, {
+                    name: 'Formats',
+                    color: '#fbbc04',
+                    status: 0,
+                    order: 2,
+                    celldata: formatCelldata,
+                    config: {
+                        columnlen: { 0: 150, 1: 200, 2: 280 },
+                        borderInfo: [{
+                            rangeType: 'range',
+                            borderType: 'border-all',
+                            style: '1',
+                            color: '#ddd',
+                            range: [{ row: [0, 6], column: [0, 2] }]
+                        }],
+                    },
+                    row: 20,
+                    column: 10,
+                }],
+                hook: {
+                    workbookCreateAfter: function () {
+                        console.log('Luckysheet demo loaded successfully!');
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

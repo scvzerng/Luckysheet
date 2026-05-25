@@ -19,6 +19,7 @@ import dayjs from 'dayjs';
 import numeral from 'numeral';
 import {getAirTable,companyTargetData,companyTargetData10,companyTargetData11,companyTargetData12,excelToLuckyArray,excelToArray,askAIData} from '../demoData/getTargetData'
 import { setcellvalue } from "../global/setdata";
+import jStat from 'jstat';
 
 //公式函数计算
 const functionImplementation = {
