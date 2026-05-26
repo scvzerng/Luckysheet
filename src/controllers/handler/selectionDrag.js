@@ -26,21 +26,6 @@ import controlHistory from "../controlHistory";
 import { hideMenuByCancel } from "../../global/cursorPos";
 import { luckysheetdefaultstyle } from "../constant";
 
-const pivotTable = {
-    luckysheet_pivotTable_select_state: false,
-    movestate: false,
-    filter: null,
-    row: null,
-    column: null,
-    values: null,
-    pivotDatas: [],
-    showType: "",
-    movesave: { width: 0, height: 0, containerid: "" },
-    pivotclick: function() {},
-    isPivotRange: function() { return false; },
-    drillDown: function() {},
-};
-
 import {
     replaceHtml,
     getObjType,
@@ -181,9 +166,6 @@ export default function selectionDrag() {
                 c0 = last.column[0],
                 c1 = last.column[1];
 
-            if (pivotTable.isPivotRange(r0, c0)) {
-                return;
-            }
 
             let dropCellState = false;
             let step = 0;

@@ -64,8 +64,6 @@ export function setSheetAdd(options = {}) {
         "row": Store.defaultrowNum,
         "column": Store.defaultcolumnNum,
         "config": {},
-        "pivotTable": null,
-        "isPivotTable": false
     };
     sheetconfig = $.extend(true, sheetconfig, sheetObject);
 

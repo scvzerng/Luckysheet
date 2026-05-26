@@ -833,65 +833,6 @@ function rightclickHTML() {
     return rightclickContainer;
 }
 
-const pivottableconfigHTML = function() {
-    const _locale = locale();
-    const locale_pivotTable = _locale.pivotTable;
-
-    return (
-        '<div class="luckysheet-cols-menu luckysheet-rightgclick-menu luckysheet-mousedown-cancel" id="luckysheet-pivotTable-config-option"> <div class="luckysheet-cols-menuitem luckysheet-mousedown-cancel"> <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel"> <div class="luckysheet-mousedown-cancel"> <span class="luckysheet-mousedown-cancel">' +
-        locale_pivotTable.titleSort +
-        '</span> <select class="luckysheet-mousedown-cancel" style="height:24px;" id="luckysheet-pivotTable-config-option-order"> <option selected="selected" value="default">' +
-        locale_pivotTable.titleNoSort +
-        '</option> <option value="asc">' +
-        locale_pivotTable.titleSortAsc +
-        '</option> <option value="desc">' +
-        locale_pivotTable.titleSortDesc +
-        '</option> </select> </div> </div> </div> <div class="luckysheet-cols-menuitem luckysheet-mousedown-cancel"> <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel"> <div class="luckysheet-mousedown-cancel"> <span class="luckysheet-mousedown-cancel">' +
-        locale_pivotTable.titleSortBy +
-        '</span> <select class="luckysheet-mousedown-cancel" style="height:24px;" id="luckysheet-pivotTable-config-option-orderby"> </select> </div> </div> </div> <div class="luckysheet-cols-menuitem luckysheet-mousedown-cancel"> <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel"> <div class="luckysheet-mousedown-cancel"> <span class="luckysheet-mousedown-cancel">' +
-        locale_pivotTable.titleShowSum +
-        '</span> <select class="luckysheet-mousedown-cancel" style="height:24px;" id="luckysheet-pivotTable-config-option-stastic"> <option  value="0">' +
-        locale_pivotTable.titleStasticFalse +
-        '</option> <option value="1" selected="selected">' +
-        locale_pivotTable.titleStasticTrue +
-        "</option> </select> </div> </div> </div> </div>"
-    );
-};
-
-const pivottablesumHTML = function() {
-    const _locale = locale();
-    const locale_pivotTable = _locale.pivotTable;
-
-    return (
-        '<div class="luckysheet-cols-menu luckysheet-rightgclick-menu luckysheet-mousedown-cancel" id="luckysheet-pivotTable-config-option-sumtype"> <div class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" sumtype="SUM"> <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel"> <span class="luckysheet-mousedown-cancel">' +
-        locale_pivotTable.valueStatisticsSUM +
-        '</span> <span class="luckysheet-submenu-arrow luckysheet-mousedown-cancel" style="user-select: none;"><i class="fa fa-check luckysheet-mousedown-cancel" aria-hidden="true"></i></span> </div> </div> <div class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" sumtype="COUNT"> <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel"> <span class="luckysheet-mousedown-cancel">' +
-        locale_pivotTable.valueStatisticsCOUNT +
-        '</span> <span class="luckysheet-submenu-arrow luckysheet-mousedown-cancel" style="user-select: none;"><i class="fa fa-check luckysheet-mousedown-cancel" aria-hidden="true"></i></span> </div> </div> <div class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" sumtype="COUNTA"> <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel"> <span class="luckysheet-mousedown-cancel">' +
-        locale_pivotTable.valueStatisticsCOUNTA +
-        '</span> <span class="luckysheet-submenu-arrow luckysheet-mousedown-cancel" style="user-select: none;"><i class="fa fa-check luckysheet-mousedown-cancel" aria-hidden="true"></i></span> </div> </div> <div class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" sumtype="COUNTUNIQUE"> <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel"> <span class="luckysheet-mousedown-cancel">' +
-        locale_pivotTable.valueStatisticsCOUNTUNIQUE +
-        '</span> <span class="luckysheet-submenu-arrow luckysheet-mousedown-cancel" style="user-select: none;"><i class="fa fa-check luckysheet-mousedown-cancel" aria-hidden="true"></i></span> </div> </div> <div class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" sumtype="AVERAGE"> <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel"> <span class="luckysheet-mousedown-cancel">' +
-        locale_pivotTable.valueStatisticsAVERAGE +
-        '</span> <span class="luckysheet-submenu-arrow luckysheet-mousedown-cancel" style="user-select: none;"><i class="fa fa-check luckysheet-mousedown-cancel" aria-hidden="true"></i></span> </div> </div> <div class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" sumtype="MAX"> <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel"> <span class="luckysheet-mousedown-cancel">' +
-        locale_pivotTable.valueStatisticsMAX +
-        '</span> <span class="luckysheet-submenu-arrow luckysheet-mousedown-cancel" style="user-select: none;"><i class="fa fa-check luckysheet-mousedown-cancel" aria-hidden="true"></i></span> </div> </div> <div class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" sumtype="MIN"> <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel"> <span class="luckysheet-mousedown-cancel">' +
-        locale_pivotTable.valueStatisticsMIN +
-        '</span> <span class="luckysheet-submenu-arrow luckysheet-mousedown-cancel" style="user-select: none;"><i class="fa fa-check luckysheet-mousedown-cancel" aria-hidden="true"></i></span> </div> </div> <div class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" sumtype="MEDIAN"> <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel"> <span class="luckysheet-mousedown-cancel">' +
-        locale_pivotTable.valueStatisticsMEDIAN +
-        '</span> <span class="luckysheet-submenu-arrow luckysheet-mousedown-cancel" style="user-select: none;"><i class="fa fa-check luckysheet-mousedown-cancel" aria-hidden="true"></i></span> </div> </div> <div class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" sumtype="PRODUCT"> <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel"> <span class="luckysheet-mousedown-cancel">' +
-        locale_pivotTable.valueStatisticsPRODUCT +
-        '</span> <span class="luckysheet-submenu-arrow luckysheet-mousedown-cancel" style="user-select: none;"><i class="fa fa-check luckysheet-mousedown-cancel" aria-hidden="true"></i></span> </div> </div> <div class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" sumtype="STDEV"> <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel"> <span class="luckysheet-mousedown-cancel">' +
-        locale_pivotTable.valueStatisticsSTDEV +
-        '</span> <span class="luckysheet-submenu-arrow luckysheet-mousedown-cancel" style="user-select: none;"><i class="fa fa-check luckysheet-mousedown-cancel" aria-hidden="true"></i></span> </div> </div> <div class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" sumtype="STDEVP"> <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel"> <span class="luckysheet-mousedown-cancel">' +
-        locale_pivotTable.valueStatisticsSTDEVP +
-        '</span> <span class="luckysheet-submenu-arrow luckysheet-mousedown-cancel" style="user-select: none;"><i class="fa fa-check luckysheet-mousedown-cancel" aria-hidden="true"></i></span> </div> </div> <div class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" sumtype="VAR"> <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel"> <span class="luckysheet-mousedown-cancel">' +
-        locale_pivotTable.valueStatisticslet +
-        '</span> <span class="luckysheet-submenu-arrow luckysheet-mousedown-cancel" style="user-select: none;"><i class="fa fa-check luckysheet-mousedown-cancel" aria-hidden="true"></i></span> </div> </div> <div class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" sumtype="VARP"> <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel"> <span class="luckysheet-mousedown-cancel">' +
-        locale_pivotTable.valueStatisticsVARP +
-        '</span> <span class="luckysheet-submenu-arrow luckysheet-mousedown-cancel" style="user-select: none;"><i class="fa fa-check luckysheet-mousedown-cancel" aria-hidden="true"></i></span> </div> </div> </div>'
-    );
-};
 
 const sheetHTML =
         '<div style="${style}" id="luckysheet-sheets-item${index}" data-index="${index}" class="luckysheet-sheets-item ${active}"><span class="luckysheet-sheets-item-name" spellcheck ="false" contenteditable="false">${name}</span> <span class="luckysheet-sheets-item-menu luckysheet-mousedown-cancel"><i class="fa fa-sort-desc luckysheet-mousedown-cancel"></i></span>${colorset}</div>',
@@ -1015,43 +956,6 @@ function sheetconfigHTML() {
 
     return sheetconfigModel;
 }
-
-const luckysheetPivotTableHTML = function() {
-    const _locale = locale();
-    const locale_pivotTable = _locale.pivotTable;
-    // return '<div id="luckysheet-modal-dialog-slider-pivot" class="luckysheet-modal-dialog-slider luckysheet-modal-dialog-slider-pivot"> <div class="luckysheet-modal-dialog-slider-title"> <span>'+locale_pivotTable.title+'</span> <span id="luckysheet-modal-dialog-slider-close" title="'+locale_pivotTable.closePannel+'"><i class="fa fa-times" aria-hidden="true"></i></span> </div> <div class="luckysheet-modal-dialog-slider-content"> <div class="luckysheet-modal-dialog-slider-range"> <div id="luckysheet-dialog-pivotTable-range"></div> <div id="luckysheet-dialog-pivotTable-range-seleted">'+locale_pivotTable.editRange+'</div> </div> <div class="luckysheet-modal-dialog-slider-list-title"> '+locale_pivotTable.tipPivotFieldSelected+' <span title="'+locale_pivotTable.tipClearSelectedField+'" id="luckysheet-dialog-pivotTable-clearitem">'+locale_pivotTable.btnClearSelectedField+'</span></div> <div id="luckysheet-modal-dialog-pivotTable-list" class="luckysheet-modal-dialog-slider-list luckysheet-scrollbars"> </div> <div class="luckysheet-modal-dialog-slider-config-c"> <div class="luckysheet-modal-dialog-slider-config luckysheet-modal-dialog-config-filter"> <div> <span><i class="fa fa-filter luckysheet-mousedown-cancel" aria-hidden="true"></i> '+locale_pivotTable.btnFilter+'</span> </div> <div id="luckysheet-modal-dialog-config-filter" class="luckysheet-modal-dialog-slider-config-list luckysheet-scrollbars"> </div> </div> <div class="luckysheet-modal-dialog-slider-config luckysheet-modal-dialog-config-row"> <div> <span><i class="fa fa-list-alt" aria-hidden="true"></i> '+locale_pivotTable.titleRow+'</span> </div> <div id="luckysheet-modal-dialog-config-row" class="luckysheet-modal-dialog-slider-config-list luckysheet-scrollbars"> </div> </div> <div class="luckysheet-modal-dialog-slider-config luckysheet-modal-dialog-config-column"> <div> <span><i class="fa fa-indent" aria-hidden="true"></i> '+locale_pivotTable.titleColumn+'</span> </div> <div id="luckysheet-modal-dialog-config-column" class="luckysheet-modal-dialog-slider-config-list luckysheet-scrollbars"> </div> </div> <div class="luckysheet-modal-dialog-slider-config luckysheet-modal-dialog-config-value"> <div> <span><i class="fa fa-cube" aria-hidden="true"></i> '+locale_pivotTable.titleValue+'</span> <span style="float: right;margin-right: 10px;display:none;" id="luckysheetpivottablevaluecolrowshow"><label style="padding:0px 5px;margin:0px;font-size:12px;height:15px;line-height:15px;" title="'+locale_pivotTable.tipShowColumn+'" for="luckysheetpivottablevaluecolrow">'+locale_pivotTable.titleColumn+'</label> <input type="radio" checked="checked" value="1" name="luckysheetpivottablevaluecolrow" id="luckysheetpivottablevaluecolrow" /> <label style="padding:0px 5px;margin:0px;font-size:12px;height:15px;line-height:15px;" title="'+locale_pivotTable.tipShowRow+'" for="luckysheetpivottablevaluecolrow1">'+locale_pivotTable.titleRow+'</label> <input type="radio" value="0" name="luckysheetpivottablevaluecolrow" id="luckysheetpivottablevaluecolrow1" /></span></div> <div id="luckysheet-modal-dialog-config-value" class="luckysheet-modal-dialog-slider-config-list luckysheet-scrollbars"> </div> </div> </div> </div> </div>';
-    return `
-        <div id="luckysheet-modal-dialog-slider-pivot" class="luckysheet-modal-dialog-slider luckysheet-modal-dialog-slider-pivot">
-        <div class="luckysheet-modal-dialog-slider-title"> <span>${locale_pivotTable.title}</span> <span id="luckysheet-modal-dialog-slider-close" title="${locale_pivotTable.closePannel}"><i class="fa fa-times" aria-hidden="true"></i></span> </div>
-        <div class="luckysheet-modal-dialog-slider-content">
-            <div class="luckysheet-modal-dialog-slider-range">
-                <div id="luckysheet-dialog-pivotTable-range"></div>
-                <div id="luckysheet-dialog-pivotTable-range-seleted">${locale_pivotTable.editRange}</div>
-            </div>
-            <div class="luckysheet-modal-dialog-slider-list-title"> ${locale_pivotTable.tipPivotFieldSelected} <span title="${locale_pivotTable.tipClearSelectedField}" id="luckysheet-dialog-pivotTable-clearitem">${locale_pivotTable.btnClearSelectedField}</span></div>
-            <div id="luckysheet-modal-dialog-pivotTable-list" class="luckysheet-modal-dialog-slider-list luckysheet-scrollbars"> </div>
-            <div class="luckysheet-modal-dialog-slider-config-c">
-                <div class="luckysheet-modal-dialog-slider-config luckysheet-modal-dialog-config-filter">
-                    <div> <span><i class="fa fa-filter luckysheet-mousedown-cancel" aria-hidden="true"></i> ${locale_pivotTable.btnFilter}</span> </div>
-                    <div id="luckysheet-modal-dialog-config-filter" class="luckysheet-modal-dialog-slider-config-list luckysheet-scrollbars"> </div>
-                </div>
-                <div class="luckysheet-modal-dialog-slider-config luckysheet-modal-dialog-config-row">
-                    <div> <span><i class="fa fa-list-alt" aria-hidden="true"></i> ${locale_pivotTable.titleRow}</span> </div>
-                    <div id="luckysheet-modal-dialog-config-row" class="luckysheet-modal-dialog-slider-config-list luckysheet-scrollbars"> </div>
-                </div>
-                <div class="luckysheet-modal-dialog-slider-config luckysheet-modal-dialog-config-column">
-                    <div> <span><i class="fa fa-indent" aria-hidden="true"></i> ${locale_pivotTable.titleColumn}</span> </div>
-                    <div id="luckysheet-modal-dialog-config-column" class="luckysheet-modal-dialog-slider-config-list luckysheet-scrollbars"> </div>
-                </div>
-                <div class="luckysheet-modal-dialog-slider-config luckysheet-modal-dialog-config-value">
-                    <div> <span><i class="fa fa-cube" aria-hidden="true"></i> ${locale_pivotTable.titleValue}</span> <span style="float: right;margin-right: 10px;display:none;" id="luckysheetpivottablevaluecolrowshow"><label style="padding:0px 5px;margin:0px;font-size:12px;height:15px;line-height:15px;" title="${locale_pivotTable.tipShowColumn}" for="luckysheetpivottablevaluecolrow">${locale_pivotTable.titleColumn}</label> <input type="radio" checked="checked" value="1" name="luckysheetpivottablevaluecolrow" id="luckysheetpivottablevaluecolrow" /> <label style="padding:0px 5px;margin:0px;font-size:12px;height:15px;line-height:15px;" title="${locale_pivotTable.tipShowRow}" for="luckysheetpivottablevaluecolrow1">${locale_pivotTable.titleRow}</label> <input type="radio" value="0" name="luckysheetpivottablevaluecolrow" id="luckysheetpivottablevaluecolrow1" /></span></div>
-                    <div id="luckysheet-modal-dialog-config-value" class="luckysheet-modal-dialog-slider-config-list luckysheet-scrollbars"> </div>
-                </div>
-            </div>
-        </div>
-        </div>
-        `;
-};
 
 function filtermenuHTML() {
     const _locale = locale();
@@ -1293,7 +1197,6 @@ const luckysheetlodingHTML = function(target, coverConfig) {
 //     menu_download: '<div id="luckysheet-download-btn-title"><i class="fa fa-cloud-download"></i> 下载</div>',
 //     menu_share: '<div id="luckysheet-share-btn-title"><i class="fa fa-share-alt"></i> 分享</div>',
 //     menu_chart: '<div id="luckysheet-chart-btn-title"> <i class="fa fa-pie-chart"></i> 图表生成</div>',
-//     menu_pivot: '<div id="luckysheet-pivot-btn-title"> <i class="fa fa-cube" aria-hidden="true"></i> 数据透视表</div>',
 //     menu_freezenrow: '<div id="luckysheet-freezen-btn-horizontal"><i class="fa fa-list-alt"></i> 冻结首行</div>',
 //     menu_freezencolumn: '<div id="luckysheet-freezen-btn-vertical"><i class="fa fa-indent"></i> 冻结首列</div>',
 // };
@@ -1495,8 +1398,6 @@ export {
     flow,
     colsmenuHTML,
     rightclickHTML,
-    pivottableconfigHTML,
-    pivottablesumHTML,
     sheetHTML,
     columnHeaderHTML,
     sheetselectlistHTML,
@@ -1507,7 +1408,6 @@ export {
     filtermenuHTML,
     filtersubmenuHTML,
     sheetconfigHTML,
-    luckysheetPivotTableHTML,
     luckysheetAlternateformatHtml,
     luckysheetchartpointconfigHTML,
     luckysheetToolHTML,

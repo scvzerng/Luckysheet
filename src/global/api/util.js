@@ -85,8 +85,6 @@ export function updataSheet (options = {}) {
         sheetData = sheetmanage.buildGridData(file);
     file.data = sheetData
 
-    Store.luckysheetcurrentisPivotTable = false;
-    $("#luckysheet-modal-dialog-slider-pivot").hide();
     luckysheetsizeauto(false);
 
     sheetmanage.mergeCalculation(file["index"]);

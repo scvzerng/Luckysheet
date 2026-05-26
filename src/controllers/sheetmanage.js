@@ -47,7 +47,7 @@ const sheetmanage = {
 
         return prefix + "_" + mid + "_" + time;
     },
-    generateRandomSheetName: function(file, isPivotTable) {
+    generateRandomSheetName: function(file) {
         let index = file.length;
 
         for (let i = 0; i < file.length; i++) {
@@ -197,7 +197,7 @@ const sheetmanage = {
     setCustomSheet(luckysheet_custom_sheet) {
         this.Luckysheet_custom_sheet = luckysheet_custom_sheet;
     },
-    addNewSheet: function(e, isPivotTable) {
+    addNewSheet: function(e) {
         if (isEditMode() || Store.allowEdit === false) {
             // alert("非编辑模式下不允许该操作！");
             return;
@@ -212,7 +212,7 @@ const sheetmanage = {
         let order = Store.luckysheetfile.length;
         let index = _this.generateRandomSheetIndex();
 
-        let sheetname = _this.generateRandomSheetName(Store.luckysheetfile, isPivotTable);
+        let sheetname = _this.generateRandomSheetName(Store.luckysheetfile);
 
         $("#luckysheet-sheet-container-c").append(
             replaceHtml(sheetHTML, { index: index, active: "", name: sheetname, style: "", colorset: "" }),
@@ -227,7 +227,6 @@ const sheetmanage = {
         ) {
             //判断设置的自定义sheet
             sheetconfig = sheet_defaullt_config;
-            // sheet_defaullt_config.isPivotTable=false;
             sheetconfig.index = index;
             sheetconfig.order = order;
             sheetconfig.name = sheetname;
@@ -244,8 +243,6 @@ const sheetmanage = {
                 row: Store.defaultrowNum,
                 column: Store.defaultcolumnNum,
                 config: {},
-                pivotTable: null,
-                isPivotTable: !!isPivotTable,
             };
         }
         Store.luckysheetfile.push(sheetconfig);
@@ -270,7 +267,7 @@ const sheetmanage = {
             Store.jfredo.push(redo);
         }
 
-        _this.changeSheetExec(index, isPivotTable, true);
+        _this.changeSheetExec(index, true);
 
         // 钩子 sheetCreateAfter 不应该在这里 应在绘制完成后 因此在 changeSheet 实现
     },
@@ -641,7 +638,7 @@ const sheetmanage = {
         } else {
         }
 
-        _this.changeSheetExec(data.index, data.isPivotTable, true);
+        _this.changeSheetExec(data.index, true);
         _this.reOrderAllSheet();
     },
     deleteSheet: function(index) {
@@ -930,14 +927,6 @@ const sheetmanage = {
 
                     // luckysheetrefreshgrid(0, 0);
                     $("#luckysheet_info_detail_save").html(locale_info.detailSave);
-
-                    if (!!file.isPivotTable) {
-                        Store.luckysheetcurrentisPivotTable = true;
-                        // pivotTable.changePivotTable(Store.currentSheetIndex); //此方法需要注释掉，在restoreSheetAll中已经执行了刷新了数据透视表，这里就不需要了
-                    } else {
-                        Store.luckysheetcurrentisPivotTable = false;
-                        $("#luckysheet-modal-dialog-slider-pivot").hide();
-                    }
 
                     // Store toolbar button width value
                     menuToolBarWidth();
@@ -1231,7 +1220,7 @@ const sheetmanage = {
             }
         }
     },
-    changeSheet: function(index, isPivotInitial, isNewSheet, isCopySheet) {
+    changeSheet: function(index, isNewSheet, isCopySheet) {
         if (isEditMode()) {
             // alert("非编辑模式下不允许该操作！");
             return;
@@ -1254,7 +1243,7 @@ const sheetmanage = {
         }
 
         // 钩子函数
-        method.createHookFunction("sheetActivate", index, isPivotInitial, isNewSheet);
+        method.createHookFunction("sheetActivate", index, isNewSheet);
 
         $(
             "#luckysheet-filter-selected-sheet" +
@@ -1270,13 +1259,7 @@ const sheetmanage = {
         _this.storeSheetParamALL();
         _this.setCurSheet(index);
 
-        if (!!file.isPivotTable) {
-            Store.luckysheetcurrentisPivotTable = true;
-        } else {
-            Store.luckysheetcurrentisPivotTable = false;
-            $("#luckysheet-modal-dialog-slider-pivot").hide();
-            luckysheetsizeauto(false);
-        }
+        luckysheetsizeauto(false);
 
         let load = file["load"];
         if (load != null) {
@@ -1294,7 +1277,7 @@ const sheetmanage = {
             }, 1);
         } else {
             let loadSheetUrl = luckysheetConfigsetting.loadSheetUrl;
-            if (loadSheetUrl == "" || Store.luckysheetcurrentisPivotTable || !!isNewSheet) {
+            if (loadSheetUrl == "" || !!isNewSheet) {
                 let data = _this.buildGridData(file);
 
                 file["data"] = data;
@@ -1568,7 +1551,7 @@ const sheetmanage = {
 
         return null;
     },
-    changeSheetExec: function(index, isPivotInitial, isNewSheet, isCopySheet) {
+    changeSheetExec: function(index, isNewSheet, isCopySheet) {
         let $sheet = $("#luckysheet-sheets-item" + index);
 
         window.luckysheet_getcelldata_cache = null;
@@ -1576,7 +1559,7 @@ const sheetmanage = {
         $sheet.addClass("luckysheet-sheets-item-active").show();
 
         cleargridelement();
-        this.changeSheet(index, isPivotInitial, isNewSheet, isCopySheet);
+        this.changeSheet(index, isNewSheet, isCopySheet);
 
         $("#luckysheet-sheet-list, #luckysheet-rightclick-sheet-menu").hide();
 

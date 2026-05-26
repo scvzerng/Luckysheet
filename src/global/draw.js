@@ -1,4 +1,4 @@
-import conditionformat from "../controllers/conditionformat";
+﻿import conditionformat from "../controllers/conditionformat";
 import alternateformat from "../controllers/alternateformat";
 import luckysheetSparkline from "../controllers/sparkline";
 import menuButton from "../controllers/menuButton";
@@ -40,7 +40,7 @@ function luckysheetDrawgridRowTitle(scrollHeight, drawHeight, offsetTop) {
     luckysheetTableContent.clearRect(0, offsetTop, Store.rowHeaderWidth - 1, drawHeight);
 
     luckysheetTableContent.font = luckysheetdefaultFont();
-    luckysheetTableContent.textBaseline = luckysheetdefaultstyle.textBaseline; //基准线 垂直居中
+    luckysheetTableContent.textBaseline = luckysheetdefaultstyle.textBaseline; //鍩哄噯绾?鍨傜洿灞呬腑
     luckysheetTableContent.fillStyle = luckysheetdefaultstyle.fillStyle;
 
     let dataset_row_st, dataset_row_ed;
@@ -70,13 +70,13 @@ function luckysheetDrawgridRowTitle(scrollHeight, drawHeight, offsetTop) {
         }
         end_r = Store.visibledatarow[r] - scrollHeight;
 
-        //若超出绘制区域终止
+        //鑻ヨ秴鍑虹粯鍒跺尯鍩熺粓姝?
         // if(end_r > scrollHeight + drawHeight){
         //     break;
         // }
         let firstOffset = dataset_row_st == r ? -2 : 0;
         let lastOffset = dataset_row_ed == r ? -2 : 0;
-        //列标题单元格渲染前触发，return false 则不渲染该单元格
+        //鍒楁爣棰樺崟鍏冩牸娓叉煋鍓嶈Е鍙戯紝return false 鍒欎笉娓叉煋璇ュ崟鍏冩牸
         if (
             !method.createHookFunction(
                 "rowTitleCellRenderBefore",
@@ -104,7 +104,7 @@ function luckysheetDrawgridRowTitle(scrollHeight, drawHeight, offsetTop) {
             );
             luckysheetTableContent.fillStyle = "#000000";
 
-            //行标题栏序列号
+            //琛屾爣棰樻爮搴忓垪鍙?
             luckysheetTableContent.save(); //save scale before draw text
             luckysheetTableContent.scale(Store.zoomRatio, Store.zoomRatio);
             let textMetrics = getMeasureText(r + 1, luckysheetTableContent);
@@ -131,7 +131,7 @@ function luckysheetDrawgridRowTitle(scrollHeight, drawHeight, offsetTop) {
         luckysheetTableContent.stroke();
         luckysheetTableContent.closePath();
 
-        //行标题栏横线,horizen
+        //琛屾爣棰樻爮妯嚎,horizen
         if (
             Store.config["rowhidden"] != null &&
             Store.config["rowhidden"][r] == null &&
@@ -165,7 +165,7 @@ function luckysheetDrawgridRowTitle(scrollHeight, drawHeight, offsetTop) {
 
         preEndR = end_r;
 
-        //列标题单元格渲染前触发，return false 则不渲染该单元格
+        //鍒楁爣棰樺崟鍏冩牸娓叉煋鍓嶈Е鍙戯紝return false 鍒欎笉娓叉煋璇ュ崟鍏冩牸
         method.createHookFunction(
             "rowTitleCellRenderAfter",
             r + 1,
@@ -179,7 +179,7 @@ function luckysheetDrawgridRowTitle(scrollHeight, drawHeight, offsetTop) {
         );
     }
 
-    //行标题栏竖线
+    //琛屾爣棰樻爮绔栫嚎
     // luckysheetTableContent.beginPath();
     // luckysheetTableContent.moveTo(
     //     (Store.rowHeaderWidth - 2 + 0.5) ,
@@ -194,7 +194,7 @@ function luckysheetDrawgridRowTitle(scrollHeight, drawHeight, offsetTop) {
     // luckysheetTableContent.closePath();
     // luckysheetTableContent.stroke();
 
-    //清除canvas左上角区域 防止列标题栏序列号溢出显示
+    //娓呴櫎canvas宸︿笂瑙掑尯鍩?闃叉鍒楁爣棰樻爮搴忓垪鍙锋孩鍑烘樉绀?
     // luckysheetTableContent.clearRect(0, 0, Store.rowHeaderWidth , Store.columnHeaderHeight );
 
     // Must be restored twice, otherwise it will be enlarged under window.devicePixelRatio = 1.5
@@ -223,7 +223,7 @@ function luckysheetDrawgridColumnTitle(scrollWidth, drawWidth, offsetLeft) {
     luckysheetTableContent.clearRect(offsetLeft, 0, drawWidth, Store.columnHeaderHeight - 1);
 
     luckysheetTableContent.font = luckysheetdefaultFont();
-    luckysheetTableContent.textBaseline = luckysheetdefaultstyle.textBaseline; //基准线 垂直居中
+    luckysheetTableContent.textBaseline = luckysheetdefaultstyle.textBaseline; //鍩哄噯绾?鍨傜洿灞呬腑
     luckysheetTableContent.fillStyle = luckysheetdefaultstyle.fillStyle;
 
     let dataset_col_st, dataset_col_ed;
@@ -255,12 +255,12 @@ function luckysheetDrawgridColumnTitle(scrollWidth, drawWidth, offsetLeft) {
         }
         end_c = Store.visibledatacolumn[c] - scrollWidth;
 
-        //若超出绘制区域终止
+        //鑻ヨ秴鍑虹粯鍒跺尯鍩熺粓姝?
         // if(end_c > scrollWidth + drawWidth+1){
         //     break;
         // }
         let abc = chatatABC(c);
-        //列标题单元格渲染前触发，return false 则不渲染该单元格
+        //鍒楁爣棰樺崟鍏冩牸娓叉煋鍓嶈Е鍙戯紝return false 鍒欎笉娓叉煋璇ュ崟鍏冩牸
         if (
             !method.createHookFunction(
                 "columnTitleCellRenderBefore",
@@ -283,7 +283,7 @@ function luckysheetDrawgridColumnTitle(scrollWidth, drawWidth, offsetLeft) {
             luckysheetTableContent.fillRect(start_c + offsetLeft - 1, 0, end_c - start_c, Store.columnHeaderHeight - 1);
             luckysheetTableContent.fillStyle = "#000000";
 
-            //列标题栏序列号
+            //鍒楁爣棰樻爮搴忓垪鍙?
             luckysheetTableContent.save(); //save scale before draw text
             luckysheetTableContent.scale(Store.zoomRatio, Store.zoomRatio);
 
@@ -297,7 +297,7 @@ function luckysheetDrawgridColumnTitle(scrollWidth, drawWidth, offsetLeft) {
             luckysheetTableContent.restore(); //restore scale after draw text
         }
 
-        //列标题栏竖线 vertical
+        //鍒楁爣棰樻爮绔栫嚎 vertical
         if (
             Store.config["colhidden"] != null &&
             Store.config["colhidden"][c] == null &&
@@ -356,7 +356,7 @@ function luckysheetDrawgridColumnTitle(scrollWidth, drawWidth, offsetLeft) {
         );
     }
 
-    //列标题栏横线
+    //鍒楁爣棰樻爮妯嚎
     // luckysheetTableContent.beginPath();
     // luckysheetTableContent.moveTo(
     //     (offsetLeft - 1) ,
@@ -371,7 +371,7 @@ function luckysheetDrawgridColumnTitle(scrollWidth, drawWidth, offsetLeft) {
     // luckysheetTableContent.closePath();
     // luckysheetTableContent.stroke();
 
-    //清除canvas左上角区域 防止列标题栏序列号溢出显示
+    //娓呴櫎canvas宸︿笂瑙掑尯鍩?闃叉鍒楁爣棰樻爮搴忓垪鍙锋孩鍑烘樉绀?
     // luckysheetTableContent.clearRect(0, 0, Store.rowHeaderWidth , Store.columnHeaderHeight );
 
     // Must be restored twice, otherwise it will be enlarged under window.devicePixelRatio = 1.5
@@ -399,7 +399,7 @@ function luckysheetDrawMain(
     // console.trace();
     clearTimeout(Store.measureTextCacheTimeOut);
 
-    //参数未定义处理
+    //鍙傛暟鏈畾涔夊鐞?
     if (scrollWidth == null) {
         scrollWidth = $("#luckysheet-cell-main").scrollLeft();
     }
@@ -428,7 +428,7 @@ function luckysheetDrawMain(
         rowOffsetCell = 0;
     }
 
-    //表格canvas
+    //琛ㄦ牸canvas
     let luckysheetTableContent = null;
     if (mycanvas == null) {
         luckysheetTableContent = $("#luckysheetTableContent")
@@ -453,7 +453,7 @@ function luckysheetDrawMain(
 
     luckysheetTableContent.clearRect(0, 0, Store.luckysheetTableContentHW[0], Store.luckysheetTableContentHW[1]);
 
-    //表格渲染区域 起止行列下标
+    //琛ㄦ牸娓叉煋鍖哄煙 璧锋琛屽垪涓嬫爣
     let dataset_row_st, dataset_row_ed, dataset_col_st, dataset_col_ed;
 
     dataset_row_st = luckysheet_searcharray(Store.visibledatarow, scrollHeight);
@@ -494,7 +494,7 @@ function luckysheetDrawMain(
         dataset_col_ed = Store.visibledatacolumn.length - 1;
     }
 
-    //表格渲染区域 起止行列坐标
+    //琛ㄦ牸娓叉煋鍖哄煙 璧锋琛屽垪鍧愭爣
     let fill_row_st, fill_row_ed, fill_col_st, fill_col_ed;
 
     if (dataset_row_st == 0) {
@@ -513,7 +513,7 @@ function luckysheetDrawMain(
 
     fill_col_ed = Store.visibledatacolumn[dataset_col_ed];
 
-    //表格canvas 初始化处理
+    //琛ㄦ牸canvas 鍒濆鍖栧鐞?
     luckysheetTableContent.fillStyle = "#ffffff";
     luckysheetTableContent.fillRect(
         offsetLeft - 1,
@@ -525,14 +525,14 @@ function luckysheetDrawMain(
     // luckysheetTableContent.textBaseline = "top";
     luckysheetTableContent.fillStyle = luckysheetdefaultstyle.fillStyle;
 
-    //表格渲染区域 非空单元格行列 起止坐标
+    //琛ㄦ牸娓叉煋鍖哄煙 闈炵┖鍗曞厓鏍艰鍒?璧锋鍧愭爣
     let cellupdate = [];
     let mergeCache = {};
     let borderOffset = {};
 
     let bodrder05 = 0.5; //Default 0.5
 
-    // 钩子函数
+    // 閽╁瓙鍑芥暟
     method.createHookFunction("cellAllRenderBefore", Store.flowdata, sheetFile, luckysheetTableContent);
 
     for (let r = dataset_row_st; r <= dataset_row_ed; r++) {
@@ -612,7 +612,7 @@ function luckysheetDrawMain(
                     }
                 }
             } else {
-                //空单元格渲染前
+                //绌哄崟鍏冩牸娓叉煋鍓?
                 // if(!method.createHookFunction("cellRenderBefore", Store.flowdata[r][c], {
                 //     r:r,
                 //     c:c,
@@ -641,18 +641,18 @@ function luckysheetDrawMain(
         }
     }
 
-    //动态数组公式计算
+    //鍔ㄦ€佹暟缁勫叕寮忚绠?
     let dynamicArray_compute = dynamicArrayCompute(
         Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)]["dynamicArray"],
     );
 
-    //交替颜色计算
+    //浜ゆ浛棰滆壊璁＄畻
     let af_compute = alternateformat.getComputeMap();
 
-    //条件格式计算
+    //鏉′欢鏍煎紡璁＄畻
     let cf_compute = conditionformat.getComputeMap();
 
-    //表格渲染区域 溢出单元格配置保存
+    //琛ㄦ牸娓叉煋鍖哄煙 婧㈠嚭鍗曞厓鏍奸厤缃繚瀛?
     let cellOverflowMap = getCellOverflowMap(
         luckysheetTableContent,
         dataset_col_st,
@@ -677,7 +677,7 @@ function luckysheetDrawMain(
             continue;
         }
 
-        // //有值单元格渲染前
+        // //鏈夊€煎崟鍏冩牸娓叉煋鍓?
         // if(!method.createHookFunction("cellRenderBefore", Store.flowdata[r][c], {
         //     r:r,
         //     c:c,
@@ -688,7 +688,7 @@ function luckysheetDrawMain(
         // }, sheetFile,luckysheetTableContent)){ continue; }
 
         if (Store.flowdata[r][c] == null) {
-            //空单元格
+            //绌哄崟鍏冩牸
             nullCellRender(
                 r,
                 c,
@@ -742,7 +742,7 @@ function luckysheetDrawMain(
                     bodrder05,
                 );
 
-                //sparklines渲染
+                //sparklines娓叉煋
                 let borderfix = menuButton.borderfix(Store.flowdata, r, c);
                 let cellsize = [
                     start_c + offsetLeft + borderfix[0],
@@ -753,7 +753,7 @@ function luckysheetDrawMain(
                 sparklinesRender(r, c, cellsize[0], cellsize[1], "luckysheetTableContent", luckysheetTableContent);
             } else {
                 if (r + "_" + c in dynamicArray_compute) {
-                    //动态数组公式
+                    //鍔ㄦ€佹暟缁勫叕寮?
                     value = dynamicArray_compute[r + "_" + c].v;
                 }
 
@@ -791,7 +791,7 @@ function luckysheetDrawMain(
         // }, sheetFile,luckysheetTableContent)
     }
 
-    //合并单元格再处理
+    //鍚堝苟鍗曞厓鏍煎啀澶勭悊
     for (let m = 0; m < mcArr.length; m++) {
         let item = mcArr[m];
         let r = item.r,
@@ -852,7 +852,7 @@ function luckysheetDrawMain(
                 true,
             );
 
-            //sparklines渲染
+            //sparklines娓叉煋
             let borderfix = menuButton.borderfix(Store.flowdata, r, c);
             let cellsize = [
                 start_c + offsetLeft + borderfix[0],
@@ -863,7 +863,7 @@ function luckysheetDrawMain(
             sparklinesRender(r, c, cellsize[0], cellsize[1], "luckysheetTableContent", luckysheetTableContent);
         } else {
             if (r + "_" + c in dynamicArray_compute) {
-                //动态数组公式
+                //鍔ㄦ€佹暟缁勫叕寮?
                 value = dynamicArray_compute[r + "_" + c].v;
             }
             cellRender(
@@ -891,7 +891,7 @@ function luckysheetDrawMain(
         }
     }
 
-    //数据透视表边框渲染
+    //鏁版嵁閫忚琛ㄨ竟妗嗘覆鏌?
     for (let r = dataset_row_st; r <= dataset_row_ed; r++) {
         let start_r;
         if (r == 0) {
@@ -915,9 +915,9 @@ function luckysheetDrawMain(
         }
     }
 
-    //边框单独渲染
+    //杈规鍗曠嫭娓叉煋
     if (Store.config["borderInfo"] != null && Store.config["borderInfo"].length > 0) {
-        //边框渲染
+        //杈规娓叉煋
         let borderLeftRender = function(style, color, start_r, start_c, end_r, end_c, offsetLeft, offsetTop, canvas) {
             let linetype = style;
 
@@ -1080,7 +1080,7 @@ function luckysheetDrawMain(
         }
     }
 
-    //渲染表格时有尾列时，清除右边灰色区域，防止表格有值溢出
+    //娓叉煋琛ㄦ牸鏃舵湁灏惧垪鏃讹紝娓呴櫎鍙宠竟鐏拌壊鍖哄煙锛岄槻姝㈣〃鏍兼湁鍊兼孩鍑?
     if (dataset_col_ed == Store.visibledatacolumn.length - 1) {
         luckysheetTableContent.clearRect(
             fill_col_ed - scrollWidth + offsetLeft - 1,
@@ -1099,7 +1099,7 @@ function luckysheetDrawMain(
     }, 100);
 }
 
-//sparklines渲染
+//sparklines娓叉煋
 let sparklinesRender = function(r, c, offsetX, offsetY, canvasid, ctx) {
     if (Store.flowdata[r] == null || Store.flowdata[r][c] == null) {
         return;
@@ -1149,7 +1149,7 @@ let sparklinesRender = function(r, c, offsetX, offsetY, canvasid, ctx) {
     }
 };
 
-//空白单元格渲染
+//绌虹櫧鍗曞厓鏍兼覆鏌?
 let nullCellRender = function(
     r,
     c,
@@ -1171,26 +1171,26 @@ let nullCellRender = function(
     bodrder05,
     isMerge,
 ) {
-    let checksAF = alternateformat.checksAF(r, c, af_compute); //交替颜色
-    let checksCF = conditionformat.checksCF(r, c, cf_compute); //条件格式
+    let checksAF = alternateformat.checksAF(r, c, af_compute); //浜ゆ浛棰滆壊
+    let checksCF = conditionformat.checksCF(r, c, cf_compute); //鏉′欢鏍煎紡
 
     let borderfix = menuButton.borderfix(Store.flowdata, r, c);
 
-    //背景色
+    //鑳屾櫙鑹?
     let fillStyle = menuButton.checkstatus(Store.flowdata, r, c, "bg");
 
     if (checksAF != null && checksAF[1] != null) {
-        //交替颜色
+        //浜ゆ浛棰滆壊
         fillStyle = checksAF[1];
     }
 
     if (checksCF != null && checksCF["cellColor"] != null) {
-        //条件格式
+        //鏉′欢鏍煎紡
         fillStyle = checksCF["cellColor"];
     }
 
     if (Store.flowdata[r][c] != null && Store.flowdata[r][c].tc != null) {
-        //标题色
+        //鏍囬鑹?
         fillStyle = Store.flowdata[r][c].tc;
     }
 
@@ -1200,8 +1200,8 @@ let nullCellRender = function(
         luckysheetTableContent.fillStyle = fillStyle;
     }
 
-    // 这里计算canvas需要绘制的矩形范围时,需要留下原本单元格边框的位置
-    // 让 fillRect 绘制矩形的起始xy坐标增加1,绘制长宽减少1
+    // 杩欓噷璁＄畻canvas闇€瑕佺粯鍒剁殑鐭╁舰鑼冨洿鏃?闇€瑕佺暀涓嬪師鏈崟鍏冩牸杈规鐨勪綅缃?
+    // 璁?fillRect 缁樺埗鐭╁舰鐨勮捣濮媥y鍧愭爣澧炲姞1,缁樺埗闀垮鍑忓皯1
 
     let cellsize = [
         start_c + offsetLeft + borderfix[0] + 1,
@@ -1210,7 +1210,7 @@ let nullCellRender = function(
         end_r - start_r + borderfix[3] - 1,
     ];
 
-    //单元格渲染前，考虑到合并单元格会再次渲染一遍，统一放到这里
+    //鍗曞厓鏍兼覆鏌撳墠锛岃€冭檻鍒板悎骞跺崟鍏冩牸浼氬啀娆℃覆鏌撲竴閬嶏紝缁熶竴鏀惧埌杩欓噷
     if (
         !method.createHookFunction(
             "cellRenderBefore",
@@ -1236,14 +1236,14 @@ let nullCellRender = function(
         let value = dynamicArray_compute[r + "_" + c].v;
 
         luckysheetTableContent.fillStyle = "#000000";
-        //文本宽度和高度
+        //鏂囨湰瀹藉害鍜岄珮搴?
         let fontset = luckysheetdefaultFont();
         luckysheetTableContent.font = fontset;
 
-        //水平对齐 (默认为1，左对齐)
+        //姘村钩瀵归綈 (榛樿涓?锛屽乏瀵归綈)
         let horizonAlignPos = start_c + 4 + offsetLeft;
 
-        //垂直对齐 (默认为2，下对齐)
+        //鍨傜洿瀵归綈 (榛樿涓?锛屼笅瀵归綈)
         let verticalFixed = browser.luckysheetrefreshfixed();
         let verticalAlignPos = end_r + offsetTop - 2;
         luckysheetTableContent.textBaseline = "bottom";
@@ -1251,7 +1251,7 @@ let nullCellRender = function(
         luckysheetTableContent.fillText(value == null ? "" : value, horizonAlignPos, verticalAlignPos);
     }
 
-    //若单元格有批注
+    //鑻ュ崟鍏冩牸鏈夋壒娉?
     if (Store.flowdata[r][c] != null && Store.flowdata[r][c].ps != null) {
         let ps_w = 8 * Store.zoomRatio,
             ps_h = 8 * Store.zoomRatio;
@@ -1264,10 +1264,10 @@ let nullCellRender = function(
         luckysheetTableContent.closePath();
     }
 
-    //此单元格 与  溢出单元格关系
+    //姝ゅ崟鍏冩牸 涓? 婧㈠嚭鍗曞厓鏍煎叧绯?
     let cellOverflow_colInObj = cellOverflow_colIn(cellOverflowMap, r, c, dataset_col_st, dataset_col_ed);
 
-    //此单元格 为 溢出单元格渲染范围最后一列，绘制溢出单元格内容
+    //姝ゅ崟鍏冩牸 涓?婧㈠嚭鍗曞厓鏍兼覆鏌撹寖鍥存渶鍚庝竴鍒楋紝缁樺埗婧㈠嚭鍗曞厓鏍煎唴瀹?
     if (cellOverflow_colInObj.colLast) {
         cellOverflowRender(
             cellOverflow_colInObj.rowIndex,
@@ -1284,11 +1284,11 @@ let nullCellRender = function(
         );
     }
 
-    //即溢出单元格跨此单元格，此单元格不绘制右边框
+    //鍗虫孩鍑哄崟鍏冩牸璺ㄦ鍗曞厓鏍硷紝姝ゅ崟鍏冩牸涓嶇粯鍒跺彸杈规
     if (!cellOverflow_colInObj.colIn || cellOverflow_colInObj.colLast) {
-        // 右边框
-        // 无论是否有背景色，都默认绘制右边框
-        if (!Store.luckysheetcurrentisPivotTable && Store.showGridLines) {
+        // 鍙宠竟妗?
+        // 鏃犺鏄惁鏈夎儗鏅壊锛岄兘榛樿缁樺埗鍙宠竟妗?
+        if (Store.showGridLines) {
             luckysheetTableContent.beginPath();
             luckysheetTableContent.moveTo(end_c + offsetLeft - 2 + bodrder05, start_r + offsetTop);
             luckysheetTableContent.lineTo(end_c + offsetLeft - 2 + bodrder05, end_r + offsetTop);
@@ -1300,9 +1300,9 @@ let nullCellRender = function(
         }
     }
 
-    // 下边框
-    // 无论是否有背景色，都默认绘制下边框
-    if (!Store.luckysheetcurrentisPivotTable && Store.showGridLines) {
+    // 涓嬭竟妗?
+    // 鏃犺鏄惁鏈夎儗鏅壊锛岄兘榛樿缁樺埗涓嬭竟妗?
+    if (Store.showGridLines) {
         luckysheetTableContent.beginPath();
         luckysheetTableContent.moveTo(start_c + offsetLeft - 1, end_r + offsetTop - 2 + bodrder05);
         luckysheetTableContent.lineTo(end_c + offsetLeft - 1, end_r + offsetTop - 2 + bodrder05);
@@ -1313,7 +1313,7 @@ let nullCellRender = function(
         luckysheetTableContent.closePath();
     }
 
-    // 单元格渲染后
+    // 鍗曞厓鏍兼覆鏌撳悗
     method.createHookFunction(
         "cellRenderAfter",
         Store.flowdata[r][c],
@@ -1356,26 +1356,26 @@ let cellRender = function(
     let cellWidth = end_c - start_c - 2;
     let cellHeight = end_r - start_r - 2;
     let space_width = 2,
-        space_height = 2; //宽高方向 间隙
+        space_height = 2; //瀹介珮鏂瑰悜 闂撮殭
 
-    //水平对齐
+    //姘村钩瀵归綈
     let horizonAlign = menuButton.checkstatus(Store.flowdata, r, c, "ht");
-    //垂直对齐
+    //鍨傜洿瀵归綈
     let verticalAlign = menuButton.checkstatus(Store.flowdata, r, c, "vt");
 
-    //交替颜色
+    //浜ゆ浛棰滆壊
     let checksAF = alternateformat.checksAF(r, c, af_compute);
-    //条件格式
+    //鏉′欢鏍煎紡
     let checksCF = conditionformat.checksCF(r, c, cf_compute);
 
-    //单元格 背景颜色
+    //鍗曞厓鏍?鑳屾櫙棰滆壊
     let fillStyle = menuButton.checkstatus(Store.flowdata, r, c, "bg");
     if (checksAF != null && checksAF[1] != null) {
-        //若单元格有交替颜色 背景颜色
+        //鑻ュ崟鍏冩牸鏈変氦鏇块鑹?鑳屾櫙棰滆壊
         fillStyle = checksAF[1];
     }
     if (checksCF != null && checksCF["cellColor"] != null) {
-        //若单元格有条件格式 背景颜色
+        //鑻ュ崟鍏冩牸鏈夋潯浠舵牸寮?鑳屾櫙棰滆壊
         fillStyle = checksCF["cellColor"];
     }
     // luckysheetTableContent.textBaseline = 'top';
@@ -1387,8 +1387,8 @@ let cellRender = function(
 
     let borderfix = menuButton.borderfix(Store.flowdata, r, c);
 
-    // 这里计算canvas需要绘制的矩形范围时,需要留下原本单元格边框的位置
-    // 让 fillRect 绘制矩形的起始xy坐标增加1,绘制长宽减少1
+    // 杩欓噷璁＄畻canvas闇€瑕佺粯鍒剁殑鐭╁舰鑼冨洿鏃?闇€瑕佺暀涓嬪師鏈崟鍏冩牸杈规鐨勪綅缃?
+    // 璁?fillRect 缁樺埗鐭╁舰鐨勮捣濮媥y鍧愭爣澧炲姞1,缁樺埗闀垮鍑忓皯1
 
     let cellsize = [
         start_c + offsetLeft + borderfix[0] + 1,
@@ -1397,7 +1397,7 @@ let cellRender = function(
         end_r - start_r + borderfix[3] + 1,
     ];
 
-    //单元格渲染前，考虑到合并单元格会再次渲染一遍，统一放到这里
+    //鍗曞厓鏍兼覆鏌撳墠锛岃€冭檻鍒板悎骞跺崟鍏冩牸浼氬啀娆℃覆鏌撲竴閬嶏紝缁熶竴鏀惧埌杩欓噷
     if (
         !method.createHookFunction(
             "cellRenderBefore",
@@ -1419,10 +1419,10 @@ let cellRender = function(
 
     luckysheetTableContent.fillRect(cellsize[0], cellsize[1], cellsize[2], cellsize[3]);
 
-    //若单元格有批注（单元格右上角红色小三角标示）
+    //鑻ュ崟鍏冩牸鏈夋壒娉紙鍗曞厓鏍煎彸涓婅绾㈣壊灏忎笁瑙掓爣绀猴級
     if (cell.ps != null) {
         let ps_w = 8 * Store.zoomRatio,
-            ps_h = 8 * Store.zoomRatio; //红色小三角宽高
+            ps_h = 8 * Store.zoomRatio; //绾㈣壊灏忎笁瑙掑楂?
 
         luckysheetTableContent.beginPath();
         luckysheetTableContent.moveTo(end_c + offsetLeft - ps_w, start_r + offsetTop);
@@ -1433,10 +1433,10 @@ let cellRender = function(
         luckysheetTableContent.closePath();
     }
 
-    //若单元格强制为字符串，则显示绿色小三角
+    //鑻ュ崟鍏冩牸寮哄埗涓哄瓧绗︿覆锛屽垯鏄剧ず缁胯壊灏忎笁瑙?
     if (cell.qp == 1 && isRealNum(cell.v)) {
         let ps_w = 6 * Store.zoomRatio,
-            ps_h = 6 * Store.zoomRatio; //红色小三角宽高
+            ps_h = 6 * Store.zoomRatio; //绾㈣壊灏忎笁瑙掑楂?
 
         luckysheetTableContent.beginPath();
         luckysheetTableContent.moveTo(start_c + offsetLeft + ps_w - 1, start_r + offsetTop);
@@ -1447,12 +1447,12 @@ let cellRender = function(
         luckysheetTableContent.closePath();
     }
 
-    //溢出单元格
-    let cellOverflow_bd_r_render = true; //溢出单元格右边框是否需要绘制
+    //婧㈠嚭鍗曞厓鏍?
+    let cellOverflow_bd_r_render = true; //婧㈠嚭鍗曞厓鏍煎彸杈规鏄惁闇€瑕佺粯鍒?
     let cellOverflow_colInObj = cellOverflow_colIn(cellOverflowMap, r, c, dataset_col_st, dataset_col_ed);
 
     if (cell.tb == "1" && cellOverflow_colInObj.colIn) {
-        //此单元格 为 溢出单元格渲染范围最后一列，绘制溢出单元格内容
+        //姝ゅ崟鍏冩牸 涓?婧㈠嚭鍗曞厓鏍兼覆鏌撹寖鍥存渶鍚庝竴鍒楋紝缁樺埗婧㈠嚭鍗曞厓鏍煎唴瀹?
         if (cellOverflow_colInObj.colLast) {
             cellOverflowRender(
                 cellOverflow_colInObj.rowIndex,
@@ -1471,7 +1471,7 @@ let cellRender = function(
             cellOverflow_bd_r_render = false;
         }
     }
-    //若单元格有条件格式数据条
+    //鑻ュ崟鍏冩牸鏈夋潯浠舵牸寮忔暟鎹潯
     if (
         checksCF != null &&
         checksCF["dataBar"] != null &&
@@ -1488,11 +1488,11 @@ let cellRender = function(
         let format = checksCF["dataBar"]["format"];
 
         if (valueType == "minus") {
-            //负数
+            //璐熸暟
             let minusLen = checksCF["dataBar"]["minusLen"];
 
             if (format.length > 1) {
-                //渐变
+                //娓愬彉
                 let my_gradient = luckysheetTableContent.createLinearGradient(
                     x + w * minusLen * (1 - valueLen),
                     y,
@@ -1504,7 +1504,7 @@ let cellRender = function(
 
                 luckysheetTableContent.fillStyle = my_gradient;
             } else {
-                //单色
+                //鍗曡壊
                 luckysheetTableContent.fillStyle = "#ff0000";
             }
 
@@ -1521,19 +1521,19 @@ let cellRender = function(
             luckysheetTableContent.stroke();
             luckysheetTableContent.closePath();
         } else if (valueType == "plus") {
-            //正数
+            //姝ｆ暟
             let plusLen = checksCF["dataBar"]["plusLen"];
 
             if (plusLen == 1) {
                 if (format.length > 1) {
-                    //渐变
+                    //娓愬彉
                     let my_gradient = luckysheetTableContent.createLinearGradient(x, y, x + w * valueLen, y);
                     my_gradient.addColorStop(0, format[0]);
                     my_gradient.addColorStop(1, format[1]);
 
                     luckysheetTableContent.fillStyle = my_gradient;
                 } else {
-                    //单色
+                    //鍗曡壊
                     luckysheetTableContent.fillStyle = format[0];
                 }
 
@@ -1553,7 +1553,7 @@ let cellRender = function(
                 let minusLen = checksCF["dataBar"]["minusLen"];
 
                 if (format.length > 1) {
-                    //渐变
+                    //娓愬彉
                     let my_gradient = luckysheetTableContent.createLinearGradient(
                         x + w * minusLen,
                         y,
@@ -1565,7 +1565,7 @@ let cellRender = function(
 
                     luckysheetTableContent.fillStyle = my_gradient;
                 } else {
-                    //单色
+                    //鍗曡壊
                     luckysheetTableContent.fillStyle = format[0];
                 }
 
@@ -1603,7 +1603,7 @@ let cellRender = function(
         c: c,
     });
 
-    //若单元格有条件格式图标集
+    //鑻ュ崟鍏冩牸鏈夋潯浠舵牸寮忓浘鏍囬泦
     if (checksCF != null && checksCF["icons"] != null && textInfo.type == "plain") {
         let l = checksCF["icons"]["left"];
         let t = checksCF["icons"]["top"];
@@ -1613,13 +1613,13 @@ let cellRender = function(
         let verticalAlignPos = pos_y + value.top - textInfo.textHeightAll;
 
         if (verticalAlign == "0") {
-            //居中对齐
+            //灞呬腑瀵归綈
             verticalAlignPos = pos_y + cellHeight / 2 - textInfo.textHeightAll / 2;
         } else if (verticalAlign == "1") {
-            //上对齐
+            //涓婂榻?
             verticalAlignPos = pos_y;
         } else if (verticalAlign == "2") {
-            //下对齐
+            //涓嬪榻?
             verticalAlignPos = verticalAlignPos - textInfo.desc;
         }
 
@@ -1639,24 +1639,24 @@ let cellRender = function(
         );
 
         if (horizonAlign != "0" && horizonAlign != "2") {
-            //左对齐时 文本渲染空出一个图标的距离
+            //宸﹀榻愭椂 鏂囨湰娓叉煋绌哄嚭涓€涓浘鏍囩殑璺濈
             horizonAlignPos = horizonAlignPos + textInfo.textHeightAll / Store.zoomRatio;
         }
     }
 
-    //单元格 文本颜色
+    //鍗曞厓鏍?鏂囨湰棰滆壊
     luckysheetTableContent.fillStyle = menuButton.checkstatus(Store.flowdata, r, c, "fc");
 
-    //若单元格有交替颜色 文本颜色
+    //鑻ュ崟鍏冩牸鏈変氦鏇块鑹?鏂囨湰棰滆壊
     if (checksAF != null && checksAF[0] != null) {
         luckysheetTableContent.fillStyle = checksAF[0];
     }
-    //若单元格有条件格式 文本颜色
+    //鑻ュ崟鍏冩牸鏈夋潯浠舵牸寮?鏂囨湰棰滆壊
     if (checksCF != null && checksCF["textColor"] != null) {
         luckysheetTableContent.fillStyle = checksCF["textColor"];
     }
 
-    //若单元格格式为自定义数字格式（[red]） 文本颜色为红色
+    //鑻ュ崟鍏冩牸鏍煎紡涓鸿嚜瀹氫箟鏁板瓧鏍煎紡锛圼red]锛?鏂囨湰棰滆壊涓虹孩鑹?
     if (cell.ct && cell.ct.fa && cell.ct.fa.indexOf("[Red]") > -1 && cell.ct.t == "n" && cell.v < 0) {
         luckysheetTableContent.fillStyle = "#ff0000";
     }
@@ -1669,9 +1669,9 @@ let cellRender = function(
     luckysheetTableContent.restore();
 
     if (cellOverflow_bd_r_render) {
-        // 右边框
-        // 无论是否有背景色，都默认绘制右边框
-        if (!Store.luckysheetcurrentisPivotTable && Store.showGridLines) {
+        // 鍙宠竟妗?
+        // 鏃犺鏄惁鏈夎儗鏅壊锛岄兘榛樿缁樺埗鍙宠竟妗?
+        if (Store.showGridLines) {
             luckysheetTableContent.beginPath();
             luckysheetTableContent.moveTo(end_c + offsetLeft - 2 + bodrder05, start_r + offsetTop);
             luckysheetTableContent.lineTo(end_c + offsetLeft - 2 + bodrder05, end_r + offsetTop);
@@ -1682,9 +1682,9 @@ let cellRender = function(
         }
     }
 
-    // 下边框
-    // 无论是否有背景色，都默认绘制下边框
-    if (!Store.luckysheetcurrentisPivotTable && Store.showGridLines) {
+    // 涓嬭竟妗?
+    // 鏃犺鏄惁鏈夎儗鏅壊锛岄兘榛樿缁樺埗涓嬭竟妗?
+    if (Store.showGridLines) {
         luckysheetTableContent.beginPath();
         luckysheetTableContent.moveTo(start_c + offsetLeft - 1, end_r + offsetTop - 2 + bodrder05);
         luckysheetTableContent.lineTo(end_c + offsetLeft - 1, end_r + offsetTop - 2 + bodrder05);
@@ -1694,7 +1694,7 @@ let cellRender = function(
         luckysheetTableContent.closePath();
     }
 
-    // 单元格渲染后
+    // 鍗曞厓鏍兼覆鏌撳悗
     method.createHookFunction(
         "cellRenderAfter",
         Store.flowdata[r][c],
@@ -1711,7 +1711,7 @@ let cellRender = function(
     );
 };
 
-//溢出单元格渲染
+//婧㈠嚭鍗曞厓鏍兼覆鏌?
 let cellOverflowRender = function(
     r,
     c,
@@ -1725,7 +1725,7 @@ let cellOverflowRender = function(
     af_compute,
     cf_compute,
 ) {
-    //溢出单元格 起止行列坐标
+    //婧㈠嚭鍗曞厓鏍?璧锋琛屽垪鍧愭爣
     let start_r;
     if (r == 0) {
         start_r = -scrollHeight - 1;
@@ -1749,7 +1749,7 @@ let cellOverflowRender = function(
     let cellWidth = end_c - start_c - 2;
     let cellHeight = end_r - start_r - 2;
     let space_width = 2,
-        space_height = 2; //宽高方向 间隙
+        space_height = 2; //瀹介珮鏂瑰悜 闂撮殭
 
     let pos_x = start_c + offsetLeft;
     let pos_y = start_r + offsetTop + 1;
@@ -1772,19 +1772,19 @@ let cellOverflowRender = function(
         c: c,
     });
 
-    //交替颜色
+    //浜ゆ浛棰滆壊
     let checksAF = alternateformat.checksAF(r, c, af_compute);
-    //条件格式
+    //鏉′欢鏍煎紡
     let checksCF = conditionformat.checksCF(r, c, cf_compute);
 
-    //单元格 文本颜色
+    //鍗曞厓鏍?鏂囨湰棰滆壊
     luckysheetTableContent.fillStyle = menuButton.checkstatus(Store.flowdata, r, c, "fc");
 
-    //若单元格有交替颜色 文本颜色
+    //鑻ュ崟鍏冩牸鏈変氦鏇块鑹?鏂囨湰棰滆壊
     if (checksAF != null && checksAF[0] != null) {
         luckysheetTableContent.fillStyle = checksAF[0];
     }
-    //若单元格有条件格式 文本颜色
+    //鑻ュ崟鍏冩牸鏈夋潯浠舵牸寮?鏂囨湰棰滆壊
     if (checksCF != null && checksCF["textColor"] != null) {
         luckysheetTableContent.fillStyle = checksCF["textColor"];
     }
@@ -1797,7 +1797,7 @@ let cellOverflowRender = function(
     luckysheetTableContent.restore();
 };
 
-//获取表格渲染范围 溢出单元格
+//鑾峰彇琛ㄦ牸娓叉煋鑼冨洿 婧㈠嚭鍗曞厓鏍?
 function getCellOverflowMap(canvas, col_st, col_ed, row_st, row_end) {
     let map = {};
 
@@ -1833,7 +1833,7 @@ function getCellOverflowMap(canvas, col_st, col_ed, row_st, row_end) {
                 cell.mc == null &&
                 cell.tb == "1"
             ) {
-                //水平对齐
+                //姘村钩瀵归綈
                 let horizonAlign = menuButton.checkstatus(data, r, c, "ht");
 
                 let textMetricsObj = getCellTextInfo(cell, canvas, {
@@ -1854,7 +1854,7 @@ function getCellOverflowMap(canvas, col_st, col_ed, row_st, row_end) {
 
                 if (end_c - start_c < textMetrics) {
                     if (horizonAlign == "0") {
-                        //居中对齐
+                        //灞呬腑瀵归綈
                         let trace_forward = cellOverflow_trace(r, c, c - 1, "forward", horizonAlign, textMetrics);
                         let trace_backward = cellOverflow_trace(r, c, c + 1, "backward", horizonAlign, textMetrics);
 
@@ -1870,7 +1870,7 @@ function getCellOverflowMap(canvas, col_st, col_ed, row_st, row_end) {
                             edc = trace_backward.c - 1;
                         }
                     } else if (horizonAlign == "1") {
-                        //左对齐
+                        //宸﹀榻?
                         let trace = cellOverflow_trace(r, c, c + 1, "backward", horizonAlign, textMetrics);
                         stc = c;
 
@@ -1880,7 +1880,7 @@ function getCellOverflowMap(canvas, col_st, col_ed, row_st, row_end) {
                             edc = trace.c - 1;
                         }
                     } else if (horizonAlign == "2") {
-                        //右对齐
+                        //鍙冲榻?
                         let trace = cellOverflow_trace(r, c, c - 1, "forward", horizonAlign, textMetrics);
                         edc = c;
 
@@ -1927,7 +1927,7 @@ function getCellOverflowMap(canvas, col_st, col_ed, row_st, row_end) {
 function cellOverflow_trace(r, curC, traceC, traceDir, horizonAlign, textMetrics) {
     let data = Store.flowdata;
 
-    //追溯单元格列超出数组范围 则追溯终止
+    //杩芥函鍗曞厓鏍煎垪瓒呭嚭鏁扮粍鑼冨洿 鍒欒拷婧粓姝?
     if (traceDir == "forward" && traceC < 0) {
         return {
             success: false,
@@ -1944,7 +1944,7 @@ function cellOverflow_trace(r, curC, traceC, traceDir, horizonAlign, textMetrics
         };
     }
 
-    //追溯单元格是 非空单元格或合并单元格 则追溯终止
+    //杩芥函鍗曞厓鏍兼槸 闈炵┖鍗曞厓鏍兼垨鍚堝苟鍗曞厓鏍?鍒欒拷婧粓姝?
     let cell = data[r][traceC];
     if (cell != null && (!isRealNull(cell.v) || cell.mc != null)) {
         return {
@@ -1960,14 +1960,14 @@ function cellOverflow_trace(r, curC, traceC, traceDir, horizonAlign, textMetrics
     let w = textMetrics - (end_curC - start_curC);
 
     if (horizonAlign == "0") {
-        //居中对齐
+        //灞呬腑瀵归綈
         start_curC -= w / 2;
         end_curC += w / 2;
     } else if (horizonAlign == "1") {
-        //左对齐
+        //宸﹀榻?
         end_curC += w;
     } else if (horizonAlign == "2") {
-        //右对齐
+        //鍙冲榻?
         start_curC -= w;
     }
 
@@ -2012,10 +2012,10 @@ function cellOverflow_trace(r, curC, traceC, traceDir, horizonAlign, textMetrics
 }
 
 function cellOverflow_colIn(map, r, c, col_st, col_ed) {
-    let colIn = false, //此单元格 是否在 某个溢出单元格的渲染范围
-        colLast = false, //此单元格 是否是 某个溢出单元格的渲染范围的最后一列
-        rowIndex, //溢出单元格 行下标
-        colIndex, //溢出单元格 列下标
+    let colIn = false, //姝ゅ崟鍏冩牸 鏄惁鍦?鏌愪釜婧㈠嚭鍗曞厓鏍肩殑娓叉煋鑼冨洿
+        colLast = false, //姝ゅ崟鍏冩牸 鏄惁鏄?鏌愪釜婧㈠嚭鍗曞厓鏍肩殑娓叉煋鑼冨洿鐨勬渶鍚庝竴鍒?
+        rowIndex, //婧㈠嚭鍗曞厓鏍?琛屼笅鏍?
+        colIndex, //婧㈠嚭鍗曞厓鏍?鍒椾笅鏍?
         stc,
         edc;
 
@@ -2100,7 +2100,7 @@ function cellTextRender(textInfo, ctx, option) {
             ctx.font = word.style;
         }
 
-        // 暂时未排查到word.content第一次会是object，先做下判断来渲染，后续找到问题再复原
+        // 鏆傛椂鏈帓鏌ュ埌word.content绗竴娆′細鏄痮bject锛屽厛鍋氫笅鍒ゆ柇鏉ユ覆鏌擄紝鍚庣画鎵惧埌闂鍐嶅鍘?
         let txt = typeof word.content === "object" ? word.content.m : word.content;
         ctx.fillText(txt, (pos_x + word.left) / Store.zoomRatio, (pos_y + word.top) / Store.zoomRatio);
 
@@ -2160,3 +2160,4 @@ export {
     cellOverflowRender,
     cellTextRender,
 };
+

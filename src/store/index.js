@@ -51,7 +51,6 @@ const Store = {
 
     luckysheetisrefreshdetail: true,
     luckysheetisrefreshtheme: true,
-    luckysheetcurrentisPivotTable: false,
 
     luckysheet_rows_selected_status: false,  //行列标题相关参
     luckysheet_cols_selected_status: false,  

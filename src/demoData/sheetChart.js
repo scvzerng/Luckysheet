@@ -1241,8 +1241,6 @@ window.sheetChart = {
 			"33": 20
 		}
 	},
-	"pivotTable": null,
-	"isPivotTable": false,
 	"ch_width": 4560,
 	"rh_height": 1807,
 	"luckysheet_select_save": [{

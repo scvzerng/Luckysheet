@@ -5181,7 +5181,7 @@ export function excelToArray(excelData) {
 }
 
 // 生成表1
-export function pivotTable(data, config) {
+export function aggregateData(data, config) {
     const headers = data.shift();
     const rows = config.rows;
     const values = config.values;
@@ -5400,7 +5400,7 @@ export function askAIData(data, salesTargetData) {
         ],
     };
 
-    let resultTable = pivotTable(data, config)
+    let resultTable = aggregateData(data, config)
     resultTable = sortTable(resultTable)
 
     let saleTarget = false

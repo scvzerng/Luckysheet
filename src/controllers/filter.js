@@ -153,10 +153,6 @@ function createFilter() {
         return;
     }
 
-    if(Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].isPivotTable){
-        return;
-    }
-
     $('#luckysheet-filter-selected-sheet' + Store.currentSheetIndex + ', #luckysheet-filter-options-sheet' + Store.currentSheetIndex).remove();
 
     let last = Store.luckysheet_select_save[0];

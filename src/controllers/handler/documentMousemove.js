@@ -26,21 +26,6 @@ import controlHistory from "../controlHistory";
 import { hideMenuByCancel } from "../../global/cursorPos";
 import { luckysheetdefaultstyle } from "../constant";
 
-const pivotTable = {
-    luckysheet_pivotTable_select_state: false,
-    movestate: false,
-    filter: null,
-    row: null,
-    column: null,
-    values: null,
-    pivotDatas: [],
-    showType: "",
-    movesave: { width: 0, height: 0, containerid: "" },
-    pivotclick: function() {},
-    isPivotRange: function() { return false; },
-    drillDown: function() {},
-};
-
 import {
     replaceHtml,
     getObjType,
@@ -113,7 +98,6 @@ export default function documentMousemove() {
                 functionResizeStatus: formula.functionResizeStatus,
                 horizontalmoveState: !!luckysheetFreezen.horizontalmovestate,
                 verticalmoveState: !!luckysheetFreezen.verticalmovestate,
-                pivotTableMoveState: !!pivotTable && pivotTable.movestate,
                 sheetMoveStatus: Store.luckysheet_sheet_move_status,
                 scrollStatus: !!Store.luckysheet_scroll_status,
                 selectStatus: !!Store.luckysheet_select_status,
@@ -279,13 +263,6 @@ export default function documentMousemove() {
                 .css({ left: left });
             luckysheetFreezen.saveFreezen(null, null, luckysheetFreezen.freezenverticaldata, left);
             luckysheetsizeauto(); //调节选区时下部单元格溢出
-        } else if (!!pivotTable && pivotTable.movestate) {
-            let x = event.pageX,
-                y = event.pageY;
-            $("#luckysheet-modal-dialog-slider-pivot-move").css({
-                left: x - pivotTable.movesave.width / 2,
-                top: y - pivotTable.movesave.height,
-            });
         } else if (Store.luckysheet_sheet_move_status) {
             let scrollLeft = $("#luckysheet-sheet-container-c").scrollLeft();
             let x = event.pageX + scrollLeft;
@@ -546,17 +523,6 @@ export default function documentMousemove() {
                         );
                     }
 
-                    if (pivotTable.luckysheet_pivotTable_select_state) {
-                        $("#luckysheet-pivotTable-range-selection-input").val(
-                            Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].name +
-                                "!" +
-                                chatatABC(Store.luckysheet_select_save[0]["column"][0]) +
-                                (Store.luckysheet_select_save[0]["row"][0] + 1) +
-                                ":" +
-                                chatatABC(Store.luckysheet_select_save[0]["column"][1]) +
-                                (Store.luckysheet_select_save[0]["row"][1] + 1),
-                        );
-                    }
                 } else if (conditionformat.selectStatus) {
                     let mouse = mouseposition(event.pageX, event.pageY);
                     let x = mouse[0] + $("#luckysheet-cell-main").scrollLeft();

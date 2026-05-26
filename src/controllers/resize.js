@@ -70,11 +70,8 @@ export default function luckysheetsizeauto(isRefreshCanvas=true) {
 
     gridW = $("#" + Store.container).width();
 
-    if(luckysheetConfigsetting.showConfigWindowResize){//数据透视表  图表  交替颜色
-        if($("#luckysheet-modal-dialog-slider-pivot").is(":visible")){
-            gridW -= $("#luckysheet-modal-dialog-slider-pivot").outerWidth();
-        }
-        else if($(".chartSetting").is(":visible")){
+    if(luckysheetConfigsetting.showConfigWindowResize){
+        if($(".chartSetting").is(":visible")){
             gridW -= $(".chartSetting").outerWidth();
         }
         else if($("#luckysheet-modal-dialog-slider-alternateformat").is(":visible")){

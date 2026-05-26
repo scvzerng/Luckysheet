@@ -26,21 +26,6 @@ import controlHistory from "../controlHistory";
 import { hideMenuByCancel } from "../../global/cursorPos";
 import { luckysheetdefaultstyle } from "../constant";
 
-const pivotTable = {
-    luckysheet_pivotTable_select_state: false,
-    movestate: false,
-    filter: null,
-    row: null,
-    column: null,
-    values: null,
-    pivotDatas: [],
-    showType: "",
-    movesave: { width: 0, height: 0, containerid: "" },
-    pivotclick: function() {},
-    isPivotRange: function() { return false; },
-    drillDown: function() {},
-};
-
 import {
     replaceHtml,
     getObjType,
@@ -802,17 +787,6 @@ export default function cellEvents() {
                         );
                     }
 
-                    if (pivotTable.luckysheet_pivotTable_select_state) {
-                        $("#luckysheet-pivotTable-range-selection-input").val(
-                            Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].name +
-                                "!" +
-                                chatatABC(Store.luckysheet_select_save[0]["column"][0]) +
-                                (Store.luckysheet_select_save[0]["row"][0] + 1) +
-                                ":" +
-                                chatatABC(Store.luckysheet_select_save[0]["column"][1]) +
-                                (Store.luckysheet_select_save[0]["row"][1] + 1),
-                        );
-                    }
                 } else if (event.ctrlKey) {
                     //选区添加
                     Store.luckysheet_select_save.push({
@@ -880,7 +854,6 @@ export default function cellEvents() {
             // selectHelpboxFill();
 
             //数据透视表
-            pivotTable.pivotclick(row_index, col_index, Store.currentSheetIndex);
 
             luckysheetContainerFocus();
 
@@ -1282,65 +1255,6 @@ export default function cellEvents() {
                 col_index = margeset.column[2];
             }
 
-            if (pivotTable.isPivotRange(row_index, col_index)) {
-                //数据透视表没有 任何数据
-                if (
-                    (pivotTable.filter == null || pivotTable.filter.length == 0) &&
-                    (pivotTable.row == null || pivotTable.row.length == 0) &&
-                    (pivotTable.column == null || pivotTable.column.length == 0) &&
-                    (pivotTable.values == null || pivotTable.values.length == 0)
-                ) {
-                    return;
-                }
-
-                //数据透视表没有 数值数据
-                if (pivotTable.values == null || pivotTable.values.length == 0) {
-                    return;
-                }
-
-                //点击位置不是 数值数据 所在区域
-                if (row_index == 0 || col_index == 0) {
-                    return;
-                }
-
-                if (pivotTable.column != null && pivotTable.column.length > 0) {
-                    if (pivotTable.values.length >= 2 && pivotTable.showType == "column") {
-                        if (
-                            row_index <= pivotTable.column.length ||
-                            col_index >= pivotTable.pivotDatas[0].length - pivotTable.values.length
-                        ) {
-                            return;
-                        }
-                    } else {
-                        if (
-                            row_index <= pivotTable.column.length - 1 ||
-                            col_index >= pivotTable.pivotDatas[0].length - 1
-                        ) {
-                            return;
-                        }
-                    }
-                }
-
-                if (pivotTable.row != null && pivotTable.row.length > 0) {
-                    if (pivotTable.values.length >= 2 && pivotTable.showType == "row") {
-                        if (
-                            col_index <= pivotTable.row.length ||
-                            row_index >= pivotTable.pivotDatas.length - pivotTable.values.length
-                        ) {
-                            return;
-                        }
-                    } else {
-                        if (col_index <= pivotTable.row.length - 1 || row_index >= pivotTable.pivotDatas.length - 1) {
-                            return;
-                        }
-                    }
-                }
-
-                sheetmanage.addNewSheet(event);
-
-                pivotTable.drillDown(row_index, col_index);
-                return;
-            }
 
             if (
                 $("#luckysheet-search-formula-parm").is(":visible") ||

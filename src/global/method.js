@@ -63,7 +63,6 @@ const defaultConfig = {
     
         luckysheetisrefreshdetail: true,
         luckysheetisrefreshtheme: true,
-        luckysheetcurrentisPivotTable: false,
     
         luckysheet_rows_selected_status: false,  //行列标题相关参
         luckysheet_cols_selected_status: false,  
@@ -194,32 +193,6 @@ const defaultConfig = {
         mergeCalculationSheet:{},
         checkLoadSheetIndexToDataIndex:{},
         CacheNotLoadControll:[],
-    },
-    defaultPivotTable:{
-        pivotDatas: null,
-        pivotSheetIndex: 0,
-        pivotDataSheetIndex: 0,
-        celldata: null,
-        origindata: null,
-        pivot_data_type: {},
-        pivot_select_save: null,
-        column: null,
-        row: null,
-        values: null,
-        filter: null,
-        showType: null,
-        rowhidden: null,
-        selected: null,
-        caljs: null,
-        initial: true,
-        filterparm: null,
-        luckysheet_pivotTable_select_state: false,
-        jgridCurrentPivotInput: null,
-        movestate: false,
-        moveitemposition: [],
-        movesave: {},
-        drawPivotTable: true,
-        pivotTableBoundary: [12, 6],
     },
     defaultImage:{
         imgItem: {
@@ -359,17 +332,15 @@ const method = {
         let index = getSheetIndex(i);
         let sheetfile = Store.luckysheetfile[index];
 
-        if(!sheetfile.isPivotTable){
-            sheetfile.data = [];
-            sheetfile.row = Store.defaultrowNum;
-            sheetfile.column = Store.defaultcolumnNum;
+        sheetfile.data = [];
+        sheetfile.row = Store.defaultrowNum;
+        sheetfile.column = Store.defaultcolumnNum;
 
             sheetfile.chart = [];
             sheetfile.config = null;
             sheetfile.filter = null;
             sheetfile.filter_select = null;
             sheetfile.celldata = [];
-            sheetfile.pivotTable = {};
             sheetfile.calcChain = [];
             sheetfile.status = 0;
             sheetfile.load = 0;
@@ -383,10 +354,6 @@ const method = {
             $("#luckysheet-row-count-show, #luckysheet-formula-functionrange-select, #luckysheet-row-count-show, #luckysheet-column-count-show, #luckysheet-change-size-line, #luckysheet-cell-selected-focus, #luckysheet-selection-copy, #luckysheet-cell-selected-extend, #luckysheet-cell-selected-move, #luckysheet-cell-selected").hide();
 
             delete sheetfile.load;
-        }
-        else {
-            delete Store.luckysheetfile[index];
-        }
     },
     clear: function(index){
         let _this = this;

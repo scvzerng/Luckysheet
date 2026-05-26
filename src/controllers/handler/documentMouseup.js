@@ -26,21 +26,6 @@ import controlHistory from "../controlHistory";
 import { hideMenuByCancel } from "../../global/cursorPos";
 import { luckysheetdefaultstyle } from "../constant";
 
-const pivotTable = {
-    luckysheet_pivotTable_select_state: false,
-    movestate: false,
-    filter: null,
-    row: null,
-    column: null,
-    values: null,
-    pivotDatas: [],
-    showType: "",
-    movesave: { width: 0, height: 0, containerid: "" },
-    pivotclick: function() {},
-    isPivotRange: function() { return false; },
-    drillDown: function() {},
-};
-
 import {
     replaceHtml,
     getObjType,
@@ -108,7 +93,6 @@ export default function documentMouseup() {
                 functionResizeStatus: formula.functionResizeStatus,
                 horizontalmoveState: !!luckysheetFreezen.horizontalmovestate,
                 verticalmoveState: !!luckysheetFreezen.verticalmovestate,
-                pivotTableMoveState: !!pivotTable && pivotTable.movestate,
                 sheetMoveStatus: Store.luckysheet_sheet_move_status,
                 scrollStatus: !!Store.luckysheet_scroll_status,
                 selectStatus: !!Store.luckysheet_select_status,
@@ -215,51 +199,6 @@ export default function documentMouseup() {
             luckysheetrefreshgrid();
         }
 
-        if (!!pivotTable && pivotTable.movestate) {
-            $("#luckysheet-modal-dialog-slider-pivot-move").remove();
-            pivotTable.movestate = false;
-            $(
-                "#luckysheet-modal-dialog-pivotTable-list, #luckysheet-modal-dialog-config-filter, #luckysheet-modal-dialog-config-row, #luckysheet-modal-dialog-config-column, #luckysheet-modal-dialog-config-value",
-            ).css("cursor", "default");
-            if (pivotTable.movesave.containerid != "luckysheet-modal-dialog-pivotTable-list") {
-                let $cur = $(event.target).closest(".luckysheet-modal-dialog-slider-config-list");
-                if ($cur.length == 0) {
-                    if (pivotTable.movesave.containerid == "luckysheet-modal-dialog-config-value") {
-                        pivotTable.resetOrderby(pivotTable.movesave.obj);
-                    }
-
-                    pivotTable.movesave.obj.remove();
-                    pivotTable.showvaluecolrow();
-                    $("#luckysheet-modal-dialog-pivotTable-list")
-                        .find(".luckysheet-modal-dialog-slider-list-item")
-                        .each(function() {
-                            $(this)
-                                .find(".luckysheet-slider-list-item-selected")
-                                .find("i")
-                                .remove();
-                        });
-
-                    $(
-                        "#luckysheet-modal-dialog-config-filter, #luckysheet-modal-dialog-config-row, #luckysheet-modal-dialog-config-column, #luckysheet-modal-dialog-config-value",
-                    )
-                        .find(".luckysheet-modal-dialog-slider-config-item")
-                        .each(function() {
-                            let index = $(this).data("index");
-
-                            $("#luckysheet-modal-dialog-pivotTable-list")
-                                .find(".luckysheet-modal-dialog-slider-list-item")
-                                .each(function() {
-                                    let $seleted = $(this).find(".luckysheet-slider-list-item-selected");
-                                    if ($(this).data("index") == index && $seleted.find("i").length == 0) {
-                                        $seleted.append('<i class="fa fa-check luckysheet-mousedown-cancel"></i>');
-                                    }
-                                });
-                        });
-
-                    pivotTable.refreshPivotTable();
-                }
-            }
-        }
 
         if (Store.luckysheet_sheet_move_status) {
             Store.luckysheet_sheet_move_status = false;
@@ -1036,10 +975,6 @@ export default function documentMouseup() {
                         row_s -= last["row"][0] - row_index;
 
                         //是否有数据透视表范围
-                        if (pivotTable.isPivotRange(row_s, col_e)) {
-                            tooltip.info(context.locale_drag.affectPivot, "");
-                            return;
-                        }
                     } else {
                         //当往下拖拽时
                         luckysheetDropCell.applyRange = {
@@ -1051,10 +986,6 @@ export default function documentMouseup() {
                         row_e += row_index - last["row"][1];
 
                         //是否有数据透视表范围
-                        if (pivotTable.isPivotRange(row_e, col_e)) {
-                            tooltip.info(context.locale_drag.affectPivot, "");
-                            return;
-                        }
                     }
                 } else {
                     return;
@@ -1072,10 +1003,6 @@ export default function documentMouseup() {
                         col_s -= last["column"][0] - col_index;
 
                         //是否有数据透视表范围
-                        if (pivotTable.isPivotRange(row_e, col_s)) {
-                            tooltip.info(context.locale_drag.affectPivot, "");
-                            return;
-                        }
                     } else {
                         //当往右拖拽时
                         luckysheetDropCell.applyRange = {
@@ -1087,10 +1014,6 @@ export default function documentMouseup() {
                         col_e += col_index - last["column"][1];
 
                         //是否有数据透视表范围
-                        if (pivotTable.isPivotRange(row_e, col_e)) {
-                            tooltip.info(context.locale_drag.affectPivot, "");
-                            return;
-                        }
                     }
                 } else {
                     return;

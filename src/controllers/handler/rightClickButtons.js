@@ -26,21 +26,6 @@ import controlHistory from "../controlHistory";
 import { hideMenuByCancel } from "../../global/cursorPos";
 import { luckysheetdefaultstyle } from "../constant";
 
-const pivotTable = {
-    luckysheet_pivotTable_select_state: false,
-    movestate: false,
-    filter: null,
-    row: null,
-    column: null,
-    values: null,
-    pivotDatas: [],
-    showType: "",
-    movesave: { width: 0, height: 0, containerid: "" },
-    pivotclick: function() {},
-    isPivotRange: function() { return false; },
-    drillDown: function() {},
-};
-
 import {
     replaceHtml,
     getObjType,
@@ -199,16 +184,10 @@ export default function rightClickButtons() {
         $("#luckysheet-rightclick-menu").hide();
     });
 
-    //菜单栏 数据透视表
-    $("#luckysheet-pivot-btn-title").click(function(e) {
-        pivotTable.createPivotTable(e);
-    });
-
     //菜单栏 插入图片按钮
     $("#luckysheet-insertImg-btn-title").click(function() {
         // *如果禁止前台编辑，则中止下一步操作
         if (!checkIsAllowEdit()) {
-            tooltip.info("", locale().pivotTable.errorNotAllowEdit);
             return;
         }
         $("#luckysheet-imgUpload").click();
@@ -229,7 +208,6 @@ export default function rightClickButtons() {
     $("#luckysheet-insertLink-btn-title").click(function() {
         // *如果禁止前台编辑，则中止下一步操作
         if (!checkIsAllowEdit()) {
-            tooltip.info("", locale().pivotTable.errorNotAllowEdit);
         }
 
         hyperlinkCtrl.createDialog();
