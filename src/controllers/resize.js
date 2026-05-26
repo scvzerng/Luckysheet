@@ -70,7 +70,7 @@ export default function luckysheetsizeauto(isRefreshCanvas=true) {
 
     gridW = $("#" + Store.container).width();
 
-    if(luckysheetConfigsetting.showConfigWindowResize){//数据透视表  图表  交替颜色 Protection
+    if(luckysheetConfigsetting.showConfigWindowResize){//数据透视表  图表  交替颜色
         if($("#luckysheet-modal-dialog-slider-pivot").is(":visible")){
             gridW -= $("#luckysheet-modal-dialog-slider-pivot").outerWidth();
         }
@@ -79,9 +79,6 @@ export default function luckysheetsizeauto(isRefreshCanvas=true) {
         }
         else if($("#luckysheet-modal-dialog-slider-alternateformat").is(":visible")){
             gridW -= $("#luckysheet-modal-dialog-slider-alternateformat").outerWidth();
-        }
-        if($("#luckysheet-modal-dialog-slider-protection").is(":visible")){
-            gridW -= $("#luckysheet-modal-dialog-slider-protection").outerWidth();
         }
     }
 

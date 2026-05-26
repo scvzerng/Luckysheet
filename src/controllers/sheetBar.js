@@ -1,6 +1,5 @@
-
+﻿
 import sheetmanage from './sheetmanage';
-import server from './server';
 import { sheetselectlistitemHTML, sheetselectlistHTML, keycode } from './constant';
 import {
     replaceHtml,
@@ -19,7 +18,6 @@ import luckysheetConfigsetting from './luckysheetConfigsetting';
 import {pagerInit} from '../global/api'
 import method from '../global/method';
 import luckysheetsizeauto from './resize';
-import {openProtectionModal} from "./protection";
 
 //表格底部名称栏区域 相关事件（增、删、改、隐藏显示、颜色等等）
 let isInitialSheetConfig = false, luckysheetcurrentSheetitem = null, jfdbclicklagTimeout = null,oldSheetFileName = "";
@@ -63,7 +61,6 @@ function showsheetconfigmenu() {
                 luckysheetcurrentSheetitem.append('<div class="luckysheet-sheets-item-color" style=" position: absolute; width: 100%; height: 3px; bottom: 0px; left: 0px; background-color: ' + color + ';"></div>');
                 let index = getSheetIndex(Store.currentSheetIndex);
                 Store.luckysheetfile[index].color = color;
-                server.saveParam("all", Store.currentSheetIndex, color, { "k": "color" });
 
                 if (Store.clearjfundo) {
                     let redo = {};
@@ -88,7 +85,6 @@ function showsheetconfigmenu() {
             luckysheetcurrentSheetitem.find(".luckysheet-sheets-item-color").remove();
             let index = getSheetIndex(Store.currentSheetIndex);
             Store.luckysheetfile[index].color = null;
-            server.saveParam("all", Store.currentSheetIndex, null, { "k": "color" } );
 
             if (Store.clearjfundo) {
                 let redo = {};
@@ -126,12 +122,6 @@ function showsheetconfigmenu() {
 
 let luckysheetsheetrightclick = function ($t, $cur, e) {
         //引用单元格范围时，禁止切换sheer
-    if ($("#luckysheet-dataVerificationRange-dialog").is(":visible"))//是否可见
-    {
-        //禁止切换sheer
-        window.alert("选择单元格范围窗口打开时，不能切换sheet!");
-        return;
-    }
     clearTimeout(jfdbclicklagTimeout);
     if ($cur.hasClass("luckysheet-sheets-item-name") && $cur.attr("contenteditable") == "true") {
         return;
@@ -165,26 +155,7 @@ let luckysheetsheetrightclick = function ($t, $cur, e) {
         luckysheetcurrentSheetitem = $cur.closest(".luckysheet-sheets-item");
         showsheetconfigmenu();
     }
-        //切换完成后，如果工作表内容保护页面打开，则刷新页面，否则等用户打开时会刷新
-    if ($("#luckysheet-modal-dialog-slider-protection").is(":visible"))//是否可见
-    {
-        //刷新页面
-        refreshProtectionContent();
-
-    }
     luckysheetsizeauto();
-}
-
-export function refreshProtectionContent() {
-    //刷新页面
-    let sheetFile = sheetmanage.getSheetByIndex();//获取到的数据是正确的
-    openProtectionModal(sheetFile);
-    // 如果打开了数据透视表 会住工作表保护。隐藏数据透视表
-    if (!!sheetFile.isPivotTable) {//如果是数据透视表,把数据透视关了
-        Store.luckysheetcurrentisPivotTable = false;//关闭数据透视表
-        $("#luckysheet-modal-dialog-slider-pivot").hide();
-    }
-
 }
 
 export function initialSheetBar(){
@@ -244,7 +215,6 @@ export function initialSheetBar(){
 
         let $t = $(this), $cur = $(e.target);
         luckysheetsheetrightclick($t, $cur, e);
-        server.keepHighLightBox()
     });
 
     let luckysheetsheetnameeditor = function ($t) {
@@ -332,7 +302,6 @@ export function initialSheetBar(){
         sheetmanage.sheetArrowShowAndHide();
 
         Store.luckysheetfile[index].name = txt;
-        server.saveParam("all", Store.currentSheetIndex, txt, { "k": "name" });
 
         $t.attr("contenteditable", "false").removeClass("luckysheet-mousedown-cancel");
 
@@ -542,7 +511,6 @@ export function initialSheetBar(){
                     sheetmanage.setSheetShow(index);
                     sheetmanage.locationSheet();
                 }
-                server.keepHighLightBox()
             });
 
             initialOpenSheet = false;

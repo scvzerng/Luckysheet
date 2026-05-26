@@ -6152,7 +6152,6 @@ export default {
         exportXlsx: "Export Xlsx",
         insertLink: "Insert link",
         dataVerification: "Data verification",
-        protection: "Protect the sheet",
 
         clearText: "Clear color",
         noColorSelectedText: "No color is selected",
@@ -6163,7 +6162,6 @@ export default {
         toolMoreTip: "More features",
         moreOptions: "More options",
 
-        cellFormat: "Cell format config",
         print: "Print",
     },
     alternatingColors: {
@@ -7233,74 +7231,6 @@ export default {
         borderTile: "Image border color",
         borderCur: "Color",
     },
-    protection: {
-        protectiontTitle: "Protection",
-        enterPassword: "Enter a password (optional)",
-        enterHintTitle: "Prompt when editing is prohibited (optional)",
-        enterHint:
-            "The cell or chart you are trying to change is in a protected worksheet. If you want to change it, please unprotect the worksheet. You may need to enter a password",
-        swichProtectionTip: "Protect the sheet and contents of locked cells",
-        authorityTitle: "Allow users of this sheet to:",
-        selectLockedCells: "Select locked cells",
-        selectunLockedCells: "Select unlocked cells",
-        formatCells: "Format cells",
-        formatColumns: "Format columns",
-        formatRows: "Format rows",
-        insertColumns: "Insert columns",
-        insertRows: "Insert rows",
-        insertHyperlinks: "Insert hyperlinks",
-        deleteColumns: "Delete columns",
-        deleteRows: "Delete rows",
-        sort: "Sort",
-        filter: "Filter",
-        usePivotTablereports: "Use Pivot Table reports",
-        editObjects: "Edit objects",
-        editScenarios: "Edit scenarios",
-
-        allowRangeTitle: "Allow users of range to:",
-        allowRangeAdd: "New...",
-
-        allowRangeAddTitle: "Title",
-        allowRangeAddSqrf: "Reference",
-        selectCellRange: "Click to select a cell range",
-        selectCellRangeHolder: "Cell range",
-        allowRangeAddTitlePassword: "Password",
-        allowRangeAddTitleHint: "Prompt",
-        allowRangeAddTitleHintTitle: "Prompt when a password is set (optional)",
-        allowRangeAddtitleDefault: "Input range name",
-
-        rangeItemDblclick: "Double click to edit",
-        rangeItemHasPassword: "Has password",
-
-        rangeItemErrorTitleNull: "Title is null",
-        rangeItemErrorRangeNull: "Reference is null",
-        rangeItemErrorRange: "Reference is error",
-
-        validationTitle: "Password validation",
-        validationTips: "Need to enter a password to unlock the protection of the worksheet",
-        validationInputHint: "Enter a password",
-
-        checkPasswordNullalert: "Password is required!",
-        checkPasswordWrongalert: "Incorrect password, please try again!",
-
-        checkPasswordSucceedalert: "Unlock Succeed!",
-        defaultRangeHintText: "The cell is being password protected.",
-        defaultSheetHintText:
-            "The cell or chart is in a protected worksheet. To make changes, please unprotect the worksheet. You may need to enter a password",
-    },
-    cellFormat: {
-        cellFormatTitle: "Format cells",
-        protection: "Protection",
-        locked: "Locked",
-        hidden: "Hidden",
-        protectionTips:
-            "To lock cells or hide formulas, protect the worksheet. On the toolbar, Click Protect Sheet Button",
-        tipsPart: "Partial checked",
-        tipsAll: "All checked",
-
-        selectionIsNullAlert: "Selection is required!",
-        sheetDataIsNullAlert: "error, Data is none!",
-    },
     print: {
         normalBtn: "Normal",
         layoutBtn: "Page Layout",
@@ -7333,15 +7263,6 @@ export default {
     },
     edit: {
         typing: "typing",
-    },
-    websocket: {
-        success: "WebSocket connection success",
-        refresh: "An error occurred in the WebSocket connection, please refresh the page!",
-        wait: "An error occurred in the WebSocket connection, please be patient!",
-        close: "WebSocket connection closed",
-        contact:
-            "Server communication error occurred, please refresh the page and try again, if not, please contact the administrator!",
-        support: "The current browser does not support WebSocket",
     },
     exportXlsx: {
         notice: "Please configure the export plugin",

@@ -8,12 +8,10 @@ window.$ = jQuery
 
 import 'spectrum-colorpicker/spectrum.css'
 import '@fortawesome/fontawesome-free/css/all.min.css'
-import 'jquery-ui/dist/themes/base/jquery-ui.css'
 import './plugins/jquery.sPage.css'
 import './css/luckysheet-core.css'
-import './css/luckysheet-cellFormat.css'
-import './css/luckysheet-protection.css'
 import './css/luckysheet-zoom.css'
+import './assets/iconfont/iconfont.css'
 import './css/iconCustom.css'
 import 'flatpickr/dist/themes/light.css'
 

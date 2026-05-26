@@ -1,10 +1,7 @@
-import server from '../controllers/server';
-import { luckysheetlodingHTML, luckyColor } from '../controllers/constant';
+﻿import { luckysheetlodingHTML, luckyColor } from '../controllers/constant';
 import sheetmanage from '../controllers/sheetmanage';
 import luckysheetformula from './formula';
 import imageCtrl from '../controllers/imageCtrl';
-import dataVerificationCtrl from '../controllers/dataVerificationCtrl';
-import pivotTable from '../controllers/pivotTable';
 import luckysheetFreezen from '../controllers/freezen';
 import { getSheetIndex } from '../methods/get';
 import { luckysheetextendData } from './extend';
@@ -264,23 +261,6 @@ const defaultConfig = {
         cropChangeXY: null,
         cropChangeObj: null,
         copyImgItemObj: null,
-    },
-    defaultDataVerification:{
-        defaultItem: {
-            type: 'dropdown',  //类型
-            type2: null,  //
-            value1: '',  //
-            value2: '',  //
-            checked: false,
-            remote: false,  //自动远程获取选项
-            prohibitInput: false,  //输入数据无效时禁止输入
-            hintShow: false,  //选中单元格时显示提示语
-            hintText: '',  //
-        },
-        curItem: null,
-        dataVerification: null,
-        selectRange: [],
-        selectStatus: false,
     }
 }
 
@@ -294,7 +274,7 @@ const method = {
         }
 
         if(url == null){
-            url = server.loadSheetUrl;
+            url = luckysheetConfigsetting.loadSheetUrl;
         }
 
         $("#luckysheet-grid-window-1").append(luckysheetlodingHTML());
@@ -339,12 +319,12 @@ const method = {
         }
 
         if(url == null){
-            url = server.loadSheetUrl;
+            url = luckysheetConfigsetting.loadSheetUrl;
         }
 
         $("#luckysheet-grid-window-1").append(luckysheetlodingHTML());
 
-        let arg = {"gridKey" : server.gridKey, "index": index};
+        let arg = {"gridKey" : luckysheetConfigsetting.gridKey, "index": index};
         param = $.extend(true, param, arg);
         let file = Store.luckysheetfile[getSheetIndex(index)];
 
@@ -367,7 +347,6 @@ const method = {
             Store.luckysheet_select_save.length = 0;
             Store.luckysheet_selection_range = [];
 
-            server.saveParam("shs", null, Store.currentSheetIndex);
 
             sheetmanage.changeSheet(index);
 
@@ -439,7 +418,6 @@ const method = {
 
         //document event release
         $(document).off(".luckysheetEvent");
-        $(document).off(".luckysheetProtection");
         
         //参数重置
         luckysheetFreezen.initialHorizontal = true;
@@ -466,24 +444,10 @@ const method = {
             }
         }
 
-        let defaultPivotTable = $.extend(true, {}, defaultConfig.defaultPivotTable);
-        for(let key in defaultPivotTable){
-            if(key in pivotTable){
-                pivotTable[key] = defaultPivotTable[key];
-            }
-        }
-
         let defaultImage = $.extend(true, {}, defaultConfig.defaultImage);
         for(let key in defaultImage){
             if(key in imageCtrl){
                 imageCtrl[key] = defaultImage[key];
-            }
-        }
-
-        let defaultDataVerification = $.extend(true, {}, defaultConfig.defaultDataVerification);
-        for(let key in defaultDataVerification){
-            if(key in dataVerificationCtrl){
-                dataVerificationCtrl[key] = defaultDataVerification[key];
             }
         }
 

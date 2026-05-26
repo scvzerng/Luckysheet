@@ -5840,7 +5840,6 @@ export default {
         insertImage: 'Insertar imagen',
         exportXlsx: "Exportar Xlsx",
         dataVerification: 'Verificación de datos',
-        protection:"Proteger la hoja",
 
         clearText:"Limpiar color",
         noColorSelectedText:"Ningún color seleccionado",
@@ -5851,7 +5850,6 @@ export default {
         toolMoreTip:"Más funcionalidades",
         moreOptions:"Más opciones",
 
-        cellFormat:"Configuración formato de celda",
         print:"Imprimir",
     },
     alternatingColors:{
@@ -6900,72 +6898,6 @@ export default {
         borderTile:"Color de borde de imagen",
         borderCur:"Color",
     },
-    protection:{
-        protectiontTitle:"Protección",
-        enterPassword:"Introduce una contraseña (opcional)",
-        enterHintTitle:"Preguntar cuando la edición está prohibida (opcional)",
-        enterHint:"La celda o el gráfico que estás intentando cambiar se encuentra en una hoja de trabajo protegida. Si quieres cambiarlo, desprotege la hoja de trabajo. Es posible que tengas que ingresar una contraseña",
-        swichProtectionTip:"Protege la hoja y el contenido de las celdas bloqueadas",
-        authorityTitle:"Permitir a los usuarios de esta hoja:",
-        selectLockedCells:"Selecciona celdas bloqueadas",
-        selectunLockedCells:"Selecciona celdas desbloqueadas",
-        formatCells:"Formatear celdas",
-        formatColumns:"Formatear columnas",
-        formatRows:"Formatear filas",
-        insertColumns:"Insertar columnas",
-        insertRows:"Insertar filas",
-        insertHyperlinks:"Insertar enlaces",
-        deleteColumns:"Eliminar columnas",
-        deleteRows:"Eliminar filas",
-        sort:"Ordenar",
-        filter:"Filtrar",
-        usePivotTablereports:"Usar informes de tabla dinámica",
-        editObjects:"Editar objetos",
-        editScenarios:"Editar escenarios",
-
-        allowRangeTitle:"Permitir a los usuarios del rango:",
-        allowRangeAdd:"Nuevo...",
-
-        allowRangeAddTitle:"Título",
-        allowRangeAddSqrf:"Referencia",
-        selectCellRange: 'Haz clic para seleccionar un rango de celdas',
-        selectCellRangeHolder:"Rango de celdas",
-        allowRangeAddTitlePassword:"Contraseña",
-        allowRangeAddTitleHint:"Pregunta",
-        allowRangeAddTitleHintTitle:"Preguntar cuando hay una contraseña (opcional)",
-        allowRangeAddtitleDefault:"Nombre del rango de entrada",
-
-        rangeItemDblclick:"Haz doble clic para editar",
-        rangeItemHasPassword:"Tiene contraseña",
-
-        rangeItemErrorTitleNull:"El título es nulo",
-        rangeItemErrorRangeNull:"La referencia es nula",
-        rangeItemErrorRange:"La reference tiene un error",
-
-        validationTitle:"Validación de contraseña",
-        validationTips:"Hay que ingresar una contraseña para desbloquear la protección de la hoja de trabajo",
-        validationInputHint:"Introduce una contraseña",
-
-        checkPasswordNullalert:"Contraseña requerida!",
-        checkPasswordWrongalert:"¡Contraseña incorrecta. Por favor, prueba de nuevo!",
-
-        checkPasswordSucceedalert:"Desbloqueo conseguido!",
-        defaultRangeHintText:"La celda está protegida con contraseña.",
-        defaultSheetHintText:"La celda o el gráfico están en una hoja de trabajo protegida. Para realizar cambios, desprotege la hoja de trabajo. Es posible que tengas que ingresar una contraseña",
-    },
-    cellFormat:{
-        cellFormatTitle:"Formatear celdas",
-        protection:"Protección",
-        locked:"Bloqueado",
-        hidden:"Escondido",
-        protectionTips:"Para bloquear celdas u ocultar fórmulas, protege la hoja de trabajo. En la barra de herramientas, haz clic en el botón Proteger hoja",
-        tipsPart:"Comprobado parcial",
-        tipsAll:"Todo seleccionado",
-
-        selectionIsNullAlert:"Se requiere una selección!",
-        sheetDataIsNullAlert:"error, no hay datos!",
-
-    },
     print:{
         normalBtn:"Normal",
         layoutBtn:"Disposición de página",
@@ -6978,14 +6910,6 @@ export default {
     },
     edit:{
         typing:"mecanografía",
-    },
-    websocket:{
-        success: 'Éxito de la conexión de WebSocket',
-        refresh: 'Se produjo un error en la conexión de WebSocket, ¡actualice la página!',
-        wait: 'Se produjo un error en la conexión de WebSocket, ¡tenga paciencia!',
-        close: 'Conexión WebSocket cerrada',
-        contact: 'Ocurrió un error de comunicación con el servidor, actualice la página y vuelva a intentarlo; de lo contrario, comuníquese con el administrador.',
-        support: 'El navegador actual no es compatible con WebSocket',
     },
     exportXlsx:{
         notice:'Configure el complemento de exportación',

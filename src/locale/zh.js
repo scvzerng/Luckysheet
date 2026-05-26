@@ -6085,7 +6085,6 @@ export default {
         exportXlsx: "导出Xlsx",
         insertLink: "插入链接",
         dataVerification: "数据验证",
-        protection: "保护工作表内容",
 
         clearText: "清除颜色选择",
         noColorSelectedText: "没有颜色被选择",
@@ -6096,7 +6095,6 @@ export default {
         toolMoreTip: "更多功能",
         moreOptions: "更多选项",
 
-        cellFormat: "设置单元格格式",
         print: "打印",
     },
     alternatingColors: {
@@ -7213,70 +7211,6 @@ export default {
         borderTile: "图片边框颜色选择",
         borderCur: "当前颜色",
     },
-    protection: {
-        protectiontTitle: "保护工作表",
-        enterPassword: "请输入密码（可留空）",
-        enterHint: "您试图更改的单元格或图表位于受保护的工作表中。若要更改，请取消工作表保护。您可能需要输入密码",
-        swichProtectionTip: "保护工作表及锁定的单元格内容",
-        authorityTitle: "允许此工作表的用户进行:",
-        selectLockedCells: "选定锁定单元格",
-        selectunLockedCells: "选定解除锁定的单元格",
-        formatCells: "设置单元格格式",
-        formatColumns: "设置列格式",
-        formatRows: "设置行格式",
-        insertColumns: "插入列",
-        insertRows: "插入行",
-        insertHyperlinks: "插入超链接",
-        deleteColumns: "删除列",
-        deleteRows: "删除行",
-        sort: "排序",
-        filter: "使用自动筛选",
-        usePivotTablereports: "使用数据透视表和报表",
-        editObjects: "编辑对象",
-        editScenarios: "编辑方案",
-
-        allowRangeTitle: "允许用户编辑区域",
-        allowRangeAdd: "新建...",
-
-        allowRangeAddTitle: "标题",
-        allowRangeAddSqrf: "引用单元格",
-        selectCellRange: "点击选择单元格范围",
-        selectCellRangeHolder: "请输入单元格范围",
-        allowRangeAddTitlePassword: "密码",
-        allowRangeAddTitleHint: "提示",
-        allowRangeAddTitleHintTitle: "设置密码后，提示用户输入密码(可留空)",
-        allowRangeAddtitleDefault: "请输入区域名称",
-
-        rangeItemDblclick: "双击进行编辑",
-        rangeItemHasPassword: "已设置密码",
-
-        rangeItemErrorTitleNull: "标题不能为空",
-        rangeItemErrorRangeNull: "单元格范围不能为空",
-        rangeItemErrorRange: "单元格范围格式错误",
-
-        validationTitle: "验证提示",
-        validationTips: "需要输入密码来撤销工作表的保护",
-        validationInputHint: "请输入密码",
-
-        checkPasswordNullalert: "密码不能为空！",
-        checkPasswordWrongalert: "密码错误，请重试！",
-
-        checkPasswordSucceedalert: "解锁成功，可以编辑该区域!",
-        defaultRangeHintText: "该单元格正在受密码保护。",
-        defaultSheetHintText:
-            "该单元格或图表位于受保护的工作表中，若要进行更改，请取消工作表保护，您可能需要输入密码。",
-    },
-    cellFormat: {
-        cellFormatTitle: "设置单元格格式",
-        protection: "保护",
-        locked: "锁定单元格",
-        hidden: "隐藏公式",
-        protectionTips: "只有保护工作表功能(在菜单栏点击保护工作表按钮进行设置)开启后，锁定单元格或隐藏公式才能生效",
-        tipsPart: "部分选中",
-        tipsAll: "全部选中",
-        selectionIsNullAlert: "请选择一个范围！",
-        sheetDataIsNullAlert: "数据为空无法设置！",
-    },
     print: {
         normalBtn: "常规视图",
         layoutBtn: "页面布局",
@@ -7309,14 +7243,6 @@ export default {
     },
     edit: {
         typing: "正在输入",
-    },
-    websocket: {
-        success: "WebSocket连接成功",
-        refresh: "WebSocket连接发生错误, 请刷新页面！",
-        wait: "WebSocket连接发生错误, 请耐心等待！",
-        close: "WebSocket连接关闭",
-        contact: "服务器通信发生错误，请刷新页面后再试，如若不行请联系管理员！",
-        support: "当前浏览器不支持WebSocket",
     },
     exportXlsx: {
         notice: "请配置导出插件",

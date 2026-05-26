@@ -4,7 +4,6 @@ import luckysheetConfigsetting from "./luckysheetConfigsetting";
 import luckysheetMoreFormat from "./moreFormat";
 import alternateformat from "./alternateformat";
 import conditionformat from "./conditionformat";
-import server from "./server";
 import { luckysheet_searcharray } from "./sheetSearch";
 import luckysheetFreezen from "./freezen";
 import luckysheetsizeauto from "./resize";
@@ -48,7 +47,6 @@ import {
     luckysheetfontformat,
     luckysheetContainerFocus,
 } from "../utils/util";
-import { openProtectionModal, checkProtectionFormatCells, checkProtectionNotEnable } from "./protection";
 import Store from "../store";
 import locale from "../locale/locale";
 import { checkTheStatusOfTheSelectedCells, frozenFirstRow, frozenFirstColumn } from "../global/api";
@@ -156,7 +154,6 @@ const menuButton = {
         $("#luckysheet-icon-paintformat").click(function(e) {
             // *如果禁止前台编辑，则中止下一步操作
             if (!checkIsAllowEdit()) {
-                tooltip.info("", locale().pivotTable.errorNotAllowEdit);
                 return;
             }
             e.stopPropagation();
@@ -256,7 +253,6 @@ const menuButton = {
         $("#luckysheet-icon-paintformat").dblclick(function() {
             // *如果禁止前台编辑，则中止下一步操作
             if (!checkIsAllowEdit()) {
-                tooltip.info("", locale().pivotTable.errorNotAllowEdit);
                 return;
             }
             let _locale = locale();
@@ -724,7 +720,7 @@ const menuButton = {
                             clearText: locale_toolbar.clearText,
                             color: luckysheetConfigsetting.defaultTextColor,
                             noColorSelectedText: locale_toolbar.noColorSelectedText,
-                            localStorageKey: "spectrum.textcolor" + server.gridKey,
+                            localStorageKey: "spectrum.textcolor" + luckysheetConfigsetting.gridKey,
                             palette: [
                                 ["#000", "#444", "#666", "#999", "#ccc", "#eee", "#f3f3f3", "#fff"],
                                 ["#f00", "#f90", "#ff0", "#0f0", "#0ff", "#00f", "#90f", "#f0f"],
@@ -903,7 +899,7 @@ const menuButton = {
                         togglePaletteOnly: true,
                         clearText: locale_toolbar.clearText,
                         noColorSelectedText: locale_toolbar.noColorSelectedText,
-                        localStorageKey: "spectrum.bgcolor" + server.gridKey,
+                        localStorageKey: "spectrum.bgcolor" + luckysheetConfigsetting.gridKey,
                         palette: [
                             ["#000", "#444", "#666", "#999", "#ccc", "#eee", "#f3f3f3", "#fff"],
                             ["#f00", "#f90", "#ff0", "#0f0", "#0ff", "#00f", "#90f", "#f0f"],
@@ -957,7 +953,6 @@ const menuButton = {
                 $menuButton.find(".luckysheet-icon-alternateformat").click(function() {
                     // *如果禁止前台编辑，则中止下一步操作
                     if (!checkIsAllowEdit()) {
-                        tooltip.info("", locale().pivotTable.errorNotAllowEdit);
                         return;
                     }
                     $menuButton.hide();
@@ -1115,10 +1110,6 @@ const menuButton = {
         $("#luckysheet-icon-border-all").click(function() {
             // *如果禁止前台编辑，则中止下一步操作
             if (!checkIsAllowEdit()) {
-                tooltip.info("", locale().pivotTable.errorNotAllowEdit);
-                return;
-            }
-            if (!checkProtectionFormatCells(Store.currentSheetIndex)) {
                 return;
             }
 
@@ -1173,7 +1164,6 @@ const menuButton = {
                 Store.jfredo.push(redo);
             }
 
-            server.saveParam("cg", Store.currentSheetIndex, cfg["borderInfo"], { k: "borderInfo" });
 
             Store.config = cfg;
             Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
@@ -1511,7 +1501,6 @@ const menuButton = {
                 $menuButton.find(".luckysheet-cols-menuitem").click(function() {
                     // *如果禁止前台编辑，则中止下一步操作
                     if (!checkIsAllowEdit()) {
-                        tooltip.info("", locale().pivotTable.errorNotAllowEdit);
                         return;
                     }
                     $menuButton.hide();
@@ -1523,9 +1512,6 @@ const menuButton = {
                         return;
                     }
 
-                    if (!checkProtectionFormatCells(Store.currentSheetIndex)) {
-                        return;
-                    }
 
                     let d = editor.deepCopyFlowData(Store.flowdata);
 
@@ -1572,7 +1558,6 @@ const menuButton = {
                         Store.jfredo.push(redo);
                     }
 
-                    server.saveParam("cg", Store.currentSheetIndex, cfg["borderInfo"], { k: "borderInfo" });
 
                     Store.config = cfg;
                     Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
@@ -1619,7 +1604,7 @@ const menuButton = {
                         togglePaletteOnly: true,
                         clearText: locale_toolbar.clearText,
                         noColorSelectedText: locale_toolbar.noColorSelectedText,
-                        localStorageKey: "spectrum.bordercolor" + server.gridKey,
+                        localStorageKey: "spectrum.bordercolor" + luckysheetConfigsetting.gridKey,
                         palette: [
                             ["#000", "#444", "#666", "#999", "#ccc", "#eee", "#f3f3f3", "#fff"],
                             ["#f00", "#f90", "#ff0", "#0f0", "#0ff", "#00f", "#90f", "#f0f"],
@@ -1672,9 +1657,6 @@ const menuButton = {
             const _locale = locale();
             const locale_merge = _locale.merge;
 
-            if (!checkProtectionNotEnable(Store.currentSheetIndex)) {
-                return;
-            }
 
             if (selectIsOverlap()) {
                 if (isEditMode()) {
@@ -3169,7 +3151,7 @@ const menuButton = {
                         conditionformat.newConditionRuleDialog(0);
                         conditionformat.init();
                     } else if (itemvalue == "administerRule") {
-                        let loadSheetUrl = server.loadSheetUrl;
+                        let loadSheetUrl = luckysheetConfigsetting.loadSheetUrl;
                         let file = getluckysheetfile();
 
                         if (loadSheetUrl != "" && loadSheetUrl != null) {
@@ -3178,7 +3160,7 @@ const menuButton = {
                                 sheetindex.push(file[i].index);
                             }
 
-                            $.post(loadSheetUrl, { gridKey: server.gridKey, index: sheetindex.join(",") }, function(d) {
+                            $.post(loadSheetUrl, { gridKey: luckysheetConfigsetting.gridKey, index: sheetindex.join(",") }, function(d) {
                                 let dataset = new Function("return " + d)();
 
                                 setTimeout(function() {
@@ -3593,12 +3575,6 @@ const menuButton = {
             mouseclickposition($menuButton, menuleft, $(this).offset().top + 25, "lefttop");
         });
 
-        //sheet protection
-        $("#luckysheet-icon-protection").click(function() {
-            let sheetFile = sheetmanage.getSheetByIndex();
-            openProtectionModal(sheetFile);
-        });
-
         //print
         $("#luckysheet-icon-print").click(function() {
             let menuButtonId = $(this).attr("id") + "-menuButton";
@@ -3900,13 +3876,9 @@ const menuButton = {
     updateFormat: function(d, attr, foucsStatus) {
         let _this = this;
 
-        if (!checkProtectionFormatCells(Store.currentSheetIndex)) {
-            return;
-        }
 
         // *如果禁止前台编辑，则中止下一步操作
         if (!checkIsAllowEdit()) {
-            tooltip.info("", locale().pivotTable.errorNotAllowEdit);
             return;
         }
 
@@ -3955,7 +3927,6 @@ const menuButton = {
     updateFormat_mc: function(d, foucsStatus) {
         // *如果禁止前台编辑，则中止下一步操作
         if (!checkIsAllowEdit()) {
-            tooltip.info("", locale().pivotTable.errorNotAllowEdit);
             return;
         }
         let cfg = $.extend(true, {}, Store.config);
@@ -3963,9 +3934,6 @@ const menuButton = {
             cfg["merge"] = {};
         }
 
-        if (!checkProtectionNotEnable(Store.currentSheetIndex)) {
-            return;
-        }
 
         if (foucsStatus == "mergeCancel") {
             for (let i = 0; i < Store.luckysheet_select_save.length; i++) {
@@ -4923,7 +4891,6 @@ const menuButton = {
 
         //刷新生成公式所在的单元格，刷新calcChain
         Store.luckysheet_select_save.push({"row": [r, r], "column": [c, c]});
-        server.historyParam(d, Store.currentSheetIndex, { row: [r, r], column: [c, c] });
     },
     checkNoNullValue: function(cell) {
         let v = cell;

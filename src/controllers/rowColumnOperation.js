@@ -1,8 +1,6 @@
-import pivotTable from "./pivotTable";
 import luckysheetPostil from "./postil";
 import imageCtrl from "./imageCtrl";
 import menuButton from "./menuButton";
-import server from "./server";
 import method from "../global/method";
 import { selectHightlightShow, luckysheet_count_show, selectHelpboxFill } from "./select";
 import { getObjType, showrightclickmenu, luckysheetContainerFocus, luckysheetfontformat, $$ } from "../utils/util";
@@ -20,11 +18,6 @@ import locale from "../locale/locale";
 import { getMeasureText, getCellTextInfo } from "../global/getRowlen";
 import { luckysheet_searcharray } from "../controllers/sheetSearch";
 import { isInlineStringCell } from "./inlineString";
-import {
-    checkProtectionLockedRangeList,
-    checkProtectionAllSelected,
-    checkProtectionAuthorityNormal,
-} from "./protection";
 import Store from "../store";
 import luckysheetConfigsetting from "./luckysheetConfigsetting";
 
@@ -32,9 +25,6 @@ export function rowColumnOperationInitial() {
     //表格行标题 mouse事件
     $("#luckysheet-rows-h")
         .mousedown(function(event) {
-            if (!checkProtectionAllSelected(Store.currentSheetIndex)) {
-                return;
-            }
             //有批注在编辑时
             luckysheetPostil.removeActivePs();
 
@@ -388,7 +378,6 @@ export function rowColumnOperationInitial() {
                 selectHightlightShow();
 
                 //允许编辑后的后台更新时
-                server.saveParam("mv", Store.currentSheetIndex, Store.luckysheet_select_save);
             }
 
             selectHelpboxFill();
@@ -473,8 +462,7 @@ export function rowColumnOperationInitial() {
                     !cellRightClickConfig.chart &&
                     !cellRightClickConfig.image &&
                     !cellRightClickConfig.link &&
-                    !cellRightClickConfig.data &&
-                    !cellRightClickConfig.cellFormat
+                    !cellRightClickConfig.data
                 ) {
                     return;
                 }
@@ -524,8 +512,7 @@ export function rowColumnOperationInitial() {
                     !cellRightClickConfig.chart &&
                     !cellRightClickConfig.image &&
                     !cellRightClickConfig.link &&
-                    !cellRightClickConfig.data &&
-                    !cellRightClickConfig.cellFormat
+                    !cellRightClickConfig.data
                 ) {
                     $$("#luckysheet-cols-rows-data .luckysheet-menuseparator").style.display = "none";
                 }
@@ -575,9 +562,6 @@ export function rowColumnOperationInitial() {
     //表格列标题 mouse事件
     $("#luckysheet-cols-h-c")
         .mousedown(function(event) {
-            if (!checkProtectionAllSelected(Store.currentSheetIndex)) {
-                return;
-            }
             //有批注在编辑时
             luckysheetPostil.removeActivePs();
 
@@ -915,7 +899,6 @@ export function rowColumnOperationInitial() {
                 selectHightlightShow();
 
                 //允许编辑后的后台更新时
-                server.saveParam("mv", Store.currentSheetIndex, Store.luckysheet_select_save);
             }
 
             selectHelpboxFill();
@@ -1017,8 +1000,7 @@ export function rowColumnOperationInitial() {
                     !cellRightClickConfig.chart &&
                     !cellRightClickConfig.image &&
                     !cellRightClickConfig.link &&
-                    !cellRightClickConfig.data &&
-                    !cellRightClickConfig.cellFormat
+                    !cellRightClickConfig.data
                 ) {
                     return;
                 }
@@ -1068,8 +1050,7 @@ export function rowColumnOperationInitial() {
                     !cellRightClickConfig.chart &&
                     !cellRightClickConfig.image &&
                     !cellRightClickConfig.link &&
-                    !cellRightClickConfig.data &&
-                    !cellRightClickConfig.cellFormat
+                    !cellRightClickConfig.data
                 ) {
                     $$("#luckysheet-cols-rows-data .luckysheet-menuseparator").style.display = "none";
                 }
@@ -1230,7 +1211,6 @@ export function rowColumnOperationInitial() {
     $("#luckysheet-cols-menu-btn").click(function(event) {
         // *如果禁止前台编辑，则中止下一步操作
         if (!checkIsAllowEdit()) {
-            tooltip.info("", locale().pivotTable.errorNotAllowEdit);
             return;
         }
         let $menu = $("#luckysheet-rightclick-menu");
@@ -1823,9 +1803,6 @@ export function rowColumnOperationInitial() {
 
         // 隐藏行
         if (Store.luckysheetRightHeadClickIs == "row") {
-            if (!checkProtectionAuthorityNormal(Store.currentSheetIndex, "formatRows")) {
-                return;
-            }
 
             let cfg = $.extend(true, {}, Store.config);
             if (cfg["rowhidden"] == null) {
@@ -1857,16 +1834,12 @@ export function rowColumnOperationInitial() {
             Store.config = cfg;
             Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
 
-            server.saveParam("cg", Store.currentSheetIndex, cfg["rowhidden"], { k: "rowhidden" });
 
             //行高、列宽 刷新
             jfrefreshgrid_rhcw(Store.flowdata.length, Store.flowdata[0].length);
         }
         // 隐藏列
         else if (Store.luckysheetRightHeadClickIs == "column") {
-            if (!checkProtectionAuthorityNormal(Store.currentSheetIndex, "formatColumns")) {
-                return;
-            }
 
             let cfg = $.extend(true, {}, Store.config);
             if (cfg["colhidden"] == null) {
@@ -1898,7 +1871,6 @@ export function rowColumnOperationInitial() {
             Store.config = cfg;
             Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
 
-            server.saveParam("cg", Store.currentSheetIndex, cfg["colhidden"], { k: "colhidden" });
 
             //行高、列宽 刷新
             jfrefreshgrid_rhcw(Store.flowdata.length, Store.flowdata[0].length);
@@ -1931,9 +1903,6 @@ export function rowColumnOperationInitial() {
 
         // 取消隐藏行
         if (Store.luckysheetRightHeadClickIs == "row") {
-            if (!checkProtectionAuthorityNormal(Store.currentSheetIndex, "formatRows")) {
-                return;
-            }
 
             let cfg = $.extend(true, {}, Store.config);
             if (cfg["rowhidden"] == null) {
@@ -1965,14 +1934,10 @@ export function rowColumnOperationInitial() {
             Store.config = cfg;
             Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
 
-            server.saveParam("cg", Store.currentSheetIndex, cfg["rowhidden"], { k: "rowhidden" });
 
             //行高、列宽 刷新
             jfrefreshgrid_rhcw(Store.flowdata.length, Store.flowdata[0].length);
         } else if (Store.luckysheetRightHeadClickIs == "column") {
-            if (!checkProtectionAuthorityNormal(Store.currentSheetIndex, "formatColumns")) {
-                return;
-            }
 
             let cfg = $.extend(true, {}, Store.config);
             if (cfg["colhidden"] == null) {
@@ -2004,7 +1969,6 @@ export function rowColumnOperationInitial() {
             Store.config = cfg;
             Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
 
-            server.saveParam("cg", Store.currentSheetIndex, cfg["colhidden"], { k: "colhidden" });
 
             //行高、列宽 刷新
             jfrefreshgrid_rhcw(Store.flowdata.length, Store.flowdata[0].length);
@@ -2012,10 +1976,6 @@ export function rowColumnOperationInitial() {
     });
     //隐藏、显示行
     // $("#luckysheet-hidRows").click(function (event) {
-    //     if(!checkProtectionAuthorityNormal(Store.currentSheetIndex, "formatRows")){
-    //         return;
-    //     }
-
     //     $("#luckysheet-rightclick-menu").hide();
     //     luckysheetContainerFocus();
 
@@ -2049,15 +2009,11 @@ export function rowColumnOperationInitial() {
     //     Store.config = cfg;
     //     Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
 
-    //     server.saveParam("cg", Store.currentSheetIndex, cfg["rowhidden"], { "k": "rowhidden" });
 
     //     //行高、列宽 刷新
     //     jfrefreshgrid_rhcw(Store.flowdata.length, Store.flowdata[0].length);
     // })
     // $("#luckysheet-showHidRows").click(function (event) {
-    //     if(!checkProtectionAuthorityNormal(Store.currentSheetIndex, "formatRows")){
-    //         return;
-    //     }
     //     $("#luckysheet-rightclick-menu").hide();
     //     luckysheetContainerFocus();
 
@@ -2091,7 +2047,6 @@ export function rowColumnOperationInitial() {
     //     Store.config = cfg;
     //     Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
 
-    //     server.saveParam("cg", Store.currentSheetIndex, cfg["rowhidden"], { "k": "rowhidden" });
 
     //     //行高、列宽 刷新
     //     jfrefreshgrid_rhcw(Store.flowdata.length, Store.flowdata[0].length);
@@ -2099,9 +2054,6 @@ export function rowColumnOperationInitial() {
 
     //隐藏、显示列
     // $("#luckysheet-hidCols").click(function (event) {
-    //     if(!checkProtectionAuthorityNormal(Store.currentSheetIndex, "formatColumns")){
-    //         return;
-    //     }
     //     $("#luckysheet-rightclick-menu").hide();
     //     luckysheetContainerFocus();
 
@@ -2135,15 +2087,11 @@ export function rowColumnOperationInitial() {
     //     Store.config = cfg;
     //     Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
 
-    //     server.saveParam("cg", Store.currentSheetIndex, cfg["colhidden"], { "k": "colhidden" });
 
     //     //行高、列宽 刷新
     //     jfrefreshgrid_rhcw(Store.flowdata.length, Store.flowdata[0].length);
     // })
     // $("#luckysheet-showHidCols").click(function (event) {
-    //     if(!checkProtectionAuthorityNormal(Store.currentSheetIndex, "formatColumns")){
-    //         return;
-    //     }
     //     $("#luckysheet-rightclick-menu").hide();
     //     luckysheetContainerFocus();
 
@@ -2177,7 +2125,6 @@ export function rowColumnOperationInitial() {
     //     Store.config = cfg;
     //     Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
 
-    //     server.saveParam("cg", Store.currentSheetIndex, cfg["colhidden"], { "k": "colhidden" });
 
     //     //行高、列宽 刷新
     //     jfrefreshgrid_rhcw(Store.flowdata.length, Store.flowdata[0].length);
@@ -2230,9 +2177,6 @@ export function rowColumnOperationInitial() {
 
     //清除单元格内容
     $("#luckysheet-delete-text").click(function() {
-        if (!checkProtectionLockedRangeList(Store.luckysheet_select_save, Store.currentSheetIndex)) {
-            return;
-        }
 
         $("#luckysheet-rightclick-menu").hide();
         luckysheetContainerFocus();
@@ -2282,10 +2226,6 @@ export function rowColumnOperationInitial() {
 
                 for (let r = r1; r <= r2; r++) {
                     for (let c = c1; c <= c2; c++) {
-                        if (pivotTable.isPivotRange(r, c)) {
-                            continue;
-                        }
-
                         if (getObjType(d[r][c]) == "object") {
                             delete d[r][c]["m"];
                             delete d[r][c]["v"];
@@ -2353,9 +2293,6 @@ export function rowColumnOperationInitial() {
         let images = null;
 
         if (Store.luckysheetRightHeadClickIs == "row") {
-            if (!checkProtectionAuthorityNormal(Store.currentSheetIndex, "formatRows")) {
-                return;
-            }
 
             if (size < 0 || size > 545) {
                 if (isEditMode()) {
@@ -2383,9 +2320,6 @@ export function rowColumnOperationInitial() {
                 }
             }
         } else if (Store.luckysheetRightHeadClickIs == "column") {
-            if (!checkProtectionAuthorityNormal(Store.currentSheetIndex, "formatColumns")) {
-                return;
-            }
 
             if (size < 0 || size > 2038) {
                 if (isEditMode()) {
@@ -2433,15 +2367,12 @@ export function rowColumnOperationInitial() {
 
         //images
         Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].images = images;
-        server.saveParam("all", Store.currentSheetIndex, images, { k: "images" });
         imageCtrl.images = images;
         imageCtrl.allImagesShow();
 
         if (Store.luckysheetRightHeadClickIs == "row") {
-            server.saveParam("cg", Store.currentSheetIndex, cfg["rowlen"], { k: "rowlen" });
             jfrefreshgrid_rhcw(Store.flowdata.length, null);
         } else if (Store.luckysheetRightHeadClickIs == "column") {
-            server.saveParam("cg", Store.currentSheetIndex, cfg["columnlen"], { k: "columnlen" });
             jfrefreshgrid_rhcw(null, Store.flowdata[0].length);
         }
     });

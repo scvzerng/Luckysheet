@@ -1,11 +1,8 @@
-import pivotTable from './pivotTable';
 import luckysheetFreezen from './freezen';
 import menuButton from './menuButton';
 import conditionformat from './conditionformat';
 import alternateformat from './alternateformat';
 import cellDatePickerCtrl from './cellDatePickerCtrl';
-import dataVerificationCtrl from './dataVerificationCtrl';
-import {checkProtectionLocked,checkProtectionCellHidden}  from './protection';
 import { chatatABC } from '../utils/util';
 import { isEditMode } from '../global/validate';
 import { getcellvalue,getInlineStringStyle } from '../global/getdata';
@@ -15,15 +12,9 @@ import { luckysheetRangeLast } from '../global/cursorPos';
 import cleargridelement from '../global/cleargridelement';
 import {isInlineStringCell} from './inlineString';
 import Store from '../store';
-import server from './server';
 import method from '../global/method';
 
 export function luckysheetupdateCell(row_index1, col_index1, d, cover, isnotfocus) {
-    if(!checkProtectionLocked(row_index1, col_index1, Store.currentSheetIndex)){
-        $("#luckysheet-functionbox-cell").blur();
-        return;
-    }
-
     if(isEditMode() || Store.allowEdit===false){//此模式下禁用单元格编辑
         return;
     }
@@ -31,19 +22,7 @@ export function luckysheetupdateCell(row_index1, col_index1, d, cover, isnotfocu
     // 钩子函数
     if(!method.createHookFunction('cellEditBefore',Store.luckysheet_select_save)){return;}
 
-    // 编辑单元格时发送指令到后台，通知其他单元格更新为“正在输入”状态
-    server.saveParam("mv", Store.currentSheetIndex,  {op:"enterEdit",range:Store.luckysheet_select_save});
-
-    //数据验证
-    if(dataVerificationCtrl.dataVerification != null && dataVerificationCtrl.dataVerification[row_index1 + '_' + col_index1] != null){
-        let dataVerificationItem = dataVerificationCtrl.dataVerification[row_index1 + '_' + col_index1];
-        if(dataVerificationItem.type == 'dropdown'){
-            dataVerificationCtrl.dropdownListShow();
-        }
-        else if(dataVerificationItem.type == 'checkbox'){
-            return;
-        }
-    }
+    // 编辑单元格时发送指令到后台，通知其他单元格更新为"正在输入"状态
 
     let size = getColumnAndRowSize(row_index1, col_index1, d);
     let row = size.row, 
@@ -61,10 +40,6 @@ export function luckysheetupdateCell(row_index1, col_index1, d, cover, isnotfocu
     let container_offset = $("#" + Store.container).offset();
     let scrollLeft = $("#luckysheet-cell-main").scrollLeft();
     let scrollTop = $("#luckysheet-cell-main").scrollTop();
-
-    if (pivotTable.isPivotRange(row_index, col_index)) {
-        return;
-    }
 
     let left = col_pre + container_offset.left + Store.rowHeaderWidth - scrollLeft - 2;
     if(luckysheetFreezen.freezenverticaldata != null && col_index1 <= luckysheetFreezen.freezenverticaldata[1]){
@@ -218,15 +193,10 @@ export function luckysheetupdateCell(row_index1, col_index1, d, cover, isnotfocu
     //     value = "<br/>";
     // }
     value = formula.xssDeal(value);
-    if(!checkProtectionCellHidden(row_index, col_index, Store.currentSheetIndex) && value.length>0 && value.substr(0, 63)=='<span dir="auto" class="luckysheet-formula-text-color">=</span>'){
-        $("#luckysheet-rich-text-editor").html("");
-    }
-    else{
-        value = formula.ltGtSignDeal(value);
-        $("#luckysheet-rich-text-editor").html(value);
-        if (!isnotfocus) {
-            luckysheetRangeLast($("#luckysheet-rich-text-editor")[0]);
-        }
+    value = formula.ltGtSignDeal(value);
+    $("#luckysheet-rich-text-editor").html(value);
+    if (!isnotfocus) {
+        luckysheetRangeLast($("#luckysheet-rich-text-editor")[0]);
     }
 
     if(isCenter){
