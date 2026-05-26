@@ -1,0 +1,596 @@
+import conditionformat from "../../controllers/conditionformat";
+import sheetmanage from "../../controllers/sheetmanage";
+import locale from "../../locale/locale";
+import { getSheetIndex } from "../../methods/get";
+import Store from "../../store";
+import { getObjType } from "../../utils/util";
+import { diff } from "../datecontroll";
+import { getcellvalue } from "../getdata";
+import tooltip from "../tooltip";
+import { isRealNum } from "../validate";
+import dayjs from "dayjs";
+
+export function setRangeConditionalFormatDefault(conditionName, conditionValue, options = {}) {
+    let conditionNameValues = [
+        'greaterThan',
+        'lessThan',
+        'betweenness',
+        'equal',
+        'textContains',
+        'occurrenceDate',
+        'duplicateValue',
+        'top10',
+        'top10%',
+        'last10',
+        'last10%',
+        'AboveAverage',
+        'SubAverage',
+        'regExp',
+        'sort',
+    ];
+
+    if(!conditionName || !conditionNameValues.includes(conditionName)){
+        return tooltip.info('The conditionName parameter is invalid.', '');
+    }
+
+    if(getObjType(conditionValue) != 'array' || conditionValue.length == 0){
+        return tooltip.info('The conditionValue parameter is invalid.', '');
+    }
+
+    let {
+        format = {
+            "textColor": "#000000",
+            "cellColor": "#ff0000"
+        },
+        cellrange = Store.luckysheet_select_save,
+        order = getSheetIndex(Store.currentSheetIndex),
+        success
+    } = {...options}
+
+    cellrange = JSON.parse(JSON.stringify(cellrange));
+
+    let file = Store.luckysheetfile[order];
+    let data = file.data;
+
+    if(data == null || data.length == 0){
+        data = sheetmanage.buildGridData(file);
+    }
+
+    if(file == null){
+        return tooltip.info('Incorrect worksheet index', '');
+    }
+
+    const conditionformat_Text = locale().conditionformat;
+
+    let conditionRange = [], conditionValue2 = [];
+
+    if(conditionName == 'betweenness'){
+        let v1 = conditionValue[0];
+        let v2 = conditionValue[1];
+
+        //条件值是否是选区
+        let rangeArr1 = conditionformat.getRangeByTxt(v1);
+        if(rangeArr1.length > 1){
+            conditionformat.infoDialog(conditionformat_Text.onlySingleCell, "");
+            return;
+        }
+        else if(rangeArr1.length == 1){
+            let r1 = rangeArr1[0].row[0], r2 = rangeArr1[0].row[1];
+            let c1 = rangeArr1[0].column[0], c2 = rangeArr1[0].column[1];
+
+            if(r1 == r2 && c1 == c2){
+                v1 = getcellvalue(r1, c1, data);
+
+                conditionRange.push({ "row": rangeArr1[0].row, "column": rangeArr1[0].column });
+                conditionValue2.push(v1);
+            }
+            else{
+                conditionformat.infoDialog(conditionformat_Text.onlySingleCell, "");
+                return;
+            }
+        }
+        else if(rangeArr1.length == 0){
+            if(isNaN(v1) || v1 == ""){
+                conditionformat.infoDialog(conditionformat_Text.conditionValueCanOnly, "");
+                return;
+            }
+            else{
+                conditionValue2.push(v1);
+            }
+        }
+
+        let rangeArr2 = conditionformat.getRangeByTxt(v2);
+        if(rangeArr2.length > 1){
+            conditionformat.infoDialog(conditionformat_Text.onlySingleCell, "");
+            return;
+        }
+        else if(rangeArr2.length == 1){
+            let r1 = rangeArr2[0].row[0], r2 = rangeArr2[0].row[1];
+            let c1 = rangeArr2[0].column[0], c2 = rangeArr2[0].column[1];
+
+            if(r1 == r2 && c1 == c2){
+                v2 = getcellvalue(r1, c1, data);
+
+                conditionRange.push({ "row": rangeArr2[0].row, "column": rangeArr2[0].column });
+                conditionValue2.push(v2);
+            }
+            else{
+                conditionformat.infoDialog(conditionformat_Text.onlySingleCell, "");
+                return;
+            }
+        }
+        else if(rangeArr2.length == 0){
+            if(isNaN(v2) || v2 == ""){
+                conditionformat.infoDialog(conditionformat_Text.conditionValueCanOnly, "");
+                return;
+            }
+            else{
+                conditionValue2.push(v2);
+            }
+        }
+    }
+    else if(conditionName == 'greaterThan' || conditionName == 'lessThan' || conditionName == 'equal'){
+        let v = conditionValue[0];
+
+        //条件值是否是选区
+        let rangeArr = conditionformat.getRangeByTxt(v);
+        if(rangeArr.length > 1){
+            conditionformat.infoDialog(conditionformat_Text.onlySingleCell, "");
+            return;
+        }
+        else if(rangeArr.length == 1){
+            let r1 = rangeArr[0].row[0], r2 = rangeArr[0].row[1];
+            let c1 = rangeArr[0].column[0], c2 = rangeArr[0].column[1];
+
+            if(r1 == r2 && c1 == c2){
+                v = getcellvalue(r1, c1, data);
+
+                conditionRange.push({ "row": rangeArr[0].row, "column": rangeArr[0].column });
+                conditionValue2.push(v);
+            }
+            else{
+                conditionformat.infoDialog(conditionformat_Text.onlySingleCell, "");
+                return;
+            }
+        }
+        else if(rangeArr.length == 0){
+            if(isNaN(v) || v == ""){
+                conditionformat.infoDialog(conditionformat_Text.conditionValueCanOnly, "");
+                return;
+            }
+            else{
+                conditionValue2.push(v);
+            }
+        }
+    }
+    else if(conditionName == 'textContains'){
+        let v = conditionValue[0];
+
+        //条件值是否是选区
+        let rangeArr = conditionformat.getRangeByTxt(v);
+        if(rangeArr.length > 1){
+            conditionformat.infoDialog(conditionformat_Text.onlySingleCell, "");
+            return;
+        }
+        else if(rangeArr.length == 1){
+            let r1 = rangeArr[0].row[0], r2 = rangeArr[0].row[1];
+            let c1 = rangeArr[0].column[0], c2 = rangeArr[0].column[1];
+
+            if(r1 == r2 && c1 == c2){
+                v = getcellvalue(r1, c1, data);
+
+                conditionRange.push({ "row": rangeArr[0].row, "column": rangeArr[0].column });
+                conditionValue2.push(v);
+            }
+            else{
+                conditionformat.infoDialog(conditionformat_Text.onlySingleCell, "");
+                return;
+            }
+        }
+        else if(rangeArr.length == 0){
+            if(v == ""){
+                conditionformat.infoDialog(conditionformat_Text.conditionValueCanOnly, "");
+                return;
+            }
+            else{
+                conditionValue2.push(v);
+            }
+        }
+    }
+    else if(conditionName == 'occurrenceDate'){
+        let v1 = conditionValue[0];
+        let v2 = conditionValue[1];
+
+        if(!isdatetime(v1) || !isdatetime(v2)){
+            return tooltip.info('The conditionValue parameter is invalid.', '');
+        }
+
+        let v;
+        if(diff(v1, v2) > 0){
+            v = dayjs(v2).format("YYYY/MM/DD") + "-" + dayjs(v1).format("YYYY/MM/DD");
+        }
+        else{
+            v = dayjs(v1).format("YYYY/MM/DD") + "-" + dayjs(v2).format("YYYY/MM/DD");
+        }
+
+        conditionValue2.push(v);
+    }
+    else if(conditionName == 'duplicateValue'){
+        let v = conditionValue[0];
+
+        if(v != '0' || v != '1'){
+            return tooltip.info('The conditionValue parameter is invalid.', '');
+        }
+
+        conditionValue2.push(v);
+    }
+    else if(conditionName == 'top10' || conditionName == 'top10%' || conditionName == 'last10' || conditionName == 'last10%'){
+        let v = conditionValue[0];
+
+        if(parseInt(v) != v || parseInt(v) < 1 || parseInt(v) > 1000){
+            conditionformat.infoDialog(conditionformat_Text.pleaseEnterInteger, "");
+            return;
+        }
+
+        conditionValue2.push(parseInt(v));
+    }
+    else if(conditionName == 'AboveAverage' || conditionName == 'SubAverage'){
+        conditionValue2.push(conditionName);
+    }
+    else if(conditionName == 'regExp') {
+        conditionValue2.push(...conditionValue);
+    }
+    else if(conditionName == 'sort') {
+        conditionValue2.push(...conditionValue);
+    }
+
+    if(!format.hasOwnProperty("textColor") || !format.hasOwnProperty("cellColor")){
+        return tooltip.info('The format parameter is invalid.', '');
+    }
+
+    if(getObjType(cellrange) == 'string'){
+        cellrange = conditionformat.getRangeByTxt(cellrange);
+    }
+    else if(getObjType(cellrange) == 'object'){
+        cellrange = [cellrange];
+    }
+
+    if(getObjType(cellrange) != 'array'){
+        return tooltip.info('The cellrange parameter is invalid.', '');
+    }
+
+    let rule = {
+        "type": "default",
+        "cellrange": cellrange,
+        "format": format,
+        "conditionName": conditionName,
+        "conditionRange": conditionRange,
+        "conditionValue": conditionValue2
+    };
+
+    //保存之前的规则
+    let fileH = $.extend(true, [], Store.luckysheetfile);
+    let historyRules = conditionformat.getHistoryRules(fileH);
+
+    //保存当前的规则
+    let ruleArr = file["luckysheet_conditionformat_save"] || [];
+    ruleArr.push(rule);
+    file["luckysheet_conditionformat_save"] = ruleArr;
+
+    let fileC = $.extend(true, [], Store.luckysheetfile);
+    let currentRules = conditionformat.getCurrentRules(fileC);
+
+    //刷新一次表格
+    conditionformat.ref(historyRules, currentRules);
+
+    if (success && typeof success === 'function') {
+        success();
+    }
+}
+
+export function setRangeConditionalFormat(type, options = {}) {
+    let typeValues = [
+        'dataBar',
+        'colorGradation',
+        'icons'
+    ];
+
+    if(!type || !typeValues.includes(type)){
+        return tooltip.info('The type parameter is invalid.', '');
+    }
+
+    let {
+        format,
+        cellrange = Store.luckysheet_select_save,
+        order = getSheetIndex(Store.currentSheetIndex),
+        success
+    } = {...options}
+
+    cellrange = JSON.parse(JSON.stringify(cellrange));
+    let file = Store.luckysheetfile[order];
+
+    if(file == null){
+        return tooltip.info('Incorrect worksheet index', '');
+    }
+
+    if(type == 'dataBar'){
+        if(format == null){
+            format = ["#638ec6", "#ffffff"];
+        }
+
+        if(getObjType(format) != 'array' || format.length < 1 || format.length > 2){
+            return tooltip.info('The format parameter is invalid.', '');
+        }
+    }
+    else if(type == 'colorGradation'){
+        if(format == null){
+            format = ["rgb(99, 190, 123)", "rgb(255, 235, 132)", "rgb(248, 105, 107)"];
+        }
+
+        if(getObjType(format) != 'array' || format.length < 2 || format.length > 3){
+            return tooltip.info('The format parameter is invalid.', '');
+        }
+    }
+    else if(type == 'icons'){
+        if(format == null){
+            format = "threeWayArrowMultiColor";
+        }
+
+        let formatValues = [
+            'threeWayArrowMultiColor',
+            'threeTriangles',
+            'fourWayArrowMultiColor',
+            'fiveWayArrowMultiColor',
+            'threeWayArrowGrayColor',
+            'fourWayArrowGrayColor',
+            'fiveWayArrowGrayColor',
+            'threeColorTrafficLightRimless',
+            'threeSigns',
+            'greenRedBlackGradient',
+            'threeColorTrafficLightBordered',
+            'fourColorTrafficLight',
+            'threeSymbolsCircled',
+            'tricolorFlag',
+            'threeSymbolsnoCircle',
+            'threeStars',
+            'fiveQuadrantDiagram',
+            'fiveBoxes',
+            'grade4',
+            'grade5'
+        ];
+
+        if(getObjType(format) != 'string' || !formatValues.includes(format)){
+            return tooltip.info('The format parameter is invalid.', '');
+        }
+
+        switch (format) {
+            case 'threeWayArrowMultiColor':
+                format = {
+                    "len": 3,
+                    "leftMin": 0,
+                    "top": 0
+                };
+                break;
+            case 'threeTriangles':
+                format = {
+                    "len": 3,
+                    "leftMin": 0,
+                    "top": 1
+                };
+                break;
+            case 'fourWayArrowMultiColor':
+                format = {
+                    "len": 4,
+                    "leftMin": 0,
+                    "top": 2
+                };
+                break;
+            case 'fiveWayArrowMultiColor':
+                format = {
+                    "len": 5,
+                    "leftMin": 0,
+                    "top": 3
+                };
+                break;
+            case 'threeWayArrowGrayColor':
+                format = {
+                    "len": 3,
+                    "leftMin": 5,
+                    "top": 0
+                };
+                break;
+            case 'fourWayArrowGrayColor':
+                format = {
+                    "len": 4,
+                    "leftMin": 5,
+                    "top": 1
+                };
+                break;
+            case 'fiveWayArrowGrayColor':
+                format = {
+                    "len": 5,
+                    "leftMin": 5,
+                    "top": 2
+                };
+                break;
+            case 'threeColorTrafficLightRimless':
+                format = {
+                    "len": 3,
+                    "leftMin": 0,
+                    "top": 4
+                };
+                break;
+            case 'threeSigns':
+                format = {
+                    "len": 3,
+                    "leftMin": 0,
+                    "top": 5
+                };
+                break;
+            case 'greenRedBlackGradient':
+                format = {
+                    "len": 4,
+                    "leftMin": 0,
+                    "top": 6
+                };
+                break;
+            case 'threeColorTrafficLightBordered':
+                format = {
+                    "len": 3,
+                    "leftMin": 5,
+                    "top": 4
+                };
+                break;
+            case 'fourColorTrafficLight':
+                format = {
+                    "len": 4,
+                    "leftMin": 5,
+                    "top": 5
+                };
+                break;
+            case 'threeSymbolsCircled':
+                format = {
+                    "len": 3,
+                    "leftMin": 0,
+                    "top": 7
+                };
+                break;
+            case 'tricolorFlag':
+                format = {
+                    "len": 3,
+                    "leftMin": 0,
+                    "top": 8
+                };
+                break;
+            case 'threeSymbolsnoCircle':
+                format = {
+                    "len": 3,
+                    "leftMin": 5,
+                    "top": 7
+                };
+                break;
+            case 'threeStars':
+                format = {
+                    "len": 3,
+                    "leftMin": 0,
+                    "top": 9
+                };
+                break;
+            case 'fiveQuadrantDiagram':
+                format = {
+                    "len": 5,
+                    "leftMin": 0,
+                    "top": 10
+                };
+                break;
+            case 'fiveBoxes':
+                format = {
+                    "len": 5,
+                    "leftMin": 0,
+                    "top": 11
+                };
+                break;
+            case 'grade4':
+                format = {
+                    "len": 4,
+                    "leftMin": 5,
+                    "top": 9
+                };
+                break;
+            case 'grade5':
+                format = {
+                    "len": 5,
+                    "leftMin": 5,
+                    "top": 10
+                };
+                break;
+        }
+    }
+
+    if(getObjType(cellrange) == 'string'){
+        cellrange = conditionformat.getRangeByTxt(cellrange);
+    }
+    else if(getObjType(cellrange) == 'object'){
+        cellrange = [cellrange];
+    }
+
+    if(getObjType(cellrange) != 'array'){
+        return tooltip.info('The cellrange parameter is invalid.', '');
+    }
+
+    let rule = {
+        "type": type,
+        "cellrange": cellrange,
+        "format": format
+    };
+
+    //保存之前的规则
+    let fileH = $.extend(true, [], Store.luckysheetfile);
+    let historyRules = conditionformat.getHistoryRules(fileH);
+
+    //保存当前的规则
+    let ruleArr = file["luckysheet_conditionformat_save"] || [];
+    ruleArr.push(rule);
+    file["luckysheet_conditionformat_save"] = ruleArr;
+
+    let fileC = $.extend(true, [], Store.luckysheetfile);
+    let currentRules = conditionformat.getCurrentRules(fileC);
+
+    //刷新一次表格
+    conditionformat.ref(historyRules, currentRules);
+
+    if (success && typeof success === 'function') {
+        success();
+    }
+}
+
+export function deleteRangeConditionalFormat(itemIndex, options = {}) {
+    if(!isRealNum(itemIndex)){
+        return tooltip.info('The itemIndex parameter is invalid.', '');
+    }
+
+    itemIndex = Number(itemIndex);
+
+    let {
+        order = getSheetIndex(Store.currentSheetIndex),
+        success
+    } = {...options}
+
+    let file = Store.luckysheetfile[order];
+
+    if(file == null){
+        return tooltip.info('The order parameter is invalid.', '');
+    }
+
+    let cdformat = $.extend(true, [], file.luckysheet_conditionformat_save);
+
+    if(cdformat.length == 0){
+        return tooltip.info('This worksheet has no conditional format to delete', '');
+    }
+    else if(cdformat[itemIndex] == null){
+        return tooltip.info('The conditional format of the index cannot be found', '');
+    }
+
+    let cdformatItem = cdformat.splice(itemIndex, 1);
+
+    //保存之前的规则
+    let fileH = $.extend(true, [], Store.luckysheetfile);
+    let historyRules = conditionformat.getHistoryRules(fileH);
+
+    //保存当前的规则
+    file["luckysheet_conditionformat_save"] = cdformat;
+
+    let fileC = $.extend(true, [], Store.luckysheetfile);
+    let currentRules = conditionformat.getCurrentRules(fileC);
+
+    //刷新一次表格
+    conditionformat.ref(historyRules, currentRules);
+
+    setTimeout(() => {
+        if (success && typeof success === 'function') {
+            success();
+        }
+    }, 1);
+
+    return cdformatItem;
+}
