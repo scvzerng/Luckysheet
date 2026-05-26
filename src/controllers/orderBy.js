@@ -2,7 +2,6 @@
 import { modelHTML } from './constant';
 
 import { selectHightlightShow } from './select';
-import {checkProtectionAuthorityNormal} from './protection';
 import { 
     replaceHtml,
     chatatABC, 
@@ -40,10 +39,6 @@ export function orderByInitial(){
     //排序事件
     let luckysheet_sort_initial = true;
     $("#luckysheetorderby").click(function () {
-
-        if(!checkProtectionAuthorityNormal(Store.currentSheetIndex, "sort")){
-            return;
-        }
 
         $("body .luckysheet-cols-menu").hide();
         const locale_sort = _locale.sort;

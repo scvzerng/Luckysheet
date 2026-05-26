@@ -12,7 +12,6 @@ import tooltip from "../global/tooltip";
 import func_methods from "../global/func_methods";
 import Store from "../store";
 import locale from "../locale/locale";
-import { checkProtectionLocked } from "./protection";
 import escapeHtml from "escape-html";
 
 //查找替换
@@ -655,10 +654,6 @@ const luckysheetSearchReplace = {
 
             let v = replaceText;
 
-            if (!checkProtectionLocked(r, c, Store.currentSheetIndex)) {
-                return;
-            }
-
             setcellvalue(r, c, d, v);
         } else {
             let reg;
@@ -670,10 +665,6 @@ const luckysheetSearchReplace = {
 
             r = searchIndexArr[count].r;
             c = searchIndexArr[count].c;
-
-            if (!checkProtectionLocked(r, c, Store.currentSheetIndex)) {
-                return;
-            }
 
             let v = valueShowEs(r, c, d)
                 .toString()
@@ -791,10 +782,6 @@ const luckysheetSearchReplace = {
                 let r = searchIndexArr[i].r;
                 let c = searchIndexArr[i].c;
 
-                if (!checkProtectionLocked(r, c, Store.currentSheetIndex, false)) {
-                    continue;
-                }
-
                 let v = replaceText;
 
                 setcellvalue(r, c, d, v);
@@ -813,10 +800,6 @@ const luckysheetSearchReplace = {
             for (let i = 0; i < searchIndexArr.length; i++) {
                 let r = searchIndexArr[i].r;
                 let c = searchIndexArr[i].c;
-
-                if (!checkProtectionLocked(r, c, Store.currentSheetIndex, false)) {
-                    continue;
-                }
 
                 let v = valueShowEs(r, c, d)
                     .toString()

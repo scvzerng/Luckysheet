@@ -1,4 +1,4 @@
-import Store from "../store";
+﻿import Store from "../store";
 import { replaceHtml, getObjType, chatatABC, luckysheetactiveCell } from "../utils/util";
 import { getSheetIndex, getluckysheet_select_save, getluckysheetfile } from "../methods/get";
 import locale from "../locale/locale";
@@ -21,8 +21,6 @@ import { isRealNull, valueIsError, isRealNum, isEditMode, hasPartMC } from "./va
 import { isdatetime, diff } from "./datecontroll";
 import { getBorderInfoCompute } from './border';
 import { luckysheetDrawMain } from './draw';
-import pivotTable from '../controllers/pivotTable';
-import server from "../controllers/server";
 import menuButton from '../controllers/menuButton';
 import selection from "../controllers/selection";
 import luckysheetConfigsetting from "../controllers/luckysheetConfigsetting";
@@ -36,7 +34,6 @@ import { sheetHTML, luckysheetdefaultstyle } from '../controllers/constant';
 import { createFilterOptions } from '../controllers/filter';
 import controlHistory from '../controllers/controlHistory';
 import { zoomRefreshView, zoomNumberDomBind } from '../controllers/zoom';
-import dataVerificationCtrl from "../controllers/dataVerificationCtrl";
 import imageCtrl from '../controllers/imageCtrl';
 import dayjs from "dayjs";
 import {getRangetxt } from '../methods/get';
@@ -1310,7 +1307,6 @@ export function hideRowOrColumn(type, startIndex, endIndex, options = {}) {
     let curSheetOrder = getSheetIndex(Store.currentSheetIndex);
     let {
         order = curSheetOrder,
-        saveParam = true,
         success
     } = {...options}
 
@@ -1338,10 +1334,6 @@ export function hideRowOrColumn(type, startIndex, endIndex, options = {}) {
     }
 
     Store.luckysheetfile[order].config = cfg;
-
-    if (saveParam) {
-        server.saveParam("cg", file.index, cfg[cfgKey], { "k": cfgKey });
-    }
 
     // 若操作sheet为当前sheet页，行高、列宽 刷新
     if (order == curSheetOrder) {
@@ -1372,7 +1364,6 @@ export function showRowOrColumn(type, startIndex, endIndex, options = {}) {
     let curSheetOrder = getSheetIndex(Store.currentSheetIndex);
     let {
         order = curSheetOrder,
-        saveParam = true,
         success
     } = {...options}
 
@@ -1401,10 +1392,6 @@ export function showRowOrColumn(type, startIndex, endIndex, options = {}) {
 
     //config
     Store.luckysheetfile[order].config = Store.config;
-
-    if (saveParam) {
-        server.saveParam("cg", file.index, cfg[cfgKey], { "k": cfgKey });
-    }
 
     // 若操作sheet为当前sheet页，行高、列宽 刷新
     if (order === curSheetOrder) {
@@ -1510,7 +1497,6 @@ export function setRowHeight(rowInfo, options = {}) {
 
     file.config = cfg;
 
-    server.saveParam("cg", file.index, cfg["rowlen"], { "k": "rowlen" });
 
     if(file.index == Store.currentSheetIndex){
         Store.config = cfg;
@@ -1567,7 +1553,6 @@ export function setColumnWidth(columnInfo, options = {}) {
 
     file.config = cfg;
 
-    server.saveParam("cg", file.index, cfg["columnlen"], { "k": "columnlen" });
 
     if(file.index == Store.currentSheetIndex){
         Store.config = cfg;
@@ -3932,11 +3917,6 @@ export function setRangeConditionalFormatDefault(conditionName, conditionValue, 
     //刷新一次表格
     conditionformat.ref(historyRules, currentRules);
 
-    //发送给后台
-    if(server.allowUpdate){
-        server.saveParam("all", file.index, ruleArr, { "k": "luckysheet_conditionformat_save" });
-    }
-
     if (success && typeof success === 'function') {
         success();
     }
@@ -4203,11 +4183,6 @@ export function setRangeConditionalFormat(type, options = {}) {
     //刷新一次表格
     conditionformat.ref(historyRules, currentRules);
 
-    //发送给后台
-    if(server.allowUpdate){
-        server.saveParam("all", file.index, ruleArr, { "k": "luckysheet_conditionformat_save" });
-    }
-
     if (success && typeof success === 'function') {
         success();
     }
@@ -4262,11 +4237,6 @@ export function deleteRangeConditionalFormat(itemIndex, options = {}) {
 
     //刷新一次表格
     conditionformat.ref(historyRules, currentRules);
-
-    //发送给后台
-    if(server.allowUpdate){
-        server.saveParam("all", file.index, ruleArr, { "k": "luckysheet_conditionformat_save" });
-    }
 
     setTimeout(() => {
         if (success && typeof success === 'function') {
@@ -4984,8 +4954,6 @@ export function setSheetAdd(options = {}) {
     $("#luckysheet-cell-main").append('<div id="luckysheet-datavisual-selection-set-' + index + '" class="luckysheet-datavisual-selection-set"></div>');
     cleargridelement(true);
 
-    server.saveParam("sha", null, $.extend(true, {}, sheetconfig));
-    server.saveParam("shr", null, orders);
 
     if (Store.clearjfundo) {
         Store.jfundo.length  = 0;
@@ -5102,7 +5070,6 @@ export function setSheetCopy(options = {}) {
     $("#luckysheet-cell-main").append('<div id="luckysheet-datavisual-selection-set-' + index + '" class="luckysheet-datavisual-selection-set"></div>');
     cleargridelement(true);
 
-    server.saveParam("shc", index, { "copyindex": copyindex, "name": copyjson.name });
 
     sheetmanage.changeSheetExec(index);
     sheetmanage.reOrderAllSheet();
@@ -5221,7 +5188,6 @@ export function setSheetActive(order, options = {}) {
             success();
         }
     }, 1);
-    server.multipleRangeShow()
     return file;
 }
 
@@ -5254,7 +5220,6 @@ export function setSheetName(name, options = {}) {
 
     $("#luckysheet-sheets-item" + file.index + " .luckysheet-sheets-item-name").text(name);
 
-    server.saveParam("all", file.index, name, { "k": "name" });
 
     if (Store.clearjfundo) {
         let redo = {};
@@ -5303,7 +5268,6 @@ export function setSheetColor(color, options = {}) {
     $("#luckysheet-sheets-item" + file.index).find(".luckysheet-sheets-item-color").remove();
     $("#luckysheet-sheets-item" + file.index).append('<div class="luckysheet-sheets-item-color" style=" position: absolute; width: 100%; height: 3px; bottom: 0px; left: 0px; background-color: ' + color + ';"></div>');
 
-    server.saveParam("all", file.index, color, { "k": "color" });
 
     if (Store.clearjfundo) {
         let redo = {};
@@ -5408,7 +5372,6 @@ export function setSheetMove(type, options = {}) {
         orders[item.index.toString()] = i;
     })
 
-    server.saveParam("shr", null, orders);
 
     if (success && typeof success === 'function') {
         success();
@@ -5462,7 +5425,6 @@ export function setSheetOrder(orderList, options = {}) {
         }
     })
 
-    server.saveParam("shr", null, orders);
 
     let {
         success
@@ -5499,7 +5461,6 @@ export function setSheetZoom(zoom, options = {}) {
 
     file["zoomRatio"] = zoom;
 
-    server.saveParam("all", file.index, zoom, { "k": "zoomRatio" });
 
     if(file.index == Store.currentSheetIndex){
         Store.zoomRatio = zoom;
@@ -6084,304 +6045,6 @@ export function getLuckysheetfile(){
 
 
 /**
- * 指定工作表范围设置数据验证功能，并设置参数
- * @param {Object} optionItem 数据验证的配置信息
- * @param {String} optionItem.type 类型
- * @param {String | Null} optionItem.type2 条件类型
- * @param {String | Number} optionItem.value1 条件值1
- * @param {String | Number} optionItem.value2 条件值2
- * @param {Boolean} optionItem.checked 选中状态
- * @param {Boolean} optionItem.remote 自动远程获取选项
- * @param {Boolean} optionItem.prohibitInput 输入数据无效时禁止输入
- * @param {Boolean} optionItem.hintShow 选中单元格时显示提示语
- * @param {String} optionItem.hintText 提示语文本
- * @param {Object} options 可选参数
- * @param {Array | Object | String} options.range 选区范围；默认为当前选区
- * @param {Number} options.order 工作表下标；默认值为当前工作表下标
- * @param {Function} options.success 操作结束的回调函数
- */
-export function setDataVerification(optionItem, options = {}) {
-    if(getObjType(optionItem) != 'object'){
-        return tooltip.info("The optionItem parameter is invalid.", "");
-    }
-
-    let {
-        type,
-        type2 = null,
-        value1 = '',
-        value2 = '',
-        remote = false,
-        prohibitInput = false,
-        hintShow = false,
-        hintText = '',
-        checked = false
-    } = {...optionItem}
-
-    let typeValues = ["dropdown", "checkbox", "number", "number_integer", "number_decimal", "text_content", "text_length", "date", "validity"];
-    let type2Values_1 = ["bw", "nb", "eq", "ne", "gt", "lt", "gte", "lte"];
-    let type2Values_2 = ["include", "exclude", "equal"];
-    let type2Values_3 = ["bw", "nb", "eq", "ne", "bf", "nbf", "af", "naf"];
-    let type2Values_4 = ["card", "phone"];
-
-    if(!typeValues.includes(type)){
-        return tooltip.info("The optionItem.type parameter is invalid.", "");
-    }
-
-    let dvText = locale().dataVerification;
-
-    if(type == 'dropdown'){
-        if(value1.length == 0){
-            tooltip.info('<i class="fa fa-exclamation-triangle"></i>', dvText.tooltipInfo1);
-            return;
-        }
-    }
-    else if(type == 'checkbox'){
-        if(value1.length == 0 || value2.length == 0){
-            tooltip.info('<i class="fa fa-exclamation-triangle"></i>', dvText.tooltipInfo2);
-            return;
-        }
-    }
-    else if(type == 'number' || type == 'number_integer' || type == 'number_decimal'){
-        if(!type2Values_1.includes(type2)){
-            return tooltip.info("The optionItem.type2 parameter is invalid.", "");
-        }
-
-        if(!isRealNum(value1)){
-            tooltip.info('<i class="fa fa-exclamation-triangle"></i>', dvText.tooltipInfo3);
-            return;
-        }
-
-        if(type2 == 'bw' || type2 == 'nb'){
-            if(!isRealNum(value2)){
-                tooltip.info('<i class="fa fa-exclamation-triangle"></i>', dvText.tooltipInfo3);
-                return;
-            }
-
-            if(Number(value2) < Number(value1)){
-                tooltip.info('<i class="fa fa-exclamation-triangle"></i>', dvText.tooltipInfo4);
-                return;
-            }
-        }
-    }
-    else if(type == 'text_content'){
-        if(!type2Values_2.includes(type2)){
-            return tooltip.info("The optionItem.type2 parameter is invalid.", "");
-        }
-
-        if(value1.length == 0){
-            tooltip.info('<i class="fa fa-exclamation-triangle"></i>', dvText.tooltipInfo5);
-            return;
-        }
-    }
-    else if(type == 'text_length'){
-        if(!type2Values_1.includes(type2)){
-            return tooltip.info("The optionItem.type2 parameter is invalid.", "");
-        }
-
-        if(!isRealNum(value1)){
-            tooltip.info('<i class="fa fa-exclamation-triangle"></i>', dvText.tooltipInfo3);
-            return;
-        }
-
-        if(type2 == 'bw' || type2 == 'nb'){
-            if(!isRealNum(value2)){
-                tooltip.info('<i class="fa fa-exclamation-triangle"></i>', dvText.tooltipInfo3);
-                return;
-            }
-
-            if(Number(value2) < Number(value1)){
-                tooltip.info('<i class="fa fa-exclamation-triangle"></i>', dvText.tooltipInfo4);
-                return;
-            }
-        }
-    }
-    else if(type == 'date'){
-        if(!type2Values_3.includes(type2)){
-            return tooltip.info("The optionItem.type2 parameter is invalid.", "");
-        }
-
-        if(!isdatetime(value1)){
-            tooltip.info('<i class="fa fa-exclamation-triangle"></i>', dvText.tooltipInfo6);
-            return;
-        }
-
-        if(type2 == 'bw' || type2 == 'nb'){
-            if(!isdatetime(value2)){
-                tooltip.info('<i class="fa fa-exclamation-triangle"></i>', dvText.tooltipInfo6);
-                return;
-            }
-
-            if(diff(value1, value2) > 0){
-                tooltip.info('<i class="fa fa-exclamation-triangle"></i>', dvText.tooltipInfo7);
-                return;
-            }
-        }
-    }
-    else if(type == 'validity'){
-        if(!type2Values_4.includes(type2)){
-            return tooltip.info("The optionItem.type2 parameter is invalid.", "");
-        }
-    }
-
-    if(getObjType(remote) != 'boolean'){
-        return tooltip.info("The optionItem.remote parameter is invalid.", "");
-    }
-
-    if(getObjType(prohibitInput) != 'boolean'){
-        return tooltip.info("The optionItem.prohibitInput parameter is invalid.", "");
-    }
-
-    if(getObjType(hintShow) != 'boolean'){
-        return tooltip.info("The optionItem.hintShow parameter is invalid.", "");
-    }
-
-    let {
-        range = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1],
-        order = getSheetIndex(Store.currentSheetIndex),
-        success
-    } = {...options}
-
-    if(getObjType(range) == 'string'){
-        if(!formula.iscelldata(range)){
-            return tooltip.info("The range parameter is invalid.", "");
-        }
-
-        let cellrange = formula.getcellrange(range);
-        range = {
-            "row": cellrange.row,
-            "column": cellrange.column
-        };
-    }
-
-    if(getObjType(range) != 'object' || range.row == null || range.column == null){
-        return tooltip.info("The range parameter is invalid.", "");
-    }
-
-    let file = Store.luckysheetfile[order];
-
-    if(file == null){
-        return tooltip.info("The order parameter is invalid.", "");
-    }
-
-    let item = {
-        type: type,
-        type2: type2,
-        value1: value1,
-        value2: value2,
-        checked: checked,
-        remote: remote,
-        prohibitInput: prohibitInput,
-        hintShow: hintShow,
-        hintText: hintText,
-    }
-
-    let currentDataVerification = $.extend(true, {}, file.dataVerification);
-
-    let data = $.extend(true, [], file.data);
-    if(data.length == 0){
-        data = sheetmanage.buildGridData(file);
-    }
-
-    let str = range.row[0],
-        edr = range.row[1],
-        stc = range.column[0],
-        edc = range.column[1];
-
-    for(let r = str; r <= edr; r++){
-        for(let c = stc; c <= edc; c++){
-            currentDataVerification[r + '_' + c] = item;
-
-            if(type == 'checkbox'){
-                item.checked ? setcellvalue(r, c, data, item.value1) : setcellvalue(r, c, data, item.value2);
-            }
-        }
-    }
-
-    if(file.index == Store.currentSheetIndex){
-        let historyDataVerification = $.extend(true, {}, file.dataVerification);
-
-        if(type == 'checkbox'){
-            dataVerificationCtrl.refOfCheckbox(historyDataVerification, currentDataVerification, Store.currentSheetIndex, data, range);
-        }
-        else{
-            dataVerificationCtrl.ref(historyDataVerification, currentDataVerification, Store.currentSheetIndex);
-        }
-    }
-    else{
-        file.dataVerification = currentDataVerification;
-        file.data = data;
-    }
-
-    if (success && typeof success === 'function') {
-        success();
-    }
-}
-
-
-/**
- * 指定工作表范围删除数据验证功能
- * @param {Object} options 可选参数
- * @param {Array | Object | String} options.range 选区范围；默认为当前选区
- * @param {Number} options.order 工作表下标；默认值为当前工作表下标
- * @param {Function} options.success 操作结束的回调函数
- */
-export function deleteDataVerification(options = {}) {
-    let {
-        range = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1],
-        order = getSheetIndex(Store.currentSheetIndex),
-        success
-    } = {...options}
-
-    if(getObjType(range) == 'string'){
-        if(!formula.iscelldata(range)){
-            return tooltip.info("The range parameter is invalid.", "");
-        }
-
-        let cellrange = formula.getcellrange(range);
-        range = {
-            "row": cellrange.row,
-            "column": cellrange.column
-        };
-    }
-
-    if(getObjType(range) != 'object' || range.row == null || range.column == null){
-        return tooltip.info("The range parameter is invalid.", "");
-    }
-
-    let file = Store.luckysheetfile[order];
-
-    if(file == null){
-        return tooltip.info("The order parameter is invalid.", "");
-    }
-
-    let currentDataVerification = $.extend(true, {}, file.dataVerification);
-
-    let str = range.row[0],
-        edr = range.row[1],
-        stc = range.column[0],
-        edc = range.column[1];
-
-    for(let r = str; r <= edr; r++){
-        for(let c = stc; c <= edc; c++){
-            delete currentDataVerification[r + '_' + c];
-        }
-    }
-
-    if(file.index == Store.currentSheetIndex){
-        let historyDataVerification = $.extend(true, {}, file.dataVerification);
-        dataVerificationCtrl.ref(historyDataVerification, currentDataVerification, Store.currentSheetIndex);
-    }
-    else{
-        file.dataVerification = currentDataVerification;
-    }
-
-    if (success && typeof success === 'function') {
-        success();
-    }
-}
-
-
-/**
  * 在指定的工作表中指定单元格位置插入图片
  * @param {String} src 图片src
  * @param {Object} options 可选参数
@@ -6756,17 +6419,6 @@ export function changLang(lang = 'zh'){
 
 
 /**
- * 关闭websocket连接
- */
-export function closeWebsocket(){
-    if(server.websocket == null){
-        return;
-    }
-    server.websocket.close(1000);
-}
-
-
-/**
  * 根据范围字符串转换为range数组
  * @param {String} txt 范围字符串
  */
@@ -6867,17 +6519,10 @@ export function updataSheet (options = {}) {
         sheetData = sheetmanage.buildGridData(file);
     file.data = sheetData
 
-    if (!!file.isPivotTable) {
-        Store.luckysheetcurrentisPivotTable = true;
-        if (!isPivotInitial) {
-            pivotTable.changePivotTable(index);
-        }
-    }
-    else{
-        Store.luckysheetcurrentisPivotTable = false;
-        $("#luckysheet-modal-dialog-slider-pivot").hide();
-        luckysheetsizeauto(false);
-    }
+    Store.luckysheetcurrentisPivotTable = false;
+    $("#luckysheet-modal-dialog-slider-pivot").hide();
+    luckysheetsizeauto(false);
+
     sheetmanage.mergeCalculation(file["index"]);
     sheetmanage.setSheetParam();
     setTimeout(function () {
@@ -6890,7 +6535,6 @@ export function updataSheet (options = {}) {
             success();
         }
     }, 1);
-    server.saveParam("shs", null, Store.currentSheetIndex);
 }
 
 /**

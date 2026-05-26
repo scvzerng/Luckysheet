@@ -1,12 +1,10 @@
-import { getObjType } from '../utils/util';
+﻿import { getObjType } from '../utils/util';
 import formula from '../global/formula';
 import { isRealNull } from '../global/validate';
 import { countfunc } from '../global/count';
 import menuButton from './menuButton';
 import { selectHightlightShow } from './select';
-import pivotTable from './pivotTable';
 import Store from '../store';
-import server from './server';
 
 function luckysheetMoveEndCell(postion, type, isScroll, terminal, onlyvalue) {
     if (isScroll == null) {
@@ -460,7 +458,6 @@ function luckysheetMoveHighlightCell(postion, index, type, isScroll) {
         last["moveXY"] = {"x": moveX,"y": moveY};
 
         selectHightlightShow();
-        pivotTable.pivotclick(row_index, col_index);
         formula.fucntionboxshow(row_index, col_index);
     }
     else if(type == "rangeOfFormula"){
@@ -628,7 +625,6 @@ function luckysheetMoveHighlightCell(postion, index, type, isScroll) {
     countfunc();
     
     // 移动单元格通知后台
-    server.saveParam("mv", Store.currentSheetIndex, Store.luckysheet_select_save);
 }
 
 //ctrl + 方向键  调整单元格
@@ -719,7 +715,6 @@ function luckysheetMoveHighlightCell2(postion, type, isScroll) {
 
         Store.luckysheet_select_save = [{"row": rowseleted, "column": columnseleted}];
         selectHightlightShow();
-        pivotTable.pivotclick(rf, cf);
         formula.fucntionboxshow(rf, cf);
     }
     else if(type == "rangeOfFormula"){

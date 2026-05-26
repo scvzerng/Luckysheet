@@ -4,10 +4,7 @@ import { setluckysheetfile } from "../methods/set";
 import { luckyColor } from "../controllers/constant";
 import sheetmanage from "../controllers/sheetmanage";
 import menuButton from "../controllers/menuButton";
-import server from "../controllers/server";
 import luckysheetFreezen from "../controllers/freezen";
-import { checkProtectionLocked, checkProtectionCellHidden } from "../controllers/protection";
-import dataVerificationCtrl from "../controllers/dataVerificationCtrl";
 import { seletedHighlistByindex, luckysheet_count_show } from "../controllers/select";
 import { isRealNum, isRealNull, valueIsError, isEditMode } from "./validate";
 import { isdatetime, isdatatype } from "./datecontroll";
@@ -346,10 +343,7 @@ const luckysheetformula = {
         return str.replace(/</g, "&lt;").replace(/>/g, "&gt;");
     },
     fucntionboxshow: function(r, c) {
-        if (!checkProtectionCellHidden(r, c, Store.currentSheetIndex)) {
-            $("#luckysheet-functionbox-cell").html("");
-            return;
-        }
+        $("#luckysheet-functionbox-cell").html("");
 
         let _this = this;
 
@@ -1313,22 +1307,6 @@ const luckysheetformula = {
 
         if (_this.rangetosheet != null && _this.rangetosheet != Store.currentSheetIndex) {
             sheetmanage.changeSheetExec(_this.rangetosheet);
-        }
-
-        if (!checkProtectionLocked(r, c, Store.currentSheetIndex)) {
-            return;
-        }
-
-        //数据验证 输入数据无效时禁止输入
-        if (dataVerificationCtrl.dataVerification != null) {
-            let dvItem = dataVerificationCtrl.dataVerification[r + "_" + c];
-
-            if (dvItem != null && dvItem.prohibitInput && !dataVerificationCtrl.validateCellData(inputText, dvItem)) {
-                let failureText = dataVerificationCtrl.getFailureText(dvItem);
-                tooltip.info(failureText, "");
-                _this.cancelNormalSelected();
-                return;
-            }
         }
 
         let curv = Store.flowdata[r][c];
@@ -4396,10 +4374,6 @@ const luckysheetformula = {
         };
         file.calcChain.push(cc);
 
-        server.saveParam("fc", index, JSON.stringify(cc), {
-            op: "add",
-            pos: file.calcChain.length - 1,
-        });
         setluckysheetfile(luckysheetfile);
     },
     getAllFunctionGroup: function() {
@@ -4472,10 +4446,6 @@ const luckysheetformula = {
             for (let i = 0; i < calcChain.length; i++) {
                 let calc = calcChain[i];
                 if (calc.r == r && calc.c == c && calc.index == index) {
-                    server.saveParam("fc", index, JSON.stringify(calc), {
-                        op: "update",
-                        pos: i,
-                    });
                     break;
                 }
             }
@@ -4505,10 +4475,6 @@ const luckysheetformula = {
         for (let i = 0; i < calcChain.length; i++) {
             let calc = calcChain[i];
             if (calc.r == r && calc.c == c && calc.index == index) {
-                server.saveParam("fc", index, JSON.stringify(calc), {
-                    op: "update",
-                    pos: i,
-                });
                 return;
             }
         }
@@ -4521,10 +4487,6 @@ const luckysheetformula = {
         calcChain.push(cc);
         file.calcChain = calcChain;
 
-        server.saveParam("fc", index, JSON.stringify(cc), {
-            op: "add",
-            pos: file.calcChain.length - 1,
-        });
         setluckysheetfile(luckysheetfile);
     },
     isFunctionRangeSave: false,
@@ -5917,10 +5879,6 @@ const luckysheetformula = {
                 updateValue.v = item.v;
                 updateValue.f = item.f;
                 const cell = setcellvalue(item.r, item.c, data, updateValue);
-                server.saveParam("v", item.index, cell, {
-                    r: item.r,
-                    c: item.c,
-                });
             }
 
             editor.webWorkerFlowDataCache(Store.flowdata); //worker存数据
@@ -5941,10 +5899,6 @@ const luckysheetformula = {
                 let calc = calcChain[i];
                 if (calc.r == r && calc.c == c && calc.index == index) {
                     calcChain.splice(i, 1);
-                    server.saveParam("fc", index, null, {
-                        op: "del",
-                        pos: i,
-                    });
                     break;
                 }
             }
@@ -5956,10 +5910,6 @@ const luckysheetformula = {
                 let calc = dynamicArray[i];
                 if (calc.r == r && calc.c == c && (calc.index == null || calc.index == index)) {
                     dynamicArray.splice(i, 1);
-                    server.saveParam("ac", index, null, {
-                        op: "del",
-                        pos: i,
-                    });
                     break;
                 }
             }

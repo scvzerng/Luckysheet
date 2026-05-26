@@ -1,4 +1,4 @@
-
+﻿
 import { getSheetIndex, getRangetxt } from '../methods/get';
 import { replaceHtml } from '../utils/util';
 import formula from '../global/formula';
@@ -7,7 +7,6 @@ import tooltip from '../global/tooltip';
 import { luckysheetrefreshgrid } from '../global/refresh';
 import { luckysheetAlternateformatHtml, modelHTML } from './constant';
 import luckysheetsizeauto from './resize';
-import server from './server';
 import { selectHightlightShow } from './select';
 import Store from '../store';
 import locale from '../locale/locale';
@@ -551,9 +550,6 @@ const alternateformat = {
             else{
                 file["luckysheet_alternateformat_save_modelCustom"][index - len] = format;
 
-                if(server.allowUpdate){
-                    server.saveParam("all", Store.currentSheetIndex, file["luckysheet_alternateformat_save_modelCustom"], { "k": "luckysheet_alternateformat_save_modelCustom" });
-                }
             }
 
             _this.getModelBox(hasRowHeader, hasRowFooter);
@@ -584,10 +580,6 @@ const alternateformat = {
             
             //刷新一次表格
             _this.ref(historyRules, currentRules);
-
-            if(server.allowUpdate){
-                server.saveParam("all", Store.currentSheetIndex, ruleArr, { "k": "luckysheet_alternateformat_save" });
-            }
 
             //隐藏一些dom
             $("#luckysheet-modal-dialog-mask").hide();
@@ -706,9 +698,6 @@ const alternateformat = {
 
         file["luckysheet_alternateformat_save_modelCustom"].push(format);
 
-        if(server.allowUpdate){
-            server.saveParam("all", Store.currentSheetIndex, file["luckysheet_alternateformat_save_modelCustom"], { "k": "luckysheet_alternateformat_save_modelCustom" });
-        }
     },
     colorSelectDialog: function(currenColor, colorType, source){
         $("#luckysheet-modal-dialog-mask").show();
@@ -770,7 +759,7 @@ const alternateformat = {
             togglePaletteOnly: true,
             clearText: locale_toolbar.clearText,
             noColorSelectedText: locale_toolbar.noColorSelectedText,
-            localStorageKey: "spectrum.textcolor" + server.gridKey,
+            localStorageKey: "spectrum.textcolor" + luckysheetConfigsetting.gridKey,
             palette: [
                 ["#000", "#444", "#666", "#999", "#ccc", "#eee", "#f3f3f3", "#fff"],
                 ["#f00", "#f90", "#ff0", "#0f0", "#0ff", "#00f", "#90f", "#f0f"],
@@ -976,9 +965,6 @@ const alternateformat = {
         //刷新一次表格
         _this.ref(historyRules, currentRules);
 
-        if(server.allowUpdate){
-            server.saveParam("all", Store.currentSheetIndex, ruleArr, { "k": "luckysheet_alternateformat_save" });
-        }
     },
     update: function(){
         let _this = this;
@@ -1062,9 +1048,6 @@ const alternateformat = {
         //刷新一次表格
         _this.ref(historyRules, currentRules);
 
-        if(server.allowUpdate){
-            server.saveParam("all", Store.currentSheetIndex, ruleArr, { "k": "luckysheet_alternateformat_save" });
-        }
     },
     checksAF: function(r, c, computeMap){
         if((r + "_" + c) in computeMap){

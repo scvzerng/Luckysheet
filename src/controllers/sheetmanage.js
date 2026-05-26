@@ -12,25 +12,20 @@ import { luckysheetextendtable, luckysheetdeletetable } from "../global/extend";
 import { isRealNum } from "../global/validate";
 import { replaceHtml, getObjType, chatatABC, arrayRemoveItem } from "../utils/util";
 import { sheetHTML, luckysheetlodingHTML } from "./constant";
-import server from "./server";
 import luckysheetConfigsetting from "./luckysheetConfigsetting";
-import pivotTable from "./pivotTable";
 import luckysheetsizeauto from "./resize";
 import luckysheetPostil from "./postil";
 import imageCtrl from "./imageCtrl";
-import dataVerificationCtrl from "./dataVerificationCtrl";
 import hyperlinkCtrl from "./hyperlinkCtrl";
 import luckysheetFreezen from "./freezen";
 import { createFilterOptions, labelFilterOptionState } from "./filter";
 import { selectHightlightShow, selectionCopyShow } from "./select";
 import Store from "../store";
 import locale from "../locale/locale";
-import { renderChartShow } from "../expendPlugins/chart/plugin";
 import { changeSheetContainerSize, menuToolBarWidth } from "./resize";
 import { zoomNumberDomBind } from "./zoom";
 import menuButton from "./menuButton";
 import method from "../global/method";
-import { initialEvent } from "./protection";
 import luckysheetformula from "../global/formula";
 import localforage from 'localforage';
 
@@ -55,12 +50,9 @@ const sheetmanage = {
     generateRandomSheetName: function(file, isPivotTable) {
         let index = file.length;
 
-        const locale_pivotTable = locale().pivotTable;
-        const title = locale_pivotTable.title;
-
         for (let i = 0; i < file.length; i++) {
-            if (file[i].name.indexOf("Sheet") > -1 || file[i].name.indexOf(title) > -1) {
-                let suffix = parseFloat(file[i].name.replace("Sheet", "").replace(title, ""));
+            if (file[i].name.indexOf("Sheet") > -1) {
+                let suffix = parseFloat(file[i].name.replace("Sheet", ""));
 
                 if (suffix != "NaN" && Math.ceil(suffix) > index) {
                     index = Math.ceil(suffix);
@@ -68,11 +60,7 @@ const sheetmanage = {
             }
         }
 
-        if (isPivotTable) {
-            return title + (index + 1);
-        } else {
-            return "Sheet" + (index + 1);
-        }
+        return "Sheet" + (index + 1);
     },
     generateCopySheetName: function(file, name) {
         let _locale = locale();
@@ -271,7 +259,6 @@ const sheetmanage = {
         );
         cleargridelement(e);
 
-        server.saveParam("sha", null, $.extend(true, {}, sheetconfig));
 
         if (Store.clearjfundo) {
             Store.jfundo.length = 0;
@@ -336,7 +323,6 @@ const sheetmanage = {
         _this.changeSheetExec(indicator);
         _this.locationSheet();
 
-        server.saveParam("sh", luckysheetcurrentSheetitem.data("index"), 1, { op: "hide", cur: indicator });
         // 钩子 sheetHideAfter
         if (!isDelete) {
             method.createHookFunction("sheetHideAfter", { sheet: Store.luckysheetfile[currentIdx] });
@@ -352,7 +338,6 @@ const sheetmanage = {
         file.hide = 0;
         _this.changeSheetExec(index);
 
-        server.saveParam("sh", index, 0, { op: "show", cur: null });
         // 钩子 sheetShowAfter
         method.createHookFunction("sheetShowAfter", { sheet: file });
     },
@@ -395,7 +380,6 @@ const sheetmanage = {
             }
         });
 
-        server.saveParam("shr", null, orders);
 
         Store.luckysheetfile.sort((x, y) => {
             let order_x = x.order;
@@ -572,7 +556,6 @@ const sheetmanage = {
         );
         cleargridelement(e);
 
-        server.saveParam("shc", index, { copyindex: copyindex, name: copyjson.name });
 
         _this.changeSheetExec(index, undefined, undefined, true);
         _this.reOrderAllSheet();
@@ -654,11 +637,8 @@ const sheetmanage = {
         cleargridelement();
 
         if (isrenew != null) {
-            server.saveParam("shre", null, { reIndex: data.index });
             data.hide = 0;
-            server.saveParam("sh", data.index, 0, { op: "show", cur: null });
         } else {
-            server.saveParam("sha", null, data);
         }
 
         _this.changeSheetExec(data.index, data.isPivotTable, true);
@@ -688,7 +668,6 @@ const sheetmanage = {
         let removedsheet = Store.luckysheetfile.splice(arrIndex, 1);
         _this.reOrderAllSheet();
 
-        server.saveParam("shd", null, { deleIndex: index });
 
         if (Store.clearjfundo) {
             removedsheet[0].type = "deleteSheet";
@@ -930,7 +909,7 @@ const sheetmanage = {
                 .get(0)
                 .getContext("2d");
             let locale_info = locale().info;
-            let key = server.gridKey;
+            let key = luckysheetConfigsetting.gridKey;
             let cahce_key = key + "__qkcache";
 
             let ini = function() {
@@ -1001,7 +980,7 @@ const sheetmanage = {
                     }
                 };
 
-                let loadSheetUrl = server.loadSheetUrl;
+                let loadSheetUrl = luckysheetConfigsetting.loadSheetUrl;
 
                 if (loadSheetUrl == "") {
                     //     execF();
@@ -1040,7 +1019,7 @@ const sheetmanage = {
                         execF();
                         return;
                     }
-                    $.post(loadSheetUrl, { gridKey: server.gridKey, index: sheetindex.join(",") }, function(d) {
+                    $.post(loadSheetUrl, { gridKey: luckysheetConfigsetting.gridKey, index: sheetindex.join(",") }, function(d) {
                         let dataset = new Function("return " + d)();
 
                         for (let item in dataset) {
@@ -1067,9 +1046,7 @@ const sheetmanage = {
                     if (readValue != null) {
                         _this.CacheNotLoadControll = readValue;
                     }
-                    server.clearcachelocaldata(function() {
-                        ini();
-                    });
+                    ini();
                 });
             } catch (e) {
                 ini();
@@ -1135,8 +1112,6 @@ const sheetmanage = {
         imageCtrl.init();
 
         //数据验证
-        dataVerificationCtrl.dataVerification = file.dataVerification;
-        dataVerificationCtrl.init();
 
         //链接
         hyperlinkCtrl.hyperlink = file.hyperlink;
@@ -1268,10 +1243,6 @@ const sheetmanage = {
             return;
         }
 
-        if (server.allowUpdate) {
-            $("#luckysheet-cell-main #luckysheet-multipleRange-show").empty();
-            server.multipleIndex = 0;
-        }
         let file = Store.luckysheetfile[_this.getSheetIndex(index)];
         // 钩子 sheetCreateAfter
         if (isNewSheet) {
@@ -1301,14 +1272,10 @@ const sheetmanage = {
 
         if (!!file.isPivotTable) {
             Store.luckysheetcurrentisPivotTable = true;
-            if (!isPivotInitial) {
-                pivotTable.changePivotTable(index);
-            }
         } else {
             Store.luckysheetcurrentisPivotTable = false;
             $("#luckysheet-modal-dialog-slider-pivot").hide();
             luckysheetsizeauto(false);
-            this.refreshAllPivotTable(Store.currentSheetIndex);
         }
 
         let load = file["load"];
@@ -1324,10 +1291,9 @@ const sheetmanage = {
             setTimeout(function() {
                 formula.execFunctionGroupForce(true);
                 luckysheetrefreshgrid();
-                server.saveParam("shs", null, Store.currentSheetIndex);
             }, 1);
         } else {
-            let loadSheetUrl = server.loadSheetUrl;
+            let loadSheetUrl = luckysheetConfigsetting.loadSheetUrl;
             if (loadSheetUrl == "" || Store.luckysheetcurrentisPivotTable || !!isNewSheet) {
                 let data = _this.buildGridData(file);
 
@@ -1372,13 +1338,12 @@ const sheetmanage = {
                     luckysheetrefreshgrid();
                 }, 1);
 
-                server.saveParam("shs", null, Store.currentSheetIndex);
             } else {
                 $("#luckysheet-grid-window-1").append(luckysheetlodingHTML());
 
                 let sheetindex = _this.checkLoadSheetIndex(file);
 
-                $.post(loadSheetUrl, { gridKey: server.gridKey, index: sheetindex.join(",") }, function(d) {
+                $.post(loadSheetUrl, { gridKey: luckysheetConfigsetting.gridKey, index: sheetindex.join(",") }, function(d) {
                     let dataset = new Function("return " + d)();
                     file.celldata = dataset[index.toString()];
                     let data = _this.buildGridData(file);
@@ -1414,7 +1379,6 @@ const sheetmanage = {
                         luckysheetrefreshgrid();
                     }, 1);
 
-                    server.saveParam("shs", null, Store.currentSheetIndex);
                 });
             }
         }
@@ -1428,93 +1392,16 @@ const sheetmanage = {
 
         luckysheetFreezen.initialFreezen(index);
         _this.restoreselect();
-        //工作表保护的事件 不初始化工作表保护打开以后引用单元格点不动
-        initialEvent(file);
     },
 
     refreshAllPivotTable: function(index) {
-        Store.luckysheetfile.forEach((file)=>{
-            if(file.isPivotTable){
-                this.refreshPivotTableByFile(file)
-            }
-        })
     },
-    refreshPivotTableByFile:function(file) {
-        let pivotTableConfig = file.pivotTable
-
-        let column = pivotTableConfig.column
-        let row = pivotTableConfig.row
-        let values = pivotTableConfig.values
-        let showType = pivotTableConfig.showType
-        let filterparm = pivotTableConfig.filterparm
-        let pivotDataSheetIndex = pivotTableConfig.pivotDataSheetIndex
-
-        let pivotrealIndex = this.getSheetIndex(pivotDataSheetIndex);
-
-        let otherfile = Store.luckysheetfile[pivotrealIndex];
-        if(otherfile["data"] == null){
-            otherfile["data"] = this.buildGridData(otherfile);
-        }
-
-        const origindata = getdatabyselectionD(otherfile.data, pivotTableConfig.pivot_select_save);
-
-        let rowhidden = {};
-        if (filterparm != null) {
-            for (let f in filterparm) {
-                // 目的是取出rowhidden
-                for (let h in filterparm[f]) {
-                    if (h === 'rowhidden' && _this.filterparm[f][h] != null) {
-                        rowhidden = $.extend(true, rowhidden, filterparm[f][h]);
-                    }
-                }
-            }
-        }
-
-
-        let newdata = [];
-        for (let i = 0; i < origindata.length; i++) {
-            if (rowhidden != null && rowhidden[i] != null) {
-                continue;
-            }
-            newdata.push([].concat(origindata[i]));
-        }
-
-        let ret = pivotTable.dataHandler(column, row, values, showType, newdata);
-        
-        pivotTableConfig.pivotDatas = ret
-
-
-        let d = $.extend(true, [], this.nulldata);
-        let data = d;
-
-        let addr = 0, addc = 0;
-        let rlen = ret.length, 
-                clen = ret[0].length;
-
-            addr = rlen - d.length; 
-            addc = clen - d[0].length;
-
-            data = datagridgrowth(d, addr + 20, addc + 10, true);
-
-            for (let r = 0; r < rlen; r++) {
-                // let x = [].concat(data[r]);
-                for (let c = 0; c < clen; c++) {
-                    let value = "";
-                    if (ret[r] != null && ret[r][c] != null) {
-                        value = getcellvalue(r, c, ret);
-                        setcellvalue(r,c,data,value)
-                    }
-                    // x[c] = value;
-                }
-                // data[r] = x;
-            }
-        file.data = data;
+    refreshPivotTableByFile: function(file) {
     },
     checkLoadSheetIndexToDataIndex: {},
     checkLoadSheetIndex: function(file) {
         let calchain = formula.getAllFunctionGroup(); //file.calcChain; //index
         let chart = file.chart; //dataSheetIndex
-        let pivotTable = file.pivotTable; //pivotDataSheetIndex
 
         let ret = [],
             cache = {};
@@ -1620,15 +1507,6 @@ const sheetmanage = {
                     ret.push(dataindex);
                     cache[dataindex.toString()] = 1;
                 }
-            }
-        }
-
-        if (pivotTable != null) {
-            let dataindex = pivotTable.pivotDataSheetIndex;
-
-            if (dataindex != null && cache[dataindex.toString()] == null) {
-                ret.push(dataindex);
-                cache[dataindex.toString()] = 1;
             }
         }
 
@@ -1942,16 +1820,6 @@ const sheetmanage = {
         jfrefreshgrid_rhcw(Store.flowdata.length, Store.flowdata[0].length, false);
     },
     restorePivot: function(sheetIndex) {
-        let index = this.getSheetIndex(sheetIndex);
-        let file = Store.luckysheetfile[index];
-
-        if (!file.isPivotTable) {
-            return;
-        }
-
-        pivotTable.getCellData(sheetIndex);
-        pivotTable.initialPivotManage(true);
-        pivotTable.refreshPivotTable(false);
     },
     restoreSheetAll: function(sheetIndex) {
         let _this = this;
@@ -2194,7 +2062,6 @@ const sheetmanage = {
 
             luckysheetextendtable(mtype, index, len, true);
         } else if (type == "na") {
-            server.saveParam("na", null, value);
         } else if (type == "thumb") {
             setTimeout(function() {
                 _this.imageRequest();

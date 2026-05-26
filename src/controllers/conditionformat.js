@@ -1,4 +1,4 @@
-import { getSheetIndex, getRangetxt } from '../methods/get';
+﻿import { getSheetIndex, getRangetxt } from '../methods/get';
 import { replaceHtml, getObjType, chatatABC } from '../utils/util';
 import formula from '../global/formula';
 import { isRealNull, isEditMode } from '../global/validate';
@@ -7,11 +7,9 @@ import { luckysheetrefreshgrid } from '../global/refresh';
 import { getcellvalue } from '../global/getdata';
 import { genarate } from '../global/format';
 import { modelHTML, luckysheet_CFiconsImg } from './constant';
-import server from './server';
 import { selectionCopyShow } from './select';
 import sheetmanage from './sheetmanage';
 import locale from '../locale/locale';
-import {checkProtectionFormatCells} from './protection';
 import Store from '../store';
 import dayjs from 'dayjs'
 
@@ -116,9 +114,6 @@ const conditionformat = {
         });
 
         $(document).off("click.CFadministerRuleConfirm").on("click.CFadministerRuleConfirm", "#luckysheet-administerRule-dialog-confirm", function(){
-            if(!checkProtectionFormatCells(Store.currentSheetIndex)){
-                return;
-            }
 
             //保存之前的规则
             let fileH = $.extend(true, [], Store.luckysheetfile);
@@ -140,14 +135,6 @@ const conditionformat = {
             //隐藏一些dom
             $("#luckysheet-modal-dialog-mask").hide();
             $("#luckysheet-administerRule-dialog").hide();
-
-            //发送给后台
-            if(server.allowUpdate){
-                let files = $.extend(true, [], Store.luckysheetfile);
-                for(let i = 0; i < files.length; i++){
-                    server.saveParam("all", files[i]["index"], files[i]["luckysheet_conditionformat_save"], { "k": "luckysheet_conditionformat_save" });
-                }
-            }
         });
 
         $(document).off("click.CFadministerRuleClose").on("click.CFadministerRuleClose", "#luckysheet-administerRule-dialog-close", function(){
@@ -232,9 +219,6 @@ const conditionformat = {
         // 新建规则
         $(document).off("click.CFnewConditionRule").on("click.CFnewConditionRule", "#newConditionRule", function(){
             let sheetIndex = $("#luckysheet-administerRule-dialog .chooseSheet option:selected").val();
-            if(!checkProtectionFormatCells(sheetIndex)){
-                return;
-            }
 
             if(Store.luckysheet_select_save.length == 0){
                 if(isEditMode()){
@@ -249,10 +233,6 @@ const conditionformat = {
             _this.newConditionRuleDialog(1);
         });
         $(document).off("click.CFnewConditionRuleConfirm").on("click.CFnewConditionRuleConfirm", "#luckysheet-newConditionRule-dialog-confirm", function(){
-
-            if(!checkProtectionFormatCells(Store.currentSheetIndex)){
-                return;
-            }
 
             let index = $("#luckysheet-newConditionRule-dialog .ruleTypeItem.on").index();
             let type1 = $("#luckysheet-newConditionRule-dialog #type1 option:selected").val();
@@ -587,10 +567,6 @@ const conditionformat = {
                 //刷新一次表格
                 _this.ref(historyRules, currentRules);
 
-                //发送给后台
-                if(server.allowUpdate){
-                    server.saveParam("all", Store.currentSheetIndex, ruleArr, { "k": "luckysheet_conditionformat_save" });
-                }
             }
             else if(source == 1){
                 //临时存储新规则
@@ -625,10 +601,6 @@ const conditionformat = {
         $(document).off("click.CFeditorConditionRule").on("click.CFeditorConditionRule", "#editorConditionRule", function(){
 
             let sheetIndex = $("#luckysheet-administerRule-dialog .chooseSheet option:selected").val();
-
-            if(!checkProtectionFormatCells(sheetIndex)){
-                return;
-            }
 
 
             let itemIndex = $("#luckysheet-administerRule-dialog .ruleList .listBox .item.on").attr("data-item");
@@ -1039,10 +1011,6 @@ const conditionformat = {
         $(document).off("click.CFdeleteConditionRule").on("click.CFdeleteConditionRule", "#deleteConditionRule", function(){
             let sheetIndex = $("#luckysheet-administerRule-dialog .chooseSheet option:selected").val();
 
-            if(!checkProtectionFormatCells(sheetIndex)){
-                return;
-            }
-
             let itemIndex = $("#luckysheet-administerRule-dialog .ruleList .listBox .item.on").attr("data-item");
             _this.fileClone[getSheetIndex(sheetIndex)]["luckysheet_conditionformat_save"].splice(itemIndex, 1);
             _this.administerRuleDialog();
@@ -1050,10 +1018,6 @@ const conditionformat = {
 
         // 规则子菜单弹出层 点击确定修改样式
         $(document).off("click.CFdefault").on("click.CFdefault", "#luckysheet-conditionformat-dialog-confirm", function(){
-
-            if(!checkProtectionFormatCells(Store.currentSheetIndex)){
-                return;
-            }
 
             //条件名称
             let conditionName = $("#luckysheet-conditionformat-dialog .box").attr("data-itemvalue");
@@ -1241,10 +1205,6 @@ const conditionformat = {
             $("#luckysheet-modal-dialog-mask").hide();
             $("#luckysheet-conditionformat-dialog").hide();
 
-            //发送给后台
-            if(server.allowUpdate){
-                server.saveParam("all", Store.currentSheetIndex, ruleArr, { "k": "luckysheet_conditionformat_save" });
-            }
         });
 
         // 图标集弹出层 选择
@@ -1555,7 +1515,7 @@ const conditionformat = {
             togglePaletteOnly: true,
             clearText: conditionformat_Text.clearColorSelect,
             noColorSelectedText: "没有颜色被选择",
-            localStorageKey: "spectrum.textcolor" + server.gridKey,
+            localStorageKey: "spectrum.textcolor" + luckysheetConfigsetting.gridKey,
             palette: [["#000","#444","#666","#999","#ccc","#eee","#f3f3f3","#fff"],
             ["#f00","#f90","#ff0","#0f0","#0ff","#00f","#90f","#f0f"],
             ["#f4cccc","#fce5cd","#fff2cc","#d9ead3","#d0e0e3","#cfe2f3","#d9d2e9","#ead1dc"],
@@ -3860,10 +3820,6 @@ const conditionformat = {
         return computeMap;
     },
     updateItem: function(type, cellrange, format){
-        if(!checkProtectionFormatCells(Store.currentSheetIndex)){
-            return;
-        }
-
         let _this = this;
         let index = getSheetIndex(Store.currentSheetIndex);
 
@@ -3894,10 +3850,6 @@ const conditionformat = {
         //刷新一次表格
         _this.ref(historyRules, currentRules);
 
-        //发送给后台
-        if(server.allowUpdate){
-            server.saveParam("all", Store.currentSheetIndex, ruleArr, { "k": "luckysheet_conditionformat_save" });
-        }
     },
     getHistoryRules: function(fileH){
         let historyRules = [];

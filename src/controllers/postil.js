@@ -1,4 +1,4 @@
-import { rowLocation, colLocation, mouseposition } from '../global/location';
+﻿import { rowLocation, colLocation, mouseposition } from '../global/location';
 import editor from '../global/editor';
 import formula from '../global/formula';
 import { luckysheetRangeLast } from '../global/cursorPos';
@@ -8,8 +8,6 @@ import { getSheetIndex } from '../methods/get';
 import { getObjType } from '../utils/util';
 import luckysheetFreezen from './freezen';
 import menuButton from './menuButton';
-import {checkProtectionAuthorityNormal} from './protection';
-import server from './server';
 import Store from '../store';
 import method from '../global/method';
 
@@ -29,10 +27,6 @@ const luckysheetPostil = {
 
         //点击批注框 聚焦
         $("#luckysheet-postil-showBoxs").off("mousedown.showPs").on("mousedown.showPs", ".luckysheet-postil-show", function(event){
-            if(!checkProtectionAuthorityNormal(Store.currentSheetIndex, "editObjects",false)){
-                return;
-            }
-            
             _this.currentObj = $(this).find(".luckysheet-postil-show-main");
 
             if($(this).hasClass("luckysheet-postil-show-active")){
@@ -57,10 +51,6 @@ const luckysheetPostil = {
 
         //批注框 改变大小
         $("#luckysheet-postil-showBoxs").off("mousedown.resize").on("mousedown.resize", ".luckysheet-postil-show .luckysheet-postil-dialog-resize .luckysheet-postil-dialog-resize-item", function(event){
-            if(!checkProtectionAuthorityNormal(Store.currentSheetIndex, "editObjects",false)){
-                return;
-            }
-            
             _this.currentObj = $(this).closest(".luckysheet-postil-show-main");
             _this.currentWinW = $("#luckysheet-cell-main")[0].scrollWidth;
             _this.currentWinH = $("#luckysheet-cell-main")[0].scrollHeight;
@@ -107,10 +97,6 @@ const luckysheetPostil = {
 
         //批注框 移动
         $("#luckysheet-postil-showBoxs").off("mousedown.move").on("mousedown.move", ".luckysheet-postil-show .luckysheet-postil-dialog-move .luckysheet-postil-dialog-move-item", function(event){
-            if(!checkProtectionAuthorityNormal(Store.currentSheetIndex, "editObjects",false)){
-                return;
-            }
-            
             _this.currentObj = $(this).closest(".luckysheet-postil-show-main");
             _this.currentWinW = $("#luckysheet-cell-main")[0].scrollWidth;
             _this.currentWinH = $("#luckysheet-cell-main")[0].scrollHeight;
@@ -418,10 +404,6 @@ const luckysheetPostil = {
         }
     },
     newPs: function(r, c){
-        if(!checkProtectionAuthorityNormal(Store.currentSheetIndex, "editObjects")){
-            return;
-        }
-
         // Hook function
         if(!method.createHookFunction('commentInsertBefore',r,c, )){
             return;
@@ -514,10 +496,6 @@ const luckysheetPostil = {
     editPs: function(r, c){
         let _this = this;
 
-        if(!checkProtectionAuthorityNormal(Store.currentSheetIndex, "editObjects")){
-            return;
-        }
-
         if($("#luckysheet-postil-show_"+ r +"_"+ c).length > 0){
             $("#luckysheet-postil-show_"+ r +"_"+ c).show();
             $("#luckysheet-postil-show_"+ r +"_"+ c).addClass("luckysheet-postil-show-active");
@@ -601,10 +579,6 @@ const luckysheetPostil = {
         _this.init();
     },
     delPs: function(r, c){
-        if(!checkProtectionAuthorityNormal(Store.currentSheetIndex, "editObjects")){
-            return;
-        }
-
         // Hook function
         if(!method.createHookFunction('commentDeleteBefore',r,c,Store.flowdata[r][c])){
             return;
@@ -920,18 +894,7 @@ const luckysheetPostil = {
         editor.webWorkerFlowDataCache(Store.flowdata);//worker存数据
 
         Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].data = Store.flowdata;
-        // formula.execFunctionGroupData = Store.flowdata;
 
-        //共享编辑模式
-        if(server.allowUpdate){
-            for(let i = 0; i < rc.length; i++){
-                let r = rc[i].split("_")[0];
-                let c = rc[i].split("_")[1];
-
-                server.saveParam("v", Store.currentSheetIndex, Store.flowdata[r][c], { "r": r, "c": c });
-            }
-        }
-        
         //刷新表格
         setTimeout(function () {
             luckysheetrefreshgrid();

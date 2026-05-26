@@ -1,8 +1,7 @@
-import { getSheetIndex } from '../methods/get';
+﻿import { getSheetIndex } from '../methods/get';
 import { luckysheet_searcharray } from './sheetSearch';
 import { selectHightlightShow } from './select';
 import { createFilterOptions } from './filter';
-import server from './server';
 import menuButton from './menuButton';
 import luckysheetPostil from './postil';
 import luckysheetDropCell from './dropCell';
@@ -85,7 +84,6 @@ const luckysheetFreezen = {
         }
 
         if(currentSheet.frozen != null && isvertical){
-            server.saveParam("all", sheetIndex, currentSheet.frozen, { "k": "frozen" });
         }
     },
     createFreezenVertical: function (freezenverticaldata, left) {
@@ -207,12 +205,10 @@ const luckysheetFreezen = {
         }
 
         // if(currentSheet.freezen != null){
-        //     server.saveParam("all", Store.currentSheetIndex, currentSheet.freezen, { "k": "freezen" });
         // }
 
         // use new property frozen
         if(currentSheet.frozen != null){
-            server.saveParam("all", Store.currentSheetIndex, currentSheet.frozen, { "k": "frozen" });
         }
     },
     initialFreezen: function (sheetIndex) {
@@ -369,7 +365,6 @@ const luckysheetFreezen = {
         }
 
         if(currentSheet.frozen != null && ishorizontal){
-            server.saveParam("all", sheetIndex, currentSheet.frozen, { "k": "frozen" });
         }
     },
     createFreezenHorizontal: function (freezenhorizontaldata, top) {

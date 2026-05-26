@@ -5,7 +5,6 @@ import tooltip from './tooltip';
 import editor from './editor';
 import { rowlenByRange } from './getRowlen';
 import { jfrefreshgrid } from './refresh';
-import {checkProtectionAuthorityNormal} from '../controllers/protection';
 import Store from '../store';
 import locale from '../locale/locale';
 import numeral from 'numeral';
@@ -183,10 +182,6 @@ function orderbydata1D(data, isAsc) {
 
 //排序选区数据
 function sortSelection(isAsc) {
-    if(!checkProtectionAuthorityNormal(Store.currentSheetIndex, "sort")){
-        return;
-    }
-
     const _locale = locale();
     const locale_sort = _locale.sort;
 
@@ -293,9 +288,6 @@ function sortSelection(isAsc) {
 
 //排序一列数据
 function sortColumnSeletion(colIndex, isAsc) {
-    if(!checkProtectionAuthorityNormal(Store.currentSheetIndex, "sort")){
-        return;
-    }
     if(isAsc == null){
         isAsc = true;
     }

@@ -1,7 +1,6 @@
 import { getObjType } from "../utils/util";
 import { isRealNull, isRealNum, valueIsError } from "./validate";
 import { genarate, update } from "./format";
-import server from "../controllers/server";
 import luckysheetConfigsetting from "../controllers/luckysheetConfigsetting";
 import Store from "../store/index";
 
@@ -191,7 +190,7 @@ function setcellvalue(r, c, d, v) {
         }
     }
 
-    if (!server.allowUpdate && !luckysheetConfigsetting.pointEdit) {
+    if (!luckysheetConfigsetting.pointEdit) {
         if (
             cell.ct != null &&
             /^(w|W)((0?)|(0\.0+))$/.test(cell.ct.fa) == false &&

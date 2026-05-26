@@ -1,4 +1,4 @@
-import { getSheetIndex } from '../methods/get';
+﻿import { getSheetIndex } from '../methods/get';
 import editor from '../global/editor';
 import { isRealNull, isEditMode } from '../global/validate';
 import tooltip from '../global/tooltip';
@@ -6,13 +6,11 @@ import { rowlenByRange } from '../global/getRowlen';
 import { selectHightlightShow } from './select';
 import { luckysheetMoveEndCell } from './sheetMove';
 import { luckysheetlodingHTML } from '../controllers/constant';
-import server from './server';
 import locale from '../locale/locale';
 import Store from '../store';
 import menuButton from './menuButton';
 import conditionformat from './conditionformat';
 import alternateformat from './alternateformat';
-import {checkProtectionAuthorityNormal} from './protection';
 import { 
     rgbTohex, 
     showrightclickmenu, 
@@ -73,7 +71,6 @@ function labelFilterOptionState($top, optionstate, rowhidden, caljs, notSave, st
             delete file.filter[cindex - stc];
         }
 
-        server.saveParam("all", Store.currentSheetIndex, file.filter, { "k": "filter" });
     }
 }
 
@@ -139,10 +136,6 @@ function orderbydatafiler(str, stc, edr, edc, index, asc) {
 //创建筛选按钮
 function createFilter() {
 
-    if(!checkProtectionAuthorityNormal(Store.currentSheetIndex, "filter")){
-        return;
-    }
-
     if(Store.luckysheet_select_save.length > 1){
         $("#luckysheet-rightclick-menu").hide();
         $("#luckysheet-filter-menu, #luckysheet-filter-submenu").hide();
@@ -203,7 +196,6 @@ function createFilter() {
 
     createFilterOptions(Store.luckysheet_filter_save);
 
-    server.saveParam("all", Store.currentSheetIndex, Store.luckysheet_filter_save, { "k": "filter_select" });
 
     if (Store.filterchage) {
         Store.jfredo.push({ 
@@ -432,9 +424,6 @@ function initialFilterHandler(){
 
     //筛选按钮点击事件
     $("#luckysheet-cell-main").on("click", ".luckysheet-filter-options", function (e) {
-        if(!checkProtectionAuthorityNormal(Store.currentSheetIndex, "filter")){
-            return;
-        }
         let $t = $(e.currentTarget), 
             toffset = $t.offset(), 
             $menu = $("#luckysheet-filter-menu"), 
@@ -1077,7 +1066,6 @@ function initialFilterHandler(){
         Store.config = cfg;
         Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
     
-        server.saveParam("cg", Store.currentSheetIndex, cfg["rowhidden"], { "k": "rowhidden" });
     
         //行高、列宽 刷新  
         jfrefreshgrid_rhcw(Store.flowdata.length, Store.flowdata[0].length);
@@ -1278,9 +1266,6 @@ function initialFilterHandler(){
 
     //清除筛选
     $("#luckysheet-filter-initial").click(function () {
-        if(!checkProtectionAuthorityNormal(Store.currentSheetIndex, "filter")){
-            return;
-        }
 
         $("#luckysheet-filter-menu .luckysheet-filter-selected-input").hide().find("input").val();
         $("#luckysheet-filter-selected span").data("type", "0").data("type", null).text(locale_filter.conditionNone);
@@ -1326,12 +1311,10 @@ function initialFilterHandler(){
         Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].filter = null;
         Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].filter_select = null;
 
-        server.saveParam("fsc", Store.currentSheetIndex, null);
 
         //config
         Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
 
-        server.saveParam("cg", Store.currentSheetIndex, {}, { "k": "rowhidden" });
 
         //行高、列宽 刷新  
         jfrefreshgrid_rhcw(Store.flowdata.length, Store.flowdata[0].length);
@@ -1804,7 +1787,6 @@ function initialFilterHandler(){
         Store.config = cfg;
         Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
 
-        server.saveParam("cg", Store.currentSheetIndex, cfg["rowhidden"], { "k": "rowhidden" });
 
         //行高、列宽 刷新  
         jfrefreshgrid_rhcw(Store.flowdata.length, Store.flowdata[0].length);

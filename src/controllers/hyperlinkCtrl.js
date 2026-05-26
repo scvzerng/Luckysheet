@@ -7,7 +7,6 @@ import tooltip from '../global/tooltip';
 import editor from '../global/editor';
 import { modelHTML } from './constant';
 import { selectHightlightShow } from './select';
-import server from './server';
 import sheetmanage from './sheetmanage';
 import luckysheetFreezen from './freezen';
 import menuButton from './menuButton';
@@ -349,12 +348,6 @@ const hyperlinkCtrl = {
         Store.flowdata = d;
         editor.webWorkerFlowDataCache(Store.flowdata);//worker存数据
         Store.luckysheetfile[getSheetIndex(sheetIndex)].data = Store.flowdata;
-
-        //共享编辑模式
-        if(server.allowUpdate){ 
-            server.saveParam("all", sheetIndex, currentHyperlink, { "k": "hyperlink" });
-            server.historyParam(Store.flowdata, sheetIndex, range[0]);
-        }
 
         setTimeout(function () {
             luckysheetrefreshgrid();

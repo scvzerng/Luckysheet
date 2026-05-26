@@ -1,7 +1,6 @@
-import luckysheetConfigsetting from './luckysheetConfigsetting';
+﻿import luckysheetConfigsetting from './luckysheetConfigsetting';
 import menuButton from './menuButton';
 import conditionformat from './conditionformat';
-import server from './server';
 import {luckysheetupdateCell,setCenterInputPosition} from './updateCell';
 import { keycode } from './constant';
 import { 
@@ -942,7 +941,7 @@ export function keyboardInitial(){
     });
 
     //top workBook rename
-    $("#luckysheet_info_detail_input").val(server.title).css("width", getByteLen(server.title) * 10).keydown(function(){
+    $("#luckysheet_info_detail_input").val(luckysheetConfigsetting.title).css("width", getByteLen(luckysheetConfigsetting.title) * 10).keydown(function(){
         let ctrlKey = event.ctrlKey;
         let altKey = event.altKey;
         let shiftKey = event.shiftKey;
@@ -968,7 +967,6 @@ export function keyboardInitial(){
             $("#luckysheet_info_detail_input").css("width", inputlen);
         }
     }).change(function(){
-        server.saveParam("na", null, $(this).val());
     });
 
 

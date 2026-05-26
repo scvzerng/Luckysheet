@@ -42,22 +42,14 @@ export const defaultToolbar = [
 
     'image',
     'link',
-    'chart',
     'postil',
-    'pivotTable',
     '|',
 
     'function',
     'frozenMode',
     'sortAndFilter',
     'conditionalFormat',
-    'dataVerification',
-    'splitColumn',
-    'screenshot',
     'findAndReplace',
-    'protection',
-    'print',
-    'exportXlsx',
 ];
 
 // 工具栏按钮 id 关系
@@ -88,18 +80,11 @@ export const toolbarIdMap = {
     link: '#luckysheet-insertLink-btn-title', //'Insert picture'
     chart: '#luckysheet-chart-btn-title', //'chart' (the icon is hidden, but if the chart plugin is configured, you can still create a new chart by right click)
     postil: '#luckysheet-icon-postil', //'comment'
-    pivotTable: ['#luckysheet-pivot-btn-title'], //'PivotTable'
     function: ['#luckysheet-icon-function', '#luckysheet-icon-function-menu'], //'formula'
     frozenMode: ['#luckysheet-freezen-btn-horizontal', '#luckysheet-icon-freezen-menu'], //'freeze mode'
     sortAndFilter: '#luckysheet-icon-autofilter', //'sort and filter'
     conditionalFormat: '#luckysheet-icon-conditionformat', //'Conditional Format'
-    dataVerification: '#luckysheet-dataVerification-btn-title', // 'Data Verification'
-    splitColumn: '#luckysheet-splitColumn-btn-title', //'Split column'
-    screenshot: '#luckysheet-chart-btn-screenshot', //'screenshot'
-    findAndReplace: '#luckysheet-icon-seachmore', //'Find and Replace'
-    protection: '#luckysheet-icon-protection', // 'Worksheet protection'
-    print: '#luckysheet-icon-print', // 'print'
-    exportXlsx: '#luckysheet-exportXlsx-btn-title' // 'export xlsx'
+    findAndReplace: '#luckysheet-icon-seachmore', // 'Find and Replace'
 };
 
 // 创建工具栏按钮的html
@@ -583,23 +568,6 @@ export function createToolbarHtml() {
                 </div>
             </div>
         </div>`, // 'Insert link'(TODO)
-        chart: `<div class="luckysheet-toolbar-button-split-left luckysheet-toolbar-button luckysheet-inline-block"
-        data-tips="${toolbar.chart}" id="luckysheet-chart-btn-title" role="button" style="user-select: none;">
-            <div class="luckysheet-toolbar-button-outer-box luckysheet-inline-block"
-            style="user-select: none;">
-                <div class="luckysheet-toolbar-menu-button-inner-box luckysheet-inline-block"
-                style="user-select: none;">
-                    <div class="luckysheet-toolbar-menu-button-caption luckysheet-inline-block"
-                    style="user-select: none;">
-                        <div class="luckysheet-icon luckysheet-inline-block " style="user-select: none;">
-                            <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-rotation-none iconfont-luckysheet luckysheet-iconfont-tubiao"
-                            style="user-select: none;">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>`, //'chart' (the icon is hidden, but if the chart plugin is configured, you can still create a new chart by right click)
         postil: `<div class="luckysheet-toolbar-select luckysheet-toolbar-menu-button luckysheet-inline-block" data-tips="${toolbar.postil}"
         id="luckysheet-icon-postil" role="button" style="user-select: none;">
             <div class="luckysheet-toolbar-menu-button-outer-box luckysheet-inline-block"
@@ -615,23 +583,6 @@ export function createToolbarHtml() {
                 </div>
             </div>
         </div>`, //'comment'
-        pivotTable: `<div class="luckysheet-toolbar-button-split-left luckysheet-toolbar-button luckysheet-inline-block"
-        data-tips="${toolbar.pivotTable}" id="luckysheet-pivot-btn-title" role="button" style="user-select: none;">
-            <div class="luckysheet-toolbar-button-outer-box luckysheet-inline-block"
-            style="user-select: none;">
-                <div class="luckysheet-toolbar-menu-button-inner-box luckysheet-inline-block"
-                style="user-select: none;">
-                    <div class="luckysheet-toolbar-menu-button-caption luckysheet-inline-block"
-                    style="user-select: none;">
-                        <div class="luckysheet-icon luckysheet-inline-block " style="user-select: none;">
-                            <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-rotation-none iconfont-luckysheet luckysheet-iconfont-shujutoushi"
-                            style="user-select: none;">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>`, //'PivotTable'
         function: `<div class="luckysheet-toolbar-button-split-left luckysheet-toolbar-button luckysheet-inline-block luckysheet-icon-function"
         data-tips="${toolbar.autoSum}" id="luckysheet-icon-function" role="button" style="user-select: none;">
             <div class="luckysheet-toolbar-button-outer-box luckysheet-inline-block"
@@ -728,57 +679,6 @@ export function createToolbarHtml() {
                 </div>
             </div>
         </div>`, //'Conditional Format'
-        dataVerification: `<div class="luckysheet-toolbar-button-split-left luckysheet-toolbar-button luckysheet-inline-block"
-        data-tips="${toolbar.dataVerification}" id="luckysheet-dataVerification-btn-title" role="button" style="user-select: none;">
-            <div class="luckysheet-toolbar-button-outer-box luckysheet-inline-block"
-            style="user-select: none;">
-                <div class="luckysheet-toolbar-menu-button-inner-box luckysheet-inline-block"
-                style="user-select: none;">
-                    <div class="luckysheet-toolbar-menu-button-caption luckysheet-inline-block"
-                    style="user-select: none;">
-                        <div class="luckysheet-icon luckysheet-inline-block " style="user-select: none;">
-                            <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-rotation-none iconfont-luckysheet luckysheet-iconfont-shujuyanzheng"
-                            style="user-select: none;">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>`, // 'Data Verification'
-        splitColumn: `<div class="luckysheet-toolbar-button-split-left luckysheet-toolbar-button luckysheet-inline-block"
-        data-tips="${toolbar.splitColumn}" id="luckysheet-splitColumn-btn-title" role="button" style="user-select: none;">
-            <div class="luckysheet-toolbar-button-outer-box luckysheet-inline-block"
-            style="user-select: none;">
-                <div class="luckysheet-toolbar-menu-button-inner-box luckysheet-inline-block"
-                style="user-select: none;">
-                    <div class="luckysheet-toolbar-menu-button-caption luckysheet-inline-block"
-                    style="user-select: none;">
-                        <div class="luckysheet-icon luckysheet-inline-block " style="user-select: none;">
-                            <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-rotation-none iconfont-luckysheet luckysheet-iconfont-wenbenfenge"
-                            style="user-select: none;">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>`, //'Split column'
-        screenshot: `<div class="luckysheet-toolbar-button-split-left luckysheet-toolbar-button luckysheet-inline-block"
-        data-tips="${toolbar.screenshot}" id="luckysheet-chart-btn-screenshot" role="button" style="user-select: none;">
-            <div class="luckysheet-toolbar-button-outer-box luckysheet-inline-block"
-            style="user-select: none;">
-                <div class="luckysheet-toolbar-menu-button-inner-box luckysheet-inline-block"
-                style="user-select: none;">
-                    <div class="luckysheet-toolbar-menu-button-caption luckysheet-inline-block"
-                    style="user-select: none;">
-                        <div class="luckysheet-icon luckysheet-inline-block " style="user-select: none;">
-                            <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-rotation-none iconfont-luckysheet luckysheet-iconfont-jieping"
-                            style="user-select: none;">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>`, //'screenshot'
         findAndReplace: `<div class="luckysheet-toolbar-select luckysheet-toolbar-menu-button luckysheet-inline-block" data-tips="${toolbar.findAndReplace}"
         id="luckysheet-icon-seachmore" role="button" style="user-select: none;">
             <div class="luckysheet-toolbar-menu-button-outer-box luckysheet-inline-block"
@@ -797,59 +697,6 @@ export function createToolbarHtml() {
                 </div>
             </div>
         </div>`, //'Find and Replace'
-        protection: `<div class="luckysheet-toolbar-button-split-left luckysheet-toolbar-button luckysheet-inline-block"
-        data-tips="${toolbar.protection}" id="luckysheet-icon-protection" role="button" style="user-select: none;">
-            <div class="luckysheet-toolbar-button-outer-box luckysheet-inline-block"
-            style="user-select: none;">
-                <div class="luckysheet-toolbar-menu-button-inner-box luckysheet-inline-block"
-                style="user-select: none;">
-                    <div class="luckysheet-toolbar-menu-button-caption luckysheet-inline-block"
-                    style="user-select: none;">
-                        <div class="luckysheet-icon luckysheet-inline-block " style="user-select: none;">
-                            <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-rotation-none iconfont-luckysheet luckysheet-iconfont-biaogesuoding"
-                            style="user-select: none;">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>`, // 'Worksheet protection'
-        print: `<div class="luckysheet-toolbar-select luckysheet-toolbar-menu-button luckysheet-inline-block" data-tips="${toolbar.print}"
-        id="luckysheet-icon-print" role="button" style="user-select: none;">
-            <div class="luckysheet-toolbar-menu-button-outer-box luckysheet-inline-block"
-            style="user-select: none;">
-                <div class="luckysheet-toolbar-button-inner-box luckysheet-inline-block"
-                style="user-select: none;">
-
-                    <div class="luckysheet-icon luckysheet-inline-block " style="user-select: none;">
-                        <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-autofilter iconfont-luckysheet luckysheet-iconfont-dayin"
-                        style="user-select: none;">
-                        </div>
-                    </div>
-                    <div class="luckysheet-toolbar-menu-button-dropdown luckysheet-inline-block iconfont-luckysheet luckysheet-iconfont-xiayige"
-                    style="user-select: none;margin-left: 0px;margin-right: 4px;">
-                    </div>
-                </div>
-            </div>
-        </div>`, // 'print'
-        exportXlsx: `<div class="luckysheet-toolbar-button-split-left luckysheet-toolbar-button luckysheet-inline-block"
-        data-tips="${toolbar.exportXlsx}" id="luckysheet-exportXlsx-btn-title" role="button" style="user-select: none;">
-            <div class="luckysheet-toolbar-button-outer-box luckysheet-inline-block"
-            style="user-select: none;">
-                <div class="luckysheet-toolbar-menu-button-inner-box luckysheet-inline-block"
-                style="user-select: none;">
-                    <div class="luckysheet-toolbar-menu-button-caption luckysheet-inline-block"
-                    style="user-select: none;">
-                        <div class="luckysheet-icon luckysheet-inline-block " style="user-select: none;">
-                            <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-rotation-none"
-                            style="user-select: none;">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="24" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path d="M4 12a8 8 0 1 0 16 0"/><path stroke-linejoin="round" d="M12 14V4m0 0l3 3m-3-3L9 7"/></g></svg>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>`, // 'Insert picture'
     };
 
     const showtoolbar = luckysheetConfigsetting.showtoolbar;

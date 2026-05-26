@@ -1,8 +1,6 @@
-import { mouseposition } from '../global/location';
-import server from './server';
+﻿import { mouseposition } from '../global/location';
 import luckysheetsizeauto from './resize';
 import { modelHTML } from './constant';
-import {checkProtectionAuthorityNormal} from './protection';
 import { getSheetIndex } from '../methods/get';
 import { setluckysheet_scroll_status } from '../methods/set';
 import { replaceHtml } from '../utils/util';
@@ -286,7 +284,7 @@ const imageCtrl = {
             togglePaletteOnly: true,
             clearText: locale_toolbar.clearText,
             noColorSelectedText: locale_toolbar.noColorSelectedText,
-            localStorageKey: "spectrum.textcolor" + server.gridKey,
+            localStorageKey: "spectrum.textcolor" + luckysheetConfigsetting.gridKey,
             palette: [
                 ["#000", "#444", "#666", "#999", "#ccc", "#eee", "#f3f3f3", "#fff"],
                 ["#f00", "#f90", "#ff0", "#0f0", "#0ff", "#00f", "#90f", "#f0f"],
@@ -365,10 +363,6 @@ const imageCtrl = {
         $("#luckysheet-image-showBoxs").off("mousedown.active").on("mousedown.active", ".luckysheet-modal-dialog-image", function(e) {
             
 
-            if(!checkProtectionAuthorityNormal(Store.currentSheetIndex, "editObjects",false)){
-                return;
-            }
-
             $(this).hide();
             let id = $(this).attr("id");
 
@@ -420,9 +414,6 @@ const imageCtrl = {
 
         //image move
         $("#luckysheet-modal-dialog-activeImage").off("mousedown.move").on("mousedown.move", ".luckysheet-modal-dialog-content", function(e) {
-            if(!checkProtectionAuthorityNormal(Store.currentSheetIndex, "editObjects",false)){
-                return;
-            }
             
             if(!$("#luckysheet-modal-dialog-slider-imageCtrl").is(":visible")){
                 _this.sliderHtmlShow();
@@ -447,9 +438,6 @@ const imageCtrl = {
 
         //image resize
         $("#luckysheet-modal-dialog-activeImage").off("mousedown.resize").on("mousedown.resize", ".luckysheet-modal-dialog-resize-item", function(e) {
-            if(!checkProtectionAuthorityNormal(Store.currentSheetIndex, "editObjects",false)){
-                return;
-            }
             
             _this.currentWinW = $("#luckysheet-cell-main")[0].scrollWidth;
             _this.currentWinH = $("#luckysheet-cell-main")[0].scrollHeight;
@@ -762,10 +750,6 @@ const imageCtrl = {
     croppingEnter: function() {
         let _this = this;
         _this.cropping = true;
-
-        if(!checkProtectionAuthorityNormal(Store.currentSheetIndex, "editObjects",false)){
-            return;
-        }
 
         $("#luckysheet-modal-dialog-activeImage").hide();
         $("#luckysheet-modal-dialog-slider-imageCtrl").hide();
@@ -1139,7 +1123,6 @@ const imageCtrl = {
         }
 
         file.images = $.extend(true, {}, images);
-        server.saveParam("all", Store.currentSheetIndex, file.images, { "k": "images" });
     },
 }
 

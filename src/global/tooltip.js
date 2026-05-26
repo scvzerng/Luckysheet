@@ -1,8 +1,7 @@
-import { modelHTML, luckysheetchartpointconfigHTML, luckysheetToolHTML } from '../controllers/constant';
+﻿import { modelHTML, luckysheetchartpointconfigHTML, luckysheetToolHTML } from '../controllers/constant';
 import browser from './browser';
 import { replaceHtml } from '../utils/util';
 import locale from '../locale/locale';
-import server from '../controllers/server';
 import clipboard from 'clipboard-polyfill';
 
 const tooltip = {
@@ -60,7 +59,6 @@ const tooltip = {
             if (typeof func1 == 'function') {
                 func1();
             }
-            server.keepHighLightBox();
             $("#luckysheet-confirm").hide();
             $("#luckysheet-modal-dialog-mask").hide();  
         });

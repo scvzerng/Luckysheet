@@ -1,6 +1,5 @@
-import { getObjType,rgbTohex } from '../utils/util';
+﻿import { getObjType,rgbTohex } from '../utils/util';
 import { getSheetIndex } from '../methods/get';
-import server from '../controllers/server';
 import formula from './formula';
 import editor from './editor';
 import { dynamicArrayCompute } from './dynamicArray';
@@ -224,8 +223,6 @@ export function datagridgrowth(data, addr, addc, iscallback) {
     }
 
     if(!!iscallback){
-        server.saveParam("all", Store.currentSheetIndex, data.length, { "k": "row" });
-        server.saveParam("all", Store.currentSheetIndex, data[0].length, { "k": "column" });
     }
 
     return data;

@@ -2,7 +2,6 @@ import defaultSetting from "./config.js";
 import { common_extend } from "./utils/util";
 import Store from "./store";
 import { locales } from "./locale/locale";
-import server from "./controllers/server";
 import luckysheetConfigsetting from "./controllers/luckysheetConfigsetting";
 import sheetmanage from "./controllers/sheetmanage";
 import luckysheetsizeauto from "./controllers/resize";
@@ -73,13 +72,10 @@ luckysheet.create = function (setting) {
     Store.limitSheetNameLength = extendsetting.limitSheetNameLength;
     Store.defaultSheetNameMaxLength = extendsetting.defaultSheetNameMaxLength;
     Store.fontList = extendsetting.fontList;
-    server.gridKey = extendsetting.gridKey;
-    server.loadUrl = extendsetting.loadUrl;
-    server.updateUrl = extendsetting.updateUrl;
-    server.updateImageUrl = extendsetting.updateImageUrl;
-    server.title = extendsetting.title;
-    server.loadSheetUrl = extendsetting.loadSheetUrl;
-    server.allowUpdate = extendsetting.allowUpdate;
+
+    luckysheetConfigsetting.gridKey = extendsetting.gridKey;
+    luckysheetConfigsetting.loadSheetUrl = extendsetting.loadSheetUrl;
+    luckysheetConfigsetting.title = extendsetting.title;
 
     luckysheetConfigsetting.autoFormatw = extendsetting.autoFormatw;
     luckysheetConfigsetting.accuracy = extendsetting.accuracy;
@@ -138,8 +134,6 @@ luckysheet.create = function (setting) {
 
     luckysheetConfigsetting.initShowsheetbarConfig = false;
 
-    luckysheetConfigsetting.imageUpdateMethodConfig = extendsetting.imageUpdateMethodConfig;
-
     if (Store.lang === "zh") flatpickr.localize(Mandarin.zh);
 
     // Store the currently used plugins for monitoring asynchronous loading
@@ -164,21 +158,14 @@ luckysheet.create = function (setting) {
 
     if (loadurl == "") {
         sheetmanage.initialjfFile(menu, title);
-        // luckysheetsizeauto();
         initialWorkBook();
     } else {
-        $.post(loadurl, { gridKey: server.gridKey }, function (d) {
+        $.post(loadurl, { gridKey: extendsetting.gridKey }, function (d) {
             let data = new Function("return " + d)();
             Store.luckysheetfile = data;
 
             sheetmanage.initialjfFile(menu, title);
-            // luckysheetsizeauto();
             initialWorkBook();
-
-            //需要更新数据给后台时，建立WebSocket连接
-            if (server.allowUpdate) {
-                server.openWebSocket();
-            }
         });
     }
 
