@@ -1,7 +1,6 @@
 import { selectHightlightShow, selectionCopyShow } from "./select";
 import menuButton from "./menuButton";
 import conditionformat from "./conditionformat";
-import { checkProtectionLockedRangeList } from "./protection";
 import editor from "../global/editor";
 import tooltip from "../global/tooltip";
 import formula from "../global/formula";
@@ -648,9 +647,6 @@ const selection = {
         }, 10);
     },
     pasteHandler: function(data, borderInfo) {
-        if (!checkProtectionLockedRangeList(Store.luckysheet_select_save, Store.currentSheetIndex)) {
-            return;
-        }
 
         if (Store.allowEdit === false) {
             return;
@@ -915,9 +911,6 @@ const selection = {
         }
     },
     pasteHandlerOfCutPaste: function(copyRange) {
-        if (!checkProtectionLockedRangeList(Store.luckysheet_select_save, Store.currentSheetIndex)) {
-            return;
-        }
         if (Store.allowEdit === false) {
             return;
         }
@@ -985,18 +978,8 @@ const selection = {
         }
 
         let borderInfoCompute = getBorderInfoCompute(copySheetIndex);
-        let c_dataVerification = $.extend(
-            true,
-            {},
-            Store.luckysheetfile[getSheetIndex(copySheetIndex)]["dataVerification"],
-        );
-        let dataVerification = $.extend(
-            true,
-            {},
-            Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)]["dataVerification"],
-        );
 
-        //剪切粘贴在当前表操作，删除剪切范围内数据、合并单元格和数据验证
+        //剪切粘贴在当前表操作，删除剪切范围内数据、合并单元格
         if (Store.currentSheetIndex == copySheetIndex) {
             for (let i = c_r1; i <= c_r2; i++) {
                 for (let j = c_c1; j <= c_c2; j++) {
@@ -1010,8 +993,6 @@ const selection = {
                     }
 
                     d[i][j] = null;
-
-                    delete dataVerification[i + "_" + j];
                 }
             }
 
@@ -1095,11 +1076,6 @@ const selection = {
                     }
 
                     cfg["borderInfo"].push(bd_obj);
-                }
-
-                //数据验证 剪切
-                if (c_dataVerification[c_r1 + h - minh + "_" + (c_c1 + c - minc)]) {
-                    dataVerification[h + "_" + c] = c_dataVerification[c_r1 + h - minh + "_" + (c_c1 + c - minc)];
                 }
 
                 if (getObjType(x[c]) == "object" && "mc" in x[c]) {
@@ -1275,13 +1251,6 @@ const selection = {
                 target_curCdformat = target_curCdformat.concat(ruleArr);
             }
 
-            //数据验证
-            for (let i = c_r1; i <= c_r2; i++) {
-                for (let j = c_c1; j <= c_c2; j++) {
-                    delete c_dataVerification[i + "_" + j];
-                }
-            }
-
             source = {
                 sheetIndex: copySheetIndex,
                 data: sourceData,
@@ -1290,12 +1259,6 @@ const selection = {
                 curConfig: sourceCurConfig,
                 cdformat: source_cdformat,
                 curCdformat: source_curCdformat,
-                dataVerification: $.extend(
-                    true,
-                    {},
-                    Store.luckysheetfile[getSheetIndex(copySheetIndex)]["dataVerification"],
-                ),
-                curDataVerification: c_dataVerification,
                 range: {
                     row: [c_r1, c_r2],
                     column: [c_c1, c_c2],
@@ -1309,12 +1272,6 @@ const selection = {
                 curConfig: cfg,
                 cdformat: target_cdformat,
                 curCdformat: target_curCdformat,
-                dataVerification: $.extend(
-                    true,
-                    {},
-                    Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)]["dataVerification"],
-                ),
-                curDataVerification: dataVerification,
                 range: {
                     row: [minh, maxh],
                     column: [minc, maxc],
@@ -1357,12 +1314,6 @@ const selection = {
                 curConfig: cfg,
                 cdformat: cdformat,
                 curCdformat: curCdformat,
-                dataVerification: $.extend(
-                    true,
-                    {},
-                    Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)]["dataVerification"],
-                ),
-                curDataVerification: dataVerification,
                 range: {
                     row: [c_r1, c_r2],
                     column: [c_c1, c_c2],
@@ -1376,12 +1327,6 @@ const selection = {
                 curConfig: cfg,
                 cdformat: cdformat,
                 curCdformat: curCdformat,
-                dataVerification: $.extend(
-                    true,
-                    {},
-                    Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)]["dataVerification"],
-                ),
-                curDataVerification: dataVerification,
                 range: {
                     row: [minh, maxh],
                     column: [minc, maxc],
@@ -1396,9 +1341,6 @@ const selection = {
         }
     },
     pasteHandlerOfCopyPaste: function(copyRange) {
-        if (!checkProtectionLockedRangeList(Store.luckysheet_select_save, Store.currentSheetIndex)) {
-            return;
-        }
 
         const _locale = locale();
         const locale_paste = _locale.paste;
@@ -1518,12 +1460,6 @@ const selection = {
         }
 
         let borderInfoCompute = getBorderInfoCompute(copySheetIndex);
-        let c_dataVerification = $.extend(
-            true,
-            {},
-            Store.luckysheetfile[getSheetIndex(copySheetIndex)].dataVerification,
-        );
-        let dataVerification = null;
 
         let mth = 0,
             mtc = 0,
@@ -1581,19 +1517,6 @@ const selection = {
                             }
 
                             cfg["borderInfo"].push(bd_obj);
-                        }
-
-                        //数据验证 复制
-                        if (c_dataVerification[c_r1 + h - mth + "_" + (c_c1 + c - mtc)]) {
-                            if (dataVerification == null) {
-                                dataVerification = $.extend(
-                                    true,
-                                    {},
-                                    Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].dataVerification,
-                                );
-                            }
-
-                            dataVerification[h + "_" + c] = c_dataVerification[c_r1 + h - mth + "_" + (c_c1 + c - mtc)];
                         }
 
                         if (getObjType(x[c]) == "object" && "mc" in x[c]) {
@@ -1725,14 +1648,12 @@ const selection = {
                 cfg: cfg,
                 RowlChange: true,
                 cdformat: cdformat,
-                dataVerification: dataVerification,
             };
             jfrefreshgrid(d, Store.luckysheet_select_save, allParam);
         } else {
             let allParam = {
                 cfg: cfg,
                 cdformat: cdformat,
-                dataVerification: dataVerification,
             };
             jfrefreshgrid(d, Store.luckysheet_select_save, allParam);
 
@@ -1740,9 +1661,6 @@ const selection = {
         }
     },
     pasteHandlerOfPaintModel: function(copyRange) {
-        if (!checkProtectionLockedRangeList(Store.luckysheet_select_save, Store.currentSheetIndex)) {
-            return;
-        }
 
         const _locale = locale();
         const locale_paste = _locale.paste;
@@ -1809,12 +1727,6 @@ const selection = {
         let rowMaxLength = d.length;
 
         let borderInfoCompute = getBorderInfoCompute(copySheetIndex);
-        let c_dataVerification = $.extend(
-            true,
-            {},
-            Store.luckysheetfile[getSheetIndex(copySheetIndex)].dataVerification,
-        );
-        let dataVerification = null;
 
         let mth = 0,
             mtc = 0,
@@ -1876,19 +1788,6 @@ const selection = {
                             }
 
                             cfg["borderInfo"].push(bd_obj);
-                        }
-
-                        //数据验证 复制
-                        if (c_dataVerification[c_r1 + h - mth + "_" + (c_c1 + c - mtc)]) {
-                            if (dataVerification == null) {
-                                dataVerification = $.extend(
-                                    true,
-                                    {},
-                                    Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].dataVerification,
-                                );
-                            }
-
-                            dataVerification[h + "_" + c] = c_dataVerification[c_r1 + h - mth + "_" + (c_c1 + c - mtc)];
                         }
 
                         if (getObjType(x[c]) == "object" && "mc" in x[c]) {
@@ -2032,7 +1931,6 @@ const selection = {
                 cfg: cfg,
                 RowlChange: true,
                 cdformat: cdformat,
-                dataVerification: dataVerification,
             };
             jfrefreshgrid(d, Store.luckysheet_select_save, allParam);
         } else {
@@ -2045,7 +1943,6 @@ const selection = {
                 cfg: cfg,
                 RowlChange: true,
                 cdformat: cdformat,
-                dataVerification: dataVerification,
             };
             jfrefreshgrid(d, Store.luckysheet_select_save, allParam);
 

@@ -7,7 +7,6 @@ import { jfrefreshgrid } from '../global/refresh';
 import editor from '../global/editor';
 import formula from '../global/formula';
 import conditionformat from './conditionformat';
-import {checkProtectionLockedRangeList} from './protection';
 import { selectHightlightShow } from './select';
 import { getSheetIndex } from '../methods/get';
 import { getObjType, replaceHtml } from '../utils/util';
@@ -433,10 +432,6 @@ const luckysheetDropCell = {
     update: function(){
         let _this = this;
 
-        if(!checkProtectionLockedRangeList([_this.applyRange], Store.currentSheetIndex)){
-            return;
-        }
-
         if(Store.allowEdit===false){
             return;
         }
@@ -446,7 +441,6 @@ const luckysheetDropCell = {
 
         let cfg = $.extend(true, {}, Store.config);
         let borderInfoCompute = getBorderInfoCompute();
-        let dataVerification = $.extend(true, {}, file["dataVerification"]);
 
         let direction = _this.direction;
         let type = _this.applyType;
@@ -567,11 +561,6 @@ const luckysheetDropCell = {
 
                             cfg["borderInfo"].push(bd_obj);
                         }
-
-                        //数据验证
-                        if(dataVerification[bd_r + "_" + bd_c]){
-                            dataVerification[j + "_" + i] = dataVerification[bd_r + "_" + bd_c];
-                        }
                     }
                 }
                 if(direction == "up"){
@@ -655,11 +644,6 @@ const luckysheetDropCell = {
                             }
 
                             cfg["borderInfo"].push(bd_obj);
-                        }
-
-                        //数据验证
-                        if(dataVerification[bd_r + "_" + bd_c]){
-                            dataVerification[j + "_" + i] = dataVerification[bd_r + "_" + bd_c];
                         }
                     }
                 }
@@ -755,11 +739,6 @@ const luckysheetDropCell = {
 
                             cfg["borderInfo"].push(bd_obj);
                         }
-
-                        //数据验证
-                        if(dataVerification[bd_r + "_" + bd_c]){
-                            dataVerification[i + "_" + j] = dataVerification[bd_r + "_" + bd_c];
-                        }
                     }
                 }
                 if(direction == "left"){
@@ -844,11 +823,6 @@ const luckysheetDropCell = {
 
                             cfg["borderInfo"].push(bd_obj);
                         }
-
-                        //数据验证
-                        if(dataVerification[bd_r + "_" + bd_c]){
-                            dataVerification[i + "_" + j] = dataVerification[bd_r + "_" + bd_c];
-                        }
                     }
                 }
             }
@@ -878,8 +852,7 @@ const luckysheetDropCell = {
         //刷新一次表格
         let allParam = {
             "cfg": cfg,
-            "cdformat": cdformat,
-            "dataVerification": dataVerification
+            "cdformat": cdformat
         }
         jfrefreshgrid(d, Store.luckysheet_select_save, allParam);
 

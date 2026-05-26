@@ -3,7 +3,6 @@ import formula from '../global/formula';
 import { dynamicArrayHightShow } from '../global/dynamicArray';
 import { rowLocationByIndex, colLocationByIndex } from '../global/location';
 import browser from '../global/browser';
-import dataVerificationCtrl from './dataVerificationCtrl';
 import { getSheetIndex, getRangetxt } from '../methods/get';
 import Store from '../store';
 import method from '../global/method';
@@ -166,8 +165,6 @@ function selectHightlightShow(isRestore = false) {
                 );
                 //左上角选择区域框
                 formula.fucntionboxshow(rf, cf);
-                //focus单元格数据验证
-                dataVerificationCtrl.cellFocus(rf, cf);
             }
         }
 
@@ -341,117 +338,6 @@ function selectIsOverlap(range) {
 
     return overlap;
 }
-// 协同提示框
-function collaborativeEditBox() {
-    let all_width = Store.visibledatacolumn;//当前操作页的所有列距离左边的距离
-    let all_height = Store.visibledatarow;//当前操作页的所有列距离顶部的距离
-
-    Store.cooperativeEdit.changeCollaborationSize.forEach(value => {
-        if (value.i == Store.currentSheetIndex) {
-            let count_col = value.v.column;//系统提示框所在的列范围
-            let change_width = all_width[count_col[0]] -1 //提示框所在列号为0时要改变的宽
-            if(value.v.column[0] !== 0)  {
-                //用提示框右边框到图表最左的距离减去左边框到图表左边距离再减去边框值
-                change_width = all_width[count_col[1]] - all_width[count_col[0] - 1] - (count_col[1] - count_col[0] + 1)
-            }
-            let count_row = value.v.row;//系统提示框所在的行范围
-            let change_height = all_height[count_row[0]] -1
-            if(value.v.row[0] !== 0){
-                change_height = all_height[count_row[1]] - all_height[count_row[0] - 1] - (count_row[1] - count_row[0] + 1)
-            }
-            let range = Store.cooperativeEdit.merge_range //获取单元格合并后的数据
-            let change_left = all_width[value.v.column[0] - 1] - 1 //提示框离图表最左边的距离
-            let change_top = all_height[value.v.row[0] - 1] - 1 //提示框离图表最右边的距离
-            if (Store.config.columnlen !== null) {
-                //当改变宽的列不在提示框范围内时，将改变列的初始位置改为在提示框范围内
-                for (let k in Store.config.columnlen) {
-                    if (value.v.column[0] <= k && k <= value.v.column[1]) {
-                        Store.luckysheet_cols_change_size_start[1] = k - 0
-                        break
-                    }
-                }
-            }
-            if (Store.config.rowlen !== null) {
-                for (let k in Store.config.rowlen) {
-                    if (value.v.row[0] <= k && k <= value.v.row[1]) {
-                        Store.luckysheet_rows_change_size_start[1] = k - 0
-                        break
-                    }
-                }
-            }
-            // 改变列宽的位置在提示框范围内
-            let flag_width = value.v.column[0] <= Store.luckysheet_cols_change_size_start[1] && Store.luckysheet_cols_change_size_start[1] <= value.v.column[1]
-            if (flag_width) {
-                if (Store.luckysheet_cols_change_size_start[1] == 0) {
-                    change_width = all_width[0] - 1
-                } else {
-                    // 不在提示框范围内
-                    let counts = value.v.column;
-                    change_width = all_width[counts[1]] - all_width[counts[0] - 1] - (counts[1] - counts[0] + 1)
-                }
-            }
-            let flag_height = value.v.row[0] <= Store.luckysheet_rows_change_size_start[1] && Store.luckysheet_rows_change_size_start[1] <= value.v.row[1]
-            if (flag_height) {
-                if (Store.luckysheet_rows_change_size_start[1] == 0) {
-                    change_height = all_height[0] - 1
-                } else {
-                    let counts = value.v.row;
-                    change_height = all_height[counts[1]] - all_height[counts[0] - 1] - (counts[1] - counts[0] + 1)
-                }
-            }
-            //合并单元格时执行
-            if (Object.keys(range).length > 0 ) {
-                let flag_sure_merge = false
-                if(range.v.length > 1) {
-                    flag_sure_merge = range.v[1][0] == null || Object.keys(range.v[1][0]).length > 0
-                }
-                if(range.v[0].length > 1) {
-                    flag_sure_merge = range.v[0][1] == null || Object.keys(range.v[0][1]).length > 0
-                }
-                if(flag_sure_merge) {
-                    // 合并成一个时执行
-                    let flag_merge_width = range.column[0] <= value.v.column[0] && range.column[1] >= value.v.column[1];
-                    change_left = all_width[range.column[0] - 1] - 1
-                    change_top = all_height[range.row[0] - 1] - 1
-                    change_width = all_width[range.column[1]] - 1
-                    change_height = all_height[range.row[1]] - 1
-                    if (flag_merge_width) {
-                        if (range.column[0] !== 0) {
-                            let counts = range.column;
-                            change_width = all_width[counts[1]] - all_width[counts[0] - 1] - (counts[1] - counts[0] + 1)
-                        } else {
-                            change_left = 0
-                        }
-                        value.v.column = range.column
-                    }
-                    let flag_merge_height = range.row[0] <= value.v.row[0] && range.row[1] >= value.v.row[1];
-                    if (flag_merge_height) {
-                        if (range.row[0] !== 0) {
-                            let counts = range.row;
-                            change_height = all_height[counts[1]] - all_height[counts[0] - 1] - (counts[1] - counts[0] + 1)
-                        } else {
-                            change_top = 0
-                        }
-                        value.v.row = range.row
-                    }
-                } else {
-                    // 合并取消变成多个单元格时执行
-                    change_width = all_width[count_col[0]] - all_width[count_col[0] - 1] - 1
-                    if(count_col[0] === 0) {
-                        change_width = all_width[count_col[0]] - 1
-                    }
-                    change_height = all_height[count_row[0]] - all_height[count_row[0] - 1] - 1
-                    if(count_row[0] === 0) {
-                        change_height = all_height[count_row[0]] - 1
-                    }
-                }
-            }
-            $("#luckysheet-multipleRange-show-" + value.id).css({ "height": change_height, "width": change_width, "top": change_top + 'px', "left": change_left + 'px' })
-            let change_bottom = $("#luckysheet-multipleRange-show-" + value.id)[0].offsetHeight - 1
-            $("#luckysheet-multipleRange-show-" + value.id + ">.username").css({ "bottom": change_bottom + 'px' })
-        }
-    })
-}
 //复制选区虚线框
 function selectionCopyShow(range) {
     $("#luckysheet-selection-copy").empty();
@@ -558,7 +444,6 @@ export {
     selectHightlightShow,
     selectIsOverlap,
     selectionCopyShow,
-    collaborativeEditBox,
     luckysheet_count_show,
     selectHelpboxFill
 }

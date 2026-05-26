@@ -27,9 +27,6 @@ export default {
     loadUrl: "", // 配置loadUrl的地址，luckysheet会通过ajax请求表格数据，默认载入status为1的sheet数据中的所有data，其余的sheet载入除data字段外的所有字段
     loadSheetUrl: "", //配置loadSheetUrl的地址，参数为gridKey（表格主键） 和 index（sheet主键合集，格式为[1,2,3]），返回的数据为sheet的data字段数据集合
     gridKey: "", // 表格唯一标识符
-    updateUrl: "", //表格数据的更新地址
-    updateImageUrl: "", //缩略图的更新地址
-    allowUpdate: false, //是否允许编辑后的后台更新
     functionButton: "", //右上角功能按钮，例如'<button id="" class="btn btn-primary" style="padding:3px 6px;font-size: 12px;margin-right: 10px;">下载</button>    <button id="" class="btn btn-primary btn-danger" style="    padding:3px 6px;    font-size: 12px;    margin-right: 10px;">分享</button>    <button id="luckysheet-share-btn-title" class="btn btn-primary btn-danger" style="    padding:3px 6px;    font-size: 12px;    margin-right: 10px;">秀数据</button>'
     showConfigWindowResize: true, //图表和数据透视表的配置会在右侧弹出，设置弹出后表格是否会自动缩进
     enableAddRow: true,//允许添加行
@@ -66,5 +63,4 @@ export default {
     showstatisticBarConfig:{}, //自定义计数栏
     cellRightClickConfig:{}, //自定义单元格右键菜单
     sheetRightClickConfig:{}, //自定义底部sheet页右击菜单
-    imageUpdateMethodConfig:{}, //自定义图片同步方式
 }

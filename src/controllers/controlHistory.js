@@ -1,10 +1,7 @@
-import sheetmanage from './sheetmanage';
-import server from './server';
-import pivotTable from './pivotTable';
+﻿import sheetmanage from './sheetmanage';
 import conditionformat from './conditionformat';
 import luckysheetPostil from './postil';
 import imageCtrl from './imageCtrl';
-import dataVerificationCtrl from './dataVerificationCtrl';
 import hyperlinkCtrl from './hyperlinkCtrl';
 import {zoomRefreshView,zoomNumberDomBind} from './zoom';
 import { createFilter, createFilterOptions, labelFilterOptionState } from './filter';
@@ -82,12 +79,10 @@ const controlHistory = {
                 "cfg": ctr.config,
                 "RowlChange": ctr.RowlChange,
                 "cdformat": ctr.cdformat,
-                "dataVerification": ctr.dataVerification,
                 "dynamicArray": ctr.dynamicArray,
                 "hyperlink": ctr.hyperlink,
             }
             //防止协同编辑时选区错误
-            server.saveParam("mv", Store.currentSheetIndex, ctr.dataRange);
            // jfrefreshgrid(ctr.data, ctr.range, allParam);
 
             /* ⚠️  这个🌶️  dataRange表示的才是数据更新的位置 */
@@ -104,8 +99,6 @@ const controlHistory = {
                 "curConfig": ctr.source["config"],
                 "cdformat": ctr.source["curCdformat"],
                 "curCdformat": ctr.source["cdformat"],
-                "dataVerification": ctr.source["curDataVerification"],
-                "curDataVerification": ctr.source["dataVerification"],
                 "range": ctr.source["range"]
             }
             let t = {
@@ -116,8 +109,6 @@ const controlHistory = {
                 "curConfig": ctr.target["config"],
                 "cdformat": ctr.target["curCdformat"],
                 "curCdformat": ctr.target["cdformat"],
-                "dataVerification": ctr.target["curDataVerification"],
-                "curDataVerification": ctr.target["dataVerification"],
                 "range": ctr.target["range"]
             }
             jfrefreshgrid_pastcut(s, t, ctr.RowlChange);
@@ -134,15 +125,12 @@ const controlHistory = {
             Store.luckysheetfile[getSheetIndex(ctr.sheetIndex)].config = Store.config;
 
             if(ctr.ctrlType == "resizeR"){
-                server.saveParam("cg", ctr.sheetIndex, ctr.config["rowlen"], { "k": "rowlen" });
             }
             else if(ctr.ctrlType == "resizeC"){
-                server.saveParam("cg", ctr.sheetIndex, ctr.config["columnlen"], { "k": "columnlen" });
             }
 
             let images = $.extend(true, {}, ctr.images);
             Store.luckysheetfile[getSheetIndex(ctr.sheetIndex)].images = images;
-            server.saveParam("all", ctr.sheetIndex, images, { "k": "images" });
             imageCtrl.images = images;
             imageCtrl.allImagesShow();
 
@@ -175,7 +163,6 @@ const controlHistory = {
                 ctr.cf, 
                 ctr.af, 
                 ctr.freezen,
-                ctr.dataVerification,
                 ctr.hyperlink
             );
         }
@@ -194,7 +181,6 @@ const controlHistory = {
                 ctr.cf, 
                 ctr.af, 
                 ctr.freezen,
-                ctr.dataVerification,
                 ctr.hyperlink
             );
         }
@@ -206,7 +192,6 @@ const controlHistory = {
                 ctr.calc, 
                 ctr.filterObj, 
                 ctr.cf,
-                ctr.dataVerification,
                 ctr.hyperlink
             );
         }
@@ -215,7 +200,6 @@ const controlHistory = {
             Store.config = ctr.config;
             Store.luckysheetfile[getSheetIndex(ctr.sheetIndex)].config = ctr.config;
         
-            server.saveParam("cg", ctr.sheetIndex, ctr.config["rowhidden"], { "k": "rowhidden" });
         
             //行高、列宽 刷新  
             jfrefreshgrid_rhcw(Store.flowdata.length, Store.flowdata[0].length);
@@ -225,7 +209,6 @@ const controlHistory = {
             Store.config = ctr.config;
             Store.luckysheetfile[getSheetIndex(ctr.sheetIndex)].config = ctr.config;
         
-            server.saveParam("cg", ctr.sheetIndex, ctr.config["colhidden"], { "k": "colhidden" });
         
             //行高、列宽 刷新  
             jfrefreshgrid_rhcw(Store.flowdata.length, Store.flowdata[0].length);
@@ -243,7 +226,6 @@ const controlHistory = {
                 labelFilterOptionState($top, item.optionstate, item.rowhidden, item.caljs, false, item.st_r, item.ed_r, item.cindex, item.st_c, item.ed_c);
             });
 
-            server.saveParam("fsr", Store.currentSheetIndex, { "filter": ctr.optiongroups, "filter_select": ctr.filter_save });
 
             //config
             Store.config = ctr.config;
@@ -253,7 +235,6 @@ const controlHistory = {
                 Store.config["rowhidden"] = {};
             }
 
-            server.saveParam("cg", Store.currentSheetIndex, Store.config["rowhidden"], { "k": "rowhidden" });
 
             //行高、列宽 刷新  
             jfrefreshgrid_rhcw(Store.flowdata.length, Store.flowdata[0].length);
@@ -278,7 +259,6 @@ const controlHistory = {
                 Store.config["rowhidden"] = {};
             }
 
-            server.saveParam("cg", Store.currentSheetIndex, Store.config["rowhidden"], { "k": "rowhidden" });
 
             //行高、列宽 刷新  
             jfrefreshgrid_rhcw(Store.flowdata.length, Store.flowdata[0].length);
@@ -288,17 +268,6 @@ const controlHistory = {
         else if (ctr.type == "filtershow") {
             $('#luckysheet-filter-selected-sheet' + ctr.sheetIndex + ', #luckysheet-filter-options-sheet' + ctr.sheetIndex).remove();
             
-            if(server.allowUpdate){
-                server.saveParam("all", ctr.sheetIndex, null, { "k": "filter_select" });
-            }
-        }
-        else if(ctr.type == "pivotTable_change"){
-            Store.luckysheetfile[getSheetIndex(ctr.sheetIndex)].pivotTable = ctr.pivotTable;
-
-            pivotTable.getCellData(ctr.sheetIndex);
-            pivotTable.initialPivotManage(true);
-
-            pivotTable.refreshPivotTable();
         }
         else if (ctr.type == "addSheet") {
             sheetmanage.deleteSheet(ctr.index);
@@ -329,7 +298,6 @@ const controlHistory = {
             Store.luckysheetfile[getSheetIndex(ctr.sheetIndex)].name = ctr.oldtxt;
             $("#luckysheet-sheets-item" + ctr.sheetIndex).find(".luckysheet-sheets-item-name").html(ctr.oldtxt);
 
-            server.saveParam("all", ctr.sheetIndex, ctr.oldtxt, { "k": "name" });
         }
         else if (ctr.type == "sheetColor") {
             Store.luckysheetfile[getSheetIndex(ctr.sheetIndex)].color = ctr.oldcolor;
@@ -341,7 +309,6 @@ const controlHistory = {
                 luckysheetcurrentSheetitem.append('<div class="luckysheet-sheets-item-color" style=" position: absolute; width: 100%; height: 3px; bottom: 0px; left: 0px; background-color: ' + ctr.oldcolor + ';"></div>');
             }
 
-            server.saveParam("all", ctr.sheetIndex, ctr.oldcolor, { "k": "color" });
         }
         else if (ctr.type == "mergeChange") {
             let allParam = {
@@ -351,12 +318,6 @@ const controlHistory = {
             }
 
             jfrefreshgrid(ctr.data, ctr.range, allParam);
-        }
-        else if (ctr.type == "updateDataVerification"){
-            dataVerificationCtrl.ref(ctr.currentDataVerification, ctr.historyDataVerification, ctr.sheetIndex);
-        }
-        else if (ctr.type == "updateDataVerificationOfCheckbox"){
-            dataVerificationCtrl.refOfCheckbox(ctr.currentDataVerification, ctr.historyDataVerification, ctr.sheetIndex, ctr.data, ctr.range);
         }
         else if (ctr.type == "updateHyperlink"){
             hyperlinkCtrl.ref(ctr.currentHyperlink, ctr.historyHyperlink, ctr.sheetIndex, ctr.data, ctr.range);
@@ -369,9 +330,6 @@ const controlHistory = {
                 let sheetIndex = historyRules[i]["sheetIndex"];
                 Store.luckysheetfile[getSheetIndex(sheetIndex)]["luckysheet_conditionformat_save"] = historyRules[i]["luckysheet_conditionformat_save"];
             
-                if(server.allowUpdate){
-                    server.saveParam("all", sheetIndex, historyRules[i]["luckysheet_conditionformat_save"], { "k": "luckysheet_conditionformat_save" });
-                }
             }
 
             //刷新一次表格
@@ -390,10 +348,8 @@ const controlHistory = {
         }
         else if (ctr.type == "borderChange"){
             if(ctr.config["borderInfo"] == null){
-                server.saveParam("cg", ctr.sheetIndex, [], { "k": "borderInfo" });
             }
             else{
-                server.saveParam("cg", ctr.sheetIndex, ctr.config["borderInfo"], { "k": "borderInfo" });
             }
 
             Store.config = ctr.config;
@@ -425,7 +381,6 @@ const controlHistory = {
         }
         else if (ctr.type=="zoomChange"){
             Store.zoomRatio = ctr.zoomRatio;
-            server.saveParam("all", ctr.sheetIndex, ctr.zoomRatio, { "k": "zoomRatio" });
             zoomNumberDomBind();
             zoomRefreshView();
         }
@@ -464,7 +419,6 @@ const controlHistory = {
                 "cfg": ctr.curConfig,
                 "RowlChange": ctr.RowlChange,
                 "cdformat": ctr.curCdformat,
-                "dataVerification": ctr.curDataVerification,
                 "dynamicArray": ctr.curDynamicArray,
                 "hyperlink": ctr.curHyperlink,
             }
@@ -472,7 +426,6 @@ const controlHistory = {
             formulaHistoryHanddler(ctr, "undo");
 
             //防止协同编辑时选区错误
-            server.saveParam("mv", Store.currentSheetIndex, ctr.range);
             jfrefreshgrid(ctr.curdata, ctr.range, allParam);
         }
         else if (ctr.type == "pasteCut") {
@@ -488,15 +441,12 @@ const controlHistory = {
             Store.luckysheetfile[getSheetIndex(ctr.sheetIndex)].config = Store.config;
 
             if(ctr.ctrlType == "resizeR"){
-                server.saveParam("cg", ctr.sheetIndex, ctr.curconfig["rowlen"], { "k": "rowlen" });
             }
             else if(ctr.ctrlType == "resizeC"){
-                server.saveParam("cg", ctr.sheetIndex, ctr.curconfig["columnlen"], { "k": "columnlen" });
             }
 
             let images = $.extend(true, {}, ctr.curImages);
             Store.luckysheetfile[getSheetIndex(ctr.sheetIndex)].images = images;
-            server.saveParam("all", ctr.sheetIndex, images, { "k": "images" });
             imageCtrl.images = images;
             imageCtrl.allImagesShow();
 
@@ -524,7 +474,6 @@ const controlHistory = {
                 ctr.curCf, 
                 ctr.curAf, 
                 ctr.curFreezen,
-                ctr.curDataVerification,
                 ctr.curHyperlink
             );
         }
@@ -539,7 +488,6 @@ const controlHistory = {
                 ctr.curCf, 
                 ctr.curAf, 
                 ctr.curFreezen,
-                ctr.curDataVerification,
                 ctr.curHyperlink
             );
         }
@@ -551,7 +499,6 @@ const controlHistory = {
                 ctr.curCalc, 
                 ctr.curFilterObj, 
                 ctr.curCf,
-                ctr.curDataVerification,
                 ctr.curHyperlink
             );
         }
@@ -560,7 +507,6 @@ const controlHistory = {
             Store.config = ctr.curconfig;
             Store.luckysheetfile[getSheetIndex(ctr.sheetIndex)].config = ctr.curconfig;
         
-            server.saveParam("cg", ctr.sheetIndex, ctr.curconfig["rowhidden"], { "k": "rowhidden" });
         
             //行高、列宽 刷新  
             jfrefreshgrid_rhcw(Store.flowdata.length, Store.flowdata[0].length);
@@ -570,7 +516,6 @@ const controlHistory = {
             Store.config = ctr.curconfig;
             Store.luckysheetfile[getSheetIndex(ctr.sheetIndex)].config = ctr.curconfig;
         
-            server.saveParam("cg", ctr.sheetIndex, ctr.curconfig["colhidden"], { "k": "colhidden" });
         
             //行高、列宽 刷新  
             jfrefreshgrid_rhcw(Store.flowdata.length, Store.flowdata[0].length);
@@ -580,13 +525,11 @@ const controlHistory = {
             jfrefreshgridall(ctr.curdata[0].length, ctr.curdata.length, ctr.curdata, null, ctr.currange, "datachangeAll", ctr.ctrlValue);
         }
         else if (ctr.type == "datachangeAll_filter_clear") {
-            server.saveParam("fsc", Store.currentSheetIndex, null);
             
             //config
             Store.config = ctr.curconfig;
             Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
 
-            server.saveParam("cg", Store.currentSheetIndex, {}, { "k": "rowhidden" });
 
             //行高、列宽 刷新  
             jfrefreshgrid_rhcw(Store.flowdata.length, Store.flowdata[0].length);
@@ -612,7 +555,6 @@ const controlHistory = {
             Store.config = ctr.curconfig;
             Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
 
-            server.saveParam("cg", Store.currentSheetIndex, Store.config["rowhidden"], { "k": "rowhidden" });
 
             //行高、列宽 刷新  
             jfrefreshgrid_rhcw(Store.flowdata.length, Store.flowdata[0].length);
@@ -624,13 +566,6 @@ const controlHistory = {
             Store.filterchage = false;
             createFilter();
             Store.filterchage = true;
-            server.saveParam("all", ctr.sheetIndex, ctr.filter_save, { "k": "filter_select" });
-        }
-        else if (ctr.type == "pivotTable_change") {
-            Store.luckysheetfile[getSheetIndex(ctr.sheetIndex)].pivotTable = ctr.pivotTablecur;
-            pivotTable.getCellData(ctr.sheetIndex);
-            pivotTable.initialPivotManage(true);
-            pivotTable.refreshPivotTable();
         }
         else if (ctr.type == "addSheet") {
             sheetmanage.createSheetbydata(ctr.sheetconfig);
@@ -657,7 +592,6 @@ const controlHistory = {
             Store.luckysheetfile[getSheetIndex(ctr.sheetIndex)].name = ctr.txt;
             $("#luckysheet-sheets-item" + ctr.sheetIndex).find(".luckysheet-sheets-item-name").html(ctr.txt);
             
-            server.saveParam("all", ctr.sheetIndex, ctr.txt, { "k": "name" });
         }
         else if (ctr.type == "sheetColor") {
             Store.luckysheetfile[getSheetIndex(ctr.sheetIndex)].color = ctr.color;
@@ -669,7 +603,6 @@ const controlHistory = {
                 luckysheetcurrentSheetitem.append('<div class="luckysheet-sheets-item-color" style=" position: absolute; width: 100%; height: 3px; bottom: 0px; left: 0px; background-color: ' + ctr.color + ';"></div>');
             }
             
-            server.saveParam("all", ctr.sheetIndex, ctr.color, { "k": "color" });
         }
         else if (ctr.type == "mergeChange") {
             let allParam = {
@@ -679,12 +612,6 @@ const controlHistory = {
             }
 
             jfrefreshgrid(ctr.curData, ctr.range, allParam);
-        }
-        else if (ctr.type == "updateDataVerification"){
-            dataVerificationCtrl.ref(ctr.historyDataVerification, ctr.currentDataVerification, ctr.sheetIndex);
-        }
-        else if (ctr.type == "updateDataVerificationOfCheckbox"){
-            dataVerificationCtrl.refOfCheckbox(ctr.historyDataVerification, ctr.currentDataVerification, ctr.sheetIndex, ctr.curData, ctr.range);
         }
         else if (ctr.type == "updateHyperlink") {
             hyperlinkCtrl.ref(ctr.historyHyperlink, ctr.currentHyperlink, ctr.sheetIndex, ctr.curData, ctr.range);
@@ -697,9 +624,6 @@ const controlHistory = {
                 let sheetIndex = currentRules[i]["sheetIndex"];
                 Store.luckysheetfile[getSheetIndex(sheetIndex)]["luckysheet_conditionformat_save"] = currentRules[i]["luckysheet_conditionformat_save"];
                 
-                if(server.allowUpdate){
-                    server.saveParam("all", sheetIndex, currentRules[i]["luckysheet_conditionformat_save"], { "k": "luckysheet_conditionformat_save" });
-                }
             }
 
             //刷新一次表格
@@ -717,7 +641,6 @@ const controlHistory = {
             }, 1);
         }
         else if (ctr.type == "borderChange"){
-            server.saveParam("cg", ctr.sheetIndex, ctr.curconfig["borderInfo"], { "k": "borderInfo" });
 
             Store.config = ctr.curconfig;
             Store.luckysheetfile[getSheetIndex(ctr.sheetIndex)].config = Store.config;
@@ -748,7 +671,6 @@ const controlHistory = {
         }
         else if (ctr.type=="zoomChange"){
             Store.zoomRatio = ctr.curZoomRatio;
-            server.saveParam("all", ctr.sheetIndex, ctr.curZoomRatio, { "k": "zoomRatio" });
             zoomNumberDomBind();
             zoomRefreshView();
         }
