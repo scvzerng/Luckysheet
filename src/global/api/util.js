@@ -10,6 +10,7 @@ import Store from "../../store";
 import { getObjType } from "../../utils/util";
 import formula from "../formula";
 import method from "../method";
+import { getRangeWithFlatten } from "./rangeRead";
 import { luckysheetrefreshgrid } from "../refresh";
 
 export function getRangeByTxt(txt){
