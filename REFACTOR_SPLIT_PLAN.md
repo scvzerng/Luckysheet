@@ -373,16 +373,18 @@ src/controllers/freezen/                       # 原 freezen.js
 
 - **导出方式**: 命名导出 `computeColWidthByContent` / `rowlenByRange` / `computeRowlenByContent` / `computeRowlenArr` / `getCellTextSplitArr` / `getMeasureText` / `getCellTextInfo`
 - **核心问题**: `getCellTextInfo` 单函数 1286行(占74%)，含竖排/换行/普通/inlineString四大分支
-- **状态**: ⬜ 待拆分
+- **状态**: ✅ 已完成
 
 **拆分方案**:
 
 ```
 src/global/getRowlen/                          # 原 getRowlen.js
 ├── index.js                                  # 聚合导出
-├── sizeCalc.js                               # rowlenByRange / computeRowlenByContent / computeRowlenArr / computeColWidthByContent / computeCellWidth
-├── textMeasure.js                            # getMeasureText / isSupportBoundingBox / getCellTextSplitArr
-├── textLayout.js                             # getCellTextInfo (主函数，内部拆子函数)
+├── rowlenUtils.js                            # rowlenByRange / computeRowlenByContent / computeCellWidth / computeColWidthByContent / computeRowlenArr
+├── getCellTextSplitArr.js                    # getCellTextSplitArr
+├── getMeasureText.js                         # getMeasureText
+├── isSupportBoundingBox.js                   # isSupportBoundingBox
+├── getCellTextInfo.js                        # getCellTextInfo (1287行主函数)
 └── drawLineInfo.js                           # drawLineInfo (删除线/下划线坐标计算)
 ```
 
@@ -393,7 +395,7 @@ src/global/getRowlen/                          # 原 getRowlen.js
 - **导出方式**: 命名导出（22项）
 - **核心问题**: HTML模板字符串(70%)+纯数据常量+配置函数全部混杂
 - **函数分类**: HTML模板(gridHTML 272行/rightclickHTML 482行/sheetconfigHTML 106行/交替颜色101行/加载遮罩48行) / 数据常量(keycode/luckyColor/columeHeader_word/iconfontObjects/CFiconsImg) / 配置函数(右键配置/加载配置/默认字体)
-- **状态**: ⬜ 待拆分
+- **状态**: ✅ 已完成
 
 **拆分方案**:
 
@@ -403,9 +405,9 @@ src/controllers/constant/                      # 原 constant.js
 ├── gridTemplate.js                            # gridHTML (272行)
 ├── rightclickTemplate.js                      # rightclickHTML (482行)
 ├── sheetTemplate.js                           # sheetconfigHTML / filtermenuHTML / filtersubmenuHTML / luckysheetAlternateformatHtml
-├── loadingTemplate.js                         # customLoadingConfig / luckysheetloadingImage / luckysheetlodingHTML
-├── dataConstants.js                           # keycode / luckyColor / columeHeader_word / columeHeader_word_index / iconfontObjects / luckysheet_CFiconsImg / luckysheetdefaultstyle
-└── configFunctions.js                         # menuToolBar / customCellRightClickConfig / customSheetRightClickConfig / luckysheetdefaultFont
+├── loadingTemplate.js                         # luckysheetToolHTML / menuToolBar / customLoadingConfig / luckysheetloadingImage / luckysheetlodingHTML
+├── dataConstants.js                           # columeHeader_word / columeHeader_word_index / flow / colsmenuHTML / sheetHTML / columnHeaderHTML / sheetselectlistHTML / sheetselectlistitemHTML / inputHTML / modelHTML / maskHTML / luckyColor / keycode / luckysheetdefaultstyle / luckysheet_CFiconsImg / iconfontObjects
+└── configFunctions.js                         # luckysheetdefaultFont / customCellRightClickConfig / customSheetRightClickConfig
 ```
 
 ---
@@ -415,16 +417,7 @@ src/controllers/constant/                      # 原 constant.js
 - **导出方式**: `export default luckysheetMoreFormat` (对象字面量)
 - **核心问题**: 数据与逻辑混杂，createDialog 内部重复定义了 moneyFmtList/numFmtList
 - **函数分类**: 纯数据(moneyFmtList/dateFmtList/numFmtList, 784行) / 对话框创建(createDialog 350行) / 事件绑定(init 67行)
-- **状态**: ⬜ 待拆分
-
-**拆分方案**:
-
-```
-src/controllers/moreFormat/                     # 原 moreFormat.js
-├── index.js                                   # 聚合导出
-├── formatData.js                              # moneyFmtList / dateFmtList / numFmtList (纯数据)
-└── formatDialog.js                            # createDialog / init (UI逻辑)
-```
+- **状态**: ✅ 已完成
 
 ---
 
@@ -432,9 +425,7 @@ src/controllers/moreFormat/                     # 原 moreFormat.js
 
 - **导出方式**: 待分析
 - **核心问题**: 与 conditionformat 重复模式
-- **状态**: ⬜ 待拆分
-
-**拆分方案**: 同 conditionformat，按 UI/计算/规则管理 拆分
+- **状态**: ✅ 已完成
 
 ---
 
@@ -443,19 +434,7 @@ src/controllers/moreFormat/                     # 原 moreFormat.js
 - **导出方式**: 命名导出 `initialMatrixOperation`（1项）
 - **核心问题**: 典型"上帝函数"反模式，单函数 1250 行，含约 15 个 jQuery 事件处理器
 - **函数分类**: 复制格式操作 / 矩阵翻转操作 / 矩阵计算操作 / 矩阵清理操作 / 公共验证逻辑
-- **状态**: ⬜ 待拆分
-
-**拆分方案**:
-
-```
-src/controllers/matrixOperation/                # 原 matrixOperation.js
-├── index.js                                   # 聚合导出
-├── copyFormatOperation.js                     # 复制为JSON/数组/对角线/布尔值等
-├── matrixFlipOperation.js                     # 矩阵翻转(上下/左右/顺逆时针/转置)
-├── matrixCalcOperation.js                     # 矩阵计算(加减乘除/幂/根/对数)
-├── matrixCleanOperation.js                    # 删除零值/重复值
-└── matrixValidation.js                        # 公共验证逻辑(多选检测/合并单元格检测)
-```
+- **状态**: ✅ 已完成
 
 ---
 
@@ -463,18 +442,7 @@ src/controllers/matrixOperation/                # 原 matrixOperation.js
 
 - **导出方式**: 命名导出（8项）
 - **核心问题**: 3个函数存在大量重复的undo/redo记录逻辑和公式链更新逻辑
-- **函数分类**: 核心刷新(jfrefreshgrid/jfrefreshgridall/jfrefreshrange) / 操作刷新(jfrefreshgrid_adRC/jfrefreshgrid_deleteCell/jfrefreshgrid_pastcut) / Canvas刷新(luckysheetrefreshgrid/jfrefreshgrid_rhcw)
-- **状态**: ⬜ 待拆分
-
-**拆分方案**:
-
-```
-src/global/refresh/                             # 原 refresh.js
-├── index.js                                   # 聚合导出
-├── refreshCore.js                             # jfrefreshgrid / jfrefreshgridall / jfrefreshrange / runExecFunction
-├── refreshOperation.js                        # jfrefreshgrid_adRC / jfrefreshgrid_deleteCell / jfrefreshgrid_pastcut
-└── refreshCanvas.js                           # luckysheetrefreshgrid / jfrefreshgrid_rhcw
-```
+- **状态**: ✅ 已完成
 
 ---
 
@@ -621,8 +589,8 @@ src/utils/util/                                 # 原 util.js
 |--------|------|--------|------|--------|
 | P0 (已完成) | 3 | 3 | 0 | 0 |
 | P1 | 2 | 2 | 0 | 0 |
-| P2 | 13 | 11 | 1 | 1 |
-| P3 | 6 | 0 | 0 | 6 |
+| P2 | 13 | 12 | 1 | 0 |
+| P3 | 6 | 6 | 0 | 0 |
 | P4 (二次拆分) | 16 | 0 | 0 | 16 |
 | P5 (新发现) | 1 | 0 | 0 | 1 |
-| **合计** | **41** | **16** | **1** | **24** |
+| **合计** | **41** | **23** | **1** | **17** |
