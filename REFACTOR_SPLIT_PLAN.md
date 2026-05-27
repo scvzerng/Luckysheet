@@ -322,7 +322,25 @@ src/function/func/                              # 原 func.js
 
 - **导出方式**: 命名导出 `labelFilterOptionState` / `orderbydatafiler` / `createFilter` / `createFilterOptions` / `initialFilterHandler`
 - **核心问题**: `initialFilterHandler` 单函数 1510行，绑定所有筛选UI交互事件
-- **状态**: ⬜ 待拆分 (initialFilterHandler 1510行需手动拆分事件绑定)
+- **状态**: ✅ 已完成
+
+**拆分方案**:
+
+```
+src/controllers/filter/                         # 原 filter.js
+├── index.js                                   # 聚合导出
+├── filterState.js                             # 共享可变状态 (hidefilersubmenu/locale_filter/locale_button)
+├── initialFilterHandler.js                    # 主调度函数 + locale 初始化
+├── labelFilterOptionState.js                  # labelFilterOptionState (筛选图标状态管理)
+├── orderbydatafiler.js                        # orderbydatafiler (筛选排序)
+├── createFilter.js                            # createFilter (创建筛选)
+├── createFilterOptions.js                     # createFilterOptions (创建筛选选项)
+├── filterMenuEvents.js                        # 子菜单hover/菜单mouseover/条件切换事件
+├── filterOptionClick.js                       # 筛选按钮点击事件
+├── filterColorEvents.js                       # 按颜色筛选事件
+├── filterCheckboxEvents.js                    # 复选框/日期/全选/清除/反选事件
+└── filterActions.js                           # 清除筛选/搜索/取消/确认事件
+```
 
 ---
 
@@ -599,12 +617,12 @@ src/utils/util/                                 # 原 util.js
 
 ## 进度统计
 
-| 优先级 | 总数 | 已完成 | 进行中 | 待拆分 |
-|--------|------|--------|--------|--------|
+| 优先级 | 总数 | 已完成 | 暂缓 | 待拆分 |
+|--------|------|--------|------|--------|
 | P0 (已完成) | 3 | 3 | 0 | 0 |
 | P1 | 2 | 2 | 0 | 0 |
-| P2 | 13 | 11 | 0 | 2 |
-| P3 | 5 | 0 | 0 | 5 |
+| P2 | 13 | 11 | 1 | 1 |
+| P3 | 6 | 0 | 0 | 6 |
 | P4 (二次拆分) | 16 | 0 | 0 | 16 |
 | P5 (新发现) | 1 | 0 | 0 | 1 |
-| **合计** | **40** | **16** | **0** | **24** |
+| **合计** | **41** | **16** | **1** | **24** |

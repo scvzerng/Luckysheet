@@ -1,0 +1,92 @@
+import { getSheetIndex } from '../../methods/get';
+import editor from '../../global/editor';
+import { isRealNull, isEditMode } from '../../global/validate';
+import tooltip from '../../global/tooltip';
+import { rowlenByRange } from '../../global/getRowlen';
+import { selectHightlightShow } from '../select';
+import { luckysheetMoveEndCell } from '../sheetMove';
+import { luckysheetlodingHTML } from '../constant';
+import locale from '../../locale/locale';
+import Store from '../../store';
+import menuButton from '../menuButton';
+import conditionformat from '../conditionformat';
+import alternateformat from '../alternateformat';
+import { rgbTohex, showrightclickmenu } from '../../utils/util';
+import cleargridelement from '../../global/cleargridelement';
+import { jfrefreshgrid, jfrefreshgrid_rhcw } from '../../global/refresh';
+import { orderbydata, orderbydata1D } from '../../global/sort';
+import json from '../../global/json';
+import { update, genarate } from '../../global/format';
+import { createFilterOptions } from './createFilterOptions';
+
+function createFilter() {
+
+    if(Store.luckysheet_select_save.length > 1){
+        $("#luckysheet-rightclick-menu").hide();
+        $("#luckysheet-filter-menu, #luckysheet-filter-submenu").hide();
+        $("#" + Store.container).attr("tabindex", 0).focus();
+
+        const locale_splitText = locale().splitText;
+
+        if(isEditMode()){
+            alert(locale_splitText.tipNoMulti);
+        }
+        else{
+            tooltip.info(locale_splitText.tipNoMulti, "");
+        }
+
+        return;
+    }
+
+    $('#luckysheet-filter-selected-sheet' + Store.currentSheetIndex + ', #luckysheet-filter-options-sheet' + Store.currentSheetIndex).remove();
+
+    let last = Store.luckysheet_select_save[0];
+    if (last["row"][0] == last["row"][1] && last["column"][0] == last["column"][1]) {
+        let st_c, ed_c, curR = last["row"][1];
+
+        for (let c = 0; c < Store.flowdata[curR].length; c++) {
+            let cell = Store.flowdata[curR][c];
+
+            if (cell != null && !isRealNull(cell.v)) {
+                if (st_c == null) {
+                    st_c = c;
+                }
+            }
+            else if (st_c != null) {
+                ed_c = c - 1;
+                break;
+            }
+        }
+
+        if (ed_c == null) {
+            ed_c = Store.flowdata[curR].length - 1;
+        }
+
+        Store.luckysheet_select_save = [{ "row": [curR, curR], "column": [st_c, ed_c] }];
+        selectHightlightShow();
+
+        Store.luckysheet_shiftpositon = $.extend(true, {}, last);
+        luckysheetMoveEndCell("down", "range");
+    }
+    else if (last["row"][1] - last["row"][0] < 2) {
+        Store.luckysheet_shiftpositon = $.extend(true, {}, last);
+        luckysheetMoveEndCell("down", "range");
+    }
+
+    Store.luckysheet_filter_save = $.extend(true, {}, Store.luckysheet_select_save[0]);
+
+    createFilterOptions(Store.luckysheet_filter_save);
+
+
+    if (Store.filterchage) {
+        Store.jfredo.push({ 
+            "type": "filtershow", 
+            "data": [], 
+            "curdata": [], 
+            "sheetIndex": Store.currentSheetIndex, 
+            "filter_save": Store.luckysheet_filter_save 
+        });
+    }
+}
+
+export { createFilter };
