@@ -1,0 +1,614 @@
+/*条件格式颜色选择器*/
+#textCellColor {
+    border: 1px solid #d4d4d4;
+    padding: 5px 10px;
+}
+
+#textCellColor .colorbox {
+    height: 30px;
+    line-height: 30px;
+    margin-bottom: 10px;
+}
+
+#textCellColor .colorbox input[type="checkbox"] {
+    float: left;
+    margin-top: 10px;
+}
+
+#textCellColor .colorbox label {
+    display: inline-block;
+    width: 80px;
+}
+
+/*条件格式单元格选择框*/
+#luckysheet-singleRange-dialog input,
+#luckysheet-multiRange-dialog input {
+    border: 1px solid #d4d4d4;
+    padding: 0 10px;
+    height: 30px;
+}
+
+/*条件格式弹出框*/
+#luckysheet-conditionformat-dialog {
+    font-size: 12px;
+}
+
+#luckysheet-conditionformat-dialog .box .boxTitleOne {
+    margin: 5px 0;
+    font-weight: 600;
+}
+
+#luckysheet-conditionformat-dialog .box .inpbox {
+    width: 198px;
+    height: 28px;
+    border: 1px solid #d4d4d4;
+}
+
+#luckysheet-conditionformat-dialog .box .inpbox input {
+    width: 150px;
+    height: 28px;
+    padding: 0 10px;
+    border: none;
+    outline-style: none;
+    float: left;
+}
+
+#luckysheet-conditionformat-dialog .box .inpbox2 {
+    float: left;
+    width: 108px;
+    height: 28px;
+    border: 1px solid #d4d4d4;
+}
+
+#luckysheet-conditionformat-dialog .box .inpbox2 input {
+    width: 60px;
+    height: 28px;
+    padding: 0 10px;
+    border: none;
+    outline-style: none;
+    float: left;
+}
+
+#luckysheet-conditionformat-dialog .box i.fa-table {
+    float: right;
+    margin-top: 8px;
+    margin-right: 5px;
+}
+
+#luckysheet-conditionformat-dialog .box .fa-table {
+    cursor: pointer;
+    color: #6598f3;
+}
+
+#luckysheet-conditionformat-dialog .box .fa-table:hover {
+    color: #ff7e7e;
+}
+
+#luckysheet-conditionformat-dialog .box #daterange-btn {
+    width: 188px;
+    height: 28px;
+    padding: 0 5px;
+    line-height: 28px;
+    border: 1px solid #d4d4d4;
+    cursor: pointer;
+}
+
+#luckysheet-conditionformat-dialog .box .selectbox {
+    width: 150px;
+    height: 30px;
+}
+
+#luckysheet-icon-dataBar-menuButton .bgImgBox {
+    width: 28px;
+    height: 26px;
+    background: url(../plugins/images/CFdataBar.png) no-repeat;
+}
+
+#luckysheet-icon-colorGradation-menuButton .bgImgBox {
+    width: 28px;
+    height: 26px;
+    background: url(../plugins/images/CFcolorGradation.png) no-repeat;
+}
+
+/*条件格式规则管理器*/
+#luckysheet-administerRule-dialog {
+    font-size: 12px;
+}
+
+#luckysheet-administerRule-dialog .chooseSheet {
+    height: 24px;
+    line-height: 24px;
+    margin-bottom: 5px;
+}
+
+#luckysheet-administerRule-dialog .chooseSheet select {
+    height: 24px;
+    padding: 0 5px;
+    box-sizing: border-box;
+    font-size: 12px;
+}
+
+#luckysheet-administerRule-dialog .ruleBox {
+    border: 1px solid #d4d4d4;
+}
+
+#luckysheet-administerRule-dialog .ruleBox .ruleBtn {
+    padding: 2.5px 5px;
+    border-bottom: 1px solid #d4d4d4;
+}
+
+#luckysheet-administerRule-dialog .ruleBox .ruleBtn button {
+    margin-right: 10px;
+    font-size: 12px;
+}
+
+#luckysheet-administerRule-dialog .ruleBox .ruleList .listTitle {
+    height: 30px;
+    padding: 0 10px;
+    border-bottom: 1px solid #d4d4d4;
+}
+
+#luckysheet-administerRule-dialog .ruleBox .ruleList .listTitle span {
+    display: block;
+    height: 100%;
+    line-height: 29px;
+    float: left;
+}
+
+#luckysheet-administerRule-dialog .ruleBox .ruleList .listTitle span:nth-of-type(1) {
+    width: 30%;
+}
+
+#luckysheet-administerRule-dialog .ruleBox .ruleList .listTitle span:nth-of-type(2) {
+    width: 20%;
+}
+
+#luckysheet-administerRule-dialog .ruleBox .ruleList .listTitle span:nth-of-type(3) {
+    width: 45%;
+}
+
+#luckysheet-administerRule-dialog .ruleBox .ruleList .listBox {
+    height: 150px;
+    overflow-y: scroll;
+}
+
+#luckysheet-administerRule-dialog .ruleBox .ruleList .listBox .item {
+    height: 24px;
+    padding: 2.5px 10px;
+    border-bottom: 1px solid #d4d4d4;
+}
+
+#luckysheet-administerRule-dialog .ruleBox .ruleList .listBox .item.on {
+    background-color: #8c89fe;
+}
+
+#luckysheet-administerRule-dialog .ruleBox .ruleList .listBox .item .ruleName {
+    width: 30%;
+    height: 100%;
+    line-height: 24px;
+    padding-right: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    float: left;
+    box-sizing: border-box;
+}
+
+#luckysheet-administerRule-dialog .ruleBox .ruleList .listBox .item.on .ruleName {
+    color: #fff;
+}
+
+#luckysheet-administerRule-dialog .ruleBox .ruleList .listBox .item .format {
+    width: 20%;
+    height: 100%;
+    line-height: 24px;
+    float: left;
+    position: relative;
+}
+
+#luckysheet-administerRule-dialog .ruleBox .ruleList .listBox .item .format .colorbox {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: solid 1px #d0d0d0;
+    margin: 3px 5px;
+    cursor: pointer;
+}
+
+#luckysheet-administerRule-dialog .ruleBox .ruleList .listBox .item .ruleRange {
+    width: 45%;
+    height: 100%;
+    border: 1px solid #d4d4d4;
+    float: left;
+    margin-left: 10px;
+    box-sizing: border-box;
+    background-color: #fff;
+}
+
+#luckysheet-administerRule-dialog .ruleBox .ruleList .listBox .item .ruleRange input {
+    width: 130px;
+    height: 22px;
+    padding: 0 5px;
+    border: none;
+    outline-style: none;
+    float: left;
+}
+
+#luckysheet-administerRule-dialog .ruleBox .ruleList .listBox .item .ruleRange i.fa-table {
+    float: right;
+    cursor: pointer;
+    color: #6598f3;
+    margin-top: 6px;
+    margin-right: 5px;
+}
+
+#luckysheet-administerRule-dialog .ruleBox .ruleList .listBox .item .ruleRange i.fa-table:hover {
+    color: #ff7e7e;
+}
+
+/*新建、编辑条件格式规则*/
+.luckysheet-newEditorRule-dialog {
+    font-size: 12px;
+}
+
+.luckysheet-newEditorRule-dialog .boxTitle {
+    margin-bottom: 5px;
+}
+
+.luckysheet-newEditorRule-dialog .ruleTypeBox {
+    border: 1px solid #d4d4d4;
+    margin-bottom: 10px;
+}
+
+.luckysheet-newEditorRule-dialog .ruleTypeBox .ruleTypeItem {
+    padding: 3px 5px;
+    cursor: pointer;
+}
+
+.luckysheet-newEditorRule-dialog .ruleTypeBox .ruleTypeItem.on {
+    background-color: #7c79fe;
+    color: #fff;
+}
+
+.luckysheet-newEditorRule-dialog .ruleTypeBox .ruleTypeItem .icon {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.luckysheet-newEditorRule-dialog .ruleExplainBox {
+    border: 1px solid #d4d4d4;
+    padding: 10px;
+}
+
+.luckysheet-newEditorRule-dialog .ruleExplainBox .title {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.luckysheet-newEditorRule-dialog .ruleExplainBox select {
+    height: 30px;
+    font-size: 12px;
+    float: left;
+    margin-right: 5px;
+}
+
+.luckysheet-newEditorRule-dialog .ruleExplainBox .inpbox {
+    width: 100px;
+    height: 30px;
+    border: 1px solid #d4d4d4;
+    box-sizing: border-box;
+    font-size: 12px;
+    float: left;
+}
+
+.luckysheet-newEditorRule-dialog .ruleExplainBox .inpbox input {
+    width: 70px;
+    height: 100%;
+    border: none;
+    outline-style: none;
+    padding: 0 5px;
+}
+
+.luckysheet-newEditorRule-dialog .ruleExplainBox .txt {
+    display: block;
+    height: 100%;
+    line-height: 30px;
+    float: left;
+    margin: 0 5px;
+}
+
+.luckysheet-newEditorRule-dialog .ruleExplainBox #isPercent {
+    float: left;
+    margin: 9px 0 8px 10px;
+}
+
+.luckysheet-newEditorRule-dialog i.fa-table {
+    float: right;
+    margin-top: 8px;
+    margin-right: 5px;
+}
+
+.luckysheet-newEditorRule-dialog .fa-table {
+    cursor: pointer;
+    color: #6598f3;
+}
+
+.luckysheet-newEditorRule-dialog .fa-table:hover {
+    color: #ff7e7e;
+}
+
+.luckysheet-newEditorRule-dialog .iconsBox {
+    height: 30px;
+    margin-bottom: 5px;
+    position: relative;
+}
+
+.luckysheet-newEditorRule-dialog .iconsBox label {
+    display: block;
+    width: 80px;
+    height: 30px;
+    line-height: 30px;
+    float: left;
+}
+
+.luckysheet-newEditorRule-dialog .iconsBox .showbox {
+    width: 150px;
+    height: 20px;
+    padding: 4px 4px 4px 10px;
+    border: 1px solid #e5e5e5;
+    background-color: #f5f5f5;
+    float: left;
+    cursor: pointer;
+}
+
+.luckysheet-newEditorRule-dialog .iconsBox .showbox .model {
+    width: 125px;
+    height: 20px;
+    background: url(../plugins/images/CFicons.png) no-repeat;
+    background-size: 256px;
+    float: left;
+}
+
+.luckysheet-newEditorRule-dialog .iconsBox ul {
+    display: none;
+    width: 164px;
+    max-height: 150px;
+    overflow-y: auto;
+    background-color: #fff;
+    border: 1px solid #e5e5e5;
+    position: absolute;
+    left: 80px;
+    top: 30px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.luckysheet-newEditorRule-dialog .iconsBox ul li {
+    padding: 5px 10px;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.luckysheet-newEditorRule-dialog .iconsBox ul li:hover {
+    background-color: #dfdfdf;
+}
+
+.luckysheet-newEditorRule-dialog .iconsBox ul li div {
+    width: 125px;
+    height: 20px;
+    background: url(../plugins/images/CFicons.png) no-repeat;
+    background-size: 256px;
+}
+
+/*条件格式 图标集弹框*/
+#luckysheet-CFicons-dialog .box {
+    padding: 10px;
+    border: 1px solid #dfdfdf;
+    font-size: 14px;
+}
+
+#luckysheet-CFicons-dialog .box .title {
+    height: 20px;
+    line-height: 20px;
+    padding: 0 10px;
+    background-color: #ebebeb;
+}
+
+#luckysheet-CFicons-dialog .box .list {
+    width: 300px;
+    padding: 5px 0;
+}
+
+#luckysheet-CFicons-dialog .box .list .left {
+    width: 50%;
+    float: left;
+}
+
+#luckysheet-CFicons-dialog .box .list .right {
+    width: 50%;
+    float: right;
+}
+
+#luckysheet-CFicons-dialog .box .list .item {
+    width: 125px;
+    height: 20px;
+    padding: 2.5px 10px;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+#luckysheet-CFicons-dialog .box .list .item:hover {
+    background-color: #dfdfdf;
+}
+
+#luckysheet-CFicons-dialog .box .list .item div {
+    width: 125px;
+    height: 20px;
+    background: url(../plugins/images/CFicons.png) no-repeat;
+    background-size: 256px;
+}
+
+/*交替颜色*/
+#luckysheet-modal-dialog-slider-alternateformat {
+    width: 280px;
+    font-size: 12px;
+}
+
+#luckysheet-modal-dialog-slider-alternateformat .luckysheet-modal-dialog-slider-content {
+    background-color: #fff;
+    overflow-y: scroll;
+}
+
+#luckysheet-modal-dialog-slider-alternateformat .textTitle {
+    padding: 5px 10px;
+    font-weight: 600;
+}
+
+#luckysheet-alternateformat-range {
+    width: 198px;
+    height: 28px;
+    border: 1px solid #d4d4d4;
+    margin-left: 10px;
+}
+
+#luckysheet-alternateformat-range input {
+    width: 150px;
+    height: 28px;
+    padding: 0 10px;
+    border: none;
+    outline-style: none;
+    float: left;
+}
+
+#luckysheet-alternateformat-range .fa-table {
+    float: right;
+    margin-top: 8px;
+    margin-right: 5px;
+    cursor: pointer;
+    color: #6598f3;
+}
+
+#luckysheet-alternateformat-range .fa-table:hover {
+    color: #ff7e7e;
+}
+
+#luckysheet-alternateformat-checkbox {
+    padding: 5px 10px;
+    border-top: 1px solid #d4d4d4;
+    border-bottom: 1px solid #d4d4d4;
+    margin: 10px 0;
+}
+
+#luckysheet-alternateformat-checkbox div {
+    height: 20px;
+    line-height: 20px;
+}
+
+#luckysheet-alternateformat-checkbox div:first-child {
+    margin-bottom: 5px;
+}
+
+#luckysheet-alternateformat-checkbox input[type="checkbox"] {
+    float: left;
+    cursor: pointer;
+    margin-top: 4px;
+}
+
+#luckysheet-alternateformat-modelList {
+    padding: 0 10px;
+    margin-bottom: 10px;
+}
+
+#luckysheet-alternateformat-modelCustom {
+    padding: 0 10px;
+    margin-bottom: 10px;
+}
+
+#luckysheet-modal-dialog-slider-alternateformat .modelbox {
+    display: inline-block;
+    width: 36px;
+    padding: 2px;
+    border: 2px solid #fff;
+    box-sizing: border-box;
+    margin-right: 4px;
+    margin-bottom: 4px;
+    cursor: pointer;
+}
+
+#luckysheet-modal-dialog-slider-alternateformat .modelbox.on {
+    border-color: #726efe;
+}
+
+#luckysheet-modal-dialog-slider-alternateformat .modelbox .box {
+    width: 100%;
+    border: 1px solid #d4d4d4;
+    box-sizing: border-box;
+}
+
+#luckysheet-modal-dialog-slider-alternateformat .modelbox .box span {
+    display: block;
+    width: 100%;
+    height: 10px;
+    line-height: 9px;
+    text-align: center;
+    border-bottom: 1px solid #d4d4d4;
+    box-sizing: border-box;
+}
+
+#luckysheet-modal-dialog-slider-alternateformat .modelbox .box span:last-child {
+    line-height: 10px;
+    border-bottom: none;
+}
+
+#luckysheet-alternateformat-modelToning {
+    padding: 10px;
+}
+
+#luckysheet-alternateformat-modelToning .toningbox {
+    height: 25px;
+    margin-bottom: 5px;
+}
+
+#luckysheet-alternateformat-modelToning .toningbox .toningShow {
+    width: 150px;
+    height: 100%;
+    line-height: 23px;
+    text-align: center;
+    border: 1px solid #d4d4d4;
+    float: left;
+    margin-right: 10px;
+}
+
+#luckysheet-alternateformat-modelToning .toningbox .luckysheet-color-menu-button-indicator {
+    width: 20px;
+    float: left;
+    user-select: none;
+    cursor: pointer;
+}
+
+#luckysheet-alternateformat-modelToning .toningbox .luckysheet-color-menu-button-indicator .luckysheet-icon {
+    user-select: none;
+    margin-bottom: -6px;
+}
+
+#luckysheet-alternateformat-colorSelect-dialog .currenColor {
+    font-size: 12px;
+    margin-bottom: 5px;
+}
+
+#luckysheet-alternateformat-colorSelect-dialog .currenColor span {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: solid 1px #d0d0d0;
+    margin-left: 5px;
+    margin-bottom: -5px;
+    cursor: pointer;
+}
+
+#luckysheet-alternateformat-rangeDialog input {
+    border: 1px solid #d4d4d4;
+    padding: 0 10px;
+    height: 30px;
+}

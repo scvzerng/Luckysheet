@@ -1,0 +1,178 @@
+/*if公式生成器*/
+#luckysheet-ifFormulaGenerator-dialog {
+    font-size: 12px;
+}
+
+#luckysheet-ifFormulaGenerator-dialog .ifAttr .attrBox {
+    height: 30px;
+    margin-bottom: 10px;
+}
+
+#luckysheet-ifFormulaGenerator-dialog .ifAttr .attrBox label {
+    display: block;
+    width: 100px;
+    height: 100%;
+    line-height: 30px;
+    padding: 0 5px;
+    text-align: right;
+    float: left;
+}
+
+#luckysheet-ifFormulaGenerator-dialog .ifAttr .attrBox .inpBox {
+    width: 150px;
+    height: 100%;
+    padding: 0 10px;
+    border: 1px solid #d4d4d4;
+    box-sizing: border-box;
+    float: left;
+}
+
+#luckysheet-ifFormulaGenerator-dialog .ifAttr .attrBox .inpBox input {
+    width: 100px;
+    height: 100%;
+    padding: 0;
+    border: none;
+    outline-style: none;
+    background: transparent;
+    float: left;
+}
+
+#luckysheet-ifFormulaGenerator-dialog .ifAttr .attrBox .inpBox i.fa-table {
+    font-size: 14px;
+    color: #6598f3;
+    float: right;
+    margin-right: 0;
+    margin-top: 8px;
+    cursor: pointer;
+}
+
+#luckysheet-ifFormulaGenerator-dialog .ifAttr .attrBox .inpBox i.fa-table:hover {
+    color: #ff7e7e;
+}
+
+#luckysheet-ifFormulaGenerator-dialog .ifAttr .attrBox span.text {
+    height: 100%;
+    line-height: 30px;
+    padding: 0 5px;
+    float: left;
+}
+
+#luckysheet-ifFormulaGenerator-dialog #smallRange,
+#luckysheet-ifFormulaGenerator-dialog #largeRange {
+    width: 100px;
+    height: 100%;
+    padding: 0 10px;
+    border: 1px solid #d4d4d4;
+    box-sizing: border-box;
+    float: left;
+}
+
+#luckysheet-ifFormulaGenerator-dialog #rangeAssess {
+    height: 100%;
+    line-height: 30px;
+    float: left;
+    margin-left: 20px;
+}
+
+#luckysheet-ifFormulaGenerator-dialog #rangeAssess i.fa-table {
+    color: #6598f3;
+    cursor: pointer;
+}
+
+#luckysheet-ifFormulaGenerator-dialog #rangeAssess i.fa-table:hover {
+    color: #ff7e7e;
+}
+
+#luckysheet-ifFormulaGenerator-dialog #DivisionMethod {
+    width: 100px;
+    height: 100%;
+    border: 1px solid #d4d4d4;
+    box-sizing: border-box;
+    float: left;
+}
+
+#luckysheet-ifFormulaGenerator-dialog #DivisionMethodVal {
+    width: 120px;
+    height: 100%;
+    border: 1px solid #d4d4d4;
+    padding: 0 10px;
+    box-sizing: border-box;
+    float: left;
+    margin-left: 10px;
+}
+
+#luckysheet-ifFormulaGenerator-dialog #createBtn {
+    width: 100px;
+    height: 100%;
+    line-height: 30px;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 14px;
+    color: #fff;
+    background-color: #8c89fe;
+    float: right;
+    cursor: pointer;
+}
+
+#luckysheet-ifFormulaGenerator-dialog .ifList {
+    border-top: 1px solid #d4d4d4;
+    height: 180px;
+    padding: 10px;
+    overflow-y: scroll;
+}
+
+#luckysheet-ifFormulaGenerator-dialog .ifList .item {
+    height: 30px;
+    margin-bottom: 10px;
+}
+
+#luckysheet-ifFormulaGenerator-dialog .ifList .item input {
+    width: 80px;
+    height: 100%;
+    border: 1px solid #d4d4d4;
+    padding: 0 5px;
+    background: transparent;
+    box-sizing: border-box;
+    float: left;
+}
+
+#luckysheet-ifFormulaGenerator-dialog .ifList .item input.markText {
+    width: 140px;
+}
+
+#luckysheet-ifFormulaGenerator-dialog .ifList .item select {
+    width: 50px;
+    height: 100%;
+    padding: 0 5px;
+    border: 1px solid #d4d4d4;
+    box-sizing: border-box;
+    float: left;
+    margin: 0 10px;
+}
+
+#luckysheet-ifFormulaGenerator-dialog .ifList .item span {
+    height: 100%;
+    line-height: 30px;
+    float: left;
+    margin: 0 10px;
+}
+
+#luckysheet-ifFormulaGenerator-dialog .ifList .item i.fa-remove {
+    font-size: 16px;
+    float: left;
+    margin-left: 15px;
+    margin-top: 7px;
+    color: #d6d6d6;
+    cursor: pointer;
+}
+
+#luckysheet-ifFormulaGenerator-dialog .ifList .item i.fa-remove:hover {
+    color: #333;
+}
+
+#luckysheet-ifFormulaGenerator-singleRange-dialog input,
+#luckysheet-ifFormulaGenerator-multiRange-dialog input {
+    border: 1px solid #d4d4d4;
+    padding: 0 10px;
+    height: 30px;
+}

@@ -1,0 +1,300 @@
+/*查找替换弹出框样式*/
+#luckysheet-search-replace .tabBox {
+    margin-top: 20px;
+    font-size: 0;
+}
+
+#luckysheet-search-replace .tabBox span {
+    display: inline-block;
+    text-align: center;
+    width: 100px;
+    border: 1px solid #d4d4d4;
+    font-size: 14px;
+    line-height: 2;
+}
+
+#luckysheet-search-replace .tabBox span.on {
+    background-color: #8c89fe;
+    border-color: #726efe;
+    color: #fff;
+}
+
+#luckysheet-search-replace .ctBox {
+    padding: 5px 10px;
+    border: solid 1px #d4d4d4;
+    font-size: 14px;
+}
+
+#luckysheet-search-replace .inputBox {
+    height: 90px;
+    position: relative;
+}
+
+#luckysheet-search-replace .inputBox .textboxs {
+    height: 30px;
+    line-height: 30px;
+}
+
+#luckysheet-search-replace .inputBox .checkboxs {
+    height: 90px;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+#luckysheet-search-replace .inputBox .checkboxs div {
+    height: 30px;
+    line-height: 30px;
+}
+
+#luckysheet-search-replace .inputBox .checkboxs input[type="checkbox"] {
+    float: left;
+    margin-top: 9px;
+}
+
+#luckysheet-search-replace .btnBox {
+    margin-top: 10px;
+}
+
+#luckysheet-search-replace .btnBox button {
+    margin: 0 2.5px;
+}
+
+#luckysheet-search-replace #searchAllbox {
+    height: 210px;
+    border: 1px solid #d4d4d4;
+    margin-top: 10px;
+    overflow-y: auto;
+    position: relative;
+}
+
+#luckysheet-search-replace #searchAllbox .boxTitle {
+    width: 100%;
+    height: 30px;
+    line-height: 29px;
+    padding: 0 5px;
+    background-color: #fff;
+    border-bottom: 1px solid #d4d4d4;
+    box-sizing: border-box;
+    position: sticky;
+    left: 0;
+    top: 0;
+}
+
+#luckysheet-search-replace #searchAllbox .boxTitle span {
+    display: inline-block;
+    text-align: center;
+}
+
+#luckysheet-search-replace #searchAllbox .boxTitle span:nth-of-type(1) {
+    width: 25%;
+}
+
+#luckysheet-search-replace #searchAllbox .boxTitle span:nth-of-type(2) {
+    width: 25%;
+}
+
+#luckysheet-search-replace #searchAllbox .boxTitle span:nth-of-type(3) {
+    width: 50%;
+}
+
+#luckysheet-search-replace #searchAllbox .boxMain .boxItem {
+    height: 30px;
+    line-height: 29px;
+    border-bottom: 1px solid #d4d4d4;
+    padding: 0 5px;
+    box-sizing: border-box;
+}
+
+#luckysheet-search-replace #searchAllbox .boxMain .boxItem.on {
+    background-color: #8c89fe;
+    color: #fff;
+}
+
+#luckysheet-search-replace #searchAllbox .boxMain .boxItem span {
+    display: block;
+    text-align: center;
+    float: left;
+}
+
+#luckysheet-search-replace #searchAllbox .boxMain .boxItem span:nth-of-type(1) {
+    width: 25%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+#luckysheet-search-replace #searchAllbox .boxMain .boxItem span:nth-of-type(2) {
+    width: 25%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+#luckysheet-search-replace #searchAllbox .boxMain .boxItem span:nth-of-type(3) {
+    width: 50%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/*函数公式查找样式*/
+#luckysheet-search-formula {
+    font-size: 12px;
+}
+
+#luckysheet-search-formula .inpbox {
+    margin-bottom: 5px;
+}
+
+#luckysheet-search-formula .inpbox label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+#luckysheet-search-formula .inpbox input {
+    width: 100%;
+    height: 24px;
+    line-height: 24px;
+    border: 1px solid #d4d4d4;
+    padding: 0 10px;
+    box-sizing: border-box;
+    font-size: 12px;
+}
+
+#luckysheet-search-formula .selbox {
+    margin-bottom: 5px;
+}
+
+#luckysheet-search-formula .selbox select {
+    width: 50%;
+    height: 24px;
+    line-height: 24px;
+    border: 1px solid #d4d4d4;
+    box-sizing: border-box;
+    font-size: 12px;
+}
+
+#luckysheet-search-formula .listbox label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+#formulaTypeList {
+    width: 300px;
+    height: 170px;
+    border: 1px solid #d4d4d4;
+    overflow-y: scroll;
+}
+
+#formulaTypeList .listBox {
+    padding: 5px;
+    border-bottom: 1px solid #d4d4d4;
+}
+
+#formulaTypeList .listBox.on {
+    background-color: #8c89fe;
+    color: #fff;
+}
+
+#formulaTypeList .listBox span:nth-of-type(1) {
+    display: block;
+}
+
+#formulaTypeList .listBox span:nth-of-type(2) {
+    display: block;
+}
+
+#luckysheet-search-formula-parm {
+    width: 502px;
+    font-size: 12px;
+}
+
+#luckysheet-search-formula-parm .parmListBox {
+    width: 500px;
+    padding: 5px 0;
+    border: 1px solid #d4d4d4;
+}
+
+#luckysheet-search-formula-parm .parmBox {
+    height: 30px;
+    line-height: 30px;
+    margin-bottom: 5px;
+}
+
+#luckysheet-search-formula-parm .parmBox:last-child {
+    margin-bottom: 0;
+}
+
+#luckysheet-search-formula-parm .parmBox .name {
+    width: 90px;
+    height: 30px;
+    padding: 0 5px;
+    float: left;
+    text-align: right;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+#luckysheet-search-formula-parm .parmBox .txt {
+    width: 198px;
+    height: 28px;
+    border: 1px solid #d4d4d4;
+    float: left;
+}
+
+#luckysheet-search-formula-parm .parmBox .txt input {
+    width: 150px;
+    height: 28px;
+    padding: 0 10px;
+    border: none;
+    outline-style: none;
+    float: left;
+}
+
+#luckysheet-search-formula-parm .parmBox .txt i {
+    float: right;
+    margin-top: 8px;
+    margin-right: 5px;
+}
+
+#luckysheet-search-formula-parm .fa-table {
+    cursor: pointer;
+    color: #6598f3;
+}
+
+#luckysheet-search-formula-parm .fa-table:hover {
+    color: #ff7e7e;
+}
+
+#luckysheet-search-formula-parm .parmBox .val {
+    width: 190px;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 5px;
+    float: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+#luckysheet-search-formula-parm .formulaDetails {
+    padding: 5px;
+}
+
+#luckysheet-search-formula-parm .parmDetailsBox {
+    max-height: 100px;
+    padding: 5px 0 5px 20px;
+    overflow-y: scroll;
+}
+
+#luckysheet-search-formula-parm .parmDetailsBox span {
+    display: inline-block;
+}
+
+#luckysheet-search-formula-parm .result {
+    padding: 5px;
+    border-top: 1px solid #d4d4d4;
+}
+

@@ -1,0 +1,58 @@
+.luckysheet-grid-container {
+    width: 100%;
+    position: absolute;
+    top: 90px;
+    bottom: 0px;
+}
+
+.luckysheet-stat-area {
+    position: absolute;
+    height: 23px;
+    bottom: 0px;
+    background: #ff00dc;
+    width: 100%;
+}
+
+.luckysheet-sta-c {
+    height: 22px;
+    background-color: #fff;
+    border-top: 1px solid #e1e1e1;
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.luckysheet-stat-area:hover .luckysheet-sta-c {
+    -moz-user-select: -moz-all;
+    -khtml-user-select: initial;
+    -webkit-user-select: initial;
+    -ms-user-select: initial;
+    user-select: initial;
+}
+
+.luckysheet-sta-c .luckysheet-sta-content {
+    /* position: absolute; */
+    /* left: 0px; */
+    /* right: 358px; */
+    height: 22px;
+    line-height: 22px;
+    text-align: right;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.luckysheet-sta-c .luckysheet-sta-content span {
+    margin-right: 10px;
+}
+
+.luckysheet-grid-window {
+    position: absolute;
+    top: 0px;
+    bottom: 23px;
+    left: 0;
+    right: 0px;
+    overflow: hidden;
+    background: #00ffff;
+}

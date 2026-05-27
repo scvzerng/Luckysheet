@@ -1,0 +1,267 @@
+.pictorialBarUploadImg:hover {
+    border: 1px solid #ccc !important;
+    background: #efefef;
+}
+
+/*下拉图标*/
+#luckysheet-dropCell-icon #icon_dropCell {
+    width: 25px;
+    height: 15px;
+    background-image: url(../plugins/images/icon_dropCell.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100% 100%;
+}
+
+/*定位*/
+#luckysheet-locationCell-dialog .listbox {
+    border: 1px solid #dfdfdf;
+    padding: 10px;
+    font-size: 14px;
+    color: #000;
+}
+
+#luckysheet-locationCell-dialog .listbox .listItem {
+    padding: 5px 0;
+}
+
+#luckysheet-locationCell-dialog .listbox .listItem input[type="radio"] {
+    float: left;
+    margin-top: 5px;
+}
+
+#luckysheet-locationCell-dialog .listbox .listItem .subbox {
+    height: 30px;
+    padding: 0 10px;
+}
+
+#luckysheet-locationCell-dialog .listbox .listItem .subbox .subItem {
+    float: left;
+    margin-right: 5px;
+}
+
+/*更多格式*/
+#luckysheet-moreFormat-dialog {
+    font-size: 14px;
+    color: #000;
+}
+
+#luckysheet-moreFormat-dialog .decimal {
+    margin-bottom: 5px;
+    height: 30px;
+    line-height: 30px;
+}
+
+#luckysheet-moreFormat-dialog .decimal input {
+    width: 80px;
+    height: 24px;
+    padding: 0 5px;
+}
+
+#luckysheet-moreFormat-dialog .listbox {
+    border: 1px solid #666;
+    height: 240px;
+    overflow-y: auto;
+}
+
+#luckysheet-moreFormat-dialog .listbox .listItem {
+    height: 30px;
+    padding: 0 20px 0 10px;
+    border-bottom: 1px solid #dfdfdf;
+}
+
+#luckysheet-moreFormat-dialog .listbox .listItem.on {
+    background-color: #7c79fe;
+    color: #fff;
+}
+
+#luckysheet-moreFormat-dialog .listbox .listItem .name {
+    line-height: 29px;
+    float: left;
+}
+
+#luckysheet-moreFormat-dialog .listbox .listItem .value {
+    line-height: 30px;
+    float: right;
+    color: gray;
+}
+
+#luckysheet-moreFormat-dialog .listbox .listItem.on .value {
+    color: #fff;
+}
+
+/*分列*/
+#luckysheet-splitColumn-dialog {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+#luckysheet-splitColumn-dialog .box {
+    font-size: 14px;
+}
+
+#luckysheet-splitColumn-dialog .box .boxTitle {
+    padding: 5px;
+}
+
+#luckysheet-splitColumn-dialog .box .boxMain {
+    padding: 5px;
+    border: 1px solid #dfdfdf;
+}
+
+#luckysheet-splitColumn-dialog .box input[type="checkbox"] {
+    float: left;
+    margin-top: 5px;
+}
+
+#luckysheet-splitColumn-dialog .box .boxMain input[type="text"] {
+    margin-left: 5px;
+    width: 50px;
+    padding: 0 5px;
+}
+
+#luckysheet-splitColumn-dialog .box #splitColumnData {
+    height: 100px;
+    overflow-y: auto;
+}
+
+#luckysheet-splitColumn-dialog .box #splitColumnData table {
+    border-collapse: collapse;
+}
+
+#luckysheet-splitColumn-dialog .box #splitColumnData td {
+    border: 1px solid #333;
+}
+
+/*图表设置最下方下拉框优化*/
+.luckysheet-datavisual-config .luckysheet-datavisual-accordion-content:last-child {
+    padding-bottom: 100px;
+}
+
+/*批注聚焦框 移动 改变大小*/
+.luckysheet-postil-dialog-move {
+    position: absolute;
+    margin: 0px;
+    padding: 0px;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    pointer-events: none;
+}
+
+.luckysheet-postil-dialog-move .luckysheet-postil-dialog-move-item {
+    /*background: #000;*/
+    position: absolute;
+    pointer-events: all;
+    cursor: move;
+}
+
+.luckysheet-postil-dialog-move .luckysheet-postil-dialog-move-item-t {
+    width: 100%;
+    height: 3px;
+    border-bottom: 1px solid #000;
+    left: 0;
+    top: -4px;
+}
+
+.luckysheet-postil-dialog-move .luckysheet-postil-dialog-move-item-r {
+    width: 3px;
+    height: 100%;
+    border-left: 1px solid #000;
+    right: -4px;
+    top: 0;
+}
+
+.luckysheet-postil-dialog-move .luckysheet-postil-dialog-move-item-b {
+    width: 100%;
+    height: 3px;
+    border-top: 1px solid #000;
+    left: 0;
+    bottom: -4px;
+}
+
+.luckysheet-postil-dialog-move .luckysheet-postil-dialog-move-item-l {
+    width: 3px;
+    height: 100%;
+    border-right: 1px solid #000;
+    left: -4px;
+    top: 0;
+}
+
+.luckysheet-postil-show-active .luckysheet-postil-dialog-move .luckysheet-postil-dialog-move-item {
+    border-color: #0188fb;
+}
+
+.luckysheet-postil-dialog-resize {
+    position: absolute;
+    margin: 0px;
+    padding: 0px;
+    top: -2px;
+    left: -2px;
+    bottom: -2px;
+    right: -2px;
+    pointer-events: none;
+}
+
+.luckysheet-postil-dialog-resize .luckysheet-postil-dialog-resize-item {
+    position: absolute;
+    height: 6px;
+    width: 6px;
+    border: 1px solid #0188fb;
+    pointer-events: all;
+}
+
+.luckysheet-postil-dialog-resize .luckysheet-postil-dialog-resize-item-lt {
+    left: -6px;
+    top: -6px;
+    cursor: se-resize;
+}
+
+.luckysheet-postil-dialog-resize .luckysheet-postil-dialog-resize-item-mt {
+    left: 50%;
+    top: -6px;
+    margin-left: -4px;
+    cursor: s-resize;
+}
+
+.luckysheet-postil-dialog-resize .luckysheet-postil-dialog-resize-item-lm {
+    top: 50%;
+    left: -6px;
+    margin-top: -4px;
+    cursor: w-resize;
+}
+
+.luckysheet-postil-dialog-resize .luckysheet-postil-dialog-resize-item-rm {
+    top: 50%;
+    right: -6px;
+    margin-top: -4px;
+    cursor: w-resize;
+}
+
+.luckysheet-postil-dialog-resize .luckysheet-postil-dialog-resize-item-rt {
+    right: -6px;
+    top: -6px;
+    cursor: ne-resize;
+}
+
+.luckysheet-postil-dialog-resize .luckysheet-postil-dialog-resize-item-lb {
+    left: -6px;
+    bottom: -6px;
+    cursor: ne-resize;
+}
+
+.luckysheet-postil-dialog-resize .luckysheet-postil-dialog-resize-item-mb {
+    left: 50%;
+    bottom: -6px;
+    margin-left: -4px;
+    cursor: s-resize;
+}
+
+.luckysheet-postil-dialog-resize .luckysheet-postil-dialog-resize-item-rb {
+    right: -6px;
+    bottom: -6px;
+    cursor: se-resize;
+}

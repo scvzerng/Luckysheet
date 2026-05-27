@@ -1,0 +1,360 @@
+.luckysheet-modal-dialog {
+    -webkit-box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    background: #fff;
+    background-clip: padding-box;
+    border: 1px solid #acacac;
+    border: 1px solid rgba(0, 0, 0, 0.333);
+    outline: 0;
+    position: absolute;
+    color: #000;
+    padding: 30px 42px;
+    z-index: 100002;
+}
+
+.luckysheet-modal-dialog-mask {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background: #fff;
+    opacity: 0.6;
+    display: none;
+    left: 0px;
+    top: 0px;
+    z-index: 1010;
+}
+
+.luckysheet-modal-dialog-title {
+    background-color: #fff;
+    color: #000;
+    cursor: default;
+    font-size: 16px;
+    font-weight: normal;
+    line-height: 24px;
+    margin: 0 0 16px;
+}
+
+.luckysheet-modal-dialog-title-close {
+    height: 11px;
+    opacity: 0.7;
+    padding: 17px;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    width: 11px;
+    color: #d4d4d4;
+    outline: 0;
+}
+
+/*         .luckysheet-modal-dialog-title-update {
+             right: 105px;
+             color:#0188fb;
+             font-size:14px;
+             padding-top: 9px;
+         }
+
+         .luckysheet-modal-dialog-title-min {
+             right: 70px;
+             padding-top: 9px;
+         }
+
+         .luckysheet-modal-dialog-title-max, .luckysheet-modal-dialog-title-restore {
+             right: 35px;
+         }
+
+         .luckysheet-modal-dialog-title-restore{
+             display: none;
+         }*/
+
+.luckysheet-modal-dialog-resize {
+    position: absolute;
+    border: 2px solid #0188fb;
+    margin: 0px;
+    padding: 0px;
+    top: -2px;
+    left: -2px;
+    bottom: -2px;
+    right: -2px;
+    pointer-events: none;
+}
+
+.luckysheet-modal-dialog-resize-item {
+    position: absolute;
+    height: 6px;
+    width: 6px;
+    background: #ffffff;
+    border: 2px solid #0188fb;
+    pointer-events: all;
+    border-radius: 6px;
+}
+
+.luckysheet-modal-dialog-resize-item-lt {
+    left: -6px;
+    top: -6px;
+    cursor: se-resize;
+}
+
+.luckysheet-modal-dialog-resize-item-mt {
+    left: 50%;
+    top: -6px;
+    margin-left: -4px;
+    cursor: s-resize;
+}
+
+.luckysheet-modal-dialog-resize-item-rt {
+    right: -6px;
+    top: -6px;
+    cursor: ne-resize;
+}
+
+.luckysheet-modal-dialog-resize-item-lm {
+    top: 50%;
+    left: -6px;
+    margin-top: -4px;
+    cursor: w-resize;
+}
+
+.luckysheet-modal-dialog-resize-item-rm {
+    top: 50%;
+    right: -6px;
+    margin-top: -4px;
+    cursor: w-resize;
+}
+
+.luckysheet-modal-dialog-resize-item-lb {
+    left: -6px;
+    bottom: -6px;
+    cursor: ne-resize;
+}
+
+.luckysheet-modal-dialog-resize-item-mb {
+    left: 50%;
+    bottom: -6px;
+    margin-left: -4px;
+    cursor: s-resize;
+}
+
+.luckysheet-modal-dialog-resize-item-rb {
+    right: -6px;
+    bottom: -6px;
+    cursor: se-resize;
+}
+
+.luckysheet-modal-dialog-controll {
+    position: absolute;
+    margin: 0px;
+    padding: 0px;
+    right: -35px;
+    /* width: 60px; */
+    font-size: 14px;
+    top: 0px;
+}
+
+.luckysheet-modal-controll-btn {
+    height: 13px;
+    /* opacity: 0.7; */
+    padding: 8px;
+    /* position: relative; */
+    /* right: 0px; */
+    /* top: 0px; */
+    width: 13px;
+    color: #d4d4d4;
+    outline: 0;
+    border: 1px solid #b6b6b6;
+    display: block;
+    background: #fff;
+    margin-bottom: 3px;
+    cursor: pointer;
+    transition: all 0.2s;
+    -moz-transition: all 0.2s;
+    -webkit-transition: all 0.2s;
+    -o-transition: all 0.2s;
+}
+
+.luckysheet-modal-controll-btn:hover {
+    border: 1px solid #a1a1a1;
+    color: #0188fb;
+}
+
+.luckysheet-modal-controll-btn:active {
+    border: 1px solid #bbbbbb;
+    background: #efefef;
+    color: #0188fb;
+}
+
+.luckysheet-modal-controll-del {
+    font-size: 16px;
+}
+
+.luckysheet-modal-controll-max-close {
+    font-size: 22px;
+    width: 42px;
+    height: 42px;
+    line-height: 42px;
+    background: #383838;
+    opacity: 0.7;
+    -moz-border-radius: 20px;
+    -webkit-border-radius: 20px;
+    border-radius: 20px;
+    color: #fff;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    z-index: 100000;
+    text-align: center;
+}
+
+.luckysheet-modal-controll-max-close:hover {
+    background: #0188fb;
+    cursor: pointer;
+}
+
+.luckysheet-sort-item-close {
+    margin-right: 3px;
+    font-size: 14px;
+    color: #bbbbbb;
+    cursor: pointer;
+}
+
+.luckysheet-sort-item-close:hover {
+    color: #494949;
+}
+
+.luckysheet-modal-dialog-title-close:hover {
+    color: #5e5e5e;
+    cursor: pointer;
+}
+
+.luckysheet-modal-dialog-content {
+    background-color: #fff;
+    line-height: 1.4em;
+    word-wrap: break-word;
+}
+
+.luckysheet-modal-dialog-buttons {
+    margin-top: 10px;
+}
+
+.luckysheet-modal-dialog-buttons button {
+    margin-right: 10px;
+}
+
+.luckysheet-modal-dialog-title-text span {
+    font-family: Arial;
+}
+
+.luckysheet-sort-modal {
+    font-size: 12px;
+}
+
+.luckysheet-sort-modal label input,
+.luckysheet-sort-modal label span {
+    vertical-align: middle;
+}
+
+.luckysheet-sort-modal > div,
+.luckysheet-sort-modal table {
+    margin-bottom: 10px;
+}
+
+.luckysheet-sort-modal table tr {
+    margin-bottom: 10px;
+}
+
+.luckysheet-sort-modal table tr td {
+    padding: 5px;
+    white-space: nowrap;
+    border-top: 1px solid #ffc6c6;
+}
+
+.luckysheet-sort-modal table tr td > div:first-child {
+    margin-bottom: 8px;
+}
+
+.luckysheet-sort-modal table tr td select {
+    max-width: 180px;
+    min-width: 50px;
+}
+
+.luckysheet-sort-modal table tr:first-child td {
+    border-top: none;
+}
+
+.luckysheet-filter-options {
+    color: #897bff;
+    cursor: pointer;
+    position: absolute;
+    z-index: 20;
+    border: 1px solid #897bff;
+    border-radius: 3px;
+    top: 3px;
+    margin-left: 0px;
+    display: none;
+    padding: 0px 4px;
+    font-size: 12px;
+    height: 15px;
+    background: #fff;
+    /* transition: all 0.1s; */
+}
+
+.luckysheet-filter-options:hover {
+    color: #fff;
+    border: 1px solid #fff;
+    background: #897bff;
+}
+
+.luckysheet-filter-options-active {
+    color: #fff;
+    border: 1px solid #897bff;
+    background: #897bff;
+}
+
+.luckysheet-flat-menu-button {
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    background-color: #f5f5f5;
+    background-image: -webkit-linear-gradient(to bottom, #f5f5f5, #f1f1f1);
+    background-image: -moz-linear-gradient(to bottom, #f5f5f5, #f1f1f1);
+    background-image: -ms-linear-gradient(to bottom, #f5f5f5, #f1f1f1);
+    background-image: -o-linear-gradient(to bottom, #f5f5f5, #f1f1f1);
+    background-image: linear-gradient(to bottom, #f5f5f5, #f1f1f1);
+    border: 1px solid #dcdcdc;
+    color: #333;
+    cursor: default;
+    font-size: 11px;
+    font-weight: bold;
+    line-height: 27px;
+    list-style: none;
+    margin: 0 2px;
+    min-width: 46px;
+    outline: none;
+    padding: 0 18px 0 6px;
+    text-align: left;
+    text-decoration: none;
+    position: relative;
+    padding-left: 15px;
+}
+
+.luckysheet-flat-menu-button:hover {
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    background-color: #f5f5f5;
+    background-image: -webkit-linear-gradient(to bottom, #f1f1f1, #f5f5f5);
+    background-image: -moz-linear-gradient(to bottom, #f1f1f1, #f5f5f5);
+    background-image: -ms-linear-gradient(to bottom, #f1f1f1, #f5f5f5);
+    background-image: -o-linear-gradient(to bottom, #f1f1f1, #f5f5f5);
+    background-image: linear-gradient(to bottom, #f1f1f1, #f5f5f5);
+    border: 1px solid #d0d0d0;
+    color: #000;
+}
+
+.luckysheet-flat-menu-button div {
+    display: inline-block;
+    vertical-align: middle;
+    position: absolute;
+    right: 15px;
+}
+

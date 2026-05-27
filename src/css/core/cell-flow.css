@@ -1,0 +1,67 @@
+.luckysheet-grdusedrange {
+    position: absolute;
+    visibility: hidden;
+    width: 1px;
+    height: 1px;
+}
+
+.luckysheet-grdblkflowpush {
+    margin: 0;
+    padding: 0;
+    border: none 0;
+    width: 1px;
+}
+
+.luckysheet-grdblkpush {
+    margin: 0;
+    padding: 0;
+    border: none 0;
+    height: 1px;
+    float: left;
+    direction: ltr;
+}
+
+.luckysheet-cell-flow-data {
+    position: absolute;
+    height: inherit;
+    width: inherit;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.luckysheet-cell-flow-data-row {
+    position: absolute;
+    width: inherit;
+}
+
+.luckysheet-cell-flow-data-cell {
+    position: absolute;
+    height: inherit;
+}
+
+.luckysheet-cell-flow-data-value {
+    position: absolute !important;
+    bottom: 0;
+    letter-spacing: -0.02em;
+    white-space: nowrap;
+    padding-left: 2px;
+    overflow: hidden;
+}
+
+.luckysheet canvas {
+    position: absolute;
+}
+
+.luckysheetcolumeHeader {
+    margin-left: -1px;
+}
+
+.luckysheetrowHeader {
+    margin-top: 1px;
+}
+
+.luckysheetsheettable {
+    margin-left: -1px;
+    margin-top: -1px;
+}

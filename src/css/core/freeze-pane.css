@@ -1,0 +1,149 @@
+/*冻结窗口样式*/
+.luckysheet-freezebar-handle,
+.luckysheet-freezebar-drop {
+    position: absolute;
+    z-index: 999;
+}
+
+.luckysheet-freezebar-vertical-handle {
+    width: 4px;
+    display: none;
+    /*background: url(//ssl.gstatic.com/docs/spreadsheets/ritz_luckysheet-freezebar_vertical.png) no-repeat;*/
+}
+
+.luckysheet-freezebar-vertical-drop {
+    /*background: url(//ssl.gstatic.com/docs/spreadsheets/jfk_luckysheet-freezebar_active_vertical.png) no-repeat;*/
+    width: 4px;
+}
+
+.luckysheet-freezebar-active .luckysheet-freezebar-vertical-handle {
+    display: block;
+    z-index: 1003;
+}
+
+.luckysheet-freezebar-vertical-handle-bar {
+    width: 2px;
+    background: #dbe5f7;
+    border-color: #a5c6fe;
+    border-style: solid;
+    border-width: 0 1px;
+    opacity: 0.45;
+    filter: alpha(opacity=45);
+    margin-top: 19px;
+    top: 0px;
+    bottom: 0px;
+}
+
+.luckysheet-freezebar-vertical-handle-title {
+    width: 4px;
+    background: #9dbefb;
+    opacity: 0.8;
+    filter: alpha(opacity=80);
+    height: 19px;
+    top: 0px;
+}
+
+.luckysheet-freezebar-handle-bar,
+.luckysheet-freezebar-drop-bar {
+    position: absolute;
+    z-index: 7;
+}
+
+.luckysheet-freezebar-vertical-drop-bar {
+    width: 2px;
+    background: rgba(0, 0, 0, 0.45);
+    border-width: 2px 1px 2px 2px;
+    margin-top: 19px;
+    top: 0px;
+    bottom: 0px;
+}
+
+.luckysheet-freezebar-vertical-drop-title {
+    width: 2px;
+    background: #bcbdbc;
+    /*            opacity: 0.80;
+            filter: alpha(opacity=80);*/
+    height: 19px;
+    top: 0px;
+}
+
+.luckysheet-freezebar-hover .luckysheet-freezebar-vertical-drop-bar,
+.luckysheet-freezebar-active .luckysheet-freezebar-vertical-drop-bar {
+    background: #c1c1c1;
+    width: 4px;
+}
+
+.luckysheet-freezebar-hover .luckysheet-freezebar-vertical-drop-title,
+.luckysheet-freezebar-active .luckysheet-freezebar-vertical-drop-title {
+    background: #5d88db;
+    width: 4px;
+}
+
+.luckysheet-freezebar-horizontal-handle {
+    height: 4px;
+    display: none;
+    /*background: url(//ssl.gstatic.com/docs/spreadsheets/ritz_luckysheet-freezebar_horizontal.png) no-repeat;*/
+}
+
+.luckysheet-freezebar-horizontal-drop {
+    /*background: url(//ssl.gstatic.com/docs/spreadsheets/jfk_luckysheet-freezebar_active_horizontal.png) no-repeat;*/
+    height: 4px;
+}
+
+.luckysheet-freezebar-active .luckysheet-freezebar-horizontal-handle {
+    display: block;
+    z-index: 1003;
+}
+
+.luckysheet-freezebar-horizontal-handle-bar {
+    height: 2px;
+    background: #dbe5f7;
+    border-color: #a5c6fe;
+    border-style: solid;
+    border-width: 1px 0;
+    opacity: 0.45;
+    filter: alpha(opacity=45);
+    margin-left: 45px;
+    left: 0px;
+    right: 0px;
+}
+
+.luckysheet-freezebar-horizontal-handle-title {
+    height: 4px;
+    background: #9dbefb;
+    opacity: 0.8;
+    filter: alpha(opacity=80);
+    width: 45px;
+    left: 0px;
+}
+
+.luckysheet-freezebar-horizontal-drop-bar {
+    height: 2px;
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0.45);
+    border-width: 2px 2px 1px 2px;
+    margin-left: 45px;
+    left: 0px;
+    right: 0px;
+}
+
+.luckysheet-freezebar-horizontal-drop-title {
+    height: 2px;
+    background: #bcbdbc;
+    /*            opacity: 0.80;
+            filter: alpha(opacity=80);*/
+    width: 45px;
+    left: 0px;
+}
+
+.luckysheet-freezebar-hover .luckysheet-freezebar-horizontal-drop-bar,
+.luckysheet-freezebar-active .luckysheet-freezebar-horizontal-drop-bar {
+    background: #c1c1c1;
+    height: 4px;
+}
+
+.luckysheet-freezebar-hover .luckysheet-freezebar-horizontal-drop-title,
+.luckysheet-freezebar-active .luckysheet-freezebar-horizontal-drop-title {
+    background: #5d88db;
+    height: 4px;
+}

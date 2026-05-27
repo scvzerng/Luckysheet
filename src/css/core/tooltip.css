@@ -1,0 +1,86 @@
+.jfk-tooltip {
+    z-index: 300000;
+}
+
+.jfk-tooltip-hide {
+    -webkit-transition: visibility .13s, opacity .13s ease-out, left 0 linear .13s, top 0 linear .13s;
+    -moz-transition: visibility .13s, opacity .13s ease-out, left 0 linear .13s, top 0 linear .13s;
+    -o-transition: visibility .13s, opacity .13s ease-out, left 0 linear .13s, top 0 linear .13s;
+    transition: visibility .13s, opacity .13s ease-out, left 0 linear .13s, top 0 linear .13s;
+    opacity: 0;
+    left: 20px !important;
+    top: 20px !important;
+    visibility: hidden !important;
+}
+
+.jfk-tooltip {
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    -webkit-transition: visibility 0, opacity .13s ease-in;
+    -moz-transition: visibility 0, opacity .13s ease-in;
+    -o-transition: visibility 0, opacity .13s ease-in;
+    transition: visibility 0, opacity .13s ease-in;
+    background-color: #2a2a2a;
+    border: 1px solid #fff;
+    color: #fff;
+    cursor: default;
+    display: block;
+    font-size: 11px;
+    font-weight: bold;
+    margin-left: -1px;
+    opacity: 1;
+    padding: 7px 9px;
+    position: absolute;
+    visibility: visible;
+}
+
+.jfk-tooltip-arrowup {
+    top: -6px;
+}
+
+.jfk-tooltip-arrow {
+    pointer-events: none;
+    position: absolute;
+}
+
+.jfk-tooltip-arrow .jfk-tooltip-arrowimplafter {
+    border: 5px solid;
+}
+
+.jfk-tooltip-arrow .jfk-tooltip-arrowimplbefore {
+    border: 6px solid;
+}
+
+.jfk-tooltip-arrow .jfk-tooltip-arrowimplbefore,
+.jfk-tooltip-arrow .jfk-tooltip-arrowimplafter {
+    content: '';
+    display: block;
+    height: 0;
+    position: absolute;
+    width: 0;
+}
+
+.jfk-tooltip-arrowup .jfk-tooltip-arrowimplafter {
+    border-top-width: 0;
+    top: 1px;
+}
+
+.jfk-tooltip-arrowdown .jfk-tooltip-arrowimplafter,
+.jfk-tooltip-arrowup .jfk-tooltip-arrowimplafter {
+    border-color: #2a2a2a transparent;
+    left: -5px;
+}
+
+.jfk-tooltip-arrowup .jfk-tooltip-arrowimplbefore {
+    border-top-width: 0;
+}
+
+.jfk-tooltip-arrowdown .jfk-tooltip-arrowimplbefore,
+.jfk-tooltip-arrowup .jfk-tooltip-arrowimplbefore {
+    border-color: #fff transparent;
+    left: -6px;
+}

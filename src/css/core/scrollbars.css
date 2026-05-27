@@ -1,0 +1,588 @@
+.luckysheet-cell-main {
+    /*border: solid 1px #BEC1C4;*/
+    background-color: white;
+    width: 15px;
+    height: 15px;
+    background-color: #f3f3f2;
+    /*#E7E7E7;*/
+    border-collapse: collapse;
+    position: relative;
+    overflow: hidden;
+    outline-style: none;
+    cursor: default;
+}
+
+.luckysheet-scrollbars,
+.luckysheet-menu {
+    scrollbar-base-color: #ffffff;
+    scrollbar-track-color: #e7e7e7;
+    scrollbar-darkshadow-color: #ffffff;
+    scrollbar-3dlight-color: #ffffff;
+    scrollbar-arrow-color: #757778;
+    scrollbar-shadow-color: #bec1c4;
+    scrollbar-highlight-color: #bec1c4;
+    -ms-scroll-chaining: none;
+    overflow: auto;
+}
+
+.luckysheet-scrollbar-ltr {
+    position: absolute;
+    overflow: hidden;
+    z-index: 1003;
+}
+
+.luckysheet-scrollbar-ltr div {
+    height: 1px;
+    width: 1px;
+}
+
+.luckysheet-scrollbar-ltr::-webkit-scrollbar-button {
+    height: 0;
+    width: 0;
+}
+
+.luckysheet-scrollbar-ltr::-webkit-scrollbar-button:start {
+    display: none;
+}
+
+.luckysheet-scrollbar-ltr::-webkit-scrollbar-button:end {
+    display: block;
+}
+
+.luckysheet-scrollbar-ltr::-webkit-scrollbar-button {
+    border: 1px solid #d9d9d9;
+}
+
+.luckysheet-scrollbar-ltr::-webkit-scrollbar-button:horizontal {
+    border-width: 1px 0 0 0;
+}
+
+.luckysheet-scrollbar-ltr::-webkit-scrollbar-button:vertical {
+    border-width: 0 0 0 1px;
+}
+
+.luckysheet-scrollbar-ltr::-webkit-scrollbar-button:vertical {
+    border-width: 0 1px 0 0;
+}
+
+.luckysheet-scrollbar-ltr::-webkit-scrollbar-button:horizontal:increment {
+    background: no-repeat url("waffle_sprite.png") -663px -13px;
+    width: 15px;
+    padding-left: 1px;
+    background-clip: border-box;
+    border: 1px solid #d9d9d9;
+    border-width: 1px 0 0 0;
+    box-shadow: none;
+    background-color: #f8f8f8;
+    border-bottom: 1px solid #d9d9d9;
+}
+
+.luckysheet-scrollbar-ltr::-webkit-scrollbar-button:horizontal:increment:hover {
+    background: no-repeat url("waffle_sprite.png") -395px -62px;
+}
+
+.luckysheet-scrollbar-ltr::-webkit-scrollbar-button:horizontal:increment:active {
+    background: no-repeat url("waffle_sprite.png") -679px -13px;
+}
+
+.luckysheet-scrollbar-ltr::-webkit-scrollbar-button:horizontal:decrement {
+    border-left: 1px solid #d9d9d9;
+    border-right: 1px solid #d9d9d9;
+    background: no-repeat url("waffle_sprite.png") -283px -62px;
+    width: 17px;
+    border-bottom: 1px solid #d9d9d9;
+}
+
+.luckysheet-scrollbar-ltr::-webkit-scrollbar-button:horizontal:hover {
+    background: no-repeat url("waffle_sprite.png") -145px -70px;
+}
+
+.luckysheet-scrollbar-ltr::-webkit-scrollbar-button:horizontal:active {
+    background: no-repeat url("waffle_sprite.png") -552px 0;
+}
+
+.luckysheet-scrollbar-ltr::-webkit-scrollbar-button:vertical:increment {
+    padding-top: 1px;
+    background: no-repeat url("waffle_sprite.png") -531px -24px;
+    border-left: 1px solid #d9d9d9;
+    height: 15px;
+}
+
+.luckysheet-scrollbar-ltr::-webkit-scrollbar-button:vertical:increment:hover {
+    background: no-repeat url("waffle_sprite.png") -570px -42px;
+}
+
+.luckysheet-scrollbar-ltr::-webkit-scrollbar-button:vertical:increment:active {
+    background: no-repeat url("waffle_sprite.png") -83px -46px;
+}
+
+.luckysheet-scrollbar-ltr::-webkit-scrollbar-button:vertical:decrement {
+    border-top: 1px solid #d9d9d9;
+    border-bottom: 1px solid #d9d9d9;
+    border-left: 1px solid #d9d9d9;
+    background: no-repeat url("waffle_sprite.png") -631px -27px;
+    height: 17px;
+}
+
+.luckysheet-scrollbar-ltr::-webkit-scrollbar-button:vertical:decrement:hover {
+    background: no-repeat url("waffle_sprite.png") -180px -58px;
+}
+
+.luckysheet-scrollbar-ltr::-webkit-scrollbar-button:vertical:decrement:active {
+    background: no-repeat url("waffle_sprite.png") -776px -28px;
+}
+
+.luckysheet-scrollbar-x {
+    bottom: 0px;
+    left: 44px;
+    overflow-x: scroll;
+}
+
+.luckysheet-scrollbar-y {
+    right: 0px;
+    top: 0px;
+    overflow-y: scroll;
+}
+
+.luckysheet-cell-flow {
+    margin: 0;
+    padding: 0;
+    border: none 0;
+    position: relative;
+    touch-action: manipulation;
+    overflow: hidden;
+    /*background: #fff;*/
+}
+
+.luckysheet-cell-flow-clip {
+    border-collapse: collapse;
+    cursor: default;
+    width: 5000000px;
+    touch-action: manipulation;
+    overflow: hidden;
+}
+
+.luckysheet-cell-flow-col {
+    margin: 0;
+    padding: 0;
+    border: none 0;
+    position: relative;
+    touch-action: manipulation;
+    overflow: hidden;
+    float: left;
+    direction: ltr;
+}
+
+.luckysheet-cell-sheettable {
+    position: relative;
+    /*background-color: #fff;*/
+    text-align: left;
+    font-size: 11pt;
+    color: #000000;
+    text-decoration: none;
+}
+
+.luckysheet-bottom-controll-row {
+    position: absolute;
+    height: 30px;
+    /*width: 400px;*/
+    /* background: #000; */
+    bottom: 38px;
+    left: 0px;
+    z-index: 1000;
+}
+
+#luckysheet-bottom-add-row {
+    padding: 5px 20px;
+    margin-right: 5px;
+    margin-top: -2px;
+}
+
+#luckysheet-bottom-add-row-input {
+    width: 40px;
+    min-width: 40px;
+}
+
+#luckysheet-bottom-return-top {
+    padding: 5px 6px;
+    margin-left: 10px;
+    margin-top: -2px;
+}
+
+.luckysheet-cell-flow-column {
+    position: absolute;
+    height: inherit;
+    width: inherit;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    touch-action: manipulation;
+}
+
+.luckysheet-cell-flow-column-line {
+    position: absolute;
+    border-right: 1px solid #d4d4d4;
+    height: inherit;
+}
+
+.luckysheet-cell-flow-row {
+    text-align: left;
+    position: absolute;
+    height: inherit;
+    width: inherit;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    touch-action: manipulation;
+}
+
+.luckysheet-cell-flow-row-line {
+    position: absolute;
+    border-bottom: 1px solid #d4d4d4;
+    width: inherit;
+}
+
+.luckysheet-cell-selected-focus {
+    position: absolute;
+    pointer-events: none;
+    z-index: 14;
+    /*border:1px solid #fff;*/
+    margin: 0px 0 0 0px;
+    background: rgba(0, 80, 208, 0.15);
+    display: none;
+    /*transition: all 0.1s;*/
+}
+
+.luckysheet-selection-copy {
+    position: absolute;
+    pointer-events: none;
+    z-index: 18;
+    border: none;
+    margin: 0px 0 0 0px;
+    display: none;
+}
+
+.luckysheet-selection-copy .luckysheet-copy {
+    position: absolute;
+    z-index: 18;
+    background-color: transparent;
+}
+
+.luckysheet-selection-copy-top {
+    left: 0;
+    right: 0;
+    height: 2px;
+    top: 0;
+    background-position: bottom;
+    background-image: url("EwaAntH.gif");
+}
+
+.luckysheet-selection-copy-right {
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    right: 0;
+    background-image: url("EwaAntV.gif");
+}
+
+.luckysheet-selection-copy-bottom {
+    left: 0;
+    right: 0;
+    height: 2px;
+    bottom: 0;
+    background-image: url("EwaAntH.gif");
+}
+
+.luckysheet-selection-copy-left {
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    left: 0;
+    background-position: right;
+    background-image: url("EwaAntV.gif");
+}
+
+.luckysheet-selection-copy-hc {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    border: 2px dashed #12a5ff;
+    z-index: 8;
+}
+
+.luckysheet-selection-highlight {
+    position: absolute;
+    /*pointer-events: none;*/
+    z-index: 14;
+    border: none;
+    margin: 0px 0 0 0px;
+    display: none;
+}
+
+.luckysheet-formula-functionrange-highlight .luckysheet-copy {
+    background-image: none;
+    background: #0188fb;
+    position: absolute;
+    z-index: 18;
+    cursor: move;
+    opacity: 0.9;
+    /*border: 1px solid #fff;*/
+}
+
+.luckysheet-formula-functionrange-highlight .luckysheet-selection-copy-top {
+    top: -2px;
+    border-top: 2px solid #fff;
+    border-bottom: 2px solid #fff;
+}
+
+.luckysheet-formula-functionrange-highlight .luckysheet-selection-copy-right {
+    right: -2px;
+    border-left: 2px solid #fff;
+    border-right: 2px solid #fff;
+}
+
+.luckysheet-formula-functionrange-highlight .luckysheet-selection-copy-bottom {
+    bottom: -2px;
+    border-top: 2px solid #fff;
+    border-bottom: 2px solid #fff;
+}
+
+.luckysheet-formula-functionrange-highlight .luckysheet-selection-copy-left {
+    left: -2px;
+    border-left: 2px solid #fff;
+    border-right: 2px solid #fff;
+}
+
+.luckysheet-formula-functionrange-highlight .luckysheet-selection-copy-hc {
+    border: 2px solid #5e5e5e;
+    opacity: 0.03;
+    z-index: initial;
+}
+
+.luckysheet-selection-highlight-topleft {
+    left: -3px;
+    top: -3px;
+    cursor: se-resize;
+}
+
+.luckysheet-selection-highlight-topright {
+    right: -3px;
+    top: -3px;
+    cursor: ne-resize;
+}
+
+.luckysheet-selection-highlight-bottomleft {
+    left: -3px;
+    bottom: -3px;
+    cursor: ne-resize;
+}
+
+.luckysheet-selection-highlight-bottomright {
+    right: -3px;
+    bottom: -3px;
+    cursor: se-resize;
+}
+
+.luckysheet-formula-functionrange-highlight .luckysheet-highlight {
+    position: absolute;
+    z-index: 19;
+    border: 1px solid #fff;
+    background: #0188fb;
+    width: 6px;
+    height: 6px;
+}
+
+.luckysheet-cell-selected-extend {
+    position: absolute;
+    pointer-events: none;
+    z-index: 16;
+    border: 1px dashed #0188fb;
+    margin: -1px 0 0 -1px;
+    display: none;
+    /*transition: all 0.1s;*/
+}
+
+.luckysheet-cell-selected-move {
+    position: absolute;
+    pointer-events: none;
+    z-index: 16;
+    border: 2px solid #0188fb;
+    margin: -1px 0 0 -1px;
+    display: none;
+    /*transition: all 0.1s;*/
+}
+
+.luckysheet-cell-selected {
+    position: absolute;
+    pointer-events: none;
+    z-index: 15;
+    border: 1px solid #0188fb;
+    margin: -1px 0 0 -1px;
+    background: rgba(1, 136, 251, 0.15);
+    display: none;
+    /*transition: all 0.1s;*/
+}
+
+.luckysheet-cs-inner-border {
+    pointer-events: none;
+    border: 1px solid #fff;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.luckysheet-cs-fillhandle {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    bottom: -5px;
+    cursor: crosshair;
+    background-color: #0188fb;
+    border: solid 1px #fff;
+    z-index: 16;
+    pointer-events: auto;
+    right: -5px;
+}
+
+.luckysheet-cs-draghandle {
+    position: absolute;
+    cursor: move;
+    background-color: #fff;
+    opacity: 0.01;
+    z-index: 15;
+    pointer-events: auto;
+    border: 2px solid #fff;
+}
+
+.luckysheet-cs-draghandle-top {
+    top: -4px;
+    left: -2px;
+    right: -2px;
+    height: 2px;
+}
+
+.luckysheet-cs-draghandle-bottom {
+    right: 0;
+    left: -2px;
+    bottom: -4px;
+    height: 2px;
+}
+
+.luckysheet-cs-draghandle-left {
+    top: 0;
+    left: -4px;
+    bottom: 0;
+    width: 2px;
+}
+
+.luckysheet-cs-draghandle-right {
+    top: 0;
+    right: -4px;
+    bottom: 0;
+    width: 2px;
+}
+
+.luckysheet-cs-touchhandle {
+    display: none;
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    padding: 5px;
+    z-index: 100;
+    pointer-events: auto;
+    touch-action: auto;
+}
+
+.luckysheet-cs-touchhandle:before {
+    content: "";
+    display: block;
+    width: 16px;
+    height: 16px;
+    border: 0.5px solid rgba(0, 0, 0, 0.15);
+    background-color: #ffffff;
+    box-sizing: border-box;
+    border-radius: 50%;
+}
+
+.luckysheet-cs-touchhandle-lt {
+    left: -13px;
+    top: -13px;
+}
+
+.luckysheet-cs-touchhandle-lb {
+    left: -13px;
+    bottom: -13px;
+}
+
+.luckysheet-cs-touchhandle-rt {
+    right: -13px;
+    top: -13px;
+}
+
+.luckysheet-cs-touchhandle-rb {
+    right: -13px;
+    bottom: -13px;
+}
+
+.luckysheet-cs-touchhandle .luckysheet-cs-touchhandle-btn {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    left: 8px;
+    top: 8px;
+    background-color: #018ffb;
+    background-position: center;
+    box-sizing: border-box;
+    border-radius: 50%;
+    z-index: 11;
+}
+
+#luckysheet-dynamicArray-hightShow {
+    position: absolute;
+    pointer-events: none;
+    z-index: 15;
+    border: 1px solid blue;
+    margin: -1px 0 0 -1px;
+    display: none;
+}
+
+.luckysheet-scrollbars::-webkit-scrollbar-track {
+    background-color: #ffffff;
+    border: 1px solid #d9d9d9;
+}
+
+.luckysheet-scrollbar-x::-webkit-scrollbar-track {
+    border-left: 1px solid #d9d9d9;
+    border-right: none;
+}
+
+.luckysheet-scrollbar-y::-webkit-scrollbar-track {
+    border-top: none;
+    border-bottom: none;
+}
+
+.luckysheet-scrollbars::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+    background-color: #ffffff;
+    /*border:0 none;*/
+}
+
+.luckysheet-scrollbars::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2);
+    background-clip: padding-box;
+    border: solid transparent;
+    border-radius: 12px;
+    border-width: 2px 1px 1px 2px;
+    box-shadow: inset 1px 1px 0 rgba(0, 0, 0, 0.1), inset 0 -1px 0 rgba(0, 0, 0, 0.07);
+}
+
+.luckysheet-scrollbars::-webkit-scrollbar-thumb:hover {
+    background-color: #969696;
+    border: 1px solid #a0a0a0;
+    border-radius: 12px;
+}
