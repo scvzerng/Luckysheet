@@ -457,7 +457,7 @@ src/controllers/constant/                      # 原 constant.js
 
 #### 23. `functionImplementation/financial.js` — 3,913 行
 
-- **状态**: ⬜ 待二次拆分
+- **状态**: ✅ 已完成
 - **建议**: 按子类别拆分为 `financialCashflow.js`(PMT/PV/FV/NPV/IRR等现金流) + `financialBond.js`(PRICE/YIELD/ACCRINT/COUP*等债券) + `financialDepreciation.js`(DB/DDB/SLN/SYD等折旧)
 
 #### 24. `menuButton/toolbarInit.js` — 2,884 行
@@ -467,8 +467,8 @@ src/controllers/constant/                      # 原 constant.js
 
 #### 25. `functionImplementation/math.js` — 1,874 行
 
-- **状态**: ⬜ 待二次拆分
-- **建议**: 拆分为 `mathBasic.js`(SUM/ABS/INT/ROUND等基础数学) + `mathTrig.js`(SIN/COS/TAN/ASIN等三角函数) + `mathRounding.js`(CEILING/FLOOR/EVEN/ODD等取整)
+- **状态**: ✅ 已完成
+- **建议**: 拆分为 `mathBasic.js`(SUM/ABS/INT/ROUND等基础数学) + `mathTrigonometric.js`(SIN/COS/TAN/ASIN等三角函数)
 
 #### 26. `conditionformat/dialog.js` — 1,806 行
 
@@ -492,22 +492,22 @@ src/controllers/constant/                      # 原 constant.js
 
 #### 30. `functionListDescriptor/statistical.js` — 1,347 行
 
-- **状态**: ⬜ 待二次拆分
+- **状态**: ✅ 已完成
 - **建议**: 与 functionImplementation/statistical.js 同步拆分
 
 #### 31. `functionImplementation/engineering.js` — 1,209 行
 
-- **状态**: ⬜ 待二次拆分
+- **状态**: ✅ 已完成
 - **建议**: 拆分为 `engineeringConversion.js`(进制转换) + `engineeringComplex.js`(复数运算)
 
 #### 32. `functionListDescriptor/financial.js` — 1,207 行
 
-- **状态**: ⬜ 待二次拆分
+- **状态**: ✅ 已完成
 - **建议**: 与 functionImplementation/financial.js 同步拆分
 
 #### 33. `functionImplementation/text.js` — 1,135 行
 
-- **状态**: ⬜ 待二次拆分
+- **状态**: ✅ 已完成
 - **建议**: 拆分为 `textBasic.js`(LEFT/RIGHT/MID/LEN等基础文本) + `textTransform.js`(UPPER/LOWER/PROPER/REPLACE等转换)
 
 #### 34. `handler/cellEvents.js` — 1,116 行
@@ -517,12 +517,12 @@ src/controllers/constant/                      # 原 constant.js
 
 #### 35. `functionImplementation/date.js` — 1,104 行
 
-- **状态**: ⬜ 待二次拆分
+- **状态**: ✅ 已完成
 - **建议**: 拆分为 `dateBasic.js`(DATE/DAY/MONTH/YEAR等基础日期) + `dateWorkday.js`(NETWORKDAYS/WORKDAY等工作日函数)
 
 #### 36. `functionImplementation/lookup.js` — 1,024 行
 
-- **状态**: ⬜ 待二次拆分
+- **状态**: ✅ 已完成
 - **建议**: 拆分为 `lookupBasic.js`(VLOOKUP/HLOOKUP/LOOKUP) + `lookupReference.js`(INDEX/MATCH/OFFSET/INDIRECT)
 
 #### 37. `conditionformat/compute.js` — 1,000 行
@@ -591,6 +591,6 @@ src/utils/util/                                 # 原 util.js
 | P1 | 2 | 2 | 0 | 0 |
 | P2 | 13 | 12 | 1 | 0 |
 | P3 | 6 | 6 | 0 | 0 |
-| P4 (二次拆分) | 16 | 0 | 0 | 16 |
+| P4 (二次拆分) | 16 | 8 | 0 | 8 |
 | P5 (新发现) | 1 | 0 | 0 | 1 |
 | **合计** | **41** | **23** | **1** | **17** |
