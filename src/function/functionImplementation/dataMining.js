@@ -1,0 +1,243 @@
+import luckysheetConfigsetting from "../../controllers/luckysheetConfigsetting";
+import { luckysheet_getcelldata, luckysheet_parseData, luckysheet_getValue, luckysheet_calcADPMM } from "../func";
+import { inverse } from "../matrix_methods";
+import { getSheetIndex, getluckysheetfile, getRangetxt } from "../../methods/get";
+import menuButton from "../../controllers/menuButton";
+import formula from "../../global/formula";
+import func_methods from "../../global/func_methods";
+import editor from "../../global/editor";
+import { isdatetime, diff, isdatatype } from "../../global/datecontroll";
+import { isRealNum, isRealNull, valueIsError, error } from "../../global/validate";
+import { jfrefreshgrid, jfrefreshgridall } from "../../global/refresh";
+import { genarate, update } from "../../global/format";
+import { orderbydata } from "../../global/sort";
+import { getcellvalue, datagridgrowth } from "../../global/getdata";
+import { getObjType, ABCatNum, chatatABC, numFormat } from "../../utils/util";
+import Store from "../../store";
+import dayjs from 'dayjs';
+import numeral from 'numeral';
+import { getAirTable, companyTargetData, companyTargetData10, companyTargetData11, companyTargetData12, excelToLuckyArray, excelToArray, askAIData } from "../../demoData/getTargetData";
+import { setcellvalue } from "../../global/setdata";
+import jStat from 'jstat';
+
+//公式函数计算
+const dataMiningFunctions = {
+  "DM_TEXT_CUTWORD": function () {
+    //必要参数个数错误检测
+    if (arguments.length < this.m[0] || arguments.length > this.m[1]) {
+      return formula.error.na;
+    }
+
+    //参数类型错误检测
+    for (var i = 0; i < arguments.length; i++) {
+      var p = formula.errorParamCheck(this.p, arguments[i], i);
+      if (!p[0]) {
+        return formula.error.v;
+      }
+    }
+    try {
+      var cell_r = window.luckysheetCurrentRow;
+      var cell_c = window.luckysheetCurrentColumn;
+      var cell_fp = window.luckysheetCurrentFunction;
+
+      //任意需要分词的文本
+      var text = func_methods.getFirstValue(arguments[0], "text");
+      if (valueIsError(text)) {
+        return text;
+      }
+
+      //分词模式
+      var datetype = 0;
+      if (arguments[1] != null) {
+        datetype = func_methods.getFirstValue(arguments[1]);
+        if (valueIsError(datetype)) {
+          return datetype;
+        }
+      }
+      if (!isRealNum(datetype)) {
+        return formula.error.v;
+      }
+      datetype = parseInt(datetype);
+      if (datetype != 0 && datetype != 1 && datetype != 2) {
+        return formula.error.v;
+      }
+      $.post("/dataqk/tu/api/cutword", {
+        "text": text,
+        "type": datetype
+      }, function (data) {
+        var d = [].concat(Store.flowdata);
+        formula.execFunctionGroup(cell_r, cell_c, data);
+        d[cell_r][cell_c] = {
+          "v": data,
+          "f": cell_fp
+        };
+        jfrefreshgrid(d, [{
+          "row": [cell_r, cell_r],
+          "column": [cell_c, cell_c]
+        }]);
+      });
+      return "loading...";
+    } catch (e) {
+      var err = e;
+      err = formula.errorInfo(err);
+      return [formula.error.v, err];
+    }
+  },
+  "DM_TEXT_TFIDF": function () {
+    //必要参数个数错误检测
+    if (arguments.length < this.m[0] || arguments.length > this.m[1]) {
+      return formula.error.na;
+    }
+
+    //参数类型错误检测
+    for (var i = 0; i < arguments.length; i++) {
+      var p = formula.errorParamCheck(this.p, arguments[i], i);
+      if (!p[0]) {
+        return formula.error.v;
+      }
+    }
+    try {
+      var cell_r = window.luckysheetCurrentRow;
+      var cell_c = window.luckysheetCurrentColumn;
+      var cell_fp = window.luckysheetCurrentFunction;
+
+      //任意需要分词的文本
+      var text = func_methods.getFirstValue(arguments[0], "text");
+      if (valueIsError(text)) {
+        return text;
+      }
+
+      //关键词个数
+      var count = 20;
+      if (arguments[1] != null) {
+        count = func_methods.getFirstValue(arguments[1]);
+        if (valueIsError(count)) {
+          return count;
+        }
+      }
+      if (!isRealNum(count)) {
+        return formula.error.v;
+      }
+      count = parseInt(count);
+
+      //语料库
+      var set = 0;
+      if (arguments[2] != null) {
+        set = func_methods.getFirstValue(arguments[2]);
+        if (valueIsError(set)) {
+          return set;
+        }
+      }
+      if (!isRealNum(set)) {
+        return formula.error.v;
+      }
+      set = parseInt(set);
+      if (count < 0) {
+        return formula.error.v;
+      }
+      if (set != 0 && set != 1 && set != 2) {
+        return formula.error.v;
+      }
+      $.post("/dataqk/tu/api/tfidf", {
+        "text": text,
+        "count": count,
+        "set": set
+      }, function (data) {
+        var d = editor.deepCopyFlowData(Store.flowdata);
+        formula.execFunctionGroup(cell_r, cell_c, data);
+        d[cell_r][cell_c] = {
+          "v": data,
+          "f": cell_fp
+        };
+        jfrefreshgrid(d, [{
+          "row": [cell_r, cell_r],
+          "column": [cell_c, cell_c]
+        }]);
+      });
+      return "loading...";
+    } catch (e) {
+      var err = e;
+      err = formula.errorInfo(err);
+      return [formula.error.v, err];
+    }
+  },
+  "DM_TEXT_TEXTRANK": function () {
+    //必要参数个数错误检测
+    if (arguments.length < this.m[0] || arguments.length > this.m[1]) {
+      return formula.error.na;
+    }
+
+    //参数类型错误检测
+    for (var i = 0; i < arguments.length; i++) {
+      var p = formula.errorParamCheck(this.p, arguments[i], i);
+      if (!p[0]) {
+        return formula.error.v;
+      }
+    }
+    try {
+      var cell_r = window.luckysheetCurrentRow;
+      var cell_c = window.luckysheetCurrentColumn;
+      var cell_fp = window.luckysheetCurrentFunction;
+
+      //任意需要分词的文本
+      var text = func_methods.getFirstValue(arguments[0], "text");
+      if (valueIsError(text)) {
+        return text;
+      }
+
+      //关键词个数
+      var count = 20;
+      if (arguments[1] != null) {
+        count = func_methods.getFirstValue(arguments[1]);
+        if (valueIsError(count)) {
+          return count;
+        }
+      }
+      if (!isRealNum(count)) {
+        return formula.error.v;
+      }
+      count = parseInt(count);
+
+      //语料库
+      var set = 0;
+      if (arguments[2] != null) {
+        set = func_methods.getFirstValue(arguments[2]);
+        if (valueIsError(set)) {
+          return set;
+        }
+      }
+      if (!isRealNum(set)) {
+        return formula.error.v;
+      }
+      set = parseInt(set);
+      if (count < 0) {
+        return formula.error.v;
+      }
+      if (set != 0 && set != 1 && set != 2) {
+        return formula.error.v;
+      }
+      $.post("/dataqk/tu/api/tfidf", {
+        "text": text,
+        "count": count,
+        "set": set
+      }, function (data) {
+        var d = editor.deepCopyFlowData(Store.flowdata);
+        formula.execFunctionGroup(cell_r, cell_c, data);
+        d[cell_r][cell_c] = {
+          "v": data,
+          "f": cell_fp
+        };
+        jfrefreshgrid(d, [{
+          "row": [cell_r, cell_r],
+          "column": [cell_c, cell_c]
+        }]);
+      });
+      return "loading...";
+    } catch (e) {
+      var err = e;
+      err = formula.errorInfo(err);
+      return [formula.error.v, err];
+    }
+  }
+};
+export default dataMiningFunctions;
