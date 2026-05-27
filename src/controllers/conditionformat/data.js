@@ -1,0 +1,125 @@
+import { getSheetIndex, getRangetxt } from "../../methods/get";
+import { replaceHtml, getObjType, chatatABC } from "../../utils/util";
+import formula from "../../global/formula";
+import { isRealNull, isEditMode } from "../../global/validate";
+import tooltip from "../../global/tooltip";
+import { luckysheetrefreshgrid } from "../../global/refresh";
+import { getcellvalue } from "../../global/getdata";
+import { genarate } from "../../global/format";
+import { modelHTML, luckysheet_CFiconsImg } from "../constant";
+import { selectionCopyShow } from "../select";
+import sheetmanage from "../sheetmanage";
+import locale from "../../locale/locale";
+import Store from "../../store";
+import dayjs from 'dayjs';
+
+//条件格式
+const dataModule = {
+  fileClone: [],
+  editorRule: null,
+  selectRange: [],
+  selectStatus: false,
+  dataBarList: [{
+    "format": ["#638ec6", "#ffffff"]
+  },
+  //蓝-白渐变 数据条
+  {
+    "format": ["#63c384", "#ffffff"]
+  },
+  //绿-白渐变 数据条
+  {
+    "format": ["#ff555a", "#ffffff"]
+  },
+  //红-白渐变 数据条
+  {
+    "format": ["#ffb628", "#ffffff"]
+  },
+  //橙-白渐变 数据条
+  {
+    "format": ["#008aef", "#ffffff"]
+  },
+  //浅蓝-白渐变 数据条
+  {
+    "format": ["#d6007b", "#ffffff"]
+  },
+  //紫-白渐变 数据条
+
+  {
+    "format": ["#638ec6"]
+  },
+  //蓝色 数据条
+  {
+    "format": ["#63c384"]
+  },
+  //绿色 数据条
+  {
+    "format": ["#ff555a"]
+  },
+  //红色 数据条
+  {
+    "format": ["#ffb628"]
+  },
+  //橙色 数据条
+  {
+    "format": ["#008aef"]
+  },
+  //浅蓝色 数据条
+  {
+    "format": ["#d6007b"]
+  } //紫色 数据条
+  ],
+  colorGradationList: [{
+    "format": ["rgb(99, 190, 123)", "rgb(255, 235, 132)", "rgb(248, 105, 107)"]
+  },
+  //绿-黄-红色阶
+  {
+    "format": ["rgb(248, 105, 107)", "rgb(255, 235, 132)", "rgb(99, 190, 123)"]
+  },
+  //红-黄-绿色阶
+
+  {
+    "format": ["rgb(99, 190, 123)", "rgb(252, 252, 255)", "rgb(248, 105, 107)"]
+  },
+  //绿-白-红色阶
+  {
+    "format": ["rgb(248, 105, 107)", "rgb(252, 252, 255)", "rgb(99, 190, 123)"]
+  },
+  //红-白-绿色阶
+
+  {
+    "format": ["rgb(90, 138, 198)", "rgb(252, 252, 255)", "rgb(248, 105, 107)"]
+  },
+  //蓝-白-红色阶
+  {
+    "format": ["rgb(248, 105, 107)", "rgb(252, 252, 255)", "rgb(90, 138, 198)"]
+  },
+  //红-白-蓝色阶
+
+  {
+    "format": ["rgb(252, 252, 255)", "rgb(248, 105, 107)"]
+  },
+  //白-红色阶
+  {
+    "format": ["rgb(248, 105, 107)", "rgb(252, 252, 255)"]
+  },
+  //红-白色阶
+
+  {
+    "format": ["rgb(99, 190, 123)", "rgb(252, 252, 255)"]
+  },
+  //绿-白色阶
+  {
+    "format": ["rgb(252, 252, 255)", "rgb(99, 190, 123)"]
+  },
+  //白-绿色阶
+
+  {
+    "format": ["rgb(99, 190, 123)", "rgb(255, 235, 132)"]
+  },
+  //绿-黄色阶
+  {
+    "format": ["rgb(255, 235, 132)", "rgb(99, 190, 123)"]
+  } //黄-绿色阶
+  ]
+};
+export default dataModule;
