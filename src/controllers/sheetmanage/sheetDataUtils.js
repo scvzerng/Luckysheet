@@ -46,7 +46,6 @@ const sheetDataUtilsModule = {
     return ret;
   },
   buildGridData: function (file) {
-    // 如果已经存在二维数据data,那么直接返回data；如果只有celldata，那么就转化成二维数组data，再返回
     let row = file.row == null ? Store.defaultrowNum : file.row,
       column = file.column == null ? Store.defaultcolumnNum : file.column,
       data = file.data && file.data.length > 0 ? file.data : datagridgrowth([], row, column),
@@ -71,6 +70,22 @@ const sheetDataUtilsModule = {
             data = datagridgrowth(data, 0, c - data[0].length + 1);
           }
           setcellvalue(r, c, data, v);
+        }
+      }
+    }
+
+    if (file.calcChain == null) {
+      file.calcChain = [];
+      for (let i = 0; i < data.length; i++) {
+        for (let j = 0; j < data[0].length; j++) {
+          let cell = data[i][j];
+          if (cell != null && cell.f != null) {
+            file.calcChain.push({
+              r: i,
+              c: j,
+              index: file.index,
+            });
+          }
         }
       }
     }
