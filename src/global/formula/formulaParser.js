@@ -691,7 +691,7 @@ const formulaParser = {
                             }
 
                             // 修复类似=1--1、=1---1、=1+--+1--1这类连续+-混合写法计算结果和wps和office不一致的bug, by @kdevilpf 2023-10-08
-                            for (ls = i + 1; ls < funcstack.length; ls++) {
+                            for (let ls = i + 1; ls < funcstack.length; ls++) {
                                 if (["--", "++"].includes(s + funcstack[ls])) {
                                     s = "+";
                                 } else if (["-+", "+-"].includes(s + funcstack[ls])) {
