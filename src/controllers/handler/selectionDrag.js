@@ -124,11 +124,13 @@ export default function selectionDrag() {
                 .css("cursor", "crosshair");
             $("#luckysheet-cell-main, #luckysheetTableContent, #luckysheet-sheettable_0").css("cursor", "crosshair");
 
+            let pageX = event.pageX, pageY = event.pageY;
+
             Store.luckysheet_cell_selected_extend_time = setTimeout(function() {
                 Store.luckysheet_cell_selected_extend = true;
                 Store.luckysheet_scroll_status = true;
 
-                let mouse = mouseposition(event.pageX, event.pageY);
+                let mouse = mouseposition(pageX, pageY);
                 let x = mouse[0] + $("#luckysheet-cell-main").scrollLeft() - 5;
                 let y = mouse[1] + $("#luckysheet-cell-main").scrollTop() - 5;
 

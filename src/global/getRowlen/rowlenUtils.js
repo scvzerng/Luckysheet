@@ -5,6 +5,7 @@ import {colLocationByIndex,colSpanLocationByIndex} from '../../global/location';
 import {checkWordByteLength, hasChinaword, isRealNull} from '../../global/validate';
 import {isInlineStringCell} from '../../controllers/inlineString';
 import Store from '../../store';
+import { getCellTextInfo } from './getCellTextInfo';
 
 function rowlenByRange(d, r1, r2, cfg) {
     let cfg_clone = $.extend(true, {}, cfg);

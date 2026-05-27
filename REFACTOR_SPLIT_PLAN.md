@@ -462,8 +462,8 @@ src/controllers/constant/                      # 原 constant.js
 
 #### 24. `menuButton/toolbarInit.js` — 2,884 行
 
-- **状态**: ⬜ 待二次拆分
-- **建议**: 按工具栏功能区域拆分为 20 个独立 init* 函数（initPaintFormat/initNumberFormat/initFontFamily等）
+- **状态**: ✅ 已完成
+- **实际拆分**: 拆分到 `toolbarInit/` 目录下 21 个子文件（initPaintFormat/initNumberFormat/initMoreFormat/initFontFamily/initTextColor/initCellColor/initFontSize/initBorder/initMerge/initAlign/initValign/initTextWrap/initRotation/initFreezen/initAutofilter/initSearchReplace/initFunction/initTextStyle/initConditionformat/initPostil/initPrint）
 
 #### 25. `functionImplementation/math.js` — 1,874 行
 
@@ -472,23 +472,23 @@ src/controllers/constant/                      # 原 constant.js
 
 #### 26. `conditionformat/dialog.js` — 1,806 行
 
-- **状态**: ⬜ 待二次拆分
-- **建议**: 将 `init` 函数(1294行)内的事件绑定按功能拆分为独立注册函数
+- **状态**: ✅ 已完成
+- **实际拆分**: 拆分到 `dialog/` 目录下 6 个子文件（initAdminRuleEvents/initNewRuleEvents/initEditRuleEvents/initRuleTypeEvents/initConditionDialogEvents/initRangeAndCloseEvents）
 
 #### 27. `rowColumnOperation/rowHeaderEvents.js` — 1,777 行
 
-- **状态**: ⬜ 待二次拆分
-- **建议**: 将 `rowColumnOperationInitial` 函数内的事件绑定按行头/列头/右键菜单/行高列宽拆分
+- **状态**: ✅ 已完成
+- **实际拆分**: 拆分到 `rowHeaderEvents/` 目录下 8 个子文件（initRowHeaderEvents/initColHeaderEvents/initResizeEvents/initAddRowColEvents/initDeleteRowColEvents/initHideShowEvents/initDeleteCellEvents/initRowColWidthEvents）
 
 #### 28. `dropCell/core.js` — 1,530 行
 
-- **状态**: ⬜ 待二次拆分
-- **建议**: 将 `update`(408行)和`getDataByType`(826行)进一步拆分
+- **状态**: ✅ 已完成
+- **实际拆分**: 拆分到 `core/coreSub/` 目录下 9 个子文件（getDataByType0~8），`core/index.js` 保留核心方法
 
 #### 29. `handler/documentMousemove.js` — 1,431 行
 
-- **状态**: ⬜ 待二次拆分
-- **建议**: 按鼠标移动的不同场景(选区拖拽/列宽调整/行高调整/冻结条拖拽)拆分
+- **状态**: ✅ 已完成
+- **实际拆分**: 提取 `mouseRender` 函数到 `documentMousemoveSub/mouseRender.js`
 
 #### 30. `functionListDescriptor/statistical.js` — 1,347 行
 
@@ -512,8 +512,8 @@ src/controllers/constant/                      # 原 constant.js
 
 #### 34. `handler/cellEvents.js` — 1,116 行
 
-- **状态**: ⬜ 待二次拆分
-- **建议**: 按单元格事件类型(单击/双击/拖拽)拆分
+- **状态**: ✅ 已完成
+- **实际拆分**: 提取 3 个处理器到 `cellEventsSub/` 目录（handleCellMousedown/handleCellMouseup/handleCellDblclick）
 
 #### 35. `functionImplementation/date.js` — 1,104 行
 
@@ -527,8 +527,8 @@ src/controllers/constant/                      # 原 constant.js
 
 #### 37. `conditionformat/compute.js` — 1,000 行
 
-- **状态**: ⬜ 待二次拆分
-- **建议**: 将 `compute` 函数按条件类型拆分为独立计算函数
+- **状态**: ✅ 已完成
+- **实际拆分**: 拆分到 `computeSub/` 目录下 4 个子文件（computeDataBar/computeColorGradation/computeIcons/computeDefault）
 
 ---
 
@@ -539,22 +539,23 @@ src/controllers/constant/                      # 原 constant.js
 - **导出方式**: 命名导出（27项）
 - **核心问题**: 典型"万能工具箱"反模式，31个函数间毫无关联
 - **函数分类**: 类型判断(4) / 颜色转换(2) / 列号转换(4) / 数字格式(2) / DOM操作(6) / 脚本加载(4) / 响应式(3) / 字符串(4) / 数组(3)
-- **状态**: ⬜ 待拆分
+- **状态**: ✅ 已完成
 
-**拆分方案**:
+**实际拆分方案**:
 
 ```
-src/utils/util/                                 # 原 util.js
-├── index.js                                   # 聚合导出
-├── typeUtils.js                               # isJsonString / getObjType
+src/utils/utilSub/                              # 原 util.js 中的函数
+├── typeUtils.js                               # common_extend / getObjType
 ├── colorUtils.js                              # hexToRgb / rgbTohex
 ├── columnUtils.js                             # ABCatNum / chatatABC / ceateABC / createABCdim
-├── numberUtils.js                             # numFormat / numfloatLen
-├── domUtils.js                                # showrightclickmenu / mouseclickposition / $$ / luckysheetactiveCell / luckysheetContainerFocus / openSelfModel
+├── formatUtils.js                             # luckysheetfontformat / numFormat / numfloatlen
+├── uiUtils.js                                 # showrightclickmenu / luckysheetactiveCell / luckysheetContainerFocus / mouseclickposition / $$
 ├── scriptLoader.js                            # seriesLoadScripts / parallelLoadScripts / loadLink / loadLinks
-├── reactiveUtils.js                           # createProxy / defineObjectReactive / defineBasicReactive
-├── stringUtils.js                             # replaceHtml / getByteLen / transformRangeToAbsolute / camel2split / common_extend
-└── arrayUtils.js                              # ArrayUnique / arrayRemoveItem / luckysheetfontformat / getNowDateTime
+├── reactiveUtils.js                           # createProxy / defineObjectReactive / defineBasicReactive / openSelfModel
+├── stringUtils.js                             # isJsonString / replaceHtml / getByteLen / camel2split
+├── arrayUtils.js                              # ArrayUnique / arrayRemoveItem
+├── dateTimeUtils.js                           # getNowDateTime
+└── rangeUtils.js                              # transformRangeToAbsolute
 ```
 
 ---
@@ -591,6 +592,6 @@ src/utils/util/                                 # 原 util.js
 | P1 | 2 | 2 | 0 | 0 |
 | P2 | 13 | 12 | 1 | 0 |
 | P3 | 6 | 6 | 0 | 0 |
-| P4 (二次拆分) | 16 | 8 | 0 | 8 |
-| P5 (新发现) | 1 | 0 | 0 | 1 |
-| **合计** | **41** | **23** | **1** | **17** |
+| P4 (二次拆分) | 16 | 16 | 0 | 0 |
+| P5 (新发现) | 1 | 1 | 0 | 0 |
+| **合计** | **41** | **40** | **1** | **0** |

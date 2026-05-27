@@ -200,7 +200,6 @@ const formatUpdateModule = {
   updateFormat: function (d, attr, foucsStatus) {
     let _this = this;
 
-    // *如果禁止前台编辑，则中止下一步操作
     if (!checkIsAllowEdit()) {
       return;
     }
@@ -212,7 +211,6 @@ const formatUpdateModule = {
         if (value.substr(0, 1) != "=") {
           let cell = d[Store.luckysheetCellUpdate[0]][Store.luckysheetCellUpdate[1]];
           updateInlineStringFormat(cell, attr, foucsStatus, luckysheetformula.rangeResizeTo);
-          // return;
         }
       }
     }

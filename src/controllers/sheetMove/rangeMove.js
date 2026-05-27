@@ -5,6 +5,8 @@ import { countfunc } from "../../global/count";
 import menuButton from "../menuButton";
 import { selectHightlightShow } from "../select";
 import Store from "../../store";
+import { rowHasMerge, colHasMerge, getRowMerge, getColMerge } from "./mergeHelper";
+import { getNextIndex } from "./dataBoundary";
 //shift + 方向键  调整选区
 function luckysheetMoveHighlightRange(postion, index, type, isScroll) {
   if (isScroll == null) {

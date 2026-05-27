@@ -9,6 +9,7 @@ import Store from '../../store';
 import { checkMultiSelection } from './matrixValidation';
 
 function initialMatrixFlipOperation() {
+    const locale_drag = locale().drag;
     //矩阵操作选区 翻转 上下
     $("#luckysheet-matrix-turn-up").click(function (event) {
         $("body .luckysheet-cols-menu").hide();

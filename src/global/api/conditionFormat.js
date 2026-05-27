@@ -4,7 +4,7 @@ import locale from "../../locale/locale";
 import { getSheetIndex } from "../../methods/get";
 import Store from "../../store";
 import { getObjType } from "../../utils/util";
-import { diff } from "../datecontroll";
+import { diff, isdatetime } from "../datecontroll";
 import { getcellvalue } from "../getdata";
 import tooltip from "../tooltip";
 import { isRealNum } from "../validate";

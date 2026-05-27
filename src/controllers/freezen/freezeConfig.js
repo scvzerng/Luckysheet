@@ -9,6 +9,7 @@ import { rowLocationByIndex, colLocationByIndex } from "../../global/location";
 import Store from "../../store";
 import locale from "../../locale/locale";
 import { luckysheetrefreshgrid } from "../../global/refresh";
+import freezeCoreModule from "./freezeCore";
 const freezeConfigModule = {
   /**
    * 
@@ -77,7 +78,7 @@ const freezeConfigModule = {
         row_st = 0;
       }
       let top = Store.visibledatarow[row_st] - 2 - scrollTop + Store.columnHeaderHeight;
-      let freezenhorizontaldata = [Store.visibledatarow[row_st], row_st + 1, scrollTop, luckysheetFreezen.cutVolumn(Store.visibledatarow, row_st + 1), top];
+      let freezenhorizontaldata = [Store.visibledatarow[row_st], row_st + 1, scrollTop, freezeCoreModule.cutVolumn(Store.visibledatarow, row_st + 1), top];
       freezen = {
         horizontal: {
           freezenhorizontaldata: freezenhorizontaldata,
@@ -91,7 +92,7 @@ const freezeConfigModule = {
         col_st = 0;
       }
       let left = Store.visibledatacolumn[col_st] - 2 - scrollLeft + Store.rowHeaderWidth;
-      let freezenverticaldata = [Store.visibledatacolumn[col_st], col_st + 1, scrollLeft, luckysheetFreezen.cutVolumn(Store.visibledatacolumn, col_st + 1), left];
+      let freezenverticaldata = [Store.visibledatacolumn[col_st], col_st + 1, scrollLeft, freezeCoreModule.cutVolumn(Store.visibledatacolumn, col_st + 1), left];
       freezen = {
         vertical: {
           freezenverticaldata: freezenverticaldata,
@@ -105,14 +106,14 @@ const freezeConfigModule = {
         row_st = 0;
       }
       let top = Store.visibledatarow[row_st] - 2 - scrollTop + Store.columnHeaderHeight;
-      let freezenhorizontaldata = [Store.visibledatarow[row_st], row_st + 1, scrollTop, luckysheetFreezen.cutVolumn(Store.visibledatarow, row_st + 1), top];
+      let freezenhorizontaldata = [Store.visibledatarow[row_st], row_st + 1, scrollTop, freezeCoreModule.cutVolumn(Store.visibledatarow, row_st + 1), top];
       let scrollLeft = 0;
       let col_st = luckysheet_searcharray(Store.visibledatacolumn, scrollLeft);
       if (col_st == -1) {
         col_st = 0;
       }
       let left = Store.visibledatacolumn[col_st] - 2 - scrollLeft + Store.rowHeaderWidth;
-      let freezenverticaldata = [Store.visibledatacolumn[col_st], col_st + 1, scrollLeft, luckysheetFreezen.cutVolumn(Store.visibledatacolumn, col_st + 1), left];
+      let freezenverticaldata = [Store.visibledatacolumn[col_st], col_st + 1, scrollLeft, freezeCoreModule.cutVolumn(Store.visibledatacolumn, col_st + 1), left];
       freezen = {
         horizontal: {
           freezenhorizontaldata: freezenhorizontaldata,
@@ -134,7 +135,7 @@ const freezeConfigModule = {
         row_st = 0;
       }
       let top = Store.visibledatarow[row_st] - 2 - scrollTop + Store.columnHeaderHeight;
-      let freezenhorizontaldata = [Store.visibledatarow[row_st], row_st + 1, scrollTop, luckysheetFreezen.cutVolumn(Store.visibledatarow, row_st + 1), top];
+      let freezenhorizontaldata = [Store.visibledatarow[row_st], row_st + 1, scrollTop, freezeCoreModule.cutVolumn(Store.visibledatarow, row_st + 1), top];
       freezen = {
         horizontal: {
           freezenhorizontaldata: freezenhorizontaldata,
@@ -152,7 +153,7 @@ const freezeConfigModule = {
         col_st = 0;
       }
       let left = Store.visibledatacolumn[col_st] - 2 - scrollLeft + Store.rowHeaderWidth;
-      let freezenverticaldata = [Store.visibledatacolumn[col_st], col_st + 1, scrollLeft, luckysheetFreezen.cutVolumn(Store.visibledatacolumn, col_st + 1), left];
+      let freezenverticaldata = [Store.visibledatacolumn[col_st], col_st + 1, scrollLeft, freezeCoreModule.cutVolumn(Store.visibledatacolumn, col_st + 1), left];
       freezen = {
         vertical: {
           freezenverticaldata: freezenverticaldata,
@@ -170,7 +171,7 @@ const freezeConfigModule = {
         row_st = 0;
       }
       let top = Store.visibledatarow[row_st] - 2 - scrollTop + Store.columnHeaderHeight;
-      let freezenhorizontaldata = [Store.visibledatarow[row_st], row_st + 1, scrollTop, luckysheetFreezen.cutVolumn(Store.visibledatarow, row_st + 1), top];
+      let freezenhorizontaldata = [Store.visibledatarow[row_st], row_st + 1, scrollTop, freezeCoreModule.cutVolumn(Store.visibledatarow, row_st + 1), top];
       let scrollLeft = 0;
       let col_st = luckysheet_searcharray(Store.visibledatacolumn, scrollLeft);
       let column_focus = frozen.range["column_focus"];
@@ -181,7 +182,7 @@ const freezeConfigModule = {
         col_st = 0;
       }
       let left = Store.visibledatacolumn[col_st] - 2 - scrollLeft + Store.rowHeaderWidth;
-      let freezenverticaldata = [Store.visibledatacolumn[col_st], col_st + 1, scrollLeft, luckysheetFreezen.cutVolumn(Store.visibledatacolumn, col_st + 1), left];
+      let freezenverticaldata = [Store.visibledatacolumn[col_st], col_st + 1, scrollLeft, freezeCoreModule.cutVolumn(Store.visibledatacolumn, col_st + 1), left];
       freezen = {
         horizontal: {
           freezenhorizontaldata: freezenhorizontaldata,

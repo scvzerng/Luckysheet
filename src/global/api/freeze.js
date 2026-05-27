@@ -1,4 +1,5 @@
 import luckysheetFreezen from "../../controllers/freezen";
+import { luckysheet_searcharray } from "../../controllers/sheetSearch";
 import locale from "../../locale/locale";
 import { getSheetIndex } from "../../methods/get";
 import Store from "../../store";

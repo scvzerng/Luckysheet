@@ -22,6 +22,7 @@ let jfnqrt = function (x, p) {
     }
 
 function initialMatrixCalcOperation() {
+    const locale_drag = locale().drag;
     //矩阵操作选区 矩阵计算
     $("#luckysheet-matrix-cal-confirm").click(function (event) {
 

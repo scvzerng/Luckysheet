@@ -3,6 +3,7 @@ import Store from "../../store";
 import func_methods from "../func_methods";
 import { jfrefreshgrid, luckysheetrefreshgrid } from "../refresh";
 import tooltip from "../tooltip";
+import { setCellValue } from "./cellOperation";
 
 export function find(content, options = {}) {
     if (!content && content != 0) {

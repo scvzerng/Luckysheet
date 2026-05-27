@@ -17,7 +17,7 @@ import { createFilterOptions } from '../../controllers/filter';
 import { getSheetIndex } from '../../methods/get';
 import { selectHightlightShow } from '../../controllers/select';
 import Store from '../../store';
-import { luckysheetrefreshgrid } from './refreshCanvas';
+import { luckysheetrefreshgrid, jfrefreshgrid_rhcw } from './refreshCanvas';
 import { getRefreshCanvasTimeOut, setRefreshCanvasTimeOut, clearRefreshCanvasTimeOut } from './refreshState';
 
 function runExecFunction(range, index, data){

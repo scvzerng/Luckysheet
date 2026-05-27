@@ -5,6 +5,7 @@ import {colLocationByIndex,colSpanLocationByIndex} from '../../global/location';
 import {checkWordByteLength, hasChinaword, isRealNull} from '../../global/validate';
 import {isInlineStringCell} from '../../controllers/inlineString';
 import Store from '../../store';
+import { getMeasureText } from './getMeasureText';
 
 function getCellTextSplitArr(strValue, strArr, cellWidth, canvas){
     for(let strI = 1; strI <= strValue.length; strI++){

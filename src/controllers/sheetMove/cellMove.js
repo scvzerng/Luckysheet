@@ -5,6 +5,8 @@ import { countfunc } from "../../global/count";
 import menuButton from "../menuButton";
 import { selectHightlightShow } from "../select";
 import Store from "../../store";
+import { luckysheetMoveHighlightRange } from "./rangeMove";
+import { getNextIndex } from "./dataBoundary";
 function luckysheetMoveEndCell(postion, type, isScroll, terminal, onlyvalue) {
   if (isScroll == null) {
     isScroll = true;

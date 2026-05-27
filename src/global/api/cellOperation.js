@@ -10,6 +10,7 @@ import { jfrefreshgrid } from "../refresh";
 import { setcellvalue } from "../setdata";
 import tooltip from "../tooltip";
 import { isRealNull, isRealNum } from "../validate";
+import { luckysheetDeleteCell } from "../extend";
 
 export function getCellValue(row, column, options = {}) {
     if (!isRealNum(row) || !isRealNum(column)) {
@@ -93,7 +94,7 @@ export function setCellValue(row, column, value, options = {}) {
       oldValue = JSON.stringify(Store.flowdata[row][column]);
     }
 
-    // luckysheetformula.updatecell(row, column, value);
+    // formula.updatecell(row, column, value);
     let formatList = {
         //ct:1, //celltype,Cell value format: text, time, etc.
         bg: 1,//background,#fff000
@@ -134,7 +135,7 @@ export function setCellValue(row, column, value, options = {}) {
             if(value.ct!=null){
                 curv.ct = value.ct;
             }
-            data = luckysheetformula.updatecell(row, column, curv, false).data;//update formula value
+            data = formula.updatecell(row, column, curv, false).data;//update formula value
         }
         else{
             if(value.ct!=null){
@@ -169,7 +170,7 @@ export function setCellValue(row, column, value, options = {}) {
     }
     else{
         if(value.toString().substr(0,1)=="=" || value.toString().substr(0,5)=="<span"){
-            data = luckysheetformula.updatecell(row, column, value, false).data;//update formula value or convert inline string html to object
+            data = formula.updatecell(row, column, value, false).data;//update formula value or convert inline string html to object
         }
         else{
             formula.delFunctionGroup(row, column);

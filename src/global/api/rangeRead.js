@@ -1,9 +1,10 @@
 import conditionformat from "../../controllers/conditionformat";
 import menuButton from "../../controllers/menuButton";
+import selection from "../../controllers/selection";
 import { selectIsOverlap } from "../../controllers/select";
 import sheetmanage from "../../controllers/sheetmanage";
 import locale from "../../locale/locale";
-import { getSheetIndex } from "../../methods/get";
+import { getSheetIndex, getRangetxt } from "../../methods/get";
 import Store from "../../store";
 import { getObjType, chatatABC, replaceHtml } from "../../utils/util";
 import { getBorderInfoCompute } from "../border";
@@ -692,6 +693,7 @@ export function getRangeArray(dimensional, options = {}) {
 }
 
 export function getRangeJson(isFirstRowTitle, options = {}) {
+    const locale_drag = locale().drag;
     let curRange = Store.luckysheet_select_save[0];
     let curSheetOrder = getSheetIndex(Store.currentSheetIndex);
     let {

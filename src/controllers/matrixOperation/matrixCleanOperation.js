@@ -9,6 +9,7 @@ import Store from '../../store';
 import { checkMultiSelection } from './matrixValidation';
 
 function initialMatrixCleanOperation() {
+    const locale_drag = locale().drag;
     //矩阵操作选区 删除两端0值 按行
     $("#luckysheet-matrix-delezero-row").click(function (event) {
         $("body .luckysheet-cols-menu").hide();

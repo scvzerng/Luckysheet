@@ -1,6 +1,7 @@
 import imageCtrl from "../../controllers/imageCtrl";
+import { sheetHTML } from "../../controllers/constant";
 import sheetmanage from "../../controllers/sheetmanage";
-import { zoomNumberDomBind } from "../../controllers/zoom";
+import { zoomNumberDomBind, zoomRefreshView } from "../../controllers/zoom";
 import locale from "../../locale/locale";
 import { getSheetIndex } from "../../methods/get";
 import Store from "../../store";

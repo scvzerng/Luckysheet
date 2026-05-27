@@ -6,6 +6,7 @@ import { getObjType } from "../../utils/util";
 import formula from "../formula";
 import { jfrefreshgrid, luckysheetrefreshgrid } from "../refresh";
 import tooltip from "../tooltip";
+import { setCellValue } from "./cellOperation";
 
 export function setRangeShow(range, options = {}) {
     if(getObjType(range) == 'string'){

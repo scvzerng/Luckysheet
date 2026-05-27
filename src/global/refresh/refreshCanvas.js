@@ -15,7 +15,7 @@ import luckysheetPostil from '../../controllers/postil';
 import hyperlinkCtrl from '../../controllers/hyperlinkCtrl';
 import { createFilterOptions } from '../../controllers/filter';
 import { getSheetIndex } from '../../methods/get';
-import { selectHightlightShow } from '../../controllers/select';
+import { selectHightlightShow, selectionCopyShow } from '../../controllers/select';
 import Store from '../../store';
 
 import { clearRefreshCanvasTimeOut, setRefreshCanvasTimeOut } from './refreshState';

@@ -9,6 +9,7 @@ import { rowLocationByIndex, colLocationByIndex } from "../../global/location";
 import Store from "../../store";
 import locale from "../../locale/locale";
 import { luckysheetrefreshgrid } from "../../global/refresh";
+import imageCtrl from "../imageCtrl";
 const scrollAdaptModule = {
   scrollAdapt: function () {
     let _this = this;

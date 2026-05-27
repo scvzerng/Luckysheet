@@ -19,7 +19,7 @@ import { selectHightlightShow } from '../../controllers/select';
 import Store from '../../store';
 
 import { clearRefreshCanvasTimeOut, setRefreshCanvasTimeOut, runExecFunction } from './refreshCore';
-import { luckysheetrefreshgrid } from './refreshCanvas';
+import { luckysheetrefreshgrid, jfrefreshgrid_rhcw } from './refreshCanvas';
 
 function jfrefreshgrid_adRC(data, cfg, ctrlType, ctrlValue, calc, filterObj, cf, af, freezen, hyperlink){
     let file = Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)];

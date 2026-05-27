@@ -5,6 +5,8 @@ import formula from "../formula";
 import { getdatabyselection } from "../getdata";
 import tooltip from "../tooltip";
 import { isRealNum } from "../validate";
+import { numFormat } from "../../utils/util";
+import { jfnqrt } from "../../controllers/matrixOperation/matrixCalcOperation";
 
 export function matrixOperation(type, options = {}) {
     let typeValues = [
