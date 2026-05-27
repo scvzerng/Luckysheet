@@ -653,20 +653,6 @@ const formulaExec = {
 
             // let cell = getOrigincell(u.r,u.c,u.index);
 
-            // let spl;
-            // if(v[3]!=null){
-            //     if(v[3].type=="sparklines"){
-            //         window.luckysheetCurrentRow = u.r;
-            //         window.luckysheetCurrentColumn = u.c;
-            //         window.luckysheetCurrentIndex = u.index;
-            //         window.luckysheetCurrentFunction = calc_funcStr;
-
-            //         let fp = $.trim(_this.functionParserExe(calc_funcStr));
-            //         let sparklines = eval(fp);
-            //         spl = sparklines;
-            //     }
-            // }
-
             _this.groupValuesRefreshData.push({
                 r: u.r,
                 c: u.c,
@@ -704,9 +690,7 @@ const formulaExec = {
 
                     let updateValue = {};
                     if (item.spe != null) {
-                        if (item.spe.type == "sparklines") {
-                            updateValue.spl = item.spe.data;
-                        } else if (item.spe.type == "dynamicArrayItem") {
+                        if (item.spe.type == "dynamicArrayItem") {
                             file.dynamicArray = _this.insertUpdateDynamicArray(item.spe.data);
                         }
                     }
@@ -790,8 +774,6 @@ const formulaExec = {
             window.luckysheetCurrentIndex = index;
             window.luckysheetCurrentFunction = txt;
 
-            let sparklines = null;
-
             try {
                 if (fp.indexOf("luckysheet_getcelldata") > -1) {
                     let funcg = fp.split("luckysheet_getcelldata('");
@@ -824,14 +806,7 @@ const formulaExec = {
 
                 result = new Function("return " + fp)();
                 if (typeof result == "string") {
-                    //把之前的非打印控制字符DEL替换回一个双引号。
                     result = result.replace(/\x7F/g, '"');
-                }
-
-                //加入sparklines的参数项目
-                if (fp.indexOf("SPLINES") > -1) {
-                    sparklines = result;
-                    result = "";
                 }
             } catch (e) {
                 let err = e;
@@ -898,10 +873,6 @@ const formulaExec = {
                 if (!notInsertFunc) {
                     _this.insertUpdateFunctionGroup(r, c, index);
                 }
-            }
-
-            if (!!sparklines) {
-                return [true, result, txt, { type: "sparklines", data: sparklines }];
             }
 
             if (!!dynamicArrayItem) {

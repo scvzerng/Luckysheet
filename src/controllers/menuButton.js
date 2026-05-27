@@ -3970,7 +3970,6 @@ const menuButton = {
                                 delete cell_clone.m;
                                 delete cell_clone.ct;
                                 delete cell_clone.f;
-                                delete cell_clone.spl;
 
                                 d[r][c] = cell_clone;
                             }
@@ -4036,7 +4035,6 @@ const menuButton = {
                                     delete cell_clone.m;
                                     delete cell_clone.ct;
                                     delete cell_clone.f;
-                                    delete cell_clone.spl;
 
                                     d[r][c] = cell_clone;
                                 }

@@ -112,7 +112,7 @@ const cellUpdate = {
 
             if (!isCurInline) {
                 if (isRealNull(value) && !isPrevInline) {
-                    if (curv == null || (isRealNull(curv.v) && curv.spl == null && curv.f == null)) {
+                    if (curv == null || (isRealNull(curv.v) && curv.f == null)) {
                         _this.cancelNormalSelected();
                         return;
                     }
@@ -138,7 +138,6 @@ const cellUpdate = {
                     if (curv.f != null) {
                         //如果原来是公式，而更新的数据不是公式，则把公式删除
                         delete curv.f;
-                        delete curv.spl; //删除单元格的sparklines的配置串
                     }
                 }
             }
@@ -159,19 +158,7 @@ const cellUpdate = {
                         curv.v = v[1];
                         curv.f = v[2];
 
-                        //打进单元格的sparklines的配置串， 报错需要单独处理。
-                        if (v.length == 4 && v[3].type == "sparklines") {
-                            delete curv.m;
-                            delete curv.v;
-
-                            let curCalv = v[3].data;
-
-                            if (getObjType(curCalv) == "array" && getObjType(curCalv[0]) != "object") {
-                                curv.v = curCalv[0];
-                            } else {
-                                curv.spl = v[3].data;
-                            }
-                        } else if (v.length == 4 && v[3].type == "dynamicArrayItem") {
+                        if (v.length == 4 && v[3].type == "dynamicArrayItem") {
                             dynamicArrayItem = v[3].data;
                         }
                     }
@@ -192,19 +179,7 @@ const cellUpdate = {
                             curv.v = v[1];
                             curv.f = v[2];
 
-                            //打进单元格的sparklines的配置串， 报错需要单独处理。
-                            if (v.length == 4 && v[3].type == "sparklines") {
-                                delete curv.m;
-                                delete curv.v;
-
-                                let curCalv = v[3].data;
-
-                                if (getObjType(curCalv) == "array" && getObjType(curCalv[0]) != "object") {
-                                    curv.v = curCalv[0];
-                                } else {
-                                    curv.spl = v[3].data;
-                                }
-                            } else if (v.length == 4 && v[3].type == "dynamicArrayItem") {
+                            if (v.length == 4 && v[3].type == "dynamicArrayItem") {
                                 dynamicArrayItem = v[3].data;
                             }
                         }
@@ -227,24 +202,6 @@ const cellUpdate = {
                             //     // get other cell style attribute
                             //     delete value.v;
                             //     delete value.m;
-                            //     delete value.f;
-                            //     Object.assign(curv,value);
-
-                            //     //打进单元格的sparklines的配置串， 报错需要单独处理。
-                            //     if(v.length == 4 && v[3].type == "sparklines"){
-                            //         delete curv.m;
-                            //         delete curv.v;
-
-                            //         let curCalv = v[3].data;
-
-                            //         if(getObjType(curCalv) == "array" && getObjType(curCalv[0]) != "object"){
-                            //             curv.v = curCalv[0];
-                            //         }
-                            //         else{
-                            //             curv.spl = v[3].data;
-                            //         }
-                            //     }
-                            // }
                         }
                     } else {
                         _this.delFunctionGroup(r, c);
@@ -259,7 +216,6 @@ const cellUpdate = {
                         curv.v = value;
 
                         delete curv.f;
-                        delete curv.spl;
 
                         if (curv.qp == 1 && ("" + value).substr(0, 1) != "'") {
                             //if quotePrefix is 1, cell is force string, cell clear quotePrefix when it is updated
@@ -281,16 +237,7 @@ const cellUpdate = {
                         f: v[2],
                     };
 
-                    //打进单元格的sparklines的配置串， 报错需要单独处理。
-                    if (v.length == 4 && v[3].type == "sparklines") {
-                        let curCalv = v[3].data;
-
-                        if (getObjType(curCalv) == "array" && getObjType(curCalv[0]) != "object") {
-                            value.v = curCalv[0];
-                        } else {
-                            value.spl = v[3].data;
-                        }
-                    } else if (v.length == 4 && v[3].type == "dynamicArrayItem") {
+                    if (v.length == 4 && v[3].type == "dynamicArrayItem") {
                         dynamicArrayItem = v[3].data;
                     }
                 }
@@ -314,16 +261,7 @@ const cellUpdate = {
                         value.v = v[1];
                         value.f = v[2];
 
-                        //打进单元格的sparklines的配置串， 报错需要单独处理。
-                        if (v.length == 4 && v[3].type == "sparklines") {
-                            let curCalv = v[3].data;
-
-                            if (getObjType(curCalv) == "array" && getObjType(curCalv[0]) != "object") {
-                                value.v = curCalv[0];
-                            } else {
-                                value.spl = v[3].data;
-                            }
-                        } else if (v.length == 4 && v[3].type == "dynamicArrayItem") {
+                        if (v.length == 4 && v[3].type == "dynamicArrayItem") {
                             dynamicArrayItem = v[3].data;
                         }
                     } else {

@@ -1402,7 +1402,6 @@ const selection = {
                 for (let j = 0; j < copyData[i].length; j++) {
                     if (copyData[i][j] != null && copyData[i][j].f != null) {
                         delete copyData[i][j].f;
-                        delete copyData[i][j].spl;
                     }
                 }
             }
@@ -1552,17 +1551,11 @@ const selection = {
 
                             let funcV = formula.execfunction(func, h, c, undefined, true);
 
-                            if (value.spl != null) {
-                                value.f = funcV[2];
-                                value.v = funcV[1];
-                                value.spl = funcV[3].data;
-                            } else {
-                                value.f = funcV[2];
-                                value.v = funcV[1];
+                            value.f = funcV[2];
+                            value.v = funcV[1];
 
-                                if (value.ct != null && value.ct["fa"] != null) {
-                                    value.m = update(value.ct["fa"], funcV[1]);
-                                }
+                            if (value.ct != null && value.ct["fa"] != null) {
+                                value.m = update(value.ct["fa"], funcV[1]);
                             }
                         }
 

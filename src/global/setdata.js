@@ -25,10 +25,6 @@ function setcellvalue(r, c, d, v) {
                 delete cell.f;
             }
 
-            if (v.spl != null) {
-                cell.spl = v.spl;
-            }
-
             if (v.ct != null) {
                 cell.ct = v.ct;
             }

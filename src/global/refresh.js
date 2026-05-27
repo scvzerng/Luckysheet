@@ -150,20 +150,6 @@ function jfrefreshgrid(data, range, allParam, isRunExecFunction = true, isRefres
         let r1 = range[s].row[0];
         let c1 = range[s].column[0];
 
-        if(Store.flowdata[r1][c1] != null && Store.flowdata[r1][c1].spl != null){
-            window.luckysheetCurrentRow = r1;
-            window.luckysheetCurrentColumn = c1;
-            window.luckysheetCurrentFunction = Store.flowdata[r1][c1].f;
-
-            let fp = $.trim(formula.functionParserExe(Store.flowdata[r1][c1].f));
-            let sparklines = new Function("return " +fp)();
-            Store.flowdata[r1][c1].spl = sparklines;
-        }
-
-        // 刷新图表
-        if(typeof(Store.chartparam.jfrefreshchartall)=="function"){
-            Store.chartparam.jfrefreshchartall(Store.flowdata,range[s].row[0],range[s].row[1],range[s].column[0],range[s].column[1]);
-        }
     }
     //单元格数据更新联动
     if (isRunExecFunction) {
@@ -889,9 +875,8 @@ function jfrefreshgrid_rhcw(rowheight, colwidth, isRefreshCanvas=true){
     clearTimeout(refreshCanvasTimeOut);
     sheetmanage.storeSheetParam();
 
-    //行高列宽改变时 重新计算sparklines
     let calcChain = Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].calcChain;
-    
+
     if(calcChain != null && calcChain.length > 0){
         if(Store.config["rowlen"] == null){
             Store.config["rowlen"] = {};
@@ -899,21 +884,6 @@ function jfrefreshgrid_rhcw(rowheight, colwidth, isRefreshCanvas=true){
 
         if(Store.config["columnlen"] == null){
             Store.config["columnlen"] = {};
-        }            
-
-        for(let i = 0; i < calcChain.length; i++){
-            let r = calcChain[i].r, c = calcChain[i].c, index = calcChain[i].index;
-
-            if(index == Store.currentSheetIndex && Store.flowdata[r][c] != null && Store.flowdata[r][c].spl != null && ((r in Store.config["rowlen"]) || (c in Store.config["columnlen"]))){
-                window.luckysheetCurrentRow = r;
-                window.luckysheetCurrentColumn = c;
-                window.luckysheetCurrentFunction = Store.flowdata[r][c].f;
-
-                let fp = $.trim(formula.functionParserExe(Store.flowdata[r][c].f));
-                let sparklines = new Function("return " + fp)();
-                Store.flowdata[r][c].spl = sparklines;
-
-            }
         }
 
         Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].data = Store.flowdata;

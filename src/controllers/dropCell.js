@@ -485,43 +485,37 @@ const luckysheetDropCell = {
                             cell.f = v[2];
                             cell.v = v[1];
 
-                            if(cell.spl != null){
-                                cell.spl = v[3].data;
-                            }
-                            else{
-                                if(isRealNum(cell.v) && !/^\d{6}(18|19|20)?\d{2}(0[1-9]|1[12])(0[1-9]|[12]\d|3[01])\d{3}(\d|X)$/i.test(cell.v)){
-                                    if(cell.v == Infinity || cell.v == -Infinity){
-                                        cell.m = cell.v.toString();
-                                    }
-                                    else{
-                                        if(cell.v.toString().indexOf("e") > -1){
-                                            let len = cell.v.toString().split(".")[1].split("e")[0].length;
-                                            if(len > 5){
-                                                len = 5;
-                                            }
-
-                                            cell.m = cell.v.toExponential(len).toString();
-                                        }
-                                        else{
-                                            let mask;
-                                            if(cell.ct.fa === "##0.00"){
-                                               /* 如果是数字类型 */
-                                               mask = genarate(Math.round(cell.v * 1000000000) / 1000000000 + ".00") ;
-                                               cell.m = mask[0].toString();
-                                            }else {
-                                                mask = genarate(Math.round(cell.v * 1000000000) / 1000000000);
-                                                cell.m = mask[0].toString();
-                                            }
-                                        }
-                                    }
-
-                                    cell.ct = cell.ct || { "fa": "General", "t": "n" };
+                            if(isRealNum(cell.v) && !/^\d{6}(18|19|20)?\d{2}(0[1-9]|1[12])(0[1-9]|[12]\d|3[01])\d{3}(\d|X)$/i.test(cell.v)){
+                                if(cell.v == Infinity || cell.v == -Infinity){
+                                    cell.m = cell.v.toString();
                                 }
                                 else{
-                                    let mask = genarate(cell.v);
-                                    cell.m = mask[0].toString();
-                                    cell.ct = mask[1];
+                                    if(cell.v.toString().indexOf("e") > -1){
+                                        let len = cell.v.toString().split(".")[1].split("e")[0].length;
+                                        if(len > 5){
+                                            len = 5;
+                                        }
+
+                                        cell.m = cell.v.toExponential(len).toString();
+                                    }
+                                    else{
+                                        let mask;
+                                        if(cell.ct.fa === "##0.00"){
+                                           mask = genarate(Math.round(cell.v * 1000000000) / 1000000000 + ".00") ;
+                                           cell.m = mask[0].toString();
+                                        }else {
+                                            mask = genarate(Math.round(cell.v * 1000000000) / 1000000000);
+                                            cell.m = mask[0].toString();
+                                        }
+                                    }
                                 }
+
+                                cell.ct = cell.ct || { "fa": "General", "t": "n" };
+                            }
+                            else{
+                                let mask = genarate(cell.v);
+                                cell.m = mask[0].toString();
+                                cell.ct = mask[1];
                             }
                         }
 
@@ -576,36 +570,31 @@ const luckysheetDropCell = {
                             cell.f = v[2];
                             cell.v = v[1];
 
-                            if(cell.spl != null){
-                                cell.spl = v[3].data;
-                            }
-                            else{
-                                if(isRealNum(cell.v) && !/^\d{6}(18|19|20)?\d{2}(0[1-9]|1[12])(0[1-9]|[12]\d|3[01])\d{3}(\d|X)$/i.test(cell.v)){
-                                    if(cell.v == Infinity || cell.v == -Infinity){
-                                        cell.m = cell.v.toString();
-                                    }
-                                    else{
-                                        if(cell.v.toString().indexOf("e") > -1){
-                                            let len = cell.v.toString().split(".")[1].split("e")[0].length;
-                                            if(len > 5){
-                                                len = 5;
-                                            }
-
-                                            cell.m = cell.v.toExponential(len).toString();
-                                        }
-                                        else{
-                                            let mask = genarate(Math.round(cell.v * 1000000000) / 1000000000);
-                                            cell.m = mask[0].toString();
-                                        }
-                                    }
-
-                                    cell.ct = { "fa": "General", "t": "n" };
+                            if(isRealNum(cell.v) && !/^\d{6}(18|19|20)?\d{2}(0[1-9]|1[12])(0[1-9]|[12]\d|3[01])\d{3}(\d|X)$/i.test(cell.v)){
+                                if(cell.v == Infinity || cell.v == -Infinity){
+                                    cell.m = cell.v.toString();
                                 }
                                 else{
-                                    let mask = genarate(cell.v);
-                                    cell.m = mask[0].toString();
-                                    cell.ct = mask[1];
+                                    if(cell.v.toString().indexOf("e") > -1){
+                                        let len = cell.v.toString().split(".")[1].split("e")[0].length;
+                                        if(len > 5){
+                                            len = 5;
+                                        }
+
+                                        cell.m = cell.v.toExponential(len).toString();
+                                    }
+                                    else{
+                                        let mask = genarate(Math.round(cell.v * 1000000000) / 1000000000);
+                                        cell.m = mask[0].toString();
+                                    }
                                 }
+
+                                cell.ct = { "fa": "General", "t": "n" };
+                            }
+                            else{
+                                let mask = genarate(cell.v);
+                                cell.m = mask[0].toString();
+                                cell.ct = mask[1];
                             }
                         }
 
@@ -670,36 +659,31 @@ const luckysheetDropCell = {
                             cell.f = v[2];
                             cell.v = v[1];
 
-                            if(cell.spl != null){
-                                cell.spl = v[3].data;
-                            }
-                            else{
-                                if(isRealNum(cell.v) && !/^\d{6}(18|19|20)?\d{2}(0[1-9]|1[12])(0[1-9]|[12]\d|3[01])\d{3}(\d|X)$/i.test(cell.v)){
-                                    if(cell.v == Infinity || cell.v == -Infinity){
-                                        cell.m = cell.v.toString();
-                                    }
-                                    else{
-                                        if(cell.v.toString().indexOf("e") > -1){
-                                            let len = cell.v.toString().split(".")[1].split("e")[0].length;
-                                            if(len > 5){
-                                                len = 5;
-                                            }
-
-                                            cell.m = cell.v.toExponential(len).toString();
-                                        }
-                                        else{
-                                            let mask = genarate(Math.round(cell.v * 1000000000) / 1000000000);
-                                            cell.m = mask[0].toString();
-                                        }
-                                    }
-
-                                    cell.ct = { "fa": "General", "t": "n" };
+                            if(isRealNum(cell.v) && !/^\d{6}(18|19|20)?\d{2}(0[1-9]|1[12])(0[1-9]|[12]\d|3[01])\d{3}(\d|X)$/i.test(cell.v)){
+                                if(cell.v == Infinity || cell.v == -Infinity){
+                                    cell.m = cell.v.toString();
                                 }
                                 else{
-                                    let mask = genarate(cell.v);
-                                    cell.m = mask[0].toString();
-                                    cell.ct = mask[1];
+                                    if(cell.v.toString().indexOf("e") > -1){
+                                        let len = cell.v.toString().split(".")[1].split("e")[0].length;
+                                        if(len > 5){
+                                            len = 5;
+                                        }
+
+                                        cell.m = cell.v.toExponential(len).toString();
+                                    }
+                                    else{
+                                        let mask = genarate(Math.round(cell.v * 1000000000) / 1000000000);
+                                        cell.m = mask[0].toString();
+                                    }
                                 }
+
+                                cell.ct = { "fa": "General", "t": "n" };
+                            }
+                            else{
+                                let mask = genarate(cell.v);
+                                cell.m = mask[0].toString();
+                                cell.ct = mask[1];
                             }
                         }
 
@@ -754,36 +738,31 @@ const luckysheetDropCell = {
                             cell.f = v[2];
                             cell.v = v[1];
 
-                            if(cell.spl != null){
-                                cell.spl = v[3].data;
-                            }
-                            else{
-                                if(isRealNum(cell.v) && !/^\d{6}(18|19|20)?\d{2}(0[1-9]|1[12])(0[1-9]|[12]\d|3[01])\d{3}(\d|X)$/i.test(cell.v)){
-                                    if(cell.v == Infinity || cell.v == -Infinity){
-                                        cell.m = cell.v.toString();
-                                    }
-                                    else{
-                                        if(cell.v.toString().indexOf("e") > -1){
-                                            let len = cell.v.toString().split(".")[1].split("e")[0].length;
-                                            if(len > 5){
-                                                len = 5;
-                                            }
-
-                                            cell.m = cell.v.toExponential(len).toString();
-                                        }
-                                        else{
-                                            let mask = genarate(Math.round(cell.v * 1000000000) / 1000000000);
-                                            cell.m = mask[0].toString();
-                                        }
-                                    }
-
-                                    cell.ct = { "fa": "General", "t": "n" };
+                            if(isRealNum(cell.v) && !/^\d{6}(18|19|20)?\d{2}(0[1-9]|1[12])(0[1-9]|[12]\d|3[01])\d{3}(\d|X)$/i.test(cell.v)){
+                                if(cell.v == Infinity || cell.v == -Infinity){
+                                    cell.m = cell.v.toString();
                                 }
                                 else{
-                                    let mask = genarate(cell.v);
-                                    cell.m = mask[0].toString();
-                                    cell.ct = mask[1];
+                                    if(cell.v.toString().indexOf("e") > -1){
+                                        let len = cell.v.toString().split(".")[1].split("e")[0].length;
+                                        if(len > 5){
+                                            len = 5;
+                                        }
+
+                                        cell.m = cell.v.toExponential(len).toString();
+                                    }
+                                    else{
+                                        let mask = genarate(Math.round(cell.v * 1000000000) / 1000000000);
+                                        cell.m = mask[0].toString();
+                                    }
                                 }
+
+                                cell.ct = { "fa": "General", "t": "n" };
+                            }
+                            else{
+                                let mask = genarate(cell.v);
+                                cell.m = mask[0].toString();
+                                cell.ct = mask[1];
                             }
                         }
 

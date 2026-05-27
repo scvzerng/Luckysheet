@@ -1,6 +1,5 @@
-﻿import conditionformat from "../controllers/conditionformat";
+import conditionformat from "../controllers/conditionformat";
 import alternateformat from "../controllers/alternateformat";
-import luckysheetSparkline from "../controllers/sparkline";
 import menuButton from "../controllers/menuButton";
 import { luckysheetdefaultstyle, luckysheet_CFiconsImg, luckysheetdefaultFont } from "../controllers/constant";
 import { luckysheet_searcharray } from "../controllers/sheetSearch";
@@ -742,15 +741,6 @@ function luckysheetDrawMain(
                     bodrder05,
                 );
 
-                //sparklines娓叉煋
-                let borderfix = menuButton.borderfix(Store.flowdata, r, c);
-                let cellsize = [
-                    start_c + offsetLeft + borderfix[0],
-                    start_r + offsetTop + borderfix[1],
-                    end_c - start_c - 3 + borderfix[2],
-                    end_r - start_r - 3 - 1 + borderfix[3],
-                ];
-                sparklinesRender(r, c, cellsize[0], cellsize[1], "luckysheetTableContent", luckysheetTableContent);
             } else {
                 if (r + "_" + c in dynamicArray_compute) {
                     //鍔ㄦ€佹暟缁勫叕寮?
@@ -852,15 +842,6 @@ function luckysheetDrawMain(
                 true,
             );
 
-            //sparklines娓叉煋
-            let borderfix = menuButton.borderfix(Store.flowdata, r, c);
-            let cellsize = [
-                start_c + offsetLeft + borderfix[0],
-                start_r + offsetTop + borderfix[1],
-                end_c - start_c - 3 + borderfix[2],
-                end_r - start_r - 3 - 1 + borderfix[3],
-            ];
-            sparklinesRender(r, c, cellsize[0], cellsize[1], "luckysheetTableContent", luckysheetTableContent);
         } else {
             if (r + "_" + c in dynamicArray_compute) {
                 //鍔ㄦ€佹暟缁勫叕寮?
@@ -1098,56 +1079,6 @@ function luckysheetDrawMain(
         Store.cellOverflowMapCache = {};
     }, 100);
 }
-
-//sparklines娓叉煋
-let sparklinesRender = function(r, c, offsetX, offsetY, canvasid, ctx) {
-    if (Store.flowdata[r] == null || Store.flowdata[r][c] == null) {
-        return;
-    }
-
-    let sparklines = Store.flowdata[r][c].spl;
-    if (sparklines != null) {
-        if (typeof sparklines == "string") {
-            sparklines = new Function("return " + sparklines)();
-        }
-
-        if (getObjType(sparklines) == "object") {
-            let temp1 = sparklines;
-            let x = temp1.offsetX;
-            let y = temp1.offsetY;
-            x = x == null ? 0 : x;
-            y = y == null ? 0 : y;
-            luckysheetSparkline.render(
-                temp1.shapeseq,
-                temp1.shapes,
-                offsetX + x,
-                offsetY + y,
-                temp1.pixelWidth,
-                temp1.pixelHeight,
-                canvasid,
-                ctx,
-            );
-        } else if (getObjType(sparklines) == "array" && getObjType(sparklines[0]) == "object") {
-            for (let i = 0; i < sparklines.length; i++) {
-                let temp1 = sparklines[i];
-                let x = temp1.offsetX;
-                let y = temp1.offsetY;
-                x = x == null ? 0 : x;
-                y = y == null ? 0 : y;
-                luckysheetSparkline.render(
-                    temp1.shapeseq,
-                    temp1.shapes,
-                    offsetX + x,
-                    offsetY + y,
-                    temp1.pixelWidth,
-                    temp1.pixelHeight,
-                    canvasid,
-                    ctx,
-                );
-            }
-        }
-    }
-};
 
 //绌虹櫧鍗曞厓鏍兼覆鏌?
 let nullCellRender = function(
@@ -2155,7 +2086,6 @@ export {
     luckysheetDrawgridColumnTitle,
     luckysheetDrawMain,
     getCellOverflowMap,
-    sparklinesRender,
     cellOverflow_colIn,
     cellOverflowRender,
     cellTextRender,

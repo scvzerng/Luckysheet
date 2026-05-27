@@ -384,7 +384,6 @@ export function cancelRangeMerge(options = {}) {
                         delete cell_clone.m;
                         delete cell_clone.ct;
                         delete cell_clone.f;
-                        delete cell_clone.spl;
 
                         data[r][c] = cell_clone;
                     }

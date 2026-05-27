@@ -85,7 +85,6 @@ const dataRead = {
 
             return output;
         },
-        //sparklines添加,
 
         readCellDataToOneArray: function(rangeValue) {
             let _this = this;
@@ -124,8 +123,7 @@ const dataRead = {
                 data = new Function("return " + data)();
             }
 
-            //把二维数组转换为一维数组，sparklines要求数据格式为一维数组
-            //let dataformat = [];
+
             if (getObjType(data[0]) == "array") {
                 for (let i = 0; i < data.length; i++) {
                     dataformat = dataformat.concat(data[i]);
@@ -136,8 +134,6 @@ const dataRead = {
 
             return dataformat;
         },
-        //sparklines添加
-        //获得函数里某个参数的值，使用此函数需要在函数中执行luckysheet_getValue方法,
 
         getValueByFuncData: function(value, arg) {
             if (value == null) {
@@ -164,77 +160,6 @@ const dataRead = {
                 return value;
             }
         },
-        //sparklines添加,
-
-        sparklinesColorMap: function(args, len) {
-            let _this = this;
-            let colorLists = null;
-
-            if (len == null) {
-                len = 5;
-            }
-
-            let index = 0;
-
-            if (args.length > len) {
-                for (let i = len; i < args.length; i++) {
-                    let colorMap = args[i];
-                    let colorListArray = _this.readCellDataToOneArray(colorMap);
-
-                    for (let a = 0; a < colorListArray.length; a++) {
-                        let ca = colorListArray[a];
-
-                        if (ca.indexOf(":") > -1) {
-                            if (!colorLists) {
-                                colorLists = {};
-                            }
-
-                            let calist = ca.split(":");
-
-                            if (calist.length == 2) {
-                                colorLists[calist[0]] = calist[1];
-                            } else if (calist.length > 1) {
-                                colorLists[calist[0] + ":" + calist[1]] = calist[2];
-                            }
-                        } else {
-                            if (!colorLists) {
-                                colorLists = [];
-                            }
-
-                            colorLists.push(ca);
-                        }
-                    }
-
-                    index++;
-                }
-            }
-
-            return colorLists;
-        },
-        //sparklines添加,
-
-        colorList: [
-            "#2ec7c9",
-            "#fc5c5c",
-            "#5ab1ef",
-            "#ffb980",
-            "#d87a80",
-            "#8d98b3",
-            "#e5cf0d",
-            "#97b552",
-            "#95706d",
-            "#dc69aa",
-            "#07a2a4",
-            "#9a7fd1",
-            "#588dd5",
-            "#f5994e",
-            "#c05050",
-            "#59678c",
-            "#c9ab00",
-            "#7eb00a",
-            "#6f5553",
-            "#c14089",
-        ],
 
         classlist: {
             province: {
