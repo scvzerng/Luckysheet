@@ -295,7 +295,26 @@ src/controllers/sheetmanage/                   # 原 sheetmanage.js
 
 - **导出方式**: 命名导出 `luckysheet_compareWith` / `luckysheet_getarraydata` / `luckysheet_getcelldata` / `luckysheet_parseData` / `luckysheet_getValue` / `luckysheet_indirect_check` / `luckysheet_indirect_check_return` / `luckysheet_offset_check` / `luckysheet_calcADPMM` / `luckysheet_getSpecialReference`
 - **核心问题**: `luckysheet_compareWith` 单函数 1534行，按8种运算符分支有大量重复
-- **状态**: ⬜ 待拆分 (luckysheet_compareWith 1534行需手动拆分运算符分支)
+- **状态**: ✅ 已完成
+
+**拆分方案**:
+
+```
+src/function/func/                              # 原 func.js
+├── index.js                                    # 聚合导出
+├── compareWith.js                              # luckysheet_compareWith 主调度函数 + 参数预处理
+├── compareHelpers.js                           # booleanOperation / booleanToNum (共享辅助函数)
+├── opMultiply.js                               # * 乘法运算符分支 (~337行)
+├── opDivide.js                                 # / 除法运算符分支 (~362行)
+├── opAddSubMod.js                              # + - % 加减取余运算符分支 (~260行)
+├── opComparison.js                             # == != >= <= > < 比较运算符分支 (~122行)
+├── opConcat.js                                 # & 连接符分支 (~113行)
+├── opPower.js                                  # ^ 幂运算符分支 (~213行)
+├── getCellData.js                              # luckysheet_getcelldata
+├── parseDataUtils.js                           # luckysheet_parseData / luckysheet_getValue
+├── referenceUtils.js                           # luckysheet_indirect_check / indirect_check_return / offset_check / getSpecialReference
+└── arrayCalcUtils.js                           # luckysheet_getarraydata / luckysheet_calcADPMM
+```
 
 ---
 
@@ -584,8 +603,8 @@ src/utils/util/                                 # 原 util.js
 |--------|------|--------|--------|--------|
 | P0 (已完成) | 3 | 3 | 0 | 0 |
 | P1 | 2 | 2 | 0 | 0 |
-| P2 | 13 | 10 | 0 | 3 |
+| P2 | 13 | 11 | 0 | 2 |
 | P3 | 5 | 0 | 0 | 5 |
 | P4 (二次拆分) | 16 | 0 | 0 | 16 |
 | P5 (新发现) | 1 | 0 | 0 | 1 |
-| **合计** | **40** | **15** | **0** | **25** |
+| **合计** | **40** | **16** | **0** | **24** |
