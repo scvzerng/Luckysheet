@@ -810,7 +810,6 @@ const formulaExec = {
                 }
             } catch (e) {
                 let err = e;
-                //err错误提示处理
                 console.log(e, fp);
                 err = _this.errorInfo(err);
                 result = [_this.error.n, err];

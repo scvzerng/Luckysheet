@@ -7,10 +7,8 @@ import getLocalizedFunctionList from '../function/getLocalizedFunctionList';
 
 const functionlist = function(customFunctions){
     let _locale = locale();
-    // internationalization,get function list
     let functionListOrigin = [...getLocalizedFunctionList(_locale.functionlist)];
 
-    // add new property f
     for (let i = 0; i < functionListOrigin.length; i++) {
         let func = functionListOrigin[i];
         func.f = functionImplementation[func.n];
