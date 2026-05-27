@@ -22,10 +22,10 @@ import Store from "../store";
 import luckysheetConfigsetting from "./luckysheetConfigsetting";
 
 export function rowColumnOperationInitial() {
-    //表格行标题 mouse事件
+    //表格行标�?mouse事件
     $("#luckysheet-rows-h")
         .mousedown(function(event) {
-            //有批注在编辑时
+            //有批注在编辑�?
             luckysheetPostil.removeActivePs();
 
             //图片 active/cropping
@@ -50,7 +50,7 @@ export function rowColumnOperationInitial() {
             $("#luckysheet-rightclick-menu").hide();
             $("#luckysheet-sheet-list, #luckysheet-rightclick-sheet-menu").hide();
 
-            //mousedown是右键
+            //mousedown是右�?
             if (event.which == "3") {
                 let isright = false;
 
@@ -170,7 +170,7 @@ export function rowColumnOperationInitial() {
                             .last()
                             .text() != ","
                     ) {
-                        //按住ctrl 选择选区时  先处理上一个选区
+                        //按住ctrl 选择选区�? 先处理上一个选区
                         let vText = $("#luckysheet-rich-text-editor").text() + ",";
                         if (vText.length > 0 && vText.substr(0, 1) == "=") {
                             vText = formula.functionHTMLGenerate(vText);
@@ -203,7 +203,7 @@ export function rowColumnOperationInitial() {
                         $("#luckysheet-functionbox-cell").html(vText);
                         formula.rangeHightlightselected($("#luckysheet-rich-text-editor"));
 
-                        //再进行 选区的选择
+                        //再进�?选区的选择
                         formula.israngeseleciton();
                         formula.func_selectedrange = {
                             left: colLocationByIndex(0)[0],
@@ -244,7 +244,7 @@ export function rowColumnOperationInitial() {
                     ) {
                         formula.rangeSetValue({ row: rowseleted, column: [null, null] });
                     } else if ($("#luckysheet-ifFormulaGenerator-multiRange-dialog").is(":visible")) {
-                        //if公式生成器
+                        //if公式生成�?
                         let range = getRangetxt(
                             Store.currentSheetIndex,
                             { row: rowseleted, column: [0, col_index] },
@@ -305,7 +305,7 @@ export function rowColumnOperationInitial() {
                         true,
                         {},
                         Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1],
-                    ); //选区最后一个
+                    ); //选区最后一�?
 
                     let top = 0,
                         height = 0,
@@ -377,7 +377,7 @@ export function rowColumnOperationInitial() {
 
                 selectHightlightShow();
 
-                //允许编辑后的后台更新时
+                //允许编辑后的后台更新�?
             }
 
             selectHelpboxFill();
@@ -419,12 +419,12 @@ export function rowColumnOperationInitial() {
         })
         .mouseup(function(event) {
             if (event.which == 3) {
-                // *如果禁止前台编辑，则中止下一步操作
+                // *如果禁止前台编辑，则中止下一步操�?
                 if (!checkIsAllowEdit()) {
                     return;
                 }
                 if (isEditMode()) {
-                    //非编辑模式下禁止右键功能框
+                    //非编辑模式下禁止右键功能�?
                     return;
                 }
 
@@ -446,7 +446,7 @@ export function rowColumnOperationInitial() {
                 // 自定义右键菜单：向上向下增加行，删除行，隐藏显示行，设置行高
                 const cellRightClickConfig = luckysheetConfigsetting.cellRightClickConfig;
 
-                // 如果全部按钮都隐藏，则整个菜单容器也要隐藏
+                // 如果全部按钮都隐藏，则整个菜单容器也要隐�?
                 if (
                     !cellRightClickConfig.copy &&
                     !cellRightClickConfig.copyAs &&
@@ -459,7 +459,6 @@ export function rowColumnOperationInitial() {
                     !cellRightClickConfig.matrix &&
                     !cellRightClickConfig.sort &&
                     !cellRightClickConfig.filter &&
-                    !cellRightClickConfig.chart &&
                     !cellRightClickConfig.image &&
                     !cellRightClickConfig.link &&
                     !cellRightClickConfig.data
@@ -480,7 +479,7 @@ export function rowColumnOperationInitial() {
                     ? "block"
                     : "none";
 
-                // 1. 当一个功能菜单块上方的功能块按钮都隐藏的时候，下方的功能块的顶部分割线也需要隐藏
+                // 1. 当一个功能菜单块上方的功能块按钮都隐藏的时候，下方的功能块的顶部分割线也需要隐�?
                 if (!cellRightClickConfig.copy && !cellRightClickConfig.copyAs && !cellRightClickConfig.paste) {
                     $$("#luckysheet-cols-rows-add .luckysheet-menuseparator").style.display = "none";
 
@@ -509,7 +508,6 @@ export function rowColumnOperationInitial() {
                     !cellRightClickConfig.matrix &&
                     !cellRightClickConfig.sort &&
                     !cellRightClickConfig.filter &&
-                    !cellRightClickConfig.chart &&
                     !cellRightClickConfig.image &&
                     !cellRightClickConfig.link &&
                     !cellRightClickConfig.data
@@ -520,7 +518,7 @@ export function rowColumnOperationInitial() {
                 showrightclickmenu($("#luckysheet-rightclick-menu"), $(this).offset().left + 46, event.pageY);
                 Store.luckysheet_cols_menu_status = true;
 
-                //行高默认值
+                //行高默认�?
                 let cfg = $.extend(true, {}, Store.config);
                 if (cfg["rowlen"] == null) {
                     cfg["rowlen"] = {};
@@ -559,10 +557,10 @@ export function rowColumnOperationInitial() {
             }
         });
 
-    //表格列标题 mouse事件
+    //表格列标�?mouse事件
     $("#luckysheet-cols-h-c")
         .mousedown(function(event) {
-            //有批注在编辑时
+            //有批注在编辑�?
             luckysheetPostil.removeActivePs();
 
             //图片 active/cropping
@@ -590,7 +588,7 @@ export function rowColumnOperationInitial() {
             $("#luckysheet-sheet-list, #luckysheet-rightclick-sheet-menu").hide();
             $("#luckysheet-filter-menu, #luckysheet-filter-submenu").hide();
 
-            //mousedown是右键
+            //mousedown是右�?
             if (event.which == "3") {
                 let isright = false;
 
@@ -710,7 +708,7 @@ export function rowColumnOperationInitial() {
                             .last()
                             .text() != ","
                     ) {
-                        //按住ctrl 选择选区时  先处理上一个选区
+                        //按住ctrl 选择选区�? 先处理上一个选区
                         let vText = $("#luckysheet-rich-text-editor").text() + ",";
                         if (vText.length > 0 && vText.substr(0, 1) == "=") {
                             vText = formula.functionHTMLGenerate(vText);
@@ -743,7 +741,7 @@ export function rowColumnOperationInitial() {
                         $("#luckysheet-functionbox-cell").html(vText);
                         formula.rangeHightlightselected($("#luckysheet-rich-text-editor"));
 
-                        //再进行 选区的选择
+                        //再进�?选区的选择
                         formula.israngeseleciton();
                         formula.func_selectedrange = {
                             left: left,
@@ -784,7 +782,7 @@ export function rowColumnOperationInitial() {
                     ) {
                         formula.rangeSetValue({ row: [null, null], column: columnseleted });
                     } else if ($("#luckysheet-ifFormulaGenerator-multiRange-dialog").is(":visible")) {
-                        //if公式生成器
+                        //if公式生成�?
                         let range = getRangetxt(
                             Store.currentSheetIndex,
                             { row: [0, row_index], column: columnseleted },
@@ -825,7 +823,7 @@ export function rowColumnOperationInitial() {
                         true,
                         {},
                         Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1],
-                    ); //选区最后一个
+                    ); //选区最后一�?
 
                     let left = 0,
                         width = 0,
@@ -898,7 +896,7 @@ export function rowColumnOperationInitial() {
 
                 selectHightlightShow();
 
-                //允许编辑后的后台更新时
+                //允许编辑后的后台更新�?
             }
 
             selectHelpboxFill();
@@ -958,12 +956,12 @@ export function rowColumnOperationInitial() {
         })
         .mouseup(function(event) {
             if (event.which == 3) {
-                // *如果禁止前台编辑，则中止下一步操作
+                // *如果禁止前台编辑，则中止下一步操�?
                 if (!checkIsAllowEdit()) {
                     return;
                 }
                 if (isEditMode()) {
-                    //非编辑模式下禁止右键功能框
+                    //非编辑模式下禁止右键功能�?
                     return;
                 }
 
@@ -984,7 +982,7 @@ export function rowColumnOperationInitial() {
                 // 自定义右键菜单：向左向右增加列，删除列，隐藏显示列，设置列宽
                 const cellRightClickConfig = luckysheetConfigsetting.cellRightClickConfig;
 
-                // 如果全部按钮都隐藏，则整个菜单容器也要隐藏
+                // 如果全部按钮都隐藏，则整个菜单容器也要隐�?
                 if (
                     !cellRightClickConfig.copy &&
                     !cellRightClickConfig.copyAs &&
@@ -997,7 +995,6 @@ export function rowColumnOperationInitial() {
                     !cellRightClickConfig.matrix &&
                     !cellRightClickConfig.sort &&
                     !cellRightClickConfig.filter &&
-                    !cellRightClickConfig.chart &&
                     !cellRightClickConfig.image &&
                     !cellRightClickConfig.link &&
                     !cellRightClickConfig.data
@@ -1018,7 +1015,7 @@ export function rowColumnOperationInitial() {
                     ? "block"
                     : "none";
 
-                // 1. 当一个功能菜单块上方的功能块按钮都隐藏的时候，下方的功能块的顶部分割线也需要隐藏
+                // 1. 当一个功能菜单块上方的功能块按钮都隐藏的时候，下方的功能块的顶部分割线也需要隐�?
                 if (!cellRightClickConfig.copy && !cellRightClickConfig.copyAs && !cellRightClickConfig.paste) {
                     $$("#luckysheet-cols-rows-add .luckysheet-menuseparator").style.display = "none";
 
@@ -1047,7 +1044,6 @@ export function rowColumnOperationInitial() {
                     !cellRightClickConfig.matrix &&
                     !cellRightClickConfig.sort &&
                     !cellRightClickConfig.filter &&
-                    !cellRightClickConfig.chart &&
                     !cellRightClickConfig.image &&
                     !cellRightClickConfig.link &&
                     !cellRightClickConfig.data
@@ -1058,7 +1054,7 @@ export function rowColumnOperationInitial() {
                 showrightclickmenu($("#luckysheet-rightclick-menu"), event.pageX, $(this).offset().top + 18);
                 Store.luckysheet_cols_menu_status = true;
 
-                //列宽默认值
+                //列宽默认�?
                 let cfg = $.extend(true, {}, Store.config);
                 if (cfg["columnlen"] == null) {
                     cfg["columnlen"] = {};
@@ -1097,13 +1093,13 @@ export function rowColumnOperationInitial() {
             }
         });
 
-    //表格行标题 改变行高按钮
+    //表格行标�?改变行高按钮
     $("#luckysheet-rows-change-size").mousedown(function(event) {
-        // *如果禁止前台编辑，则中止下一步操作
+        // *如果禁止前台编辑，则中止下一步操�?
         if (!checkIsAllowEdit()) {
             return;
         }
-        //有批注在编辑时
+        //有批注在编辑�?
         luckysheetPostil.removeActivePs();
 
         //图片 active/cropping
@@ -1147,14 +1143,14 @@ export function rowColumnOperationInitial() {
         event.stopPropagation();
     });
 
-    //表格列标题 改变列宽按钮
+    //表格列标�?改变列宽按钮
     $("#luckysheet-cols-change-size")
         .mousedown(function(event) {
-            // *如果禁止前台编辑，则中止下一步操作
+            // *如果禁止前台编辑，则中止下一步操�?
             if (!checkIsAllowEdit()) {
                 return;
             }
-            //有批注在编辑时
+            //有批注在编辑�?
             luckysheetPostil.removeActivePs();
 
             //图片 active/cropping
@@ -1209,7 +1205,7 @@ export function rowColumnOperationInitial() {
 
     // 列标题的下拉箭头
     $("#luckysheet-cols-menu-btn").click(function(event) {
-        // *如果禁止前台编辑，则中止下一步操作
+        // *如果禁止前台编辑，则中止下一步操�?
         if (!checkIsAllowEdit()) {
             return;
         }
@@ -1232,7 +1228,7 @@ export function rowColumnOperationInitial() {
         // 自定义右键菜单：向左向右增加列，删除列，隐藏显示列，设置列宽
         const cellRightClickConfig = luckysheetConfigsetting.cellRightClickConfig;
 
-        // 如果全部按钮都隐藏，则整个菜单容器也要隐藏
+        // 如果全部按钮都隐藏，则整个菜单容器也要隐�?
         if (
             !cellRightClickConfig.copy &&
             !cellRightClickConfig.copyAs &&
@@ -1255,7 +1251,7 @@ export function rowColumnOperationInitial() {
         $$("#luckysheet-show-selected").style.display = cellRightClickConfig.hideColumn ? "block" : "none";
         $$("#luckysheet-column-row-width-selected").style.display = cellRightClickConfig.columnWidth ? "block" : "none";
 
-        // 1. 当一个功能菜单块上方的功能块按钮都隐藏的时候，下方的功能块的顶部分割线也需要隐藏
+        // 1. 当一个功能菜单块上方的功能块按钮都隐藏的时候，下方的功能块的顶部分割线也需要隐�?
         if (!cellRightClickConfig.copy && !cellRightClickConfig.copyAs && !cellRightClickConfig.paste) {
             $$("#luckysheet-cols-rows-add .luckysheet-menuseparator").style.display = "none";
 
@@ -1287,7 +1283,7 @@ export function rowColumnOperationInitial() {
         Store.luckysheet_cols_menu_status = true;
     });
 
-    //向左增加列，向上增加行
+    //向左增加列，向上增加�?
     // $("#luckysheet-add-lefttop, #luckysheet-add-lefttop_t").click(function (event) {
     $("#luckysheet-top-left-add-selected").click(function(event) {
         // Click input element, don't comfirm
@@ -1450,7 +1446,7 @@ export function rowColumnOperationInitial() {
     //     $("#luckysheetColsRowsHandleAdd_sub").hide();
     // })
 
-    // // input输入时阻止冒泡，禁止父级元素的确认事件触发
+    // // input输入时阻止冒泡，禁止父级元素的确认事件触�?
     // $("input.luckysheet-mousedown-cancel").click(function(event) {
     //     event.stopPropagation;
     // })
@@ -1512,7 +1508,7 @@ export function rowColumnOperationInitial() {
 
     // })
 
-    //向右增加列，向下增加行
+    //向右增加列，向下增加�?
     // $("#luckysheet-add-rightbottom, #luckysheet-add-rightbottom_t").click(function (event) {
     $("#luckysheet-bottom-right-add-selected").click(function(event) {
         // Click input element, don't comfirm
@@ -1801,7 +1797,7 @@ export function rowColumnOperationInitial() {
             return;
         }
 
-        // 隐藏行
+        // 隐藏�?
         if (Store.luckysheetRightHeadClickIs == "row") {
 
             let cfg = $.extend(true, {}, Store.config);
@@ -1835,10 +1831,10 @@ export function rowColumnOperationInitial() {
             Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
 
 
-            //行高、列宽 刷新
+            //行高、列�?刷新
             jfrefreshgrid_rhcw(Store.flowdata.length, Store.flowdata[0].length);
         }
-        // 隐藏列
+        // 隐藏�?
         else if (Store.luckysheetRightHeadClickIs == "column") {
 
             let cfg = $.extend(true, {}, Store.config);
@@ -1872,7 +1868,7 @@ export function rowColumnOperationInitial() {
             Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
 
 
-            //行高、列宽 刷新
+            //行高、列�?刷新
             jfrefreshgrid_rhcw(Store.flowdata.length, Store.flowdata[0].length);
         }
     });
@@ -1901,7 +1897,7 @@ export function rowColumnOperationInitial() {
             return;
         }
 
-        // 取消隐藏行
+        // 取消隐藏�?
         if (Store.luckysheetRightHeadClickIs == "row") {
 
             let cfg = $.extend(true, {}, Store.config);
@@ -1935,7 +1931,7 @@ export function rowColumnOperationInitial() {
             Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
 
 
-            //行高、列宽 刷新
+            //行高、列�?刷新
             jfrefreshgrid_rhcw(Store.flowdata.length, Store.flowdata[0].length);
         } else if (Store.luckysheetRightHeadClickIs == "column") {
 
@@ -1970,7 +1966,7 @@ export function rowColumnOperationInitial() {
             Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
 
 
-            //行高、列宽 刷新
+            //行高、列�?刷新
             jfrefreshgrid_rhcw(Store.flowdata.length, Store.flowdata[0].length);
         }
     });
@@ -2010,7 +2006,7 @@ export function rowColumnOperationInitial() {
     //     Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
 
 
-    //     //行高、列宽 刷新
+    //     //行高、列�?刷新
     //     jfrefreshgrid_rhcw(Store.flowdata.length, Store.flowdata[0].length);
     // })
     // $("#luckysheet-showHidRows").click(function (event) {
@@ -2048,7 +2044,7 @@ export function rowColumnOperationInitial() {
     //     Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
 
 
-    //     //行高、列宽 刷新
+    //     //行高、列�?刷新
     //     jfrefreshgrid_rhcw(Store.flowdata.length, Store.flowdata[0].length);
     // })
 
@@ -2088,7 +2084,7 @@ export function rowColumnOperationInitial() {
     //     Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
 
 
-    //     //行高、列宽 刷新
+    //     //行高、列�?刷新
     //     jfrefreshgrid_rhcw(Store.flowdata.length, Store.flowdata[0].length);
     // })
     // $("#luckysheet-showHidCols").click(function (event) {
@@ -2126,7 +2122,7 @@ export function rowColumnOperationInitial() {
     //     Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
 
 
-    //     //行高、列宽 刷新
+    //     //行高、列�?刷新
     //     jfrefreshgrid_rhcw(Store.flowdata.length, Store.flowdata[0].length);
     // })
 
@@ -2175,7 +2171,7 @@ export function rowColumnOperationInitial() {
         luckysheetDeleteCell("moveUp", str, edr, stc, edc);
     });
 
-    //清除单元格内容
+    //清除单元格内�?
     $("#luckysheet-delete-text").click(function() {
 
         $("#luckysheet-rightclick-menu").hide();
@@ -2435,7 +2431,7 @@ function luckysheetcolsdbclick() {
                 // let fontset = luckysheetfontformat(cell);
                 // canvas.font = fontset;
 
-                // let value = getcellvalue(r, colIndex, d, "m").toString(); //单元格文本
+                // let value = getcellvalue(r, colIndex, d, "m").toString(); //单元格文�?
                 // let textMetrics = getMeasureText(value, canvas).width; //文本宽度
                 let cellWidth = colLocationByIndex(colIndex)[1] - colLocationByIndex(colIndex)[0] - 2;
                 let textInfo = getCellTextInfo(cell, canvas, {
@@ -2482,7 +2478,7 @@ function luckysheetcolsdbclick() {
                     // let fontset = luckysheetfontformat(cell);
                     // canvas.font = fontset;
 
-                    // let value = getcellvalue(r, c, d, "m").toString(); //单元格文本
+                    // let value = getcellvalue(r, c, d, "m").toString(); //单元格文�?
                     // let textMetrics = getMeasureText(value, canvas).width; //文本宽度
 
                     // if(textMetrics + 6 > currentColLen){

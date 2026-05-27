@@ -500,8 +500,6 @@ export function initialSheetBar(){
             $("#" + Store.container).append(replaceHtml(sheetselectlistHTML, { "item": item }));
             $("#luckysheet-sheet-list").on("click", ".luckysheet-cols-menuitem", function (e) {
                 if(isEditMode()){
-                    // tooltip.info("提示", "图表编辑模式下不允许该操作！");
-                    alert(locale_sheetconfig.chartEditNoOpt);
                     return;
                 }
 

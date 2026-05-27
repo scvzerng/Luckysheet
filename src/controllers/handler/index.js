@@ -10,7 +10,6 @@ import bottomButtons from "./bottomButtons";
 import rightClickButtons from "./rightClickButtons";
 import freezeButtons from "./freezeButtons";
 import globalEvents from "./globalEvents";
-import chartRangeSelect from "./chartRangeSelect";
 import formulaBarResize from "./formulaBarResize";
 import pasteEvent from "./pasteEvent";
 import paginationAndToolbar from "./paginationAndToolbar";
@@ -28,7 +27,6 @@ export default function luckysheetHandler() {
     rightClickButtons();
     freezeButtons();
     globalEvents();
-    chartRangeSelect();
     formulaBarResize();
     pasteEvent();
     paginationAndToolbar();

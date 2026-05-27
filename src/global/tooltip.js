@@ -1,4 +1,4 @@
-﻿import { modelHTML, luckysheetchartpointconfigHTML, luckysheetToolHTML } from '../controllers/constant';
+import { modelHTML, luckysheetToolHTML } from '../controllers/constant';
 import browser from './browser';
 import { replaceHtml } from '../utils/util';
 import locale from '../locale/locale';
@@ -124,41 +124,6 @@ const tooltip = {
                 clipboard.write(dt);
                 alert(locale_screenshot.successTip);  
             }
-        });
-    },
-    chartPointConfig: function (id, savefunc1, closefunc2) {
-        $("body").append(replaceHtml(modelHTML, { 
-            "id": id, 
-            "addclass": "luckysheet-chart-point-config-c", 
-            "title": "数据点批量设置", 
-            "content": luckysheetchartpointconfigHTML, 
-            "botton": '<button class="btn btn-danger luckysheet-model-save-btn">&nbsp;&nbsp;保存设置&nbsp;&nbsp;</button><button class="btn btn-default luckysheet-model-close-btn">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>', 
-            "style": "z-index:100003;height:80%;width:80%;top:10%;left:10%;" 
-        }));
-        $("#luckysheet-modal-dialog-mask").show();
-        let winw = $(window).width(), winh = $(window).height();
-        $("#" + id).find(".luckysheet-chart-point-config").css("height", winh - 160);
-        $("#" + id).css({ 
-            "height": winh - 90, 
-            "width": winw - 100, 
-            "left": 7, 
-            "top": 14 
-        }).show().find(".luckysheet-model-save-btn").click(function () {
-            if (typeof savefunc1 == 'function') {
-                savefunc1();
-            }
-
-            $("#" + id).hide();
-            $("#luckysheet-modal-dialog-mask").hide();
-        });
-
-        $("#" + id).find(".luckysheet-model-save-btn").click(function () {
-            if (typeof closefunc2 == 'function') {
-                closefunc2();
-            }
-
-            $("#" + id).hide();
-            $("#luckysheet-modal-dialog-mask").hide();
         });
     },
     sheetConfig: function () {

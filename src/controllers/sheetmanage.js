@@ -1370,9 +1370,6 @@ const sheetmanage = {
         $("#luckysheet-datavisual-selection-set-" + index).show();
         luckysheetformula.hideButton()
 
-        //隐藏其他sheet的图表，显示当前sheet的图表 chartMix
-        renderChartShow(index);
-
         luckysheetFreezen.initialFreezen(index);
         _this.restoreselect();
     },
@@ -1384,7 +1381,6 @@ const sheetmanage = {
     checkLoadSheetIndexToDataIndex: {},
     checkLoadSheetIndex: function(file) {
         let calchain = formula.getAllFunctionGroup(); //file.calcChain; //index
-        let chart = file.chart; //dataSheetIndex
 
         let ret = [],
             cache = {};
@@ -1473,22 +1469,6 @@ const sheetmanage = {
                     ret.push(dataindex);
                     cache[dataindex.toString()] = 1;
                     this.checkLoadSheetIndexToDataIndex[dataindex] = 1;
-                }
-            }
-        }
-
-        if (chart != null) {
-            for (let i = 0; i < chart.length; i++) {
-                let cc = chart[i];
-                let dataindex = cc.dataSheetIndex;
-
-                if (dataindex == null) {
-                    continue;
-                }
-
-                if (cache[dataindex.toString()] == null) {
-                    ret.push(dataindex);
-                    cache[dataindex.toString()] = 1;
                 }
             }
         }
@@ -1608,57 +1588,6 @@ const sheetmanage = {
             $("#luckysheet-sheet-container .docs-sheet-fade-right").hide();
         } else {
             $("#luckysheet-sheet-container .docs-sheet-fade-right").show();
-        }
-    },
-    delChart: function(chart_id, sheetIndex) {
-        let index = this.getSheetIndex(sheetIndex);
-        let file = Store.luckysheetfile[index];
-
-        if (file.chart == null) {
-            file.chart = [];
-        } else {
-            for (let i = 0; i < file.chart.length; i++) {
-                if (file.chart[i].chart_id == chart_id) {
-                    Store.luckysheetfile[index].chart.splice(i, 1);
-                    break;
-                }
-            }
-        }
-    },
-    saveChart: function(json) {
-        //采用chartMix store存储，弃用Store.luckysheetfile存储，防止重复存储
-        let index = this.getSheetIndex(json.sheetIndex);
-        let file = Store.luckysheetfile[index];
-
-        if (file.chart == null) {
-            file.chart = [];
-            file.chart.push(json);
-        } else {
-            for (let i = 0; i < file.chart.length; i++) {
-                if (file.chart[i].chart_id == json.chart_id) {
-                    let old = $.extend(true, {}, file.chart[i]);
-                    file.chart[i] = $.extend(true, {}, old, json);
-                    return;
-                }
-            }
-
-            file.chart.push(json);
-        }
-    },
-    getChart: function(sheetIndex, chart_id) {
-        let index = this.getSheetIndex(sheetIndex);
-        let file = Store.luckysheetfile[index];
-
-        if (file.chart == null) {
-            return null;
-        } else {
-            for (let i = 0; i < file.chart.length; i++) {
-                if (file.chart[i].chart_id == chart_id) {
-                    return file.chart[i];
-                }
-            }
-
-            return null;
         }
     },
     getRangetxt: function(sheetIndex, range, currentIndex) {
@@ -1934,33 +1863,6 @@ const sheetmanage = {
                 file[k] = JSON.stringify(value);
             } else {
                 file[k] = value;
-            }
-        } else if (type == "c") {
-            let op = item.op,
-                cid = item.cid;
-
-            if (op == "add") {
-                file.chart.push(value);
-            } else if (op == "xy" || op == "wh" || op == "update") {
-                for (let i = 0; i < file.chart.length; i++) {
-                    if (file.chart[i].chart_id == cid) {
-                        for (let item in file.chart[i]) {
-                            for (let vitem in value) {
-                                if (item == vitem) {
-                                    file.chart[i][item] = value[vitem];
-                                }
-                            }
-                        }
-                        return;
-                    }
-                }
-            } else if (op == "del") {
-                for (let i = 0; i < file.chart.length; i++) {
-                    if (file.chart[i].chart_id == cid) {
-                        file.chart.splice(i, 1);
-                        return;
-                    }
-                }
             }
         } else if (type == "drc") {
             let rc = item.rc,

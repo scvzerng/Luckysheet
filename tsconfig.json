@@ -28,7 +28,6 @@
     "node_modules",
     "dist",
     "src/demoData",
-    "src/expendPlugins/chart/chartmix.umd.min.js",
     "src/plugins/js/*.min.js"
   ]
 }

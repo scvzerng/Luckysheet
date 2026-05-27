@@ -13,7 +13,6 @@ import { formulaBarInitial } from "./controllers/formulaBar";
 import { rowColumnOperationInitial } from "./controllers/rowColumnOperation";
 import { keyboardInitial } from "./controllers/keyboard";
 import { orderByInitial } from "./controllers/orderBy";
-import { initPlugins } from "./controllers/expendPlugins";
 import { getluckysheetfile, getluckysheet_select_save, getconfig, getConditionFormatCells } from "./methods/get";
 import { setluckysheet_select_save } from "./methods/set";
 import { luckysheetrefreshgrid, jfrefreshgrid } from "./global/refresh";
@@ -138,8 +137,6 @@ luckysheet.create = function (setting) {
     // Store the currently used plugins for monitoring asynchronous loading
     Store.asyncLoad.push(...luckysheetConfigsetting.plugins.map(plugin => plugin.name));
 
-    // Register plugins
-    initPlugins(extendsetting.plugins, extendsetting);
     Store.plugins = extendsetting.plugins;
 
     // Store formula information, including internationalization

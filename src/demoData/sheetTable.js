@@ -42,7 +42,6 @@ window.sheetTable = {
 		}
 	},
 	"index": "3",
-	"chart": [],
 	"status": 0,
 	"order": "3",
 	"column": 18,

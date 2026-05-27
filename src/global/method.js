@@ -96,36 +96,10 @@ const defaultConfig = {
         jfredo: [],
         jfundo: [],
         lang: 'en', //language
-        createChart: '',
-        highlightChart: '',
         zIndex: 15,
-        chartparam: {
-            luckysheetCurrentChart: null, //current chart_id
-            luckysheetCurrentChartActive: false,
-            luckysheetCurrentChartMove: null, // Debounce state
-            luckysheetCurrentChartMoveTimeout: null,//拖动图表框的节流定时器
-            luckysheetCurrentChartMoveObj: null, //chart DOM object
-            luckysheetCurrentChartMoveXy: null, //上一次操作结束的图表信息，x,y: chart框位置，scrollLeft1,scrollTop1: 滚动条位置
-            luckysheetCurrentChartMoveWinH: null, //左右滚动条滑动距离
-            luckysheetCurrentChartMoveWinW: null, //上下滚动条滑动距离
-            luckysheetCurrentChartResize: null,
-            luckysheetCurrentChartResizeObj: null,
-            luckysheetCurrentChartResizeXy: null,
-            luckysheetCurrentChartResizeWinH: null,
-            luckysheetCurrentChartResizeWinW: null,
-            luckysheetInsertChartTosheetChange: true, // 正在执行撤销
-            luckysheetCurrentChartZIndexRank : 100,
-            luckysheet_chart_redo_click:false, //撤销重做时标识
-            luckysheetCurrentChartMaxState: false, //图表全屏状态
-            jfrefreshchartall: '',
-            changeChartCellData: '',
-            renderChart: '',
-            getChartJson: ''
-        },
         functionList:null, //function list explanation
         luckysheet_function:null,
-        chart_selection: {},
-        currentChart: '',
+
         scrollRefreshSwitch:true,
     
         measureTextCache:{},
@@ -336,7 +310,6 @@ const method = {
         sheetfile.row = Store.defaultrowNum;
         sheetfile.column = Store.defaultcolumnNum;
 
-            sheetfile.chart = [];
             sheetfile.config = null;
             sheetfile.filter = null;
             sheetfile.filter_select = null;
@@ -348,7 +321,6 @@ const method = {
             Store.flowdata = [];
             editor.webWorkerFlowDataCache(Store.flowdata);//worker存数据
 
-            $("#"+ Store.container +" .luckysheet-data-visualization-chart").remove();
             $("#"+ Store.container +" .luckysheet-datavisual-selection-set").remove();
 
             $("#luckysheet-row-count-show, #luckysheet-formula-functionrange-select, #luckysheet-row-count-show, #luckysheet-column-count-show, #luckysheet-change-size-line, #luckysheet-cell-selected-focus, #luckysheet-selection-copy, #luckysheet-cell-selected-extend, #luckysheet-cell-selected-move, #luckysheet-cell-selected").hide();
@@ -381,7 +353,7 @@ const method = {
         $("#luckysheet-modal-dialog-mask, #luckysheetTextSizeTest, #luckysheet-icon-morebtn-div").remove();
         $("#luckysheet-input-box").parent().remove();
         $("#luckysheet-formula-help-c").remove();
-        $(".chartSetting, .luckysheet-modal-dialog-slider").remove();
+        $(".luckysheet-modal-dialog-slider").remove();
 
         //document event release
         $(document).off(".luckysheetEvent");
@@ -420,18 +392,6 @@ const method = {
 
         // remove proxy
         Store.asyncLoad = ['core'];
-    },
-    editorChart:function(c){
-        let chart_selection_color = luckyColor[0];
-        let chart_id = "luckysheetEditMode-datav-chart";
-        let chart_selection_id = chart_id + "_selection";
-        c.chart_id = chart_id;
-        let chartTheme = c.chartTheme;
-        chartTheme = chartTheme == null ? "default0000" : chartTheme;
-
-        luckysheet.insertChartTosheet(c.sheetIndex, c.dataSheetIndex, c.option, c.chartType, c.selfOption, c.defaultOption, c.row, c.column, chart_selection_color, chart_id, chart_selection_id, c.chartStyle, c.rangeConfigCheck, c.rangeRowCheck, c.rangeColCheck, c.chartMarkConfig, c.chartTitleConfig, c.winWidth, c.winHeight, c.scrollLeft, c.scrollTop, chartTheme, c.myWidth, c.myHeight, c.myLeft!=null?parseFloat(c.myLeft):null, c.myTop!=null?parseFloat(c.myTop):null, c.myindexrank, true);
-
-        $("#"+chart_id).find(".luckysheet-modal-controll-update").click();
     },
     /**
      * 获取单元格的值

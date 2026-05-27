@@ -616,11 +616,11 @@ const rangeSelect = {
 
         rangeResizeDraging: function(
             event,
-            luckysheetCurrentChartResizeObj,
-            luckysheetCurrentChartResizeXy,
-            luckysheetCurrentChartResize,
-            luckysheetCurrentChartResizeWinW,
-            luckysheetCurrentChartResizeWinH,
+            rangeResizeObj,
+            rangeResizexy,
+            rangeResizeType,
+            rangeResizeWinW,
+            rangeResizeWinH,
             ch_width,
             rh_height,
         ) {
@@ -645,42 +645,42 @@ const rangeSelect = {
                 return false;
             }
 
-            let topchange = row_pre - luckysheetCurrentChartResizeXy[1],
-                leftchange = col_pre - luckysheetCurrentChartResizeXy[0];
-            let top = luckysheetCurrentChartResizeXy[5],
-                height = luckysheetCurrentChartResizeXy[3],
-                left = luckysheetCurrentChartResizeXy[4],
-                width = luckysheetCurrentChartResizeXy[2];
+            let topchange = row_pre - rangeResizexy[1],
+                leftchange = col_pre - rangeResizexy[0];
+            let top = rangeResizexy[5],
+                height = rangeResizexy[3],
+                left = rangeResizexy[4],
+                width = rangeResizexy[2];
 
-            if (luckysheetCurrentChartResize == "lt" || luckysheetCurrentChartResize == "lb") {
-                if (luckysheetCurrentChartResizeXy[0] + luckysheetCurrentChartResizeXy[2] < col_pre) {
+            if (rangeResizeType == "lt" || rangeResizeType == "lb") {
+                if (rangeResizexy[0] + rangeResizexy[2] < col_pre) {
                     return;
                 }
 
                 left = col_pre;
-                width = luckysheetCurrentChartResizeXy[2] - leftchange;
+                width = rangeResizexy[2] - leftchange;
 
-                if (left > luckysheetCurrentChartResizeXy[2] + luckysheetCurrentChartResizeXy[4] - col + col_pre) {
-                    left = luckysheetCurrentChartResizeXy[2] + luckysheetCurrentChartResizeXy[4] - col + col_pre;
+                if (left > rangeResizexy[2] + rangeResizexy[4] - col + col_pre) {
+                    left = rangeResizexy[2] + rangeResizexy[4] - col + col_pre;
                     width =
-                        luckysheetCurrentChartResizeXy[2] -
-                        (luckysheetCurrentChartResizeXy[2] +
-                            luckysheetCurrentChartResizeXy[4] -
+                        rangeResizexy[2] -
+                        (rangeResizexy[2] +
+                            rangeResizexy[4] -
                             col +
                             col_pre -
-                            luckysheetCurrentChartResizeXy[0]);
+                            rangeResizexy[0]);
                 } else if (left <= 0) {
                     left = 0;
-                    width = luckysheetCurrentChartResizeXy[2] + luckysheetCurrentChartResizeXy[0];
+                    width = rangeResizexy[2] + rangeResizexy[0];
                 }
             }
 
-            if (luckysheetCurrentChartResize == "rt" || luckysheetCurrentChartResize == "rb") {
-                if (luckysheetCurrentChartResizeXy[6] - luckysheetCurrentChartResizeXy[2] > col) {
+            if (rangeResizeType == "rt" || rangeResizeType == "rb") {
+                if (rangeResizexy[6] - rangeResizexy[2] > col) {
                     return;
                 }
 
-                width = luckysheetCurrentChartResizeXy[2] + col - luckysheetCurrentChartResizeXy[6];
+                width = rangeResizexy[2] + col - rangeResizexy[6];
 
                 if (width < col - col_pre - 1) {
                     width = col - col_pre - 1;
@@ -689,35 +689,35 @@ const rangeSelect = {
                 }
             }
 
-            if (luckysheetCurrentChartResize == "lt" || luckysheetCurrentChartResize == "rt") {
-                if (luckysheetCurrentChartResizeXy[1] + luckysheetCurrentChartResizeXy[3] < row_pre) {
+            if (rangeResizeType == "lt" || rangeResizeType == "rt") {
+                if (rangeResizexy[1] + rangeResizexy[3] < row_pre) {
                     return;
                 }
 
                 top = row_pre;
-                height = luckysheetCurrentChartResizeXy[3] - topchange;
+                height = rangeResizexy[3] - topchange;
 
-                if (top > luckysheetCurrentChartResizeXy[3] + luckysheetCurrentChartResizeXy[5] - row + row_pre) {
-                    top = luckysheetCurrentChartResizeXy[3] + luckysheetCurrentChartResizeXy[5] - row + row_pre;
+                if (top > rangeResizexy[3] + rangeResizexy[5] - row + row_pre) {
+                    top = rangeResizexy[3] + rangeResizexy[5] - row + row_pre;
                     height =
-                        luckysheetCurrentChartResizeXy[3] -
-                        (luckysheetCurrentChartResizeXy[3] +
-                            luckysheetCurrentChartResizeXy[5] -
+                        rangeResizexy[3] -
+                        (rangeResizexy[3] +
+                            rangeResizexy[5] -
                             row +
                             row_pre -
-                            luckysheetCurrentChartResizeXy[1]);
+                            rangeResizexy[1]);
                 } else if (top <= 0) {
                     top = 0;
-                    height = luckysheetCurrentChartResizeXy[3] + luckysheetCurrentChartResizeXy[1];
+                    height = rangeResizexy[3] + rangeResizexy[1];
                 }
             }
 
-            if (luckysheetCurrentChartResize == "lb" || luckysheetCurrentChartResize == "rb") {
-                if (luckysheetCurrentChartResizeXy[7] - luckysheetCurrentChartResizeXy[3] > row) {
+            if (rangeResizeType == "lb" || rangeResizeType == "rb") {
+                if (rangeResizexy[7] - rangeResizexy[3] > row) {
                     return;
                 }
 
-                height = luckysheetCurrentChartResizeXy[3] + row - luckysheetCurrentChartResizeXy[7];
+                height = rangeResizexy[3] + row - rangeResizexy[7];
 
                 if (height < row - row_pre - 1) {
                     height = row - row_pre - 1;
@@ -737,7 +737,7 @@ const rangeSelect = {
             let rangetxt = getRangetxt(Store.currentSheetIndex, range, _this.rangetosheet);
             let $span = _this.rangeResizeTo.find("span[rangeindex='" + rangeindex + "']").html(rangetxt);
             luckysheetRangeLast(_this.rangeResizeTo[0]);
-            luckysheetCurrentChartResizeObj.css(selected).data("range", range);
+            rangeResizeObj.css(selected).data("range", range);
         },
 
         getSelectedFromRange: function(obj) {
@@ -756,11 +756,11 @@ const rangeSelect = {
 
         rangeResizeDragged: function(
             event,
-            luckysheetCurrentChartResizeObj,
-            luckysheetCurrentChartResizeXy,
-            luckysheetCurrentChartResize,
-            luckysheetCurrentChartResizeWinW,
-            luckysheetCurrentChartResizeWinH,
+            rangeResizeObj,
+            rangeResizexy,
+            rangeResizeType,
+            rangeResizeWinW,
+            rangeResizeWinH,
         ) {
             let _this = this;
 

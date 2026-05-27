@@ -173,16 +173,6 @@ export default function rightClickButtons() {
             .hide();
     });
 
-    //Menu bar, Chart button
-    $("#luckysheet-chart-btn-title").click(function() {
-        createLuckyChart();
-    });
-
-    // Right-click the menu, chart generation
-    $("#luckysheetdatavisual").click(function() {
-        createLuckyChart();
-        $("#luckysheet-rightclick-menu").hide();
-    });
 
     //菜单栏 插入图片按钮
     $("#luckysheet-insertImg-btn-title").click(function() {

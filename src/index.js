@@ -9,7 +9,7 @@ window.$ = jQuery
 import 'spectrum-colorpicker/spectrum.css'
 import '@fortawesome/fontawesome-free/css/all.min.css'
 import './plugins/jquery.sPage.css'
-import './css/luckysheet-core.css'
+import './css/core/index.css'
 import './css/luckysheet-zoom.css'
 import './assets/iconfont/iconfont.css'
 import './css/iconCustom.css'

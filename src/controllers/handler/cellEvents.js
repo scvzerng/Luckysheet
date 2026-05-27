@@ -923,7 +923,6 @@ export default function cellEvents() {
                         !cellRightClickConfig.matrix &&
                         !cellRightClickConfig.sort &&
                         !cellRightClickConfig.filter &&
-                        !cellRightClickConfig.chart &&
                         !cellRightClickConfig.image &&
                         !cellRightClickConfig.link &&
                         !cellRightClickConfig.data
@@ -1038,7 +1037,6 @@ export default function cellEvents() {
                         !cellRightClickConfig.matrix &&
                         !cellRightClickConfig.sort &&
                         !cellRightClickConfig.filter &&
-                        !cellRightClickConfig.chart &&
                         !cellRightClickConfig.image &&
                         !cellRightClickConfig.link &&
                         !cellRightClickConfig.data
@@ -1149,7 +1147,6 @@ export default function cellEvents() {
                         !cellRightClickConfig.matrix &&
                         !cellRightClickConfig.sort &&
                         !cellRightClickConfig.filter &&
-                        !cellRightClickConfig.chart &&
                         !cellRightClickConfig.image &&
                         !cellRightClickConfig.link &&
                         !cellRightClickConfig.data
@@ -1189,7 +1186,6 @@ export default function cellEvents() {
                     !cellRightClickConfig.matrix &&
                     !cellRightClickConfig.sort &&
                     !cellRightClickConfig.filter &&
-                    !cellRightClickConfig.chart &&
                     !cellRightClickConfig.image &&
                     !cellRightClickConfig.link &&
                     !cellRightClickConfig.data

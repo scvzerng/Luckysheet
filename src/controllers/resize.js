@@ -71,10 +71,7 @@ export default function luckysheetsizeauto(isRefreshCanvas=true) {
     gridW = $("#" + Store.container).width();
 
     if(luckysheetConfigsetting.showConfigWindowResize){
-        if($(".chartSetting").is(":visible")){
-            gridW -= $(".chartSetting").outerWidth();
-        }
-        else if($("#luckysheet-modal-dialog-slider-alternateformat").is(":visible")){
+        if($("#luckysheet-modal-dialog-slider-alternateformat").is(":visible")){
             gridW -= $("#luckysheet-modal-dialog-slider-alternateformat").outerWidth();
         }
     }

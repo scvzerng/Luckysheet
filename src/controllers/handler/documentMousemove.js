@@ -107,8 +107,6 @@ export default function documentMousemove() {
                 cellSelectedExtend: !!Store.luckysheet_cell_selected_extend,
                 colsChangeSize: !!Store.luckysheet_cols_change_size,
                 rowsChangeSize: !!Store.luckysheet_rows_change_size,
-                chartMove: !!Store.chartparam.luckysheetCurrentChartMove,
-                chartResize: !!Store.chartparam.luckysheetCurrentChartResize,
                 rangeResize: !!formula.rangeResize,
                 rangeMove: !!formula.rangeMove,
             };
@@ -359,8 +357,6 @@ export default function documentMousemove() {
             !!Store.luckysheet_cell_selected_extend ||
             !!Store.luckysheet_cols_change_size ||
             !!Store.luckysheet_rows_change_size ||
-            !!Store.chartparam.luckysheetCurrentChartMove ||
-            !!Store.chartparam.luckysheetCurrentChartResize ||
             !!formula.rangeResize ||
             !!formula.rangeMove
         ) {
@@ -952,188 +948,6 @@ export default function documentMousemove() {
                         $("#luckysheet-change-size-line").css({ top: y });
                         $("#luckysheet-rows-change-size").css({ top: y });
                     }
-                }
-                // chart move
-                else if (!!Store.chartparam.luckysheetCurrentChartMove) {
-                    const mouse = mouseposition(event.pageX, event.pageY);
-                    const x = mouse[0] + $("#luckysheet-cell-main").scrollLeft();
-                    const y = mouse[1] + $("#luckysheet-cell-main").scrollTop();
-
-                    const myh = Store.chartparam.luckysheetCurrentChartMoveObj.height(),
-                        myw = Store.chartparam.luckysheetCurrentChartMoveObj.width();
-                    let top = y - Store.chartparam.luckysheetCurrentChartMoveXy[1],
-                        left = x - Store.chartparam.luckysheetCurrentChartMoveXy[0];
-
-                    if (top < 0) {
-                        top = 0;
-                    }
-
-                    if (top + myh + 42 + 6 > Store.chartparam.luckysheetCurrentChartMoveWinH) {
-                        top = Store.chartparam.luckysheetCurrentChartMoveWinH - myh - 42 - 6;
-                    }
-
-                    if (left < 0) {
-                        left = 0;
-                    }
-
-                    if (left + myw + 22 + 36 > Store.chartparam.luckysheetCurrentChartMoveWinW) {
-                        left = Store.chartparam.luckysheetCurrentChartMoveWinW - myw - 22 - 36;
-                    }
-
-                    Store.chartparam.luckysheetCurrentChartMoveObj.css({ top: top, left: left });
-
-                    if (
-                        luckysheetFreezen.freezenhorizontaldata != null ||
-                        luckysheetFreezen.freezenverticaldata != null
-                    ) {
-                        luckysheetFreezen.scrollAdapt();
-
-                        const toffset = Store.chartparam.luckysheetCurrentChartMoveObj.offset();
-                        const tpsition = Store.chartparam.luckysheetCurrentChartMoveObj.position();
-                        Store.chartparam.luckysheetCurrentChartMoveXy = [
-                            event.pageX - toffset.left,
-                            event.pageY - toffset.top,
-                            tpsition.left,
-                            tpsition.top,
-                            $("#luckysheet-scrollbar-x").scrollLeft(),
-                            $("#luckysheet-scrollbar-y").scrollTop(),
-                        ];
-                    }
-                }
-                // chart resize
-                else if (!!Store.chartparam.luckysheetCurrentChartResize) {
-                    const scrollTop = $("#luckysheet-cell-main").scrollTop(),
-                        scrollLeft = $("#luckysheet-cell-main").scrollLeft();
-                    const mouse = mouseposition(event.pageX, event.pageY);
-                    const x = mouse[0] + scrollLeft;
-                    const y = mouse[1] + scrollTop;
-
-                    if (x < 0 || y < 0) {
-                        return false;
-                    }
-
-                    const myh = Store.chartparam.luckysheetCurrentChartResizeObj.height(),
-                        myw = Store.chartparam.luckysheetCurrentChartResizeObj.width();
-                    const topchange = y - Store.chartparam.luckysheetCurrentChartResizeXy[1],
-                        leftchange = x - Store.chartparam.luckysheetCurrentChartResizeXy[0];
-
-                    let top = Store.chartparam.luckysheetCurrentChartResizeXy[5],
-                        height = Store.chartparam.luckysheetCurrentChartResizeXy[3],
-                        left = Store.chartparam.luckysheetCurrentChartResizeXy[4],
-                        width = Store.chartparam.luckysheetCurrentChartResizeXy[2];
-
-                    if (
-                        Store.chartparam.luckysheetCurrentChartResize == "lm" ||
-                        Store.chartparam.luckysheetCurrentChartResize == "lt" ||
-                        Store.chartparam.luckysheetCurrentChartResize == "lb"
-                    ) {
-                        left = x;
-                        width = Store.chartparam.luckysheetCurrentChartResizeXy[2] - leftchange;
-                        if (
-                            left >
-                            Store.chartparam.luckysheetCurrentChartResizeXy[2] +
-                                Store.chartparam.luckysheetCurrentChartResizeXy[4] -
-                                60
-                        ) {
-                            left =
-                                Store.chartparam.luckysheetCurrentChartResizeXy[2] +
-                                Store.chartparam.luckysheetCurrentChartResizeXy[4] -
-                                60;
-                            width =
-                                Store.chartparam.luckysheetCurrentChartResizeXy[2] -
-                                (Store.chartparam.luckysheetCurrentChartResizeXy[2] +
-                                    Store.chartparam.luckysheetCurrentChartResizeXy[4] -
-                                    60 -
-                                    Store.chartparam.luckysheetCurrentChartResizeXy[0]);
-                        } else if (left <= 0) {
-                            left = 0;
-                            width =
-                                Store.chartparam.luckysheetCurrentChartResizeXy[2] +
-                                Store.chartparam.luckysheetCurrentChartResizeXy[0];
-                        }
-                    }
-
-                    if (
-                        Store.chartparam.luckysheetCurrentChartResize == "rm" ||
-                        Store.chartparam.luckysheetCurrentChartResize == "rt" ||
-                        Store.chartparam.luckysheetCurrentChartResize == "rb"
-                    ) {
-                        width = Store.chartparam.luckysheetCurrentChartResizeXy[2] + leftchange;
-                        if (width < 60) {
-                            width = 60;
-                        } else if (
-                            width >=
-                            Store.chartparam.luckysheetCurrentChartResizeWinW -
-                                Store.chartparam.luckysheetCurrentChartResizeXy[4] -
-                                22 -
-                                36
-                        ) {
-                            width =
-                                Store.chartparam.luckysheetCurrentChartResizeWinW -
-                                Store.chartparam.luckysheetCurrentChartResizeXy[4] -
-                                22 -
-                                36;
-                        }
-                    }
-
-                    if (
-                        Store.chartparam.luckysheetCurrentChartResize == "mt" ||
-                        Store.chartparam.luckysheetCurrentChartResize == "lt" ||
-                        Store.chartparam.luckysheetCurrentChartResize == "rt"
-                    ) {
-                        top = y;
-                        height = Store.chartparam.luckysheetCurrentChartResizeXy[3] - topchange;
-                        if (
-                            top >
-                            Store.chartparam.luckysheetCurrentChartResizeXy[3] +
-                                Store.chartparam.luckysheetCurrentChartResizeXy[5] -
-                                60
-                        ) {
-                            top =
-                                Store.chartparam.luckysheetCurrentChartResizeXy[3] +
-                                Store.chartparam.luckysheetCurrentChartResizeXy[5] -
-                                60;
-                            height =
-                                Store.chartparam.luckysheetCurrentChartResizeXy[3] -
-                                (Store.chartparam.luckysheetCurrentChartResizeXy[3] +
-                                    Store.chartparam.luckysheetCurrentChartResizeXy[5] -
-                                    60 -
-                                    Store.chartparam.luckysheetCurrentChartResizeXy[1]);
-                        } else if (top <= 0) {
-                            top = 0;
-                            height =
-                                Store.chartparam.luckysheetCurrentChartResizeXy[3] +
-                                Store.chartparam.luckysheetCurrentChartResizeXy[1];
-                        }
-                    }
-
-                    if (
-                        Store.chartparam.luckysheetCurrentChartResize == "mb" ||
-                        Store.chartparam.luckysheetCurrentChartResize == "lb" ||
-                        Store.chartparam.luckysheetCurrentChartResize == "rb"
-                    ) {
-                        height = Store.chartparam.luckysheetCurrentChartResizeXy[3] + topchange;
-                        if (height < 60) {
-                            height = 60;
-                        } else if (
-                            height >=
-                            Store.chartparam.luckysheetCurrentChartResizeWinH -
-                                Store.chartparam.luckysheetCurrentChartResizeXy[5] -
-                                42 -
-                                6
-                        ) {
-                            height =
-                                Store.chartparam.luckysheetCurrentChartResizeWinH -
-                                Store.chartparam.luckysheetCurrentChartResizeXy[5] -
-                                42 -
-                                6;
-                        }
-                    }
-
-                    const resizedata = { top: top, left: left, height: height, width: width };
-                    Store.chartparam.luckysheetCurrentChartResizeObj.css(resizedata);
-                    // resize chart
-                    Store.resizeChart(Store.chartparam.luckysheetCurrentChart);
                 }
                 //image move
                 else if (imageCtrl.move) {
@@ -1913,10 +1727,6 @@ export default function documentMousemove() {
                         Store.sheetBarHeight,
                         Store.statisticBarHeight,
                     );
-                } else if (!!Store.chart_selection.rangeResize) {
-                    Store.chart_selection.rangeResizeDraging(event, Store.sheetBarHeight, Store.statisticBarHeight);
-                } else if (!!Store.chart_selection.rangeMove) {
-                    Store.chart_selection.rangeMoveDraging(event, Store.sheetBarHeight, Store.statisticBarHeight);
                 }
 
                 Store.jfautoscrollTimeout = window.requestAnimationFrame(mouseRender);

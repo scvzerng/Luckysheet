@@ -155,7 +155,6 @@ window.sheetConditionFormat = {
 		}
 	},
 	"index": "2",
-	"chart": [],
 	"status": 0,
 	"order": "2",
 	"column": 18,

@@ -85,7 +85,6 @@
 		}
 	},
 	"index": "1",
-	"chart": [],
 	"order": "1",
 	"column": 18,
 	"row": 45,

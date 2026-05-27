@@ -78,7 +78,6 @@ export const toolbarIdMap = {
     textRotateMode: ['#luckysheet-icon-rotation', '#luckysheet-icon-rotation-menu'], //'Text Rotation Mode'
     image: '#luckysheet-insertImg-btn-title', //'Insert link'
     link: '#luckysheet-insertLink-btn-title', //'Insert picture'
-    chart: '#luckysheet-chart-btn-title', //'chart' (the icon is hidden, but if the chart plugin is configured, you can still create a new chart by right click)
     postil: '#luckysheet-icon-postil', //'comment'
     function: ['#luckysheet-icon-function', '#luckysheet-icon-function-menu'], //'formula'
     frozenMode: ['#luckysheet-freezen-btn-horizontal', '#luckysheet-icon-freezen-menu'], //'freeze mode'
