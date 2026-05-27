@@ -18,7 +18,7 @@ import { getSheetIndex } from '../../methods/get';
 import { selectHightlightShow } from '../../controllers/select';
 import Store from '../../store';
 
-import { clearRefreshCanvasTimeOut, setRefreshCanvasTimeOut } from './refreshCore';
+import { clearRefreshCanvasTimeOut, setRefreshCanvasTimeOut } from './refreshState';
 
 function jfrefreshgrid_rhcw(rowheight, colwidth, isRefreshCanvas=true){
     rhchInit(rowheight, colwidth);

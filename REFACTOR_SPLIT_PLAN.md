@@ -452,7 +452,7 @@ src/controllers/constant/                      # 原 constant.js
 
 #### 22. `functionImplementation/statistical.js` — 4,563 行
 
-- **状态**: ⬜ 待二次拆分
+- **状态**: ✅ 已完成
 - **建议**: 按子类别拆分为 `statisticalBasic.js`(COUNT/SUM/AVERAGE/MAX/MIN等基础统计) + `statisticalDistribution.js`(NORM_DIST/T_DIST/F_DIST等分布函数) + `statisticalRegression.js`(FORECAST/SLOPE/INTERCEPT/CORREL等回归函数) + `statisticalRanking.js`(RANK/PERCENTILE/QUARTILE等排名函数)
 
 #### 23. `functionImplementation/financial.js` — 3,913 行

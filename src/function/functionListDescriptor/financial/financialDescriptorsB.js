@@ -1,0 +1,611 @@
+const financialDescriptorsB = [
+    "example": "100",
+    "require": "m",
+    "repeat": "n",
+    "type": "rangenumber"
+  }, {
+    "example": "1",
+    "require": "m",
+    "repeat": "n",
+    "type": "rangenumber"
+  }, {
+    "example": "0",
+    "require": "m",
+    "repeat": "n",
+    "type": "rangenumber"
+  }]
+}, {
+  "n": "YIELDDISC",
+  "t": 8,
+  "m": [4, 5],
+  "p": [{
+    "example": "DATE(2010",
+    "require": "m",
+    "repeat": "n",
+    "type": "rangeall"
+  }, {
+    "example": "DATE(2010",
+    "require": "m",
+    "repeat": "n",
+    "type": "rangeall"
+  }, {
+    "example": "95",
+    "require": "m",
+    "repeat": "n",
+    "type": "rangenumber"
+  }, {
+    "example": "100",
+    "require": "m",
+    "repeat": "n",
+    "type": "rangenumber"
+  }, {
+    "example": "0",
+    "require": "m",
+    "repeat": "n",
+    "type": "rangenumber"
+  }]
+}, {
+  "n": "NOMINAL",
+  "t": 8,
+  "m": [2, 2],
+  "p": [{
+    "example": "0.85",
+    "require": "m",
+    "repeat": "n",
+    "type": "rangenumber"
+  }, {
+    "example": "12",
+    "require": "m",
+    "repeat": "n",
+    "type": "rangenumber"
+  }]
+}, {
+  "n": "XIRR",
+  "t": 8,
+  "m": [2, 3],
+  "p": [{
+    "example": "B2:B25",
+    "require": "m",
+    "repeat": "n",
+    "type": "range"
+  }, {
+    "example": "C2:C25",
+    "require": "m",
+    "repeat": "n",
+    "type": "range"
+  }, {
+    "example": "250",
+    "require": "o",
+    "repeat": "n",
+    "type": "rangenumber"
+  }]
+}, {
+  "n": "MIRR",
+  "t": 8,
+  "m": [3, 3],
+  "p": [{
+    "example": "A2:A25",
+    "require": "m",
+    "repeat": "n",
+    "type": "range"
+  }, {
+    "example": "0.1",
+    "require": "m",
+    "repeat": "n",
+    "type": "rangenumber"
+  }, {
+    "example": "0.12",
+    "require": "m",
+    "repeat": "n",
+    "type": "rangenumber"
+  }]
+}, {
+  "n": "IRR",
+  "t": 8,
+  "m": [1, 2],
+  "p": [{
+    "example": "A2:A25",
+    "require": "m",
+    "repeat": "n",
+    "type": "range"
+  }, {
+    "example": "200",
+    "require": "o",
+    "repeat": "n",
+    "type": "rangenumber"
+  }]
+}, {
+  "n": "NPV",
+  "t": 8,
+  "m": [2, 255],
+  "p": [{
+    "example": "0.1",
+    "require": "m",
+    "repeat": "n",
+    "type": "rangenumber"
+  }, {
+    "example": "200",
+    "require": "m",
+    "repeat": "n",
+    "type": "rangeall"
+  }, {
+    "example": "250",
+    "require": "o",
+    "repeat": "y",
+    "type": "rangeall"
+  }]
+}, {
+  "n": "XNPV",
+  "t": 8,
+  "m": [3, 3],
+  "p": [{
+    "example": "A2",
+    "require": "m",
+    "repeat": "n",
+    "type": "rangenumber"
+  }, {
+    "example": "B2:B25",
+    "require": "m",
+    "repeat": "n",
+    "type": "range"
+  }, {
+    "example": "C2:C25",
+    "require": "m",
+    "repeat": "n",
+    "type": "range"
+  }]
+}, {
+  "n": "CUMIPMT",
+  "t": 8,
+  "m": [6, 6],
+  "p": [{
+    "example": "0.12",
+    "require": "m",
+    "repeat": "n",
+    "type": "rangenumber"
+  }, {
+    "example": "12",
+    "require": "m",
+    "repeat": "n",
+    "type": "rangenumber"
+  }, {
+    "example": "100",
+    "require": "m",
+    "repeat": "n",
+    "type": "rangenumber"
+  }, {
+    "example": "1",
+    "require": "m",
+    "repeat": "n",
+    "type": "rangenumber"
+  }, {
+    "example": "5",
+    "require": "m",
+    "repeat": "n",
+    "type": "rangenumber"
+  }, {
+    "example": "0",
+    "require": "m",
+    "repeat": "n",
+    "type": "rangenumber"
+  }]
+}, {
+  "n": "PMT",
+  "t": 8,
+  "m": [3, 5],
+  "p": [{
+    "example": "0.08",
+    "require": "m",
+    "repeat": "n",
+    "type": "rangenumber"
+  }, {
+    "example": "12",
+    "require": "m",
+    "repeat": "n",
+    "type": "rangenumber"
+  }, {
+    "example": " 100000",
+    "require": "m",
+    "repeat": "n",
+    "type": "rangenumber"
+  }, {
+    "example": "D2",
+    "require": "m",
+    "repeat": "n",
+    "type": "rangenumber"
+  }, {
+    "example": "1",
+    "require": "m",
+    "repeat": "n",
+    "type": "rangenumber"
+  }]
+}, {
+  "n": "IPMT",
+  "t": 8,
+  "m": [4, 6],
+  "p": [{
+    "example": "0.1",
+    "require": "m",
+    "repeat": "n",
+    "type": "rangenumber"
+  }, {
+    "example": "1",
+    "require": "m",
+    "repeat": "n",
+    "type": "rangenumber"
+  }, {
+    "example": "12",
+    "require": "m",
+    "repeat": "n",
+    "type": "rangenumber"
+  }, {
+    "example": "80000",
+    "require": "m",
+    "repeat": "n",
+    "type": "rangenumber"
+  }, {
+    "example": "E2",
+    "require": "m",
+    "repeat": "n",
+    "type": "rangenumber"
+  }, {
+    "example": "1",
+    "require": "m",
+    "repeat": "n",
+    "type": "rangenumber"
+  }]
+}, {
+  "n": "PPMT",
+  "t": 8,
+  "m": [4, 6],
+  "p": [{
+    "example": "0.1",
+    "require": "m",
+    "repeat": "n",
+    "type": "rangenumber"
+  }, {
+    "example": "1",
+    "require": "m",
+    "repeat": "n",
+    "type": "rangenumber"
+  }, {
+    "example": "3*12",
+    "require": "m",
+    "repeat": "n",
+    "type": "rangenumber"
+  }, {
+    "example": "100000",
+    "require": "m",
+    "repeat": "n",
+    "type": "rangenumber"
+  }, {
+    "example": "0",
+    "require": "o",
+    "repeat": "n",
+    "type": "rangenumber"
+  }, {
+    "example": "0",
+    "require": "o",
+    "repeat": "n",
+    "type": "rangenumber"
+  }]
+}, {
+  "n": "INTRATE",
+  "t": 8,
+  "m": [4, 5],
+  "p": [{
+    "example": "DATE(2010",
+    "require": "m",
+    "repeat": "n",
+    "type": "rangeall"
+  }, {
+    "example": "DATE(2010",
+    "require": "m",
+    "repeat": "n",
+    "type": "rangeall"
+  }, {
+    "example": "100000",
+    "require": "m",
+    "repeat": "n",
+    "type": "rangenumber"
+  }, {
+    "example": "101200",
+    "require": "m",
+    "repeat": "n",
+    "type": "rangenumber"
+  }, {
+    "example": "12",
+    "require": "m",
+    "repeat": "n",
+    "type": "rangenumber"
+  }]
+}, {
+  "n": "PRICE",
+  "t": 8,
+  "m": [6, 7],
+  "p": [{
+    "example": "DATE(2010",
+    "require": "m",
+    "repeat": "n",
+    "type": "rangeall"
+  }, {
+    "example": "DATE(2010",
+    "require": "m",
+    "repeat": "n",
+    "type": "rangeall"
+  }, {
+    "example": "0.057",
+    "require": "m",
+    "repeat": "n",
+    "type": "rangenumber"
+  }, {
+    "example": "0.065",
+    "require": "m",
+    "repeat": "n",
+    "type": "rangenumber"
+  }, {
+    "example": "100",
+    "require": "m",
+    "repeat": "n",
+    "type": "rangenumber"
+  }, {
+    "example": "1",
+    "require": "m",
+    "repeat": "n",
+    "type": "rangenumber"
+  }, {
+    "example": "0",
+    "require": "o",
+    "repeat": "n",
+    "type": "rangenumber"
+  }]
+}, {
+  "n": "PRICEDISC",
+  "t": 8,
+  "m": [4, 5],
+  "p": [{
+    "example": "DATE(2010",
+    "require": "m",
+    "repeat": "n",
+    "type": "rangeall"
+  }, {
+    "example": "DATE(2010",
+    "require": "m",
+    "repeat": "n",
+    "type": "rangeall"
+  }, {
+    "example": "0.0525",
+    "require": "m",
+    "repeat": "n",
+    "type": "rangenumber"
+  }, {
+    "example": "100",
+    "require": "m",
+    "repeat": "n",
+    "type": "rangenumber"
+  }, {
+    "example": "0",
+    "require": "o",
+    "repeat": "n",
+    "type": "rangenumber"
+  }]
+}, {
+  "n": "PRICEMAT",
+  "t": 8,
+  "m": [5, 6],
+  "p": [{
+    "example": "DATE(2010",
+    "require": "m",
+    "repeat": "n",
+    "type": "rangeall"
+  }, {
+    "example": "DATE(2010",
+    "require": "m",
+    "repeat": "n",
+    "type": "rangeall"
+  }, {
+    "example": "DATE(2010",
+    "require": "m",
+    "repeat": "n",
+    "type": "rangeall"
+  }, {
+    "example": "0.061",
+    "require": "m",
+    "repeat": "n",
+    "type": "rangenumber"
+  }, {
+    "example": "0.061",
+    "require": "m",
+    "repeat": "n",
+    "type": "rangenumber"
+  }, {
+    "example": "0",
+    "require": "o",
+    "repeat": "n",
+    "type": "rangenumber"
+  }]
+}, {
+  "n": "RECEIVED",
+  "t": 8,
+  "m": [4, 5],
+  "p": [{
+    "example": "DATE(2010",
+    "require": "m",
+    "repeat": "n",
+    "type": "rangeall"
+  }, {
+    "example": "DATE(2010",
+    "require": "m",
+    "repeat": "n",
+    "type": "rangeall"
+  }, {
+    "example": "10000000",
+    "require": "m",
+    "repeat": "n",
+    "type": "rangenumber"
+  }, {
+    "example": "0.0575",
+    "require": "m",
+    "repeat": "n",
+    "type": "rangenumber"
+  }, {
+    "example": "12",
+    "require": "o",
+    "repeat": "n",
+    "type": "rangenumber"
+  }]
+}, {
+  "n": "DISC",
+  "t": 8,
+  "m": [4, 5],
+  "p": [{
+    "example": "DATE(2010",
+    "require": "m",
+    "repeat": "n",
+    "type": "rangeall"
+  }, {
+    "example": "DATE(2010",
+    "require": "m",
+    "repeat": "n",
+    "type": "rangeall"
+  }, {
+    "example": "97.975",
+    "require": "m",
+    "repeat": "n",
+    "type": "rangenumber"
+  }, {
+    "example": "100",
+    "require": "m",
+    "repeat": "n",
+    "type": "rangenumber"
+  }, {
+    "example": "12",
+    "require": "o",
+    "repeat": "n",
+    "type": "rangenumber"
+  }]
+}, {
+  "n": "NPER",
+  "t": 8,
+  "m": [3, 5],
+  "p": [{
+    "example": "0.12",
+    "require": "m",
+    "repeat": "n",
+    "type": "rangenumber"
+  }, {
+    "example": "500",
+    "require": "m",
+    "repeat": "n",
+    "type": "rangenumber"
+  }, {
+    "example": "40000",
+    "require": "m",
+    "repeat": "n",
+    "type": "rangenumber"
+  }, {
+    "example": "0",
+    "require": "o",
+    "repeat": "n",
+    "type": "rangenumber"
+  }, {
+    "example": "0",
+    "require": "o",
+    "repeat": "n",
+    "type": "rangenumber"
+  }]
+}, {
+  "n": "SLN",
+  "t": 8,
+  "m": [3, 3],
+  "p": [{
+    "example": "300000",
+    "require": "m",
+    "repeat": "n",
+    "type": "rangenumber"
+  }, {
+    "example": "75000",
+    "require": "m",
+    "repeat": "n",
+    "type": "rangenumber"
+  }, {
+    "example": "10",
+    "require": "m",
+    "repeat": "n",
+    "type": "rangenumber"
+  }]
+}, {
+  "n": "DURATION",
+  "t": 8,
+  "m": [5, 6],
+  "p": [{
+    "example": "DATE(2010",
+    "require": "m",
+    "repeat": "n",
+    "type": "rangeall"
+  }, {
+    "example": "DATE(2010",
+    "require": "m",
+    "repeat": "n",
+    "type": "rangeall"
+  }, {
+    "example": "0.08",
+    "require": "m",
+    "repeat": "n",
+    "type": "rangenumber"
+  }, {
+    "example": "0.09",
+    "require": "m",
+    "repeat": "n",
+    "type": "rangenumber"
+  }, {
+    "example": "1",
+    "require": "m",
+    "repeat": "n",
+    "type": "rangenumber"
+  }, {
+    "example": "0",
+    "require": "o",
+    "repeat": "n",
+    "type": "rangenumber"
+  }]
+}, {
+  "n": "MDURATION",
+  "t": 8,
+  "m": [5, 6],
+  "p": [{
+    "example": "DATE(2010",
+    "require": "m",
+    "repeat": "n",
+    "type": "rangeall"
+  }, {
+    "example": "DATE(2010",
+    "require": "m",
+    "repeat": "n",
+    "type": "rangeall"
+  }, {
+    "example": "0.08",
+    "require": "m",
+    "repeat": "n",
+    "type": "rangenumber"
+  }, {
+    "example": "0.09",
+    "require": "m",
+    "repeat": "n",
+    "type": "rangenumber"
+  }, {
+    "example": "1",
+    "require": "m",
+    "repeat": "n",
+    "type": "rangenumber"
+  }, {
+    "example": "0",
+    "require": "o",
+    "repeat": "n",
+    "type": "rangenumber"
+  }]
+}];
+export default financialDescriptors;
+];
+
+export default financialDescriptorsB;
