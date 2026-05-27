@@ -17,6 +17,7 @@ import { createFilterOptions } from '../../controllers/filter';
 import { getSheetIndex } from '../../methods/get';
 import { selectHightlightShow } from '../../controllers/select';
 import Store from '../../store';
+import { luckysheetrefreshgrid } from './refreshCanvas';
 
 let refreshCanvasTimeOut;
 
