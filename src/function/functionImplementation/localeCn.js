@@ -310,7 +310,7 @@ const localeCnFunctions = {
         return birthday;
       }
       birthday = new Date(birthday);
-      var list = new Array("猪", "鼠", "牛", "虎", "兔", "龙", "蛇", "马", "羊", "猴", "鸡", "狗");
+      var list = ["猪", "鼠", "牛", "虎", "兔", "龙", "蛇", "马", "羊", "猴", "鸡", "狗"];
       var index = (parseInt(birthday.getFullYear()) + 9) % 12;
       if (index != null && !isNaN(index)) {
         return list[index];

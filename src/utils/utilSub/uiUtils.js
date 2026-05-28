@@ -24,7 +24,7 @@ function showrightclickmenu($menu, x, y) {
 }
 
 function luckysheetactiveCell() {
-    if (!!Store.fullscreenmode) {
+    if (Store.fullscreenmode) {
         setTimeout(function() {
             // need preventScroll:true,fix Luckysheet has been set top, and clicking the cell will trigger the scrolling problem
             const input = document.getElementById("luckysheet-rich-text-editor");

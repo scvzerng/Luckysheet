@@ -64,7 +64,7 @@ const refreshButton = {
                 col_pre = c == 0 ? 0 : Store.visibledatacolumn[c - 1];
 
             let margeset = menuButton.mergeborer(Store.flowdata, r, c);
-            if(!!margeset){
+            if(margeset){
                 row = margeset.row[1];
                 row_pre = margeset.row[0];
 

@@ -76,6 +76,7 @@ export function initCellColor(_this) {
             document.getElementById("luckysheet-icon-cell-color").removeAttribute("color");
             getPicker(input)?.set("#ffffff");
             document.querySelector("#luckysheet-icon-cell-color .luckysheet-color-menu-button-indicator").style.borderBottomColor = "#ffffff";
+            document.querySelector("#luckysheet-icon-cell-color .text-color-bar").style.backgroundColor = "#ffffff";
             let d = editor.deepCopyFlowData(Store.flowdata);
             _this.updateFormat(d, "bg", null);
           });

@@ -1,5 +1,6 @@
 import Store from '../../store';
 import locale from '../../locale/locale';
+import formula from '../../global/formula';
 import { getRangetxt } from '../../methods/get';
 import { getCurrentFile } from '../../utils/storeAccess.js';
 import { replaceHtml } from '../../utils/util';
@@ -618,6 +619,16 @@ const alternateformat = {
             noColorSelectedText: locale_toolbar.noColorSelectedText,
             palette: STANDARD_PALETTE,
             move: function(color){
+                if (color != null) {
+                    color = color.toHexString();
+                }
+                else {
+                    color = "#000";
+                }
+
+                $("#luckysheet-alternateformat-colorSelect-dialog .currenColor span").css("background-color", color).attr("title", color);
+            },
+            change: function(color){
                 if (color != null) {
                     color = color.toHexString();
                 }

@@ -649,7 +649,7 @@ import { getLastSelection, getMaxRowIndex, getMaxColIndex } from "../../../utils
                     $("#luckysheet-modal-dialog-activeImage").css({ left: left, top: top });
                 }
                 //image resize
-                else if (!!imageCtrl.resize) {
+                else if (imageCtrl.resize) {
                     let mouse = mouseposition(pageX, pageY);
                     let scrollLeft = $("#luckysheet-cell-main").scrollLeft();
                     let scrollTop = $("#luckysheet-cell-main").scrollTop();
@@ -1033,7 +1033,7 @@ import { getLastSelection, getMaxRowIndex, getMaxColIndex } from "../../../utils
                     });
                 }
                 //image cropChange
-                else if (!!imageCtrl.cropChange) {
+                else if (imageCtrl.cropChange) {
                     let mouse = mouseposition(pageX, pageY);
                     let x = mouse[0] + $("#luckysheet-cell-main").scrollLeft();
                     let y = mouse[1] + $("#luckysheet-cell-main").scrollTop();
@@ -1285,7 +1285,7 @@ import { getLastSelection, getMaxRowIndex, getMaxColIndex } from "../../../utils
                     }
 
                     luckysheetPostil.currentObj.css({ left: left, top: top });
-                } else if (!!luckysheetPostil.resize) {
+                } else if (luckysheetPostil.resize) {
                     let mouse = mouseposition(pageX, pageY);
                     let x = mouse[0] + $("#luckysheet-cell-main").scrollLeft();
                     let y = mouse[1] + $("#luckysheet-cell-main").scrollTop();
@@ -1353,7 +1353,7 @@ import { getLastSelection, getMaxRowIndex, getMaxColIndex } from "../../../utils
                     }
 
                     luckysheetPostil.currentObj.css({ width: width, height: height, left: left, top: top });
-                } else if (!!formula.rangeResize) {
+                } else if (formula.rangeResize) {
                     formula.rangeResizeDraging(
                         { pageX, pageY },
                         formula.rangeResizeObj,
@@ -1364,7 +1364,7 @@ import { getLastSelection, getMaxRowIndex, getMaxColIndex } from "../../../utils
                         Store.ch_width,
                         Store.rh_height,
                     );
-                } else if (!!formula.rangeMove) {
+                } else if (formula.rangeMove) {
                     formula.rangeMoveDraging(
                         { pageX, pageY },
                         formula.rangeMovexy,

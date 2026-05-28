@@ -634,6 +634,16 @@ function colorSelectDialog(currenColor, colorType, source) {
                 }
 
                 $("#luckysheet-alternateformat-colorSelect-dialog .currenColor span").css("background-color", color).attr("title", color);
+            },
+            change: function(color){
+                if (color != null) {
+                    color = color.toHexString();
+                }
+                else {
+                    color = "#000";
+                }
+
+                $("#luckysheet-alternateformat-colorSelect-dialog .currenColor span").css("background-color", color).attr("title", color);
             }
         });
 }

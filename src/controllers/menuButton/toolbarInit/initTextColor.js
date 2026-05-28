@@ -89,6 +89,7 @@ export function initTextColor(_this) {
             document.getElementById("luckysheet-icon-text-color").removeAttribute("color");
             getPicker(input)?.set("#000000");
             document.querySelector("#luckysheet-icon-text-color .luckysheet-color-menu-button-indicator").style.borderBottomColor = "#000000";
+            document.querySelector("#luckysheet-icon-text-color .text-color-bar").style.backgroundColor = "#000000";
             let d = editor.deepCopyFlowData(Store.flowdata);
             _this.updateFormat(d, "fc", null);
           });

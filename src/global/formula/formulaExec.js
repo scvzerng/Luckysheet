@@ -860,7 +860,7 @@ const formulaExec = {
                 }
             }
 
-            if (!!dynamicArrayItem) {
+            if (dynamicArrayItem) {
                 return [true, result, txt, { type: "dynamicArrayItem", data: dynamicArrayItem }];
             }
 

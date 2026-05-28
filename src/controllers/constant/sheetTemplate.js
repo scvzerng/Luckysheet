@@ -180,7 +180,7 @@ function luckysheetAlternateformatHtml() {
         " </div>" +
         '<div class="luckysheet-color-menu-button-indicator" title="' +
         alternatingColors.selectionTextColor +
-        '" style="border-bottom-color: #000;margin-right: 10px;"> <div class="luckysheet-icon luckysheet-inline-block"> <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-text-color" style="user-select: none;"> </div> </div> </div>' +
+        '" style="border-bottom-color: #000;"> <div class="luckysheet-icon luckysheet-inline-block"> <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-text-color" style="user-select: none;"> </div> </div> </div>' +
         '<div class="luckysheet-color-menu-button-indicator" title="' +
         alternatingColors.selectionCellColor +
         '" style="border-bottom-color: #fff;"> <div class="luckysheet-icon luckysheet-inline-block"> <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-cell-color" style="user-select: none;"> </div> </div> </div>' +
@@ -191,7 +191,7 @@ function luckysheetAlternateformatHtml() {
         "1 </div>" +
         '<div class="luckysheet-color-menu-button-indicator" title="' +
         alternatingColors.selectionTextColor +
-        '" style="border-bottom-color: #000;margin-right: 10px;"> <div class="luckysheet-icon luckysheet-inline-block"> <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-text-color" style="user-select: none;"> </div> </div> </div>' +
+        '" style="border-bottom-color: #000;"> <div class="luckysheet-icon luckysheet-inline-block"> <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-text-color" style="user-select: none;"> </div> </div> </div>' +
         '<div class="luckysheet-color-menu-button-indicator" title="' +
         alternatingColors.selectionCellColor +
         '" style="border-bottom-color: #fff;"> <div class="luckysheet-icon luckysheet-inline-block"> <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-cell-color" style="user-select: none;"> </div> </div> </div>' +
@@ -202,7 +202,7 @@ function luckysheetAlternateformatHtml() {
         "2 </div>" +
         '<div class="luckysheet-color-menu-button-indicator" title="' +
         alternatingColors.selectionTextColor +
-        '" style="border-bottom-color: #000;margin-right: 10px;"> <div class="luckysheet-icon luckysheet-inline-block"> <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-text-color" style="user-select: none;"> </div> </div> </div>' +
+        '" style="border-bottom-color: #000;"> <div class="luckysheet-icon luckysheet-inline-block"> <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-text-color" style="user-select: none;"> </div> </div> </div>' +
         '<div class="luckysheet-color-menu-button-indicator" title="' +
         alternatingColors.selectionCellColor +
         '" style="border-bottom-color: #fff;"> <div class="luckysheet-icon luckysheet-inline-block"> <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-cell-color" style="user-select: none;"> </div> </div> </div>' +
@@ -213,7 +213,7 @@ function luckysheetAlternateformatHtml() {
         " </div>" +
         '<div class="luckysheet-color-menu-button-indicator" title="' +
         alternatingColors.selectionTextColor +
-        '" style="border-bottom-color: #000;margin-right: 10px;"> <div class="luckysheet-icon luckysheet-inline-block"> <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-text-color" style="user-select: none;"> </div> </div> </div>' +
+        '" style="border-bottom-color: #000;"> <div class="luckysheet-icon luckysheet-inline-block"> <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-text-color" style="user-select: none;"> </div> </div> </div>' +
         '<div class="luckysheet-color-menu-button-indicator" title="' +
         alternatingColors.selectionCellColor +
         '" style="border-bottom-color: #fff;"> <div class="luckysheet-icon luckysheet-inline-block"> <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-cell-color" style="user-select: none;"> </div> </div> </div>' +

@@ -73,12 +73,24 @@ export function createCustomView(container, options) {
         el.appendChild(inputWrap);
     }
 
+    let initialColor = currentHex;
+
     if (showInitial) {
         const initialWrap = document.createElement('div');
         initialWrap.className = 'lkcp-initial-wrap';
         const initialSwatch = document.createElement('div');
         initialSwatch.className = 'lkcp-initial-swatch';
-        initialSwatch.style.backgroundColor = currentHex;
+        initialSwatch.style.backgroundColor = initialColor;
+        initialSwatch.addEventListener('mousedown', function (e) {
+            e.stopPropagation();
+        });
+        initialSwatch.addEventListener('click', function (e) {
+            e.stopPropagation();
+            currentHex = initialColor;
+            hsv = hexToHsv(currentHex);
+            updateUI();
+            onMove(currentHex);
+        });
         const currentSwatch = document.createElement('div');
         currentSwatch.className = 'lkcp-current-swatch';
         currentSwatch.style.backgroundColor = currentHex;

@@ -23,7 +23,7 @@ function labelFilterOptionState($top, optionstate, rowhidden, caljs, notSave, st
         $top.data("byconditionvalue", "null").data("byconditiontype", "0").data("byconditiontext", "无").data("byconditionvalue1", "").data("byconditionvalue2", "");
     }
 
-    if(!!notSave){
+    if(notSave){
         let file = getCurrentFile();
 
         if(file.filter == null){

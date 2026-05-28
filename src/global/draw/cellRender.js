@@ -42,7 +42,7 @@ let nullCellRender = function(
     let cellsize = [
         start_c + offsetLeft + borderfix[0] + 1,
         start_r + offsetTop + borderfix[1] + 1,
-        end_c - start_c + borderfix[2] - (!!isMerge ? 1 : 0) - 1,
+        end_c - start_c + borderfix[2] - (isMerge ? 1 : 0) - 1,
         end_r - start_r + borderfix[3] - 1,
     ];
     if (
@@ -161,7 +161,7 @@ let cellRender = function(
     let cellsize = [
         start_c + offsetLeft + borderfix[0] + 1,
         start_r + offsetTop + borderfix[1] + 1,
-        end_c - start_c + borderfix[2] - (!!isMerge ? 1 : 0) - 1,
+        end_c - start_c + borderfix[2] - (isMerge ? 1 : 0) - 1,
         end_r - start_r + borderfix[3] + 1,
     ];
     if (

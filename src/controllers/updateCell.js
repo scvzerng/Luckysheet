@@ -289,7 +289,7 @@ export function getColumnAndRowSize(row_index, col_index, d){
     }
 
     let margeset = menuButton.mergeborer(d, row_index, col_index);
-    if(!!margeset){
+    if(margeset){
         row = margeset.row[1];
         row_pre = margeset.row[0];
         row_index = margeset.row[2];

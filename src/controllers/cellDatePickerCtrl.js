@@ -44,7 +44,7 @@ const cellDatePickerCtrl = {
         let hasChineseTime = false;
 
 
-        if (!!margeset) {
+        if (margeset) {
             row = margeset.row[1];
             row_pre = margeset.row[0];
 

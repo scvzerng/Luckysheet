@@ -146,7 +146,7 @@ const scrollAdaptModule = {
           let col_f = Store.visibledatacolumn[cf],
             col_pre_f = cf - 1 == -1 ? 0 : Store.visibledatacolumn[cf - 1];
           let margeset = menuButton.mergeborer(Store.flowdata, rf, cf);
-          if (!!margeset) {
+          if (margeset) {
             row_f = margeset.row[1];
             row_pre_f = margeset.row[0];
             col_f = margeset.column[1];
@@ -270,7 +270,7 @@ const scrollAdaptModule = {
           let row_f = Store.visibledatarow[rf],
             row_pre_f = rf - 1 == -1 ? 0 : Store.visibledatarow[rf - 1];
           let margeset = menuButton.mergeborer(Store.flowdata, rf, cf);
-          if (!!margeset) {
+          if (margeset) {
             row_f = margeset.row[1];
             row_pre_f = margeset.row[0];
           }
@@ -357,7 +357,7 @@ const scrollAdaptModule = {
           let col_f = Store.visibledatacolumn[cf],
             col_pre_f = cf - 1 == -1 ? 0 : Store.visibledatacolumn[cf - 1];
           let margeset = menuButton.mergeborer(Store.flowdata, rf, cf);
-          if (!!margeset) {
+          if (margeset) {
             col_f = margeset.column[1];
             col_pre_f = margeset.column[0];
           }
@@ -479,7 +479,7 @@ const scrollAdaptModule = {
         let col = Store.visibledatacolumn[c],
           col_pre = c - 1 == -1 ? 0 : Store.visibledatacolumn[c - 1];
         let margeset = menuButton.mergeborer(Store.flowdata, r, c);
-        if (!!margeset) {
+        if (margeset) {
           row = margeset.row[1];
           row_pre = margeset.row[0];
           col = margeset.column[1];
@@ -579,7 +579,7 @@ const scrollAdaptModule = {
         let col = Store.visibledatacolumn[c],
           col_pre = c - 1 == -1 ? 0 : Store.visibledatacolumn[c - 1];
         let margeset = menuButton.mergeborer(Store.flowdata, r, c);
-        if (!!margeset) {
+        if (margeset) {
           row = margeset.row[1];
           row_pre = margeset.row[0];
           col = margeset.column[1];
@@ -633,7 +633,7 @@ const scrollAdaptModule = {
         let col = Store.visibledatacolumn[c],
           col_pre = c - 1 == -1 ? 0 : Store.visibledatacolumn[c - 1];
         let margeset = menuButton.mergeborer(Store.flowdata, r, c);
-        if (!!margeset) {
+        if (margeset) {
           row = margeset.row[1];
           row_pre = margeset.row[0];
           col = margeset.column[1];

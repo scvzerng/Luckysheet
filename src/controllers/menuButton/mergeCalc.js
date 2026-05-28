@@ -177,7 +177,7 @@ const mergeCalcModule = {
     }
     if (columnseleted[0] <= col_st && columnseleted[1] >= col_ed && rowseleted[0] <= row_st && rowseleted[1] >= row_ed || !(columnseleted[1] < col_st || columnseleted[0] > col_ed) && !(rowseleted[1] < row_st || rowseleted[0] > row_ed)) {
       let margeset = _this.mergeborer(Store.flowdata, mc.r, mc.c);
-      if (!!margeset) {
+      if (margeset) {
         let row = margeset.row[1],
           row_pre = margeset.row[0],
           row_index = margeset.row[2],

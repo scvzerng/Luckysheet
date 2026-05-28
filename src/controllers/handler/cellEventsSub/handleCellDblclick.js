@@ -54,7 +54,7 @@ export function handleCellDblclick(event) {
                   col_index = col_location[2];
   
               let margeset = menuButton.mergeborer(Store.flowdata, row_index, col_index);
-              if (!!margeset) {
+              if (margeset) {
                   row_index = margeset.row[2];
                   col_index = margeset.column[2];
               }

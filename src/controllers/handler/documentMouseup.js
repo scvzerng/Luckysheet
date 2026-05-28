@@ -58,7 +58,7 @@ export default function documentMouseup() {
                 col_index = col_location[2];
 
             let margeset = menuButton.mergeborer(Store.flowdata, row_index, col_index);
-            if (!!margeset) {
+            if (margeset) {
                 row = margeset.row[1];
                 row_pre = margeset.row[0];
                 row_index = margeset.row[2];
@@ -153,7 +153,7 @@ export default function documentMouseup() {
             $("#luckysheet-wa-calculate-size").removeAttr("style");
         }
 
-        if (!!luckysheetFreezen.horizontalmovestate) {
+        if (luckysheetFreezen.horizontalmovestate) {
             luckysheetFreezen.horizontalmovestate = false;
             $("#luckysheet-freezebar-horizontal").removeClass("luckysheet-freezebar-active");
             $("#luckysheet-freezebar-horizontal")
@@ -166,7 +166,7 @@ export default function documentMouseup() {
             luckysheetrefreshgrid();
         }
 
-        if (!!luckysheetFreezen.verticalmovestate) {
+        if (luckysheetFreezen.verticalmovestate) {
             luckysheetFreezen.verticalmovestate = false;
             $("#luckysheet-freezebar-vertical").removeClass("luckysheet-freezebar-active");
             $("#luckysheet-freezebar-vertical")
@@ -190,7 +190,7 @@ export default function documentMouseup() {
             sheetmanage.reOrderAllSheet();
         }
 
-        if (!!formula.rangeResize) {
+        if (formula.rangeResize) {
             formula.rangeResizeDragged(
                 event,
                 formula.rangeResizeObj,
@@ -255,7 +255,7 @@ export default function documentMouseup() {
         }
 
         //批注框 改变大小
-        if (!!luckysheetPostil.resize) {
+        if (luckysheetPostil.resize) {
             luckysheetPostil.resize = null;
 
             let ps_id = luckysheetPostil.currentObj.closest(".luckysheet-postil-show").attr("id");

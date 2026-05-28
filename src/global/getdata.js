@@ -223,7 +223,7 @@ export function datagridgrowth(data, addr, addc, iscallback) {
         data.push([].concat(rowadd));
     }
 
-    if(!!iscallback){
+    if(iscallback){
     }
 
     return data;

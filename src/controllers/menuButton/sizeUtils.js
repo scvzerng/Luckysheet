@@ -10,7 +10,7 @@ const sizeUtilsModule = {
     if (!!celldata && celldata["mc"] != null) {
       let mc = celldata["mc"];
       let margeset = _this.mergeborer(d, mc.r, mc.c);
-      if (!!margeset) {
+      if (margeset) {
         let row = margeset.row[1];
         let row_pre = margeset.row[0];
         let row_index = margeset.row[2];

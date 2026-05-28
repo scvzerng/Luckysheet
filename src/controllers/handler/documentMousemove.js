@@ -56,7 +56,7 @@ export default function documentMousemove() {
                 col_index = col_location[2];
 
             let margeset = menuButton.mergeborer(Store.flowdata, row_index, col_index);
-            if (!!margeset) {
+            if (margeset) {
                 row = margeset.row[1];
                 row_pre = margeset.row[0];
                 row_index = margeset.row[2];
@@ -136,7 +136,7 @@ export default function documentMousemove() {
             formula.functionResizeTimeout = setTimeout(function() {
                 luckysheetsizeauto();
             }, 15);
-        } else if (!!luckysheetFreezen.horizontalmovestate) {
+        } else if (luckysheetFreezen.horizontalmovestate) {
             let mouse = mouseposition(event.pageX, event.pageY);
             let scrollLeft = $("#luckysheet-cell-main").scrollLeft();
             let scrollTop = $("#luckysheet-cell-main").scrollTop();
@@ -185,7 +185,7 @@ export default function documentMousemove() {
                 .find(".luckysheet-freezebar-horizontal-drop")
                 .css({ top: top });
             luckysheetFreezen.saveFreezen(luckysheetFreezen.freezenhorizontaldata, top, null, null);
-        } else if (!!luckysheetFreezen.verticalmovestate) {
+        } else if (luckysheetFreezen.verticalmovestate) {
             let mouse = mouseposition(event.pageX, event.pageY);
             let scrollLeft = $("#luckysheet-cell-main").scrollLeft();
             let scrollTop = $("#luckysheet-cell-main").scrollTop();

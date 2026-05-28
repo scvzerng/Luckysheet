@@ -339,7 +339,7 @@ const cellUpdate = {
 
             //动态数组
             let dynamicArray = null;
-            if (!!dynamicArrayItem) {
+            if (dynamicArrayItem) {
                 // let file = Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)];
                 dynamicArray = $.extend(true, [], this.insertUpdateDynamicArray(dynamicArrayItem));
                 // dynamicArray.push(dynamicArrayItem);

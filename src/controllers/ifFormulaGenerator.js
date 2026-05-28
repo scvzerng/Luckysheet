@@ -292,7 +292,7 @@ const ifFormulaGenerator = {
         let compareValue = "";
         let ifListHtml = '';
 
-        if(!!fp){
+        if(fp){
             let arr = fp.split("if(");
 
             for(let i = 1; i < arr.length; i++){

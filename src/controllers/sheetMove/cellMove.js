@@ -301,7 +301,7 @@ function luckysheetMoveHighlightCell(postion, index, type, isScroll) {
 
     //focus单元格 是否是合并单元格
     let margeset = menuButton.mergeborer(Store.flowdata, curR, curC);
-    if (!!margeset) {
+    if (margeset) {
       let str_r = margeset.row[2];
       let end_r = margeset.row[3];
       let str_c = margeset.column[2];
@@ -347,7 +347,7 @@ function luckysheetMoveHighlightCell(postion, index, type, isScroll) {
 
     //移动的下一个单元格是否是合并的单元格
     let margeset2 = menuButton.mergeborer(Store.flowdata, curR, curC);
-    if (!!margeset2) {
+    if (margeset2) {
       row = margeset2.row[1];
       row_pre = margeset2.row[0];
       row_index = margeset2.row[2];
@@ -397,7 +397,7 @@ function luckysheetMoveHighlightCell(postion, index, type, isScroll) {
 
     //focus单元格 是否是合并单元格
     let margeset = menuButton.mergeborer(Store.flowdata, curR, curC);
-    if (!!margeset) {
+    if (margeset) {
       let str_r = margeset.row[2];
       let end_r = margeset.row[3];
       let str_c = margeset.column[2];
@@ -443,7 +443,7 @@ function luckysheetMoveHighlightCell(postion, index, type, isScroll) {
 
     //移动的下一个单元格是否是合并的单元格
     let margeset2 = menuButton.mergeborer(Store.flowdata, curR, curC);
-    if (!!margeset2) {
+    if (margeset2) {
       row = margeset2.row[1];
       row_pre = margeset2.row[0];
       row_index = margeset2.row[2];

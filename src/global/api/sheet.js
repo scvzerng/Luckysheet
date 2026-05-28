@@ -32,7 +32,7 @@ export function setSheetAdd(options = {}) {
         })
     }
     let sheetname = sheetmanage.generateRandomSheetName(Store.luckysheetfile, false);
-    if(!!sheetObject.name){
+    if(sheetObject.name){
         let sameName = false;
 
         for(let i = 0; i < Store.luckysheetfile.length; i++){

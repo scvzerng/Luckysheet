@@ -792,7 +792,7 @@ const arrayMatrixFunctions = {
       //计算
       function Ma(a, n) {
         var A;
-        var b = new Array();
+        var b = [];
         if (n == 1) {
           A = a[0][0];
           return A;
@@ -804,20 +804,20 @@ const arrayMatrixFunctions = {
           return A;
         } else {
           A = 0;
-          var c = new Array();
-          var e = new Array();
+          var c = [];
+          var e = [];
           for (var i = 0; i < n; i++) {
             b[i] = a[i][0] * Math.pow(-1, i + 1 + 1);
           }
           for (var i = 0; i < n; i++) {
-            e[i] = new Array();
+            e[i] = [];
             for (var j = 0; j < n - 1; j++) {
               e[i][j] = a[i][j + 1];
             }
           }
           for (var i = 0; i < n; i++) {
             for (var j = 0; j < n; j++) {
-              c[j] = new Array();
+              c[j] = [];
               for (var k = 0; k < n - 1; k++) {
                 if (i > j) {
                   c[j][k] = e[j][k];
