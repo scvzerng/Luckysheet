@@ -7,6 +7,8 @@ import { luckysheetContainerFocus, mouseclickposition, replaceHtml } from '../..
 import { checkMenuOverflow } from '../../../utils/domUtils.js';
 import alternateformat from '../../alternateformat';
 import luckysheetConfigsetting from '../../luckysheetConfigsetting';
+import { createColorPicker, getPicker, STANDARD_PALETTE } from '../../../components/ColorPicker';
+import '../../../components/ColorPicker/colorPicker.css';
 
 export function initCellColor(_this) {
       //背景颜色
@@ -40,42 +42,28 @@ export function initCellColor(_this) {
           });
           $("body").append(menu);
           $menuButton = $("#" + menuButtonId);
-          $("#" + menuButtonId).find(".luckysheet-color-selected").spectrum({
-            showPalette: true,
+          createColorPicker($("#" + menuButtonId).find(".luckysheet-color-selected")[0], {
             showPaletteOnly: true,
-            preferredFormat: "hex",
-            clickoutFiresChange: false,
-            showInitial: true,
-            showInput: true,
             flat: true,
             hideAfterPaletteSelect: true,
-            showSelectionPalette: true,
-            maxPaletteSize: 8,
-            maxSelectionSize: 8,
+            showButtons: true,
+            showInput: true,
+            showInitial: true,
+            togglePaletteOnly: true,
             color: luckysheetConfigsetting.defaultCellColor,
-            cancelText: locale_button.cancel,
             chooseText: locale_button.confirm,
+            cancelText: locale_button.cancel,
             togglePaletteMoreText: locale_toolbar.customColor,
             togglePaletteLessText: locale_toolbar.collapse,
-            togglePaletteOnly: true,
-            clearText: locale_toolbar.clearText,
-            noColorSelectedText: locale_toolbar.noColorSelectedText,
             localStorageKey: "spectrum.bgcolor" + luckysheetConfigsetting.gridKey,
-            palette: [["#000", "#444", "#666", "#999", "#ccc", "#eee", "#f3f3f3", "#fff"], ["#f00", "#f90", "#ff0", "#0f0", "#0ff", "#00f", "#90f", "#f0f"], ["#f4cccc", "#fce5cd", "#fff2cc", "#d9ead3", "#d0e0e3", "#cfe2f3", "#d9d2e9", "#ead1dc"], ["#ea9999", "#f9cb9c", "#ffe599", "#b6d7a8", "#a2c4c9", "#9fc5e8", "#b4a7d6", "#d5a6bd"], ["#e06666", "#f6b26b", "#ffd966", "#93c47d", "#76a5af", "#6fa8dc", "#8e7cc3", "#c27ba0"], ["#c00", "#e69138", "#f1c232", "#6aa84f", "#45818e", "#3d85c6", "#674ea7", "#a64d79"], ["#900", "#b45f06", "#bf9000", "#38761d", "#134f5c", "#0b5394", "#351c75", "#741b47"], ["#600", "#783f04", "#7f6000", "#274e13", "#0c343d", "#073763", "#20124d", "#4c1130"]],
+            maxPaletteSize: 8,
+            palette: STANDARD_PALETTE,
             change: function (color) {
-              let $input = $(this);
-              if (color != null) {
-                color = color.toHexString();
-              } else {
-                color = "#fff";
-              }
-              let oldcolor = null;
-              // $("#luckysheet-icon-cell-color .luckysheet-color-menu-button-indicator").css("border-bottom-color", color);
-              // 下边框换成了一个DIV
-              $("#luckysheet-icon-cell-color .text-color-bar").css("background-color", color);
-              $("#luckysheet-icon-cell-color").attr("color", color);
+              let hexColor = color != null ? color.toHexString() : "#fff";
+              document.querySelector("#luckysheet-icon-cell-color .text-color-bar").style.backgroundColor = hexColor;
+              document.getElementById("luckysheet-icon-cell-color").setAttribute("color", hexColor);
               let d = editor.deepCopyFlowData(Store.flowdata);
-              _this.updateFormat(d, "bg", color);
+              _this.updateFormat(d, "bg", hexColor);
               $menuButton.hide();
               luckysheetContainerFocus();
             }
@@ -83,11 +71,11 @@ export function initCellColor(_this) {
           $menuButton.find(".luckysheet-color-reset").click(function () {
             $menuButton.hide();
             luckysheetContainerFocus();
-            let $input = $("#" + menuButtonId).find(".luckysheet-color-selected");
-            $input.val("#ffffff");
-            $("#luckysheet-icon-cell-color").attr("color", null);
-            $input.spectrum("set", "#ffffff");
-            $("#luckysheet-icon-cell-color .luckysheet-color-menu-button-indicator").css("border-bottom-color", "#ffffff");
+            let input = document.querySelector("#" + menuButtonId + " .luckysheet-color-selected");
+            input.value = "#ffffff";
+            document.getElementById("luckysheet-icon-cell-color").removeAttribute("color");
+            getPicker(input)?.set("#ffffff");
+            document.querySelector("#luckysheet-icon-cell-color .luckysheet-color-menu-button-indicator").style.borderBottomColor = "#ffffff";
             let d = editor.deepCopyFlowData(Store.flowdata);
             _this.updateFormat(d, "bg", null);
           });
@@ -117,7 +105,7 @@ export function initCellColor(_this) {
             alternateformat.init();
             alternateformat.perfect();
           });
-          $("#" + menuButtonId).find(".luckysheet-color-selected").val("#fff");
+          document.querySelector("#" + menuButtonId + " .luckysheet-color-selected").value = "#fff";
         }
         let userlen = $(this).outerWidth();
         let tlen = $menuButton.outerWidth();
@@ -127,8 +115,9 @@ export function initCellColor(_this) {
         }
         let offsetTop = $(this).offset().top + 26;
         setTimeout(function () {
-          let $input = $("#" + menuButtonId).find(".luckysheet-color-selected");
-          $input.spectrum("set", $input.val());
+          let input = document.querySelector("#" + menuButtonId + " .luckysheet-color-selected");
+          getPicker(input)?.set(input.value);
+          getPicker(input)?.resetView();
           mouseclickposition($menuButton, menuleft - 28, offsetTop, "lefttop");
         }, 1);
       });

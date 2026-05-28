@@ -1,6 +1,7 @@
 import { getSheetIndex } from '../../../methods/get';
 import { parseConditionRange } from '../rangeParser.js';
 import locale from '../../../locale/locale';
+import { getPicker } from '../../../components/ColorPicker';
 
 export function initEditRuleEvents(_this) {
       const conditionformat_Text = locale().conditionformat;
@@ -25,7 +26,7 @@ export function initEditRuleEvents(_this) {
         if (index == 0) {
           if (type1 == "dataBar") {
             //数据�?
-            let color = $(this).parents("#luckysheet-editorConditionRule-dialog").find(".dataBarBox .luckysheet-conditionformat-config-color").spectrum("get").toHexString();
+            let color = getPicker(document.querySelector("#luckysheet-editorConditionRule-dialog .dataBarBox .luckysheet-conditionformat-config-color"))?.get('hex') || "#000";
             if (type2 == "gradient") {
               //渐变填充
               format = [color, "#ffffff"];
@@ -40,9 +41,9 @@ export function initEditRuleEvents(_this) {
             };
           } else if (type1 == "colorGradation") {
             //色阶
-            let maxcolor = $(this).parents("#luckysheet-editorConditionRule-dialog").find(".colorGradationBox .maxVal .luckysheet-conditionformat-config-color").spectrum("get").toRgbString();
-            let midcolor = $(this).parents("#luckysheet-editorConditionRule-dialog").find(".colorGradationBox .midVal .luckysheet-conditionformat-config-color").spectrum("get").toRgbString();
-            let mincolor = $(this).parents("#luckysheet-editorConditionRule-dialog").find(".colorGradationBox .minVal .luckysheet-conditionformat-config-color").spectrum("get").toRgbString();
+            let maxcolor = getPicker(document.querySelector("#luckysheet-editorConditionRule-dialog .colorGradationBox .maxVal .luckysheet-conditionformat-config-color"))?.get('rgb') || "rgb(0, 0, 0)";
+            let midcolor = getPicker(document.querySelector("#luckysheet-editorConditionRule-dialog .colorGradationBox .midVal .luckysheet-conditionformat-config-color"))?.get('rgb') || "rgb(0, 0, 0)";
+            let mincolor = getPicker(document.querySelector("#luckysheet-editorConditionRule-dialog .colorGradationBox .minVal .luckysheet-conditionformat-config-color"))?.get('rgb') || "rgb(0, 0, 0)";
             if (type2 == "threeColor") {
               //三色
               format = [maxcolor, midcolor, mincolor];
@@ -190,13 +191,13 @@ export function initEditRuleEvents(_this) {
           //格式颜色
           let textcolor;
           if ($("#luckysheet-editorConditionRule-dialog #checkTextColor").is(":checked")) {
-            textcolor = $("#luckysheet-editorConditionRule-dialog #textcolorshow").spectrum("get").toHexString();
+            textcolor = getPicker(document.querySelector("#luckysheet-editorConditionRule-dialog #textcolorshow"))?.get('hex') || "#000";
           } else {
             textcolor = null;
           }
           let cellcolor;
           if ($("#luckysheet-editorConditionRule-dialog #checkCellColor").is(":checked")) {
-            cellcolor = $("#luckysheet-editorConditionRule-dialog #cellcolorshow").spectrum("get").toHexString();
+            cellcolor = getPicker(document.querySelector("#luckysheet-editorConditionRule-dialog #cellcolorshow"))?.get('hex') || "#000";
           } else {
             cellcolor = null;
           }

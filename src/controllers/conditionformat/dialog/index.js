@@ -6,6 +6,8 @@ import luckysheetConfigsetting from "../../luckysheetConfigsetting";
 import locale from "../../../locale/locale";
 import Store from "../../../store";
 import dayjs from 'dayjs';
+import { createColorPicker, getPicker, STANDARD_PALETTE } from '../../../components/ColorPicker';
+import '../../../components/ColorPicker/colorPicker.css';
 
 import { initAdminRuleEvents } from './initAdminRuleEvents.js';
 import { initNewRuleEvents } from './initNewRuleEvents.js';
@@ -423,19 +425,19 @@ const dialogModule = {
         } else if (ruleFormat.length == 1) {
           $("#luckysheet-editorConditionRule-dialog .dataBarBox #type2").val("solid");
         }
-        $("#luckysheet-editorConditionRule-dialog .dataBarBox .luckysheet-conditionformat-config-color").spectrum("set", ruleFormat[0]);
+        getPicker(document.querySelector("#luckysheet-editorConditionRule-dialog .dataBarBox .luckysheet-conditionformat-config-color"))?.set(ruleFormat[0]);
       } else if (type1 == "colorGradation") {
         if (ruleFormat.length == 3) {
           $("#luckysheet-editorConditionRule-dialog .colorGradationBox #type2").val("threeColor");
           $("#luckysheet-editorConditionRule-dialog .colorGradationBox .midVal").show();
-          $("#luckysheet-editorConditionRule-dialog .colorGradationBox .maxVal .luckysheet-conditionformat-config-color").spectrum("set", ruleFormat[0]);
-          $("#luckysheet-editorConditionRule-dialog .colorGradationBox .midVal .luckysheet-conditionformat-config-color").spectrum("set", ruleFormat[1]);
-          $("#luckysheet-editorConditionRule-dialog .colorGradationBox .minVal .luckysheet-conditionformat-config-color").spectrum("set", ruleFormat[2]);
+          getPicker(document.querySelector("#luckysheet-editorConditionRule-dialog .colorGradationBox .maxVal .luckysheet-conditionformat-config-color"))?.set(ruleFormat[0]);
+          getPicker(document.querySelector("#luckysheet-editorConditionRule-dialog .colorGradationBox .midVal .luckysheet-conditionformat-config-color"))?.set(ruleFormat[1]);
+          getPicker(document.querySelector("#luckysheet-editorConditionRule-dialog .colorGradationBox .minVal .luckysheet-conditionformat-config-color"))?.set(ruleFormat[2]);
         } else if (ruleFormat.length == 2) {
           $("#luckysheet-editorConditionRule-dialog .colorGradationBox #type2").val("twoColor");
           $("#luckysheet-editorConditionRule-dialog .colorGradationBox .midVal").hide();
-          $("#luckysheet-editorConditionRule-dialog .colorGradationBox .maxVal .luckysheet-conditionformat-config-color").spectrum("set", ruleFormat[0]);
-          $("#luckysheet-editorConditionRule-dialog .colorGradationBox .minVal .luckysheet-conditionformat-config-color").spectrum("set", ruleFormat[1]);
+          getPicker(document.querySelector("#luckysheet-editorConditionRule-dialog .colorGradationBox .maxVal .luckysheet-conditionformat-config-color"))?.set(ruleFormat[0]);
+          getPicker(document.querySelector("#luckysheet-editorConditionRule-dialog .colorGradationBox .minVal .luckysheet-conditionformat-config-color"))?.set(ruleFormat[1]);
         }
       } else if (type1 == "icons") {
         let len = ruleFormat["len"];
@@ -508,8 +510,8 @@ const dialogModule = {
           $("#luckysheet-editorConditionRule-dialog #formulaConditionVal input").val(val1);
         }
       }
-      $("#luckysheet-editorConditionRule-dialog #textcolorshow").spectrum("set", ruleFormat.textColor);
-      $("#luckysheet-editorConditionRule-dialog #cellcolorshow").spectrum("set", ruleFormat.cellColor);
+      getPicker(document.querySelector("#luckysheet-editorConditionRule-dialog #textcolorshow"))?.set(ruleFormat.textColor);
+      getPicker(document.querySelector("#luckysheet-editorConditionRule-dialog #cellcolorshow"))?.set(ruleFormat.cellColor);
     }
   },
   infoDialog: function (title, content) {
@@ -717,35 +719,11 @@ const dialogModule = {
     return ruleExplainHtml;
   },
   colorSelectInit: function () {
-    const conditionformat_Text = locale().conditionformat;
-    $(".luckysheet-conditionformat-config-color").spectrum({
-      showPalette: true,
-      showPaletteOnly: true,
-      preferredFormat: "hex",
-      clickoutFiresChange: false,
-      showInitial: true,
-      showInput: true,
-      // flat: true,
-      hideAfterPaletteSelect: true,
-      showSelectionPalette: true,
-      // showButtons: false,//隐藏选择取消按钮
-      maxPaletteSize: 8,
-      maxSelectionSize: 8,
-      // color: currenColor,
-      cancelText: conditionformat_Text.cancel,
-      chooseText: conditionformat_Text.confirmColor,
-      togglePaletteMoreText: "自定义",
-      togglePaletteLessText: "收起",
-      togglePaletteOnly: true,
-      clearText: conditionformat_Text.clearColorSelect,
-      noColorSelectedText: "没有颜色被选择",
-      localStorageKey: "spectrum.textcolor" + luckysheetConfigsetting.gridKey,
-      palette: [["#000", "#444", "#666", "#999", "#ccc", "#eee", "#f3f3f3", "#fff"], ["#f00", "#f90", "#ff0", "#0f0", "#0ff", "#00f", "#90f", "#f0f"], ["#f4cccc", "#fce5cd", "#fff2cc", "#d9ead3", "#d0e0e3", "#cfe2f3", "#d9d2e9", "#ead1dc"], ["#ea9999", "#f9cb9c", "#ffe599", "#b6d7a8", "#a2c4c9", "#9fc5e8", "#b4a7d6", "#d5a6bd"], ["#e06666", "#f6b26b", "#ffd966", "#93c47d", "#76a5af", "#6fa8dc", "#8e7cc3", "#c27ba0"], ["#c00", "#e69138", "#f1c232", "#6aa84f", "#45818e", "#3d85c6", "#674ea7", "#a64d79"], ["#900", "#b45f06", "#bf9000", "#38761d", "#134f5c", "#0b5394", "#351c75", "#741b47"], ["#600", "#783f04", "#7f6000", "#274e13", "#0c343d", "#073763", "#20124d", "#4c1130"]],
-      change: function (color) {
-        if (color != null) {
-          color = color.toHexString();
-        }
-      }
+    document.querySelectorAll(".luckysheet-conditionformat-config-color").forEach(function(el) {
+      createColorPicker(el, {
+        palette: STANDARD_PALETTE,
+        format: 'hex'
+      });
     });
   },
   daterangeInit: function (id) {

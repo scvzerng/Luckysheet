@@ -3,6 +3,7 @@ import { getSheetIndex } from '../../../methods/get';
 import { getCurrentFile } from '../../../utils/storeAccess.js';
 import Store from '../../../store';
 import locale from '../../../locale/locale';
+import { getPicker } from '../../../components/ColorPicker';
 
 export function initConditionDialogEvents(_this) {
       const conditionformat_Text = locale().conditionformat;
@@ -84,13 +85,13 @@ export function initConditionDialogEvents(_this) {
         //格式颜色
         let textcolor;
         if ($("#checkTextColor").is(":checked")) {
-          textcolor = $("#textcolorshow").spectrum("get").toHexString();
+          textcolor = getPicker(document.getElementById("textcolorshow"))?.get('hex') || "#000";
         } else {
           textcolor = null;
         }
         let cellcolor;
         if ($("#checkCellColor").is(":checked")) {
-          cellcolor = $("#cellcolorshow").spectrum("get").toHexString();
+          cellcolor = getPicker(document.getElementById("cellcolorshow"))?.get('hex') || "#fff";
         } else {
           cellcolor = null;
         }

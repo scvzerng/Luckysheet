@@ -1,0 +1,201 @@
+.lkcp-container {
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    user-select: none;
+    box-sizing: border-box;
+}
+
+.lkcp-container.lkcp-flat {
+    background: #fff;
+    border: solid 1px #fff;
+    padding: 4px;
+}
+
+.lkcp-container.lkcp-dropdown {
+    background: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    padding: 4px;
+    border-radius: 2px;
+}
+
+.lkcp-palette-container {
+    display: block;
+}
+
+.lkcp-palette {
+    max-width: 220px;
+}
+
+.lkcp-palette-row {
+    display: flex;
+    flex-wrap: nowrap;
+    margin-bottom: 2px;
+}
+
+.lkcp-swatch {
+    width: 24px;
+    height: 24px;
+    margin: 1px;
+    cursor: pointer;
+    border: 1px solid #d0d0d0;
+    border-radius: 2px;
+    box-sizing: border-box;
+    transition: border-color 0.1s;
+}
+
+.lkcp-swatch:hover {
+    border-color: #333;
+    transform: scale(1.1);
+    z-index: 1;
+    position: relative;
+}
+
+.lkcp-recent-row {
+    margin-top: 4px;
+    padding-top: 4px;
+    border-top: 1px solid #e0e0e0;
+}
+
+.lkcp-palette-toggle {
+    text-align: center;
+    padding: 4px 0;
+    color: #1a73e8;
+    cursor: pointer;
+    font-size: 12px;
+    margin-top: 2px;
+}
+
+.lkcp-palette-toggle:hover {
+    text-decoration: underline;
+}
+
+.lkcp-custom-outer {
+    margin-top: 4px;
+}
+
+.lkcp-custom-container {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.lkcp-custom-top {
+    display: flex;
+    gap: 8px;
+}
+
+.lkcp-sv-wrap {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    cursor: crosshair;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.lkcp-sv-canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.lkcp-sv-dragger {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    box-shadow: 0 0 2px rgba(0,0,0,0.5);
+    pointer-events: none;
+    transform: translate(-1px, -1px);
+}
+
+.lkcp-hue-wrap {
+    position: relative;
+    width: 20px;
+    height: 150px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.lkcp-hue-canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.lkcp-hue-slider {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 6px;
+    background: #fff;
+    border: 1px solid #999;
+    box-shadow: 0 0 2px rgba(0,0,0,0.3);
+    pointer-events: none;
+}
+
+.lkcp-input-wrap {
+    display: flex;
+    align-items: center;
+}
+
+.lkcp-input {
+    width: 100%;
+    padding: 2px 4px;
+    font-size: 12px;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    outline: none;
+    font-family: monospace;
+}
+
+.lkcp-input:focus {
+    border-color: #1a73e8;
+}
+
+.lkcp-initial-wrap {
+    display: flex;
+    gap: 4px;
+    height: 24px;
+}
+
+.lkcp-initial-swatch,
+.lkcp-current-swatch {
+    flex: 1;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+}
+
+.lkcp-btn-wrap {
+    display: flex;
+    justify-content: flex-end;
+    gap: 6px;
+}
+
+.lkcp-btn {
+    padding: 3px 10px;
+    font-size: 12px;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    cursor: pointer;
+    background: #fff;
+}
+
+.lkcp-btn:hover {
+    background: #f5f5f5;
+}
+
+.lkcp-btn-choose {
+    background: #1a73e8;
+    color: #fff;
+    border-color: #1a73e8;
+}
+
+.lkcp-btn-choose:hover {
+    background: #1557b0;
+}
