@@ -94,7 +94,6 @@ const paths = {
         'node_modules/jquery/dist/jquery.min.js',
         'node_modules/uuid/dist/umd/uuid.min.js',
         'src/plugins/js/clipboard.min.js',
-        'src/plugins/js/spectrum.min.js',
         'src/plugins/js/jquery-ui.min.js',
         'src/plugins/js/jquery.mousewheel.min.js',
         // 'src/plugins/js/numeral.min.js',

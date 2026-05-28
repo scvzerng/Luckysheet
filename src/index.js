@@ -6,7 +6,6 @@ import __firefox from './utils/polyfill'
 window.jQuery = jQuery
 window.$ = jQuery
 
-import 'spectrum-colorpicker/spectrum.css'
 import '@fortawesome/fontawesome-free/css/all.min.css'
 import './plugins/jquery.sPage.css'
 import './css/core/index.css'

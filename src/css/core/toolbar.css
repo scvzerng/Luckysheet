@@ -597,23 +597,7 @@
 /* .luckysheet-icon-autofilter {
     left: -36px;
     top: -406px;
-} */
-
-
-
-.luckysheet-rightgclick-menu-sub .sp-container {
-    background-color: #ffffff;
-    border: solid 1px #ffffff;
 }
 
-#luckysheet-icon-text-color-menu-menuButton .sp-palette-container,
-#luckysheet-icon-cell-color-menu-menuButton .sp-palette-container {
-    margin-bottom: -300px;
-}
-
-#luckysheet-icon-text-color-menu-menuButton .sp-palette,
-#luckysheet-icon-cell-color-menu-menuButton .sp-palette {
-    margin-top: -10px;
-}
 
 /*toolbar菜单end*/

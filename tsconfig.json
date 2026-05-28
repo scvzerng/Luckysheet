@@ -21,7 +21,7 @@
     "paths": {
       "@/*": ["src/*"]
     },
-    "types": ["jquery", "jquery-ui", "spectrum-colorpicker"]
+    "types": ["jquery", "jquery-ui"]
   },
   "include": ["src/**/*"],
   "exclude": [
