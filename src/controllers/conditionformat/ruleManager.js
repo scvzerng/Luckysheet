@@ -1,17 +1,9 @@
-import { getSheetIndex, getRangetxt } from "../../methods/get";
-import { replaceHtml, getObjType, chatatABC } from "../../utils/util";
-import formula from "../../global/formula";
-import { isRealNull, isEditMode } from "../../global/validate";
-import tooltip from "../../global/tooltip";
+import {  getSheetIndex } from "../../methods/get";
+import {  chatatABC  } from "../../utils/util";
 import { luckysheetrefreshgrid } from "../../global/refresh";
-import { getcellvalue } from "../../global/getdata";
-import { genarate } from "../../global/format";
-import { modelHTML, luckysheet_CFiconsImg } from "../constant";
-import { selectionCopyShow } from "../select";
-import sheetmanage from "../sheetmanage";
+import {  luckysheet_CFiconsImg  } from "../constant";
 import locale from "../../locale/locale";
 import Store from "../../store";
-import dayjs from 'dayjs';
 
 //条件格式
 const ruleManagerModule = {

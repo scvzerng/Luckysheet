@@ -1,9 +1,5 @@
-import {luckysheetfontformat} from '../../utils/util';
 import menuButton from '../../controllers/menuButton';
-import {checkstatusByCell} from '../../global/getdata';
-import {colLocationByIndex,colSpanLocationByIndex} from '../../global/location';
-import {checkWordByteLength, hasChinaword, isRealNull} from '../../global/validate';
-import {isInlineStringCell} from '../../controllers/inlineString';
+import {  hasChinaword } from '../../global/validate';
 import Store from '../../store';
 
 function getMeasureText(value, ctx, fontset){

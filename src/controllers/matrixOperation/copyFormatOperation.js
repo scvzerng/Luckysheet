@@ -1,12 +1,10 @@
 import selection from '../selection';
-import { getObjType, chatatABC, numFormat, luckysheetContainerFocus } from '../../utils/util';
+import {  getObjType,  chatatABC,  luckysheetContainerFocus  } from '../../utils/util';
 import { hasPartMC, isEditMode } from '../../global/validate';
 import { getdatabyselection, getcellvalue } from '../../global/getdata';
 import tooltip from '../../global/tooltip';
-import editor from '../../global/editor';
 import locale from '../../locale/locale';
 import Store from '../../store';
-import { checkMultiSelection, checkPartMerge } from './matrixValidation';
 
 function initialCopyFormatOperation() {
     const locale_drag = locale().drag;

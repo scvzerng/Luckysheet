@@ -1,4 +1,3 @@
-import formula from '../../../global/formula';
 import { getSheetIndex } from '../../../methods/get';
 import Store from '../../../store';
 import { selectionCopyShow } from '../../select';
@@ -14,11 +13,11 @@ export function initAdminRuleEvents(_this) {
         $(this).addClass("on").siblings().removeClass("on");
       });
       $(document).off("click.CFadministerRuleConfirm").on("click.CFadministerRuleConfirm", "#luckysheet-administerRule-dialog-confirm", function () {
-        //保存之前的规�?
+        //保存之前的规�?
         let fileH = $.extend(true, [], Store.luckysheetfile);
         let historyRules = _this.getHistoryRules(fileH);
   
-        //保存当前的规�?
+        //保存当前的规�?
         let fileClone = $.extend(true, [], _this.fileClone);
         for (let c = 0; c < fileClone.length; c++) {
           let sheetIndex = fileClone[c]["index"];
@@ -27,7 +26,7 @@ export function initAdminRuleEvents(_this) {
         let fileC = $.extend(true, [], Store.luckysheetfile);
         let currentRules = _this.getCurrentRules(fileC);
   
-        //刷新一次表�?
+        //刷新一次表�?
         _this.ref(historyRules, currentRules);
   
         //隐藏一些dom

@@ -1,4 +1,4 @@
-import { isRealNum, valueIsError, error } from '../../global/validate';
+import {  error  } from '../../global/validate';
 import { getObjType } from '../../utils/util';
 import { booleanOperation } from './compareHelpers';
 

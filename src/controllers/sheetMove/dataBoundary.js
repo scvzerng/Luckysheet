@@ -1,9 +1,5 @@
 import { getObjType } from "../../utils/util";
-import formula from "../../global/formula";
 import { isRealNull } from "../../global/validate";
-import { countfunc } from "../../global/count";
-import menuButton from "../menuButton";
-import { selectHightlightShow } from "../select";
 import Store from "../../store";
 function getNextIndex(direction, focusIndex, strIndex, endIndex) {
   let index = null;

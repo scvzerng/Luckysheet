@@ -1,18 +1,13 @@
-import { rowLocationByIndex, colLocationByIndex } from "../../../global/location";
-import { countfunc } from "../../../global/count";
 import { getBorderInfoCompute } from "../../../global/border";
 import { isRealNum } from "../../../global/validate";
-import { genarate, update } from "../../../global/format";
+import {  genarate } from "../../../global/format";
 import { jfrefreshgrid } from "../../../global/refresh";
 import editor from "../../../global/editor";
 import formula from "../../../global/formula";
 import conditionformat from "../../conditionformat";
 import { selectHightlightShow } from "../../select";
 import { getSheetIndex } from "../../../methods/get";
-import { getObjType, replaceHtml } from "../../../utils/util";
 import Store from "../../../store";
-import locale from "../../../locale/locale";
-import dayjs from 'dayjs';
 
 import { getDataByType0 } from './coreSub/getDataByType0.js';
 import { getDataByType1 } from './coreSub/getDataByType1.js';

@@ -1,19 +1,12 @@
-import rhchInit from '../rhchInit';
 import formula from '../formula';
 import editor from '../editor';
-import { setcellvalue } from '../setdata';
-import { getcellFormula } from '../getdata';
-import { computeRowlenArr } from '../getRowlen';
 import { 
     luckysheetDrawMain, 
     luckysheetDrawgridRowTitle, 
     luckysheetDrawgridColumnTitle 
 } from '../draw';
-import luckysheetFreezen from '../../controllers/freezen';
 import sheetmanage from '../../controllers/sheetmanage';
-import luckysheetPostil from '../../controllers/postil';
 import hyperlinkCtrl from '../../controllers/hyperlinkCtrl';
-import { createFilterOptions } from '../../controllers/filter';
 import { getSheetIndex } from '../../methods/get';
 import { selectHightlightShow } from '../../controllers/select';
 import Store from '../../store';

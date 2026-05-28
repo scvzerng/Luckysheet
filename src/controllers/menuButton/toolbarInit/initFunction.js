@@ -1,4 +1,3 @@
-import editor from '../../../global/editor';
 import luckysheetformula from '../../../global/formula';
 import tooltip from '../../../global/tooltip';
 import { isEditMode } from '../../../global/validate';
@@ -90,7 +89,7 @@ export function initFunction(_this) {
               }
               ifFormulaGenerator.init();
             } else if (itemvalue == "formula") {
-              //点击函数查找弹出�?
+              //点击函数查找弹出�?
               if (Store.luckysheet_select_save.length == 0) {
                 if (isEditMode()) {
                   alert(locale_formula.tipSelectCell);
@@ -108,10 +107,10 @@ export function initFunction(_this) {
                 //单元格有计算
                 let functionStr = luckysheetformula.getfunctionParam(cell.f);
                 if (functionStr.fn != null) {
-                  //有函数公�?
+                  //有函数公�?
                   insertFormula.formulaParmDialog(functionStr.fn, functionStr.param);
                 } else {
-                  //无函数公�?
+                  //无函数公�?
                   insertFormula.formulaListDialog();
                 }
               } else {

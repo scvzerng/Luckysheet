@@ -1,7 +1,7 @@
-import { luckysheetdeletetable, luckysheetextendtable } from '../../../global/extend';
+import {  luckysheetdeletetable } from '../../../global/extend';
 import method from '../../../global/method';
 import tooltip from '../../../global/tooltip';
-import { isEditMode, isRealNum } from '../../../global/validate';
+import {  isEditMode } from '../../../global/validate';
 import locale from '../../../locale/locale';
 import Store from '../../../store';
 import { luckysheetContainerFocus } from '../../../utils/util';

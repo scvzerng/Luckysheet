@@ -1,9 +1,4 @@
 import { getObjType } from "../../utils/util";
-import formula from "../../global/formula";
-import { isRealNull } from "../../global/validate";
-import { countfunc } from "../../global/count";
-import menuButton from "../menuButton";
-import { selectHightlightShow } from "../select";
 import Store from "../../store";
 //shift + 方向键 / ctrl + shift + 方向键 功能
 function rowHasMerge(r, c1, c2) {

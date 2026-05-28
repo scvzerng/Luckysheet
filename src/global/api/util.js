@@ -5,7 +5,6 @@ import luckysheetsizeauto from "../../controllers/resize";
 import luckysheetSearchReplace from "../../controllers/searchReplace";
 import sheetmanage from "../../controllers/sheetmanage";
 import locale from "../../locale/locale";
-import { getSheetIndex } from "../../methods/get";
 import Store from "../../store";
 import { getObjType } from "../../utils/util";
 import formula from "../formula";

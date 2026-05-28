@@ -1,9 +1,7 @@
 import Store from '../../store';
-import { hasPartMC } from '../../global/validate';
 import tooltip from '../../global/tooltip';
 import locale from '../../locale/locale';
 import { isEditMode } from '../../global/validate';
-import { luckysheetContainerFocus } from '../../utils/util';
 
 function checkMultiSelection() {
     const _locale = locale();

@@ -1,7 +1,7 @@
 import formula from '../../global/formula';
 import tooltip from '../../global/tooltip';
 import { getdatabyselectionD } from '../../global/getdata';
-import { getSheetIndex, getluckysheetfile, getRangetxt } from '../../methods/get';
+import {  getSheetIndex,  getluckysheetfile } from '../../methods/get';
 import { ABCatNum } from '../../utils/util';
 import Store from '../../store';
 

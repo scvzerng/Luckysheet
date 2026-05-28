@@ -1,6 +1,4 @@
 ﻿import Store from '../store';
-import locale from '../locale/locale';
-import { replaceHtml } from '../utils/util';
 import sheetmanage from './sheetmanage';
 import {changeSheetContainerSize} from './resize';
 import { jfrefreshgrid_rhcw } from '../global/refresh';

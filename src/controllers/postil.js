@@ -1,6 +1,5 @@
 ﻿﻿﻿import { rowLocation, colLocation, mouseposition } from '../global/location';
 import editor from '../global/editor';
-import formula from '../global/formula';
 import { luckysheetRangeLast } from '../global/cursorPos';
 import { luckysheetrefreshgrid } from '../global/refresh';
 import { setluckysheet_scroll_status } from '../methods/set';

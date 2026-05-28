@@ -1,4 +1,4 @@
-import { columeHeader_word, columeHeader_word_index } from '../../controllers/constant';
+import {  columeHeader_word } from '../../controllers/constant';
 
 function ABCatNum(a) {
     // abc = abc.toUpperCase();

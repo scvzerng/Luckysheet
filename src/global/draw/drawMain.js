@@ -1,22 +1,17 @@
 import conditionformat from "../../controllers/conditionformat";
 import alternateformat from "../../controllers/alternateformat";
 import menuButton from "../../controllers/menuButton";
-import { luckysheetdefaultstyle, luckysheet_CFiconsImg, luckysheetdefaultFont } from "../../controllers/constant";
+import {  luckysheetdefaultstyle,  luckysheetdefaultFont  } from "../../controllers/constant";
 import { luckysheet_searcharray } from "../../controllers/sheetSearch";
 import { dynamicArrayCompute } from "../dynamicArray";
-import browser from "../browser";
-import { isRealNull, isRealNum } from "../validate";
-import { getMeasureText, getCellTextInfo } from "../getRowlen";
 import { getRealCellValue } from "../getdata";
 import { getBorderInfoComputeRange } from "../border";
 import { getSheetIndex } from "../../methods/get";
-import { getObjType, chatatABC, luckysheetfontformat } from "../../utils/util";
-import { isInlineStringCell } from "../../controllers/inlineString";
+import {  getObjType } from "../../utils/util";
 import { nullCellRender, cellRender } from "./cellRender";
 import { getCellOverflowMap, cellOverflow_colIn } from "./cellOverflow";
 import method from "../method";
 import Store from "../../store";
-import locale from "../../locale/locale";
 import sheetmanage from "../../controllers/sheetmanage";
 function luckysheetDrawMain(scrollWidth, scrollHeight, drawWidth, drawHeight, offsetLeft, offsetTop, columnOffsetCell, rowOffsetCell, mycanvas) {
   if (Store.flowdata == null) {

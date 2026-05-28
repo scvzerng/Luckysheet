@@ -3,7 +3,6 @@ import sheetmanage from "../../controllers/sheetmanage";
 import { getSheetIndex } from "../../methods/get";
 import Store from "../../store";
 import { getObjType } from "../../utils/util";
-import { update } from "../format";
 import formula from "../formula";
 import method from "../method";
 import { jfrefreshgrid } from "../refresh";

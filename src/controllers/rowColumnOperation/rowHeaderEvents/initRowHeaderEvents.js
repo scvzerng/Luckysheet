@@ -1,5 +1,4 @@
 import { countfunc } from '../../../global/count';
-import editor from '../../../global/editor';
 import formula from '../../../global/formula';
 import { colLocationByIndex, mouseposition, rowLocation } from '../../../global/location';
 import { checkIsAllowEdit, isEditMode } from '../../../global/validate';

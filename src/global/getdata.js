@@ -4,7 +4,7 @@ import formula from './formula';
 import editor from './editor';
 import { dynamicArrayCompute } from './dynamicArray';
 import sheetmanage from '../controllers/sheetmanage';
-import { isInlineStringCT,isInlineStringCell,convertCssToStyleList } from '../controllers/inlineString';
+import {  isInlineStringCT, isInlineStringCell } from '../controllers/inlineString';
 import locale from '../locale/locale';
 import Store from '../store';
 

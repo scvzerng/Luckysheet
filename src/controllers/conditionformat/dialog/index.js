@@ -1,14 +1,7 @@
-import { getSheetIndex, getRangetxt } from "../../../methods/get";
-import { replaceHtml, getObjType, chatatABC } from "../../../utils/util";
-import formula from "../../../global/formula";
-import { isRealNull, isEditMode } from "../../../global/validate";
-import tooltip from "../../../global/tooltip";
-import { luckysheetrefreshgrid } from "../../../global/refresh";
-import { getcellvalue } from "../../../global/getdata";
-import { genarate } from "../../../global/format";
-import { modelHTML, luckysheet_CFiconsImg } from "../../constant";
+import {  getRangetxt  } from "../../../methods/get";
+import {  replaceHtml } from "../../../utils/util";
+import {  modelHTML } from "../../constant";
 import { selectionCopyShow } from "../../select";
-import sheetmanage from "../../sheetmanage";
 import luckysheetConfigsetting from "../../luckysheetConfigsetting";
 import locale from "../../../locale/locale";
 import Store from "../../../store";

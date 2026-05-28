@@ -1,20 +1,10 @@
-import { selectHightlightShow, selectionCopyShow } from "../select";
+import {  selectionCopyShow  } from "../select";
 import menuButton from "../menuButton";
-import conditionformat from "../conditionformat";
 import editor from "../../global/editor";
-import tooltip from "../../global/tooltip";
-import formula from "../../global/formula";
 import { getBorderInfoCompute } from "../../global/border";
-import { getdatabyselection, getcellvalue, datagridgrowth } from "../../global/getdata";
-import { rowlenByRange } from "../../global/getRowlen";
-import { isEditMode, hasPartMC, isRealNum } from "../../global/validate";
-import { jfrefreshgrid, jfrefreshgrid_pastcut } from "../../global/refresh";
-import { genarate, update } from "../../global/format";
-import { getSheetIndex } from "../../methods/get";
-import { replaceHtml, getObjType, luckysheetfontformat } from "../../utils/util";
+import {  getcellvalue } from "../../global/getdata";
+import {  replaceHtml,  getObjType } from "../../utils/util";
 import Store from "../../store";
-import locale from "../../locale/locale";
-import imageCtrl from "../imageCtrl";
 const clipboardCopyModule = {
   clearcopy: function (e) {
     let clipboardData = window.clipboardData; //for IE

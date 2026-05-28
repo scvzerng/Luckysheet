@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import {  describe,  it,  expect,  vi } from 'vitest';
 
 vi.mock('../../locale/locale', () => ({
     default: vi.fn(() => ({
@@ -21,7 +21,6 @@ vi.mock('../luckysheetConfigsetting', () => ({
 }));
 
 import { luckysheetdefaultFont, customCellRightClickConfig, customSheetRightClickConfig } from './configFunctions';
-import locale from '../../locale/locale';
 import luckysheetConfigsetting from '../luckysheetConfigsetting';
 
 describe('configFunctions - 配置函数', () => {

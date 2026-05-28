@@ -1,4 +1,3 @@
-import conditionformat from "../../controllers/conditionformat";
 import { luckysheetupdateCell } from "../../controllers/updateCell";
 import Store from "../../store";
 import formula from "../formula";

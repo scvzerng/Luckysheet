@@ -1,12 +1,8 @@
-import alternateformat from '../../alternateformat';
-import conditionformat from '../../conditionformat';
 import luckysheetFreezen from '../../freezen';
 import menuButton from '../../menuButton';
 import { luckysheetupdateCell } from '../../updateCell';
 import { mouseposition, rowLocation, colLocation } from '../../../global/location';
 import Store from '../../../store';
-import formula from '../../../global/formula';
-import { isEditMode } from '../../../global/validate';
 import { selectHightlightShow } from '../../select';
 
 export function handleCellDblclick(event) {

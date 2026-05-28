@@ -1,6 +1,5 @@
 import { hideMenuByCancel } from '../../../global/cursorPos';
 import editor from '../../../global/editor';
-import locale from '../../../locale/locale';
 import Store from '../../../store';
 import { luckysheetContainerFocus, mouseclickposition, replaceHtml } from '../../../utils/util';
 

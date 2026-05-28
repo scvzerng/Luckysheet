@@ -1,7 +1,7 @@
 import editor from '../../../global/editor';
 import { luckysheetDeleteCell } from '../../../global/extend';
 import formula from '../../../global/formula';
-import { jfrefreshgrid, jfrefreshgrid_rhcw } from '../../../global/refresh';
+import {  jfrefreshgrid } from '../../../global/refresh';
 import tooltip from '../../../global/tooltip';
 import { hasPartMC, isEditMode } from '../../../global/validate';
 import locale from '../../../locale/locale';

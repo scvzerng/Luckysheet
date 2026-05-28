@@ -1,4 +1,3 @@
-import formula from '../../../global/formula';
 import { getcellvalue } from '../../../global/getdata';
 import { getSheetIndex } from '../../../methods/get';
 import Store from '../../../store';

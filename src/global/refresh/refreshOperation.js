@@ -1,4 +1,3 @@
-import rhchInit from '../rhchInit';
 import formula from '../formula';
 import editor from '../editor';
 import { setcellvalue } from '../setdata';
@@ -11,14 +10,13 @@ import {
 } from '../draw';
 import luckysheetFreezen from '../../controllers/freezen';
 import sheetmanage from '../../controllers/sheetmanage';
-import luckysheetPostil from '../../controllers/postil';
 import hyperlinkCtrl from '../../controllers/hyperlinkCtrl';
 import { createFilterOptions } from '../../controllers/filter';
 import { getSheetIndex } from '../../methods/get';
 import { selectHightlightShow } from '../../controllers/select';
 import Store from '../../store';
 
-import { clearRefreshCanvasTimeOut, setRefreshCanvasTimeOut, runExecFunction } from './refreshCore';
+import {  clearRefreshCanvasTimeOut,  setRefreshCanvasTimeOut } from './refreshCore';
 import { luckysheetrefreshgrid, jfrefreshgrid_rhcw } from './refreshCanvas';
 
 function jfrefreshgrid_adRC(data, cfg, ctrlType, ctrlValue, calc, filterObj, cf, af, freezen, hyperlink){

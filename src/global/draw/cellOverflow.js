@@ -1,22 +1,12 @@
 import conditionformat from "../../controllers/conditionformat";
 import alternateformat from "../../controllers/alternateformat";
 import menuButton from "../../controllers/menuButton";
-import { luckysheetdefaultstyle, luckysheet_CFiconsImg, luckysheetdefaultFont } from "../../controllers/constant";
-import { luckysheet_searcharray } from "../../controllers/sheetSearch";
-import { dynamicArrayCompute } from "../dynamicArray";
-import browser from "../browser";
-import { isRealNull, isRealNum } from "../validate";
-import { getMeasureText, getCellTextInfo } from "../getRowlen";
-import { getRealCellValue } from "../getdata";
-import { getBorderInfoComputeRange } from "../border";
-import { getSheetIndex } from "../../methods/get";
-import { getObjType, chatatABC, luckysheetfontformat } from "../../utils/util";
+import {  isRealNull } from "../validate";
+import {  getCellTextInfo  } from "../getRowlen";
+import {  luckysheetfontformat  } from "../../utils/util";
 import { isInlineStringCell } from "../../controllers/inlineString";
 import { cellTextRender } from "./cellTextRender";
-import method from "../method";
 import Store from "../../store";
-import locale from "../../locale/locale";
-import sheetmanage from "../../controllers/sheetmanage";
 //鑾峰彇琛ㄦ牸娓叉煋鑼冨洿 婧㈠嚭鍗曞厓鏍?
 function getCellOverflowMap(canvas, col_st, col_ed, row_st, row_end) {
   let map = {};

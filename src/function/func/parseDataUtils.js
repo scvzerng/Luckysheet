@@ -1,4 +1,4 @@
-import { valueIsError, error } from '../../global/validate';
+import {  error  } from '../../global/validate';
 import { genarate } from '../../global/format';
 import formula from '../../global/formula';
 

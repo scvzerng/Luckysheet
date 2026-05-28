@@ -2,21 +2,13 @@ import conditionformat from "../../controllers/conditionformat";
 import alternateformat from "../../controllers/alternateformat";
 import menuButton from "../../controllers/menuButton";
 import { luckysheetdefaultstyle, luckysheet_CFiconsImg, luckysheetdefaultFont } from "../../controllers/constant";
-import { luckysheet_searcharray } from "../../controllers/sheetSearch";
-import { dynamicArrayCompute } from "../dynamicArray";
 import browser from "../browser";
-import { isRealNull, isRealNum } from "../validate";
-import { getMeasureText, getCellTextInfo } from "../getRowlen";
-import { getRealCellValue } from "../getdata";
-import { getBorderInfoComputeRange } from "../border";
-import { getSheetIndex } from "../../methods/get";
-import { getObjType, chatatABC, luckysheetfontformat } from "../../utils/util";
-import { isInlineStringCell } from "../../controllers/inlineString";
+import {  isRealNum  } from "../validate";
+import {  getCellTextInfo  } from "../getRowlen";
 import { cellOverflow_colIn, cellOverflowRender } from "./cellOverflow";
 import { cellTextRender } from "./cellTextRender";
 import method from "../method";
 import Store from "../../store";
-import locale from "../../locale/locale";
 import sheetmanage from "../../controllers/sheetmanage";
 let nullCellRender = function(
     r,

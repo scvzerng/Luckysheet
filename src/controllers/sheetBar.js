@@ -1,5 +1,4 @@
-﻿﻿﻿﻿
-import sheetmanage from './sheetmanage';
+﻿import sheetmanage from './sheetmanage';
 import { sheetselectlistitemHTML, sheetselectlistHTML, keycode } from './constant';
 import {
     replaceHtml,

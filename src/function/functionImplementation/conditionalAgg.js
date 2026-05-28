@@ -1,24 +1,7 @@
-import luckysheetConfigsetting from "../../controllers/luckysheetConfigsetting";
 import { luckysheet_getcelldata, luckysheet_parseData, luckysheet_getValue, luckysheet_calcADPMM } from "../func";
-import { inverse } from "../matrix_methods";
-import { getSheetIndex, getluckysheetfile, getRangetxt } from "../../methods/get";
-import menuButton from "../../controllers/menuButton";
 import formula from "../../global/formula";
-import func_methods from "../../global/func_methods";
-import editor from "../../global/editor";
-import { isdatetime, diff, isdatatype } from "../../global/datecontroll";
-import { isRealNum, isRealNull, valueIsError, error } from "../../global/validate";
-import { jfrefreshgrid, jfrefreshgridall } from "../../global/refresh";
-import { genarate, update } from "../../global/format";
-import { orderbydata } from "../../global/sort";
-import { getcellvalue, datagridgrowth } from "../../global/getdata";
-import { getObjType, ABCatNum, chatatABC, numFormat } from "../../utils/util";
-import Store from "../../store";
-import dayjs from 'dayjs';
-import numeral from 'numeral';
-import { getAirTable, companyTargetData, companyTargetData10, companyTargetData11, companyTargetData12, excelToLuckyArray, excelToArray, askAIData } from "../../demoData/getTargetData";
-import { setcellvalue } from "../../global/setdata";
-import jStat from 'jstat';
+import {  isRealNum } from "../../global/validate";
+import {  ABCatNum,  chatatABC } from "../../utils/util";
 
 //公式函数计算
 const conditionalAggFunctions = {

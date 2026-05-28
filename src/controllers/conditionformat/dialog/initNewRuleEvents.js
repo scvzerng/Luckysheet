@@ -1,4 +1,3 @@
-import formula from '../../../global/formula';
 import { getcellvalue } from '../../../global/getdata';
 import tooltip from '../../../global/tooltip';
 import { isEditMode } from '../../../global/validate';

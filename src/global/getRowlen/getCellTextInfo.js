@@ -1,11 +1,8 @@
 import {luckysheetfontformat} from '../../utils/util';
-import menuButton from '../../controllers/menuButton';
 import {checkstatusByCell} from '../../global/getdata';
-import {colLocationByIndex,colSpanLocationByIndex} from '../../global/location';
-import {checkWordByteLength, hasChinaword, isRealNull} from '../../global/validate';
+import { checkWordByteLength,  isRealNull } from '../../global/validate';
 import {isInlineStringCell} from '../../controllers/inlineString';
 import Store from '../../store';
-import { getCellTextSplitArr } from './getCellTextSplitArr';
 import { getMeasureText } from './getMeasureText';
 import { isSupportBoundingBox } from './isSupportBoundingBox';
 import { drawLineInfo } from './drawLineInfo';

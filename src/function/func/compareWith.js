@@ -1,5 +1,5 @@
 import func_methods from '../../global/func_methods';
-import { isRealNum, valueIsError, error } from '../../global/validate';
+import {  valueIsError,  error  } from '../../global/validate';
 import { getObjType } from '../../utils/util';
 import { handleMultiply } from './opMultiply';
 import { handleDivide } from './opDivide';

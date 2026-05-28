@@ -4,7 +4,6 @@ import Store from "./store";
 import { locales } from "./locale/locale";
 import luckysheetConfigsetting from "./controllers/luckysheetConfigsetting";
 import sheetmanage from "./controllers/sheetmanage";
-import luckysheetsizeauto from "./controllers/resize";
 import luckysheetHandler from "./controllers/handler";
 import { initialFilterHandler } from "./controllers/filter";
 import { initialMatrixOperation } from "./controllers/matrixOperation";

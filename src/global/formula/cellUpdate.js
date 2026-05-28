@@ -1,21 +1,11 @@
-import { replaceHtml, getObjType, chatatABC, ABCatNum, luckysheetfontformat } from "../../utils/util";
-import { getSheetIndex, getRangetxt, getluckysheetfile } from "../../methods/get";
-import { setluckysheetfile } from "../../methods/set";
-import { luckyColor } from "../../controllers/constant";
+import {  getObjType } from "../../utils/util";
+import {  getSheetIndex,  getluckysheetfile  } from "../../methods/get";
 import sheetmanage from "../../controllers/sheetmanage";
-import menuButton from "../../controllers/menuButton";
-import luckysheetFreezen from "../../controllers/freezen";
-import { seletedHighlistByindex, luckysheet_count_show } from "../../controllers/select";
-import { isRealNum, isRealNull, valueIsError, isEditMode } from "../validate";
-import { isdatetime, isdatatype } from "../datecontroll";
-import { getCellTextSplitArr, getCellTextInfo } from "../getRowlen";
-import { getcellvalue, getcellFormula, getInlineStringNoStyle, getOrigincell } from "../getdata";
+import {  isRealNull } from "../validate";
+import {  getCellTextInfo  } from "../getRowlen";
 import { setcellvalue } from "../setdata";
-import { genarate, valueShowEs } from "../format";
 import editor from "../editor";
-import tooltip from "../tooltip";
-import { rowLocation, colLocation, colLocationByIndex, mouseposition } from "../location";
-import { luckysheetRangeLast } from "../cursorPos";
+import {  colLocationByIndex } from "../location";
 import { jfrefreshgrid } from "../refresh";
 import { isInlineStringCell, convertSpanToShareString } from "../../controllers/inlineString";
 // import luckysheet_function from '../function/luckysheet_function';
@@ -33,8 +23,6 @@ import {
     luckysheet_getSpecialReference,
 } from "../../function/func";
 import Store from "../../store";
-import locale from "../../locale/locale";
-import json from "../json";
 import method from "../method";
 
 const cellUpdate = {

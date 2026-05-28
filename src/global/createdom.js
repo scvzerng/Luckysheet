@@ -12,9 +12,6 @@ import {
     sheetconfigHTML,
 } from '../controllers/constant';
 import luckysheetConfigsetting from '../controllers/luckysheetConfigsetting';
-import luckysheetPostil from '../controllers/postil';
-import { datagridgrowth } from './getdata';
-import editor from './editor';
 import rhchInit from './rhchInit';
 import { replaceHtml } from '../utils/util';
 import Store from '../store';

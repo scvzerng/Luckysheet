@@ -1,24 +1,10 @@
-import { getSheetIndex } from '../../methods/get';
-import editor from '../../global/editor';
-import { isRealNull, isEditMode } from '../../global/validate';
-import tooltip from '../../global/tooltip';
-import { rowlenByRange } from '../../global/getRowlen';
-import { selectHightlightShow } from '../select';
-import { luckysheetMoveEndCell } from '../sheetMove';
+import {  isRealNull } from '../../global/validate';
 import { luckysheetlodingHTML } from '../constant';
-import locale from '../../locale/locale';
 import Store from '../../store';
-import menuButton from '../menuButton';
-import conditionformat from '../conditionformat';
-import alternateformat from '../alternateformat';
-import { rgbTohex, showrightclickmenu } from '../../utils/util';
-import cleargridelement from '../../global/cleargridelement';
-import { jfrefreshgrid, jfrefreshgrid_rhcw } from '../../global/refresh';
-import { orderbydata, orderbydata1D } from '../../global/sort';
-import json from '../../global/json';
-import { update, genarate } from '../../global/format';
+import {  showrightclickmenu  } from '../../utils/util';
+import {  orderbydata1D  } from '../../global/sort';
+import {  update } from '../../global/format';
 import filterState from './filterState';
-import { labelFilterOptionState } from './labelFilterOptionState';
 import { orderbydatafiler } from './orderbydatafiler';
 
 export function filterOptionClick() {

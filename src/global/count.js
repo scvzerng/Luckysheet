@@ -1,7 +1,6 @@
 import Store from '../store';
 import { getdatabyselectionNoCopy } from './getdata';
 import { isRealNull, isRealNum } from './validate';
-import { update } from './format';
 import locale from '../locale/locale';
 
 //表格计数栏
