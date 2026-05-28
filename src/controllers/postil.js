@@ -1,9 +1,9 @@
-﻿﻿﻿import { rowLocation, colLocation, mouseposition } from '../global/location';
+﻿﻿import { rowLocation, colLocation, mouseposition } from '../global/location';
 import editor from '../global/editor';
 import { luckysheetRangeLast } from '../global/cursorPos';
 import { luckysheetrefreshgrid } from '../global/refresh';
 import { setluckysheet_scroll_status } from '../methods/set';
-import { getSheetIndex } from '../methods/get';
+import { syncDataToStore } from '../utils/storeAccess.js';
 import { getObjType } from '../utils/util';
 import luckysheetFreezen from './freezen';
 import menuButton from './menuButton';
@@ -892,7 +892,7 @@ const luckysheetPostil = {
         Store.flowdata = data;
         editor.webWorkerFlowDataCache(Store.flowdata);//worker存数据
 
-        Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].data = Store.flowdata;
+        syncDataToStore();
 
         //刷新表格
         setTimeout(function () {

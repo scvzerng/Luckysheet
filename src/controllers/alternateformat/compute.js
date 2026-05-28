@@ -1,5 +1,5 @@
 import Store from '../../store';
-import { getSheetIndex } from '../../methods/get';
+import { getCurrentFile } from '../../utils/storeAccess.js';
 
 function checksAF(r, c, computeMap) {
         if((r + "_" + c) in computeMap){
@@ -133,7 +133,7 @@ function compute(obj) {
 }
 
 function getComputeMap() {
-    let file = Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)];
+    let file = getCurrentFile();
     let ruleArr = file["luckysheet_alternateformat_save"];
     let computeMap = compute(ruleArr);
     return computeMap;

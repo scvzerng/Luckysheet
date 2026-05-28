@@ -2,9 +2,10 @@ import { luckysheetdefaultstyle } from "../../controllers/constant";
 import controlHistory from "../../controllers/controlHistory";
 import luckysheetsizeauto from "../../controllers/resize";
 import sheetmanage from "../../controllers/sheetmanage";
-import { getSheetIndex, getluckysheetfile } from "../../methods/get";
+import { getluckysheetfile } from "../../methods/get";
 import Store from "../../store";
 import { getObjType, luckysheetactiveCell } from "../../utils/util";
+import { getCurrentSheetOrder, getDataSize, getLastSelection } from '../../utils/storeAccess.js';
 import { luckysheetDrawMain } from "../draw";
 import formula from "../formula";
 import { jfrefreshgrid, jfrefreshgrid_rhcw, luckysheetrefreshgrid } from "../refresh";
@@ -13,7 +14,7 @@ import { isRealNum, hasPartMC } from "../validate";
 
 export function showGridLines(options = {}){
     let {
-        order = getSheetIndex(Store.currentSheetIndex),
+        order = getCurrentSheetOrder(),
         success
     } = {...options}
 
@@ -44,7 +45,7 @@ export function showGridLines(options = {}){
 
 export function hideGridLines(options = {}){
     let {
-        order = getSheetIndex(Store.currentSheetIndex),
+        order = getCurrentSheetOrder(),
         success
     } = {...options}
 
@@ -151,7 +152,7 @@ export function resize(options = {}){
 
 export function getScreenshot(options = {}) {
     let {
-        range = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1],
+        range = getLastSelection(),
     } = {...options}
 
     if(getObjType(range) == 'string'){
@@ -364,7 +365,7 @@ export function getSheet(options = {}){
 
 export function getSheetData(options = {}) {
     let {
-        order = getSheetIndex(Store.currentSheetIndex)
+        order = getCurrentSheetOrder()
     } = {...options};
 
     let file = Store.luckysheetfile[order];
@@ -384,7 +385,7 @@ export function getSheetData(options = {}) {
 
 export function getConfig(options = {}) {
     let {
-        order = getSheetIndex(Store.currentSheetIndex)
+        order = getCurrentSheetOrder()
     } = {...options};
 
     let file = Store.luckysheetfile[order];
@@ -404,7 +405,7 @@ export function setConfig(cfg, options = {}) {
     }
 
     let {
-        order = getSheetIndex(Store.currentSheetIndex),
+        order = getCurrentSheetOrder(),
         success
     } = {...options};
 
@@ -420,7 +421,8 @@ export function setConfig(cfg, options = {}) {
         Store.config = cfg;
 
         if("rowhidden" in cfg || "colhidden" in cfg || "rowlen" in cfg || "columnlen" in cfg){
-            jfrefreshgrid_rhcw(Store.flowdata.length, Store.flowdata[0].length);
+            let _dataSize = getDataSize();
+            jfrefreshgrid_rhcw(_dataSize.rowCount, _dataSize.colCount);
         }
 
         setTimeout(function () {

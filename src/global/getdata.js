@@ -1,5 +1,6 @@
-﻿import { getObjType,rgbTohex } from '../utils/util';
+import { getObjType,rgbTohex,isRowHidden } from '../utils/util';
 import { getSheetIndex } from '../methods/get';
+import { getCurrentFile } from '../utils/storeAccess.js';
 import formula from './formula';
 import editor from './editor';
 import { dynamicArrayCompute } from './dynamicArray';
@@ -36,7 +37,7 @@ export function getdatabyselection(range, sheetIndex) {
             continue;
         }
 
-        if (cfg["rowhidden"] != null && cfg["rowhidden"][r] != null) {
+        if (isRowHidden(r, cfg)) {
             continue;
         }
 
@@ -57,7 +58,7 @@ export function getdatabyselectionD(d, range) {
         return [];
     }
     
-    let dynamicArray_compute = dynamicArrayCompute(Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)]["dynamicArray"]);
+    let dynamicArray_compute = dynamicArrayCompute(getCurrentFile()["dynamicArray"]);
     let data = [];
 
     if(d==null){
@@ -104,7 +105,7 @@ export function getdatabyselectionNoCopy(range) {
     for (let r = range["row"][0]; r <= range["row"][1]; r++) {
         let row = [];
         
-        if (Store.config["rowhidden"] != null && Store.config["rowhidden"][r] != null) {
+        if (isRowHidden(r)) {
             continue;
         }
 

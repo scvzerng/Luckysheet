@@ -1,4 +1,5 @@
 import {  getcellvalue } from "../../global/getdata";
+import { isRowHidden } from "../../utils/util";
 import Store from "../../store";
 const utilsModule = {
   matchcopy: function (data1, data2) {
@@ -28,7 +29,7 @@ const utilsModule = {
       return false;
     }
     for (let r1 = 0; r1 < data1len; r1++) {
-      if (Store.config["rowhidden"] != null && Store.config["rowhidden"][r1] != null) {
+      if (isRowHidden(r1)) {
         continue;
       }
       for (let r2 = 0; r2 < data2len; r2++) {
@@ -38,7 +39,7 @@ const utilsModule = {
       }
     }
     for (let r = 0; r < data1len; r++) {
-      if (Store.config["rowhidden"] != null && Store.config["rowhidden"][r] != null) {
+      if (isRowHidden(r)) {
         continue;
       }
       for (let c = 0; c < data1cache[0].length; c++) {

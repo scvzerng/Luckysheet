@@ -1,5 +1,5 @@
 import {  getObjType } from "../../utils/util";
-import {  getSheetIndex,  getluckysheetfile  } from "../../methods/get";
+import { getCurrentFile } from "../../utils/storeAccess.js";
 import sheetmanage from "../../controllers/sheetmanage";
 import {  isRealNull } from "../validate";
 import {  getCellTextInfo  } from "../getRowlen";
@@ -270,7 +270,7 @@ const cellUpdate = {
             _this.cancelNormalSelected();
 
             let RowlChange = false;
-            let cfg = $.extend(true, {}, getluckysheetfile()[getSheetIndex(Store.currentSheetIndex)]["config"]);
+            let cfg = $.extend(true, {}, getCurrentFile()["config"]);
             if (cfg["rowlen"] == null) {
                 cfg["rowlen"] = {};
             }

@@ -1,8 +1,9 @@
-import { getObjType } from "../utils/util";
+import { getObjType, formatNumericCell } from "../utils/util";
 import { isRealNull, isRealNum, valueIsError } from "./validate";
 import { genarate, update } from "./format";
 import luckysheetConfigsetting from "../controllers/luckysheetConfigsetting";
 import Store from "../store/index";
+import { GENERAL_NUMBER_CT } from "../utils/constants.js";
 
 //Set cell value
 function setcellvalue(r, c, d, v) {
@@ -99,40 +100,10 @@ function setcellvalue(r, c, d, v) {
         ) {
             cell.v = parseFloat(vupdate);
             if (cell.ct == null) {
-                cell.ct = { fa: "General", t: "n" };
+                cell.ct = GENERAL_NUMBER_CT;
             }
 
-            if (cell.v == Infinity || cell.v == -Infinity) {
-                cell.m = cell.v.toString();
-            } else {
-                if (cell.v.toString().indexOf("e") > -1) {
-                    let len;
-                    if (cell.v.toString().split(".").length == 1) {
-                        len = 0;
-                    } else {
-                        len = cell.v
-                            .toString()
-                            .split(".")[1]
-                            .split("e")[0].length;
-                    }
-                    if (len > 5) {
-                        len = 5;
-                    }
-
-                    cell.m = cell.v.toExponential(len).toString();
-                } else {
-                    let v_p = Math.round(cell.v * 1000000000) / 1000000000;
-                    if (cell.ct == null) {
-                        let mask = genarate(v_p);
-                        cell.m = mask[0].toString();
-                    } else {
-                        let mask = update(cell.ct.fa, v_p);
-                        cell.m = mask.toString();
-                    }
-
-                    // cell.m = mask[0].toString();
-                }
-            }
+            formatNumericCell(cell, genarate);
         } else if (cell.ct != null && cell.ct.fa == "@") {
             cell.m = vupdateStr;
             cell.v = vupdate;
@@ -168,14 +139,8 @@ function setcellvalue(r, c, d, v) {
                     }
                 }
                 cell.v = vupdate; /* 备注：如果使用parseFloat，1.1111111111111111会转换为1.1111111111111112 ? */
-                cell.ct = { fa: "General", t: "n" };
-                if (cell.v == Infinity || cell.v == -Infinity) {
-                    cell.m = cell.v.toString();
-                } else {
-                    let mask = genarate(cell.v);
-
-                    cell.m = mask[0].toString();
-                }
+                cell.ct = GENERAL_NUMBER_CT;
+                formatNumericCell(cell, genarate);
             } else {
                 let mask = genarate(vupdate);
 

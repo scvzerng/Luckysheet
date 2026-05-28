@@ -1,5 +1,6 @@
-import { getSheetIndex } from '../../methods/get';
 import Store from '../../store';
+import { getCurrentFile } from '../../utils/storeAccess.js';
+import { isColHidden } from '../../utils/util';
 
 function createFilterOptions(luckysheet_filter_save, filterObj) {
     $("#luckysheet-filter-selected-sheet" + Store.currentSheetIndex).remove();
@@ -25,7 +26,7 @@ function createFilterOptions(luckysheet_filter_save, filterObj) {
     let optionHTML = "";
 
     for (let c = c1; c <= c2; c++) {
-        const isHide = Store.config != null && Store.config["colhidden"] != null && c in Store.config["colhidden"]
+        const isHide = isColHidden(c)
 
         if(filterObj == null || filterObj[c - c1] == null){
             optionHTML += '<div data-rowhidden="" data-str="'+ r1 +'" data-edr="'+ r2 +'" data-cindex="'+ c +'" data-stc="'+ c1 +'" data-edc="'+ c2 +'" class="luckysheet-filter-options" style="left:'+ (Store.visibledatacolumn[c] - 20) +'px;top:'+ row_pre +'px;display:'+ (isHide ? 'none' : 'block') +';"><i class="fa fa-caret-down" aria-hidden="true"></i></div>';
@@ -72,7 +73,7 @@ function createFilterOptions(luckysheet_filter_save, filterObj) {
         $("#luckysheet-scrollbar-y").scrollTop(luckysheet_filter_save["top_move"]);
     }
 
-    let file = Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)];
+    let file = getCurrentFile();
 
     file.filter_select = luckysheet_filter_save;
 }

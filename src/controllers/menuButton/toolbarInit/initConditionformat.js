@@ -5,6 +5,7 @@ import { getluckysheetfile, getSheetIndex } from '../../../methods/get';
 import { setluckysheetfile } from '../../../methods/set';
 import Store from '../../../store';
 import { luckysheetContainerFocus, mouseclickposition, replaceHtml } from '../../../utils/util';
+import { checkMenuOverflow } from '../../../utils/domUtils.js';
 import conditionformat from '../../conditionformat';
 import luckysheetConfigsetting from '../../luckysheetConfigsetting';
 import sheetmanage from '../../sheetmanage';
@@ -98,7 +99,7 @@ export function initConditionformat(_this) {
             subclass: "luckysheet-menuButton-sub"
           });
   
-          //项目选取规则子菜�?
+          //项目选取规则子菜�?
           let subitemdata2 = [{
             text: conditionformat_text.top10,
             value: "top10",
@@ -211,7 +212,7 @@ export function initConditionformat(_this) {
                                       </div>
                                   </div>`;
   
-          //清除规则子菜�?
+          //清除规则子菜�?
           let subitemdata6 = [{
             text: conditionformat_text.deleteSheetRule,
             value: "delSheet",
@@ -312,31 +313,31 @@ export function initConditionformat(_this) {
                 case "greaterThan":
                   title = conditionformat_text.conditionformat_greaterThan;
                   content = `<div class="box" data-itemvalue="greaterThan">
-                                                  <div class="boxTitleOne">${conditionformat_text.conditionformat_greaterThan_title}�?/div>
+                                                  <div class="boxTitleOne">${conditionformat_text.conditionformat_greaterThan_title}�?/div>
                                                   <div class="inpbox range">
                                                       <input id="conditionVal" class="formulaInputFocus"/>
                                                       <i class="fa fa-table" aria-hidden="true" title="${conditionformat_text.selectCell}"></i>
                                                   </div>
-                                                  <div style="margin: 5px 0;">${conditionformat_text.setAs}�?/div> 
+                                                  <div style="margin: 5px 0;">${conditionformat_text.setAs}�?/div> 
                                                   ${textCellColorHtml} 
                                               </div>`;
                   break;
                 case "lessThan":
                   title = conditionformat_text.conditionformat_lessThan;
                   content = `<div class="box" data-itemvalue="lessThan">
-                                                  <div class="boxTitleOne">${conditionformat_text.conditionformat_lessThan_title}�?/div>
+                                                  <div class="boxTitleOne">${conditionformat_text.conditionformat_lessThan_title}�?/div>
                                                   <div class="inpbox range">
                                                       <input id="conditionVal" class="formulaInputFocus"/>
                                                       <i class="fa fa-table" aria-hidden="true" title="${conditionformat_text.selectCell}"></i>
                                                   </div>
-                                                  <div style="margin: 5px 0;">${conditionformat_text.setAs}�?/div>
+                                                  <div style="margin: 5px 0;">${conditionformat_text.setAs}�?/div>
                                                   ${textCellColorHtml}
                                               </div>`;
                   break;
                 case "betweenness":
                   title = conditionformat_text.conditionformat_betweenness;
                   content = `<div class="box" data-itemvalue="betweenness">
-                                                  <div class="boxTitleOne">${conditionformat_text.conditionformat_betweenness_title}�?/div>
+                                                  <div class="boxTitleOne">${conditionformat_text.conditionformat_betweenness_title}�?/div>
                                                   <div style="height: 30px;line-height: 30px;">
                                                       <div class="inpbox2 range">
                                                           <input id="conditionVal" class="formulaInputFocus"/>
@@ -348,54 +349,54 @@ export function initConditionformat(_this) {
                                                           <i class="fa fa-table" aria-hidden="true" title="${conditionformat_text.selectCell}"></i>
                                                       </div>
                                                   </div>
-                                                  <div style="margin: 5px 0;">${conditionformat_text.setAs}�?/div>
+                                                  <div style="margin: 5px 0;">${conditionformat_text.setAs}�?/div>
                                                   ${textCellColorHtml}
                                               </div>`;
                   break;
                 case "equal":
                   title = conditionformat_text.conditionformat_equal;
                   content = `<div class="box" data-itemvalue="equal">
-                                                  <div class="boxTitleOne">${conditionformat_text.conditionformat_equal_title}�?/div>
+                                                  <div class="boxTitleOne">${conditionformat_text.conditionformat_equal_title}�?/div>
                                                   <div class="inpbox range">
                                                       <input id="conditionVal" class="formulaInputFocus"/>
                                                       <i class="fa fa-table" aria-hidden="true" title="${conditionformat_text.selectCell}"></i>
                                                   </div>
-                                                  <div style="margin: 5px 0;">${conditionformat_text.setAs}�?/div>
+                                                  <div style="margin: 5px 0;">${conditionformat_text.setAs}�?/div>
                                                   ${textCellColorHtml}
                                               </div>`;
                   break;
                 case "textContains":
                   title = conditionformat_text.conditionformat_textContains;
                   content = `<div class="box" data-itemvalue="textContains">
-                                                  <div class="boxTitleOne">${conditionformat_text.conditionformat_textContains_title}�?/div>
+                                                  <div class="boxTitleOne">${conditionformat_text.conditionformat_textContains_title}�?/div>
                                                   <div class="inpbox range">
                                                       <input id="conditionVal" class="formulaInputFocus"/>
                                                       <i class="fa fa-table" aria-hidden="true" title="${conditionformat_text.selectCell}"></i>
                                                   </div>
-                                                  <div style="margin: 5px 0;">${conditionformat_text.setAs}�?/div>
+                                                  <div style="margin: 5px 0;">${conditionformat_text.setAs}�?/div>
                                                   ${textCellColorHtml}
                                               </div>`;
                   break;
                 case "occurrenceDate":
                   title = conditionformat_text.conditionformat_occurrenceDate;
                   content = `<div class="box" data-itemvalue="occurrenceDate">
-                                                  <div class="boxTitleOne">${conditionformat_text.conditionformat_occurrenceDate_title}�?/div>
+                                                  <div class="boxTitleOne">${conditionformat_text.conditionformat_occurrenceDate_title}�?/div>
                                                   <div class="inpbox">
                                                       <input id="daterange-btn" class="formulaInputFocus" readonly="readonly" placeholder="${conditionformat_text.pleaseSelectADate}"/>
                                                   </div>
-                                                  <div style="margin: 5px 0;">${conditionformat_text.setAs}�?/div>
+                                                  <div style="margin: 5px 0;">${conditionformat_text.setAs}�?/div>
                                                   ${textCellColorHtml}
                                               </div>`;
                   break;
                 case "duplicateValue":
                   title = conditionformat_text.conditionformat_duplicateValue;
                   content = `<div class="box" data-itemvalue="duplicateValue">
-                                                  <div class="boxTitleOne">${conditionformat_text.conditionformat_duplicateValue_title}�?/div>
+                                                  <div class="boxTitleOne">${conditionformat_text.conditionformat_duplicateValue_title}�?/div>
                                                   <select id="conditionVal" class="selectbox">
                                                       <option value="0">${conditionformat_text.duplicateValue}</option>
                                                       <option value="1">${conditionformat_text.uniqueValue}</option>
                                                   </select>
-                                                  <div style="margin:5px 0;">${conditionformat_text.setAs}�?/div>
+                                                  <div style="margin:5px 0;">${conditionformat_text.setAs}�?/div>
                                                   ${textCellColorHtml}
                                               </div>`;
                   break;
@@ -404,7 +405,7 @@ export function initConditionformat(_this) {
             }
           });
   
-          //项目选取规则子菜单点击事�?
+          //项目选取规则子菜单点击事�?
           $(document).off("click.CFprojectSelectRule").on("click.CFprojectSelectRule", "#luckysheet-icon-projectSelectRule-menuButton .luckysheet-cols-menuitem", function () {
             $menuButton.hide();
             $("#luckysheet-icon-projectSelectRule-menuButton").hide();
@@ -425,7 +426,7 @@ export function initConditionformat(_this) {
                 case "top10":
                   title = conditionformat_text.conditionformat_top10;
                   content = `<div class="box" data-itemvalue="top10">
-                                                  <div class="boxTitleOne">${conditionformat_text.conditionformat_top10_title}�?/div>
+                                                  <div class="boxTitleOne">${conditionformat_text.conditionformat_top10_title}�?/div>
                                                   <div style="height: 30px;line-height: 30px;">
                                                       <div style="float: left;height: 30px;line-height: 30px;margin: 0 5px;">${conditionformat_text.top}</div>
                                                       <div class="inpbox2">
@@ -433,14 +434,14 @@ export function initConditionformat(_this) {
                                                       </div>
                                                       <div style="float: left;height: 30px;line-height: 30px;margin: 0 5px;">${conditionformat_text.oneself}</div>
                                                   </div>
-                                                  <div style="margin: 5px 0;">${conditionformat_text.setAs}�?/div>
+                                                  <div style="margin: 5px 0;">${conditionformat_text.setAs}�?/div>
                                                   ${textCellColorHtml}
                                               </div>`;
                   break;
                 case "top10%":
                   title = conditionformat_text.conditionformat_top10_percent;
                   content = `<div class="box" data-itemvalue="top10%">
-                                                  <div class="boxTitleOne">${conditionformat_text.conditionformat_top10_title}�?/div>
+                                                  <div class="boxTitleOne">${conditionformat_text.conditionformat_top10_title}�?/div>
                                                   <div style="height: 30px;line-height: 30px;">
                                                       <div style="float: left;height: 30px;line-height: 30px;margin: 0 5px;">${conditionformat_text.top}</div>
                                                       <div class="inpbox2">
@@ -448,14 +449,14 @@ export function initConditionformat(_this) {
                                                       </div>
                                                       <div style="float: left;height: 30px;line-height: 30px;margin: 0 5px;">%</div>
                                                   </div>
-                                                  <div style="margin: 5px 0;">${conditionformat_text.setAs}�?/div>
+                                                  <div style="margin: 5px 0;">${conditionformat_text.setAs}�?/div>
                                                   ${textCellColorHtml}
                                               </div>`;
                   break;
                 case "last10":
                   title = conditionformat_text.conditionformat_last10;
                   content = `<div class="box" data-itemvalue="last10">
-                                                  <div class="boxTitleOne">${conditionformat_text.conditionformat_last10_title}�?/div>
+                                                  <div class="boxTitleOne">${conditionformat_text.conditionformat_last10_title}�?/div>
                                                   <div style="height: 30px;line-height: 30px;">
                                                       <div style="float: left;height: 30px;line-height: 30px;margin: 0 5px;">${conditionformat_text.last}</div>
                                                       <div class="inpbox2">
@@ -463,14 +464,14 @@ export function initConditionformat(_this) {
                                                       </div>
                                                       <div style="float: left;height: 30px;line-height: 30px;margin: 0 5px;">${conditionformat_text.oneself}</div>
                                                   </div>
-                                                  <div style="margin: 5px 0;">${conditionformat_text.setAs}�?/div>
+                                                  <div style="margin: 5px 0;">${conditionformat_text.setAs}�?/div>
                                                   ${textCellColorHtml}
                                               </div>`;
                   break;
                 case "last10%":
                   title = conditionformat_text.conditionformat_last10_percent;
                   content = `<div class="box" data-itemvalue="last10%">
-                                                  <div class="boxTitleOne">${conditionformat_text.conditionformat_last10_title}�?/div>
+                                                  <div class="boxTitleOne">${conditionformat_text.conditionformat_last10_title}�?/div>
                                                   <div style="height: 30px;line-height: 30px;">
                                                       <div style="float: left;height: 30px;line-height: 30px;margin: 0 5px;">${conditionformat_text.last}</div>
                                                       <div class="inpbox2">
@@ -485,16 +486,16 @@ export function initConditionformat(_this) {
                 case "AboveAverage":
                   title = conditionformat_text.conditionformat_AboveAverage;
                   content = `<div class="box" data-itemvalue="AboveAverage">
-                                                  <div class="boxTitleOne">${conditionformat_text.conditionformat_AboveAverage_title}�?/div>
-                                                  <div style="margin: 5px 0;">${conditionformat_text.setAsByArea}�?/div>
+                                                  <div class="boxTitleOne">${conditionformat_text.conditionformat_AboveAverage_title}�?/div>
+                                                  <div style="margin: 5px 0;">${conditionformat_text.setAsByArea}�?/div>
                                                   ${textCellColorHtml}
                                               </div>`;
                   break;
                 case "SubAverage":
                   title = conditionformat_text.conditionformat_SubAverage;
                   content = `<div class="box" data-itemvalue="SubAverage">
-                                                  <div class="boxTitleOne">${conditionformat_text.conditionformat_SubAverage_title}�?/div>
-                                                  <div style="margin: 5px 0;">${conditionformat_text.setAsByArea}�?/div>
+                                                  <div class="boxTitleOne">${conditionformat_text.conditionformat_SubAverage_title}�?/div>
+                                                  <div style="margin: 5px 0;">${conditionformat_text.setAsByArea}�?/div>
                                                   ${textCellColorHtml}
                                               </div>`;
                   break;
@@ -517,7 +518,7 @@ export function initConditionformat(_this) {
             }
           });
   
-          //色阶子菜单点击事�?
+          //色阶子菜单点击事�?
           $(document).off("click.CFcolorGradation").on("click.CFcolorGradation", "#luckysheet-icon-colorGradation-menuButton .luckysheet-cols-menuitem", function () {
             $menuButton.hide();
             $("#luckysheet-icon-colorGradation-menuButton").hide();
@@ -531,7 +532,7 @@ export function initConditionformat(_this) {
             }
           });
   
-          //清除规则子菜单点击事�?
+          //清除规则子菜单点击事�?
           $(document).off("click.CFdeleteRule").on("click.CFdeleteRule", "#luckysheet-icon-deleteRule-menuButton .luckysheet-cols-menuitem", function () {
             $menuButton.hide();
             $("#luckysheet-icon-deleteRule-menuButton").hide();
@@ -546,7 +547,7 @@ export function initConditionformat(_this) {
         let userlen = $(this).outerWidth();
         let tlen = $menuButton.outerWidth();
         let menuleft = $(this).offset().left;
-        if (tlen > userlen && tlen + menuleft > $("#" + Store.container).width()) {
+        if (checkMenuOverflow(tlen, userlen, menuleft)) {
           menuleft = menuleft - tlen + userlen;
         }
         mouseclickposition($menuButton, menuleft, $(this).offset().top + 25, "lefttop");

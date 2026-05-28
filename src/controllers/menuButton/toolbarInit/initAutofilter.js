@@ -2,10 +2,11 @@ import { sortSelection } from '../../../global/sort';
 import locale from '../../../locale/locale';
 import Store from '../../../store';
 import { luckysheetContainerFocus, mouseclickposition, replaceHtml } from '../../../utils/util';
+import { checkMenuOverflow } from '../../../utils/domUtils.js';
 import { createFilter } from '../../filter';
 
 export function initAutofilter(_this) {
-      //过滤和排�?
+      //过滤和排�?
       $("#luckysheet-icon-autofilter").click(function () {
         let menuButtonId = $(this).attr("id") + "-menuButton";
         let $menuButton = $("#" + menuButtonId);
@@ -72,7 +73,7 @@ export function initAutofilter(_this) {
         let userlen = $(this).outerWidth();
         let tlen = $menuButton.outerWidth();
         let menuleft = $(this).offset().left;
-        if (tlen > userlen && tlen + menuleft > $("#" + Store.container).width()) {
+        if (checkMenuOverflow(tlen, userlen, menuleft)) {
           menuleft = menuleft - tlen + userlen;
         }
         mouseclickposition($menuButton, menuleft, $(this).offset().top + 25, "lefttop");

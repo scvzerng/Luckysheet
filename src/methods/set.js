@@ -1,4 +1,4 @@
-import { getSheetIndex } from '../methods/get';
+import { getCurrentFile } from '../utils/storeAccess.js';
 import Store from '../store';
 
 function setluckysheet_select_save(v) {
@@ -17,7 +17,7 @@ function setconfig(v) {
     Store.config = v;
 
     if(Store.luckysheetfile != null){
-        Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].config = v;
+        getCurrentFile().config = v;
     }
 }
 
@@ -25,7 +25,7 @@ function setvisibledatarow(v) {
     Store.visibledatarow = v;
 
     if(Store.luckysheetfile != null){
-        Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].visibledatarow = v;
+        getCurrentFile().visibledatarow = v;
     }
 }
 
@@ -33,7 +33,7 @@ function setvisibledatacolumn(v) {
     Store.visibledatacolumn = v;
 
     if(Store.luckysheetfile != null){
-        Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].visibledatacolumn = v;
+        getCurrentFile().visibledatacolumn = v;
     }
 }
 

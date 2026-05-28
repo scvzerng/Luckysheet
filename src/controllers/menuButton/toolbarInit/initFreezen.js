@@ -4,7 +4,9 @@ import tooltip from '../../../global/tooltip';
 import { isEditMode } from '../../../global/validate';
 import locale from '../../../locale/locale';
 import Store from '../../../store';
+import { getLastSelection } from '../../../utils/storeAccess.js';
 import { luckysheetContainerFocus, mouseclickposition, replaceHtml } from '../../../utils/util';
+import { checkMenuOverflow } from '../../../utils/domUtils.js';
 import luckysheetFreezen from '../../freezen';
 import luckysheetsizeauto from '../../resize';
 import { luckysheet_searcharray } from '../../sheetSearch';
@@ -118,7 +120,7 @@ export function initFreezen(_this) {
               // luckysheetFreezen.createAssistCanvas();
               // luckysheetrefreshgrid();
             } else if (itemvalue == "freezenRC") {
-              //首行列冻�?
+              //首行列冻�?
               if (luckysheetFreezen.freezenRealFirstRowColumn) {
                 let row_st = 0;
                 let top = Store.visibledatarow[row_st] - 2 + Store.columnHeaderHeight;
@@ -153,7 +155,7 @@ export function initFreezen(_this) {
               luckysheetFreezen.createAssistCanvas();
               luckysheetrefreshgrid();
             } else if (itemvalue == "freezenRowRange") {
-              //选区行冻�?
+              //选区行冻�?
   
               if (Store.luckysheet_select_save == null || Store.luckysheet_select_save.length == 0) {
                 if (isEditMode()) {
@@ -164,13 +166,13 @@ export function initFreezen(_this) {
                 return;
               }
               // 固定超出屏幕范围
-              let rangeTop = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1].top;
+              let rangeTop = getLastSelection().top;
               if (luckysheetFreezen.freezenRealFirstRowColumn && rangeTop > $("#luckysheet-cell-main").height()) {
                 return tooltip.info(locale_freezen.rangeRCOverErrorTitle, locale_freezen.rangeRCOverError);
               }
               let scrollTop = $("#luckysheet-cell-main").scrollTop();
               let row_st = luckysheet_searcharray(Store.visibledatarow, scrollTop);
-              let last = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1];
+              let last = getLastSelection();
               let row_focus = last["row_focus"] == null ? last["row"][0] : last["row_focus"];
               row_st = Math.max(row_st - 1, row_focus - 1, 0);
               let top, freezenhorizontaldata;
@@ -191,7 +193,7 @@ export function initFreezen(_this) {
               luckysheetFreezen.createAssistCanvas();
               luckysheetrefreshgrid();
             } else if (itemvalue == "freezenColumnRange") {
-              //选区列冻�?
+              //选区列冻�?
               if (Store.luckysheet_select_save == null || Store.luckysheet_select_save.length == 0) {
                 if (isEditMode()) {
                   alert(locale_freezen.noSeletionError);
@@ -201,13 +203,13 @@ export function initFreezen(_this) {
                 return;
               }
               // 固定超出屏幕范围
-              let rangeLeft = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1].left;
+              let rangeLeft = getLastSelection().left;
               if (luckysheetFreezen.freezenRealFirstRowColumn && rangeLeft > $("#luckysheet-cell-main").width()) {
                 return tooltip.info(locale_freezen.rangeRCOverErrorTitle, locale_freezen.rangeRCOverError);
               }
               let scrollLeft = $("#luckysheet-cell-main").scrollLeft();
               let col_st = luckysheet_searcharray(Store.visibledatacolumn, scrollLeft);
-              let last = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1];
+              let last = getLastSelection();
               let column_focus = last["column_focus"] == null ? last["column"][0] : last["column_focus"];
               col_st = Math.max(col_st - 1, column_focus - 1, 0);
               let left, freezenverticaldata;
@@ -239,14 +241,14 @@ export function initFreezen(_this) {
               }
   
               // 固定超出屏幕范围
-              let rangeTop = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1].top;
-              let rangeLeft = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1].left;
+              let rangeTop = getLastSelection().top;
+              let rangeLeft = getLastSelection().left;
               if (luckysheetFreezen.freezenRealFirstRowColumn && (rangeTop > $("#luckysheet-cell-main").height() || rangeLeft > $("#luckysheet-cell-main").width())) {
                 return tooltip.info(locale_freezen.rangeRCOverErrorTitle, locale_freezen.rangeRCOverError);
               }
               let scrollTop = $("#luckysheet-cell-main").scrollTop();
               let row_st = luckysheet_searcharray(Store.visibledatarow, scrollTop);
-              let last = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1];
+              let last = getLastSelection();
               let row_focus = last["row_focus"] == null ? last["row"][0] : last["row_focus"];
               row_st = Math.max(row_st - 1, row_focus - 1, 0);
               let top, freezenhorizontaldata;
@@ -298,7 +300,7 @@ export function initFreezen(_this) {
         let userlen = $(this).outerWidth();
         let tlen = $menuButton.outerWidth();
         let menuleft = $(this).offset().left;
-        if (tlen > userlen && tlen + menuleft > $("#" + Store.container).width()) {
+        if (checkMenuOverflow(tlen, userlen, menuleft)) {
           menuleft = menuleft - tlen + userlen;
         }
         mouseclickposition($menuButton, menuleft - 68, $(this).offset().top + 25, "lefttop");

@@ -1,6 +1,6 @@
-import { getSheetIndex } from "../../methods/get";
 import Store from "../../store";
 import { getObjType } from "../../utils/util";
+import { getCurrentSheetOrder, getDataSize } from '../../utils/storeAccess.js';
 import { jfrefreshgrid_rhcw } from "../refresh";
 import tooltip from "../tooltip";
 
@@ -10,7 +10,7 @@ export function setRowHeight(rowInfo, options = {}) {
     }
 
     let {
-        order = getSheetIndex(Store.currentSheetIndex),
+        order = getCurrentSheetOrder(),
         success
     } = {...options}
 
@@ -44,7 +44,8 @@ export function setRowHeight(rowInfo, options = {}) {
 
     if(file.index == Store.currentSheetIndex){
         Store.config = cfg;
-        jfrefreshgrid_rhcw(Store.flowdata.length, Store.flowdata[0].length);
+        let _dataSize = getDataSize();
+        jfrefreshgrid_rhcw(_dataSize.rowCount, _dataSize.colCount);
     }
 
     if (success && typeof success === 'function') {
@@ -58,7 +59,7 @@ export function setColumnWidth(columnInfo, options = {}) {
     }
 
     let {
-        order = getSheetIndex(Store.currentSheetIndex),
+        order = getCurrentSheetOrder(),
         success
     } = {...options}
 
@@ -92,7 +93,8 @@ export function setColumnWidth(columnInfo, options = {}) {
 
     if(file.index == Store.currentSheetIndex){
         Store.config = cfg;
-        jfrefreshgrid_rhcw(Store.flowdata.length, Store.flowdata[0].length);
+        let _dataSize = getDataSize();
+        jfrefreshgrid_rhcw(_dataSize.rowCount, _dataSize.colCount);
     }
 
     if (success && typeof success === 'function') {
@@ -106,7 +108,7 @@ export function getRowHeight(rowInfo, options = {}) {
     }
 
     let {
-        order = getSheetIndex(Store.currentSheetIndex),
+        order = getCurrentSheetOrder(),
         success
     } = {...options}
 
@@ -143,7 +145,7 @@ export function getColumnWidth(columnInfo, options = {}) {
     }
 
     let {
-        order = getSheetIndex(Store.currentSheetIndex),
+        order = getCurrentSheetOrder(),
         success
     } = {...options}
 
@@ -176,7 +178,7 @@ export function getColumnWidth(columnInfo, options = {}) {
 
 export function getDefaultRowHeight(options = {}) {
     let {
-        order = getSheetIndex(Store.currentSheetIndex),
+        order = getCurrentSheetOrder(),
         success
     } = {...options}
 
@@ -192,7 +194,7 @@ export function getDefaultRowHeight(options = {}) {
 
 export function getDefaultColWidth(options = {}) {
     let {
-        order = getSheetIndex(Store.currentSheetIndex),
+        order = getCurrentSheetOrder(),
         success
     } = {...options}
 

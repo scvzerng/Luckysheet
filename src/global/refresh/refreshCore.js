@@ -7,7 +7,7 @@ import {
 } from '../draw';
 import sheetmanage from '../../controllers/sheetmanage';
 import hyperlinkCtrl from '../../controllers/hyperlinkCtrl';
-import { getSheetIndex } from '../../methods/get';
+import { getCurrentFile, syncConfigToStore, syncDataToStore, getDataSize } from '../../utils/storeAccess.js';
 import { selectHightlightShow } from '../../controllers/select';
 import Store from '../../store';
 import { luckysheetrefreshgrid, jfrefreshgrid_rhcw } from './refreshCanvas';
@@ -49,7 +49,7 @@ function jfrefreshgrid(data, range, allParam, isRunExecFunction = true, isRefres
     let dynamicArray = allParam["dynamicArray"];  //动态数组
     let hyperlink = allParam["hyperlink"];
 
-    let file = Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)];
+    let file = getCurrentFile();
 
     if (Store.clearjfundo) {
         Store.jfundo.length  = 0;
@@ -111,7 +111,8 @@ function jfrefreshgrid(data, range, allParam, isRunExecFunction = true, isRefres
 
 
         if(RowlChange != null){
-            jfrefreshgrid_rhcw(Store.flowdata.length, Store.flowdata[0].length);
+            let _dataSize = getDataSize();
+            jfrefreshgrid_rhcw(_dataSize.rowCount, _dataSize.colCount);
         }
     }
 
@@ -239,7 +240,7 @@ function jfrefreshgridall(colwidth, rowheight, data, cfg, range, ctrlType, ctrlV
         redo["data"] = Store.flowdata;
         redo["curdata"] = data;
         redo["sheetIndex"] = Store.currentSheetIndex;
-        redo["cdformat"] = $.extend(true, [], Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)]["luckysheet_conditionformat_save"]);
+        redo["cdformat"] = $.extend(true, [], getCurrentFile()["luckysheet_conditionformat_save"]);
         redo["curCdformat"] = cdformat;
 
         Store.jfredo.push(redo);
@@ -248,18 +249,18 @@ function jfrefreshgridall(colwidth, rowheight, data, cfg, range, ctrlType, ctrlV
     //Store.flowdata
     Store.flowdata = data;
     editor.webWorkerFlowDataCache(data);//worker存数据
-    Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].data = Store.flowdata;
+    syncDataToStore();
 
     //config
     if (cfg != null) {
         Store.config = cfg;
-        Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
+        syncConfigToStore();
 
     }
 
     //条件格式
     if(cdformat != null){
-        Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)]["luckysheet_conditionformat_save"] = cdformat;
+        getCurrentFile()["luckysheet_conditionformat_save"] = cdformat;
     
     }
 
@@ -303,7 +304,7 @@ function jfrefreshrange(data, range, cdformat) {
             "curdata": data,
             "range": range, 
             "sheetIndex": Store.currentSheetIndex,
-            "cdformat":  $.extend(true, [],  Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)]["luckysheet_conditionformat_save"]),
+            "cdformat":  $.extend(true, [],  getCurrentFile()["luckysheet_conditionformat_save"]),
             "curCdformat": cdformat 
         });
     }
@@ -312,11 +313,11 @@ function jfrefreshrange(data, range, cdformat) {
     Store.flowdata = data;
     editor.webWorkerFlowDataCache(Store.flowdata);//worker存数据
 
-    Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].data = Store.flowdata;
+    syncDataToStore();
 
     //条件格式
     if(cdformat != null){
-        Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)]["luckysheet_conditionformat_save"] = cdformat;
+        getCurrentFile()["luckysheet_conditionformat_save"] = cdformat;
     }
 
     //单元格数据更新联动

@@ -1,6 +1,8 @@
 import locale from '../../../locale/locale';
 import Store from '../../../store';
+import { getLastSelection } from '../../../utils/storeAccess.js';
 import { luckysheetContainerFocus, mouseclickposition, replaceHtml } from '../../../utils/util';
+import { checkMenuOverflow } from '../../../utils/domUtils.js';
 import luckysheetPostil from '../../postil';
 
 export function initPostil(_this) {
@@ -13,7 +15,7 @@ export function initPostil(_this) {
   
         // if($menuButton.length == 0){
         luckysheetPostil.removeActivePs();
-        let last = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1];
+        let last = getLastSelection();
         let row_index = last["row_focus"];
         if (row_index == null) {
           row_index = last["row"][0];
@@ -91,7 +93,7 @@ export function initPostil(_this) {
         let userlen = $(this).outerWidth();
         let tlen = $menuButton.outerWidth();
         let menuleft = $(this).offset().left;
-        if (tlen > userlen && tlen + menuleft > $("#" + Store.container).width()) {
+        if (checkMenuOverflow(tlen, userlen, menuleft)) {
           menuleft = menuleft - tlen + userlen;
         }
         mouseclickposition($menuButton, menuleft, $(this).offset().top + 25, "lefttop");

@@ -1,4 +1,4 @@
-import {  getSheetIndex } from "../../methods/get";
+import { getCurrentFile } from "../../utils/storeAccess.js";
 import menuButton from "../../controllers/menuButton";
 import { jfrefreshgrid } from "../refresh";
 // import luckysheet_function from '../function/luckysheet_function';
@@ -19,7 +19,7 @@ import Store from "../../store";
 
 const refreshButton = {
         cellFocus:function(row_index, col_index) {
-            const file = Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)];
+            const file = getCurrentFile();
             if(file.calcChain){
                 let txt = ''
                 file.calcChain?.find(({ r, c, func }) => {

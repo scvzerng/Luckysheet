@@ -1,4 +1,5 @@
 import { getSheetIndex } from "../../methods/get";
+import { getCurrentFile, getMaxRowIndex, getMaxColIndex } from "../../utils/storeAccess.js";
 import { luckysheet_searcharray } from "../sheetSearch";
 import Store from "../../store";
 import locale from "../../locale/locale";
@@ -145,7 +146,7 @@ const freezeCoreModule = {
     });
   },
   saveFreezen: function (freezenhorizontaldata, top, freezenverticaldata, left) {
-    let currentSheet = Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)];
+    let currentSheet = getCurrentFile();
     if (currentSheet.freezen == null) {
       currentSheet.freezen = {};
     }
@@ -227,10 +228,10 @@ const freezeCoreModule = {
       let top = _this.freezenverticaldata[4];
       freezen_colindex += offset;
       if (column >= Store.visibledatacolumn.length) {
-        column = Store.visibledatacolumn.length - 1;
+        column = getMaxColIndex();
       }
       if (freezen_colindex >= Store.visibledatacolumn.length) {
-        freezen_colindex = Store.visibledatacolumn.length - 1;
+        freezen_colindex = getMaxColIndex();
       }
       let column_px = Store.visibledatacolumn[column],
         freezen_px = Store.visibledatacolumn[freezen_colindex];
@@ -246,10 +247,10 @@ const freezeCoreModule = {
       let left = _this.freezenhorizontaldata[4];
       freezen_rowindex += offset;
       if (row >= Store.visibledatarow.length) {
-        row = Store.visibledatarow.length - 1;
+        row = getMaxRowIndex();
       }
       if (freezen_rowindex >= Store.visibledatarow.length) {
-        freezen_rowindex = Store.visibledatarow.length - 1;
+        freezen_rowindex = getMaxRowIndex();
       }
       let row_px = Store.visibledatarow[row],
         freezen_px = Store.visibledatarow[freezen_rowindex];

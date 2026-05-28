@@ -5,6 +5,7 @@ import { checkIsAllowEdit, isEditMode } from '../../../global/validate';
 import locale from '../../../locale/locale';
 import { getRangetxt } from '../../../methods/get';
 import Store from '../../../store';
+import { getLastSelection, getMaxColIndex } from '../../../utils/storeAccess.js';
 import { $$, showrightclickmenu } from '../../../utils/util';
 import imageCtrl from '../../imageCtrl';
 import luckysheetConfigsetting from '../../luckysheetConfigsetting';
@@ -27,7 +28,7 @@ export function initRowHeaderEvents() {
         row = row_location[1],
         row_pre = row_location[0],
         row_index = row_location[2];
-      let col_index = Store.visibledatacolumn.length - 1,
+      let col_index = getMaxColIndex(),
         col = Store.visibledatacolumn[col_index],
         col_pre = 0;
       $("#luckysheet-rightclick-menu").hide();
@@ -213,7 +214,7 @@ export function initRowHeaderEvents() {
       if (Store.luckysheet_rows_selected_status) {
         if (event.shiftKey) {
           //按住shift点击行索引选取范围
-          let last = $.extend(true, {}, Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1]); //选区最后一�?
+          let last = $.extend(true, {}, getLastSelection()); //选区最后一个
   
           let top = 0,
             height = 0,

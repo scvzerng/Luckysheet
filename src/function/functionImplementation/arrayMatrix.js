@@ -2,7 +2,7 @@ import { inverse } from "../matrix_methods";
 import formula from "../../global/formula";
 import func_methods from "../../global/func_methods";
 import {  isRealNum,  valueIsError } from "../../global/validate";
-import {  getObjType } from "../../utils/util";
+import {  getObjType, roundPrecision } from "../../utils/util";
 
 //公式函数计算
 const arrayMatrixFunctions = {
@@ -408,7 +408,7 @@ const arrayMatrixFunctions = {
         for (var j = 0; j < new_x[i].length; j++) {
           var x = new_x[i][j];
           var y = m * x + b;
-          result.push(Math.round(y * 1000000000) / 1000000000);
+          result.push(roundPrecision(y));
         }
       }
       return result;
@@ -696,7 +696,7 @@ const arrayMatrixFunctions = {
           var y = b * Math.pow(m, x);
           // var y = Math.exp(b + m * x);
 
-          result.push(Math.round(y * 1000000000) / 1000000000);
+          result.push(roundPrecision(y));
         }
       }
       return result;

@@ -1,4 +1,4 @@
-﻿﻿﻿import sheetmanage from './sheetmanage';
+﻿﻿import sheetmanage from './sheetmanage';
 import conditionformat from './conditionformat';
 import luckysheetPostil from './postil';
 import imageCtrl from './imageCtrl';
@@ -20,6 +20,7 @@ import {
 } from '../global/refresh';
 import { getSheetIndex } from '../methods/get';
 import Store from '../store';
+import { getCurrentFile, syncConfigToStore, getDataSize } from '../utils/storeAccess.js';
 import { selectHightlightShow } from './select';
 import method from '../global/method';
 
@@ -64,6 +65,7 @@ const controlHistory = {
         let ctr = Store.jfredo.pop();
         Store.jfundo.push(ctr);
         Store.clearjfundo = false;
+        let _dataSize = getDataSize();
         
         if (sheetmanage.hasSheet(ctr.sheetIndex) && Store.currentSheetIndex != ctr.sheetIndex) {
             sheetmanage.changeSheetExec(ctr.sheetIndex);
@@ -134,7 +136,7 @@ const controlHistory = {
             imageCtrl.images = images;
             imageCtrl.allImagesShow();
 
-            jfrefreshgrid_rhcw(Store.flowdata.length, Store.flowdata[0].length);
+            jfrefreshgrid_rhcw(_dataSize.rowCount, _dataSize.colCount);
         }
         else if (ctr.type == "cellRowChange") {
             jfrefreshgridall(ctr.data[0].length, ctr.data.length, ctr.data, ctr.config, ctr.range, ctr.ctrlType, ctr.ctrlValue, ctr.cdformat);
@@ -202,7 +204,7 @@ const controlHistory = {
         
         
             //行高、列宽 刷新  
-            jfrefreshgrid_rhcw(Store.flowdata.length, Store.flowdata[0].length);
+            jfrefreshgrid_rhcw(_dataSize.rowCount, _dataSize.colCount);
         }
         else if (ctr.type == "showHidCols") { // 隐藏、显示列 撤销操作
             //config
@@ -211,7 +213,7 @@ const controlHistory = {
         
         
             //行高、列宽 刷新  
-            jfrefreshgrid_rhcw(Store.flowdata.length, Store.flowdata[0].length);
+            jfrefreshgrid_rhcw(_dataSize.rowCount, _dataSize.colCount);
         }
         else if (ctr.type == "datachangeAll") {
             formula.execFunctionGroup();
@@ -229,7 +231,7 @@ const controlHistory = {
 
             //config
             Store.config = ctr.config;
-            Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
+            syncConfigToStore();
 
             if(Store.config["rowhidden"] == null){
                 Store.config["rowhidden"] = {};
@@ -237,7 +239,7 @@ const controlHistory = {
 
 
             //行高、列宽 刷新  
-            jfrefreshgrid_rhcw(Store.flowdata.length, Store.flowdata[0].length);
+            jfrefreshgrid_rhcw(_dataSize.rowCount, _dataSize.colCount);
 
             $("#luckysheet-filter-menu, #luckysheet-filter-submenu").hide();
         }
@@ -253,7 +255,7 @@ const controlHistory = {
 
             //config
             Store.config = ctr.config;
-            Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
+            syncConfigToStore();
 
             if(Store.config["rowhidden"] == null){
                 Store.config["rowhidden"] = {};
@@ -261,7 +263,7 @@ const controlHistory = {
 
 
             //行高、列宽 刷新  
-            jfrefreshgrid_rhcw(Store.flowdata.length, Store.flowdata[0].length);
+            jfrefreshgrid_rhcw(_dataSize.rowCount, _dataSize.colCount);
             
             $("#luckysheet-filter-menu, #luckysheet-filter-submenu").hide();
         }
@@ -407,6 +409,7 @@ const controlHistory = {
         let ctr = Store.jfundo.pop();
         Store.jfredo.push(ctr);
         Store.clearjfundo = false;
+        let _dataSize = getDataSize();
 
         if (sheetmanage.hasSheet(ctr.sheetIndex) && Store.currentSheetIndex != ctr.sheetIndex) {
             sheetmanage.changeSheetExec(ctr.sheetIndex);
@@ -450,7 +453,7 @@ const controlHistory = {
             imageCtrl.images = images;
             imageCtrl.allImagesShow();
 
-            jfrefreshgrid_rhcw(Store.flowdata.length, Store.flowdata[0].length);
+            jfrefreshgrid_rhcw(_dataSize.rowCount, _dataSize.colCount);
         }
         else if (ctr.type == "cellRowChange") {
             jfrefreshgridall(ctr.curdata[0].length, ctr.curdata.length, ctr.curdata, ctr.curconfig, ctr.currange, ctr.ctrlType, ctr.ctrlValue, ctr.curCdformat);
@@ -509,7 +512,7 @@ const controlHistory = {
         
         
             //行高、列宽 刷新  
-            jfrefreshgrid_rhcw(Store.flowdata.length, Store.flowdata[0].length);
+            jfrefreshgrid_rhcw(_dataSize.rowCount, _dataSize.colCount);
         }
         else if (ctr.type == "showHidCols") { // 隐藏、显示列 重做操作
             //config
@@ -518,7 +521,7 @@ const controlHistory = {
         
         
             //行高、列宽 刷新  
-            jfrefreshgrid_rhcw(Store.flowdata.length, Store.flowdata[0].length);
+            jfrefreshgrid_rhcw(_dataSize.rowCount, _dataSize.colCount);
         }
         else if (ctr.type == "datachangeAll") {
             formula.execFunctionGroup();
@@ -528,11 +531,11 @@ const controlHistory = {
             
             //config
             Store.config = ctr.curconfig;
-            Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
+            syncConfigToStore();
 
 
             //行高、列宽 刷新  
-            jfrefreshgrid_rhcw(Store.flowdata.length, Store.flowdata[0].length);
+            jfrefreshgrid_rhcw(_dataSize.rowCount, _dataSize.colCount);
             
 
             $("#luckysheet-filter-menu .luckysheet-filter-selected-input").hide().find("input").val();
@@ -553,11 +556,11 @@ const controlHistory = {
 
             //config
             Store.config = ctr.curconfig;
-            Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
+            syncConfigToStore();
 
 
             //行高、列宽 刷新  
-            jfrefreshgrid_rhcw(Store.flowdata.length, Store.flowdata[0].length);
+            jfrefreshgrid_rhcw(_dataSize.rowCount, _dataSize.colCount);
 
             $("#luckysheet-filter-menu, #luckysheet-filter-submenu").hide();
         }

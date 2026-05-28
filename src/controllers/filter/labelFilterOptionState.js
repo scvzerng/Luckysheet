@@ -1,5 +1,5 @@
-import { getSheetIndex } from '../../methods/get';
 import Store from '../../store';
+import { getCurrentFile } from '../../utils/storeAccess.js';
 
 function labelFilterOptionState($top, optionstate, rowhidden, caljs, notSave, str, edr, cindex, stc, edc) {
     if (optionstate) {
@@ -24,7 +24,7 @@ function labelFilterOptionState($top, optionstate, rowhidden, caljs, notSave, st
     }
 
     if(!!notSave){
-        let file = Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)];
+        let file = getCurrentFile();
 
         if(file.filter == null){
             file.filter = {};

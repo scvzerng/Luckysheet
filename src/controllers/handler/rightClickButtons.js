@@ -20,7 +20,7 @@ import {
     luckysheetContainerFocus,
     $$,
 } from "../../utils/util";
-import {  getSheetIndex } from "../../methods/get";
+import { getCurrentFile } from "../../utils/storeAccess.js";
 import {  hasPartMC,  isEditMode,  checkIsAllowEdit  } from "../../global/validate";
 import tooltip from "../../global/tooltip";
 import Store from "../../store";
@@ -60,7 +60,7 @@ export default function rightClickButtons() {
         }
 
         //多重选区 有条件格式时 提示
-        let cdformat = Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].luckysheet_conditionformat_save;
+        let cdformat = getCurrentFile().luckysheet_conditionformat_save;
         if (Store.luckysheet_select_save.length > 1 && cdformat != null && cdformat.length > 0) {
             let hasCF = false;
 

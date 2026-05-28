@@ -2,7 +2,7 @@ import { jfrefreshgrid_rhcw } from '../../../global/refresh';
 import tooltip from '../../../global/tooltip';
 import { isEditMode } from '../../../global/validate';
 import locale from '../../../locale/locale';
-import { getSheetIndex } from '../../../methods/get';
+import { getCurrentFile, syncConfigToStore, getDataSize } from '../../../utils/storeAccess.js';
 import Store from '../../../store';
 import { luckysheetContainerFocus } from '../../../utils/util';
 import imageCtrl from '../../imageCtrl';
@@ -89,16 +89,17 @@ export function initRowColWidthEvents() {
   
       //config
       Store.config = cfg;
-      Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
-  
+      syncConfigToStore();
+
       //images
-      Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].images = images;
+      getCurrentFile().images = images;
       imageCtrl.images = images;
       imageCtrl.allImagesShow();
+      let _dataSize = getDataSize();
       if (Store.luckysheetRightHeadClickIs == "row") {
-        jfrefreshgrid_rhcw(Store.flowdata.length, null);
+        jfrefreshgrid_rhcw(_dataSize.rowCount, null);
       } else if (Store.luckysheetRightHeadClickIs == "column") {
-        jfrefreshgrid_rhcw(null, Store.flowdata[0].length);
+        jfrefreshgrid_rhcw(null, _dataSize.colCount);
       }
     });
 }

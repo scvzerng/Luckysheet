@@ -1,7 +1,7 @@
 import { mouseposition } from '../global/location';
 import luckysheetsizeauto from './resize';
 import { modelHTML } from './constant';
-import { getSheetIndex } from '../methods/get';
+import { getCurrentFile, getLastSelection, getFocusCell, getHeaderTotalHeight } from '../utils/storeAccess.js';
 import { setluckysheet_scroll_status } from '../methods/set';
 import { replaceHtml } from '../utils/util';
 import Store from '../store';
@@ -74,9 +74,10 @@ const imageCtrl = {
     _insertImg: function(src){
         let _this = this;
         
-        let last = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1];
-        let rowIndex = last.row_focus || 0;
-        let colIndex = last.column_focus || 0;
+        let last = getLastSelection();
+        let _focus = getFocusCell();
+        let rowIndex = _focus.row || 0;
+        let colIndex = _focus.col || 0;
         let left = colIndex == 0 ? 0 : Store.visibledatacolumn[colIndex - 1];
         let top = rowIndex == 0 ? 0 : Store.visibledatarow[rowIndex - 1];
 
@@ -592,7 +593,7 @@ const imageCtrl = {
             // Note: After scaling here, there is no need to scale again when using this position externally
             // fix #174
             const operateAreaWidth = Store.rowHeaderWidth;
-            const operateAreaHeight = Store.infobarHeight + Store.toolbarHeight + Store.calculatebarHeight + Store.columnHeaderHeight;
+            const operateAreaHeight = getHeaderTotalHeight();
             left = (left - operateAreaWidth) * Store.zoomRatio + operateAreaWidth
             top = (top - operateAreaHeight) * Store.zoomRatio + operateAreaHeight
         }
@@ -681,7 +682,7 @@ const imageCtrl = {
             scrollLeft = $("#luckysheet-cell-main").scrollLeft();
 
         imgItem.fixedLeft = img.left - scrollLeft + Store.rowHeaderWidth;
-        imgItem.fixedTop = img.top - scrollTop + Store.infobarHeight + Store.toolbarHeight + Store.calculatebarHeight + Store.columnHeaderHeight;
+        imgItem.fixedTop = img.top - scrollTop + getHeaderTotalHeight();
 
         let id = _this.generateRandomId();
         let modelHtml = _this.modelHtml(id, imgItem);
@@ -951,7 +952,7 @@ const imageCtrl = {
             scrollLeft = $("#luckysheet-cell-main").scrollLeft();
 
         img.fixedLeft = img.default.left - scrollLeft + Store.rowHeaderWidth;
-        img.fixedTop = img.default.top - scrollTop + Store.infobarHeight + Store.toolbarHeight + Store.calculatebarHeight + Store.columnHeaderHeight;
+        img.fixedTop = img.default.top - scrollTop + getHeaderTotalHeight();
 
         let id = _this.generateRandomId();
         let modelHtml = _this.modelHtml(id, img);
@@ -1105,7 +1106,7 @@ const imageCtrl = {
     ref: function() {
         let _this = this;
 
-        let file = Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)];
+        let file = getCurrentFile();
         let images = _this.images;
 
         if (Store.clearjfundo) {

@@ -5,6 +5,7 @@ import { countfunc } from "../../global/count";
 import menuButton from "../menuButton";
 import { selectHightlightShow } from "../select";
 import Store from "../../store";
+import { getLastSelection } from "../../utils/storeAccess.js";
 import { luckysheetMoveHighlightRange } from "./rangeMove";
 import { getNextIndex } from "./dataBoundary";
 function luckysheetMoveEndCell(postion, type, isScroll, terminal, onlyvalue) {
@@ -20,7 +21,7 @@ function luckysheetMoveEndCell(postion, type, isScroll, terminal, onlyvalue) {
   if (onlyvalue == null) {
     onlyvalue = false;
   }
-  let last = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1];
+  let last = getLastSelection();
   let curR = last["row"] == null ? 0 : last["row"][0];
   let curC = last["column"] == null ? 0 : last["column"][0];
   let startR = last["row"] == null ? 0 : last["row"][0];
@@ -284,7 +285,7 @@ function luckysheetMoveHighlightCell(postion, index, type, isScroll) {
   let row, row_pre, row_index, row_index_ed;
   let col, col_pre, col_index, col_index_ed;
   if (type == "rangeOfSelect") {
-    let last = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1];
+    let last = getLastSelection();
     let curR;
     if (last["row_focus"] == null) {
       curR = last["row"][0];
@@ -532,7 +533,7 @@ function luckysheetMoveHighlightCell2(postion, type, isScroll) {
   let row, row_pre;
   let col, col_pre;
   if (type == "rangeOfSelect") {
-    let last = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1];
+    let last = getLastSelection();
     let rf = last["row_focus"],
       cf = last["column_focus"];
     let focusIsMerge = false,

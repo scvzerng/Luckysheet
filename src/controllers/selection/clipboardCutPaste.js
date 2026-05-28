@@ -8,6 +8,7 @@ import {  isEditMode,  hasPartMC } from "../../global/validate";
 import {  jfrefreshgrid_pastcut  } from "../../global/refresh";
 import { getSheetIndex } from "../../methods/get";
 import {  getObjType } from "../../utils/util";
+import { getCurrentFile, getLastSelection, getFocusCell } from "../../utils/storeAccess.js";
 import Store from "../../store";
 import locale from "../../locale/locale";
 const clipboardCutPasteModule = {
@@ -38,10 +39,11 @@ const clipboardCutPasteModule = {
       copyc = copyData[0].length;
 
     //应用范围
-    let last = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1];
-    let minh = last["row_focus"],
-      maxh = minh + copyh - 1; //应用范围首尾行
-    let minc = last["column_focus"],
+    let last = getLastSelection();
+    let _focus = getFocusCell();
+    let minh = _focus.row,
+      maxh = minh + copyh - 1;
+    let minc = _focus.col,
       maxc = minc + copyc - 1; //应用范围首尾列
 
     //应用范围包含部分合并单元格，则提示
@@ -283,7 +285,7 @@ const clipboardCutPasteModule = {
           }
         }
       }
-      let target_cdformat = $.extend(true, [], Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)]["luckysheet_conditionformat_save"]);
+      let target_cdformat = $.extend(true, [], getCurrentFile()["luckysheet_conditionformat_save"]);
       let target_curCdformat = $.extend(true, [], target_cdformat);
       if (ruleArr.length > 0) {
         target_curCdformat = target_curCdformat.concat(ruleArr);
@@ -316,7 +318,7 @@ const clipboardCutPasteModule = {
       };
     } else {
       //条件格式
-      let cdformat = $.extend(true, [], Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)]["luckysheet_conditionformat_save"]);
+      let cdformat = $.extend(true, [], getCurrentFile()["luckysheet_conditionformat_save"]);
       let curCdformat = $.extend(true, [], cdformat);
       if (curCdformat != null && curCdformat.length > 0) {
         for (let i = 0; i < curCdformat.length; i++) {

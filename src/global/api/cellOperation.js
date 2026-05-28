@@ -1,8 +1,8 @@
 import menuButton from "../../controllers/menuButton";
 import sheetmanage from "../../controllers/sheetmanage";
-import { getSheetIndex } from "../../methods/get";
 import Store from "../../store";
 import { getObjType } from "../../utils/util";
+import { getCurrentSheetOrder } from '../../utils/storeAccess.js';
 import formula from "../formula";
 import method from "../method";
 import { jfrefreshgrid } from "../refresh";
@@ -15,7 +15,7 @@ export function getCellValue(row, column, options = {}) {
     if (!isRealNum(row) || !isRealNum(column)) {
         return tooltip.info('Arguments row or column cannot be null or undefined.', '')
     }
-    let curSheetOrder = getSheetIndex(Store.currentSheetIndex);
+    let curSheetOrder = getCurrentSheetOrder();
     let {
         type = 'v',
         order = curSheetOrder
@@ -61,7 +61,7 @@ export function setCellValue(row, column, value, options = {}) {
     }
 
     let {
-        order = getSheetIndex(Store.currentSheetIndex),
+        order = getCurrentSheetOrder(),
         isRefresh = true,
         triggerBeforeUpdate = true,
         triggerUpdated = true,
@@ -207,7 +207,7 @@ export function clearCell(row, column, options = {}) {
         return tooltip.info('Arguments row and column cannot be null or undefined.', '')
     }
 
-    let curSheetOrder = getSheetIndex(Store.currentSheetIndex);
+    let curSheetOrder = getCurrentSheetOrder();
     let {
         order = curSheetOrder,
         success
@@ -257,7 +257,7 @@ export function deleteCell(move, row, column, options = {}) {
         return tooltip.info('Arguments row and column cannot be null or undefined.', '')
     }
 
-    let curSheetOrder = getSheetIndex(Store.currentSheetIndex);
+    let curSheetOrder = getCurrentSheetOrder();
     let {
         order = curSheetOrder,
         success
@@ -288,7 +288,7 @@ export function setCellFormat(row, column, attr, value, options = {}) {
         return tooltip.info('Arguments attr cannot be null or undefined.', '')
     }
 
-    let curSheetOrder = getSheetIndex(Store.currentSheetIndex);
+    let curSheetOrder = getCurrentSheetOrder();
     let {
         order = curSheetOrder,
         success

@@ -2,6 +2,7 @@ import editor from '../../../global/editor';
 import locale from '../../../locale/locale';
 import Store from '../../../store';
 import { luckysheetContainerFocus, mouseclickposition, replaceHtml } from '../../../utils/util';
+import { checkMenuOverflow } from '../../../utils/domUtils.js';
 import { iconfontObjects } from '../../constant';
 
 export function initRotation(_this) {
@@ -49,7 +50,7 @@ export function initRotation(_this) {
           });
           $("body").append(menu);
   
-          // 文字旋转�?Stack Vertically 太长了，拉宽�?60
+          // 文字旋转�?Stack Vertically 太长了，拉宽�?60
           $menuButton = $("#" + menuButtonId).width(160);
           _this.focus($menuButton);
           $menuButton.find(".luckysheet-cols-menuitem").click(function () {
@@ -69,7 +70,7 @@ export function initRotation(_this) {
         let userlen = $(this).outerWidth();
         let tlen = $menuButton.outerWidth();
         let menuleft = $(this).offset().left;
-        if (tlen > userlen && tlen + menuleft > $("#" + Store.container).width()) {
+        if (checkMenuOverflow(tlen, userlen, menuleft)) {
           menuleft = menuleft - tlen + userlen;
         }
         mouseclickposition($menuButton, menuleft - 28, $(this).offset().top + 25, "lefttop");

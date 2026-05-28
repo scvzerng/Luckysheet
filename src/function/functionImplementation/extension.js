@@ -1,5 +1,5 @@
 import luckysheetConfigsetting from "../../controllers/luckysheetConfigsetting";
-import {  getSheetIndex } from "../../methods/get";
+import { getCurrentFile } from "../../utils/storeAccess.js";
 import formula from "../../global/formula";
 import func_methods from "../../global/func_methods";
 import editor from "../../global/editor";
@@ -51,14 +51,14 @@ const extensionFunctions = {
 
         // 切换到包含远程公式的页之后300ms内又切换到其他页，不需要刷新，否则会导致公式页的数据刷到当前页
         if (currentSheetIndex === Store.currentSheetIndex) {
-          let file = Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)];
+          let file = getCurrentFile();
           file.row = d.length;
           file.data = d;
           jfrefreshgridall(d[0].length, d.length, d, null, Store.luckysheet_select_save, "datachangeAll", undefined, undefined);
 
           // jfrefreshgrid(d, [{"row": [startRow, startRow+target.length], "column": [startColumn, startColumn + target[0].length]}]);
         } else {
-          let file = Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)];
+          let file = getCurrentFile();
           file.data = d;
         }
       }, 300);
@@ -125,13 +125,13 @@ const extensionFunctions = {
 
         // 切换到包含远程公式的页之后300ms内又切换到其他页，不需要刷新，否则会导致公式页的数据刷到当前页
         if (currentSheetIndex === Store.currentSheetIndex) {
-          let file = Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)];
+          let file = getCurrentFile();
           file.row = d.length;
           file.data = d;
           jfrefreshgridall(d[0].length, d.length, d, null, Store.luckysheet_select_save, "datachangeAll", undefined, undefined);
           // jfrefreshgrid(d, [{"row": [startRow, startRow+data.length], "column": [startColumn, startColumn + data[0].length]}]);
         } else {
-          let file = Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)];
+          let file = getCurrentFile();
           file.data = d;
         }
       }, e => {
@@ -219,14 +219,14 @@ const extensionFunctions = {
 
         // 切换到包含远程公式的页之后300ms内又切换到其他页，不需要刷新，否则会导致公式页的数据刷到当前页
         if (currentSheetIndex === Store.currentSheetIndex) {
-          let file = Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)];
+          let file = getCurrentFile();
           file.row = d.length;
           file.data = d;
           jfrefreshgridall(d[0].length, d.length, d, null, Store.luckysheet_select_save, "datachangeAll", undefined, undefined);
 
           // jfrefreshgrid(d, [{"row": [startRow, startRow+resultTable.length], "column": [startColumn, startColumn + resultTable[0].length]}]);
         } else {
-          let file = Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)];
+          let file = getCurrentFile();
           file.data = d;
         }
       }, 300);

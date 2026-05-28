@@ -3,9 +3,10 @@ import {  update,  is_date  } from "../../global/format";
 import {  jfrefreshgrid } from "../../global/refresh";
 import luckysheetformula from "../../global/formula";
 import {  rowlenByRange } from "../../global/getRowlen";
-import {  getSheetIndex } from "../../methods/get";
+import {  getCurrentFile } from "../../utils/storeAccess.js";
+import {  isInputBoxActive } from "../../utils/domUtils.js";
 import {  isInlineStringCT,  updateInlineStringFormat,  inlineStyleAffectAttribute,  updateInlineStringFormatOutside  } from "../inlineString";
-import {  getObjType } from "../../utils/util";
+import {  getObjType, isRowHidden } from "../../utils/util";
 import Store from "../../store";
 const formatUpdateModule = {
   getQKBorder: function (width, type, color) {
@@ -58,7 +59,7 @@ const formatUpdateModule = {
     }
     if (attr == "ct") {
       for (let r = row_st; r <= row_ed; r++) {
-        if (Store.config["rowhidden"] != null && Store.config["rowhidden"][r] != null) {
+        if (isRowHidden(r)) {
           continue;
         }
         for (let c = col_st; c <= col_ed; c++) {
@@ -142,7 +143,7 @@ const formatUpdateModule = {
         }
       }
       for (let r = row_st; r <= row_ed; r++) {
-        if (Store.config["rowhidden"] != null && Store.config["rowhidden"][r] != null) {
+        if (isRowHidden(r)) {
           continue;
         }
         for (let c = col_st; c <= col_ed; c++) {
@@ -177,7 +178,7 @@ const formatUpdateModule = {
     let canvasElement = document.createElement("canvas");
     let canvas = canvasElement.getContext("2d");
     if (attr in inlineStyleAffectAttribute) {
-      if (parseInt($("#luckysheet-input-box").css("top")) > 0) {
+      if (isInputBoxActive()) {
         let value = $("#luckysheet-input-box").text();
         if (value.substr(0, 1) != "=") {
           let cell = d[Store.luckysheetCellUpdate[0]][Store.luckysheetCellUpdate[1]];
@@ -412,7 +413,7 @@ const formatUpdateModule = {
         }
       }
     }
-    const file = Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)];
+    const file = getCurrentFile();
     const calc = file.calcChain?.filter(({
       r,
       c

@@ -10,6 +10,7 @@ import {  jfrefreshgrid } from "../../global/refresh";
 import {  update  } from "../../global/format";
 import { getSheetIndex } from "../../methods/get";
 import {  getObjType } from "../../utils/util";
+import { getCurrentFile, getLastSelection } from "../../utils/storeAccess.js";
 import Store from "../../store";
 import locale from "../../locale/locale";
 const clipboardPaintModelModule = {
@@ -35,7 +36,7 @@ const clipboardPaintModelModule = {
     }, copySheetIndex));
 
     //应用范围
-    let last = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1];
+    let last = getLastSelection();
     let minh = last["row"][0],
       maxh = last["row"][1]; //应用范围首尾行
     let minc = last["column"][0],
@@ -194,7 +195,7 @@ const clipboardPaintModelModule = {
     let cdformat = null;
     let ruleArr = $.extend(true, [], Store.luckysheetfile[getSheetIndex(copySheetIndex)]["luckysheet_conditionformat_save"]);
     if (ruleArr != null && ruleArr.length > 0) {
-      cdformat = $.extend(true, [], Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)]["luckysheet_conditionformat_save"]);
+      cdformat = $.extend(true, [], getCurrentFile()["luckysheet_conditionformat_save"]);
       for (let i = 0; i < ruleArr.length; i++) {
         let cdformat_cellrange = ruleArr[i].cellrange;
         let emptyRange = [];

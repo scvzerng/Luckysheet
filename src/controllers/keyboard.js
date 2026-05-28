@@ -1,4 +1,4 @@
-﻿import luckysheetConfigsetting from './luckysheetConfigsetting';
+import luckysheetConfigsetting from './luckysheetConfigsetting';
 import menuButton from './menuButton';
 import conditionformat from './conditionformat';
 import {luckysheetupdateCell,setCenterInputPosition} from './updateCell';
@@ -20,7 +20,8 @@ import {
     getNowDateTime,
     luckysheetactiveCell,
 } from '../utils/util';
-import { getSheetIndex } from '../methods/get';
+import { getCurrentFile, getLastSelection, getFocusCell } from '../utils/storeAccess.js';
+import { isInputBoxActive } from '../utils/domUtils.js';
 import { hasPartMC, isEditMode } from '../global/validate';
 import { luckysheetRangeLast } from '../global/cursorPos';
 import formula from '../global/formula';
@@ -275,7 +276,7 @@ export function keyboardInitial(){
         let shiftKey = event.shiftKey;
         let kcode = event.keyCode;
 
-        if ($("#luckysheet-modal-dialog-mask").is(":visible") || $(event.target).hasClass("luckysheet-mousedown-cancel") || $(event.target).hasClass("sp-input") || (parseInt($("#luckysheet-input-box").css("top")) > 0 && $(event.target).closest(".luckysheet-input-box").length > 0 && kcode != keycode.ENTER && kcode != keycode.TAB && kcode != keycode.UP && kcode != keycode.DOWN && kcode != keycode.LEFT && kcode != keycode.RIGHT)) {
+        if ($("#luckysheet-modal-dialog-mask").is(":visible") || $(event.target).hasClass("luckysheet-mousedown-cancel") || $(event.target).hasClass("sp-input") || (isInputBoxActive() && $(event.target).closest(".luckysheet-input-box").length > 0 && kcode != keycode.ENTER && kcode != keycode.TAB && kcode != keycode.UP && kcode != keycode.DOWN && kcode != keycode.LEFT && kcode != keycode.RIGHT)) {
             let anchor = $(window.getSelection().anchorNode);
             
             if(anchor.parent().is("#luckysheet-helpbox-cell") || anchor.is("#luckysheet-helpbox-cell")){
@@ -327,8 +328,9 @@ export function keyboardInitial(){
         let $inputbox = $("#luckysheet-input-box");
         
         if((altKey || event.metaKey) && kcode == keycode.ENTER && parseInt($inputbox.css("top")) > 0){
-            let last = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1];
-            let row_index = last["row_focus"], col_index = last["column_focus"];
+            let last = getLastSelection();
+            let _focus = getFocusCell();
+            let row_index = _focus.row, col_index = _focus.col;
             enterKeyControll(Store.flowdata[row_index][col_index]);
             event.preventDefault();
         }
@@ -370,10 +372,9 @@ export function keyboardInitial(){
                 return;
             }
 
-            let last = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1];
-
-            let row_index = last["row_focus"], col_index = last["column_focus"];
-
+            let last = getLastSelection();
+            let _focus = getFocusCell();
+            let row_index = _focus.row, col_index = _focus.col;
             luckysheetupdateCell(row_index, col_index, Store.flowdata);
             event.preventDefault();
         }
@@ -391,10 +392,9 @@ export function keyboardInitial(){
                 return;
             }
             else if (String.fromCharCode(kcode) != null && $("#luckysheet-cell-selected").is(":visible")) {
-                let last = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1];
-
-                let row_index = last["row_focus"], col_index = last["column_focus"];
-
+                let last = getLastSelection();
+                let _focus = getFocusCell();
+                let row_index = _focus.row, col_index = _focus.col;
                 luckysheetupdateCell(row_index, col_index, Store.flowdata);
                 event.preventDefault();
             }
@@ -403,7 +403,7 @@ export function keyboardInitial(){
             if (ctrlKey || event.metaKey) {
                 if (shiftKey) {
                     if (!luckysheet_shiftkeydown) {
-                        Store.luckysheet_shiftpositon = $.extend(true, {}, Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1]);
+                        Store.luckysheet_shiftpositon = $.extend(true, {}, getLastSelection());
                         Store.luckysheet_shiftkeydown = true;
                     }
 
@@ -437,9 +437,10 @@ export function keyboardInitial(){
                         luckysheetMoveHighlightRange2("right", "rangeOfSelect");
                     }
                     else if (kcode == 186 || kcode == 222) {
-                        let last = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1];
-                        let row_index = last["row_focus"], 
-                            col_index = last["column_focus"];
+                        let last = getLastSelection();
+                        let _focus = getFocusCell();
+                        let row_index = _focus.row, 
+                            col_index = _focus.col;
                         luckysheetupdateCell(row_index, col_index, Store.flowdata, true);
 
                         let value = getNowDateTime(2);
@@ -495,7 +496,7 @@ export function keyboardInitial(){
                     }
 
                     //多重选区 有条件格式时 提示
-                    let cdformat = Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].luckysheet_conditionformat_save;
+                    let cdformat = getCurrentFile().luckysheet_conditionformat_save;
                     if(Store.luckysheet_select_save.length > 1 && cdformat != null && cdformat.length > 0){
                         let hasCF = false;
 
@@ -708,9 +709,10 @@ export function keyboardInitial(){
                     luckysheetMoveHighlightCell2("right", "rangeOfSelect");
                 }
                 else if (kcode == 186) {//Ctrl + ; 填充系统日期
-                    let last = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1];
-                    let row_index = last["row_focus"], 
-                        col_index = last["column_focus"];
+                    let last = getLastSelection();
+                    let _focus = getFocusCell();
+                    let row_index = _focus.row, 
+                        col_index = _focus.col;
                     luckysheetupdateCell(row_index, col_index, Store.flowdata, true);
 
                     let value = getNowDateTime(1);
@@ -719,9 +721,10 @@ export function keyboardInitial(){
                     formula.functionInputHanddler($("#luckysheet-functionbox-cell"), $("#luckysheet-rich-text-editor"), kcode);
                 }
                 else if (kcode == 222) {//Ctrl + ' 填充系统时间
-                    let last = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1];
-                    let row_index = last["row_focus"], 
-                        col_index = last["column_focus"];
+                    let last = getLastSelection();
+                    let _focus = getFocusCell();
+                    let row_index = _focus.row, 
+                        col_index = _focus.col;
                     luckysheetupdateCell(row_index, col_index, Store.flowdata, true);
 
                     let value = getNowDateTime(2);
@@ -744,7 +747,7 @@ export function keyboardInitial(){
                 }
 
                 if (!luckysheet_shiftkeydown) {
-                    Store.luckysheet_shiftpositon = $.extend(true, {}, Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1]);
+                    Store.luckysheet_shiftpositon = $.extend(true, {}, getLastSelection());
                     Store.luckysheet_shiftkeydown = true;
                 }
 
@@ -847,9 +850,9 @@ export function keyboardInitial(){
             }
             else if (!((kcode >= 112 && kcode <= 123) || kcode <= 46 || kcode == 144 || kcode == 108 || event.ctrlKey || event.altKey || (event.shiftKey && (kcode == 37 || kcode == 38 || kcode == 39 || kcode == 40))) || kcode == 8 || kcode == 32 || kcode == 46 || kcode == 0 || (event.ctrlKey && kcode == 86)) {
                 if (String.fromCharCode(kcode) != null && $("#luckysheet-cell-selected").is(":visible") && (kcode != keycode.CAPSLOCK && kcode != keycode.WIN && kcode != 18)) {
-                    let last = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1];
-
-                    let row_index = last["row_focus"], col_index = last["column_focus"];
+                    let last = getLastSelection();
+                    let _focus = getFocusCell();
+                    let row_index = _focus.row, col_index = _focus.col;
 
                     luckysheetupdateCell(row_index, col_index, Store.flowdata, true);
                     if(kcode == 8){
@@ -877,7 +880,7 @@ export function keyboardInitial(){
         let kcode = event.keyCode;
 
         let $inputbox = $("#luckysheet-input-box");
-        if (kcode == keycode.ESC && parseInt($("#luckysheet-input-box").css("top")) > 0) {
+        if (kcode == keycode.ESC && isInputBoxActive()) {
             formula.dontupdate();
             luckysheetMoveHighlightCell("down", 0, "rangeOfSelect");
             event.preventDefault();
@@ -931,7 +934,7 @@ export function keyboardInitial(){
         }
 
         //输入框中文输入后 shift 和 空格 处理
-        if(parseInt($("#luckysheet-input-box").css("top")) > 0 && (kcode == 13 || kcode == 16 || kcode == 32)){
+        if(isInputBoxActive() && (kcode == 13 || kcode == 16 || kcode == 32)){
             // if(event.target.id=="luckysheet-input-box" || event.target.id=="luckysheet-rich-text-editor"){
             //     formula.functionInputHanddler($("#luckysheet-functionbox-cell"), $("#luckysheet-rich-text-editor"), kcode);
             // }

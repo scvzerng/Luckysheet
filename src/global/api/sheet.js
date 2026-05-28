@@ -3,9 +3,9 @@ import { sheetHTML } from "../../controllers/constant";
 import sheetmanage from "../../controllers/sheetmanage";
 import { zoomNumberDomBind, zoomRefreshView } from "../../controllers/zoom";
 import locale from "../../locale/locale";
-import { getSheetIndex } from "../../methods/get";
 import Store from "../../store";
 import { getObjType, replaceHtml } from "../../utils/util";
+import { getCurrentSheetOrder } from '../../utils/storeAccess.js';
 import cleargridelement from "../cleargridelement";
 import tooltip from "../tooltip";
 import { isRealNum } from "../validate";
@@ -124,7 +124,7 @@ export function setSheetAdd(options = {}) {
 
 export function setSheetDelete(options = {}) {
     let {
-        order = getSheetIndex(Store.currentSheetIndex),
+        order = getCurrentSheetOrder(),
         success
     } = {...options}
 
@@ -152,7 +152,7 @@ export function setSheetDelete(options = {}) {
 export function setSheetCopy(options = {}) {
     let {
         targetOrder,
-        order = getSheetIndex(Store.currentSheetIndex),
+        order = getCurrentSheetOrder(),
         success
     } = {...options}
 
@@ -236,7 +236,7 @@ export function setSheetCopy(options = {}) {
 
 export function setSheetHide(options = {}) {
     let {
-        order = getSheetIndex(Store.currentSheetIndex),
+        order = getCurrentSheetOrder(),
         success
     } = {...options}
 
@@ -259,7 +259,7 @@ export function setSheetHide(options = {}) {
 
 export function setSheetShow(options = {}) {
     let {
-        order = getSheetIndex(Store.currentSheetIndex),
+        order = getCurrentSheetOrder(),
         success
     } = {...options}
 
@@ -310,7 +310,7 @@ export function setSheetName(name, options = {}) {
     }
 
     let {
-        order = getSheetIndex(Store.currentSheetIndex),
+        order = getCurrentSheetOrder(),
         success
     } = {...options}
 
@@ -349,7 +349,7 @@ export function setSheetColor(color, options = {}) {
     }
 
     let {
-        order = getSheetIndex(Store.currentSheetIndex),
+        order = getCurrentSheetOrder(),
         success
     } = {...options}
 
@@ -392,7 +392,7 @@ export function setSheetMove(type, options = {}) {
         type = parseInt(type);
     }
 
-    let curOrder = getSheetIndex(Store.currentSheetIndex);
+    let curOrder = getCurrentSheetOrder();
     let {
         order = curOrder,
         success
@@ -523,7 +523,7 @@ export function setSheetZoom(zoom, options = {}) {
     }
 
     let {
-        order = getSheetIndex(Store.currentSheetIndex),
+        order = getCurrentSheetOrder(),
         success
     } = {...options}
 

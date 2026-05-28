@@ -6,6 +6,7 @@ import locale from '../locale/locale';
 import sheetmanage from './sheetmanage';
 import tooltip from '../global/tooltip'
 import { $$, getObjType, camel2split } from "../utils/util";
+import { getHeaderTotalHeight } from "../utils/storeAccess.js";
 import { defaultToolbar, toolbarIdMap } from './toolbar';
 
 let gridW = 0,
@@ -265,7 +266,7 @@ export function changeSheetContainerSize(gridW, gridH){
     if(gridH==null){
         gridH = $("#" + Store.container).height();
     }
-    Store.cellmainHeight = gridH - (Store.infobarHeight + Store.toolbarHeight + Store.calculatebarHeight + Store.columnHeaderHeight + Store.sheetBarHeight + Store.statisticBarHeight);
+    Store.cellmainHeight = gridH - (getHeaderTotalHeight() + Store.sheetBarHeight + Store.statisticBarHeight);
     Store.cellmainWidth = gridW - Store.rowHeaderWidth;
 
     $("#luckysheet-cols-h-c, #luckysheet-cell-main").width(Store.cellmainWidth);

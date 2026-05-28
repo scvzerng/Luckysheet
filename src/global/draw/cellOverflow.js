@@ -3,7 +3,7 @@ import alternateformat from "../../controllers/alternateformat";
 import menuButton from "../../controllers/menuButton";
 import {  isRealNull } from "../validate";
 import {  getCellTextInfo  } from "../getRowlen";
-import {  luckysheetfontformat  } from "../../utils/util";
+import {  luckysheetfontformat, isColHidden } from "../../utils/util";
 import { isInlineStringCell } from "../../controllers/inlineString";
 import { cellTextRender } from "./cellTextRender";
 import Store from "../../store";
@@ -28,7 +28,7 @@ function getCellOverflowMap(canvas, col_st, col_ed, row_st, row_end) {
       //     continue;
       // }
 
-      if (Store.config["colhidden"] != null && Store.config["colhidden"][c] != null) {
+      if (isColHidden(c)) {
         continue;
       }
       if (cell != null && (!isRealNull(cell.v) || isInlineStringCell(cell)) && cell.mc == null && cell.tb == "1") {

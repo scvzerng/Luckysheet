@@ -25,7 +25,7 @@ import {
     luckysheetContainerFocus,
     $$,
 } from "../../utils/util";
-import {  getSheetIndex } from "../../methods/get";
+import { getCurrentFile, syncConfigToStore, getDataSize, getLastSelection, getMaxRowIndex, getMaxColIndex } from "../../utils/storeAccess.js";
 import { rowLocation, colLocation, mouseposition } from "../../global/location";
 import { rowlenByRange } from "../../global/getRowlen";
 import {  hasPartMC,  isEditMode } from "../../global/validate";
@@ -375,15 +375,16 @@ export default function documentMouseup() {
 
             //config
             Store.config = cfg;
-            Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
+            syncConfigToStore();
 
 
             //images
-            Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].images = images;
+            getCurrentFile().images = images;
             imageCtrl.images = images;
             imageCtrl.allImagesShow();
 
-            jfrefreshgrid_rhcw(Store.flowdata.length, null);
+            let _dataSize = getDataSize();
+            jfrefreshgrid_rhcw(_dataSize.rowCount, null);
         }
 
         //改变列宽
@@ -400,7 +401,7 @@ export default function documentMouseup() {
             let x = mouse[0] + scrollLeft;
             let winW = $(window).width();
 
-            let row_index = Store.visibledatarow.length - 1,
+            let row_index = getMaxRowIndex(),
                 row = Store.visibledatarow[row_index],
                 row_pre = 0;
             let col_location = colLocation(x),
@@ -481,15 +482,16 @@ export default function documentMouseup() {
 
             //config
             Store.config = cfg;
-            Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
+            syncConfigToStore();
 
 
             //images
-            Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].images = images;
+            getCurrentFile().images = images;
             imageCtrl.images = images;
             imageCtrl.allImagesShow();
 
-            jfrefreshgrid_rhcw(null, Store.flowdata[0].length);
+            let _dataSize2 = getDataSize();
+            jfrefreshgrid_rhcw(null, _dataSize2.colCount);
 
             setTimeout(function() {
                 luckysheetrefreshgrid();
@@ -528,7 +530,7 @@ export default function documentMouseup() {
             }
 
             let d = editor.deepCopyFlowData(Store.flowdata);
-            let last = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1];
+            let last = getLastSelection();
 
             let data = getdatabyselection(last);
 
@@ -565,14 +567,14 @@ export default function documentMouseup() {
                 col_e = last["column"][1] - last["column"][0];
             }
 
-            if (row_e >= Store.visibledatarow[Store.visibledatarow.length - 1] || y > winH) {
-                row_s = Store.visibledatarow.length - 1 - last["row"][1] + last["row"][0];
-                row_e = Store.visibledatarow.length - 1;
+            if (row_e >= Store.visibledatarow[getMaxRowIndex()] || y > winH) {
+                row_s = getMaxRowIndex() - last["row"][1] + last["row"][0];
+                row_e = getMaxRowIndex();
             }
 
-            if (col_e >= Store.visibledatacolumn[Store.visibledatacolumn.length - 1] || x > winW) {
-                col_s = Store.visibledatacolumn.length - 1 - last["column"][1] + last["column"][0];
-                col_e = Store.visibledatacolumn.length - 1;
+            if (col_e >= Store.visibledatacolumn[getMaxColIndex()] || x > winW) {
+                col_s = getMaxColIndex() - last["column"][1] + last["column"][0];
+                col_e = getMaxColIndex();
             }
 
             //替换的位置包含部分单元格
@@ -707,7 +709,7 @@ export default function documentMouseup() {
             let cdformat = $.extend(
                 true,
                 [],
-                Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)]["luckysheet_conditionformat_save"],
+                getCurrentFile()["luckysheet_conditionformat_save"],
             );
             if (cdformat != null && cdformat.length > 0) {
                 for (let i = 0; i < cdformat.length; i++) {
@@ -794,7 +796,7 @@ export default function documentMouseup() {
             let row_index_original = Store.luckysheet_cell_selected_extend_index[0],
                 col_index_original = Store.luckysheet_cell_selected_extend_index[1];
 
-            let last = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1];
+            let last = getLastSelection();
             let row_s = last["row"][0],
                 row_e = last["row"][1];
             let col_s = last["column"][0],
@@ -810,14 +812,14 @@ export default function documentMouseup() {
                 col_e = last["column"][1] - last["column"][0];
             }
 
-            if (row_e >= Store.visibledatarow[Store.visibledatarow.length - 1] || y > winH) {
-                row_s = Store.visibledatarow.length - 1 - last["row"][1] + last["row"][0];
-                row_e = Store.visibledatarow.length - 1;
+            if (row_e >= Store.visibledatarow[getMaxRowIndex()] || y > winH) {
+                row_s = getMaxRowIndex() - last["row"][1] + last["row"][0];
+                row_e = getMaxRowIndex();
             }
 
-            if (col_e >= Store.visibledatacolumn[Store.visibledatacolumn.length - 1] || x > winW) {
-                col_s = Store.visibledatacolumn.length - 1 - last["column"][1] + last["column"][0];
-                col_e = Store.visibledatacolumn.length - 1;
+            if (col_e >= Store.visibledatacolumn[getMaxColIndex()] || x > winW) {
+                col_s = getMaxColIndex() - last["column"][1] + last["column"][0];
+                col_e = getMaxColIndex();
             }
 
             //复制范围

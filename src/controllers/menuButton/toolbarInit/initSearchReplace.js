@@ -3,11 +3,12 @@ import { isEditMode } from '../../../global/validate';
 import locale from '../../../locale/locale';
 import Store from '../../../store';
 import { luckysheetContainerFocus, mouseclickposition, replaceHtml } from '../../../utils/util';
+import { checkMenuOverflow } from '../../../utils/domUtils.js';
 import luckysheetLocationCell from '../../locationCell';
 import luckysheetSearchReplace from '../../searchReplace';
 
 export function initSearchReplace(_this) {
-      //查找和替�?
+      //查找和替�?
       $("#luckysheet-icon-seachmore").click(function () {
         let menuButtonId = $(this).attr("id") + "-menuButton";
         let $menuButton = $("#" + menuButtonId);
@@ -96,7 +97,7 @@ export function initSearchReplace(_this) {
               let last = Store.luckysheet_select_save[0];
               let range;
               if (Store.luckysheet_select_save.length == 0 || Store.luckysheet_select_save.length == 1 && last.row[0] == last.row[1] && last.column[0] == last.column[1]) {
-                //单个单元�?
+                //单个单元�?
                 range = [{
                   row: [0, Store.flowdata.length - 1],
                   column: [0, Store.flowdata[0].length - 1]
@@ -124,7 +125,7 @@ export function initSearchReplace(_this) {
                 luckysheetLocationCell.apply(range, "locationCF");
               }
             } else if (itemvalue == "locationStepRow") {
-              //间隔�?
+              //间隔�?
               if (Store.luckysheet_select_save.length == 0 || Store.luckysheet_select_save.length == 1 && Store.luckysheet_select_save[0].row[0] == Store.luckysheet_select_save[0].row[1]) {
                 if (isEditMode()) {
                   alert(locale_findAndReplace.lessTwoRowTip);
@@ -136,7 +137,7 @@ export function initSearchReplace(_this) {
               let range = $.extend(true, [], Store.luckysheet_select_save);
               luckysheetLocationCell.apply(range, "locationStepRow");
             } else if (itemvalue == "locationStepColumn") {
-              //间隔�?
+              //间隔�?
               if (Store.luckysheet_select_save.length == 0 || Store.luckysheet_select_save.length == 1 && Store.luckysheet_select_save[0].column[0] == Store.luckysheet_select_save[0].column[1]) {
                 if (isEditMode()) {
                   alert(locale_findAndReplace.lessTwoColumnTip);
@@ -153,7 +154,7 @@ export function initSearchReplace(_this) {
         let userlen = $(this).outerWidth();
         let tlen = $menuButton.outerWidth();
         let menuleft = $(this).offset().left;
-        if (tlen > userlen && tlen + menuleft > $("#" + Store.container).width()) {
+        if (checkMenuOverflow(tlen, userlen, menuleft)) {
           menuleft = menuleft - tlen + userlen;
         }
         mouseclickposition($menuButton, menuleft, $(this).offset().top + 25, "lefttop");

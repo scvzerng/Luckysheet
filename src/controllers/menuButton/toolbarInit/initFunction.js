@@ -3,10 +3,12 @@ import tooltip from '../../../global/tooltip';
 import { isEditMode } from '../../../global/validate';
 import locale from '../../../locale/locale';
 import Store from '../../../store';
+import { getLastSelection, getFocusCell } from '../../../utils/storeAccess.js';
 import { luckysheetContainerFocus, mouseclickposition, replaceHtml } from '../../../utils/util';
 import ifFormulaGenerator from '../../ifFormulaGenerator';
 import insertFormula from '../../insertFormula';
 import { luckysheetupdateCell } from '../../updateCell';
+import { checkMenuOverflow } from '../../../utils/domUtils.js';
 
 export function initFunction(_this) {
       //公式
@@ -69,7 +71,7 @@ export function initFunction(_this) {
             let $t = $(this),
               itemvalue = $t.attr("itemvalue");
             if (itemvalue == "if") {
-              let last = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1];
+              let last = getLastSelection();
               let r = last["row_focus"] == null ? last["row"][0] : last["row_focus"];
               let c = last["column_focus"] == null ? last["column"][0] : last["column_focus"];
               if (!!Store.flowdata[r] && !!Store.flowdata[r][c] && !!Store.flowdata[r][c]["f"]) {
@@ -98,9 +100,10 @@ export function initFunction(_this) {
                 }
                 return;
               }
-              let last = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1];
-              let row_index = last["row_focus"],
-                col_index = last["column_focus"];
+              let last = getLastSelection();
+              let _focus = getFocusCell();
+              let row_index = _focus.row,
+                col_index = _focus.col;
               luckysheetupdateCell(row_index, col_index, Store.flowdata);
               let cell = Store.flowdata[row_index][col_index];
               if (cell != null && cell.f != null) {
@@ -128,7 +131,7 @@ export function initFunction(_this) {
         let userlen = $(this).outerWidth();
         let tlen = $menuButton.outerWidth();
         let menuleft = $(this).offset().left;
-        if (tlen > userlen && tlen + menuleft > $("#" + Store.container).width()) {
+        if (checkMenuOverflow(tlen, userlen, menuleft)) {
           menuleft = menuleft - tlen + userlen;
         }
         mouseclickposition($menuButton, menuleft - 48, $(this).offset().top + 25, "lefttop");

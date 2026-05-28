@@ -9,6 +9,7 @@ import {
 } from "../select";
 import controlHistory from "../controlHistory";
 import { hideMenuByCancel } from "../../global/cursorPos";
+import { isInputBoxActive } from "../../utils/domUtils.js";
 
 import {
     replaceHtml,
@@ -57,7 +58,7 @@ export default function globalEvents() {
             //点击功能栏时 如果是单元格编辑模式 则退出编辑模式
             if (
                 $(event.target).closest("#luckysheet-wa-editor").length > 0 &&
-                parseInt($("#luckysheet-input-box").css("top")) > 0
+                isInputBoxActive()
             ) {
                 formula.updatecell(Store.luckysheetCellUpdate[0], Store.luckysheetCellUpdate[1]);
                 luckysheetMoveHighlightCell("down", 0, "rangeOfSelect");

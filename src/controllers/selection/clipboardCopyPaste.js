@@ -11,6 +11,7 @@ import {  jfrefreshgrid } from "../../global/refresh";
 import {  update  } from "../../global/format";
 import { getSheetIndex } from "../../methods/get";
 import {  getObjType } from "../../utils/util";
+import { getCurrentFile, getLastSelection } from "../../utils/storeAccess.js";
 import Store from "../../store";
 import locale from "../../locale/locale";
 const clipboardCopyPasteModule = {
@@ -76,7 +77,7 @@ const clipboardCopyPasteModule = {
       copyc = copyData[0].length;
 
     //应用范围
-    let last = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1];
+    let last = getLastSelection();
     let minh = last["row"][0],
       maxh = last["row"][1]; //应用范围首尾行
     let minc = last["column"][0],
@@ -224,7 +225,7 @@ const clipboardCopyPasteModule = {
     let cdformat = null;
     if (copyRange["copyRange"].length == 1) {
       let c_file = Store.luckysheetfile[getSheetIndex(copySheetIndex)];
-      let a_file = Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)];
+      let a_file = getCurrentFile();
       let ruleArr_cf = $.extend(true, [], c_file["luckysheet_conditionformat_save"]);
       if (ruleArr_cf != null && ruleArr_cf.length > 0) {
         cdformat = $.extend(true, [], a_file["luckysheet_conditionformat_save"]);

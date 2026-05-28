@@ -4,6 +4,7 @@ import {luckysheetupdateCell} from './updateCell';
 import { modelHTML } from './constant';
 import { replaceHtml } from '../utils/util';
 import Store from '../store';
+import { getLastSelection, getFocusCell } from '../utils/storeAccess.js';
 import locale from '../locale/locale';
 
 //if公式生成器
@@ -257,9 +258,10 @@ const ifFormulaGenerator = {
             $("#luckysheet-modal-dialog-mask").hide();
             $("#luckysheet-ifFormulaGenerator-dialog").hide();
 
-            let last = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1];
-            let row_index = last["row_focus"], 
-                col_index = last["column_focus"];
+            let last = getLastSelection();
+            let _focus = getFocusCell();
+            let row_index = _focus.row,
+                col_index = _focus.col;
             
             luckysheetupdateCell(row_index, col_index, Store.flowdata);
 

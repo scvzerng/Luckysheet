@@ -1,3 +1,4 @@
+import { initCanvasDefaults, getRowStartEnd, getColStartEnd, drawBorder } from './drawUtils.js';
 import conditionformat from "../../controllers/conditionformat";
 import alternateformat from "../../controllers/alternateformat";
 import menuButton from "../../controllers/menuButton";
@@ -6,8 +7,8 @@ import { luckysheet_searcharray } from "../../controllers/sheetSearch";
 import { dynamicArrayCompute } from "../dynamicArray";
 import { getRealCellValue } from "../getdata";
 import { getBorderInfoComputeRange } from "../border";
-import { getSheetIndex } from "../../methods/get";
-import {  getObjType } from "../../utils/util";
+import { getCurrentFile, getMaxRowIndex, getMaxColIndex } from "../../utils/storeAccess.js";
+import {  getObjType, isRowHidden, isColHidden } from "../../utils/util";
 import { nullCellRender, cellRender } from "./cellRender";
 import { getCellOverflowMap, cellOverflow_colIn } from "./cellOverflow";
 import method from "../method";
@@ -76,11 +77,11 @@ function luckysheetDrawMain(scrollWidth, scrollHeight, drawWidth, drawHeight, of
   }
   dataset_row_st += rowOffsetCell;
   if (dataset_row_ed == -1) {
-    dataset_row_ed = Store.visibledatarow.length - 1;
+    dataset_row_ed = getMaxRowIndex();
   }
   dataset_row_ed += rowOffsetCell;
   if (dataset_row_ed >= Store.visibledatarow.length) {
-    dataset_row_ed = Store.visibledatarow.length - 1;
+    dataset_row_ed = getMaxRowIndex();
   }
   dataset_col_st = luckysheet_searcharray(Store.visibledatacolumn, scrollWidth);
   dataset_col_ed = luckysheet_searcharray(Store.visibledatacolumn, scrollWidth + drawWidth);
@@ -89,11 +90,11 @@ function luckysheetDrawMain(scrollWidth, scrollHeight, drawWidth, drawHeight, of
   }
   dataset_col_st += columnOffsetCell;
   if (dataset_col_ed == -1) {
-    dataset_col_ed = Store.visibledatacolumn.length - 1;
+    dataset_col_ed = getMaxColIndex();
   }
   dataset_col_ed += columnOffsetCell;
   if (dataset_col_ed >= Store.visibledatacolumn.length) {
-    dataset_col_ed = Store.visibledatacolumn.length - 1;
+    dataset_col_ed = getMaxColIndex();
   }
 
   //琛ㄦ牸娓叉煋鍖哄煙 璧锋琛屽垪鍧愭爣
@@ -114,9 +115,7 @@ function luckysheetDrawMain(scrollWidth, scrollHeight, drawWidth, drawHeight, of
   //琛ㄦ牸canvas 鍒濆鍖栧鐞?
   luckysheetTableContent.fillStyle = "#ffffff";
   luckysheetTableContent.fillRect(offsetLeft - 1, offsetTop - 1, fill_col_ed - scrollWidth, fill_row_ed - scrollHeight);
-  luckysheetTableContent.font = luckysheetdefaultFont();
-  // luckysheetTableContent.textBaseline = "top";
-  luckysheetTableContent.fillStyle = luckysheetdefaultstyle.fillStyle;
+  initCanvasDefaults(luckysheetTableContent);
 
   //琛ㄦ牸娓叉煋鍖哄煙 闈炵┖鍗曞厓鏍艰鍒?璧锋鍧愭爣
   let cellupdate = [];
@@ -127,25 +126,17 @@ function luckysheetDrawMain(scrollWidth, scrollHeight, drawWidth, drawHeight, of
   // 閽╁瓙鍑芥暟
   method.createHookFunction("cellAllRenderBefore", Store.flowdata, sheetFile, luckysheetTableContent);
   for (let r = dataset_row_st; r <= dataset_row_ed; r++) {
-    let start_r;
-    if (r == 0) {
-      start_r = -scrollHeight - 1;
-    } else {
-      start_r = Store.visibledatarow[r - 1] - scrollHeight - 1;
-    }
-    let end_r = Store.visibledatarow[r] - scrollHeight;
-    if (Store.config["rowhidden"] != null && Store.config["rowhidden"][r] != null) {
+    let _rowPos = getRowStartEnd(r, scrollHeight);
+    let start_r = _rowPos.start_r;
+    let end_r = _rowPos.end_r;
+    if (isRowHidden(r)) {
       continue;
     }
     for (let c = dataset_col_st; c <= dataset_col_ed; c++) {
-      let start_c;
-      if (c == 0) {
-        start_c = -scrollWidth;
-      } else {
-        start_c = Store.visibledatacolumn[c - 1] - scrollWidth;
-      }
-      let end_c = Store.visibledatacolumn[c] - scrollWidth;
-      if (Store.config["colhidden"] != null && Store.config["colhidden"][c] != null) {
+      let _colPos = getColStartEnd(c, scrollWidth);
+      let start_c = _colPos.start_c;
+      let end_c = _colPos.end_c;
+      if (isColHidden(c)) {
         continue;
       }
       let firstcolumnlen = Store.defaultcollen;
@@ -220,7 +211,7 @@ function luckysheetDrawMain(scrollWidth, scrollHeight, drawWidth, drawHeight, of
   }
 
   //鍔ㄦ€佹暟缁勫叕寮忚绠?
-  let dynamicArray_compute = dynamicArrayCompute(Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)]["dynamicArray"]);
+  let dynamicArray_compute = dynamicArrayCompute(getCurrentFile()["dynamicArray"]);
 
   //浜ゆ浛棰滆壊璁＄畻
   let af_compute = alternateformat.getComputeMap();
@@ -329,79 +320,19 @@ function luckysheetDrawMain(scrollWidth, scrollHeight, drawWidth, drawHeight, of
 
   //鏁版嵁閫忚琛ㄨ竟妗嗘覆鏌?
   for (let r = dataset_row_st; r <= dataset_row_ed; r++) {
-    let start_r;
-    if (r == 0) {
-      start_r = -scrollHeight - 1;
-    } else {
-      start_r = Store.visibledatarow[r - 1] - scrollHeight - 1;
-    }
-    let end_r = Store.visibledatarow[r] - scrollHeight;
+    let _rowPos = getRowStartEnd(r, scrollHeight);
+    let start_r = _rowPos.start_r;
+    let end_r = _rowPos.end_r;
     for (let c = dataset_col_st; c <= dataset_col_ed; c++) {
-      let start_c;
-      if (c == 0) {
-        start_c = -scrollWidth;
-      } else {
-        start_c = Store.visibledatacolumn[c - 1] - scrollWidth;
-      }
-      let end_c = Store.visibledatacolumn[c] - scrollWidth;
+      let _colPos = getColStartEnd(c, scrollWidth);
+      let start_c = _colPos.start_c;
+      let end_c = _colPos.end_c;
     }
   }
 
   //杈规鍗曠嫭娓叉煋
   if (Store.config["borderInfo"] != null && Store.config["borderInfo"].length > 0) {
     //杈规娓叉煋
-    let borderLeftRender = function (style, color, start_r, start_c, end_r, end_c, offsetLeft, offsetTop, canvas) {
-      let linetype = style;
-      let m_st = start_c - 2 + bodrder05 + offsetLeft;
-      let m_ed = start_r + offsetTop - 1;
-      let line_st = start_c - 2 + bodrder05 + offsetLeft;
-      let line_ed = end_r - 2 + bodrder05 + offsetTop;
-      canvas.save();
-      menuButton.setLineDash(canvas, linetype, "v", m_st, m_ed, line_st, line_ed);
-      canvas.strokeStyle = color;
-      canvas.stroke();
-      canvas.closePath();
-      canvas.restore();
-    };
-    let borderRightRender = function (style, color, start_r, start_c, end_r, end_c, offsetLeft, offsetTop, canvas) {
-      let linetype = style;
-      let m_st = end_c - 2 + bodrder05 + offsetLeft;
-      let m_ed = start_r + offsetTop - 1;
-      let line_st = end_c - 2 + bodrder05 + offsetLeft;
-      let line_ed = end_r - 2 + bodrder05 + offsetTop;
-      canvas.save();
-      menuButton.setLineDash(canvas, linetype, "v", m_st, m_ed, line_st, line_ed);
-      canvas.strokeStyle = color;
-      canvas.stroke();
-      canvas.closePath();
-      canvas.restore();
-    };
-    let borderBottomRender = function (style, color, start_r, start_c, end_r, end_c, offsetLeft, offsetTop, canvas) {
-      let linetype = style;
-      let m_st = start_c - 2 + bodrder05 + offsetLeft;
-      let m_ed = end_r - 2 + bodrder05 + offsetTop;
-      let line_st = end_c - 2 + bodrder05 + offsetLeft;
-      let line_ed = end_r - 2 + bodrder05 + offsetTop;
-      canvas.save();
-      menuButton.setLineDash(canvas, linetype, "h", m_st, m_ed, line_st, line_ed);
-      canvas.strokeStyle = color;
-      canvas.stroke();
-      canvas.closePath();
-      canvas.restore();
-    };
-    let borderTopRender = function (style, color, start_r, start_c, end_r, end_c, offsetLeft, offsetTop, canvas) {
-      let linetype = style;
-      let m_st = start_c - 2 + bodrder05 + offsetLeft;
-      let m_ed = start_r - 1 + bodrder05 + offsetTop;
-      let line_st = end_c - 2 + bodrder05 + offsetLeft;
-      let line_ed = start_r - 1 + bodrder05 + offsetTop;
-      canvas.save();
-      menuButton.setLineDash(canvas, linetype, "h", m_st, m_ed, line_st, line_ed);
-      canvas.strokeStyle = color;
-      canvas.stroke();
-      canvas.closePath();
-      canvas.restore();
-    };
     let borderInfoCompute = getBorderInfoComputeRange(dataset_row_st, dataset_row_ed, dataset_col_st, dataset_col_ed);
     for (let x in borderInfoCompute) {
       //let bd_r = x.split("_")[0], bd_c = x.split("_")[1];
@@ -421,26 +352,26 @@ function luckysheetDrawMain(scrollWidth, scrollHeight, drawWidth, drawHeight, of
         let cellOverflow_colInObj = cellOverflow_colIn(cellOverflowMap, bd_r, bd_c, dataset_col_st, dataset_col_ed);
         let borderLeft = borderInfoCompute[x].l;
         if (borderLeft != null && (!cellOverflow_colInObj.colIn || cellOverflow_colInObj.stc == bd_c)) {
-          borderLeftRender(borderLeft.style, borderLeft.color, start_r, start_c, end_r, end_c, offsetLeft, offsetTop, luckysheetTableContent);
+          drawBorder(luckysheetTableContent, "left", borderLeft.style, borderLeft.color, start_r, start_c, end_r, end_c, offsetLeft, offsetTop);
         }
         let borderRight = borderInfoCompute[x].r;
         if (borderRight != null && (!cellOverflow_colInObj.colIn || cellOverflow_colInObj.colLast)) {
-          borderRightRender(borderRight.style, borderRight.color, start_r, start_c, end_r, end_c, offsetLeft, offsetTop, luckysheetTableContent);
+          drawBorder(luckysheetTableContent, "right", borderRight.style, borderRight.color, start_r, start_c, end_r, end_c, offsetLeft, offsetTop);
         }
         let borderTop = borderInfoCompute[x].t;
         if (borderTop != null) {
-          borderTopRender(borderTop.style, borderTop.color, start_r, start_c, end_r, end_c, offsetLeft, offsetTop, luckysheetTableContent);
+          drawBorder(luckysheetTableContent, "top", borderTop.style, borderTop.color, start_r, start_c, end_r, end_c, offsetLeft, offsetTop);
         }
         let borderBottom = borderInfoCompute[x].b;
         if (borderBottom != null) {
-          borderBottomRender(borderBottom.style, borderBottom.color, start_r, start_c, end_r, end_c, offsetLeft, offsetTop, luckysheetTableContent);
+          drawBorder(luckysheetTableContent, "bottom", borderBottom.style, borderBottom.color, start_r, start_c, end_r, end_c, offsetLeft, offsetTop);
         }
       }
     }
   }
 
   //娓叉煋琛ㄦ牸鏃舵湁灏惧垪鏃讹紝娓呴櫎鍙宠竟鐏拌壊鍖哄煙锛岄槻姝㈣〃鏍兼湁鍊兼孩鍑?
-  if (dataset_col_ed == Store.visibledatacolumn.length - 1) {
+  if (dataset_col_ed == getMaxColIndex()) {
     luckysheetTableContent.clearRect(fill_col_ed - scrollWidth + offsetLeft - 1, offsetTop - 1, Store.ch_width - Store.visibledatacolumn[dataset_col_ed], fill_row_ed - scrollHeight);
   }
   luckysheetTableContent.restore();

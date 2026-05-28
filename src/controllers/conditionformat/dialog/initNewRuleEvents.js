@@ -1,7 +1,8 @@
-import { getcellvalue } from '../../../global/getdata';
+import { parseConditionRange } from '../rangeParser.js';
 import tooltip from '../../../global/tooltip';
 import { isEditMode } from '../../../global/validate';
 import { getSheetIndex } from '../../../methods/get';
+import { getCurrentFile } from '../../../utils/storeAccess.js';
 import Store from '../../../store';
 import locale from '../../../locale/locale';
 
@@ -86,102 +87,33 @@ export function initNewRuleEvents(_this) {
                 let v1 = $("#luckysheet-newConditionRule-dialog #conditionVal input").val().trim();
                 let v2 = $("#luckysheet-newConditionRule-dialog #conditionVal2 input").val().trim();
   
-                //条件值是否是选区
-                let rangeArr1 = _this.getRangeByTxt(v1);
-                if (rangeArr1.length > 1) {
-                  _this.infoDialog(conditionformat_Text.onlySingleCell, "");
+                let result1 = parseConditionRange(v1, _this, conditionformat_Text);
+                if (result1 == null) {
                   return;
-                } else if (rangeArr1.length == 1) {
-                  let r1 = rangeArr1[0].row[0],
-                    r2 = rangeArr1[0].row[1];
-                  let c1 = rangeArr1[0].column[0],
-                    c2 = rangeArr1[0].column[1];
-                  if (r1 == r2 && c1 == c2) {
-                    v1 = getcellvalue(r1, c1, Store.flowdata);
-  
-                    // conditionRange.push({ "row": rangeArr1[0].row, "column": rangeArr1[0].column });
-                    conditionRange[0] = {
-                      "row": rangeArr1[0].row,
-                      "column": rangeArr1[0].column
-                    };
-                    conditionValue.push(v1);
-                  } else {
-                    _this.infoDialog(conditionformat_Text.onlySingleCell, "");
-                    return;
-                  }
-                } else if (rangeArr1.length == 0) {
-                  if (isNaN(v1) || v1 == "") {
-                    _this.infoDialog(conditionformat_Text.conditionValueCanOnly, "");
-                    return;
-                  } else {
-                    conditionValue.push(v1);
-                  }
                 }
-                let rangeArr2 = _this.getRangeByTxt(v2);
-                if (rangeArr2.length > 1) {
-                  _this.infoDialog(conditionformat_Text.onlySingleCell, "");
+                if (result1.conditionRange.length > 0) {
+                  conditionRange[0] = result1.conditionRange[0];
+                }
+                conditionValue.push(...result1.conditionValue);
+
+                let result2 = parseConditionRange(v2, _this, conditionformat_Text);
+                if (result2 == null) {
                   return;
-                } else if (rangeArr2.length == 1) {
-                  let r1 = rangeArr2[0].row[0],
-                    r2 = rangeArr2[0].row[1];
-                  let c1 = rangeArr2[0].column[0],
-                    c2 = rangeArr2[0].column[1];
-                  if (r1 == r2 && c1 == c2) {
-                    v2 = getcellvalue(r1, c1, Store.flowdata);
-  
-                    // conditionRange.push({ "row": rangeArr2[0].row, "column": rangeArr2[0].column });
-  
-                    // If the first value is a custom value, and the cell range selected by the second value, push will cause the position to be wrong
-                    conditionRange[1] = {
-                      "row": rangeArr2[0].row,
-                      "column": rangeArr2[0].column
-                    };
-                    conditionValue.push(v2);
-                  } else {
-                    _this.infoDialog(conditionformat_Text.onlySingleCell, "");
-                    return;
-                  }
-                } else if (rangeArr2.length == 0) {
-                  if (isNaN(v2) || v2 == "") {
-                    _this.infoDialog(conditionformat_Text.conditionValueCanOnly, "");
-                    return;
-                  } else {
-                    conditionValue.push(v2);
-                  }
                 }
+                if (result2.conditionRange.length > 0) {
+                  conditionRange[1] = result2.conditionRange[0];
+                }
+                conditionValue.push(...result2.conditionValue);
               } else {
                 //条件�?
                 let v = $("#luckysheet-newConditionRule-dialog #conditionVal input").val().trim();
   
-                //条件值是否是选区
-                let rangeArr = _this.getRangeByTxt(v);
-                if (rangeArr.length > 1) {
-                  _this.infoDialog(conditionformat_Text.onlySingleCell, "");
+                let result = parseConditionRange(v, _this, conditionformat_Text);
+                if (result == null) {
                   return;
-                } else if (rangeArr.length == 1) {
-                  let r1 = rangeArr[0].row[0],
-                    r2 = rangeArr[0].row[1];
-                  let c1 = rangeArr[0].column[0],
-                    c2 = rangeArr[0].column[1];
-                  if (r1 == r2 && c1 == c2) {
-                    v = getcellvalue(r1, c1, Store.flowdata);
-                    conditionRange.push({
-                      "row": rangeArr[0].row,
-                      "column": rangeArr[0].column
-                    });
-                    conditionValue.push(v);
-                  } else {
-                    _this.infoDialog(conditionformat_Text.onlySingleCell, "");
-                    return;
-                  }
-                } else if (rangeArr.length == 0) {
-                  if (isNaN(v) || v == "") {
-                    _this.infoDialog(conditionformat_Text.conditionValueCanOnly, "");
-                    return;
-                  } else {
-                    conditionValue.push(v);
-                  }
                 }
+                conditionRange.push(...result.conditionRange);
+                conditionValue.push(...result.conditionValue);
               }
             } else if (type1 == "text") {
               //特定文本
@@ -190,35 +122,12 @@ export function initNewRuleEvents(_this) {
               //条件�?
               let v = $("#luckysheet-newConditionRule-dialog #conditionVal input").val().trim();
   
-              //条件值是否是选区
-              let rangeArr = _this.getRangeByTxt(v);
-              if (rangeArr.length > 1) {
-                _this.infoDialog(conditionformat_Text.onlySingleCell, "");
+              let result = parseConditionRange(v, _this, conditionformat_Text, { allowNonNumeric: true });
+              if (result == null) {
                 return;
-              } else if (rangeArr.length == 1) {
-                let r1 = rangeArr[0].row[0],
-                  r2 = rangeArr[0].row[1];
-                let c1 = rangeArr[0].column[0],
-                  c2 = rangeArr[0].column[1];
-                if (r1 == r2 && c1 == c2) {
-                  v = getcellvalue(r1, c1, Store.flowdata);
-                  conditionRange.push({
-                    "row": rangeArr[0].row,
-                    "column": rangeArr[0].column
-                  });
-                  conditionValue.push(v);
-                } else {
-                  _this.infoDialog(conditionformat_Text.onlySingleCell, "");
-                  return;
-                }
-              } else if (rangeArr.length == 0) {
-                if (v == "") {
-                  _this.infoDialog(conditionformat_Text.conditionValueCanOnly, "");
-                  return;
-                } else {
-                  conditionValue.push(v);
-                }
               }
+              conditionRange.push(...result.conditionRange);
+              conditionValue.push(...result.conditionValue);
             } else if (type1 == "date") {
               //发生日期
               conditionName = "occurrenceDate";
@@ -319,9 +228,9 @@ export function initNewRuleEvents(_this) {
           let historyRules = _this.getHistoryRules(fileH);
   
           //保存当前的规�?
-          let ruleArr = Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)]["luckysheet_conditionformat_save"] == undefined ? [] : Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)]["luckysheet_conditionformat_save"];
+          let ruleArr = getCurrentFile()["luckysheet_conditionformat_save"] == undefined ? [] : getCurrentFile()["luckysheet_conditionformat_save"];
           ruleArr.push(rule);
-          Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)]["luckysheet_conditionformat_save"] = ruleArr;
+          getCurrentFile()["luckysheet_conditionformat_save"] = ruleArr;
           let fileC = $.extend(true, [], Store.luckysheetfile);
           let currentRules = _this.getCurrentRules(fileC);
   

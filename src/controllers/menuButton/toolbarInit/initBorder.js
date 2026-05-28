@@ -2,16 +2,17 @@ import editor from '../../../global/editor';
 import { luckysheetrefreshgrid } from '../../../global/refresh';
 import { checkIsAllowEdit } from '../../../global/validate';
 import locale from '../../../locale/locale';
-import { getSheetIndex } from '../../../methods/get';
+import { syncConfigToStore } from '../../../utils/storeAccess.js';
 import Store from '../../../store';
 import { luckysheetContainerFocus, mouseclickposition, replaceHtml } from '../../../utils/util';
+import { checkMenuOverflow } from '../../../utils/domUtils.js';
 import { iconfontObjects } from '../../constant';
 import luckysheetConfigsetting from '../../luckysheetConfigsetting';
 
 export function initBorder(_this) {
       //边框设置
       $("#luckysheet-icon-border-all").click(function () {
-        // *如果禁止前台编辑，则中止下一步操�?
+        // *如果禁止前台编辑，则中止下一步操�?
         if (!checkIsAllowEdit()) {
           return;
         }
@@ -51,7 +52,7 @@ export function initBorder(_this) {
           Store.jfredo.push(redo);
         }
         Store.config = cfg;
-        Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
+        syncConfigToStore();
         setTimeout(function () {
           luckysheetrefreshgrid();
         }, 1);
@@ -233,7 +234,7 @@ export function initBorder(_this) {
   
           // border choose menu
           $menuButton.find(".luckysheet-cols-menuitem").click(function () {
-            // *如果禁止前台编辑，则中止下一步操�?
+            // *如果禁止前台编辑，则中止下一步操�?
             if (!checkIsAllowEdit()) {
               return;
             }
@@ -275,7 +276,7 @@ export function initBorder(_this) {
               Store.jfredo.push(redo);
             }
             Store.config = cfg;
-            Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
+            syncConfigToStore();
             setTimeout(function () {
               luckysheetrefreshgrid();
             }, 1);
@@ -331,7 +332,7 @@ export function initBorder(_this) {
         let userlen = $(this).outerWidth();
         let tlen = $menuButton.outerWidth();
         let menuleft = $(this).offset().left;
-        if (tlen > userlen && tlen + menuleft > $("#" + Store.container).width()) {
+        if (checkMenuOverflow(tlen, userlen, menuleft)) {
           menuleft = menuleft - tlen + userlen;
         }
         mouseclickposition($menuButton, menuleft - 28, $(this).offset().top + 25, "lefttop");

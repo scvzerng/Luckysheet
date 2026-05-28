@@ -12,6 +12,7 @@ import { rowLocation, colLocation, mouseposition } from "../../../global/locatio
 import { countfunc } from "../../../global/count";
 import formula from "../../../global/formula";
 import Store from "../../../store";
+import { getLastSelection, getMaxRowIndex, getMaxColIndex } from "../../../utils/storeAccess.js";
 
             export function mouseRender(event) {
                 if (!event || event.pageX === undefined) return;
@@ -68,7 +69,7 @@ import Store from "../../../store";
                     let last = $.extend(
                         true,
                         {},
-                        Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1],
+                        getLastSelection(),
                     );
 
                     let top = 0,
@@ -163,7 +164,7 @@ import Store from "../../../store";
                         $("#luckysheet-alternateformat-rangeDialog input").val(
                             getRangetxt(
                                 Store.currentSheetIndex,
-                                Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1],
+                                getLastSelection(),
                             ),
                         );
                     }
@@ -287,14 +288,14 @@ import Store from "../../../store";
                         row = row_location[1],
                         row_pre = row_location[0],
                         row_index = row_location[2];
-                    let col_index = Store.visibledatacolumn.length - 1,
+                    let col_index = getMaxColIndex(),
                         col = Store.visibledatacolumn[col_index],
                         col_pre = 0;
 
                     let last = $.extend(
                         true,
                         {},
-                        Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1],
+                        getLastSelection(),
                     );
 
                     let top = 0,
@@ -343,7 +344,7 @@ import Store from "../../../store";
                         return false;
                     }
 
-                    let row_index = Store.visibledatarow.length - 1,
+                    let row_index = getMaxRowIndex(),
                         row = Store.visibledatarow[row_index],
                         row_pre = 0;
                     let col_location = colLocation(x),
@@ -354,7 +355,7 @@ import Store from "../../../store";
                     let last = $.extend(
                         true,
                         {},
-                        Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1],
+                        getLastSelection(),
                     );
 
                     let left = 0,
@@ -437,22 +438,20 @@ import Store from "../../../store";
                             Store.luckysheet_select_save[0]["column"][1] - Store.luckysheet_select_save[0]["column"][0];
                     }
 
-                    if (row_e >= Store.visibledatarow[Store.visibledatarow.length - 1] || y > winH) {
+                    if (row_e >= Store.visibledatarow[getMaxRowIndex()] || y > winH) {
                         row_s =
-                            Store.visibledatarow.length -
-                            1 -
+                            getMaxRowIndex() -
                             Store.luckysheet_select_save[0]["row"][1] +
                             Store.luckysheet_select_save[0]["row"][0];
-                        row_e = Store.visibledatarow.length - 1;
+                        row_e = getMaxRowIndex();
                     }
 
-                    if (col_e >= Store.visibledatacolumn[Store.visibledatacolumn.length - 1] || x > winW) {
+                    if (col_e >= Store.visibledatacolumn[getMaxColIndex()] || x > winW) {
                         col_s =
-                            Store.visibledatacolumn.length -
-                            1 -
+                            getMaxColIndex() -
                             Store.luckysheet_select_save[0]["column"][1] +
                             Store.luckysheet_select_save[0]["column"][0];
-                        col_e = Store.visibledatacolumn.length - 1;
+                        col_e = getMaxColIndex();
                     }
 
                     col_pre = col_s - 1 == -1 ? 0 : Store.visibledatacolumn[col_s - 1];
@@ -506,22 +505,20 @@ import Store from "../../../store";
                             Store.luckysheet_select_save[0]["column"][1] - Store.luckysheet_select_save[0]["column"][0];
                     }
 
-                    if (row_e >= Store.visibledatarow[Store.visibledatarow.length - 1] || y > winH) {
+                    if (row_e >= Store.visibledatarow[getMaxRowIndex()] || y > winH) {
                         row_s =
-                            Store.visibledatarow.length -
-                            1 -
+                            getMaxRowIndex() -
                             Store.luckysheet_select_save[0]["row"][1] +
                             Store.luckysheet_select_save[0]["row"][0];
-                        row_e = Store.visibledatarow.length - 1;
+                        row_e = getMaxRowIndex();
                     }
 
-                    if (col_e >= Store.visibledatacolumn[Store.visibledatacolumn.length - 1] || x > winW) {
+                    if (col_e >= Store.visibledatacolumn[getMaxColIndex()] || x > winW) {
                         col_s =
-                            Store.visibledatacolumn.length -
-                            1 -
+                            getMaxColIndex() -
                             Store.luckysheet_select_save[0]["column"][1] +
                             Store.luckysheet_select_save[0]["column"][0];
-                        col_e = Store.visibledatacolumn.length - 1;
+                        col_e = getMaxColIndex();
                     }
 
                     let top = Store.luckysheet_select_save[0].top_move,
@@ -570,7 +567,7 @@ import Store from "../../../store";
                     let x = mouse[0] + scrollLeft;
                     let winW = $(window).width();
 
-                    let row_index = Store.visibledatarow.length - 1,
+                    let row_index = getMaxRowIndex(),
                         row = Store.visibledatarow[row_index],
                         row_pre = 0;
                     let col_location = colLocation(x),

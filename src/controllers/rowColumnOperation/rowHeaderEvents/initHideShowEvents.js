@@ -2,7 +2,7 @@ import { jfrefreshgrid_rhcw } from '../../../global/refresh';
 import tooltip from '../../../global/tooltip';
 import { isEditMode } from '../../../global/validate';
 import locale from '../../../locale/locale';
-import { getSheetIndex } from '../../../methods/get';
+import { syncConfigToStore, getDataSize } from '../../../utils/storeAccess.js';
 import Store from '../../../store';
 import { luckysheetContainerFocus } from '../../../utils/util';
 
@@ -57,12 +57,12 @@ export function initHideShowEvents() {
   
         //config
         Store.config = cfg;
-        Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
-  
-        //行高、列�?刷新
-        jfrefreshgrid_rhcw(Store.flowdata.length, Store.flowdata[0].length);
+        syncConfigToStore();
+
+        let _dataSize = getDataSize();
+        jfrefreshgrid_rhcw(_dataSize.rowCount, _dataSize.colCount);
       }
-      // 隐藏�?
+      // 隐藏列
       else if (Store.luckysheetRightHeadClickIs == "column") {
         let cfg = $.extend(true, {}, Store.config);
         if (cfg["colhidden"] == null) {
@@ -89,13 +89,13 @@ export function initHideShowEvents() {
   
         //config
         Store.config = cfg;
-        Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
-  
-        //行高、列�?刷新
-        jfrefreshgrid_rhcw(Store.flowdata.length, Store.flowdata[0].length);
+        syncConfigToStore();
+
+        let _dataSize2 = getDataSize();
+        jfrefreshgrid_rhcw(_dataSize2.rowCount, _dataSize2.colCount);
       }
     });
-  
+
     //取消隐藏选中行列
     $("#luckysheet-show-selected").click(function (event) {
       $("#luckysheet-rightclick-menu").hide();
@@ -145,10 +145,10 @@ export function initHideShowEvents() {
   
         //config
         Store.config = cfg;
-        Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
-  
-        //行高、列�?刷新
-        jfrefreshgrid_rhcw(Store.flowdata.length, Store.flowdata[0].length);
+        syncConfigToStore();
+
+        let _dataSize3 = getDataSize();
+        jfrefreshgrid_rhcw(_dataSize3.rowCount, _dataSize3.colCount);
       } else if (Store.luckysheetRightHeadClickIs == "column") {
         let cfg = $.extend(true, {}, Store.config);
         if (cfg["colhidden"] == null) {
@@ -175,10 +175,10 @@ export function initHideShowEvents() {
   
         //config
         Store.config = cfg;
-        Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
-  
-        //行高、列�?刷新
-        jfrefreshgrid_rhcw(Store.flowdata.length, Store.flowdata[0].length);
+        syncConfigToStore();
+
+        let _dataSize4 = getDataSize();
+        jfrefreshgrid_rhcw(_dataSize4.rowCount, _dataSize4.colCount);
       }
     });
 }

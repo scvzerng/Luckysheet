@@ -1,5 +1,5 @@
 import { getObjType } from '../utils/util';
-import { getSheetIndex } from '../methods/get';
+import { getCurrentFile } from '../utils/storeAccess.js';
 import Store from '../store';
 
 //动态数组计算
@@ -86,7 +86,7 @@ function dynamicArrayRangeIsAllNull(range, data) {
 
 //点击表格区域是否属于动态数组区域
 function dynamicArrayHightShow(r, c) {
-    let dynamicArray = Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)]["dynamicArray"] == null ? [] : Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)]["dynamicArray"];
+    let dynamicArray = getCurrentFile()["dynamicArray"] == null ? [] : getCurrentFile()["dynamicArray"];
     let dynamicArray_compute = dynamicArrayCompute(dynamicArray);
 
     if((r + "_" + c) in dynamicArray_compute && dynamicArray_compute[r + "_" + c].v != "#SPILL!"){

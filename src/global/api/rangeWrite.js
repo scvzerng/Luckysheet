@@ -1,8 +1,8 @@
 import menuButton from "../../controllers/menuButton";
 import { selectHightlightShow } from "../../controllers/select";
-import { getSheetIndex } from "../../methods/get";
 import Store from "../../store";
 import { getObjType } from "../../utils/util";
+import { getCurrentSheetOrder, getLastSelection } from '../../utils/storeAccess.js';
 import formula from "../formula";
 import { jfrefreshgrid, luckysheetrefreshgrid } from "../refresh";
 import tooltip from "../tooltip";
@@ -61,7 +61,7 @@ export function setRangeShow(range, options = {}) {
 
     let {
         show = true,
-        order = getSheetIndex(Store.currentSheetIndex),
+        order = getCurrentSheetOrder(),
         success
     } = {...options}
 
@@ -103,8 +103,8 @@ export function setRangeShow(range, options = {}) {
 }
 
 export function setRangeValue(data, options = {}) {
-    let curSheetOrder = getSheetIndex(Store.currentSheetIndex);
-    let curRange = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1];
+    let curSheetOrder = getCurrentSheetOrder();
+    let curRange = getLastSelection();
     let {
         range = curRange,
         isRefresh = true,
@@ -167,8 +167,8 @@ export function setRangeValue(data, options = {}) {
 }
 
 export function setSingleRangeFormat(attr, value, options = {}) {
-    let curSheetOrder = getSheetIndex(Store.currentSheetIndex);
-    let curRange = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1];
+    let curSheetOrder = getCurrentSheetOrder();
+    let curRange = getLastSelection();
     let {
         range = curRange,
         order = curSheetOrder,
@@ -211,7 +211,7 @@ export function setSingleRangeFormat(attr, value, options = {}) {
 }
 
  export function setRangeFormat(attr, value, options = {}) {
-    let curSheetOrder = getSheetIndex(Store.currentSheetIndex);
+    let curSheetOrder = getCurrentSheetOrder();
     let curRange = JSON.parse(JSON.stringify(Store.luckysheet_select_save));
     let {
         range = curRange,

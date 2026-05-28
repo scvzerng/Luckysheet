@@ -1,5 +1,6 @@
 import Store from '../../store';
-import { getSheetIndex, getRangetxt } from '../../methods/get';
+import { getRangetxt } from '../../methods/get';
+import { getCurrentFile } from '../../utils/storeAccess.js';
 import { isEditMode } from '../../global/validate';
 import tooltip from '../../global/tooltip';
 import { luckysheetrefreshgrid } from '../../global/refresh';
@@ -27,7 +28,7 @@ function rangeIsExists(range, index) {
         let existsIndex = null;
 
         //获取已有交替颜色所有应用范围
-        let AFarr = $.extend(true, [], Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)]["luckysheet_alternateformat_save"]);
+        let AFarr = $.extend(true, [], getCurrentFile()["luckysheet_alternateformat_save"]);
 
         if(index != undefined && index != null){
             if(AFarr.length > 1){
@@ -94,7 +95,7 @@ function getIndexByFormat(format) {
         }
         
         //自定义 模板
-        let modelCustom = Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)]["luckysheet_alternateformat_save_modelCustom"];
+        let modelCustom = getCurrentFile()["luckysheet_alternateformat_save_modelCustom"];
         if(modelCustom != null && modelCustom.length > 0){
             for(let j = 0; j < modelCustom.length; j++){
                 let obj = modelCustom[j];
@@ -128,7 +129,7 @@ function getFormatByIndex(modelfocusIndex) {
             format = _this.FixedModelColor[index];
         }
         else{
-            format = Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)]["luckysheet_alternateformat_save_modelCustom"][index - len];
+            format = getCurrentFile()["luckysheet_alternateformat_save_modelCustom"][index - len];
         }
 
         return format;
@@ -140,7 +141,7 @@ function newRule(cellrange, modelfocusIndex) {
 
         let format = _this.getFormatByIndex();
 
-        let file = Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)];
+        let file = getCurrentFile();
         let ruleArr = file["luckysheet_alternateformat_save"];
         
         if(ruleArr == null){
@@ -225,7 +226,7 @@ function update(modelfocusIndex, rangefocus) {
 
         //获取选中样式模板的颜色
         let format = _this.getFormatByIndex();
-        let file = Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)];
+        let file = getCurrentFile();
         
         let ruleArr = file["luckysheet_alternateformat_save"];
         if(ruleArr == null){
@@ -267,8 +268,7 @@ function ref(historyRules, currentRules) {
             Store.jfredo.push(redo); 
         }
 
-        let index = getSheetIndex(Store.currentSheetIndex);
-        Store.luckysheetfile[index]["luckysheet_alternateformat_save"] = currentRules;
+        getCurrentFile()["luckysheet_alternateformat_save"] = currentRules;
 
         setTimeout(function () {
             luckysheetrefreshgrid();

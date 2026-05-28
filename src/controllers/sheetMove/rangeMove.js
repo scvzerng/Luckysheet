@@ -3,6 +3,7 @@ import { countfunc } from "../../global/count";
 import menuButton from "../menuButton";
 import { selectHightlightShow } from "../select";
 import Store from "../../store";
+import { getLastSelection } from "../../utils/storeAccess.js";
 import { rowHasMerge, colHasMerge, getRowMerge, getColMerge } from "./mergeHelper";
 import { getNextIndex } from "./dataBoundary";
 //shift + 方向键  调整选区
@@ -16,7 +17,7 @@ function luckysheetMoveHighlightRange(postion, index, type, isScroll) {
   let row, row_pre;
   let col, col_pre;
   if (type == "rangeOfSelect") {
-    let last = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1];
+    let last = getLastSelection();
     let curR = last["row"][0],
       endR = last["row"][1];
     let curC = last["column"][0],
@@ -357,7 +358,7 @@ function luckysheetMoveHighlightRange2(postion, type, isScroll) {
   let row, row_pre;
   let col, col_pre;
   if (type == "rangeOfSelect") {
-    let last = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1];
+    let last = getLastSelection();
     let rf = last["row_focus"],
       cf = last["column_focus"];
     let r1 = last["row"][0],

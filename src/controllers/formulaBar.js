@@ -15,6 +15,7 @@ import formula from '../global/formula';
 import tooltip from '../global/tooltip';
 import locale from '../locale/locale';
 import Store from '../store';
+import { getLastSelection, getFocusCell } from '../utils/storeAccess.js';
 
 export function formulaBarInitial(){
     //公式栏处理
@@ -28,9 +29,10 @@ export function formulaBarInitial(){
         }
 
         if(Store.luckysheet_select_save.length > 0){
-            let last = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1];
+            let last = getLastSelection();
 
-            let row_index = last["row_focus"], col_index = last["column_focus"];
+            let _focus = getFocusCell();
+            let row_index = _focus.row, col_index = _focus.col;
             
             // let $input = $("#luckysheet-rich-text-editor"),value = $input.text();
             // if(value) {
@@ -163,9 +165,10 @@ export function formulaBarInitial(){
             return;
         }
 
-        let last = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1];
+        let last = getLastSelection();
 
-        let row_index = last["row_focus"], col_index = last["column_focus"];
+        let _focus = getFocusCell();
+        let row_index = _focus.row, col_index = _focus.col;
 
         luckysheetupdateCell(row_index, col_index, Store.flowdata);
         

@@ -1,4 +1,4 @@
-﻿import sheetmanage from './sheetmanage';
+﻿﻿﻿﻿﻿import sheetmanage from './sheetmanage';
 import { sheetselectlistitemHTML, sheetselectlistHTML, keycode } from './constant';
 import {
     replaceHtml,
@@ -12,6 +12,7 @@ import tooltip from '../global/tooltip';
 import {selectTextDom} from '../global/cursorPos';
 import locale from '../locale/locale';
 import Store from '../store';
+import { isInputBoxActive } from '../utils/domUtils.js';
 import luckysheetConfigsetting from './luckysheetConfigsetting';
 import {pagerInit} from '../global/api'
 import method from '../global/method';
@@ -134,7 +135,7 @@ let luckysheetsheetrightclick = function ($t, $cur, e) {
     }
     else {
         //保存正在编辑的单元格内容
-        if (parseInt($("#luckysheet-input-box").css("top")) > 0) {
+        if (isInputBoxActive()) {
             formula.updatecell(Store.luckysheetCellUpdate[0], Store.luckysheetCellUpdate[1]);
         }
 
@@ -416,7 +417,7 @@ export function initialSheetBar(){
 
     $("#luckysheet-sheets-add").click(function (e) {
         //保存正在编辑的单元格内容
-        if (parseInt($("#luckysheet-input-box").css("top")) > 0) {
+        if (isInputBoxActive()) {
             formula.updatecell(Store.luckysheetCellUpdate[0], Store.luckysheetCellUpdate[1]);
         }
 
@@ -469,7 +470,7 @@ export function initialSheetBar(){
     let initialOpenSheet = true;
     $("#luckysheet-sheets-m").click(function (e) {
         //保存正在编辑的单元格内容
-        if (parseInt($("#luckysheet-input-box").css("top")) > 0) {
+        if (isInputBoxActive()) {
             formula.updatecell(Store.luckysheetCellUpdate[0], Store.luckysheetCellUpdate[1]);
         }
 

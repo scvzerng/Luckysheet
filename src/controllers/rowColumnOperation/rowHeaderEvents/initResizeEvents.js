@@ -2,6 +2,7 @@ import { colLocation, mouseposition, rowLocation } from '../../../global/locatio
 import { checkIsAllowEdit } from '../../../global/validate';
 import locale from '../../../locale/locale';
 import Store from '../../../store';
+import { getMaxRowIndex } from '../../../utils/storeAccess.js';
 import { $$, showrightclickmenu } from '../../../utils/util';
 import imageCtrl from '../../imageCtrl';
 import luckysheetConfigsetting from '../../luckysheetConfigsetting';
@@ -73,7 +74,7 @@ export function initResizeEvents() {
       let scrollTop = $("#luckysheet-cell-main").scrollTop();
       let winH = $("#luckysheet-cell-main").height();
       let x = mouse[0] + scrollLeft;
-      let row_index = Store.visibledatarow.length - 1,
+      let row_index = getMaxRowIndex(),
         row = Store.visibledatarow[row_index],
         row_pre = 0;
       let col_location = colLocation(x),

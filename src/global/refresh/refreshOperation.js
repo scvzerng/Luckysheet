@@ -15,12 +15,14 @@ import { createFilterOptions } from '../../controllers/filter';
 import { getSheetIndex } from '../../methods/get';
 import { selectHightlightShow } from '../../controllers/select';
 import Store from '../../store';
+import { getCurrentFile, syncConfigToStore, syncDataToStore, getDataSize } from '../../utils/storeAccess.js';
+import { isRowHidden } from '../../utils/util';
 
 import {  clearRefreshCanvasTimeOut,  setRefreshCanvasTimeOut } from './refreshCore';
 import { luckysheetrefreshgrid, jfrefreshgrid_rhcw } from './refreshCanvas';
 
 function jfrefreshgrid_adRC(data, cfg, ctrlType, ctrlValue, calc, filterObj, cf, af, freezen, hyperlink){
-    let file = Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)];
+    let file = getCurrentFile();
     //merge改变对应的单元格值改变
     let mcData = [];
     for(let m in cfg["merge"]){
@@ -227,12 +229,13 @@ function jfrefreshgrid_adRC(data, cfg, ctrlType, ctrlValue, calc, filterObj, cf,
     file.hyperlink = hyperlink;
 
     //行高、列宽刷新
-    jfrefreshgrid_rhcw(Store.flowdata.length, Store.flowdata[0].length);
+    let _dataSize = getDataSize();
+    jfrefreshgrid_rhcw(_dataSize.rowCount, _dataSize.colCount);
 }
 
 //删除单元格 刷新表格
 function jfrefreshgrid_deleteCell(data, cfg, ctrl, calc, filterObj, cf, hyperlink){
-    let file = Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)];
+    let file = getCurrentFile();
     clearRefreshCanvasTimeOut();
     //merge改变对应的单元格值改变
     let mcData = [];
@@ -461,7 +464,7 @@ function jfrefreshgrid_pastcut(source, target, RowlChange){
                 rowlen = Store.config["rowlen"][i];
             }
 
-            if (Store.config["rowhidden"] != null && Store.config["rowhidden"][i] != null) {
+            if (isRowHidden(i)) {
                 rowlen = Store.config["rowhidden"][i];
                 Store.visibledatarow.push(Store.rh_height);
                 continue;
@@ -495,7 +498,7 @@ function jfrefreshgrid_pastcut(source, target, RowlChange){
         Store.luckysheetfile[getSheetIndex(source["sheetIndex"])]["data"] = source["curData"];
     }
     editor.webWorkerFlowDataCache(Store.flowdata);//worker存数据
-    Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].data = Store.flowdata;
+    syncDataToStore();
     
     //luckysheet_select_save
     if(Store.currentSheetIndex == target["sheetIndex"]){
@@ -523,8 +526,7 @@ function jfrefreshgrid_pastcut(source, target, RowlChange){
     formula.execFunctionGroup(null, null, null, null, target["curData"]);
     formula.execFunctionGlobalData = null;
 
-    let index = getSheetIndex(Store.currentSheetIndex);
-    let file = Store.luckysheetfile[index];
+    let file = getCurrentFile();
     file.scrollTop  = $("#luckysheet-cell-main").scrollTop();
     file.scrollLeft = $("#luckysheet-cell-main").scrollLeft()
     

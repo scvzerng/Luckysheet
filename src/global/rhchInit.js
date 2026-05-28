@@ -1,6 +1,7 @@
 import Store from '../store';
 import { computeRowlenByContent,computeColWidthByContent } from './getRowlen';
 import luckysheetConfigsetting from '../controllers/luckysheetConfigsetting';
+import { isRowHidden, isColHidden } from '../utils/util';
 
 export default function rhchInit(rowheight, colwidth) {
     zoomSetting();//Zoom sheet on first load
@@ -16,7 +17,7 @@ export default function rhchInit(rowheight, colwidth) {
                 rowlen = Store.config["rowlen"][r];
             }
 
-            if (Store.config["rowhidden"] != null && Store.config["rowhidden"][r] != null) {
+            if (isRowHidden(r)) {
                 Store.visibledatarow.push(Store.rh_height);
                 continue;
             }
@@ -71,7 +72,7 @@ export default function rhchInit(rowheight, colwidth) {
                 }
             }
 
-            if(Store.config["colhidden"] != null && Store.config["colhidden"][c] != null){
+            if(isColHidden(c)){
                 Store.visibledatacolumn.push(Store.ch_width);
                 continue;
             }

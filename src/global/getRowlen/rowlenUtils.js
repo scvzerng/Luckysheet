@@ -2,6 +2,7 @@ import {colLocationByIndex,colSpanLocationByIndex} from '../../global/location';
 import {isInlineStringCell} from '../../controllers/inlineString';
 import Store from '../../store';
 import { getCellTextInfo } from './getCellTextInfo';
+import { isRowHidden, isColHidden } from '../../utils/util';
 
 function rowlenByRange(d, r1, r2, cfg) {
     let cfg_clone = $.extend(true, {}, cfg);
@@ -17,7 +18,7 @@ function rowlenByRange(d, r1, r2, cfg) {
     canvas.textBaseline = 'top'; //textBaseline以top计算
 
     for(let r = r1; r <= r2; r++){
-        if (cfg_clone["rowhidden"] != null && cfg_clone["rowhidden"][r] != null) {
+        if (isRowHidden(r, cfg_clone)) {
             continue;
         }
 
@@ -102,7 +103,7 @@ function computeRowlenByContent(d, r) {
             }
         }
 
-        if(Store.config["colhidden"] != null && Store.config["colhidden"][c] != null){
+        if(isColHidden(c)){
             continue;
         }
 
@@ -186,7 +187,7 @@ function computeRowlenArr(rowHeight, cfg) {
             rowlen = cfg["rowlen"][i];
         }
 
-        if (cfg["rowhidden"] != null && cfg["rowhidden"][i] != null) {
+        if (isRowHidden(i, cfg)) {
             rowlen = cfg["rowhidden"][i];
             rowlenArr.push(rh_height);
             continue;

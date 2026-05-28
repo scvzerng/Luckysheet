@@ -1,4 +1,4 @@
-import { getSheetIndex } from "../../methods/get";
+import { getCurrentFile } from "../../utils/storeAccess.js";
 import { luckysheet_searcharray } from "../sheetSearch";
 import { selectHightlightShow } from "../select";
 import { createFilterOptions } from "../filter";
@@ -838,7 +838,7 @@ const scrollAdaptModule = {
       });
     } else {
       $("#luckysheet-filter-options-sheet" + Store.currentSheetIndex).empty();
-      createFilterOptions(Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].filter_select);
+      createFilterOptions(getCurrentFile().filter_select);
     }
   }
 };

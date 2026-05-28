@@ -1,6 +1,7 @@
 import Store from '../../store';
 import locale from '../../locale/locale';
-import { getSheetIndex, getRangetxt } from '../../methods/get';
+import { getRangetxt } from '../../methods/get';
+import { getCurrentFile } from '../../utils/storeAccess.js';
 import { replaceHtml } from '../../utils/util';
 import { luckysheetAlternateformatHtml, modelHTML } from '../constant';
 import { luckysheetsizeauto } from '../resize';
@@ -61,7 +62,7 @@ function getModelBox(hasRowHeader, hasRowFooter) {
         $("#luckysheet-modal-dialog-slider-alternateformat #luckysheet-alternateformat-modelList").append(modelListHtml);
 
         //自定义 模板
-        let modelCustom = Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)]["luckysheet_alternateformat_save_modelCustom"];
+        let modelCustom = getCurrentFile()["luckysheet_alternateformat_save_modelCustom"];
         if(modelCustom != null && modelCustom.length > 0){
             let modelCustomHtml = '';
 
@@ -354,7 +355,7 @@ function init() {
                 format = $.extend(true, {}, _this.getFormatByIndex());
             }
             else{
-                file = Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)];
+                file = getCurrentFile();
                 let modelCustom = file["luckysheet_alternateformat_save_modelCustom"];
 
                 format = $.extend(true, {}, modelCustom[index - len]);
@@ -411,7 +412,7 @@ function init() {
         $(document).off("click.AFremove").on("click.AFremove", "#luckysheet-alternateformat-remove", function(){
             let dataIndex = $(this).data("index");
 
-            let file = Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)];
+            let file = getCurrentFile();
 
             let ruleArr = file["luckysheet_alternateformat_save"];
 
@@ -446,7 +447,7 @@ function perfect() {
         let range = $.extend(true, {}, Store.luckysheet_select_save[0]);
         let existsIndex = _this.rangeIsExists(range)[1];
         
-        let obj = $.extend(true, {}, Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)]["luckysheet_alternateformat_save"][existsIndex]);
+        let obj = $.extend(true, {}, getCurrentFile()["luckysheet_alternateformat_save"][existsIndex]);
         
         //应用范围
         let cellrange = obj["cellrange"];
@@ -550,7 +551,7 @@ function modelToningColor() {
 }
 
 function addCustomModel(format) {
-        let file = Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)];
+        let file = getCurrentFile();
 
         if(file["luckysheet_alternateformat_save_modelCustom"] == null){
             file["luckysheet_alternateformat_save_modelCustom"] = [];

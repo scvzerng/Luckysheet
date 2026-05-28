@@ -10,6 +10,7 @@ import luckysheetPostil from '../../postil';
 import sheetmanage from '../../sheetmanage';
 import { mouseposition, rowLocation, colLocation } from '../../../global/location';
 import Store from '../../../store';
+import { getLastSelection } from '../../../utils/storeAccess.js';
 import method from '../../../global/method';
 import formula from '../../../global/formula';
 import luckysheetformula from '../../../global/formula';
@@ -641,7 +642,7 @@ export function handleCellMousedown(event) {
                       let last = $.extend(
                           true,
                           {},
-                          Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1],
+                          getLastSelection(),
                       ); //选区最后一个
   
                       let top = 0,

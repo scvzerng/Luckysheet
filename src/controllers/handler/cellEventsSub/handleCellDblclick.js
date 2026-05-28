@@ -3,6 +3,7 @@ import menuButton from '../../menuButton';
 import { luckysheetupdateCell } from '../../updateCell';
 import { mouseposition, rowLocation, colLocation } from '../../../global/location';
 import Store from '../../../store';
+import { isInputBoxActive } from '../../../utils/domUtils.js';
 import { selectHightlightShow } from '../../select';
 
 export function handleCellDblclick(event) {
@@ -15,7 +16,7 @@ export function handleCellDblclick(event) {
                   return;
               }
   
-              if (parseInt($("#luckysheet-input-box").css("top")) > 0) {
+              if (isInputBoxActive()) {
                   return;
               }
   

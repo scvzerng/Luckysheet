@@ -1,6 +1,7 @@
 import Store from '../../store';
 import locale from '../../locale/locale';
-import { getSheetIndex, getRangetxt } from '../../methods/get';
+import { getRangetxt } from '../../methods/get';
+import { getCurrentFile } from '../../utils/storeAccess.js';
 import { replaceHtml } from '../../utils/util';
 import { isEditMode } from '../../global/validate';
 import tooltip from '../../global/tooltip';
@@ -67,7 +68,7 @@ const alternateformat = {
         $("#luckysheet-modal-dialog-slider-alternateformat #luckysheet-alternateformat-modelList").append(modelListHtml);
 
         //自定义 模板
-        let modelCustom = Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)]["luckysheet_alternateformat_save_modelCustom"];
+        let modelCustom = getCurrentFile()["luckysheet_alternateformat_save_modelCustom"];
         if(modelCustom != null && modelCustom.length > 0){
             let modelCustomHtml = '';
 
@@ -358,7 +359,7 @@ const alternateformat = {
                 format = $.extend(true, {}, _this.getFormatByIndex());
             }
             else{
-                file = Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)];
+                file = getCurrentFile();
                 let modelCustom = file["luckysheet_alternateformat_save_modelCustom"];
 
                 format = $.extend(true, {}, modelCustom[index - len]);
@@ -415,7 +416,7 @@ const alternateformat = {
         $(document).off("click.AFremove").on("click.AFremove", "#luckysheet-alternateformat-remove", function(){
             let dataIndex = $(this).data("index");
 
-            let file = Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)];
+            let file = getCurrentFile();
 
             let ruleArr = file["luckysheet_alternateformat_save"];
 
@@ -448,7 +449,7 @@ const alternateformat = {
         let range = $.extend(true, {}, Store.luckysheet_select_save[0]);
         let existsIndex = _this.rangeIsExists(range)[1];
         
-        let obj = $.extend(true, {}, Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)]["luckysheet_alternateformat_save"][existsIndex]);
+        let obj = $.extend(true, {}, getCurrentFile()["luckysheet_alternateformat_save"][existsIndex]);
         
         //应用范围
         let cellrange = obj["cellrange"];
@@ -544,7 +545,7 @@ const alternateformat = {
         $("#luckysheet-alternateformat-modelToning .footer .luckysheet-icon-cell-color").parents(".luckysheet-color-menu-button-indicator").css("border-bottom-color", format["foot"].bc);
     },
     addCustomModel: function(format){
-        let file = Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)];
+        let file = getCurrentFile();
 
         if(file["luckysheet_alternateformat_save_modelCustom"] == null){
             file["luckysheet_alternateformat_save_modelCustom"] = [];
@@ -672,7 +673,7 @@ const alternateformat = {
         let existsIndex = null;
 
         //获取已有交替颜色所有应用范围
-        let AFarr = $.extend(true, [], Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)]["luckysheet_alternateformat_save"]);
+        let AFarr = $.extend(true, [], getCurrentFile()["luckysheet_alternateformat_save"]);
 
         if(index != undefined && index != null){
             if(AFarr.length > 1){
@@ -749,7 +750,7 @@ const alternateformat = {
         }
         
         //自定义 模板
-        let modelCustom = Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)]["luckysheet_alternateformat_save_modelCustom"];
+        let modelCustom = getCurrentFile()["luckysheet_alternateformat_save_modelCustom"];
         if(modelCustom != null && modelCustom.length > 0){
             for(let j = 0; j < modelCustom.length; j++){
                 let obj = modelCustom[j];
@@ -781,7 +782,7 @@ const alternateformat = {
             format = _this.FixedModelColor[index];
         }
         else{
-            format = Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)]["luckysheet_alternateformat_save_modelCustom"][index - len];
+            format = getCurrentFile()["luckysheet_alternateformat_save_modelCustom"][index - len];
         }
 
         return format;
@@ -791,7 +792,7 @@ const alternateformat = {
 
         let format = _this.getFormatByIndex();
 
-        let file = Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)];
+        let file = getCurrentFile();
         let ruleArr = file["luckysheet_alternateformat_save"];
         
         if(ruleArr == null){
@@ -874,7 +875,7 @@ const alternateformat = {
 
         //获取选中样式模板的颜色
         let format = _this.getFormatByIndex();
-        let file = Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)];
+        let file = getCurrentFile();
         
         let ruleArr = file["luckysheet_alternateformat_save"];
         if(ruleArr == null){
@@ -917,8 +918,7 @@ const alternateformat = {
             Store.jfredo.push(redo); 
         }
 
-        let index = getSheetIndex(Store.currentSheetIndex);
-        Store.luckysheetfile[index]["luckysheet_alternateformat_save"] = currentRules;
+        getCurrentFile()["luckysheet_alternateformat_save"] = currentRules;
 
         setTimeout(function () {
             luckysheetrefreshgrid();

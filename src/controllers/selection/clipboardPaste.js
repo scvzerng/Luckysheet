@@ -9,6 +9,7 @@ import {  jfrefreshgrid } from "../../global/refresh";
 import { genarate, update } from "../../global/format";
 import {  getObjType,  luckysheetfontformat  } from "../../utils/util";
 import Store from "../../store";
+import { getLastSelection } from "../../utils/storeAccess.js";
 import locale from "../../locale/locale";
 import imageCtrl from "../imageCtrl";
 const clipboardPasteModule = {
@@ -200,7 +201,7 @@ const clipboardPasteModule = {
       }
       let d = editor.deepCopyFlowData(Store.flowdata); //取数据
 
-      let last = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1];
+      let last = getLastSelection();
       let curR = last["row"] == null ? 0 : last["row"][0];
       let curC = last["column"] == null ? 0 : last["column"][0];
       let rlen = dataChe.length,

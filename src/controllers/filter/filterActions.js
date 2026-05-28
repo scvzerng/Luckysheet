@@ -1,4 +1,3 @@
-import { getSheetIndex } from '../../methods/get';
 import {  isRealNull } from '../../global/validate';
 import Store from '../../store';
 import cleargridelement from '../../global/cleargridelement';
@@ -7,6 +6,7 @@ import json from '../../global/json';
 import { update, genarate } from '../../global/format';
 import filterState from './filterState';
 import { labelFilterOptionState } from './labelFilterOptionState';
+import { getCurrentFile, syncConfigToStore, getDataSize } from '../../utils/storeAccess.js';
 
 export function filterActions() {
     $("#luckysheet-filter-initial").click(function () {
@@ -52,16 +52,17 @@ export function filterActions() {
         $("#luckysheet-filter-menu, #luckysheet-filter-submenu").hide();
 
         //清除筛选发送给后台
-        Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].filter = null;
-        Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].filter_select = null;
+        getCurrentFile().filter = null;
+        getCurrentFile().filter_select = null;
 
 
         //config
-        Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
+        syncConfigToStore();
 
 
         //行高、列宽 刷新  
-        jfrefreshgrid_rhcw(Store.flowdata.length, Store.flowdata[0].length);
+        let _dataSize = getDataSize();
+        jfrefreshgrid_rhcw(_dataSize.rowCount, _dataSize.colCount);
     });
 
     //按照值进行筛选
@@ -529,11 +530,12 @@ export function filterActions() {
 
         //config
         Store.config = cfg;
-        Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
+        syncConfigToStore();
 
 
         //行高、列宽 刷新  
-        jfrefreshgrid_rhcw(Store.flowdata.length, Store.flowdata[0].length);
+        let _dataSize = getDataSize();
+        jfrefreshgrid_rhcw(_dataSize.rowCount, _dataSize.colCount);
 
         $("#luckysheet-filter-menu, #luckysheet-filter-submenu").hide();
         cleargridelement();

@@ -1,13 +1,11 @@
-import { getObjType } from '../utils/util';
-import { isRealNull, isRealNum, isEditMode } from './validate';
-import { isdatetime, diff } from './datecontroll';
+import { getObjType, compareValues } from '../utils/util';
+import { isRealNull, isEditMode } from './validate';
 import tooltip from './tooltip';
 import editor from './editor';
 import { rowlenByRange } from './getRowlen';
 import { jfrefreshgrid } from './refresh';
 import Store from '../store';
 import locale from '../locale/locale';
-import numeral from 'numeral';
 
 //数据排序方法
 function orderbydata(data, index, isAsc) {
@@ -34,21 +32,7 @@ function orderbydata(data, index, isAsc) {
             return -1;
         }
 
-        if (isdatetime(x1) && isdatetime(y1)) {
-            return diff(x1, y1);
-        }
-        else if (isRealNum(x1) && isRealNum(y1)) {
-            return numeral(x1).value() - numeral(y1).value();
-        }
-        else if (!isRealNum(x1) && !isRealNum(y1)) {
-            return x1.localeCompare(y1, "zh");
-        }
-        else if (!isRealNum(x1)) {
-            return 1;
-        }
-        else if (!isRealNum(y1)) {
-            return -1;
-        }
+        return compareValues(x1, y1, "asc");
     }
 
     let d = function (x, y) {
@@ -70,21 +54,7 @@ function orderbydata(data, index, isAsc) {
             return -1;
         }
 
-        if (isdatetime(x1) && isdatetime(y1)) {
-            return diff(y1, x1);
-        }
-        else if (isRealNum(x1) && isRealNum(y1)) {
-            return numeral(y1).value() - numeral(x1).value();
-        }
-        else if (!isRealNum(x1) && !isRealNum(y1)) {
-            return y1.localeCompare(x1, "zh");
-        }
-        else if (!isRealNum(x1)) {
-            return -1;
-        }
-        else if (!isRealNum(y1)) {
-            return 1;
-        }
+        return compareValues(x1, y1, "desc");
     }
 
     if (isAsc) {
@@ -119,21 +89,7 @@ function orderbydata1D(data, isAsc) {
             y1 = "";
         }
 
-        if (isdatetime(x1) && isdatetime(y1)) {
-            return diff(x1, y1);
-        }
-        else if (isRealNum(x1) && isRealNum(y1)) {
-            return numeral(x1).value() - numeral(y1).value();
-        }
-        else if (!isRealNum(x1) && !isRealNum(y1)) {
-            return x1.localeCompare(y1, "zh");
-        }
-        else if (!isRealNum(x1)) {
-            return 1;
-        }
-        else if (!isRealNum(y1)) {
-            return -1;
-        }
+        return compareValues(x1, y1, "asc");
     }
 
     let d = function (x, y) {
@@ -155,21 +111,7 @@ function orderbydata1D(data, isAsc) {
             y1 = "";
         }
 
-        if (isdatetime(x1) && isdatetime(y1)) {
-            return diff(y1, x1);
-        }
-        else if (isRealNum(x1) && isRealNum(y1)) {
-            return numeral(y1).value() - numeral(x1).value();
-        }
-        else if (!isRealNum(x1) && !isRealNum(y1)) {
-            return y1.localeCompare(x1, "zh");
-        }
-        else if (!isRealNum(x1)) {
-            return -1;
-        }
-        else if (!isRealNum(y1)) {
-            return 1;
-        }
+        return compareValues(x1, y1, "desc");
     }
 
     if (isAsc) {

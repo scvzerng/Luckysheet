@@ -2,7 +2,7 @@ import editor from "../editor";
 import {  jfrefreshgrid_rhcw  } from "../refresh";
 import {  datagridgrowth } from "../getdata";
 import { setcellvalue } from "../setdata";
-import { getSheetIndex } from "../../methods/get";
+import { syncConfigToStore, syncDataToStore, getDataSize } from "../../utils/storeAccess.js";
 import Store from "../../store";
 
 /**
@@ -36,15 +36,16 @@ function luckysheetextendData(rowlen, newData) {
 
   //luckysheet.flowdata
   Store.flowdata = d;
-  editor.webWorkerFlowDataCache(Store.flowdata); //worker存数据
-  Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].data = d;
+  editor.webWorkerFlowDataCache(Store.flowdata);
+  syncDataToStore();
 
   //config
   Store.config = cfg;
-  Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
+  syncConfigToStore();
 
   //行高、列宽刷新
-  jfrefreshgrid_rhcw(Store.flowdata.length, Store.flowdata[0].length);
+  let _dataSize = getDataSize();
+  jfrefreshgrid_rhcw(_dataSize.rowCount, _dataSize.colCount);
 }
 
 //删除行列

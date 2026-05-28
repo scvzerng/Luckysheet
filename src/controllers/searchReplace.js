@@ -1,5 +1,5 @@
 import { replaceHtml, chatatABC } from "../utils/util";
-import { getSheetIndex } from "../methods/get";
+import { getCurrentFile, getLastSelection, getFocusCell } from "../utils/storeAccess.js";
 import { modelHTML, keycode } from "./constant";
 import { selectHightlightShow } from "./select";
 import sheetmanage from "./sheetmanage";
@@ -424,7 +424,7 @@ const luckysheetSearchReplace = {
                     Store.currentSheetIndex +
                     '">' +
                     "<span>" +
-                    escapeHtml(Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].name) +
+                    escapeHtml(getCurrentFile().name) +
                     "</span>" +
                     "<span>" +
                     chatatABC(searchIndexArr[i].c) +
@@ -444,7 +444,7 @@ const luckysheetSearchReplace = {
                     Store.currentSheetIndex +
                     '">' +
                     "<span>" +
-                    Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].name +
+                    getCurrentFile().name +
                     "</span>" +
                     "<span>" +
                     chatatABC(searchIndexArr[i].c) +
@@ -600,9 +600,10 @@ const luckysheetSearchReplace = {
 
         let count = null;
 
-        let last = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1];
-        let rf = last.row_focus;
-        let cf = last.column_focus;
+        let last = getLastSelection();
+        let _focus = getFocusCell();
+        let rf = _focus.row;
+        let cf = _focus.col;
 
         for (let i = 0; i < searchIndexArr.length; i++) {
             if (searchIndexArr[i].r == rf && searchIndexArr[i].c == cf) {

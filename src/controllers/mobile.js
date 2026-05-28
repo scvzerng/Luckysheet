@@ -3,6 +3,7 @@ import { selectHightlightShow } from './select';
 import menuButton from './menuButton';
 import luckysheetFreezen from './freezen';
 import Store from '../store';
+import { getLastSelection } from '../utils/storeAccess.js';
 
 //设备是移动端
 export default function mobileinit(){
@@ -85,7 +86,7 @@ export default function mobileinit(){
                 col_pre = col_location[0], 
                 col_index = col_location[2];
 
-            let last = $.extend(true, {}, Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1]);
+            let last = $.extend(true, {}, getLastSelection());
 
             let top = 0, height = 0, rowseleted = [];
             if (last.top > row_pre) {

@@ -13,6 +13,7 @@ import menuButton from './menuButton';
 import { getSheetIndex } from '../methods/get';
 import locale from '../locale/locale';
 import Store from '../store';
+import { getLastSelection } from '../utils/storeAccess.js';
 
 const hyperlinkCtrl = {
     item: {
@@ -112,7 +113,7 @@ const hyperlinkCtrl = {
 
         //确认按钮
         $(document).off("click.confirm").on("click.confirm", "#luckysheet-insertLink-dialog-confirm", function(e){
-            let last = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1];
+            let last = getLastSelection();
             let rowIndex = last.row_focus || last.row[0];
             let colIndex = last.column_focus || last.column[0];
 
@@ -187,7 +188,7 @@ const hyperlinkCtrl = {
     dataAllocation: function(){
         let _this = this;
 
-        let last = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1];
+        let last = getLastSelection();
         let rowIndex = last.row_focus || last.row[0];
         let colIndex = last.column_focus || last.column[0];
 

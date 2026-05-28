@@ -7,6 +7,7 @@ import sheetmanage from "../../controllers/sheetmanage";
 import locale from "../../locale/locale";
 import Store from "../../store";
 import { getObjType } from "../../utils/util";
+import { getLastSelection, getFocusCell } from '../../utils/storeAccess.js';
 import formula from "../formula";
 import method from "../method";
 import { getRangeWithFlatten } from "./rangeRead";
@@ -17,8 +18,8 @@ export function getRangeByTxt(txt){
     // 默认取当前第一个范围
     if(txt == null){
         return {
-            column:Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1].column,
-            row:Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1].row
+            column:getLastSelection().column,
+            row:getLastSelection().row
         }
     }
 
@@ -105,10 +106,11 @@ export function refreshMenuButtonFocus(data ,r,c , success){
     data = data || Store.flowdata;
     if(r == null && c == null){
         /* 获取选取范围 */
-        let last = Store.luckysheet_select_save[Store.luckysheet_select_save.length -1];
+        let last = getLastSelection();
+        let _focus = getFocusCell();
 
-        r = last.row_focus || last.row[0];
-        c = last.column_focus || last.column[0];
+        r = _focus.row || last.row[0];
+        c = _focus.col || last.column[0];
     }
 
     menuButton.menuButtonFocus(data, r, c);

@@ -5,7 +5,7 @@ import {  jfrefreshgrid } from '../../../global/refresh';
 import tooltip from '../../../global/tooltip';
 import { hasPartMC, isEditMode } from '../../../global/validate';
 import locale from '../../../locale/locale';
-import { getSheetIndex } from '../../../methods/get';
+import { getCurrentFile } from '../../../utils/storeAccess.js';
 import Store from '../../../store';
 import { getObjType, luckysheetContainerFocus } from '../../../utils/util';
 
@@ -229,7 +229,7 @@ export function initDeleteCellEvents() {
           }
           return;
         }
-        const file = Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)];
+        const file = getCurrentFile();
         const hyperlink = file.hyperlink && $.extend(true, {}, file.hyperlink);
         let hyperlinkUpdated;
         for (let s = 0; s < Store.luckysheet_select_save.length; s++) {

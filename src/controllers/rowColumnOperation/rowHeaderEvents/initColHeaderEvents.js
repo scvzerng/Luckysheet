@@ -5,6 +5,7 @@ import { checkIsAllowEdit, isEditMode } from '../../../global/validate';
 import locale from '../../../locale/locale';
 import { getRangetxt } from '../../../methods/get';
 import Store from '../../../store';
+import { getLastSelection, getMaxRowIndex } from '../../../utils/storeAccess.js';
 import { $$, showrightclickmenu } from '../../../utils/util';
 import imageCtrl from '../../imageCtrl';
 import luckysheetConfigsetting from '../../luckysheetConfigsetting';
@@ -23,7 +24,7 @@ export function initColHeaderEvents() {
       }
       let mouse = mouseposition(event.pageX, event.pageY);
       let x = mouse[0] + $(this).scrollLeft();
-      let row_index = Store.visibledatarow.length - 1,
+      let row_index = getMaxRowIndex(),
         row = Store.visibledatarow[row_index],
         row_pre = 0;
       let col_location = colLocation(x),
@@ -203,7 +204,7 @@ export function initColHeaderEvents() {
       if (Store.luckysheet_cols_selected_status) {
         if (event.shiftKey) {
           //按住shift点击列索引选取范围
-          let last = $.extend(true, {}, Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1]); //选区最后一�?
+          let last = $.extend(true, {}, getLastSelection()); //选区最后一个
   
           let left = 0,
             width = 0,

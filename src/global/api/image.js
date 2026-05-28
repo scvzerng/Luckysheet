@@ -1,12 +1,12 @@
 import imageCtrl from "../../controllers/imageCtrl";
-import { getSheetIndex } from "../../methods/get";
 import Store from "../../store";
 import { getObjType } from "../../utils/util";
+import { getCurrentSheetOrder, getLastSelection, getFocusCell } from '../../utils/storeAccess.js';
 import tooltip from "../tooltip";
 
 export function insertImage(src, options = {}){
     let {
-        order = getSheetIndex(Store.currentSheetIndex),
+        order = getCurrentSheetOrder(),
         rowIndex,
         colIndex,
         success
@@ -19,10 +19,11 @@ export function insertImage(src, options = {}){
     }
 
     if(file.index == Store.currentSheetIndex){
-        let last = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1];
+        let last = getLastSelection();
+        let _focus = getFocusCell();
 
         if(rowIndex == null){
-            rowIndex = last.row_focus || 0;
+            rowIndex = _focus.row || 0;
         }
 
         if(rowIndex < 0){
@@ -34,7 +35,7 @@ export function insertImage(src, options = {}){
         }
 
         if(colIndex == null){
-            colIndex = last.column_focus || 0;
+            colIndex = _focus.col || 0;
         }
 
         if(colIndex < 0){
@@ -195,7 +196,7 @@ export function insertImage(src, options = {}){
 
 export function deleteImage(options = {}){
     let {
-        order = getSheetIndex(Store.currentSheetIndex),
+        order = getCurrentSheetOrder(),
         idList = 'all',
         success
     } = {...options}
@@ -246,7 +247,7 @@ export function deleteImage(options = {}){
 
 export function getImageOption(options = {}){
     let {
-        order = getSheetIndex(Store.currentSheetIndex),
+        order = getCurrentSheetOrder(),
         success
     } = {...options}
 

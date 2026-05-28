@@ -3,7 +3,8 @@ import formula from '../global/formula';
 import { dynamicArrayHightShow } from '../global/dynamicArray';
 import { rowLocationByIndex, colLocationByIndex } from '../global/location';
 import browser from '../global/browser';
-import { getSheetIndex, getRangetxt } from '../methods/get';
+import { getRangetxt } from '../methods/get';
+import { getCurrentFile, getLastSelection, getFocusCell } from '../utils/storeAccess.js';
 import Store from '../store';
 import method from '../global/method';
 import locale from '../locale/locale';
@@ -183,12 +184,12 @@ function selectHightlightShow(isRestore = false) {
         refreshMenuButtonFocus();
     }
 
-    Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].luckysheet_select_save = Store.luckysheet_select_save;
+    getCurrentFile().luckysheet_select_save = Store.luckysheet_select_save;
             // Hook function, change the range selection box, selectHightlightShowillbe triggered multiple times when mousemove is moused, and thhistoricalvalue is used here to throttle
         const luckysheet_select_save_previous = JSON.stringify(Store.luckysheet_select_save);
 
         if(Store.luckysheet_select_save_previous == null |Store.luckysheet_select_save_previous !== luckysheet_select_save_previous){
-            method.createHookFunction('rangeSelect', Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)], Store.luckysheet_select_save);
+            method.createHookFunction('rangeSelect', getCurrentFile(), Store.luckysheet_select_save);
         }
         
         Store.luckysheet_select_save_previous = luckysheet_select_save_previous;
@@ -425,8 +426,9 @@ function luckysheet_count_show(left, top, width, height, rowseleted, columnselet
 }
 
 function selectHelpboxFill() {
-    let range = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1];
-    let rf = range["row_focus"], cf = range["column_focus"];
+    let range = getLastSelection();
+    let _focus = getFocusCell();
+    let rf = _focus.row, cf = _focus.col;
     if (Store.config["merge"] != null && (rf + "_" + cf) in Store.config["merge"]) {
         $("#luckysheet-helpbox-cell").text(getRangetxt(Store.currentSheetIndex, {
             column: [cf, cf],

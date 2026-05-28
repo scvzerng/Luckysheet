@@ -8,7 +8,7 @@ import {
 import luckysheetFreezen from '../../controllers/freezen';
 import sheetmanage from '../../controllers/sheetmanage';
 import luckysheetPostil from '../../controllers/postil';
-import { getSheetIndex } from '../../methods/get';
+import { getCurrentFile, syncDataToStore } from '../../utils/storeAccess.js';
 import { selectHightlightShow, selectionCopyShow } from '../../controllers/select';
 import Store from '../../store';
 
@@ -19,7 +19,7 @@ function jfrefreshgrid_rhcw(rowheight, colwidth, isRefreshCanvas=true){
     clearRefreshCanvasTimeOut();
     sheetmanage.storeSheetParam();
 
-    let calcChain = Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].calcChain;
+    let calcChain = getCurrentFile().calcChain;
 
     if(calcChain != null && calcChain.length > 0){
         if(Store.config["rowlen"] == null){
@@ -30,7 +30,7 @@ function jfrefreshgrid_rhcw(rowheight, colwidth, isRefreshCanvas=true){
             Store.config["columnlen"] = {};
         }
 
-        Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].data = Store.flowdata;
+        syncDataToStore();
     }
     
     //批注框同步
@@ -126,7 +126,7 @@ function jfrefreshgrid_rhcw(rowheight, colwidth, isRefreshCanvas=true){
     }
 
     if($("#luckysheet-filter-selected-sheet" + Store.currentSheetIndex).length > 0){
-        let luckysheet_filter_save = Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].filter_select;
+        let luckysheet_filter_save = getCurrentFile().filter_select;
 
         let r1 = luckysheet_filter_save.row[0], 
             r2 = luckysheet_filter_save.row[1];

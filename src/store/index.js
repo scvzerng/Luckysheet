@@ -1,3 +1,5 @@
+import { GENERAL_NUMBER_CT } from '../utils/constants.js';
+
 const Store = {
     container: null, 
     loadingObj:{},
@@ -117,7 +119,7 @@ const Store = {
     defaultCell: {
         bg: null,
         bl: 0,
-        ct: {fa: "General", t: "n"},
+        ct: GENERAL_NUMBER_CT,
         fc: "rgb(51, 51, 51)",
         ff: 0,
         fs: 11,

@@ -1,11 +1,11 @@
 import conditionformat from "../../controllers/conditionformat";
+import { parseConditionRange } from "../../controllers/conditionformat/rangeParser.js";
 import sheetmanage from "../../controllers/sheetmanage";
 import locale from "../../locale/locale";
-import { getSheetIndex } from "../../methods/get";
 import Store from "../../store";
 import { getObjType } from "../../utils/util";
+import { getCurrentSheetOrder } from '../../utils/storeAccess.js';
 import { diff, isdatetime } from "../datecontroll";
-import { getcellvalue } from "../getdata";
 import tooltip from "../tooltip";
 import { isRealNum } from "../validate";
 import dayjs from "dayjs";
@@ -43,7 +43,7 @@ export function setRangeConditionalFormatDefault(conditionName, conditionValue, 
             "cellColor": "#ff0000"
         },
         cellrange = Store.luckysheet_select_save,
-        order = getSheetIndex(Store.currentSheetIndex),
+        order = getCurrentSheetOrder(),
         success
     } = {...options}
 
@@ -68,134 +68,43 @@ export function setRangeConditionalFormatDefault(conditionName, conditionValue, 
         let v1 = conditionValue[0];
         let v2 = conditionValue[1];
 
-        //条件值是否是选区
-        let rangeArr1 = conditionformat.getRangeByTxt(v1);
-        if(rangeArr1.length > 1){
-            conditionformat.infoDialog(conditionformat_Text.onlySingleCell, "");
+        let result1 = parseConditionRange(v1, conditionformat, conditionformat_Text, { data });
+        if (result1 == null) {
             return;
         }
-        else if(rangeArr1.length == 1){
-            let r1 = rangeArr1[0].row[0], r2 = rangeArr1[0].row[1];
-            let c1 = rangeArr1[0].column[0], c2 = rangeArr1[0].column[1];
-
-            if(r1 == r2 && c1 == c2){
-                v1 = getcellvalue(r1, c1, data);
-
-                conditionRange.push({ "row": rangeArr1[0].row, "column": rangeArr1[0].column });
-                conditionValue2.push(v1);
-            }
-            else{
-                conditionformat.infoDialog(conditionformat_Text.onlySingleCell, "");
-                return;
-            }
+        if (result1.conditionRange.length > 0) {
+            conditionRange[0] = result1.conditionRange[0];
         }
-        else if(rangeArr1.length == 0){
-            if(isNaN(v1) || v1 == ""){
-                conditionformat.infoDialog(conditionformat_Text.conditionValueCanOnly, "");
-                return;
-            }
-            else{
-                conditionValue2.push(v1);
-            }
-        }
+        conditionValue2.push(...result1.conditionValue);
 
-        let rangeArr2 = conditionformat.getRangeByTxt(v2);
-        if(rangeArr2.length > 1){
-            conditionformat.infoDialog(conditionformat_Text.onlySingleCell, "");
+        let result2 = parseConditionRange(v2, conditionformat, conditionformat_Text, { data });
+        if (result2 == null) {
             return;
         }
-        else if(rangeArr2.length == 1){
-            let r1 = rangeArr2[0].row[0], r2 = rangeArr2[0].row[1];
-            let c1 = rangeArr2[0].column[0], c2 = rangeArr2[0].column[1];
-
-            if(r1 == r2 && c1 == c2){
-                v2 = getcellvalue(r1, c1, data);
-
-                conditionRange.push({ "row": rangeArr2[0].row, "column": rangeArr2[0].column });
-                conditionValue2.push(v2);
-            }
-            else{
-                conditionformat.infoDialog(conditionformat_Text.onlySingleCell, "");
-                return;
-            }
+        if (result2.conditionRange.length > 0) {
+            conditionRange[1] = result2.conditionRange[0];
         }
-        else if(rangeArr2.length == 0){
-            if(isNaN(v2) || v2 == ""){
-                conditionformat.infoDialog(conditionformat_Text.conditionValueCanOnly, "");
-                return;
-            }
-            else{
-                conditionValue2.push(v2);
-            }
-        }
+        conditionValue2.push(...result2.conditionValue);
     }
     else if(conditionName == 'greaterThan' || conditionName == 'lessThan' || conditionName == 'equal'){
         let v = conditionValue[0];
 
-        //条件值是否是选区
-        let rangeArr = conditionformat.getRangeByTxt(v);
-        if(rangeArr.length > 1){
-            conditionformat.infoDialog(conditionformat_Text.onlySingleCell, "");
+        let result = parseConditionRange(v, conditionformat, conditionformat_Text, { data });
+        if (result == null) {
             return;
         }
-        else if(rangeArr.length == 1){
-            let r1 = rangeArr[0].row[0], r2 = rangeArr[0].row[1];
-            let c1 = rangeArr[0].column[0], c2 = rangeArr[0].column[1];
-
-            if(r1 == r2 && c1 == c2){
-                v = getcellvalue(r1, c1, data);
-
-                conditionRange.push({ "row": rangeArr[0].row, "column": rangeArr[0].column });
-                conditionValue2.push(v);
-            }
-            else{
-                conditionformat.infoDialog(conditionformat_Text.onlySingleCell, "");
-                return;
-            }
-        }
-        else if(rangeArr.length == 0){
-            if(isNaN(v) || v == ""){
-                conditionformat.infoDialog(conditionformat_Text.conditionValueCanOnly, "");
-                return;
-            }
-            else{
-                conditionValue2.push(v);
-            }
-        }
+        conditionRange.push(...result.conditionRange);
+        conditionValue2.push(...result.conditionValue);
     }
     else if(conditionName == 'textContains'){
         let v = conditionValue[0];
 
-        //条件值是否是选区
-        let rangeArr = conditionformat.getRangeByTxt(v);
-        if(rangeArr.length > 1){
-            conditionformat.infoDialog(conditionformat_Text.onlySingleCell, "");
+        let result = parseConditionRange(v, conditionformat, conditionformat_Text, { data, allowNonNumeric: true });
+        if (result == null) {
             return;
         }
-        else if(rangeArr.length == 1){
-            let r1 = rangeArr[0].row[0], r2 = rangeArr[0].row[1];
-            let c1 = rangeArr[0].column[0], c2 = rangeArr[0].column[1];
-
-            if(r1 == r2 && c1 == c2){
-                v = getcellvalue(r1, c1, data);
-
-                conditionRange.push({ "row": rangeArr[0].row, "column": rangeArr[0].column });
-                conditionValue2.push(v);
-            }
-            else{
-                conditionformat.infoDialog(conditionformat_Text.onlySingleCell, "");
-                return;
-            }
-        }
-        else if(rangeArr.length == 0){
-            if(v == ""){
-                conditionformat.infoDialog(conditionformat_Text.conditionValueCanOnly, "");
-                return;
-            }
-            else{
-                conditionValue2.push(v);
-            }
-        }
+        conditionRange.push(...result.conditionRange);
+        conditionValue2.push(...result.conditionValue);
     }
     else if(conditionName == 'occurrenceDate'){
         let v1 = conditionValue[0];
@@ -302,7 +211,7 @@ export function setRangeConditionalFormat(type, options = {}) {
     let {
         format,
         cellrange = Store.luckysheet_select_save,
-        order = getSheetIndex(Store.currentSheetIndex),
+        order = getCurrentSheetOrder(),
         success
     } = {...options}
 
@@ -552,7 +461,7 @@ export function deleteRangeConditionalFormat(itemIndex, options = {}) {
     itemIndex = Number(itemIndex);
 
     let {
-        order = getSheetIndex(Store.currentSheetIndex),
+        order = getCurrentSheetOrder(),
         success
     } = {...options}
 

@@ -4,6 +4,7 @@ import { checkIsAllowEdit, isEditMode } from '../../../global/validate';
 import locale from '../../../locale/locale';
 import Store from '../../../store';
 import { luckysheetContainerFocus, mouseclickposition, replaceHtml } from '../../../utils/util';
+import { checkMenuOverflow } from '../../../utils/domUtils.js';
 import alternateformat from '../../alternateformat';
 import luckysheetConfigsetting from '../../luckysheetConfigsetting';
 
@@ -93,7 +94,7 @@ export function initCellColor(_this) {
   
           //交替颜色
           $menuButton.find(".luckysheet-icon-alternateformat").click(function () {
-            // *如果禁止前台编辑，则中止下一步操�?
+            // *如果禁止前台编辑，则中止下一步操�?
             if (!checkIsAllowEdit()) {
               return;
             }
@@ -121,7 +122,7 @@ export function initCellColor(_this) {
         let userlen = $(this).outerWidth();
         let tlen = $menuButton.outerWidth();
         let menuleft = $(this).offset().left;
-        if (tlen > userlen && tlen + menuleft > $("#" + Store.container).width()) {
+        if (checkMenuOverflow(tlen, userlen, menuleft)) {
           menuleft = menuleft - tlen + userlen;
         }
         let offsetTop = $(this).offset().top + 26;

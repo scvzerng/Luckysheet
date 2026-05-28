@@ -1,9 +1,11 @@
 import { luckysheetupdateCell } from "../../controllers/updateCell";
 import Store from "../../store";
+import { getLastSelection, getFocusCell } from '../../utils/storeAccess.js';
+import { isInputBoxActive } from '../../utils/domUtils.js';
 import formula from "../formula";
 
 export function exitEditMode(options = {}){
-    if(parseInt($("#luckysheet-input-box").css("top")) > 0){
+    if(isInputBoxActive()){
 
 
         if ($("#luckysheet-formula-search-c").is(":visible") && formula.searchFunctionCell != null) {
@@ -41,9 +43,10 @@ export function enterEditMode(options = {}){
         return;
     }
     else if ($("#luckysheet-cell-selected").is(":visible")) {
-        let last = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1];
+        let last = getLastSelection();
+        let _focus = getFocusCell();
 
-        let row_index = last["row_focus"], col_index = last["column_focus"];
+        let row_index = _focus.row, col_index = _focus.col;
 
         luckysheetupdateCell(row_index, col_index, Store.flowdata);
     }

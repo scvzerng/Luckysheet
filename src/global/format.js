@@ -2,6 +2,7 @@ import { isRealNum, valueIsError } from './validate';
 import { isdatetime } from './datecontroll';
 import { getcellvalue } from './getdata';
 import numeral from 'numeral';
+import { GENERAL_NUMBER_CT } from '../utils/constants.js';
 
 var SSF = ({});
 var make_ssf = function make_ssf(SSF) {
@@ -1949,7 +1950,7 @@ export function genarate(value) {//万 单位格式增加！！！
     }
     else if(isRealNum(value)){
         m = value.toString();
-        ct = { "fa": "General", "t": "n" };
+        ct = GENERAL_NUMBER_CT;
         v = parseFloat(value);
     }
     else if (isdatetime(value) && (value.toString().indexOf(".") > -1 || value.toString().indexOf(":") > -1 || value.toString().length < 16)){

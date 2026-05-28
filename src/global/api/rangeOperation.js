@@ -2,9 +2,9 @@ import { createFilterOptions } from "../../controllers/filter";
 import { selectIsOverlap } from "../../controllers/select";
 import sheetmanage from "../../controllers/sheetmanage";
 import locale from "../../locale/locale";
-import { getSheetIndex } from "../../methods/get";
 import Store from "../../store";
 import { getObjType } from "../../utils/util";
+import { getCurrentSheetOrder, getLastSelection } from '../../utils/storeAccess.js';
 import formula from "../formula";
 import { rowlenByRange } from "../getRowlen";
 import { jfrefreshgrid } from "../refresh";
@@ -20,8 +20,8 @@ export function setRangeFilter(type, options = {}) {
     }
 
     let {
-        range = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1],
-        order = getSheetIndex(Store.currentSheetIndex),
+        range = getLastSelection(),
+        order = getCurrentSheetOrder(),
         success
     } = {...options}
 
@@ -82,7 +82,7 @@ export function setRangeMerge(type, options = {}) {
         return tooltip.info('The type parameter must be included in [\'all\', \'horizontal\', \'vertical\']', '')
     }
 
-    let curSheetOrder = getSheetIndex(Store.currentSheetIndex),
+    let curSheetOrder = getCurrentSheetOrder(),
         curRange = JSON.parse(JSON.stringify(Store.luckysheet_select_save));
     let {
         range = curRange,
@@ -287,7 +287,7 @@ export function setRangeMerge(type, options = {}) {
 
 export function cancelRangeMerge(options = {}) {
     let curRange = Store.luckysheet_select_save,
-        curSheetOrder = getSheetIndex(Store.currentSheetIndex);
+        curSheetOrder = getCurrentSheetOrder();
     let {
         range = curRange,
         order = curSheetOrder,
@@ -422,7 +422,7 @@ export function setRangeSort(type, options = {}) {
         return tooltip.info('The type parameter must be included in [\'asc\', \'desc\'', '')
     }
 
-    let curSheetOrder = getSheetIndex(Store.currentSheetIndex),
+    let curSheetOrder = getCurrentSheetOrder(),
         curRange = Store.luckysheet_select_save[0];
     let {
         range = curRange,
@@ -507,7 +507,7 @@ export function setRangeSortMulti(hasTitle, sort, options = {}) {
         return tooltip.info('The sort parameter is invalid.', '')
     }
 
-    let curSheetOrder = getSheetIndex(Store.currentSheetIndex),
+    let curSheetOrder = getCurrentSheetOrder(),
         curRange = Store.luckysheet_select_save[0];
     let {
         range = curRange,
@@ -601,7 +601,7 @@ export function setRangeSortMulti(hasTitle, sort, options = {}) {
 export function clearRange(options = {}) {
     let {
         range = Store.luckysheet_select_save,
-        order = getSheetIndex(Store.currentSheetIndex),
+        order = getCurrentSheetOrder(),
         success
     } = {...options}
 
@@ -716,8 +716,8 @@ export function deleteRange(move, options = {}) {
     }
 
     let {
-        range = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1],
-        order = getSheetIndex(Store.currentSheetIndex),
+        range = getLastSelection(),
+        order = getCurrentSheetOrder(),
         success
     } = {...options}
 

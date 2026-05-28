@@ -1,4 +1,5 @@
 import { luckysheet_searcharray } from '../controllers/sheetSearch';
+import { getMaxRowIndex, getMaxColIndex } from '../utils/storeAccess.js';
 import Store from '../store';
 
 function rowLocationByIndex(row_index) {
@@ -19,7 +20,7 @@ function rowLocation(y) {
     let row_index = luckysheet_searcharray(Store.visibledatarow, y);
 
     if (row_index == -1 && y > 0) {
-        row_index = Store.visibledatarow.length - 1;
+        row_index = getMaxRowIndex();
     }
     else if (row_index == -1 && y <= 0) {
         row_index = 0;
@@ -60,7 +61,7 @@ function colLocation(x) {
     let col_index = luckysheet_searcharray(Store.visibledatacolumn, x);
 
     if (col_index == -1 && x > 0) {
-        col_index = Store.visibledatacolumn.length - 1;
+        col_index = getMaxColIndex();
     }
     else if (col_index == -1 && x <= 0) {
         col_index = 0;

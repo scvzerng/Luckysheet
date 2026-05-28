@@ -4,6 +4,7 @@ import { datagridgrowth } from './getdata';
 import { jfrefreshgrid, jfrefreshgridall, jfrefreshrange } from './refresh';
 import { getSheetIndex } from '../methods/get';
 import Store from '../store';
+import { getLastSelection } from '../utils/storeAccess.js';
 
 const editor = {
     //worker+blob实现深拷贝替换extend
@@ -63,7 +64,7 @@ const editor = {
         let d = _this.deepCopyFlowData(Store.flowdata);//取数据
 
         // let last = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1];
-        let last = range || Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1];
+        let last = range || getLastSelection();
         let curR = last["row"] == null ? 0 : last["row"][0];
         let curC = last["column"] == null ? 0 : last["column"][0];
         let rlen = dataChe.length, clen = dataChe[0].length;
@@ -126,7 +127,7 @@ const editor = {
 
         let d = _this.deepCopyFlowData(Store.flowdata);//取数据
 
-        let last = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1];
+        let last = getLastSelection();
         let r1 = last["row"][0], r2 = last["row"][1];
         let c1 = last["column"][0], c2 = last["column"][1];
         let rlen = dataChe.length, clen = dataChe[0].length;

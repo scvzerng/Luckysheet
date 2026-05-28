@@ -1,3 +1,4 @@
+import { formatNumericCell } from "../../../utils/util.js";
 import { getBorderInfoCompute } from "../../../global/border";
 import { isRealNum } from "../../../global/validate";
 import {  genarate } from "../../../global/format";
@@ -6,8 +7,9 @@ import editor from "../../../global/editor";
 import formula from "../../../global/formula";
 import conditionformat from "../../conditionformat";
 import { selectHightlightShow } from "../../select";
-import { getSheetIndex } from "../../../methods/get";
+import { getCurrentFile } from "../../../utils/storeAccess.js";
 import Store from "../../../store";
+import { GENERAL_NUMBER_CT } from "../../../utils/constants.js";
 
 import { getDataByType0 } from './coreSub/getDataByType0.js';
 import { getDataByType1 } from './coreSub/getDataByType1.js';
@@ -30,7 +32,7 @@ const coreModule = {
       return;
     }
     let d = editor.deepCopyFlowData(Store.flowdata);
-    let file = Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)];
+    let file = getCurrentFile();
     let cfg = $.extend(true, {}, Store.config);
     let borderInfoCompute = getBorderInfoCompute();
     let direction = _this.direction;
@@ -71,30 +73,8 @@ const coreModule = {
               cell.f = v[2];
               cell.v = v[1];
               if (isRealNum(cell.v) && !/^\d{6}(18|19|20)?\d{2}(0[1-9]|1[12])(0[1-9]|[12]\d|3[01])\d{3}(\d|X)$/i.test(cell.v)) {
-                if (cell.v == Infinity || cell.v == -Infinity) {
-                  cell.m = cell.v.toString();
-                } else {
-                  if (cell.v.toString().indexOf("e") > -1) {
-                    let len = cell.v.toString().split(".")[1].split("e")[0].length;
-                    if (len > 5) {
-                      len = 5;
-                    }
-                    cell.m = cell.v.toExponential(len).toString();
-                  } else {
-                    let mask;
-                    if (cell.ct.fa === "##0.00") {
-                      mask = genarate(Math.round(cell.v * 1000000000) / 1000000000 + ".00");
-                      cell.m = mask[0].toString();
-                    } else {
-                      mask = genarate(Math.round(cell.v * 1000000000) / 1000000000);
-                      cell.m = mask[0].toString();
-                    }
-                  }
-                }
-                cell.ct = cell.ct || {
-                  "fa": "General",
-                  "t": "n"
-                };
+                formatNumericCell(cell, genarate);
+                cell.ct = cell.ct || GENERAL_NUMBER_CT;
               } else {
                 let mask = genarate(cell.v);
                 cell.m = mask[0].toString();
@@ -145,24 +125,8 @@ const coreModule = {
               cell.f = v[2];
               cell.v = v[1];
               if (isRealNum(cell.v) && !/^\d{6}(18|19|20)?\d{2}(0[1-9]|1[12])(0[1-9]|[12]\d|3[01])\d{3}(\d|X)$/i.test(cell.v)) {
-                if (cell.v == Infinity || cell.v == -Infinity) {
-                  cell.m = cell.v.toString();
-                } else {
-                  if (cell.v.toString().indexOf("e") > -1) {
-                    let len = cell.v.toString().split(".")[1].split("e")[0].length;
-                    if (len > 5) {
-                      len = 5;
-                    }
-                    cell.m = cell.v.toExponential(len).toString();
-                  } else {
-                    let mask = genarate(Math.round(cell.v * 1000000000) / 1000000000);
-                    cell.m = mask[0].toString();
-                  }
-                }
-                cell.ct = {
-                  "fa": "General",
-                  "t": "n"
-                };
+                formatNumericCell(cell, genarate);
+                cell.ct = GENERAL_NUMBER_CT;
               } else {
                 let mask = genarate(cell.v);
                 cell.m = mask[0].toString();
@@ -219,24 +183,8 @@ const coreModule = {
               cell.f = v[2];
               cell.v = v[1];
               if (isRealNum(cell.v) && !/^\d{6}(18|19|20)?\d{2}(0[1-9]|1[12])(0[1-9]|[12]\d|3[01])\d{3}(\d|X)$/i.test(cell.v)) {
-                if (cell.v == Infinity || cell.v == -Infinity) {
-                  cell.m = cell.v.toString();
-                } else {
-                  if (cell.v.toString().indexOf("e") > -1) {
-                    let len = cell.v.toString().split(".")[1].split("e")[0].length;
-                    if (len > 5) {
-                      len = 5;
-                    }
-                    cell.m = cell.v.toExponential(len).toString();
-                  } else {
-                    let mask = genarate(Math.round(cell.v * 1000000000) / 1000000000);
-                    cell.m = mask[0].toString();
-                  }
-                }
-                cell.ct = {
-                  "fa": "General",
-                  "t": "n"
-                };
+                formatNumericCell(cell, genarate);
+                cell.ct = GENERAL_NUMBER_CT;
               } else {
                 let mask = genarate(cell.v);
                 cell.m = mask[0].toString();
@@ -287,24 +235,8 @@ const coreModule = {
               cell.f = v[2];
               cell.v = v[1];
               if (isRealNum(cell.v) && !/^\d{6}(18|19|20)?\d{2}(0[1-9]|1[12])(0[1-9]|[12]\d|3[01])\d{3}(\d|X)$/i.test(cell.v)) {
-                if (cell.v == Infinity || cell.v == -Infinity) {
-                  cell.m = cell.v.toString();
-                } else {
-                  if (cell.v.toString().indexOf("e") > -1) {
-                    let len = cell.v.toString().split(".")[1].split("e")[0].length;
-                    if (len > 5) {
-                      len = 5;
-                    }
-                    cell.m = cell.v.toExponential(len).toString();
-                  } else {
-                    let mask = genarate(Math.round(cell.v * 1000000000) / 1000000000);
-                    cell.m = mask[0].toString();
-                  }
-                }
-                cell.ct = {
-                  "fa": "General",
-                  "t": "n"
-                };
+                formatNumericCell(cell, genarate);
+                cell.ct = GENERAL_NUMBER_CT;
               } else {
                 let mask = genarate(cell.v);
                 cell.m = mask[0].toString();

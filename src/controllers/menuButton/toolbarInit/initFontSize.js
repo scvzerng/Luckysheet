@@ -2,12 +2,13 @@ import { hideMenuByCancel } from '../../../global/cursorPos';
 import editor from '../../../global/editor';
 import Store from '../../../store';
 import { luckysheetContainerFocus, mouseclickposition, replaceHtml } from '../../../utils/util';
+import { checkMenuOverflow, isInputBoxActive } from '../../../utils/domUtils.js';
 
 export function initFontSize(_this) {
       //字体大小
       let luckysheet_fs_setTimeout = null;
       $("#luckysheet-icon-font-size").mousedown(function (e) {
-        if (parseInt($("#luckysheet-input-box").css("top")) > 0) {
+        if (isInputBoxActive()) {
           let w = window.getSelection();
           if (w.type != "None") {
             let range = w.getRangeAt(0);
@@ -115,7 +116,7 @@ export function initFontSize(_this) {
         }
         _this.focus($menuButton, defualtvalue);
         let menuleft = $(this).offset().left;
-        if (tlen > userlen && tlen + menuleft > $("#" + Store.container).width()) {
+        if (checkMenuOverflow(tlen, userlen, menuleft)) {
           menuleft = menuleft - tlen + userlen;
         }
         mouseclickposition($menuButton, menuleft, $(this).offset().top + 25, "lefttop");

@@ -1,3 +1,4 @@
+import { getCellTextColor, getCellBgColor, drawGridLine, resetCanvasStroke } from './drawUtils.js';
 import conditionformat from "../../controllers/conditionformat";
 import alternateformat from "../../controllers/alternateformat";
 import menuButton from "../../controllers/menuButton";
@@ -34,20 +35,9 @@ let nullCellRender = function(
     let checksAF = alternateformat.checksAF(r, c, af_compute);
     let checksCF = conditionformat.checksCF(r, c, cf_compute);
     let borderfix = menuButton.borderfix(Store.flowdata, r, c);
-    let fillStyle = menuButton.checkstatus(Store.flowdata, r, c, "bg");
-    if (checksAF != null && checksAF[1] != null) {
-        fillStyle = checksAF[1];
-    }
-    if (checksCF != null && checksCF["cellColor"] != null) {
-        fillStyle = checksCF["cellColor"];
-    }
+    luckysheetTableContent.fillStyle = getCellBgColor(r, c, checksAF, checksCF);
     if (Store.flowdata[r][c] != null && Store.flowdata[r][c].tc != null) {
-        fillStyle = Store.flowdata[r][c].tc;
-    }
-    if (fillStyle == null) {
-        luckysheetTableContent.fillStyle = "#FFFFFF";
-    } else {
-        luckysheetTableContent.fillStyle = fillStyle;
+        luckysheetTableContent.fillStyle = Store.flowdata[r][c].tc;
     }
     let cellsize = [
         start_c + offsetLeft + borderfix[0] + 1,
@@ -114,23 +104,11 @@ let nullCellRender = function(
     }
     if (!cellOverflow_colInObj.colIn || cellOverflow_colInObj.colLast) {
         if (Store.showGridLines) {
-            luckysheetTableContent.beginPath();
-            luckysheetTableContent.moveTo(end_c + offsetLeft - 2 + bodrder05, start_r + offsetTop);
-            luckysheetTableContent.lineTo(end_c + offsetLeft - 2 + bodrder05, end_r + offsetTop);
-            luckysheetTableContent.lineWidth = 1;
-            luckysheetTableContent.strokeStyle = luckysheetdefaultstyle.strokeStyle;
-            luckysheetTableContent.stroke();
-            luckysheetTableContent.closePath();
+            drawGridLine(luckysheetTableContent, "vertical", end_c + offsetLeft - 2 + bodrder05, start_r + offsetTop, end_c + offsetLeft - 2 + bodrder05, end_r + offsetTop);
         }
     }
     if (Store.showGridLines) {
-        luckysheetTableContent.beginPath();
-        luckysheetTableContent.moveTo(start_c + offsetLeft - 1, end_r + offsetTop - 2 + bodrder05);
-        luckysheetTableContent.lineTo(end_c + offsetLeft - 1, end_r + offsetTop - 2 + bodrder05);
-        luckysheetTableContent.lineWidth = 1;
-        luckysheetTableContent.strokeStyle = luckysheetdefaultstyle.strokeStyle;
-        luckysheetTableContent.stroke();
-        luckysheetTableContent.closePath();
+        drawGridLine(luckysheetTableContent, "horizontal", start_c + offsetLeft - 1, end_r + offsetTop - 2 + bodrder05, end_c + offsetLeft - 1, end_r + offsetTop - 2 + bodrder05);
     }
     method.createHookFunction(
         "cellRenderAfter",
@@ -178,18 +156,7 @@ let cellRender = function(
     let verticalAlign = menuButton.checkstatus(Store.flowdata, r, c, "vt");
     let checksAF = alternateformat.checksAF(r, c, af_compute);
     let checksCF = conditionformat.checksCF(r, c, cf_compute);
-    let fillStyle = menuButton.checkstatus(Store.flowdata, r, c, "bg");
-    if (checksAF != null && checksAF[1] != null) {
-        fillStyle = checksAF[1];
-    }
-    if (checksCF != null && checksCF["cellColor"] != null) {
-        fillStyle = checksCF["cellColor"];
-    }
-    if (fillStyle == null) {
-        luckysheetTableContent.fillStyle = "#FFFFFF";
-    } else {
-        luckysheetTableContent.fillStyle = fillStyle;
-    }
+    luckysheetTableContent.fillStyle = getCellBgColor(r, c, checksAF, checksCF);
     let borderfix = menuButton.borderfix(Store.flowdata, r, c);
     let cellsize = [
         start_c + offsetLeft + borderfix[0] + 1,
@@ -394,16 +361,7 @@ let cellRender = function(
             horizonAlignPos = horizonAlignPos + textInfo.textHeightAll / Store.zoomRatio;
         }
     }
-    luckysheetTableContent.fillStyle = menuButton.checkstatus(Store.flowdata, r, c, "fc");
-    if (checksAF != null && checksAF[0] != null) {
-        luckysheetTableContent.fillStyle = checksAF[0];
-    }
-    if (checksCF != null && checksCF["textColor"] != null) {
-        luckysheetTableContent.fillStyle = checksCF["textColor"];
-    }
-    if (cell.ct && cell.ct.fa && cell.ct.fa.indexOf("[Red]") > -1 && cell.ct.t == "n" && cell.v < 0) {
-        luckysheetTableContent.fillStyle = "#ff0000";
-    }
+    luckysheetTableContent.fillStyle = getCellTextColor(r, c, checksAF, checksCF, cell);
     cellTextRender(textInfo, luckysheetTableContent, {
         pos_x: pos_x,
         pos_y: pos_y,
@@ -411,23 +369,11 @@ let cellRender = function(
     luckysheetTableContent.restore();
     if (cellOverflow_bd_r_render) {
         if (Store.showGridLines) {
-            luckysheetTableContent.beginPath();
-            luckysheetTableContent.moveTo(end_c + offsetLeft - 2 + bodrder05, start_r + offsetTop);
-            luckysheetTableContent.lineTo(end_c + offsetLeft - 2 + bodrder05, end_r + offsetTop);
-            luckysheetTableContent.lineWidth = 1;
-            luckysheetTableContent.strokeStyle = luckysheetdefaultstyle.strokeStyle;
-            luckysheetTableContent.stroke();
-            luckysheetTableContent.closePath();
+            drawGridLine(luckysheetTableContent, "vertical", end_c + offsetLeft - 2 + bodrder05, start_r + offsetTop, end_c + offsetLeft - 2 + bodrder05, end_r + offsetTop);
         }
     }
     if (Store.showGridLines) {
-        luckysheetTableContent.beginPath();
-        luckysheetTableContent.moveTo(start_c + offsetLeft - 1, end_r + offsetTop - 2 + bodrder05);
-        luckysheetTableContent.lineTo(end_c + offsetLeft - 1, end_r + offsetTop - 2 + bodrder05);
-        luckysheetTableContent.lineWidth = 1;
-        luckysheetTableContent.strokeStyle = luckysheetdefaultstyle.strokeStyle;
-        luckysheetTableContent.stroke();
-        luckysheetTableContent.closePath();
+        drawGridLine(luckysheetTableContent, "horizontal", start_c + offsetLeft - 1, end_r + offsetTop - 2 + bodrder05, end_c + offsetLeft - 1, end_r + offsetTop - 2 + bodrder05);
     }
     method.createHookFunction(
         "cellRenderAfter",

@@ -1,10 +1,10 @@
-import { getSheetIndex } from '../../methods/get';
 import {  isRealNull } from '../../global/validate';
 import Store from '../../store';
 import menuButton from '../menuButton';
 import conditionformat from '../conditionformat';
 import alternateformat from '../alternateformat';
-import {  rgbTohex } from '../../utils/util';
+import {  rgbTohex, isRowHidden } from '../../utils/util';
+import { getCurrentFile, syncConfigToStore, getDataSize } from '../../utils/storeAccess.js';
 import cleargridelement from '../../global/cleargridelement';
 import {  jfrefreshgrid_rhcw  } from '../../global/refresh';
 import json from '../../global/json';
@@ -74,7 +74,7 @@ export function filterColorEvents() {
                     fc = fc.substr(0, 1) + fc.substr(1, 1).repeat(2) + fc.substr(2, 1).repeat(2) + fc.substr(3, 1).repeat(2);
                 }
 
-                if(Store.config != null && Store.config["rowhidden"] != null && r in Store.config["rowhidden"]){
+                if(isRowHidden(r)){
                     bgMap[bg] = 1;
 
                     if(cell != null && !isRealNull(cell.v)){
@@ -334,11 +334,12 @@ export function filterColorEvents() {
 
         //config
         Store.config = cfg;
-        Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
+        syncConfigToStore();
 
 
         //行高、列宽 刷新  
-        jfrefreshgrid_rhcw(Store.flowdata.length, Store.flowdata[0].length);
+        let _dataSize = getDataSize();
+        jfrefreshgrid_rhcw(_dataSize.rowCount, _dataSize.colCount);
 
         $("#luckysheet-filter-menu, #luckysheet-filter-submenu, #luckysheet-filter-orderby-color-submenu").hide();
         cleargridelement();

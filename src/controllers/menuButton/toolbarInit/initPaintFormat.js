@@ -2,13 +2,13 @@ import tooltip from '../../../global/tooltip';
 import { checkIsAllowEdit, hasPartMC, isEditMode } from '../../../global/validate';
 import locale from '../../../locale/locale';
 import Store from '../../../store';
-import { getObjType } from '../../../utils/util';
+import { getObjType, isRowHidden } from '../../../utils/util';
 import { selectionCopyShow } from '../../select';
 
 export function initPaintFormat(_this) {
-      //格式�?
+      //格式�?
       $("#luckysheet-icon-paintformat").click(function (e) {
-        // *如果禁止前台编辑，则中止下一步操�?
+        // *如果禁止前台编辑，则中止下一步操�?
         if (!checkIsAllowEdit()) {
           return;
         }
@@ -31,8 +31,8 @@ export function initPaintFormat(_this) {
           return;
         }
   
-        // *增加了对选区范围是否为部分合并单元格的校验，如果为部分合并单元格，就阻止格式刷的下一�?
-        // TODO 这里也可以改为：判断到是合并单元格的一部分后，格式刷执行黏贴格式后删除范围单元格的 mc �?
+        // *增加了对选区范围是否为部分合并单元格的校验，如果为部分合并单元格，就阻止格式刷的下一�?
+        // TODO 这里也可以改为：判断到是合并单元格的一部分后，格式刷执行黏贴格式后删除范围单元格的 mc �?
   
         let has_PartMC = false;
         let r1 = Store.luckysheet_select_save[0].row[0],
@@ -41,7 +41,7 @@ export function initPaintFormat(_this) {
           c2 = Store.luckysheet_select_save[0].column[1];
         has_PartMC = hasPartMC(Store.config, r1, r2, c1, c2);
         if (has_PartMC) {
-          // *提示后中止下一�?
+          // *提示后中止下一�?
           tooltip.info(_locale.merge.partiallyError, "");
           return;
         }
@@ -57,7 +57,7 @@ export function initPaintFormat(_this) {
         let RowlChange = false,
           HasMC = false;
         for (let r = Store.luckysheet_select_save[0].row[0]; r <= Store.luckysheet_select_save[0].row[1]; r++) {
-          if (Store.config["rowhidden"] != null && Store.config["rowhidden"][r] != null) {
+          if (isRowHidden(r)) {
             continue;
           }
           if (Store.config["rowlen"] != null && r in Store.config["rowlen"]) {
@@ -83,7 +83,7 @@ export function initPaintFormat(_this) {
         _this.luckysheetPaintSingle = true;
       });
       $("#luckysheet-icon-paintformat").dblclick(function () {
-        // *如果禁止前台编辑，则中止下一步操�?
+        // *如果禁止前台编辑，则中止下一步操�?
         if (!checkIsAllowEdit()) {
           return;
         }
@@ -116,7 +116,7 @@ export function initPaintFormat(_this) {
         let RowlChange = false,
           HasMC = false;
         for (let r = Store.luckysheet_select_save[0].row[0]; r <= Store.luckysheet_select_save[0].row[1]; r++) {
-          if (Store.config["rowhidden"] != null && Store.config["rowhidden"][r] != null) {
+          if (isRowHidden(r)) {
             continue;
           }
           if (Store.config["rowlen"] != null && r in Store.config["rowlen"]) {
