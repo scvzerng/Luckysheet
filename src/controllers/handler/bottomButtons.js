@@ -22,6 +22,8 @@ import { luckysheetextendtable } from "../../global/extend";
 import tooltip from "../../global/tooltip";
 import Store from "../../store";
 import context from "./context";
+import scrollBarY from '../../ui/scrollBarY.js';
+import rightClickMenu from '../../ui/rightClickMenu.js';
 
 export default function bottomButtons() {
     $("#luckysheet-bottom-add-row, #luckysheet-bottom-add-row-input, #luckysheet-bottom-return-top").on(
@@ -33,7 +35,7 @@ export default function bottomButtons() {
 
     //底部添加行按钮
     $("#luckysheet-bottom-add-row").on("click", function(e) {
-        $("#luckysheet-rightclick-menu").hide();
+        rightClickMenu.hide();
         luckysheetContainerFocus();
 
         let $t = $(this),
@@ -66,6 +68,6 @@ export default function bottomButtons() {
     });
 
     $("#luckysheet-bottom-return-top").on("click", function(e) {
-        $("#luckysheet-scrollbar-y").scrollTop(0);
+        scrollBarY.setScrollTop(0);
     });
 }

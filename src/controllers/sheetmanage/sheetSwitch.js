@@ -9,6 +9,7 @@ import luckysheetFreezen from "../freezen";
 import Store from "../../store";
 import method from "../../global/method";
 import luckysheetformula from "../../global/formula";
+import gridWindow from '../../ui/gridWindow.js';
 const sheetSwitchModule = {
   changeSheet: function (index, isNewSheet, isCopySheet) {
     if (isEditMode()) {
@@ -100,7 +101,7 @@ const sheetSwitchModule = {
           luckysheetrefreshgrid();
         }, 1);
       } else {
-        $("#luckysheet-grid-window-1").append(luckysheetlodingHTML());
+        gridWindow.append(luckysheetlodingHTML());
         let sheetindex = _this.checkLoadSheetIndex(file);
         $.post(loadSheetUrl, {
           gridKey: luckysheetConfigsetting.gridKey,

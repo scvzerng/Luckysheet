@@ -1,5 +1,5 @@
-import { getSheetIndex } from '../methods/get';
 import { getObjType } from '../utils/util';
+import { getFileBySheetIndex } from '../utils/storeAccess.js';
 import Store from '../store';
 
 //获取表格边框数据计算值
@@ -12,8 +12,9 @@ function getBorderInfoComputeRange(dataset_row_st,dataset_row_ed,dataset_col_st,
         data = Store.flowdata;
     }
     else{
-        cfg = Store.luckysheetfile[getSheetIndex(sheetIndex)].config;
-        data = Store.luckysheetfile[getSheetIndex(sheetIndex)].data;
+        let file = getFileBySheetIndex(sheetIndex);
+        cfg = file.config;
+        data = file.data;
     }
 
     let borderInfo = cfg["borderInfo"];
@@ -1089,8 +1090,9 @@ function getBorderInfoCompute(sheetIndex) {
         data = Store.flowdata;
     }
     else{
-        cfg = Store.luckysheetfile[getSheetIndex(sheetIndex)].config;
-        data = Store.luckysheetfile[getSheetIndex(sheetIndex)].data;
+        let file = getFileBySheetIndex(sheetIndex);
+        cfg = file.config;
+        data = file.data;
     }
 
     borderInfoCompute = getBorderInfoComputeRange(0, data.length,0, data[0].length, sheetIndex);

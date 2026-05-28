@@ -1,4 +1,5 @@
 import { replaceHtml, chatatABC } from "../utils/util";
+import { hideModalMask, getScrollPosition } from "../utils/domUtils.js";
 import { getCurrentFile, getLastSelection, getFocusCell } from "../utils/storeAccess.js";
 import { modelHTML, keycode } from "./constant";
 import { selectHightlightShow } from "./select";
@@ -13,11 +14,14 @@ import func_methods from "../global/func_methods";
 import Store from "../store";
 import locale from "../locale/locale";
 import escapeHtml from "escape-html";
+import scrollBarX from '../ui/scrollBarX.js';
+import scrollBarY from '../ui/scrollBarY.js';
+import cellMain from '../ui/cellMain.js';
 
 //查找替换
 const luckysheetSearchReplace = {
     createDialog: function(source) {
-        $("#luckysheet-modal-dialog-mask").hide();
+        hideModalMask();
         $("#luckysheet-search-replace").remove();
 
         const _locale = locale();
@@ -191,10 +195,11 @@ const luckysheetSearchReplace = {
 
                 selectHightlightShow();
 
-                let scrollLeft = $("#luckysheet-cell-main").scrollLeft(),
-                    scrollTop = $("#luckysheet-cell-main").scrollTop();
-                let winH = $("#luckysheet-cell-main").height(),
-                    winW = $("#luckysheet-cell-main").width();
+                let scroll = getScrollPosition();
+                let scrollLeft = scroll.scrollLeft,
+                    scrollTop = scroll.scrollTop;
+                let winH = cellMain.getHeight(),
+                    winW = cellMain.getWidth();
 
                 let row = Store.visibledatarow[r],
                     row_pre = r - 1 == -1 ? 0 : Store.visibledatarow[r - 1];
@@ -202,15 +207,15 @@ const luckysheetSearchReplace = {
                     col_pre = c - 1 == -1 ? 0 : Store.visibledatacolumn[c - 1];
 
                 if (col - scrollLeft - winW + 20 > 0) {
-                    $("#luckysheet-scrollbar-x").scrollLeft(col - winW + 20);
+                    scrollBarX.setScrollLeft(col - winW + 20);
                 } else if (col_pre - scrollLeft - 20 < 0) {
-                    $("#luckysheet-scrollbar-x").scrollLeft(col_pre - 20);
+                    scrollBarX.setScrollLeft(col_pre - 20);
                 }
 
                 if (row - scrollTop - winH + 20 > 0) {
-                    $("#luckysheet-scrollbar-y").scrollTop(row - winH + 20);
+                    scrollBarY.setScrollTop(row - winH + 20);
                 } else if (row_pre - scrollTop - 20 < 0) {
-                    $("#luckysheet-scrollbar-y").scrollTop(row_pre - 20);
+                    scrollBarY.setScrollTop(row_pre - 20);
                 }
             });
 
@@ -342,10 +347,11 @@ const luckysheetSearchReplace = {
 
         selectHightlightShow();
 
-        let scrollLeft = $("#luckysheet-cell-main").scrollLeft(),
-            scrollTop = $("#luckysheet-cell-main").scrollTop();
-        let winH = $("#luckysheet-cell-main").height(),
-            winW = $("#luckysheet-cell-main").width();
+        let scroll = getScrollPosition();
+        let scrollLeft = scroll.scrollLeft,
+            scrollTop = scroll.scrollTop;
+        let winH = cellMain.getHeight(),
+        winW = cellMain.getWidth();
 
         let row = Store.visibledatarow[searchIndexArr[count].r],
             row_pre = searchIndexArr[count].r - 1 == -1 ? 0 : Store.visibledatarow[searchIndexArr[count].r - 1];
@@ -353,15 +359,15 @@ const luckysheetSearchReplace = {
             col_pre = searchIndexArr[count].c - 1 == -1 ? 0 : Store.visibledatacolumn[searchIndexArr[count].c - 1];
 
         if (col - scrollLeft - winW + 20 > 0) {
-            $("#luckysheet-scrollbar-x").scrollLeft(col - winW + 20);
+            scrollBarX.setScrollLeft(col - winW + 20);
         } else if (col_pre - scrollLeft - 20 < 0) {
-            $("#luckysheet-scrollbar-x").scrollLeft(col_pre - 20);
+            scrollBarX.setScrollLeft(col_pre - 20);
         }
 
         if (row - scrollTop - winH + 20 > 0) {
-            $("#luckysheet-scrollbar-y").scrollTop(row - winH + 20);
+            scrollBarY.setScrollTop(row - winH + 20);
         } else if (row_pre - scrollTop - 20 < 0) {
-            $("#luckysheet-scrollbar-y").scrollTop(row_pre - 20);
+            scrollBarY.setScrollTop(row_pre - 20);
         }
 
         if ($("#searchAllbox").is(":visible")) {
@@ -683,10 +689,11 @@ const luckysheetSearchReplace = {
         jfrefreshgrid(d, Store.luckysheet_select_save);
         selectHightlightShow();
 
-        let scrollLeft = $("#luckysheet-cell-main").scrollLeft(),
-            scrollTop = $("#luckysheet-cell-main").scrollTop();
-        let winH = $("#luckysheet-cell-main").height(),
-            winW = $("#luckysheet-cell-main").width();
+        let scroll = getScrollPosition();
+        let scrollLeft = scroll.scrollLeft,
+            scrollTop = scroll.scrollTop;
+        let winH = cellMain.getHeight(),
+            winW = cellMain.getWidth();
 
         let row = Store.visibledatarow[r],
             row_pre = r - 1 == -1 ? 0 : Store.visibledatarow[r - 1];
@@ -694,15 +701,15 @@ const luckysheetSearchReplace = {
             col_pre = c - 1 == -1 ? 0 : Store.visibledatacolumn[c - 1];
 
         if (col - scrollLeft - winW + 20 > 0) {
-            $("#luckysheet-scrollbar-x").scrollLeft(col - winW + 20);
+            scrollBarX.setScrollLeft(col - winW + 20);
         } else if (col_pre - scrollLeft - 20 < 0) {
-            $("#luckysheet-scrollbar-x").scrollLeft(col_pre - 20);
+            scrollBarX.setScrollLeft(col_pre - 20);
         }
 
         if (row - scrollTop - winH + 20 > 0) {
-            $("#luckysheet-scrollbar-y").scrollTop(row - winH + 20);
+            scrollBarY.setScrollTop(row - winH + 20);
         } else if (row_pre - scrollTop - 20 < 0) {
-            $("#luckysheet-scrollbar-y").scrollTop(row_pre - 20);
+            scrollBarY.setScrollTop(row_pre - 20);
         }
     },
     replaceAll: function() {

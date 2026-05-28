@@ -39,14 +39,19 @@ import method from "../../global/method";
 import { getBorderInfoCompute } from "../../global/border";
 import Store from "../../store";
 import context from "./context";
+import { getScrollPosition } from '../../utils/domUtils.js';
+import { rowHeader, colHeader } from '../../ui/rowColHeader.js';
+import resizeHandles from '../../ui/resizeHandles.js';
+import canvasContext from '../../ui/canvasContext.js';
 
 export default function documentMouseup() {
     //表格mouseup
     $(document).on("mouseup.luckysheetEvent", function(event) {
         if (luckysheetConfigsetting && luckysheetConfigsetting.hook && luckysheetConfigsetting.hook.sheetMouseup) {
             let mouse = mouseposition(event.pageX, event.pageY);
-            let x = mouse[0] + $("#luckysheet-cell-main").scrollLeft();
-            let y = mouse[1] + $("#luckysheet-cell-main").scrollTop();
+            let scroll = getScrollPosition();
+            let x = mouse[0] + scroll.scrollLeft;
+            let y = mouse[1] + scroll.scrollTop;
 
             let row_location = rowLocation(y),
                 row = row_location[1],
@@ -88,9 +93,7 @@ export default function documentMouseup() {
                 rangeMove: !!formula.rangeMove,
             };
 
-            let luckysheetTableContent = $("#luckysheetTableContent")
-                .get(0)
-                .getContext("2d");
+            let luckysheetTableContent = canvasContext.getContext();
 
             method.createHookFunction(
                 "sheetMouseup",
@@ -298,12 +301,12 @@ export default function documentMouseup() {
         if (Store.luckysheet_rows_change_size) {
             Store.luckysheet_rows_change_size = false;
 
-            $("#luckysheet-change-size-line").hide();
-            $("#luckysheet-rows-change-size").css("opacity", 0);
+            resizeHandles.changeSizeLine.hide();
+            resizeHandles.rowChangeSize.setCss({opacity: 0});
             $("#luckysheet-sheettable, #luckysheet-rows-h, #luckysheet-rows-h canvas").css("cursor", "default");
 
             let mouse = mouseposition(event.pageX, event.pageY);
-            let scrollTop = $("#luckysheet-rows-h").scrollTop();
+            let scrollTop = rowHeader.getScrollTop();
             let y = mouse[1] + scrollTop;
             let winH = $(window).height();
 
@@ -390,14 +393,14 @@ export default function documentMouseup() {
         //改变列宽
         if (Store.luckysheet_cols_change_size) {
             Store.luckysheet_cols_change_size = false;
-            $("#luckysheet-change-size-line").hide();
-            $("#luckysheet-cols-change-size").css("opacity", 0);
+            resizeHandles.changeSizeLine.hide();
+            resizeHandles.colChangeSize.setCss({opacity: 0});
             $(
                 "#luckysheet-sheettable, #luckysheet-cols-h-c, .luckysheet-cols-h-cells, .luckysheet-cols-h-cells canvas",
             ).css("cursor", "default");
 
             let mouse = mouseposition(event.pageX, event.pageY);
-            let scrollLeft = $("#luckysheet-cols-h-c").scrollLeft();
+            let scrollLeft = colHeader.getScrollLeft();
             let x = mouse[0] + scrollLeft;
             let winW = $(window).width();
 
@@ -510,8 +513,9 @@ export default function documentMouseup() {
             let mouse = mouseposition(event.pageX, event.pageY);
 
 
-            let scrollLeft = $("#luckysheet-cell-main").scrollLeft();
-            let scrollTop = $("#luckysheet-cell-main").scrollTop();
+            let scroll = getScrollPosition();
+            let scrollLeft = scroll.scrollLeft;
+            let scrollTop = scroll.scrollTop;
 
             let x = mouse[0] + scrollLeft;
             let y = mouse[1] + scrollTop;
@@ -775,8 +779,9 @@ export default function documentMouseup() {
 
 
             let mouse = mouseposition(event.pageX, event.pageY);
-            let scrollLeft = $("#luckysheet-cell-main").scrollLeft();
-            let scrollTop = $("#luckysheet-cell-main").scrollTop();
+            let scroll = getScrollPosition();
+            let scrollLeft = scroll.scrollLeft;
+            let scrollTop = scroll.scrollTop;
 
             let x = mouse[0] + scrollLeft - 5;
             let y = mouse[1] + scrollTop - 5;

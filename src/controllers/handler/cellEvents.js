@@ -23,6 +23,7 @@ import menuButton from "../menuButton";
 import { handleCellMousedown } from './cellEventsSub/handleCellMousedown.js';
 import { handleCellMouseup } from './cellEventsSub/handleCellMouseup.js';
 import { handleCellDblclick } from './cellEventsSub/handleCellDblclick.js';
+import richTextEditor from '../../ui/richTextEditor.js';
 
 export default function cellEvents() {
     $(window).resize(function() {
@@ -32,7 +33,7 @@ export default function cellEvents() {
         }
     });
 
-    $("#luckysheet-rich-text-editor").mouseup(function(e) {
+    richTextEditor.onMouseup(function(e) {
         menuButton.inputMenuButtonFocus(e.target);
     });
 

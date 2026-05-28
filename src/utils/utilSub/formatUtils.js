@@ -2,6 +2,7 @@ import { luckysheetdefaultFont } from '../../controllers/constant';
 import menuButton from '../../controllers/menuButton';
 import { isdatatype, isdatatypemulti } from '../../global/datecontroll';
 import { hasChinaword } from '../../global/validate';
+import { isNumericString } from './typeUtils.js';
 import locale from '../../locale/locale';
 import Store from '../../store';
 import numeral from 'numeral';
@@ -117,7 +118,7 @@ function numFormat(num, type) {
 }
 
 function numfloatlen(n) {
-    if (n != null && !isNaN(parseFloat(n)) && !hasChinaword(n)) {
+    if (n != null && isNumericString(n)) {
         let value = numeral(n).value();
         let lens = value.toString().split(".");
 

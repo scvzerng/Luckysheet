@@ -6,6 +6,9 @@ import { getCurrentFile } from '../../../utils/storeAccess.js';
 import Store from '../../../store';
 import locale from '../../../locale/locale';
 import { getPicker } from '../../../components/ColorPicker';
+import { hideModalMask } from '../../../utils/domUtils.js';
+import countShow from '../../../ui/countShow.js';
+import formulaRangeSelect from '../../../ui/formulaRangeSelect.js';
 
 export function initNewRuleEvents(_this) {
       const conditionformat_Text = locale().conditionformat;
@@ -222,7 +225,7 @@ export function initNewRuleEvents(_this) {
         //新建规则的入�?
         let source = $(this).attr("data-source");
         if (source == 0) {
-          $("#luckysheet-modal-dialog-mask").hide();
+          hideModalMask();
   
           //保存之前的规�?
           let fileH = $.extend(true, [], Store.luckysheetfile);
@@ -251,7 +254,7 @@ export function initNewRuleEvents(_this) {
         //新建规则的入�?
         let source = $(this).attr("data-source");
         if (source == 0) {
-          $("#luckysheet-modal-dialog-mask").hide();
+          hideModalMask();
         }
         if (source == 1) {
           $("#luckysheet-administerRule-dialog").show();
@@ -261,8 +264,8 @@ export function initNewRuleEvents(_this) {
         $("#luckysheet-newConditionRule-dialog").hide();
   
         //隐藏虚线�?
-        $("#luckysheet-formula-functionrange-select").hide();
-        $("#luckysheet-row-count-show").hide();
-        $("#luckysheet-column-count-show").hide();
+        formulaRangeSelect.hide();
+        countShow.row.hide();
+        countShow.column.hide();
       });
 }

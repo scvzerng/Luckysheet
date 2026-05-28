@@ -8,11 +8,13 @@ import locale from '../../../locale/locale';
 import { getCurrentFile } from '../../../utils/storeAccess.js';
 import Store from '../../../store';
 import { getObjType, luckysheetContainerFocus } from '../../../utils/util';
+import rightClickMenu from '../../../ui/rightClickMenu.js';
+import richTextEditor from '../../../ui/richTextEditor.js';
 
 export function initDeleteCellEvents() {
     //隐藏、显示行
     // $("#luckysheet-hidRows").click(function (event) {
-    //     $("#luckysheet-rightclick-menu").hide();
+    //     rightClickMenu.hide();
     //     luckysheetContainerFocus();
   
     //     let cfg = $.extend(true, {}, Store.config);
@@ -43,13 +45,13 @@ export function initDeleteCellEvents() {
   
     //     //config
     //     Store.config = cfg;
-    //     Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
+    //     syncConfigToStore();
   
     //     //行高、列�?刷新
     //     jfrefreshgrid_rhcw(Store.flowdata.length, Store.flowdata[0].length);
     // })
     // $("#luckysheet-showHidRows").click(function (event) {
-    //     $("#luckysheet-rightclick-menu").hide();
+    //     rightClickMenu.hide();
     //     luckysheetContainerFocus();
   
     //     let cfg = $.extend(true, {}, Store.config);
@@ -80,7 +82,7 @@ export function initDeleteCellEvents() {
   
     //     //config
     //     Store.config = cfg;
-    //     Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
+    //     syncConfigToStore();
   
     //     //行高、列�?刷新
     //     jfrefreshgrid_rhcw(Store.flowdata.length, Store.flowdata[0].length);
@@ -88,7 +90,7 @@ export function initDeleteCellEvents() {
   
     //隐藏、显示列
     // $("#luckysheet-hidCols").click(function (event) {
-    //     $("#luckysheet-rightclick-menu").hide();
+    //     rightClickMenu.hide();
     //     luckysheetContainerFocus();
   
     //     let cfg = $.extend(true, {}, Store.config);
@@ -119,13 +121,13 @@ export function initDeleteCellEvents() {
   
     //     //config
     //     Store.config = cfg;
-    //     Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
+    //     syncConfigToStore();
   
     //     //行高、列�?刷新
     //     jfrefreshgrid_rhcw(Store.flowdata.length, Store.flowdata[0].length);
     // })
     // $("#luckysheet-showHidCols").click(function (event) {
-    //     $("#luckysheet-rightclick-menu").hide();
+    //     rightClickMenu.hide();
     //     luckysheetContainerFocus();
   
     //     let cfg = $.extend(true, {}, Store.config);
@@ -156,7 +158,7 @@ export function initDeleteCellEvents() {
   
     //     //config
     //     Store.config = cfg;
-    //     Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
+    //     syncConfigToStore();
   
     //     //行高、列�?刷新
     //     jfrefreshgrid_rhcw(Store.flowdata.length, Store.flowdata[0].length);
@@ -202,7 +204,7 @@ export function initDeleteCellEvents() {
   
     //清除单元格内�?
     $("#luckysheet-delete-text").click(function () {
-      $("#luckysheet-rightclick-menu").hide();
+      rightClickMenu.hide();
       luckysheetContainerFocus();
       if (Store.allowEdit === false) {
         return;
@@ -267,7 +269,7 @@ export function initDeleteCellEvents() {
   
         // 清空编辑框的内容
         // 备注：在functionInputHanddler方法中会把该标签的内容拷贝到 #luckysheet-functionbox-cell
-        $("#luckysheet-rich-text-editor").html("");
+        richTextEditor.setHtml("");
       }
     });
 }

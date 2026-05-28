@@ -1,4 +1,5 @@
 import { replaceHtml } from '../utils/util';
+import { showModalMask, hideModalMask, getScrollPosition } from '../utils/domUtils.js';
 import { getcellvalue } from '../global/getdata';
 import { luckysheetrefreshgrid } from '../global/refresh';
 import { rowLocation, colLocation, mouseposition } from '../global/location';
@@ -10,10 +11,12 @@ import { selectHightlightShow } from './select';
 import sheetmanage from './sheetmanage';
 import luckysheetFreezen from './freezen';
 import menuButton from './menuButton';
-import { getSheetIndex } from '../methods/get';
 import locale from '../locale/locale';
 import Store from '../store';
-import { getLastSelection } from '../utils/storeAccess.js';
+import { getLastSelection, getFileBySheetIndex } from '../utils/storeAccess.js';
+import scrollBarX from '../ui/scrollBarX.js';
+import scrollBarY from '../ui/scrollBarY.js';
+import cellMain from '../ui/cellMain.js';
 
 const hyperlinkCtrl = {
     item: {
@@ -30,7 +33,7 @@ const hyperlinkCtrl = {
         const toolbarText = _locale.toolbar;
         const buttonText = _locale.button;
 
-        $("#luckysheet-modal-dialog-mask").show();
+        showModalMask();
         $("#luckysheet-insertLink-dialog").remove();
 
         let sheetListOption = '';
@@ -181,7 +184,7 @@ const hyperlinkCtrl = {
                 [{ row: [rowIndex, rowIndex], column: [colIndex, colIndex] }]
             );
 
-            $("#luckysheet-modal-dialog-mask").hide();
+            hideModalMask();
             $("#luckysheet-insertLink-dialog").hide();
         })
     },
@@ -259,8 +262,8 @@ const hyperlinkCtrl = {
             let row_pre = cellrange.row[0] - 1 == -1 ? 0 : Store.visibledatarow[cellrange.row[0] - 1];
             let col_pre = cellrange.column[0] - 1 == -1 ? 0 : Store.visibledatacolumn[cellrange.column[0] - 1];
 
-            $("#luckysheet-scrollbar-x").scrollLeft(col_pre);
-            $("#luckysheet-scrollbar-y").scrollTop(row_pre);
+            scrollBarX.setScrollLeft(col_pre);
+            scrollBarY.setScrollTop(row_pre);
         }
     },
     overshow: function(event){
@@ -273,8 +276,9 @@ const hyperlinkCtrl = {
         }
 
         let mouse = mouseposition(event.pageX, event.pageY);
-        let scrollLeft = $("#luckysheet-cell-main").scrollLeft();
-        let scrollTop = $("#luckysheet-cell-main").scrollTop();
+        let scroll = getScrollPosition();
+        let scrollLeft = scroll.scrollLeft;
+        let scrollTop = scroll.scrollTop;
         let x = mouse[0] + scrollLeft;
         let y = mouse[1] + scrollTop;
 
@@ -324,7 +328,7 @@ const hyperlinkCtrl = {
                         <div>单击鼠标可以追踪</div>
                     </div>`;
 
-        $(html).appendTo($("#luckysheet-cell-main"));
+        cellMain.append(html);
     },
     ref: function(historyHyperlink, currentHyperlink, sheetIndex, d, range){
         let _this = this;
@@ -344,11 +348,11 @@ const hyperlinkCtrl = {
         }
 
         _this.hyperlink = currentHyperlink;
-        Store.luckysheetfile[getSheetIndex(sheetIndex)].hyperlink = currentHyperlink;
+        getFileBySheetIndex(sheetIndex).hyperlink = currentHyperlink;
 
         Store.flowdata = d;
         editor.webWorkerFlowDataCache(Store.flowdata);//worker存数据
-        Store.luckysheetfile[getSheetIndex(sheetIndex)].data = Store.flowdata;
+        getFileBySheetIndex(sheetIndex).data = Store.flowdata;
 
         setTimeout(function () {
             luckysheetrefreshgrid();

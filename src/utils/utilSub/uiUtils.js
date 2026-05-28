@@ -1,4 +1,5 @@
 import Store from '../../store';
+import richTextEditor from '../../ui/richTextEditor.js';
 
 function showrightclickmenu($menu, x, y) {
     let winH = $(window).height(),
@@ -27,9 +28,9 @@ function luckysheetactiveCell() {
     if (Store.fullscreenmode) {
         setTimeout(function() {
             // need preventScroll:true,fix Luckysheet has been set top, and clicking the cell will trigger the scrolling problem
-            const input = document.getElementById("luckysheet-rich-text-editor");
+            const input = richTextEditor.getNativeElement();
             input.focus({ preventScroll: true });
-            $("#luckysheet-rich-text-editor").select();
+            richTextEditor.select();
             // $("#luckysheet-rich-text-editor").focus().select();
         }, 50);
     }

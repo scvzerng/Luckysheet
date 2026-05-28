@@ -7,6 +7,8 @@ import formula from "../formula";
 import { jfrefreshgrid, luckysheetrefreshgrid } from "../refresh";
 import tooltip from "../tooltip";
 import { setCellValue } from "./cellOperation";
+import cellSelectedFocus from '../../ui/cellSelectedFocus.js';
+import countShow from '../../ui/countShow.js';
 
 export function setRangeShow(range, options = {}) {
     if(getObjType(range) == 'string'){
@@ -89,9 +91,9 @@ export function setRangeShow(range, options = {}) {
 
         if(!show){
             $("#luckysheet-cell-selected-boxs").hide();
-            $("#luckysheet-cell-selected-focus").hide();
-            $("#luckysheet-row-count-show").hide();
-            $("#luckysheet-column-count-show").hide();
+            cellSelectedFocus.hide();
+            countShow.row.hide();
+            countShow.column.hide();
             $("#luckysheet-rows-h-selected").empty();
             $("#luckysheet-cols-h-selected").empty();
         }

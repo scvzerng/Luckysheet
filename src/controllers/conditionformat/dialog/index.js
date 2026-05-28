@@ -8,6 +8,8 @@ import Store from "../../../store";
 import dayjs from 'dayjs';
 import { createColorPicker, getPicker, STANDARD_PALETTE } from '../../../components/ColorPicker';
 import '../../../components/ColorPicker/colorPicker.css';
+import { showModalMask, hideModalMask } from '../../../utils/domUtils.js';
+import formulaDialogs from '../../../ui/formulaDialogs.js';
 
 import { initAdminRuleEvents } from './initAdminRuleEvents.js';
 import { initNewRuleEvents } from './initNewRuleEvents.js';
@@ -72,8 +74,8 @@ const dialogModule = {
     initRangeAndCloseEvents(_this);
   },
     singleRangeDialog: function (source, value) {
-    $("#luckysheet-modal-dialog-mask").hide();
-    $("#luckysheet-singleRange-dialog").remove();
+    hideModalMask();
+    formulaDialogs.singleRange.remove();
     const conditionformat_Text = locale().conditionformat;
     $("body").append(replaceHtml(modelHTML, {
       "id": "luckysheet-singleRange-dialog",
@@ -84,22 +86,22 @@ const dialogModule = {
                         <button id="luckysheet-singleRange-dialog-close" class="btn btn-default" data-source="${source}">${conditionformat_Text.cancel}</button>`,
       "style": "z-index:100003"
     }));
-    let $t = $("#luckysheet-singleRange-dialog").find(".luckysheet-modal-dialog-content").css("min-width", 300).end(),
+    let $t = formulaDialogs.singleRange.el.find(".luckysheet-modal-dialog-content").css("min-width", 300).end(),
       myh = $t.outerHeight(),
       myw = $t.outerWidth();
     let winw = $(window).width(),
       winh = $(window).height();
     let scrollLeft = $(document).scrollLeft(),
       scrollTop = $(document).scrollTop();
-    $("#luckysheet-singleRange-dialog").css({
+    formulaDialogs.singleRange.showAt({
       "left": (winw + scrollLeft - myw) / 2,
       "top": (winh + scrollTop - myh) / 3
-    }).show();
+    });
   },
   multiRangeDialog: function (dataItem, value) {
     let _this = this;
-    $("#luckysheet-modal-dialog-mask").hide();
-    $("#luckysheet-multiRange-dialog").remove();
+    hideModalMask();
+    formulaDialogs.multiRange.remove();
     const conditionformat_Text = locale().conditionformat;
     $("body").append(replaceHtml(modelHTML, {
       "id": "luckysheet-multiRange-dialog",
@@ -110,22 +112,22 @@ const dialogModule = {
                         <button id="luckysheet-multiRange-dialog-close" class="btn btn-default">${conditionformat_Text.cancel}</button>`,
       "style": "z-index:100003"
     }));
-    let $t = $("#luckysheet-multiRange-dialog").find(".luckysheet-modal-dialog-content").css("min-width", 300).end(),
+    let $t = formulaDialogs.multiRange.el.find(".luckysheet-modal-dialog-content").css("min-width", 300).end(),
       myh = $t.outerHeight(),
       myw = $t.outerWidth();
     let winw = $(window).width(),
       winh = $(window).height();
     let scrollLeft = $(document).scrollLeft(),
       scrollTop = $(document).scrollTop();
-    $("#luckysheet-multiRange-dialog").css({
+    formulaDialogs.multiRange.showAt({
       "left": (winw + scrollLeft - myw) / 2,
       "top": (winh + scrollTop - myh) / 3
-    }).show();
+    });
     selectionCopyShow(_this.getRangeByTxt(value));
   },
   conditionformatDialog: function (title, content) {
     let _this = this;
-    $("#luckysheet-modal-dialog-mask").show();
+    showModalMask();
     $("#luckysheet-conditionformat-dialog").remove();
     const conditionformat_Text = locale().conditionformat;
     $("body").append(replaceHtml(modelHTML, {
@@ -155,7 +157,7 @@ const dialogModule = {
     }
   },
   CFiconsDialog: function () {
-    $("#luckysheet-modal-dialog-mask").show();
+    showModalMask();
     $("#luckysheet-CFicons-dialog").remove();
     const conditionformat_Text = locale().conditionformat;
     let content = `<div class="box">
@@ -234,7 +236,7 @@ const dialogModule = {
     }).show();
   },
   administerRuleDialog: function () {
-    $("#luckysheet-modal-dialog-mask").show();
+    showModalMask();
     $("#luckysheet-administerRule-dialog").remove();
     const conditionformat_Text = locale().conditionformat;
 
@@ -303,7 +305,7 @@ const dialogModule = {
     let ruleExplainHtml = _this.getRuleExplain(0);
 
     //弹出层
-    $("#luckysheet-modal-dialog-mask").show();
+    showModalMask();
     $("#luckysheet-administerRule-dialog").hide();
     $("#luckysheet-newConditionRule-dialog").remove();
     let content = '<div>' + '<div class="boxTitle">' + conditionformat_Text.chooseRuleType + '：</div>' + _this.ruleTypeHtml() + '<div class="boxTitle">' + conditionformat_Text.editRuleDescription + '：</div>' + '<div class="ruleExplainBox">' + ruleExplainHtml + '</div>' + '</div>';
@@ -378,7 +380,7 @@ const dialogModule = {
     let ruleExplainHtml = _this.getRuleExplain(index);
 
     //弹出层
-    $("#luckysheet-modal-dialog-mask").show();
+    showModalMask();
     $("#luckysheet-administerRule-dialog").hide();
     $("#luckysheet-editorConditionRule-dialog").remove();
     let content = '<div>' + '<div class="boxTitle">' + conditionformat_Text.chooseRuleType + '：</div>' + _this.ruleTypeHtml() + '<div class="boxTitle">' + conditionformat_Text.editRuleDescription + '：</div>' + '<div class="ruleExplainBox">' + ruleExplainHtml + '</div>' + '</div>';
@@ -515,7 +517,7 @@ const dialogModule = {
     }
   },
   infoDialog: function (title, content) {
-    $("#luckysheet-modal-dialog-mask").show();
+    showModalMask();
     $("#luckysheet-conditionformat-info-dialog").remove();
     $("body").append(replaceHtml(modelHTML, {
       "id": "luckysheet-conditionformat-info-dialog",

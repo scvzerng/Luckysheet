@@ -7,6 +7,7 @@ import { $$, showrightclickmenu } from '../../../utils/util';
 import imageCtrl from '../../imageCtrl';
 import luckysheetConfigsetting from '../../luckysheetConfigsetting';
 import luckysheetPostil from '../../postil';
+import cellMain from '../../../ui/cellMain.js';
 
 export function initResizeEvents() {
     $("#luckysheet-rows-change-size").mousedown(function (event) {
@@ -28,7 +29,7 @@ export function initResizeEvents() {
       let mouse = mouseposition(event.pageX, event.pageY);
       let y = mouse[1] + $("#luckysheet-rows-h").scrollTop();
       let scrollLeft = $("#luckysheet-cell-main").scrollLeft();
-      let winW = $("#luckysheet-cell-main").width();
+      let winW = cellMain.getWidth();
       let row_location = rowLocation(y),
         row = row_location[1],
         row_pre = row_location[0],

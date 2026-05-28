@@ -5,12 +5,13 @@ import locale from '../../../locale/locale';
 import { syncConfigToStore, getDataSize } from '../../../utils/storeAccess.js';
 import Store from '../../../store';
 import { luckysheetContainerFocus } from '../../../utils/util';
+import rightClickMenu from '../../../ui/rightClickMenu.js';
 
 export function initHideShowEvents() {
   
     //隐藏选中行列
     $("#luckysheet-hide-selected").click(function (event) {
-      $("#luckysheet-rightclick-menu").hide();
+      rightClickMenu.hide();
       luckysheetContainerFocus();
       const locale_drag = locale().drag;
       if (Store.luckysheet_select_save.length > 1) {
@@ -98,7 +99,7 @@ export function initHideShowEvents() {
 
     //取消隐藏选中行列
     $("#luckysheet-show-selected").click(function (event) {
-      $("#luckysheet-rightclick-menu").hide();
+      rightClickMenu.hide();
       luckysheetContainerFocus();
       const locale_drag = locale().drag;
       if (Store.luckysheet_select_save.length > 1) {

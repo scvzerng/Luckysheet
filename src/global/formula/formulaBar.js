@@ -18,14 +18,17 @@ import {
     luckysheet_getSpecialReference,
 } from "../../function/func";
 import Store from "../../store";
+import richTextEditor from '../../ui/richTextEditor.js';
+import functionBox from '../../ui/functionBox.js';
 
 const formulaBar = {
         oldvalue: null,
 
         dontupdate: function() {
             let _this = this;
-            Store.luckysheetCellUpdate.length = 0; //clear array
-            $("#luckysheet-functionbox-cell, #luckysheet-rich-text-editor").html(_this.oldvalue);
+            Store.luckysheetCellUpdate.length = 0;
+            functionBox.setHtml(_this.oldvalue);
+            richTextEditor.setHtml(_this.oldvalue);
             _this.cancelNormalSelected();
             if (_this.rangetosheet != Store.currentSheetIndex) {
                 sheetmanage.changeSheetExec(_this.rangetosheet);
@@ -33,7 +36,7 @@ const formulaBar = {
         },
 
         fucntionboxshow: function(r, c) {
-            $("#luckysheet-functionbox-cell").html("");
+            functionBox.setHtml("");
 
             let _this = this;
 
@@ -61,7 +64,7 @@ const formulaBar = {
             }
             value = this.xssDeal(value);
             _this.oldvalue = value;
-            $("#luckysheet-functionbox-cell").html(value);
+            functionBox.setHtml(value);
         },
         //获得某个单元格或区域的偏移一定距离后的单元格( Sheet1!B6:C8 格式),
 
@@ -90,11 +93,10 @@ const formulaBar = {
                         // all browsers, except IE before version 9
                         let currSelection = window.getSelection();
                         if ($(currSelection.anchorNode).is("div")) {
-                            let editorlen = $("#luckysheet-rich-text-editor span").length;
+                            let editorlen = richTextEditor.find("span").length;
                             _this.functionRangeIndex = [
                                 editorlen - 1,
-                                $("#luckysheet-rich-text-editor")
-                                    .find("span")
+                                richTextEditor.find("span")
                                     .eq(editorlen - 1)
                                     .text().length,
                             ];

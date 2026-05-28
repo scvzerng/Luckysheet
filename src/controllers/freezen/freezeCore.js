@@ -1,10 +1,13 @@
-import { getSheetIndex } from "../../methods/get";
-import { getCurrentFile, getMaxRowIndex, getMaxColIndex } from "../../utils/storeAccess.js";
+import { getScrollPosition } from '../../utils/domUtils.js';
+import { getCurrentFile, getMaxRowIndex, getMaxColIndex, getFileBySheetIndex } from "../../utils/storeAccess.js";
 import { luckysheet_searcharray } from "../sheetSearch";
 import Store from "../../store";
 import locale from "../../locale/locale";
 import { luckysheetrefreshgrid } from "../../global/refresh";
 import freezeCanvasModule from "./freezeCanvas";
+import scrollBarX from '../../ui/scrollBarX.js';
+import scrollBarY from '../../ui/scrollBarY.js';
+import gridWindow from '../../ui/gridWindow.js';
 const freezeCoreModule = {
   freezenHorizontalHTML: '<div id="luckysheet-freezebar-horizontal" class="luckysheet-freezebar" tabindex="0"><div class="luckysheet-freezebar-handle luckysheet-freezebar-horizontal-handle" ><div class="luckysheet-freezebar-handle-bar luckysheet-freezebar-horizontal-handle-title" ></div><div class="luckysheet-freezebar-handle-bar luckysheet-freezebar-horizontal-handle-bar" ></div></div><div class="luckysheet-freezebar-drop luckysheet-freezebar-horizontal-drop" ><div class="luckysheet-freezebar-drop-bar luckysheet-freezebar-horizontal-drop-title" ></div><div class="luckysheet-freezebar-drop-bar luckysheet-freezebar-horizontal-drop-bar" >&nbsp;</div></div></div>',
   freezenVerticalHTML: '<div id="luckysheet-freezebar-vertical" class="luckysheet-freezebar" tabindex="0"><div class="luckysheet-freezebar-handle luckysheet-freezebar-vertical-handle" ><div class="luckysheet-freezebar-handle-bar luckysheet-freezebar-vertical-handle-title" ></div><div class="luckysheet-freezebar-handle-bar luckysheet-freezebar-vertical-handle-bar" ></div></div><div class="luckysheet-freezebar-drop luckysheet-freezebar-vertical-drop" ><div class="luckysheet-freezebar-drop-bar luckysheet-freezebar-vertical-drop-title" ></div><div class="luckysheet-freezebar-drop-bar luckysheet-freezebar-vertical-drop-bar" >&nbsp;</div></div></div>',
@@ -64,7 +67,7 @@ const freezeCoreModule = {
     if (sheetIndex == null) {
       sheetIndex = Store.currentSheetIndex;
     }
-    let currentSheet = Store.luckysheetfile[getSheetIndex(sheetIndex)];
+    let currentSheet = getFileBySheetIndex(sheetIndex);
     if (currentSheet.freezen != null) {
       currentSheet.freezen.vertical = null;
     }
@@ -74,7 +77,7 @@ const freezeCoreModule = {
     let _this = this;
     if (_this.initialVertical) {
       _this.initialVertical = false;
-      $("#luckysheet-grid-window-1").append(_this.freezenVerticalHTML);
+      gridWindow.append(_this.freezenVerticalHTML);
       $("#luckysheet-freezebar-vertical").find(".luckysheet-freezebar-vertical-drop").hover(function () {
         $(this).parent().addClass("luckysheet-freezebar-hover");
       }, function () {
@@ -83,11 +86,11 @@ const freezeCoreModule = {
       $("#luckysheet-freezebar-vertical").find(".luckysheet-freezebar-vertical-drop").mousedown(function () {
         _this.verticalmovestate = true;
         _this.verticalmoveposition = $(this).position().left;
-        _this.windowWidth = $("#luckysheet-grid-window-1").width();
+        _this.windowWidth = gridWindow.getWidth();
         $(this).parent().addClass("luckysheet-freezebar-active");
         $("#luckysheet-freezebar-vertical").find(".luckysheet-freezebar-vertical-handle").css("cursor", "-webkit-grabbing");
       });
-      let gridheight = $("#luckysheet-grid-window-1").height();
+      let gridheight = gridWindow.getHeight();
       $("#luckysheet-freezebar-vertical").find(".luckysheet-freezebar-vertical-handle").css({
         "height": gridheight - 10,
         "width": "4px",
@@ -106,7 +109,7 @@ const freezeCoreModule = {
         left = Store.visibledatacolumn[dataset_col_st] - 2 + Store.rowHeaderWidth;
         freezenverticaldata = [Store.visibledatacolumn[dataset_col_st], dataset_col_st + 1, 0, _this.cutVolumn(Store.visibledatacolumn, dataset_col_st + 1), left];
       } else {
-        let scrollLeft = $("#luckysheet-cell-main").scrollLeft();
+        let scrollLeft = getScrollPosition().scrollLeft;
         let dataset_col_st = luckysheet_searcharray(Store.visibledatacolumn, scrollLeft);
         if (dataset_col_st == -1) {
           dataset_col_st = 0;
@@ -176,7 +179,7 @@ const freezeCoreModule = {
 
     // when init ,we get frozen, but here, we need freezen,so tranform it
     _this.frozenTofreezen();
-    let currentSheet = Store.luckysheetfile[getSheetIndex(sheetIndex)];
+    let currentSheet = getFileBySheetIndex(sheetIndex);
     if (currentSheet.freezen != null && currentSheet.freezen.horizontal != null && currentSheet.freezen.horizontal.freezenhorizontaldata != null) {
       _this.createFreezenHorizontal(currentSheet.freezen.horizontal.freezenhorizontaldata, currentSheet.freezen.horizontal.top);
     } else {
@@ -193,13 +196,13 @@ const freezeCoreModule = {
     let _this = this;
     if (type == "v" && _this.freezenverticaldata != null) {
       let freezen_colindex = _this.freezenverticaldata[1];
-      let offset = luckysheet_searcharray(Store.visibledatacolumn, $("#luckysheet-cell-main").scrollLeft());
+      let offset = luckysheet_searcharray(Store.visibledatacolumn, getScrollPosition().scrollLeft);
       if (originindex - offset < freezen_colindex) {
         originindex = originindex - offset;
       }
     } else if (type == "h" && _this.freezenhorizontaldata != null) {
       let freezen_rowindex = _this.freezenhorizontaldata[1];
-      let offset = luckysheet_searcharray(Store.visibledatarow, $("#luckysheet-cell-main").scrollTop());
+      let offset = luckysheet_searcharray(Store.visibledatarow, getScrollPosition().scrollTop);
       if (originindex - offset < freezen_rowindex) {
         originindex = originindex - offset;
       }
@@ -224,7 +227,7 @@ const freezeCoreModule = {
     }
     if (_this.freezenverticaldata != null) {
       let freezen_colindex = _this.freezenverticaldata[1];
-      let offset = luckysheet_searcharray(_this.freezenverticaldata[3], $("#luckysheet-cell-main").scrollLeft());
+      let offset = luckysheet_searcharray(_this.freezenverticaldata[3], getScrollPosition().scrollLeft);
       let top = _this.freezenverticaldata[4];
       freezen_colindex += offset;
       if (column >= Store.visibledatacolumn.length) {
@@ -237,13 +240,13 @@ const freezeCoreModule = {
         freezen_px = Store.visibledatacolumn[freezen_colindex];
       if (column_px <= freezen_px + top) {
         setTimeout(function () {
-          $("#luckysheet-scrollbar-x").scrollLeft(0);
+          scrollBarX.setScrollLeft(0);
         }, 100);
       }
     }
     if (_this.freezenhorizontaldata != null) {
       let freezen_rowindex = _this.freezenhorizontaldata[1];
-      let offset = luckysheet_searcharray(_this.freezenhorizontaldata[3], $("#luckysheet-cell-main").scrollTop());
+      let offset = luckysheet_searcharray(_this.freezenhorizontaldata[3], getScrollPosition().scrollTop);
       let left = _this.freezenhorizontaldata[4];
       freezen_rowindex += offset;
       if (row >= Store.visibledatarow.length) {
@@ -256,7 +259,7 @@ const freezeCoreModule = {
         freezen_px = Store.visibledatarow[freezen_rowindex];
       if (row_px <= freezen_px + left) {
         setTimeout(function () {
-          $("#luckysheet-scrollbar-y").scrollTop(0);
+          scrollBarY.setScrollTop(0);
         }, 100);
       }
     }
@@ -291,7 +294,7 @@ const freezeCoreModule = {
     if (sheetIndex == null) {
       sheetIndex = Store.currentSheetIndex;
     }
-    let currentSheet = Store.luckysheetfile[getSheetIndex(sheetIndex)];
+    let currentSheet = getFileBySheetIndex(sheetIndex);
     if (currentSheet.freezen != null) {
       currentSheet.freezen.horizontal = null;
     }
@@ -301,7 +304,7 @@ const freezeCoreModule = {
     let _this = this;
     if (_this.initialHorizontal) {
       _this.initialHorizontal = false;
-      $("#luckysheet-grid-window-1").append(_this.freezenHorizontalHTML);
+      gridWindow.append(_this.freezenHorizontalHTML);
       $("#luckysheet-freezebar-horizontal").find(".luckysheet-freezebar-horizontal-drop").hover(function () {
         $(this).parent().addClass("luckysheet-freezebar-hover");
       }, function () {
@@ -310,11 +313,11 @@ const freezeCoreModule = {
       $("#luckysheet-freezebar-horizontal").find(".luckysheet-freezebar-horizontal-drop").mousedown(function () {
         _this.horizontalmovestate = true;
         _this.horizontalmoveposition = $(this).position().top;
-        _this.windowHeight = $("#luckysheet-grid-window-1").height();
+        _this.windowHeight = gridWindow.getHeight();
         $(this).parent().addClass("luckysheet-freezebar-active");
         $("#luckysheet-freezebar-horizontal").find(".luckysheet-freezebar-horizontal-handle").css("cursor", "-webkit-grabbing");
       });
-      let gridwidth = $("#luckysheet-grid-window-1").width();
+      let gridwidth = gridWindow.getWidth();
       $("#luckysheet-freezebar-horizontal").find(".luckysheet-freezebar-horizontal-handle").css({
         "width": gridwidth - 10,
         "height": "4px",
@@ -341,7 +344,7 @@ const freezeCoreModule = {
           luckysheetrefreshgrid();
         });
       } else {
-        let scrollTop = $("#luckysheet-cell-main").scrollTop();
+        let scrollTop = getScrollPosition().scrollTop;
         dataset_row_st = luckysheet_searcharray(Store.visibledatarow, scrollTop);
         if (dataset_row_st == -1) {
           dataset_row_st = 0;

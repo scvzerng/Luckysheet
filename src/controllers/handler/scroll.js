@@ -22,11 +22,16 @@ import luckysheetscrollevent from "../../global/scroll";
 import locale from "../../locale/locale";
 import Store from "../../store";
 import context from "./context";
+import scrollBarX from "../../ui/scrollBarX.js";
+import scrollBarY from "../../ui/scrollBarY.js";
+import cellMain from "../../ui/cellMain.js";
+import gridWindow from "../../ui/gridWindow.js";
+import sheetContainer from "../../ui/sheetContainer.js";
 
 export default function scroll() {
-    $("#luckysheet-sheet-container-c").mousewheel(function(event, delta) {
+    sheetContainer.onMousewheel(function(event, delta) {
         let scrollNum = event.deltaFactor < 40 ? 1 : event.deltaFactor < 80 ? 2 : 3;
-        let scrollLeft = $(this).scrollLeft();
+        let scrollLeft = sheetContainer.getScrollLeft();
         if (event.deltaY != 0) {
             if (event.deltaY < 0) {
                 scrollLeft = scrollLeft + 10 * scrollNum;
@@ -40,23 +45,22 @@ export default function scroll() {
                 scrollLeft = scrollLeft - 10 * scrollNum;
             }
         }
-        $(this).scrollLeft(scrollLeft);
+        sheetContainer.setScrollLeft(scrollLeft);
         event.preventDefault();
     });
 
-    //滚动监听
-    $("#luckysheet-cell-main")
-        .scroll(function() {})
-        .mousewheel(function(event, delta) {
+    cellMain
+        .onScroll(function() {})
+        .onMousewheel(function(event, delta) {
             event.preventDefault();
         });
 
     context._locale = locale();
     context.locale_drag = context._locale.drag;
     context.locale_info = context._locale.info;
-    $("#luckysheet-grid-window-1").mousewheel(function(event, delta) {
-        let scrollLeft = $("#luckysheet-scrollbar-x").scrollLeft(),
-            scrollTop = $("#luckysheet-scrollbar-y").scrollTop();
+    gridWindow.onMousewheel(function(event, delta) {
+        let scrollLeft = scrollBarX.getScrollLeft(),
+            scrollTop = scrollBarY.getScrollTop();
         let visibledatacolumn_c = Store.visibledatacolumn,
             visibledatarow_c = Store.visibledatarow;
 
@@ -70,26 +74,19 @@ export default function scroll() {
 
         clearTimeout(context.mousewheelArrayUniqueTimeout);
 
-        // if(Store.visibledatacolumn.length!=visibledatacolumn_c.length){
         if (Store.visibledatacolumn_unique != null) {
             visibledatacolumn_c = Store.visibledatacolumn_unique;
         } else {
             visibledatacolumn_c = ArrayUnique(visibledatacolumn_c);
             Store.visibledatacolumn_unique = visibledatacolumn_c;
         }
-        // }
 
-        // if(Store.visibledatarow.length!=visibledatarow_c.length){
         if (Store.visibledatarow_unique != null) {
             visibledatarow_c = Store.visibledatarow_unique;
         } else {
             visibledatarow_c = ArrayUnique(visibledatarow_c);
             Store.visibledatarow_unique = visibledatarow_c;
         }
-        // }
-
-        // visibledatacolumn_c = ArrayUnique(visibledatacolumn_c);
-        // visibledatarow_c = ArrayUnique(visibledatarow_c);
 
         let col_st = luckysheet_searcharray(visibledatacolumn_c, scrollLeft);
         let row_st = luckysheet_searcharray(visibledatarow_c, scrollTop);
@@ -102,7 +99,6 @@ export default function scroll() {
         let rowscroll = 0;
 
         let scrollNum = event.deltaFactor < 40 ? 1 : event.deltaFactor < 80 ? 2 : 3;
-        //一次滚动三行或三列
         if (event.deltaY != 0) {
             let row_ed,
                 step = Math.round(scrollNum / Store.zoomRatio);
@@ -127,28 +123,17 @@ export default function scroll() {
                 rowscroll -= luckysheetFreezen.freezenhorizontaldata[0];
             }
 
-            $("#luckysheet-scrollbar-y").scrollTop(rowscroll);
+            scrollBarY.setScrollTop(rowscroll);
         } else if (event.deltaX != 0) {
             let col_ed;
 
-            // if((isMac && event.deltaX >0 ) || (!isMac && event.deltaX < 0)){
             if (event.deltaX > 0) {
                 scrollLeft = scrollLeft + 20 * Store.zoomRatio;
-
-                // if(col_ed >= visibledatacolumn_c.length){
-                //     col_ed = visibledatacolumn_c.length - 1;
-                // }
             } else {
                 scrollLeft = scrollLeft - 20 * Store.zoomRatio;
-
-                // if(col_ed < 0){
-                //     col_ed = 0;
-                // }
             }
 
-            // colscroll = col_ed == 0 ? 0 : visibledatacolumn_c[col_ed - 1];
-
-            $("#luckysheet-scrollbar-x").scrollLeft(scrollLeft);
+            scrollBarX.setScrollLeft(scrollLeft);
         }
 
         context.mousewheelArrayUniqueTimeout = setTimeout(() => {
@@ -157,23 +142,19 @@ export default function scroll() {
         }, 500);
     });
 
-    $("#luckysheet-scrollbar-x")
-        .scroll(function() {
-            // setTimeout(function(){
+    scrollBarX
+        .onScroll(function() {
             luckysheetscrollevent();
-            // },10);
         })
-        .mousewheel(function(event, delta) {
+        .onMousewheel(function(event, delta) {
             event.preventDefault();
         });
 
-    $("#luckysheet-scrollbar-y")
-        .scroll(function() {
-            // setTimeout(function(){
+    scrollBarY
+        .onScroll(function() {
             luckysheetscrollevent();
-            // },10);
         })
-        .mousewheel(function(event, delta) {
+        .onMousewheel(function(event, delta) {
             event.preventDefault();
         });
 

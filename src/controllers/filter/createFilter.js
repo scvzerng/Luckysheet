@@ -5,11 +5,12 @@ import { luckysheetMoveEndCell } from '../sheetMove';
 import locale from '../../locale/locale';
 import Store from '../../store';
 import { createFilterOptions } from './createFilterOptions';
+import rightClickMenu from '../../ui/rightClickMenu.js';
 
 function createFilter() {
 
     if(Store.luckysheet_select_save.length > 1){
-        $("#luckysheet-rightclick-menu").hide();
+        rightClickMenu.hide();
         $("#luckysheet-filter-menu, #luckysheet-filter-submenu").hide();
         $("#" + Store.container).attr("tabindex", 0).focus();
 

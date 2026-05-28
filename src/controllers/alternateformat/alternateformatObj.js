@@ -5,6 +5,7 @@ import { getRangetxt } from '../../methods/get';
 import { getCurrentFile } from '../../utils/storeAccess.js';
 import { replaceHtml } from '../../utils/util';
 import { isEditMode } from '../../global/validate';
+import { showModalMask, hideModalMask } from '../../utils/domUtils.js';
 import tooltip from '../../global/tooltip';
 import { luckysheetrefreshgrid } from '../../global/refresh';
 import { luckysheetAlternateformatHtml, modelHTML } from '../constant';
@@ -271,7 +272,7 @@ const alternateformat = {
             let $parent = $(this).parents("#luckysheet-alternateformat-colorSelect-dialog");
             const _locale = locale()
             const alternatingColors =_locale.alternatingColors;
-            $("#luckysheet-modal-dialog-mask").hide();
+            hideModalMask();
             $parent.hide();
 
             //获取currenColor colorType source
@@ -440,7 +441,7 @@ const alternateformat = {
             _this.ref(historyRules, currentRules);
 
             //隐藏一些dom
-            $("#luckysheet-modal-dialog-mask").hide();
+            hideModalMask();
             $("#luckysheet-modal-dialog-slider-alternateformat").hide();
 
             luckysheetsizeauto();
@@ -558,7 +559,7 @@ const alternateformat = {
 
     },
     colorSelectDialog: function(currenColor, colorType, source){
-        $("#luckysheet-modal-dialog-mask").show();
+        showModalMask();
         $("#luckysheet-alternateformat-colorSelect-dialog").remove();
 
         const _locale = locale()
@@ -641,7 +642,7 @@ const alternateformat = {
         });
     },
     rangeDialog: function(value){
-        $("#luckysheet-modal-dialog-mask").hide();
+        hideModalMask();
         $("#luckysheet-alternateformat-rangeDialog").remove();
 
         const _locale = locale()

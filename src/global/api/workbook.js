@@ -11,6 +11,8 @@ import formula from "../formula";
 import { jfrefreshgrid, jfrefreshgrid_rhcw, luckysheetrefreshgrid } from "../refresh";
 import tooltip from "../tooltip";
 import { isRealNum, hasPartMC } from "../validate";
+import scrollBarX from '../../ui/scrollBarX.js';
+import scrollBarY from '../../ui/scrollBarY.js';
 
 export function showGridLines(options = {}){
     let {
@@ -101,7 +103,7 @@ export function scroll(options = {}){
             return tooltip.info("The scrollLeft parameter is invalid.", "");
         }
 
-        $("#luckysheet-scrollbar-x").scrollLeft(scrollLeft);
+        scrollBarX.setScrollLeft(scrollLeft);
     }
     else if(targetColumn != null){
         if(!isRealNum(targetColumn)){
@@ -111,7 +113,7 @@ export function scroll(options = {}){
         let col = Store.visibledatacolumn[targetColumn],
             col_pre = targetColumn <= 0 ? 0 : Store.visibledatacolumn[targetColumn - 1];
 
-        $("#luckysheet-scrollbar-x").scrollLeft(col_pre);
+        scrollBarX.setScrollLeft(col_pre);
     }
 
 
@@ -120,7 +122,7 @@ export function scroll(options = {}){
             return tooltip.info("The scrollTop parameter is invalid.", "");
         }
 
-        $("#luckysheet-scrollbar-y").scrollTop(scrollTop);
+        scrollBarY.setScrollTop(scrollTop);
     }
     else if(targetRow != null){
         if(!isRealNum(targetRow)){
@@ -130,7 +132,7 @@ export function scroll(options = {}){
         let row = Store.visibledatarow[targetRow],
             row_pre = targetRow <= 0 ? 0 : Store.visibledatarow[targetRow - 1];
 
-        $("#luckysheet-scrollbar-y").scrollTop(row_pre);
+        scrollBarY.setScrollTop(row_pre);
     }
 
     if (success && typeof success === 'function') {

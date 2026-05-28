@@ -4,11 +4,13 @@ import { luckysheet_searcharray } from "../../controllers/sheetSearch";
 import {  getMeasureText } from "../getRowlen";
 import {  chatatABC, isRowHidden, isColHidden } from "../../utils/util";
 import { getMaxRowIndex, getMaxColIndex } from "../../utils/storeAccess.js";
+import { getScrollPosition } from '../../utils/domUtils.js';
+import canvasContext from '../../ui/canvasContext.js';
 import method from "../method";
 import Store from "../../store";
 function luckysheetDrawgridRowTitle(scrollHeight, drawHeight, offsetTop) {
   if (scrollHeight == null) {
-    scrollHeight = $("#luckysheet-cell-main").scrollTop();
+    scrollHeight = getScrollPosition().scrollTop;
   }
   if (drawHeight == null) {
     drawHeight = Store.luckysheetTableContentHW[1];
@@ -16,7 +18,7 @@ function luckysheetDrawgridRowTitle(scrollHeight, drawHeight, offsetTop) {
   if (offsetTop == null) {
     offsetTop = Store.columnHeaderHeight;
   }
-  let luckysheetTableContent = $("#luckysheetTableContent").get(0).getContext("2d");
+  let luckysheetTableContent = canvasContext.getContext();
   luckysheetTableContent.save();
   luckysheetTableContent.scale(Store.devicePixelRatio, Store.devicePixelRatio);
   luckysheetTableContent.clearRect(0, offsetTop, Store.rowHeaderWidth - 1, drawHeight);
@@ -143,7 +145,7 @@ function luckysheetDrawgridRowTitle(scrollHeight, drawHeight, offsetTop) {
 }
 function luckysheetDrawgridColumnTitle(scrollWidth, drawWidth, offsetLeft) {
   if (scrollWidth == null) {
-    scrollWidth = $("#luckysheet-cell-main").scrollLeft();
+    scrollWidth = getScrollPosition().scrollLeft;
   }
   if (drawWidth == null) {
     drawWidth = Store.luckysheetTableContentHW[0];
@@ -151,7 +153,7 @@ function luckysheetDrawgridColumnTitle(scrollWidth, drawWidth, offsetLeft) {
   if (offsetLeft == null) {
     offsetLeft = Store.rowHeaderWidth;
   }
-  let luckysheetTableContent = $("#luckysheetTableContent").get(0).getContext("2d");
+  let luckysheetTableContent = canvasContext.getContext();
   luckysheetTableContent.save();
   luckysheetTableContent.scale(Store.devicePixelRatio, Store.devicePixelRatio);
   luckysheetTableContent.clearRect(offsetLeft, 0, drawWidth, Store.columnHeaderHeight - 1);

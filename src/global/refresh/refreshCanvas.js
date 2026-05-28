@@ -11,6 +11,8 @@ import luckysheetPostil from '../../controllers/postil';
 import { getCurrentFile, syncDataToStore } from '../../utils/storeAccess.js';
 import { selectHightlightShow, selectionCopyShow } from '../../controllers/select';
 import Store from '../../store';
+import { getScrollPosition } from '../../utils/domUtils.js';
+import canvasContext from '../../ui/canvasContext.js';
 
 import { clearRefreshCanvasTimeOut, setRefreshCanvasTimeOut } from './refreshState';
 
@@ -161,10 +163,12 @@ function luckysheetrefreshgrid(scrollWidth, scrollHeight) {
     formula.groupValuesRefresh();
     
     if (scrollWidth == null) {
-        scrollWidth = $("#luckysheet-cell-main").scrollLeft();
+        let scroll = getScrollPosition();
+        scrollWidth = scroll.scrollLeft;
     }
     if (scrollHeight == null) {
-        scrollHeight = $("#luckysheet-cell-main").scrollTop();
+        let scroll = getScrollPosition();
+        scrollHeight = scroll.scrollTop;
     }
 
     if (luckysheetFreezen.freezenverticaldata != null || luckysheetFreezen.freezenhorizontaldata != null) {
@@ -318,10 +322,10 @@ function luckysheetrefreshgrid(scrollWidth, scrollHeight) {
         }
     }
     else {
-        if($("#luckysheetTableContent").length == 0){
+        if(!canvasContext.exists()){
             return;
         }
-        let luckysheetTableContent = $("#luckysheetTableContent").get(0).getContext("2d");
+        let luckysheetTableContent = canvasContext.getContext();
         luckysheetDrawMain(scrollWidth, scrollHeight);
     
         // luckysheetTableContent.clearRect(0, 0, 46, 20);

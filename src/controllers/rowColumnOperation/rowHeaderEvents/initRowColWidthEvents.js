@@ -6,6 +6,7 @@ import { getCurrentFile, syncConfigToStore, getDataSize } from '../../../utils/s
 import Store from '../../../store';
 import { luckysheetContainerFocus } from '../../../utils/util';
 import imageCtrl from '../../imageCtrl';
+import rightClickMenu from '../../../ui/rightClickMenu.js';
 
 export function initRowColWidthEvents() {
   
@@ -16,7 +17,7 @@ export function initRowColWidthEvents() {
       if (event.target.nodeName === "INPUT") {
         return;
       }
-      $("#luckysheet-rightclick-menu").hide();
+      rightClickMenu.hide();
       luckysheetContainerFocus();
   
       // let size = parseInt($(this).siblings("input[type='number']").val().trim());

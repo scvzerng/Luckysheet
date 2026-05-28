@@ -1,4 +1,5 @@
 import { replaceHtml } from '../../utils/util';
+import { showModalMask, hideModalMask } from '../../utils/domUtils.js';
 import { modelHTML } from '../constant';
 import menuButton from '../menuButton';
 import editor from '../../global/editor';
@@ -275,9 +276,9 @@ const luckysheetMoreFormat = {
                 "name": "1,234.56",
                 "value": '_(* #,##0.00_);...* "-"??_);_(@_)'
             },
-        ]    
+        ]
 
-        $("#luckysheet-modal-dialog-mask").show();
+        showModalMask();
         $("#luckysheet-moreFormat-dialog").remove();
 
         let title = "", content = '';
@@ -374,7 +375,7 @@ const luckysheetMoreFormat = {
         //确定
         $(document).off("click.moreFormatConfirm").on("click.moreFormatConfirm", "#luckysheet-moreFormat-dialog #luckysheet-moreFormat-dialog-confirm", function(){
             $("#luckysheet-moreFormat-dialog").hide();
-            $("#luckysheet-modal-dialog-mask").hide();
+            hideModalMask();
 
             let d = editor.deepCopyFlowData(Store.flowdata);
 

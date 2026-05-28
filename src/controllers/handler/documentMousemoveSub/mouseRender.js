@@ -12,7 +12,14 @@ import { rowLocation, colLocation, mouseposition } from "../../../global/locatio
 import { countfunc } from "../../../global/count";
 import formula from "../../../global/formula";
 import Store from "../../../store";
-import { getLastSelection, getMaxRowIndex, getMaxColIndex } from "../../../utils/storeAccess.js";
+import { getLastSelection, setLastSelection, getMaxRowIndex, getMaxColIndex } from "../../../utils/storeAccess.js";
+import { getScrollPosition } from '../../../utils/domUtils.js';
+import scrollBarX from '../../../ui/scrollBarX.js';
+import scrollBarY from '../../../ui/scrollBarY.js';
+import imageDialog from '../../../ui/imageDialog.js';
+import { rowHeader, colHeader } from '../../../ui/rowColHeader.js';
+import resizeHandles from '../../../ui/resizeHandles.js';
+import cellMain from '../../../ui/cellMain.js';
 
             export function mouseRender(event) {
                 if (!event || event.pageX === undefined) return;
@@ -24,12 +31,12 @@ import { getLastSelection, getMaxRowIndex, getMaxColIndex } from "../../../utils
                     !Store.luckysheet_rows_change_size
                 ) {
                     let mouse = mouseposition(pageX, pageY);
-                    let left = $("#luckysheet-scrollbar-x").scrollLeft(),
-                        top = $("#luckysheet-scrollbar-y").scrollTop();
+                    let left = scrollBarX.getScrollLeft(),
+                        top = scrollBarY.getScrollTop();
                     let x = mouse[0];
                     let y = mouse[1];
-                    let winH = $("#luckysheet-cell-main").height() - 20 * Store.zoomRatio,
-                        winW = $("#luckysheet-cell-main").width() - 60 * Store.zoomRatio;
+                    let winH = cellMain.getHeight() - 20 * Store.zoomRatio,
+                        winW = cellMain.getWidth() - 60 * Store.zoomRatio;
 
                     if (y < 0 || y > winH) {
                         let stop;
@@ -38,7 +45,7 @@ import { getLastSelection, getMaxRowIndex, getMaxColIndex } from "../../../utils
                         } else {
                             stop = top + (y - winH) / 2;
                         }
-                        $("#luckysheet-scrollbar-y").scrollTop(stop);
+                        scrollBarY.setScrollTop(stop);
                     }
 
                     if (x < 0 || x > winW) {
@@ -49,13 +56,14 @@ import { getLastSelection, getMaxRowIndex, getMaxColIndex } from "../../../utils
                             sleft = left + (x - winW) / 2;
                         }
 
-                        $("#luckysheet-scrollbar-x").scrollLeft(sleft);
+                        scrollBarX.setScrollLeft(sleft);
                     }
                 }
                 if (Store.luckysheet_select_status) {
                     let mouse = mouseposition(pageX, pageY);
-                    let x = mouse[0] + $("#luckysheet-cell-main").scrollLeft();
-                    let y = mouse[1] + $("#luckysheet-cell-main").scrollTop();
+                    let scroll = getScrollPosition();
+                    let x = mouse[0] + scroll.scrollLeft;
+                    let y = mouse[1] + scroll.scrollTop;
 
                     let row_location = rowLocation(y),
                         row = row_location[1],
@@ -152,7 +160,7 @@ import { getLastSelection, getMaxRowIndex, getMaxColIndex } from "../../../utils
                     last["top_move"] = top;
                     last["height_move"] = height;
 
-                    Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1] = last;
+                    setLastSelection(last);
 
                     selectHightlightShow();
                     luckysheetFreezen.scrollFreezen();
@@ -171,8 +179,9 @@ import { getLastSelection, getMaxRowIndex, getMaxColIndex } from "../../../utils
 
                 } else if (conditionformat.selectStatus) {
                     let mouse = mouseposition(pageX, pageY);
-                    let x = mouse[0] + $("#luckysheet-cell-main").scrollLeft();
-                    let y = mouse[1] + $("#luckysheet-cell-main").scrollTop();
+                    let scroll = getScrollPosition();
+                    let x = mouse[0] + scroll.scrollLeft;
+                    let y = mouse[1] + scroll.scrollTop;
 
                     let row_location = rowLocation(y),
                         row = row_location[1],
@@ -279,7 +288,7 @@ import { getLastSelection, getMaxRowIndex, getMaxColIndex } from "../../../utils
                     formula.rangedrag_column({ pageX, pageY });
                 } else if (Store.luckysheet_rows_selected_status) {
                     let mouse = mouseposition(pageX, pageY);
-                    let y = mouse[1] + $("#luckysheet-rows-h").scrollTop();
+                    let y = mouse[1] + rowHeader.getScrollTop();
                     if (y < 0) {
                         return false;
                     }
@@ -330,7 +339,7 @@ import { getLastSelection, getMaxRowIndex, getMaxColIndex } from "../../../utils
                     last["top_move"] = top;
                     last["height_move"] = height;
 
-                    Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1] = last;
+                    setLastSelection(last);
 
                     selectHightlightShow();
                     clearTimeout(Store.countfuncTimeout);
@@ -339,7 +348,7 @@ import { getLastSelection, getMaxRowIndex, getMaxColIndex } from "../../../utils
                     }, 500);
                 } else if (Store.luckysheet_cols_selected_status) {
                     let mouse = mouseposition(pageX, pageY);
-                    let x = mouse[0] + $("#luckysheet-cols-h-c").scrollLeft();
+                    let x = mouse[0] + colHeader.getScrollLeft();
                     if (x < 0) {
                         return false;
                     }
@@ -390,7 +399,7 @@ import { getLastSelection, getMaxRowIndex, getMaxColIndex } from "../../../utils
                     last["left_move"] = left;
                     last["width_move"] = width;
 
-                    Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1] = last;
+                    setLastSelection(last);
 
                     selectHightlightShow();
                     clearTimeout(Store.countfuncTimeout);
@@ -400,8 +409,9 @@ import { getLastSelection, getMaxRowIndex, getMaxColIndex } from "../../../utils
                 } else if (Store.luckysheet_cell_selected_move) {
                     let mouse = mouseposition(pageX, pageY);
 
-                    let scrollLeft = $("#luckysheet-cell-main").scrollLeft();
-                    let scrollTop = $("#luckysheet-cell-main").scrollTop();
+                    let scroll = getScrollPosition();
+                    let scrollLeft = scroll.scrollLeft;
+                    let scrollTop = scroll.scrollTop;
 
                     let x = mouse[0] + scrollLeft;
                     let y = mouse[1] + scrollTop;
@@ -468,8 +478,9 @@ import { getLastSelection, getMaxRowIndex, getMaxColIndex } from "../../../utils
                     });
                 } else if (Store.luckysheet_cell_selected_extend) {
                     let mouse = mouseposition(pageX, pageY);
-                    let scrollLeft = $("#luckysheet-cell-main").scrollLeft() - 5;
-                    let scrollTop = $("#luckysheet-cell-main").scrollTop() - 5;
+                    let scroll = getScrollPosition();
+                    let scrollLeft = scroll.scrollLeft - 5;
+                    let scrollTop = scroll.scrollTop - 5;
 
                     let x = mouse[0] + scrollLeft;
                     let y = mouse[1] + scrollTop;
@@ -563,7 +574,7 @@ import { getLastSelection, getMaxRowIndex, getMaxColIndex } from "../../../utils
                     });
                 } else if (Store.luckysheet_cols_change_size) {
                     let mouse = mouseposition(pageX, pageY);
-                    let scrollLeft = $("#luckysheet-cols-h-c").scrollLeft();
+                    let scrollLeft = colHeader.getScrollLeft();
                     let x = mouse[0] + scrollLeft;
                     let winW = $(window).width();
 
@@ -576,12 +587,12 @@ import { getLastSelection, getMaxRowIndex, getMaxColIndex } from "../../../utils
                         col_index = col_location[2];
 
                     if (x + 3 - Store.luckysheet_cols_change_size_start[0] > 30 && x < winW + scrollLeft - 100) {
-                        $("#luckysheet-change-size-line").css({ left: x });
-                        $("#luckysheet-cols-change-size").css({ left: x - 2 });
+                        resizeHandles.changeSizeLine.setCss({ left: x });
+                        resizeHandles.colChangeSize.setCss({ left: x - 2 });
                     }
                 } else if (Store.luckysheet_rows_change_size) {
                     let mouse = mouseposition(pageX, pageY);
-                    let scrollTop = $("#luckysheet-rows-h").scrollTop();
+                    let scrollTop = rowHeader.getScrollTop();
                     let y = mouse[1] + scrollTop;
                     let winH = $(window).height();
 
@@ -591,16 +602,17 @@ import { getLastSelection, getMaxRowIndex, getMaxColIndex } from "../../../utils
                         row_index = row_location[2];
 
                     if (y + 3 - Store.luckysheet_rows_change_size_start[0] > 19 && y < winH + scrollTop - 200) {
-                        $("#luckysheet-change-size-line").css({ top: y });
-                        $("#luckysheet-rows-change-size").css({ top: y });
+                        resizeHandles.changeSizeLine.setCss({ top: y });
+                        resizeHandles.rowChangeSize.setCss({ top: y });
                     }
                 }
                 //image move
                 else if (imageCtrl.move) {
                     let mouse = mouseposition(pageX, pageY);
 
-                    let x = mouse[0] + $("#luckysheet-cell-main").scrollLeft();
-                    let y = mouse[1] + $("#luckysheet-cell-main").scrollTop();
+                    let scroll = getScrollPosition();
+                    let x = mouse[0] + scroll.scrollLeft;
+                    let y = mouse[1] + scroll.scrollTop;
 
                     let imgItem = imageCtrl.images[imageCtrl.currentImgId];
                     if (imgItem.isFixedPos) {
@@ -608,8 +620,8 @@ import { getLastSelection, getMaxRowIndex, getMaxColIndex } from "../../../utils
                         y = pageY;
                     }
 
-                    let myh = $("#luckysheet-modal-dialog-activeImage").height(),
-                        myw = $("#luckysheet-modal-dialog-activeImage").width();
+                    let myh = imageDialog.active.getHeight(),
+                        myw = imageDialog.active.getWidth();
 
                     let top = y - imageCtrl.moveXY[1],
                         left = x - imageCtrl.moveXY[0];
@@ -646,13 +658,14 @@ import { getLastSelection, getMaxRowIndex, getMaxColIndex } from "../../../utils
                         left = maxLeft;
                     }
 
-                    $("#luckysheet-modal-dialog-activeImage").css({ left: left, top: top });
+                    imageDialog.active.setCss({ left: left, top: top });
                 }
                 //image resize
                 else if (imageCtrl.resize) {
                     let mouse = mouseposition(pageX, pageY);
-                    let scrollLeft = $("#luckysheet-cell-main").scrollLeft();
-                    let scrollTop = $("#luckysheet-cell-main").scrollTop();
+                    let scroll = getScrollPosition();
+                    let scrollLeft = scroll.scrollLeft;
+                    let scrollTop = scroll.scrollTop;
                     let x = mouse[0] + scrollLeft;
                     let y = mouse[1] + scrollTop;
 
@@ -1013,7 +1026,7 @@ import { getLastSelection, getMaxRowIndex, getMaxColIndex } from "../../../utils
                         }
                     }
 
-                    $("#luckysheet-modal-dialog-activeImage").css({
+                    imageDialog.active.setCss({
                         width: width,
                         height: height,
                         left: left,
@@ -1035,8 +1048,9 @@ import { getLastSelection, getMaxRowIndex, getMaxColIndex } from "../../../utils
                 //image cropChange
                 else if (imageCtrl.cropChange) {
                     let mouse = mouseposition(pageX, pageY);
-                    let x = mouse[0] + $("#luckysheet-cell-main").scrollLeft();
-                    let y = mouse[1] + $("#luckysheet-cell-main").scrollTop();
+                    let scroll = getScrollPosition();
+                    let x = mouse[0] + scroll.scrollLeft;
+                    let y = mouse[1] + scroll.scrollTop;
 
                     if (x < 0 || y < 0) {
                         return false;
@@ -1225,9 +1239,7 @@ import { getLastSelection, getMaxRowIndex, getMaxColIndex } from "../../../utils
                         top = imgItem.fixedTop + offsetTop;
                     }
 
-                    $("#luckysheet-modal-dialog-cropping")
-                        .show()
-                        .css({
+                    imageDialog.cropping.showAt({
                             width: width,
                             height: height,
                             left: left,
@@ -1259,8 +1271,9 @@ import { getLastSelection, getMaxRowIndex, getMaxColIndex } from "../../../utils
                     };
                 } else if (luckysheetPostil.move) {
                     let mouse = mouseposition(pageX, pageY);
-                    let x = mouse[0] + $("#luckysheet-cell-main").scrollLeft();
-                    let y = mouse[1] + $("#luckysheet-cell-main").scrollTop();
+                    let scroll = getScrollPosition();
+                    let x = mouse[0] + scroll.scrollLeft;
+                    let y = mouse[1] + scroll.scrollTop;
 
                     let myh = luckysheetPostil.currentObj.outerHeight(),
                         myw = luckysheetPostil.currentObj.outerWidth();
@@ -1287,8 +1300,9 @@ import { getLastSelection, getMaxRowIndex, getMaxColIndex } from "../../../utils
                     luckysheetPostil.currentObj.css({ left: left, top: top });
                 } else if (luckysheetPostil.resize) {
                     let mouse = mouseposition(pageX, pageY);
-                    let x = mouse[0] + $("#luckysheet-cell-main").scrollLeft();
-                    let y = mouse[1] + $("#luckysheet-cell-main").scrollTop();
+                    let scroll = getScrollPosition();
+                    let x = mouse[0] + scroll.scrollLeft;
+                    let y = mouse[1] + scroll.scrollTop;
 
                     if (x < 0 || y < 0) {
                         return false;

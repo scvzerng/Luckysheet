@@ -24,14 +24,18 @@ import {
 } from "../../function/func";
 import Store from "../../store";
 import method from "../method";
+import { resetInputBoxStyle } from '../../utils/domUtils.js';
+import formulaDialogs from '../../ui/formulaDialogs.js';
+import richTextEditor from '../../ui/richTextEditor.js';
+import canvasContext from '../../ui/canvasContext.js';
 
 const cellUpdate = {
         updatecell: function(r, c, value, isRefresh = true) {
             let _this = this;
 
-            let $input = $("#luckysheet-rich-text-editor");
-            let inputText = $input.text(),
-                inputHtml = $input.html();
+            let $input = richTextEditor.el;
+            let inputText = richTextEditor.getText(),
+                inputHtml = richTextEditor.getHtml();
 
             if (_this.rangetosheet != null && _this.rangetosheet != Store.currentSheetIndex) {
                 sheetmanage.changeSheetExec(_this.rangetosheet);
@@ -283,9 +287,7 @@ const cellUpdate = {
                 //自动换行
                 let defaultrowlen = Store.defaultrowlen;
 
-                let canvas = $("#luckysheetTableContent")
-                    .get(0)
-                    .getContext("2d");
+                let canvas = canvasContext.getContext();
                 // offlinecanvas.textBaseline = 'top'; //textBaseline以top计算
 
                 // let fontset = luckysheetfontformat(d[r][c]);
@@ -340,7 +342,7 @@ const cellUpdate = {
             //动态数组
             let dynamicArray = null;
             if (dynamicArrayItem) {
-                // let file = Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)];
+                // let file = getCurrentFile();
                 dynamicArray = $.extend(true, [], this.insertUpdateDynamicArray(dynamicArrayItem));
                 // dynamicArray.push(dynamicArrayItem);
             }
@@ -380,7 +382,7 @@ const cellUpdate = {
             _this.canceFunctionrangeSelected();
 
             $("#luckysheet-formula-functionrange .luckysheet-formula-functionrange-highlight").remove();
-            $("#luckysheet-input-box").removeAttr("style");
+            resetInputBoxStyle();
             $("#luckysheet-input-box-index").hide();
             $("#luckysheet-wa-functionbox-cancel, #luckysheet-wa-functionbox-confirm").removeClass(
                 "luckysheet-wa-calculate-active",
@@ -392,10 +394,11 @@ const cellUpdate = {
         },
 
         canceFunctionrangeSelected: function() {
-            $("#luckysheet-formula-functionrange-select").hide();
+            formulaRangeSelect.hide();
             $("#luckysheet-row-count-show, #luckysheet-column-count-show").hide();
             // $("#luckysheet-cols-h-selected, #luckysheet-rows-h-selected").hide();
-            $("#luckysheet-formula-search-c, #luckysheet-formula-help-c").hide();
+            formulaDialogs.formulaSearchC.hide();
+            formulaDialogs.formulaHelp.hide();
         }
 };
 

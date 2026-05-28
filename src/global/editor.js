@@ -63,7 +63,7 @@ const editor = {
 
         let d = _this.deepCopyFlowData(Store.flowdata);//取数据
 
-        // let last = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1];
+        // let last = getLastSelection();
         let last = range || getLastSelection();
         let curR = last["row"] == null ? 0 : last["row"][0];
         let curC = last["column"] == null ? 0 : last["column"][0];

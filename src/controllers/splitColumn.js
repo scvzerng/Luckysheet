@@ -1,4 +1,5 @@
 import { replaceHtml } from '../utils/util';
+import { showModalMask, hideModalMask } from '../utils/domUtils.js';
 import { modelHTML } from './constant';
 import { selectHightlightShow } from './select';
 import tooltip from '../global/tooltip';
@@ -19,7 +20,7 @@ const luckysheetSplitColumn = {
         const locale_punctuation = _locale.punctuation;
         const locale_button = _locale.button;
 
-        $("#luckysheet-modal-dialog-mask").show();
+        showModalMask();
         $("#luckysheet-splitColumn-dialog").remove();
 
         let content = '<div class="box">' +
@@ -96,7 +97,7 @@ const luckysheetSplitColumn = {
 
         //确定按钮
         $(document).off("click.SPCconfirm").on("click.SPCconfirm", "#luckysheet-splitColumn-dialog #luckysheet-splitColumn-dialog-confirm", function(){
-            $("#luckysheet-modal-dialog-mask").hide();
+            hideModalMask();
             $("#luckysheet-splitColumn-dialog").hide();
 
             let regStr = _this.getRegStr();

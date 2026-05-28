@@ -21,6 +21,7 @@ import { rowLocation, colLocation, mouseposition } from "../../global/location";
 import {  isRealNull,  isEditMode } from "../../global/validate";
 import { countfunc } from "../../global/count";
 import Store from "../../store";
+import { getScrollPosition } from "../../utils/domUtils.js";
 
 export default function selectionDrag() {
     // //禁止前台编辑(只可 框选单元格、滚动查看表格)
@@ -47,8 +48,9 @@ export default function selectionDrag() {
         Store.luckysheet_scroll_status = true;
 
         let mouse = mouseposition(event.pageX, event.pageY);
-        let x = mouse[0] + $("#luckysheet-cell-main").scrollLeft();
-        let y = mouse[1] + $("#luckysheet-cell-main").scrollTop();
+        let scroll = getScrollPosition();
+        let x = mouse[0] + scroll.scrollLeft;
+        let y = mouse[1] + scroll.scrollTop;
 
         let row_location = rowLocation(y),
             row_pre = row_location[0],
@@ -95,8 +97,9 @@ export default function selectionDrag() {
                 Store.luckysheet_scroll_status = true;
 
                 let mouse = mouseposition(pageX, pageY);
-                let x = mouse[0] + $("#luckysheet-cell-main").scrollLeft() - 5;
-                let y = mouse[1] + $("#luckysheet-cell-main").scrollTop() - 5;
+                let scroll = getScrollPosition();
+                let x = mouse[0] + scroll.scrollLeft - 5;
+                let y = mouse[1] + scroll.scrollTop - 5;
 
                 let row_location = rowLocation(y),
                     row_pre = row_location[0],

@@ -6,6 +6,7 @@ import locale from '../../../locale/locale';
 import Store from '../../../store';
 import { luckysheetContainerFocus } from '../../../utils/util';
 import luckysheetConfigsetting from '../../luckysheetConfigsetting';
+import rightClickMenu from '../../../ui/rightClickMenu.js';
 
 export function initAddRowColEvents() {
     //向左增加列，向上增加�?
@@ -15,7 +16,7 @@ export function initAddRowColEvents() {
       if (event.target.nodeName === "INPUT") {
         return;
       }
-      $("#luckysheet-rightclick-menu").hide();
+      rightClickMenu.hide();
       luckysheetContainerFocus();
       const _locale = locale();
       const locale_drag = _locale.drag;
@@ -56,7 +57,7 @@ export function initAddRowColEvents() {
   
     // When you right-click a cell, a row is inserted before the row by default
     $("#luckysheetColsRowsHandleAdd_row").click(function (event) {
-      $("#luckysheet-rightclick-menu").hide();
+      rightClickMenu.hide();
       luckysheetContainerFocus();
       if (Store.allowEdit === false) {
         return;
@@ -68,7 +69,7 @@ export function initAddRowColEvents() {
       luckysheetextendtable('row', st_index, 1, "lefttop");
     });
     $("#luckysheetColsRowsHandleAdd_column").click(function (event) {
-      $("#luckysheet-rightclick-menu").hide();
+      rightClickMenu.hide();
       luckysheetContainerFocus();
       if (Store.allowEdit === false) {
         return;
@@ -79,7 +80,7 @@ export function initAddRowColEvents() {
   
     // custom right-click a cell buttton click
     $(".luckysheetColsRowsHandleAdd_custom").click(function (clickEvent) {
-      $("#luckysheet-rightclick-menu").hide();
+      rightClickMenu.hide();
       const cellRightClickConfig = luckysheetConfigsetting.cellRightClickConfig;
       const rowIndex = Store.luckysheet_select_save[0].row[0];
       const columnIndex = Store.luckysheet_select_save[0].column[0];
@@ -103,7 +104,7 @@ export function initAddRowColEvents() {
     //         return;
     //     }
   
-    //     $("#luckysheet-rightclick-menu").hide();
+    //     rightClickMenu.hide();
     //     luckysheetContainerFocus();
   
     //     const _locale = locale();
@@ -164,13 +165,13 @@ export function initAddRowColEvents() {
     //         return;
     //     }
   
-    //     $("#luckysheet-rightclick-menu").hide();
+    //     rightClickMenu.hide();
     //     luckysheetContainerFocus();
-  
+
     //     const _locale = locale();
     //     const locale_drag = _locale.drag;
     //     const locale_info = _locale.info;
-  
+
     //     if(Store.luckysheet_select_save.length > 1){
     //         if(isEditMode()){
     //             alert(locale_drag.noMulti);
@@ -178,10 +179,10 @@ export function initAddRowColEvents() {
     //         else{
     //             tooltip.info(locale_drag.noMulti, "");
     //         }
-  
+
     //         return;
     //     }
-  
+
     //     let $t = $(this), value = $t.find("input").val();
     //     if (!isRealNum(value)) {
     //         if(isEditMode()){
@@ -190,12 +191,12 @@ export function initAddRowColEvents() {
     //         else{
     //             tooltip.info(locale_info.tipInputNumber, "");
     //         }
-  
+
     //         return;
     //     }
-  
+
     //     value = parseInt(value);
-  
+
     //     if (value < 1 || value > 100) {
     //         if(isEditMode()){
     //             alert(locale_info.tipInputNumberLimit);
@@ -205,12 +206,12 @@ export function initAddRowColEvents() {
     //         }
     //         return;
     //     }
-  
+
     //     let st_index = Store.luckysheet_select_save[0].column[0];
     //     luckysheetextendtable('column', st_index, value, "lefttop");
-  
+
     //     $("#luckysheetColsRowsHandleAdd_sub").hide();
-  
+
     // })
   
     //向右增加列，向下增加�?
@@ -220,7 +221,7 @@ export function initAddRowColEvents() {
       if (event.target.nodeName === "INPUT") {
         return;
       }
-      $("#luckysheet-rightclick-menu").hide();
+      rightClickMenu.hide();
       luckysheetContainerFocus();
       const _locale = locale();
       const locale_drag = _locale.drag;

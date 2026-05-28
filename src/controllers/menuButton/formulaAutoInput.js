@@ -11,6 +11,7 @@ import { countfunc } from "../../global/count";
 import {  getRangetxt } from "../../methods/get";
 import {  getObjType } from "../../utils/util";
 import Store from "../../store";
+import formulaRangeSelect from '../../ui/formulaRangeSelect.js';
 const formulaAutoInputModule = {
   activeFormulaInput: function (row_index, col_index, rowh, columnh, formula, isnull) {
     let _this = this;
@@ -56,7 +57,7 @@ const formulaAutoInputModule = {
       row: [row_index, row_index],
       column: [col_index, col_index]
     };
-    $("#luckysheet-formula-functionrange-select").css({
+    formulaRangeSelect.setCss({
       left: col_pre,
       width: col - col_pre - 1,
       top: row_pre,

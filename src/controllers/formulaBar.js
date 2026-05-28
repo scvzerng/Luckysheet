@@ -16,6 +16,12 @@ import tooltip from '../global/tooltip';
 import locale from '../locale/locale';
 import Store from '../store';
 import { getLastSelection, getFocusCell } from '../utils/storeAccess.js';
+import { getScrollPosition } from '../utils/domUtils.js';
+import formulaDialogs from '../ui/formulaDialogs.js';
+import inputBox from '../ui/inputBox.js';
+import richTextEditor from '../ui/richTextEditor.js';
+import functionBox from '../ui/functionBox.js';
+import cellMain from '../ui/cellMain.js';
 
 export function formulaBarInitial(){
     //公式栏处理
@@ -23,7 +29,7 @@ export function formulaBarInitial(){
     const _locale = locale();
     const locale_formula= _locale.formula;
 
-    $("#luckysheet-functionbox-cell").focus(function () {
+    functionBox.el.focus(function () {
         if(isEditMode()){//此模式下禁用公式栏
             return;
         }
@@ -39,7 +45,7 @@ export function formulaBarInitial(){
             //     formula.updatecell(row_index, col_index);
             // }
             luckysheetupdateCell(row_index, col_index, Store.flowdata, null, true);
-            formula.rangeResizeTo = $("#luckysheet-functionbox-cell");
+            formula.rangeResizeTo = functionBox.el;
         }
     }).keydown(function (event) {
         if(isEditMode()){//此模式下禁用公式栏
@@ -50,26 +56,25 @@ export function formulaBarInitial(){
         let altKey = event.altKey;
         let shiftKey = event.shiftKey;
         let kcode = event.keyCode;
-        let $inputbox = $("#luckysheet-input-box");
+        let $inputbox = inputBox.el;
 
         if (kcode == keycode.ENTER && parseInt($inputbox.css("top")) > 0) {
-            if ($("#luckysheet-formula-search-c").is(":visible") && formula.searchFunctionCell != null) {
-                formula.searchFunctionEnter($("#luckysheet-formula-search-c").find(".luckysheet-formula-search-item-active"));
+            if (formulaDialogs.formulaSearchC.isVisible() && formula.searchFunctionCell != null) {
+                formula.searchFunctionEnter(formulaDialogs.formulaSearchC.el.find(".luckysheet-formula-search-item-active"));
             }
             else {
                 formula.updatecell(Store.luckysheetCellUpdate[0], Store.luckysheetCellUpdate[1]);
                 Store.luckysheet_select_save = [{ "row": [Store.luckysheetCellUpdate[0], Store.luckysheetCellUpdate[0]], "column": [Store.luckysheetCellUpdate[1], Store.luckysheetCellUpdate[1]], "row_focus": Store.luckysheetCellUpdate[0], "column_focus": Store.luckysheetCellUpdate[1] }];
                 luckysheetMoveHighlightCell("down", 1, "rangeOfSelect");
                 //$("#luckysheet-functionbox-cell").blur();
-                $("#luckysheet-rich-text-editor").focus();
+                richTextEditor.focus();
             }
             event.preventDefault();
         }
         else if (kcode == keycode.ESC && parseInt($inputbox.css("top")) > 0) {
             formula.dontupdate();
             luckysheetMoveHighlightCell("down", 0, "rangeOfSelect");
-            //$("#luckysheet-functionbox-cell").blur();
-            $("#luckysheet-rich-text-editor").focus();
+            richTextEditor.focus();
             event.preventDefault();
         }
         else if (kcode == keycode.F4 && parseInt($inputbox.css("top")) > 0) {
@@ -77,42 +82,42 @@ export function formulaBarInitial(){
             event.preventDefault();
         }
         else if (kcode == keycode.UP && parseInt($inputbox.css("top")) > 0) {
-            if ($("#luckysheet-formula-search-c").is(":visible")) {
-                let $up = $("#luckysheet-formula-search-c").find(".luckysheet-formula-search-item-active").prev();
+            if (formulaDialogs.formulaSearchC.isVisible()) {
+                let $up = formulaDialogs.formulaSearchC.el.find(".luckysheet-formula-search-item-active").prev();
                 if ($up.length == 0) {
-                    $up = $("#luckysheet-formula-search-c").find(".luckysheet-formula-search-item").last();
+                    $up = formulaDialogs.formulaSearchC.el.find(".luckysheet-formula-search-item").last();
                 }
-                $("#luckysheet-formula-search-c").find(".luckysheet-formula-search-item").removeClass("luckysheet-formula-search-item-active");
+                formulaDialogs.formulaSearchC.el.find(".luckysheet-formula-search-item").removeClass("luckysheet-formula-search-item-active");
                 $up.addClass("luckysheet-formula-search-item-active");
                 event.preventDefault();
             }
         }
         else if (kcode == keycode.DOWN && parseInt($inputbox.css("top")) > 0) {
-            if ($("#luckysheet-formula-search-c").is(":visible")) {
-                let $up = $("#luckysheet-formula-search-c").find(".luckysheet-formula-search-item-active").next();
+            if (formulaDialogs.formulaSearchC.isVisible()) {
+                let $up = formulaDialogs.formulaSearchC.el.find(".luckysheet-formula-search-item-active").next();
                 if ($up.length == 0) {
-                    $up = $("#luckysheet-formula-search-c").find(".luckysheet-formula-search-item").first();
+                    $up = formulaDialogs.formulaSearchC.el.find(".luckysheet-formula-search-item").first();
                 }
-                $("#luckysheet-formula-search-c").find(".luckysheet-formula-search-item").removeClass("luckysheet-formula-search-item-active");
+                formulaDialogs.formulaSearchC.el.find(".luckysheet-formula-search-item").removeClass("luckysheet-formula-search-item-active");
                 $up.addClass("luckysheet-formula-search-item-active");
                 event.preventDefault();
             }
         }
         else if (kcode == keycode.LEFT && parseInt($inputbox.css("top")) > 0) {
-            formula.rangeHightlightselected($("#luckysheet-functionbox-cell"));
+            formula.rangeHightlightselected(functionBox.el);
         }
         else if (kcode == keycode.RIGHT && parseInt($inputbox.css("top")) > 0) {
-            formula.rangeHightlightselected($("#luckysheet-functionbox-cell"));
+            formula.rangeHightlightselected(functionBox.el);
         }
         else if (!((kcode >= 112 && kcode <= 123) || kcode <= 46 || kcode == 144 || kcode == 108 || event.ctrlKey || event.altKey || (event.shiftKey && (kcode == 37 || kcode == 38 || kcode == 39 || kcode == 40))) || kcode == 8 || kcode == 32 || kcode == 46 || (event.ctrlKey && kcode == 86)) {
-            formula.functionInputHanddler($("#luckysheet-rich-text-editor"), $("#luckysheet-functionbox-cell"), kcode);
+            formula.functionInputHanddler(richTextEditor.el, functionBox.el, kcode);
         }
     }).click(function () {
         if(isEditMode()){//此模式下禁用公式栏
             return;
         }
 
-        formula.rangeHightlightselected($("#luckysheet-functionbox-cell"));
+        formula.rangeHightlightselected(functionBox.el);
     });
 
     //公式栏 取消（X）按钮
@@ -120,13 +125,11 @@ export function formulaBarInitial(){
         if (!$(this).hasClass("luckysheet-wa-calculate-active")) {
             return;
         }
-        //若有参数弹出框，隐藏
-        if($("#luckysheet-search-formula-parm").is(":visible")){
-            $("#luckysheet-search-formula-parm").hide();
+        if(formulaDialogs.searchParm.isVisible()){
+            formulaDialogs.searchParm.hide();
         }
-        //若有参数选取范围弹出框，隐藏
-        if($("#luckysheet-search-formula-parm-select").is(":visible")){
-            $("#luckysheet-search-formula-parm-select").hide();
+        if(formulaDialogs.searchParmSelect.isVisible()){
+            formulaDialogs.searchParmSelect.hide();
         }
 
         formula.dontupdate();
@@ -138,13 +141,11 @@ export function formulaBarInitial(){
         if (!$(this).hasClass("luckysheet-wa-calculate-active")) {
             return;
         }
-        //若有参数弹出框，隐藏
-        if($("#luckysheet-search-formula-parm").is(":visible")){
-            $("#luckysheet-search-formula-parm").hide();
+        if(formulaDialogs.searchParm.isVisible()){
+            formulaDialogs.searchParm.hide();
         }
-        //若有参数选取范围弹出框，隐藏
-        if($("#luckysheet-search-formula-parm-select").is(":visible")){
-            $("#luckysheet-search-formula-parm-select").hide();
+        if(formulaDialogs.searchParmSelect.isVisible()){
+            formulaDialogs.searchParmSelect.hide();
         }
 
         formula.updatecell(Store.luckysheetCellUpdate[0], Store.luckysheetCellUpdate[1]);
@@ -187,8 +188,8 @@ export function formulaBarInitial(){
         }
         else{
             //单元格无计算
-            $("#luckysheet-rich-text-editor").html('<span dir="auto" class="luckysheet-formula-text-color">=</span>');
-            $("#luckysheet-functionbox-cell").html($("#luckysheet-rich-text-editor").html());
+            richTextEditor.setHtml('<span dir="auto" class="luckysheet-formula-text-color">=</span>');
+            functionBox.setHtml(richTextEditor.getHtml());
             insertFormula.formulaListDialog();
         }
 
@@ -203,8 +204,9 @@ export function formulaBarInitial(){
         formula.rangeMoveIndex = $(this).parent().attr("rangeindex");
         
         let mouse = mouseposition(event.pageX, event.pageY);
-        let x = mouse[0] + $("#luckysheet-cell-main").scrollLeft();
-        let y = mouse[1] + $("#luckysheet-cell-main").scrollTop();
+        let scroll = getScrollPosition();
+        let x = mouse[0] + scroll.scrollLeft;
+        let y = mouse[1] + scroll.scrollTop;
         $("#luckysheet-formula-functionrange-highlight-" + formula.rangeMoveIndex).find(".luckysheet-selection-copy-hc").css("opacity", 0.13);
         
         let type = $(this).data("type");
@@ -233,9 +235,10 @@ export function formulaBarInitial(){
         formula.rangeResize = $(this).data("type");//开始状态resize
         formula.rangeResizeIndex = $(this).parent().attr("rangeindex");
         
-        let mouse = mouseposition(event.pageX, event.pageY), 
-            scrollLeft = $("#luckysheet-cell-main").scrollLeft(), 
-            scrollTop = $("#luckysheet-cell-main").scrollTop();
+        let mouse = mouseposition(event.pageX, event.pageY),
+            scroll = getScrollPosition(),
+            scrollLeft = scroll.scrollLeft,
+            scrollTop = scroll.scrollTop;
         let x = mouse[0] + scrollLeft;
         let y = mouse[1] + scrollTop;
         formula.rangeResizeObj = $(this).parent();
@@ -276,8 +279,8 @@ export function formulaBarInitial(){
             position.left + scrollLeft, 
             position.top + scrollTop, col, row
         ];
-        formula.rangeResizeWinH = $("#luckysheet-cell-main")[0].scrollHeight;
-        formula.rangeResizeWinW = $("#luckysheet-cell-main")[0].scrollWidth;
+        formula.rangeResizeWinH = cellMain.getScrollHeight();
+        formula.rangeResizeWinW = cellMain.getScrollWidth();
         Store.luckysheet_scroll_status = true;
         event.stopPropagation();
     });

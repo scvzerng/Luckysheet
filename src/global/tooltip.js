@@ -1,12 +1,13 @@
 import { modelHTML, luckysheetToolHTML } from '../controllers/constant';
 import browser from './browser';
 import { replaceHtml } from '../utils/util';
+import { showModalMask, hideModalMask } from '../utils/domUtils.js';
 import locale from '../locale/locale';
 import clipboard from 'clipboard-polyfill';
 
 const tooltip = {
     info: function (title, content) {
-        $("#luckysheet-modal-dialog-mask").show();
+        showModalMask();
         $("#luckysheet-info").remove();
 
         let _locale = locale();
@@ -28,7 +29,7 @@ const tooltip = {
         $("#luckysheet-info").css({ "left": (winw + scrollLeft - myw) / 2, "top": (winh + scrollTop - myh) / 3 }).show();
     },
     confirm: function (title, content, func1, func2, name1, name2) {
-        $("#luckysheet-modal-dialog-mask").show();
+        showModalMask();
         $("#luckysheet-confirm").remove();
 
         const _locale = locale();
@@ -60,21 +61,21 @@ const tooltip = {
                 func1();
             }
             $("#luckysheet-confirm").hide();
-            $("#luckysheet-modal-dialog-mask").hide();  
+            hideModalMask();
         });
         $t.find(".luckysheet-model-cancel-btn").click(function () {
             if (typeof func2 == 'function') {
                 func2();
             }
             $("#luckysheet-confirm").hide();
-            $("#luckysheet-modal-dialog-mask").hide();
+            hideModalMask();
         });
     },
     screenshot: function (title, content, imgurl) {
 
         const _locale = locale();
         const locale_screenshot = _locale.screenshot;
-        $("#luckysheet-modal-dialog-mask").show();
+        showModalMask();
         $("#luckysheet-confirm").remove();
         $("body").append(replaceHtml(modelHTML, { 
             "id": "luckysheet-confirm", 
@@ -97,7 +98,7 @@ const tooltip = {
         });
         $t.find(".luckysheet-model-cancel-btn").click(function () {
             $("#luckysheet-confirm").hide();
-            $("#luckysheet-modal-dialog-mask").hide();
+            hideModalMask();
         });
 
         $('#luckysheet-confirm .luckysheet-model-copy-btn').click(function(){

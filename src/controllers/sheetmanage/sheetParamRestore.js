@@ -12,6 +12,9 @@ import { createFilterOptions, labelFilterOptionState } from "../filter";
 import { selectHightlightShow, selectionCopyShow } from "../select";
 import Store from "../../store";
 import { zoomNumberDomBind } from "../zoom";
+import scrollBarX from '../../ui/scrollBarX.js';
+import scrollBarY from '../../ui/scrollBarY.js';
+import resizeHandles from '../../ui/resizeHandles.js';
 const sheetParamRestoreModule = {
   sheetParamRestore: function (file, data) {
     Store.luckysheet_select_save = file["luckysheet_select_save"];
@@ -62,11 +65,11 @@ const sheetParamRestoreModule = {
     file["rh_height"] = Store.rh_height;
     file["luckysheet_select_save"] = $.extend(true, [], Store.luckysheet_select_save);
     file["luckysheet_selection_range"] = $.extend(true, [], Store.luckysheet_selection_range);
-    if ($("#luckysheet-scrollbar-x")[0].scrollWidth > $("#luckysheet-scrollbar-x")[0].offsetWidth) {
-      file["scrollLeft"] = $("#luckysheet-scrollbar-x").scrollLeft(); //横向滚动条
+    if (scrollBarX.getScrollWidth() > scrollBarX.getOffsetWidth()) {
+      file["scrollLeft"] = scrollBarX.getScrollLeft();
     }
-    if ($("#luckysheet-scrollbar-y")[0].scrollHeight > $("#luckysheet-scrollbar-y")[0].offsetHeight) {
-      file["scrollTop"] = $("#luckysheet-scrollbar-y").scrollTop(); //纵向滚动条
+    if (scrollBarY.getScrollHeight() > scrollBarY.getOffsetHeight()) {
+      file["scrollTop"] = scrollBarY.getScrollTop();
     }
     file["zoomRatio"] = Store.zoomRatio;
   },
@@ -124,14 +127,14 @@ const sheetParamRestoreModule = {
     //复制选区虚线框
     selectionCopyShow();
     if (file["scrollLeft"] != null && file["scrollLeft"] > 0) {
-      $("#luckysheet-scrollbar-x").scrollLeft(file["scrollLeft"]); //列标题
+      scrollBarX.setScrollLeft(file["scrollLeft"]);
     } else {
-      $("#luckysheet-scrollbar-x").scrollLeft(0);
+      scrollBarX.setScrollLeft(0);
     }
     if (file["scrollTop"] != null && file["scrollTop"] > 0) {
-      $("#luckysheet-scrollbar-y").scrollTop(file["scrollTop"]); //列标题
+      scrollBarY.setScrollTop(file["scrollTop"]);
     } else {
-      $("#luckysheet-scrollbar-y").scrollTop(0);
+      scrollBarY.setScrollTop(0);
     }
   },
   restoreSheetAll: function (sheetIndex) {
@@ -214,29 +217,29 @@ const sheetParamRestoreModule = {
       width: Store.ch_width,
       top: "-1px"
     }); //width更新
-    $("#luckysheet-sheettable_0").css({
+    resizeHandles.sheetTable.setCss({
       width: Store.ch_width - 1,
       height: Store.rh_height
     });
     $("#luckysheetrowHeader_0").css("height", Store.rh_height);
     $("#luckysheet-cols-h-cells_0").css("width", Store.ch_width); //width更新
 
-    $("#luckysheet-scrollbar-x div").width(Store.ch_width);
-    $("#luckysheet-scrollbar-y div").height(Store.rh_height + Store.columnHeaderHeight - Store.cellMainSrollBarSize - 3);
+    scrollBarX.setInnerDivWidth(Store.ch_width);
+    scrollBarY.setInnerDivHeight(Store.rh_height + Store.columnHeaderHeight - Store.cellMainSrollBarSize - 3);
 
     //等待滚动条dom宽高计算完成后 初始化该表格滚动位置
     let index = this.getSheetIndex(Store.currentSheetIndex);
     let file = Store.luckysheetfile[index];
     Store.scrollRefreshSwitch = false;
     if (file["scrollLeft"] != null && file["scrollLeft"] > 0) {
-      $("#luckysheet-scrollbar-x").scrollLeft(file["scrollLeft"] * Store.zoomRatio);
+      scrollBarX.setScrollLeft(file["scrollLeft"] * Store.zoomRatio);
     } else {
-      $("#luckysheet-scrollbar-x").scrollLeft(0);
+      scrollBarX.setScrollLeft(0);
     }
     if (file["scrollTop"] != null && file["scrollTop"] > 0) {
-      $("#luckysheet-scrollbar-y").scrollTop(file["scrollTop"] * Store.zoomRatio);
+      scrollBarY.setScrollTop(file["scrollTop"] * Store.zoomRatio);
     } else {
-      $("#luckysheet-scrollbar-y").scrollTop(0);
+      scrollBarY.setScrollTop(0);
     }
     setTimeout(() => {
       Store.scrollRefreshSwitch = true;

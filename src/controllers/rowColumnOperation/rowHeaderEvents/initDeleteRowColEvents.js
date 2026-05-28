@@ -5,6 +5,7 @@ import {  isEditMode } from '../../../global/validate';
 import locale from '../../../locale/locale';
 import Store from '../../../store';
 import { luckysheetContainerFocus } from '../../../utils/util';
+import rightClickMenu from '../../../ui/rightClickMenu.js';
 
 export function initDeleteRowColEvents() {
   
@@ -16,7 +17,7 @@ export function initDeleteRowColEvents() {
     //         return;
     //     }
   
-    //     $("#luckysheet-rightclick-menu").hide();
+    //     rightClickMenu.hide();
     //     luckysheetContainerFocus();
   
     //     const _locale = locale();
@@ -72,7 +73,7 @@ export function initDeleteRowColEvents() {
     //     if(event.target.nodeName === 'INPUT'){
     //         return;
     //     }
-    //     $("#luckysheet-rightclick-menu").hide();
+    //     rightClickMenu.hide();
     //     luckysheetContainerFocus();
   
     //     const _locale = locale();
@@ -124,7 +125,7 @@ export function initDeleteRowColEvents() {
   
     //删除选中行列
     $("#luckysheet-del-selected, #luckysheet-del-selected_t").click(function (event) {
-      $("#luckysheet-rightclick-menu").hide();
+      rightClickMenu.hide();
       luckysheetContainerFocus();
       const locale_drag = locale().drag;
       if (Store.luckysheet_select_save.length > 1) {
@@ -151,7 +152,7 @@ export function initDeleteRowColEvents() {
       luckysheetdeletetable(Store.luckysheetRightHeadClickIs, st_index, ed_index);
     });
     $("#luckysheet-delRows").click(function (event) {
-      $("#luckysheet-rightclick-menu").hide();
+      rightClickMenu.hide();
       luckysheetContainerFocus();
       const locale_drag = locale().drag;
       if (Store.luckysheet_select_save.length > 1) {
@@ -178,7 +179,7 @@ export function initDeleteRowColEvents() {
       luckysheetdeletetable('row', st_index, ed_index);
     });
     $("#luckysheet-delCols").click(function (event) {
-      $("#luckysheet-rightclick-menu").hide();
+      rightClickMenu.hide();
       luckysheetContainerFocus();
       const locale_drag = locale().drag;
       if (Store.luckysheet_select_save.length > 1) {

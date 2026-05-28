@@ -10,6 +10,9 @@ import locale from "../../locale/locale";
 import {  menuToolBarWidth  } from "../resize";
 import menuButton from "../menuButton";
 import localforage from 'localforage';
+import scrollBarX from '../../ui/scrollBarX.js';
+import scrollBarY from '../../ui/scrollBarY.js';
+import cellMain from '../../ui/cellMain.js';
 const sheetInitModule = {
   initialjfFile: function (menu, title) {
     let _this = this;
@@ -65,7 +68,7 @@ const sheetInitModule = {
     setTimeout(function () {
       tooltip.createHoverTip("#luckysheet_info_detail", ".luckysheet_info_detail_back, .luckysheet_info_detail_input, .luckysheet_info_detail_update");
       tooltip.createHoverTip("#luckysheet-wa-editor", ".luckysheet-toolbar-menu-button, .luckysheet-toolbar-button, .luckysheet-toolbar-combo-button");
-      Store.luckysheetTableContentHW = [$("#luckysheet-cell-main").width() + Store.rowHeaderWidth - Store.cellMainSrollBarSize, $("#luckysheet-cell-main").height() + Store.columnHeaderHeight - Store.cellMainSrollBarSize];
+      Store.luckysheetTableContentHW = [cellMain.getWidth() + Store.rowHeaderWidth - Store.cellMainSrollBarSize, cellMain.getHeight() + Store.columnHeaderHeight - Store.cellMainSrollBarSize];
       $("#luckysheetTableContent, #luckysheetTableContentF").attr({
         width: Math.ceil(Store.luckysheetTableContentHW[0] * Store.devicePixelRatio),
         height: Math.ceil(Store.luckysheetTableContentHW[1] * Store.devicePixelRatio)
@@ -99,14 +102,14 @@ const sheetInitModule = {
 
           //等待滚动条dom宽高加载完成后 初始化滚动位置
           if (file["scrollLeft"] != null && file["scrollLeft"] > 0) {
-            $("#luckysheet-scrollbar-x").scrollLeft(file["scrollLeft"]);
+            scrollBarX.setScrollLeft(file["scrollLeft"]);
           } else {
-            $("#luckysheet-scrollbar-x").scrollLeft(0);
+            scrollBarX.setScrollLeft(0);
           }
           if (file["scrollTop"] != null && file["scrollTop"] > 0) {
-            $("#luckysheet-scrollbar-y").scrollTop(file["scrollTop"]);
+            scrollBarY.setScrollTop(file["scrollTop"]);
           } else {
-            $("#luckysheet-scrollbar-y").scrollTop(0);
+            scrollBarY.setScrollTop(0);
           }
 
           // 此处已经渲染完成表格，应该挪到前面

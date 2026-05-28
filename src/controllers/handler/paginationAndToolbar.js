@@ -21,6 +21,7 @@ import {
 import method from "../../global/method";
 import Store from "../../store";
 import context from "./context";
+import scrollBarY from '../../ui/scrollBarY.js';
 
 export default function paginationAndToolbar() {
     //是否允许加载下一页
@@ -78,7 +79,7 @@ export default function paginationAndToolbar() {
     //回到顶部
     $("#luckysheet-bottom-bottom-top")
         .click(function() {
-            $("#luckysheet-scrollbar-y").scrollTop(0);
+            scrollBarY.setScrollTop(0);
         })
         .mousedown(function(e) {
             e.stopPropagation();

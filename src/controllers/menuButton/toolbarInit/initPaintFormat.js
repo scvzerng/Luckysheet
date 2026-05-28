@@ -4,6 +4,7 @@ import locale from '../../../locale/locale';
 import Store from '../../../store';
 import { getObjType, isRowHidden } from '../../../utils/util';
 import { selectionCopyShow } from '../../select';
+import resizeHandles from '../../../ui/resizeHandles.js';
 
 export function initPaintFormat(_this) {
       //格式�?
@@ -48,7 +49,7 @@ export function initPaintFormat(_this) {
         tooltip.popover("<i class='fa fa-paint-brush'></i> " + locale_paint.start + "", "topCenter", true, null, locale_paint.end, function () {
           _this.cancelPaintModel();
         });
-        $("#luckysheet-sheettable_0").addClass("luckysheetPaintCursor");
+        resizeHandles.sheetTable.addClass("luckysheetPaintCursor");
         Store.luckysheet_selection_range = [{
           row: Store.luckysheet_select_save[0].row,
           column: Store.luckysheet_select_save[0].column
@@ -107,7 +108,7 @@ export function initPaintFormat(_this) {
         tooltip.popover("<i class='fa fa-paint-brush'></i> " + locale_paint.start, "topCenter", true, null, locale_paint.end, function () {
           _this.cancelPaintModel();
         });
-        $("#luckysheet-sheettable_0").addClass("luckysheetPaintCursor");
+        resizeHandles.sheetTable.addClass("luckysheetPaintCursor");
         Store.luckysheet_selection_range = [{
           row: Store.luckysheet_select_save[0].row,
           column: Store.luckysheet_select_save[0].column

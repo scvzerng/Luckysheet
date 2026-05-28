@@ -5,6 +5,10 @@ import luckysheetFreezen from "../../controllers/freezen";
 import { selectHightlightShow } from "../../controllers/select";
 import { getSheetIndex } from "../../methods/get";
 import Store from "../../store";
+import { getScrollPosition } from "../../utils/domUtils.js";
+import scrollBarY from '../../ui/scrollBarY.js';
+import countShow from '../../ui/countShow.js';
+import cellMain from '../../ui/cellMain.js';
 
 /**
  * 增加行列
@@ -854,20 +858,21 @@ function luckysheetextendtable(type, index, value, direction, sheetIndex) {
     selectHightlightShow();
   }
   if (type == "row") {
-    let scrollLeft = $("#luckysheet-cell-main").scrollLeft(),
-      scrollTop = $("#luckysheet-cell-main").scrollTop();
-    let winH = $("#luckysheet-cell-main").height(),
-      winW = $("#luckysheet-cell-main").width();
+    let scroll = getScrollPosition();
+    let scrollLeft = scroll.scrollLeft,
+      scrollTop = scroll.scrollTop;
+    let winH = cellMain.getHeight(),
+      winW = cellMain.getWidth();
     let row = Store.visibledatarow[range[0].row[1]],
       row_pre = range[0].row[0] - 1 == -1 ? 0 : Store.visibledatarow[range[0].row[0] - 1];
     if (row - scrollTop - winH + 20 > 0) {
-      $("#luckysheet-scrollbar-y").scrollTop(row - winH + 20);
+      scrollBarY.setScrollTop(row - winH + 20);
     } else if (row_pre - scrollTop - 20 < 0) {
-      $("#luckysheet-scrollbar-y").scrollTop(row_pre - 20);
+      scrollBarY.setScrollTop(row_pre - 20);
     }
     if (value > 30) {
-      $("#luckysheet-row-count-show").hide();
-      $("#luckysheet-column-count-show").hide();
+      countShow.row.hide();
+      countShow.column.hide();
     }
   }
 }

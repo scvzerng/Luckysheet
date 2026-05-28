@@ -8,9 +8,8 @@ import { rowlenByRange } from "../../global/getRowlen";
 import {  isEditMode,  hasPartMC } from "../../global/validate";
 import {  jfrefreshgrid } from "../../global/refresh";
 import {  update  } from "../../global/format";
-import { getSheetIndex } from "../../methods/get";
 import {  getObjType } from "../../utils/util";
-import { getCurrentFile, getLastSelection } from "../../utils/storeAccess.js";
+import { getCurrentFile, getFileBySheetIndex, getLastSelection } from "../../utils/storeAccess.js";
 import Store from "../../store";
 import locale from "../../locale/locale";
 const clipboardPaintModelModule = {
@@ -193,7 +192,7 @@ const clipboardPaintModelModule = {
 
     //复制范围 是否有 条件格式
     let cdformat = null;
-    let ruleArr = $.extend(true, [], Store.luckysheetfile[getSheetIndex(copySheetIndex)]["luckysheet_conditionformat_save"]);
+    let ruleArr = $.extend(true, [], getFileBySheetIndex(copySheetIndex)["luckysheet_conditionformat_save"]);
     if (ruleArr != null && ruleArr.length > 0) {
       cdformat = $.extend(true, [], getCurrentFile()["luckysheet_conditionformat_save"]);
       for (let i = 0; i < ruleArr.length; i++) {

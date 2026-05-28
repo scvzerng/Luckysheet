@@ -12,11 +12,11 @@ import luckysheetFreezen from '../../controllers/freezen';
 import sheetmanage from '../../controllers/sheetmanage';
 import hyperlinkCtrl from '../../controllers/hyperlinkCtrl';
 import { createFilterOptions } from '../../controllers/filter';
-import { getSheetIndex } from '../../methods/get';
 import { selectHightlightShow } from '../../controllers/select';
 import Store from '../../store';
-import { getCurrentFile, syncConfigToStore, syncDataToStore, getDataSize } from '../../utils/storeAccess.js';
+import { getCurrentFile, syncConfigToStore, syncDataToStore, getDataSize, getFileBySheetIndex } from '../../utils/storeAccess.js';
 import { isRowHidden } from '../../utils/util';
+import { getScrollPosition } from '../../utils/domUtils.js';
 
 import {  clearRefreshCanvasTimeOut,  setRefreshCanvasTimeOut } from './refreshCore';
 import { luckysheetrefreshgrid, jfrefreshgrid_rhcw } from './refreshCanvas';
@@ -445,12 +445,12 @@ function jfrefreshgrid_pastcut(source, target, RowlChange){
     if(Store.currentSheetIndex == source["sheetIndex"]){
         Store.config = source["curConfig"];
         rowHeight = source["curData"].length;
-        Store.luckysheetfile[getSheetIndex(target["sheetIndex"])]["config"] = target["curConfig"];
+        getFileBySheetIndex(target["sheetIndex"])["config"] = target["curConfig"];
     }
     else if(Store.currentSheetIndex == target["sheetIndex"]){
         Store.config = target["curConfig"];
         rowHeight = target["curData"].length;
-        Store.luckysheetfile[getSheetIndex(source["sheetIndex"])]["config"] = source["curConfig"];
+        getFileBySheetIndex(source["sheetIndex"])["config"] = source["curConfig"];
     }
 
     if(RowlChange){
@@ -480,22 +480,22 @@ function jfrefreshgrid_pastcut(source, target, RowlChange){
 
         if(Store.currentSheetIndex == source["sheetIndex"]){
             let rowlenArr = computeRowlenArr(target["curData"].length, target["curConfig"]);
-            Store.luckysheetfile[getSheetIndex(target["sheetIndex"])]["visibledatarow"] = rowlenArr;
+            getFileBySheetIndex(target["sheetIndex"])["visibledatarow"] = rowlenArr;
         }
         else if(Store.currentSheetIndex == target["sheetIndex"]){
             let rowlenArr = computeRowlenArr(source["curData"].length, source["curConfig"]);
-            Store.luckysheetfile[getSheetIndex(source["sheetIndex"])]["visibledatarow"] = rowlenArr;
+            getFileBySheetIndex(source["sheetIndex"])["visibledatarow"] = rowlenArr;
         }
     }
 
     //Store.flowdata
     if(Store.currentSheetIndex == source["sheetIndex"]){
         Store.flowdata = source["curData"];
-        Store.luckysheetfile[getSheetIndex(target["sheetIndex"])]["data"] = target["curData"];
+        getFileBySheetIndex(target["sheetIndex"])["data"] = target["curData"];
     }
     else if(Store.currentSheetIndex == target["sheetIndex"]){
         Store.flowdata = target["curData"];
-        Store.luckysheetfile[getSheetIndex(source["sheetIndex"])]["data"] = source["curData"];
+        getFileBySheetIndex(source["sheetIndex"])["data"] = source["curData"];
     }
     editor.webWorkerFlowDataCache(Store.flowdata);//worker存数据
     syncDataToStore();
@@ -513,8 +513,8 @@ function jfrefreshgrid_pastcut(source, target, RowlChange){
     }
 
     //条件格式
-    Store.luckysheetfile[getSheetIndex(source["sheetIndex"])].luckysheet_conditionformat_save = source["curCdformat"];
-    Store.luckysheetfile[getSheetIndex(target["sheetIndex"])].luckysheet_conditionformat_save = target["curCdformat"];
+    getFileBySheetIndex(source["sheetIndex"]).luckysheet_conditionformat_save = source["curCdformat"];
+    getFileBySheetIndex(target["sheetIndex"]).luckysheet_conditionformat_save = target["curCdformat"];
 
     //数据验证
     if(Store.currentSheetIndex == source["sheetIndex"]){
@@ -527,8 +527,9 @@ function jfrefreshgrid_pastcut(source, target, RowlChange){
     formula.execFunctionGlobalData = null;
 
     let file = getCurrentFile();
-    file.scrollTop  = $("#luckysheet-cell-main").scrollTop();
-    file.scrollLeft = $("#luckysheet-cell-main").scrollLeft()
+    let scroll = getScrollPosition();
+    file.scrollTop  = scroll.scrollTop;
+    file.scrollLeft = scroll.scrollLeft
     
     sheetmanage.showSheet();
 

@@ -13,7 +13,10 @@ import cleargridelement from '../global/cleargridelement';
 import {isInlineStringCell} from './inlineString';
 import Store from '../store';
 import { getHeaderTotalHeight } from '../utils/storeAccess.js';
+import { getScrollPosition, resetInputBoxStyle } from '../utils/domUtils.js';
 import method from '../global/method';
+import richTextEditor from '../ui/richTextEditor.js';
+import inputBox from '../ui/inputBox.js';
 
 export function luckysheetupdateCell(row_index1, col_index1, d, cover, isnotfocus) {
     if(isEditMode() || Store.allowEdit===false){//此模式下禁用单元格编辑
@@ -39,8 +42,9 @@ export function luckysheetupdateCell(row_index1, col_index1, d, cover, isnotfocu
 
     let winH = $(window).height(), winW = $(window).width();
     let container_offset = $("#" + Store.container).offset();
-    let scrollLeft = $("#luckysheet-cell-main").scrollLeft();
-    let scrollTop = $("#luckysheet-cell-main").scrollTop();
+    let scroll = getScrollPosition();
+    let scrollLeft = scroll.scrollLeft;
+    let scrollTop = scroll.scrollTop;
 
     let left = col_pre + container_offset.left + Store.rowHeaderWidth - scrollLeft - 2;
     if(luckysheetFreezen.freezenverticaldata != null && col_index1 <= luckysheetFreezen.freezenverticaldata[1]){
@@ -71,21 +75,22 @@ export function luckysheetupdateCell(row_index1, col_index1, d, cover, isnotfocu
 
     Store.luckysheetCellUpdate = [row_index, col_index];
     if (!isnotfocus) {
-        $("#luckysheet-rich-text-editor").focus().select();
+        richTextEditor.focus().select();
     }
 
-    $("#luckysheet-input-box").removeAttr("style").css({ 
-        "background-color": "rgb(255, 255, 255)", 
-        "padding": "0px 2px", 
+    resetInputBoxStyle();
+    inputBox.setCss({
+        "background-color": "rgb(255, 255, 255)",
+        "padding": "0px 2px",
         "font-size": `${Store.defaultFontSize}pt`,
-        "right": "auto", 
+        "right": "auto",
         "overflow-y": "auto",
         "box-sizing": "initial",
         "display":"flex",
     });
 
     if(luckysheetFreezen.freezenverticaldata != null || luckysheetFreezen.freezenhorizontaldata != null){
-        $("#luckysheet-input-box").css("z-index", 10002);
+        inputBox.setCss({"z-index": 10002});
     }
     
     $("#luckysheet-input-box-index").html(chatatABC(col_index) + (row_index + 1)).hide();
@@ -158,11 +163,11 @@ export function luckysheetupdateCell(row_index1, col_index1, d, cover, isnotfocu
         }
         
         let style = menuButton.getStyleByCell(d, row_index, col_index);
-        style = $("#luckysheet-input-box").get(0).style.cssText + style;
+        style = inputBox.el.get(0).style.cssText + style;
 
-        $("#luckysheet-input-box").get(0).style.cssText = style;
-        if($("#luckysheet-input-box").get(0).style.backgroundColor == "rgba(0, 0, 0, 0)"){
-            $("#luckysheet-input-box").get(0).style.background = "rgb(255,255,255)";
+        inputBox.setStyleCssText(style);
+        if(inputBox.el.get(0).style.backgroundColor == "rgba(0, 0, 0, 0)"){
+            inputBox.setStyleBackground("rgb(255,255,255)");
         }
     }
     else{
@@ -175,10 +180,10 @@ export function luckysheetupdateCell(row_index1, col_index1, d, cover, isnotfocu
         var checksCF = conditionformat.checksCF(row_index, col_index, cf_compute);
 
         if(checksCF != null && checksCF["cellColor"] != null){
-            $("#luckysheet-input-box").get(0).style.background = checksCF["cellColor"];
+            inputBox.setStyleBackground(checksCF["cellColor"]);
         }
         else if(checksAF != null){
-            $("#luckysheet-input-box").get(0).style.background = checksAF[1];
+            inputBox.setStyleBackground(checksAF[1]);
         }
     }
 
@@ -195,13 +200,13 @@ export function luckysheetupdateCell(row_index1, col_index1, d, cover, isnotfocu
     // }
     value = formula.xssDeal(value);
     value = formula.ltGtSignDeal(value);
-    $("#luckysheet-rich-text-editor").html(value);
+    richTextEditor.setHtml(value);
     if (!isnotfocus) {
-        luckysheetRangeLast($("#luckysheet-rich-text-editor")[0]);
+        luckysheetRangeLast(richTextEditor.getNativeElement());
     }
 
     if(isCenter){
-        let width = $("#luckysheet-input-box").width();
+        let width = inputBox.getWidth();
         if(width> input_postition["max-width"]){
             width = input_postition["max-width"];
         }
@@ -218,8 +223,8 @@ export function luckysheetupdateCell(row_index1, col_index1, d, cover, isnotfocu
         input_postition["left"] = newLeft-2;
     }
 
-    $("#luckysheet-input-box").css(input_postition);
-    $("#luckysheet-rich-text-editor").css(inputContentScale);
+    inputBox.setCss(input_postition);
+    richTextEditor.setCss(inputContentScale);
 
     //日期
     if(d[row_index1][col_index1] && d[row_index1][col_index1].ct && d[row_index1][col_index1].ct.t == 'd'){
@@ -228,7 +233,7 @@ export function luckysheetupdateCell(row_index1, col_index1, d, cover, isnotfocu
 
     formula.rangetosheet = Store.currentSheetIndex;
     formula.createRangeHightlight();
-    formula.rangeResizeTo = $("#luckysheet-rich-text-editor");
+    formula.rangeResizeTo = richTextEditor.el;
     cleargridelement();
 }
 
@@ -250,8 +255,9 @@ export function setCenterInputPosition(row_index, col_index, d){
 
     let winH = $(window).height(), winW = $(window).width();
     let container_offset = $("#" + Store.container).offset();
-    let scrollLeft = $("#luckysheet-cell-main").scrollLeft();
-    let scrollTop = $("#luckysheet-cell-main").scrollTop();
+    let scroll = getScrollPosition();
+    let scrollLeft = scroll.scrollLeft;
+    let scrollTop = scroll.scrollTop;
 
     let input_postition = { 
         "min-width": col - col_pre + 1 - 8, 
@@ -259,7 +265,7 @@ export function setCenterInputPosition(row_index, col_index, d){
         "left": col_pre + container_offset.left + Store.rowHeaderWidth - scrollLeft - 2, 
     }
 
-    let width = $("#luckysheet-input-box").width();
+    let width = inputBox.getWidth();
     if(width> input_postition["max-width"]){
         width = input_postition["max-width"];
     }
@@ -275,7 +281,7 @@ export function setCenterInputPosition(row_index, col_index, d){
 
     input_postition["left"] = newLeft-2;
 
-    $("#luckysheet-input-box").css(input_postition);
+    inputBox.setCss(input_postition);
 }
 
 export function getColumnAndRowSize(row_index, col_index, d){

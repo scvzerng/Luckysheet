@@ -4,6 +4,7 @@ import { getCurrentFile } from '../../../utils/storeAccess.js';
 import Store from '../../../store';
 import locale from '../../../locale/locale';
 import { getPicker } from '../../../components/ColorPicker';
+import { hideModalMask } from '../../../utils/domUtils.js';
 
 export function initConditionDialogEvents(_this) {
       const conditionformat_Text = locale().conditionformat;
@@ -122,13 +123,13 @@ export function initConditionDialogEvents(_this) {
         _this.ref(historyRules, currentRules);
   
         //隐藏一些dom
-        $("#luckysheet-modal-dialog-mask").hide();
+        hideModalMask();
         $("#luckysheet-conditionformat-dialog").hide();
       });
   
       // 图标集弹出层 选择
       $(document).off("click.CFicons").on("click.CFicons", "#luckysheet-CFicons-dialog .item", function () {
-        $("#luckysheet-modal-dialog-mask").hide();
+        hideModalMask();
         $("#luckysheet-CFicons-dialog").hide();
         if (Store.luckysheet_select_save.length > 0) {
           let cellrange = $.extend(true, [], Store.luckysheet_select_save);

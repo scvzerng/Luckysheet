@@ -18,11 +18,11 @@ import {
     jfrefreshgrid_pastcut,
     luckysheetrefreshgrid 
 } from '../global/refresh';
-import { getSheetIndex } from '../methods/get';
 import Store from '../store';
-import { getCurrentFile, syncConfigToStore, getDataSize } from '../utils/storeAccess.js';
+import { getCurrentFile, syncConfigToStore, getDataSize, getFileBySheetIndex } from '../utils/storeAccess.js';
 import { selectHightlightShow } from './select';
 import method from '../global/method';
+import { resetInputBoxStyle } from '../utils/domUtils.js';
 
 function formulaHistoryHanddler(ctr, type="redo"){
     if(ctr==null){
@@ -124,7 +124,7 @@ const controlHistory = {
         }
         else if (ctr.type == "resize") {
             Store.config = ctr.config;
-            Store.luckysheetfile[getSheetIndex(ctr.sheetIndex)].config = Store.config;
+            getFileBySheetIndex(ctr.sheetIndex).config = Store.config;
 
             if(ctr.ctrlType == "resizeR"){
             }
@@ -132,7 +132,7 @@ const controlHistory = {
             }
 
             let images = $.extend(true, {}, ctr.images);
-            Store.luckysheetfile[getSheetIndex(ctr.sheetIndex)].images = images;
+            getFileBySheetIndex(ctr.sheetIndex).images = images;
             imageCtrl.images = images;
             imageCtrl.allImagesShow();
 
@@ -200,16 +200,16 @@ const controlHistory = {
         else if (ctr.type == "showHidRows") { // 隐藏、显示行 撤销操作
             //config
             Store.config = ctr.config;
-            Store.luckysheetfile[getSheetIndex(ctr.sheetIndex)].config = ctr.config;
+            getFileBySheetIndex(ctr.sheetIndex).config = ctr.config;
+        
         
         
             //行高、列宽 刷新  
             jfrefreshgrid_rhcw(_dataSize.rowCount, _dataSize.colCount);
         }
-        else if (ctr.type == "showHidCols") { // 隐藏、显示列 撤销操作
-            //config
+        else if (ctr.type == "showHidCols") {
             Store.config = ctr.config;
-            Store.luckysheetfile[getSheetIndex(ctr.sheetIndex)].config = ctr.config;
+            getFileBySheetIndex(ctr.sheetIndex).config = ctr.config;
         
         
             //行高、列宽 刷新  
@@ -274,7 +274,7 @@ const controlHistory = {
         else if (ctr.type == "addSheet") {
             sheetmanage.deleteSheet(ctr.index);
             sheetmanage.changeSheetExec(ctr.currentSheetIndex);
-            $("#luckysheet-input-box").removeAttr("style");
+            resetInputBoxStyle();
             $("#luckysheet-sheet-list, #luckysheet-rightclick-sheet-menu").hide();
         }
         else if (ctr.type == "copySheet") {
@@ -292,17 +292,17 @@ const controlHistory = {
 
             if(!isDupName){
                 sheetmanage.createSheetbydata(ctr, "isrenew");
-                $("#luckysheet-input-box").removeAttr("style");
+                resetInputBoxStyle();
                 $("#luckysheet-sheet-list, #luckysheet-rightclick-sheet-menu").hide();
             }
         }
         else if (ctr.type == "sheetName") {
-            Store.luckysheetfile[getSheetIndex(ctr.sheetIndex)].name = ctr.oldtxt;
+            getFileBySheetIndex(ctr.sheetIndex).name = ctr.oldtxt;
             $("#luckysheet-sheets-item" + ctr.sheetIndex).find(".luckysheet-sheets-item-name").html(ctr.oldtxt);
 
         }
         else if (ctr.type == "sheetColor") {
-            Store.luckysheetfile[getSheetIndex(ctr.sheetIndex)].color = ctr.oldcolor;
+            getFileBySheetIndex(ctr.sheetIndex).color = ctr.oldcolor;
             
             let luckysheetcurrentSheetitem = $("#luckysheet-sheets-item" + ctr.sheetIndex);
             luckysheetcurrentSheetitem.find(".luckysheet-sheets-item-color").remove();
@@ -330,7 +330,7 @@ const controlHistory = {
             for(let i = 0; i < historyRules.length; i++){
                 //条件规则
                 let sheetIndex = historyRules[i]["sheetIndex"];
-                Store.luckysheetfile[getSheetIndex(sheetIndex)]["luckysheet_conditionformat_save"] = historyRules[i]["luckysheet_conditionformat_save"];
+                getFileBySheetIndex(sheetIndex)["luckysheet_conditionformat_save"] = historyRules[i]["luckysheet_conditionformat_save"];
             
             }
 
@@ -340,9 +340,9 @@ const controlHistory = {
         else if (ctr.type == "updateAF"){
             let historyRules = ctr["data"]["historyRules"];
 
-            let index = getSheetIndex(ctr["sheetIndex"]);
+            let file = getFileBySheetIndex(ctr["sheetIndex"]);
 
-            Store.luckysheetfile[index]["luckysheet_alternateformat_save"] = $.extend(true, [], historyRules);
+            file["luckysheet_alternateformat_save"] = $.extend(true, [], historyRules);
 
             setTimeout(function () {
                 luckysheetrefreshgrid();
@@ -355,7 +355,7 @@ const controlHistory = {
             }
 
             Store.config = ctr.config;
-            Store.luckysheetfile[getSheetIndex(ctr.sheetIndex)].config = Store.config;
+            getFileBySheetIndex(ctr.sheetIndex).config = Store.config;
 
             setTimeout(function () {
                 luckysheetrefreshgrid();
@@ -441,7 +441,7 @@ const controlHistory = {
         }
         else if (ctr.type == "resize") {
             Store.config = ctr.curconfig;
-            Store.luckysheetfile[getSheetIndex(ctr.sheetIndex)].config = Store.config;
+            getFileBySheetIndex(ctr.sheetIndex).config = Store.config;
 
             if(ctr.ctrlType == "resizeR"){
             }
@@ -449,7 +449,7 @@ const controlHistory = {
             }
 
             let images = $.extend(true, {}, ctr.curImages);
-            Store.luckysheetfile[getSheetIndex(ctr.sheetIndex)].images = images;
+            getFileBySheetIndex(ctr.sheetIndex).images = images;
             imageCtrl.images = images;
             imageCtrl.allImagesShow();
 
@@ -508,16 +508,16 @@ const controlHistory = {
         else if (ctr.type == "showHidRows") { // 隐藏、显示行 重做操作
             //config
             Store.config = ctr.curconfig;
-            Store.luckysheetfile[getSheetIndex(ctr.sheetIndex)].config = ctr.curconfig;
+            getFileBySheetIndex(ctr.sheetIndex).config = ctr.curconfig;
+        
         
         
             //行高、列宽 刷新  
             jfrefreshgrid_rhcw(_dataSize.rowCount, _dataSize.colCount);
         }
-        else if (ctr.type == "showHidCols") { // 隐藏、显示列 重做操作
-            //config
+        else if (ctr.type == "showHidCols") {
             Store.config = ctr.curconfig;
-            Store.luckysheetfile[getSheetIndex(ctr.sheetIndex)].config = ctr.curconfig;
+            getFileBySheetIndex(ctr.sheetIndex).config = ctr.curconfig;
         
         
             //行高、列宽 刷新  
@@ -572,7 +572,7 @@ const controlHistory = {
         }
         else if (ctr.type == "addSheet") {
             sheetmanage.createSheetbydata(ctr.sheetconfig);
-            $("#luckysheet-input-box").removeAttr("style");
+            resetInputBoxStyle();
             $("#luckysheet-sheet-list, #luckysheet-rightclick-sheet-menu").hide();
         }
         else if (ctr.type == "copySheet") {
@@ -588,16 +588,16 @@ const controlHistory = {
                 sheetmanage.changeSheetExec(Store.luckysheetfile[ctr.order - 1].index);
             }
             
-            $("#luckysheet-input-box").removeAttr("style");
+            resetInputBoxStyle();
             $("#luckysheet-sheet-list, #luckysheet-rightclick-sheet-menu").hide();
         }
         else if (ctr.type == "sheetName") {
-            Store.luckysheetfile[getSheetIndex(ctr.sheetIndex)].name = ctr.txt;
+            getFileBySheetIndex(ctr.sheetIndex).name = ctr.txt;
             $("#luckysheet-sheets-item" + ctr.sheetIndex).find(".luckysheet-sheets-item-name").html(ctr.txt);
             
         }
         else if (ctr.type == "sheetColor") {
-            Store.luckysheetfile[getSheetIndex(ctr.sheetIndex)].color = ctr.color;
+            getFileBySheetIndex(ctr.sheetIndex).color = ctr.color;
 
             let luckysheetcurrentSheetitem = $("#luckysheet-sheets-item" + ctr.sheetIndex);
             luckysheetcurrentSheetitem.find(".luckysheet-sheets-item-color").remove();
@@ -625,7 +625,7 @@ const controlHistory = {
             for(let i = 0; i < currentRules.length; i++){
                 //条件规则
                 let sheetIndex = currentRules[i]["sheetIndex"];
-                Store.luckysheetfile[getSheetIndex(sheetIndex)]["luckysheet_conditionformat_save"] = currentRules[i]["luckysheet_conditionformat_save"];
+                getFileBySheetIndex(sheetIndex)["luckysheet_conditionformat_save"] = currentRules[i]["luckysheet_conditionformat_save"];
                 
             }
 
@@ -635,9 +635,9 @@ const controlHistory = {
         else if (ctr.type == "updateAF"){
             let currentRules = ctr["data"]["currentRules"];
 
-            let index = getSheetIndex(ctr["sheetIndex"]);
+            let file = getFileBySheetIndex(ctr["sheetIndex"]);
 
-            Store.luckysheetfile[index]["luckysheet_alternateformat_save"] = $.extend(true, [], currentRules);
+            file["luckysheet_alternateformat_save"] = $.extend(true, [], currentRules);
 
             setTimeout(function () {
                 luckysheetrefreshgrid();
@@ -646,7 +646,7 @@ const controlHistory = {
         else if (ctr.type == "borderChange"){
 
             Store.config = ctr.curconfig;
-            Store.luckysheetfile[getSheetIndex(ctr.sheetIndex)].config = Store.config;
+            getFileBySheetIndex(ctr.sheetIndex).config = Store.config;
 
             setTimeout(function () {
                 luckysheetrefreshgrid();

@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿import sheetmanage from './sheetmanage';
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿import sheetmanage from './sheetmanage';
 import { sheetselectlistitemHTML, sheetselectlistHTML, keycode } from './constant';
 import {
     replaceHtml,
@@ -12,11 +12,13 @@ import tooltip from '../global/tooltip';
 import {selectTextDom} from '../global/cursorPos';
 import locale from '../locale/locale';
 import Store from '../store';
-import { isInputBoxActive } from '../utils/domUtils.js';
+import { isInputBoxActive, resetInputBoxStyle } from '../utils/domUtils.js';
 import luckysheetConfigsetting from './luckysheetConfigsetting';
 import {pagerInit} from '../global/api'
 import method from '../global/method';
 import luckysheetsizeauto from './resize';
+import inputBox from '../ui/inputBox.js';
+import sheetContainer from '../ui/sheetContainer.js';
 import { createColorPicker, getPicker, STANDARD_PALETTE, SHEET_TAB_PALETTE } from '../components/ColorPicker';
 import '../components/ColorPicker/colorPicker.css';
 
@@ -132,7 +134,7 @@ let luckysheetsheetrightclick = function ($t, $cur, e) {
             formula.setCaretPosition(formula.rangeSetValueTo.get(0), 0, formula.rangeSetValueTo.text().length);
             formula.createRangeHightlight();
             $("#luckysheet-input-box-index").find(".luckysheet-input-box-index-sheettxt").remove().end().prepend("<span class='luckysheet-input-box-index-sheettxt'>" + sheetmanage.getSheetName(formula.rangetosheet) + "!</span>").show();
-            $("#luckysheet-input-box-index").css({"left": $("#luckysheet-input-box").css("left"), "top": (parseInt($("#luckysheet-input-box").css("top")) - 20) + "px", "z-index": $("#luckysheet-input-box").css("z-index")});
+            $("#luckysheet-input-box-index").css({"left": inputBox.getCss("left"), "top": (parseInt(inputBox.getCss("top")) - 20) + "px", "z-index": inputBox.getCss("z-index")});
         }, 1);
     }
     else {
@@ -141,7 +143,7 @@ let luckysheetsheetrightclick = function ($t, $cur, e) {
             formula.updatecell(Store.luckysheetCellUpdate[0], Store.luckysheetCellUpdate[1]);
         }
 
-        $("#luckysheet-input-box").removeAttr("style");
+        resetInputBoxStyle();
         $("#luckysheet-formula-functionrange .luckysheet-formula-functionrange-highlight").remove();
     }
 
@@ -345,13 +347,13 @@ export function initialSheetBar(){
             return;
         }
         luckysheetsheetnameeditor(luckysheetcurrentSheetitem.find("span.luckysheet-sheets-item-name"));
-        $("#luckysheet-input-box").removeAttr("style");
+        resetInputBoxStyle();
         $("#luckysheet-sheet-list, #luckysheet-rightclick-sheet-menu").hide();
     });
 
     $("#luckysheetsheetconfigshow").click(function () {
         $("#luckysheet-sheets-m").click();
-        $("#luckysheet-input-box").removeAttr("style");
+        resetInputBoxStyle();
         $("#luckysheet-rightclick-sheet-menu").hide();
     });
 
@@ -360,7 +362,7 @@ export function initialSheetBar(){
             luckysheetcurrentSheetitem.insertBefore(luckysheetcurrentSheetitem.prevAll(":visible").eq(0));
             sheetmanage.reOrderAllSheet();
         }
-        $("#luckysheet-input-box").removeAttr("style");
+        resetInputBoxStyle();
         $("#luckysheet-sheet-list, #luckysheet-rightclick-sheet-menu").hide();
     });
 
@@ -369,7 +371,7 @@ export function initialSheetBar(){
             luckysheetcurrentSheetitem.insertAfter(luckysheetcurrentSheetitem.nextAll(":visible").eq(0));
             sheetmanage.reOrderAllSheet();
         }
-        $("#luckysheet-input-box").removeAttr("style");
+        resetInputBoxStyle();
         $("#luckysheet-sheet-list, #luckysheet-rightclick-sheet-menu").hide();
     });
 
@@ -393,12 +395,12 @@ export function initialSheetBar(){
             sheetmanage.deleteSheet(luckysheetcurrentSheetitem.data("index"));
         }, null);
 
-        $("#luckysheet-input-box").removeAttr("style");
+        resetInputBoxStyle();
     });
 
     $("#luckysheetsheetconfigcopy").click(function (e) {
         sheetmanage.copySheet(luckysheetcurrentSheetitem.data("index"), e);
-        $("#luckysheet-input-box").removeAttr("style");
+        resetInputBoxStyle();
         $("#luckysheet-sheet-list, #luckysheet-rightclick-sheet-menu").hide();
     });
 
@@ -413,7 +415,7 @@ export function initialSheetBar(){
             return;
         }
         sheetmanage.setSheetHide(luckysheetcurrentSheetitem.data("index"));
-        $("#luckysheet-input-box").removeAttr("style");
+        resetInputBoxStyle();
         $("#luckysheet-sheet-list, #luckysheet-rightclick-sheet-menu").hide();
     });
 
@@ -425,14 +427,13 @@ export function initialSheetBar(){
 
         sheetmanage.addNewSheet(e);
         sheetmanage.locationSheet();
-        $("#luckysheet-input-box").removeAttr("style");
+        resetInputBoxStyle();
     });
 
     let sheetscrollani = null, sheetscrollstart = 0, sheetscrollend = 0, sheetscrollstep = 150;
     $("#luckysheet-sheets-leftscroll").click(function () {
-        let $c = $("#luckysheet-sheet-container-c");
-        sheetscrollstart = $c.scrollLeft();
-        sheetscrollend = $c.scrollLeft() - sheetscrollstep;
+        sheetscrollstart = sheetContainer.getScrollLeft();
+        sheetscrollend = sheetContainer.getScrollLeft() - sheetscrollstep;
 
         if (sheetscrollend <= 0) {
             $("#luckysheet-sheet-container .docs-sheet-fade-left").hide();
@@ -442,7 +443,7 @@ export function initialSheetBar(){
         clearInterval(sheetscrollani);
         sheetscrollani = setInterval(function () {
             sheetscrollstart -= 4;
-            $c.scrollLeft(sheetscrollstart);
+            sheetContainer.setScrollLeft(sheetscrollstart);
             if (sheetscrollstart <= sheetscrollend) {
                 clearInterval(sheetscrollani);
             }
@@ -450,9 +451,8 @@ export function initialSheetBar(){
     });
 
     $("#luckysheet-sheets-rightscroll").click(function () {
-        let $c = $("#luckysheet-sheet-container-c");
-        sheetscrollstart = $c.scrollLeft();
-        sheetscrollend = $c.scrollLeft() + sheetscrollstep;
+        sheetscrollstart = sheetContainer.getScrollLeft();
+        sheetscrollend = sheetContainer.getScrollLeft() + sheetscrollstep;
 
         if (sheetscrollstart > 0) {
             $("#luckysheet-sheet-container .docs-sheet-fade-right").hide();
@@ -462,7 +462,7 @@ export function initialSheetBar(){
         clearInterval(sheetscrollani);
         sheetscrollani = setInterval(function () {
             sheetscrollstart += 4;
-            $c.scrollLeft(sheetscrollstart);
+            sheetContainer.setScrollLeft(sheetscrollstart);
             if (sheetscrollstart >= sheetscrollend) {
                 clearInterval(sheetscrollani);
             }
@@ -523,7 +523,7 @@ export function initialSheetBar(){
         let left = $(this).offset().left - $('#' + Store.container).offset().left;
         let bottom = $(this).height() + $('#luckysheet-sta-content').height() + 12;
         $t.css({left: left + 'px', bottom: bottom + 'px'}).show();
-        $("#luckysheet-input-box").removeAttr("style");
+        resetInputBoxStyle();
     });
 
     // 初始化分页器

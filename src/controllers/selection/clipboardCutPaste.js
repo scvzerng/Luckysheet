@@ -6,9 +6,8 @@ import {  getdatabyselection,  datagridgrowth  } from "../../global/getdata";
 import { rowlenByRange } from "../../global/getRowlen";
 import {  isEditMode,  hasPartMC } from "../../global/validate";
 import {  jfrefreshgrid_pastcut  } from "../../global/refresh";
-import { getSheetIndex } from "../../methods/get";
 import {  getObjType } from "../../utils/util";
-import { getCurrentFile, getLastSelection, getFocusCell } from "../../utils/storeAccess.js";
+import { getCurrentFile, getFileBySheetIndex, getLastSelection, getFocusCell } from "../../utils/storeAccess.js";
 import Store from "../../store";
 import locale from "../../locale/locale";
 const clipboardCutPasteModule = {
@@ -195,8 +194,9 @@ const clipboardCutPasteModule = {
     let source, target;
     if (Store.currentSheetIndex != copySheetIndex) {
       //跨表操作
-      let sourceData = $.extend(true, [], Store.luckysheetfile[getSheetIndex(copySheetIndex)]["data"]);
-      let sourceConfig = $.extend(true, {}, Store.luckysheetfile[getSheetIndex(copySheetIndex)]["config"]);
+      let copyFile = getFileBySheetIndex(copySheetIndex);
+      let sourceData = $.extend(true, [], copyFile["data"]);
+      let sourceConfig = $.extend(true, {}, copyFile["config"]);
       let sourceCurData = $.extend(true, [], sourceData);
       let sourceCurConfig = $.extend(true, {}, sourceConfig);
       if (sourceCurConfig["merge"] == null) {
@@ -249,7 +249,7 @@ const clipboardCutPasteModule = {
       }
 
       //条件格式
-      let source_cdformat = $.extend(true, [], Store.luckysheetfile[getSheetIndex(copySheetIndex)]["luckysheet_conditionformat_save"]);
+      let source_cdformat = $.extend(true, [], copyFile["luckysheet_conditionformat_save"]);
       let source_curCdformat = $.extend(true, [], source_cdformat);
       let ruleArr = [];
       if (source_curCdformat != null && source_curCdformat.length > 0) {

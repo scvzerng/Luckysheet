@@ -9,6 +9,8 @@ import { getCurrentSheetOrder } from '../../utils/storeAccess.js';
 import cleargridelement from "../cleargridelement";
 import tooltip from "../tooltip";
 import { isRealNum } from "../validate";
+import sheetContainer from '../../ui/sheetContainer.js';
+import cellMain from '../../ui/cellMain.js';
 
 export function setSheetAdd(options = {}) {
     let lastOrder = Store.luckysheetfile.length - 1;
@@ -47,7 +49,7 @@ export function setSheetAdd(options = {}) {
         }
     }
 
-    $("#luckysheet-sheet-container-c").append(replaceHtml(sheetHTML, {
+    sheetContainer.append(replaceHtml(sheetHTML, {
         "index": index,
         "active": "",
         "name": sheetname,
@@ -100,7 +102,7 @@ export function setSheetAdd(options = {}) {
 
     $("#luckysheet-sheet-area div.luckysheet-sheets-item").removeClass("luckysheet-sheets-item-active");
     $("#luckysheet-sheets-item" + index).addClass("luckysheet-sheets-item-active");
-    $("#luckysheet-cell-main").append('<div id="luckysheet-datavisual-selection-set-' + index + '" class="luckysheet-datavisual-selection-set"></div>');
+    cellMain.append('<div id="luckysheet-datavisual-selection-set-' + index + '" class="luckysheet-datavisual-selection-set"></div>');
     cleargridelement(true);
 
 
@@ -188,7 +190,7 @@ export function setSheetCopy(options = {}) {
         afterObj = $("#luckysheet-sheets-item" + Store.luckysheetfile[targetOrder - 1].index);
     }
 
-    $("#luckysheet-sheet-container-c").append(replaceHtml(sheetHTML, {
+    sheetContainer.append(replaceHtml(sheetHTML, {
         "index": copyjson.index,
         "active": "",
         "name": copyjson.name,
@@ -201,7 +203,7 @@ export function setSheetCopy(options = {}) {
 
     $("#luckysheet-sheet-area div.luckysheet-sheets-item").removeClass("luckysheet-sheets-item-active");
     $("#luckysheet-sheets-item" + index).addClass("luckysheet-sheets-item-active");
-    $("#luckysheet-cell-main").append('<div id="luckysheet-datavisual-selection-set-' + index + '" class="luckysheet-datavisual-selection-set"></div>');
+    cellMain.append('<div id="luckysheet-datavisual-selection-set-' + index + '" class="luckysheet-datavisual-selection-set"></div>');
     cleargridelement(true);
 
 

@@ -16,6 +16,9 @@ import rhchInit from './rhchInit';
 import { replaceHtml } from '../utils/util';
 import Store from '../store';
 import locale from '../locale/locale';
+import scrollBarX from '../ui/scrollBarX.js';
+import scrollBarY from '../ui/scrollBarY.js';
+import { rowHeader, colHeader } from '../ui/rowColHeader.js';
 
 export default function luckysheetcreatedom(colwidth, rowheight, data, menu, title) {
     // //最少30行
@@ -97,8 +100,8 @@ export default function luckysheetcreatedom(colwidth, rowheight, data, menu, tit
 
     $("#" + Store.container).append(gh);
 
-    $("#luckysheet-scrollbar-x div").width(Store.ch_width);
-    $("#luckysheet-scrollbar-y div").height(Store.rh_height + Store.columnHeaderHeight - Store.cellMainSrollBarSize - 3);
+    scrollBarX.setInnerDivWidth(Store.ch_width);
+    scrollBarY.setInnerDivHeight(Store.rh_height + Store.columnHeaderHeight - Store.cellMainSrollBarSize - 3);
 
     //新建行菜单
     $("body").append(maskHTML);
@@ -109,8 +112,8 @@ export default function luckysheetcreatedom(colwidth, rowheight, data, menu, tit
     $("body").append(replaceHtml(filtersubmenuHTML(), { "menuid": "filter" }));
     $("body").append(sheetconfigHTML());
 
-    $("#luckysheet-rows-h").width((Store.rowHeaderWidth-1.5));
-    $("#luckysheet-cols-h-c").height((Store.columnHeaderHeight-1.5));
+    rowHeader.setWidth((Store.rowHeaderWidth-1.5));
+    colHeader.setHeight((Store.columnHeaderHeight-1.5));
     $("#luckysheet-left-top").css({width:Store.rowHeaderWidth-1.5, height:Store.columnHeaderHeight-1.5});
 
     // //批注

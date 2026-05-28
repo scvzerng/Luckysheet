@@ -8,6 +8,7 @@ import {  isInputBoxActive } from "../../utils/domUtils.js";
 import {  isInlineStringCT,  updateInlineStringFormat,  inlineStyleAffectAttribute,  updateInlineStringFormatOutside  } from "../inlineString";
 import {  getObjType, isRowHidden } from "../../utils/util";
 import Store from "../../store";
+import inputBox from '../../ui/inputBox.js';
 const formatUpdateModule = {
   getQKBorder: function (width, type, color) {
     let bordertype = "";
@@ -179,7 +180,7 @@ const formatUpdateModule = {
     let canvas = canvasElement.getContext("2d");
     if (attr in inlineStyleAffectAttribute) {
       if (isInputBoxActive()) {
-        let value = $("#luckysheet-input-box").text();
+        let value = inputBox.el.text();
         if (value.substr(0, 1) != "=") {
           let cell = d[Store.luckysheetCellUpdate[0]][Store.luckysheetCellUpdate[1]];
           updateInlineStringFormat(cell, attr, foucsStatus, luckysheetformula.rangeResizeTo);

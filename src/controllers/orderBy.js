@@ -17,6 +17,7 @@ import { orderbydata,  sortColumnSeletion } from '../global/sort';
 import tooltip from '../global/tooltip';
 import editor from '../global/editor';
 import { isdatatype } from '../global/datecontroll';
+import { showModalMask, hideModalMask } from '../utils/domUtils.js';
 import Store from '../store';
 import locale from '../locale/locale';
 
@@ -226,7 +227,7 @@ export function orderByInitial(){
                 jfrefreshgrid(d, [{ "row": [str, r2], "column": [c1, c2] }], allParam);
 
                 $("#luckysheet-sort-dialog").hide();
-                $("#luckysheet-modal-dialog-mask").hide();
+                hideModalMask();
             });
         }
 
@@ -250,7 +251,7 @@ export function orderByInitial(){
 
         $("#luckysheet-sort-dialog-tablec").css("max-height", (winh - myh) / 2);
         $("#luckysheet-sort-dialog").css({ "left": (winw + scrollLeft - myw) / 2, "top": (winh + scrollTop - myh) / 2 }).show();
-        $("#luckysheet-modal-dialog-mask").show();
+        showModalMask();
 
         if (r1 < r2) {
             setTimeout(function () {

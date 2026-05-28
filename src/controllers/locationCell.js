@@ -1,4 +1,5 @@
 import { replaceHtml } from '../utils/util';
+import { showModalMask, hideModalMask, getScrollPosition } from '../utils/domUtils.js';
 import { getSheetIndex } from '../methods/get';
 import { isRealNull } from '../global/validate';
 import { isEditMode } from '../global/validate';
@@ -8,11 +9,14 @@ import { selectHightlightShow } from './select';
 import conditionformat from './conditionformat';
 import Store from '../store';
 import locale from '../locale/locale';
+import scrollBarX from '../ui/scrollBarX.js';
+import scrollBarY from '../ui/scrollBarY.js';
+import cellMain from '../ui/cellMain.js';
 
 //定位
 const luckysheetLocationCell = {
     createDialog: function(){
-        $("#luckysheet-modal-dialog-mask").show();
+        showModalMask();
         $("#luckysheet-locationCell-dialog").remove();
 
         const _locale = locale();
@@ -119,7 +123,7 @@ const luckysheetLocationCell = {
         });
 
         $(document).off("click.locationCellConfirm").on("click.locationCellConfirm", "#luckysheet-locationCell-dialog #luckysheet-locationCell-dialog-confirm", function(){
-            $("#luckysheet-modal-dialog-mask").hide();
+            hideModalMask();
             $("#luckysheet-locationCell-dialog").hide();
 
             let $radio = $("#luckysheet-locationCell-dialog .listItem input:radio:checked");
@@ -369,10 +373,11 @@ const luckysheetLocationCell = {
             Store.luckysheet_select_save = rangeArr;
             selectHightlightShow(); 
 
-            let scrollLeft = $("#luckysheet-cell-main").scrollLeft(), 
-                scrollTop = $("#luckysheet-cell-main").scrollTop();
-            let winH = $("#luckysheet-cell-main").height(), 
-                winW = $("#luckysheet-cell-main").width();
+            let scroll = getScrollPosition();
+            let scrollLeft = scroll.scrollLeft,
+                scrollTop = scroll.scrollTop;
+            let winH = cellMain.getHeight(), 
+                winW = cellMain.getWidth();
 
             let r1 = Store.luckysheet_select_save[0]["row"][0],
                 r2 = Store.luckysheet_select_save[0]["row"][1],
@@ -385,17 +390,17 @@ const luckysheetLocationCell = {
                 col_pre = c1 - 1 == -1 ? 0 : Store.visibledatacolumn[c1 - 1];
 
             if (col - scrollLeft - winW + 20 > 0) {
-                $("#luckysheet-scrollbar-x").scrollLeft(col - winW + 20);
+                scrollBarX.setScrollLeft(col - winW + 20);
             }
             else if (col_pre - scrollLeft - 20 < 0) {
-                $("#luckysheet-scrollbar-x").scrollLeft(col_pre - 20);
+                scrollBarX.setScrollLeft(col_pre - 20);
             }
 
             if (row - scrollTop - winH + 20 > 0) {
-                $("#luckysheet-scrollbar-y").scrollTop(row - winH + 20);
+                scrollBarY.setScrollTop(row - winH + 20);
             }
             else if (row_pre - scrollTop - 20 < 0) {
-                $("#luckysheet-scrollbar-y").scrollTop(row_pre - 20);
+                scrollBarY.setScrollTop(row_pre - 20);
             }
         }
     },

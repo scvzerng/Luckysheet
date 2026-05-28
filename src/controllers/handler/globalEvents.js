@@ -9,7 +9,7 @@ import {
 } from "../select";
 import controlHistory from "../controlHistory";
 import { hideMenuByCancel } from "../../global/cursorPos";
-import { isInputBoxActive } from "../../utils/domUtils.js";
+import { isInputBoxActive, hideModalMask } from "../../utils/domUtils.js";
 
 import {
     replaceHtml,
@@ -131,7 +131,7 @@ export default function globalEvents() {
             $(e.currentTarget)
                 .parents(".luckysheet-modal-dialog")
                 .hide();
-            $("#luckysheet-modal-dialog-mask").hide();
+            hideModalMask();
 
             //函数查找功能所有弹出框关闭和取消
             if (

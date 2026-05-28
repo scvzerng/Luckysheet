@@ -2,6 +2,8 @@ import { getSheetIndex } from '../../../methods/get';
 import { parseConditionRange } from '../rangeParser.js';
 import locale from '../../../locale/locale';
 import { getPicker } from '../../../components/ColorPicker';
+import countShow from '../../../ui/countShow.js';
+import formulaRangeSelect from '../../../ui/formulaRangeSelect.js';
 
 export function initEditRuleEvents(_this) {
       const conditionformat_Text = locale().conditionformat;
@@ -229,8 +231,8 @@ export function initEditRuleEvents(_this) {
         $("#luckysheet-editorConditionRule-dialog").hide();
         $("#luckysheet-administerRule-dialog").show();
         //隐藏虚线�?
-        $("#luckysheet-formula-functionrange-select").hide();
-        $("#luckysheet-row-count-show").hide();
-        $("#luckysheet-column-count-show").hide();
+        formulaRangeSelect.hide();
+        countShow.row.hide();
+        countShow.column.hide();
       });
 }

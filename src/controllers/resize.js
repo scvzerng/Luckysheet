@@ -7,7 +7,13 @@ import sheetmanage from './sheetmanage';
 import tooltip from '../global/tooltip'
 import { $$, getObjType, camel2split } from "../utils/util";
 import { getHeaderTotalHeight } from "../utils/storeAccess.js";
+import { getScrollPosition } from '../utils/domUtils.js';
 import { defaultToolbar, toolbarIdMap } from './toolbar';
+import scrollBarX from '../ui/scrollBarX.js';
+import scrollBarY from '../ui/scrollBarY.js';
+import { rowHeader } from '../ui/rowColHeader.js';
+import gridWindow from '../ui/gridWindow.js';
+import cellMain from '../ui/cellMain.js';
 
 let gridW = 0,
     gridH = 0;
@@ -250,7 +256,8 @@ export default function luckysheetsizeauto(isRefreshCanvas=true) {
     changeSheetContainerSize(gridW, gridH)
 
     if(isRefreshCanvas){
-        luckysheetrefreshgrid($("#luckysheet-cell-main").scrollLeft(), $("#luckysheet-cell-main").scrollTop());
+        let scroll = getScrollPosition();
+        luckysheetrefreshgrid(scroll.scrollLeft, scroll.scrollTop);
     }
 
     sheetmanage.sheetArrowShowAndHide();
@@ -270,14 +277,14 @@ export function changeSheetContainerSize(gridW, gridH){
     Store.cellmainWidth = gridW - Store.rowHeaderWidth;
 
     $("#luckysheet-cols-h-c, #luckysheet-cell-main").width(Store.cellmainWidth);
-    $("#luckysheet-cell-main").height(Store.cellmainHeight);
-    $("#luckysheet-rows-h").height(Store.cellmainHeight - Store.cellMainSrollBarSize);
+    cellMain.setHeight(Store.cellmainHeight);
+    rowHeader.setHeight(Store.cellmainHeight - Store.cellMainSrollBarSize);
 
-    $("#luckysheet-scrollbar-y").height(Store.cellmainHeight + Store.columnHeaderHeight - Store.cellMainSrollBarSize - 3);
-    $("#luckysheet-scrollbar-x").height(Store.cellMainSrollBarSize);
-    $("#luckysheet-scrollbar-y").width(Store.cellMainSrollBarSize);
+    scrollBarY.setHeight(Store.cellmainHeight + Store.columnHeaderHeight - Store.cellMainSrollBarSize - 3);
+    scrollBarX.setHeight(Store.cellMainSrollBarSize);
+    scrollBarY.setWidth(Store.cellMainSrollBarSize);
 
-    $("#luckysheet-scrollbar-x").width(Store.cellmainWidth).css("left", Store.rowHeaderWidth - 2);
+    scrollBarX.setWidth(Store.cellmainWidth).setCssLeft(Store.rowHeaderWidth - 2);
 
     Store.luckysheetTableContentHW = [
         Store.cellmainWidth + Store.rowHeaderWidth - Store.cellMainSrollBarSize,
@@ -293,14 +300,14 @@ export function changeSheetContainerSize(gridW, gridH){
     $("#" + Store.container).find("#luckysheet-grid-window-1").css("bottom", Store.sheetBarHeight);
     $("#" + Store.container).find(".luckysheet-grid-window").css("bottom", Store.statisticBarHeight);
 
-    let gridwidth = $("#luckysheet-grid-window-1").width();
+    let gridwidth = gridWindow.getWidth();
     $("#luckysheet-freezebar-horizontal").find(".luckysheet-freezebar-horizontal-handle")
     .css({ "width": gridwidth - 10 })
     .end()
     .find(".luckysheet-freezebar-horizontal-drop")
     .css({ "width": gridwidth - 10 });
 
-    let gridheight = $("#luckysheet-grid-window-1").height();
+    let gridheight = gridWindow.getHeight();
     $("#luckysheet-freezebar-vertical")
     .find(".luckysheet-freezebar-vertical-handle")
     .css({ "height": gridheight - 10 })

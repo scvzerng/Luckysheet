@@ -16,6 +16,7 @@ import {
     luckysheet_getSpecialReference,
 } from "../../function/func";
 import Store from "../../store";
+import richTextEditor from '../../ui/richTextEditor.js';
 
 const rangeHighlight = {
         rangeHightlightHTML:
@@ -24,7 +25,7 @@ const rangeHighlight = {
         createRangeHightlight: function() {
             let _this = this;
 
-            let $span = $("#luckysheet-rich-text-editor").find("span.luckysheet-formula-functionrange-cell");
+            let $span = richTextEditor.find("span.luckysheet-formula-functionrange-cell");
             $("#luckysheet-formula-functionrange .luckysheet-formula-functionrange-highlight").remove();
 
             $span.each(function() {

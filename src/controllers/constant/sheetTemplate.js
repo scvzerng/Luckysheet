@@ -1,5 +1,6 @@
 import locale from "../../locale/locale";
 import { customSheetRightClickConfig } from "./configFunctions";
+import sheetContainer from "../../ui/sheetContainer.js";
 
 //底部 表格标签操作dom
 function sheetconfigHTML() {
@@ -9,7 +10,7 @@ function sheetconfigHTML() {
 
     /* 如果配置项全部为flase，则隐藏入口且不再菜单项 */
     if (Object.values(config).every((ele) => !ele)) {
-        $("#luckysheet-sheet-container-c").addClass("luckysheet-sheet-container-menu-hide");
+        sheetContainer.addClass("luckysheet-sheet-container-menu-hide");
         return "";
     }
 

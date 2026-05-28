@@ -1,5 +1,5 @@
 export { isJsonString, replaceHtml, getByteLen, camel2split } from './utilSub/stringUtils.js';
-export { common_extend, getObjType } from './utilSub/typeUtils.js';
+export { common_extend, getObjType, isNumericString } from './utilSub/typeUtils.js';
 export { getNowDateTime } from './utilSub/dateTimeUtils.js';
 export { hexToRgb, rgbTohex } from './utilSub/colorUtils.js';
 export { ABCatNum, chatatABC, ceateABC, createABCdim } from './utilSub/columnUtils.js';

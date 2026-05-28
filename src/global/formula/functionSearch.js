@@ -15,6 +15,7 @@ import {
 } from "../../function/func";
 import Store from "../../store";
 import locale from "../../locale/locale";
+import formulaDialogs from '../../ui/formulaDialogs.js';
 
 const functionSearch = {
         searchHTML: '<div id="luckysheet-formula-search-c" class="luckysheet-formula-search-c"></div>',
@@ -122,14 +123,14 @@ const functionSearch = {
             }
 
             let listHTML = _this.searchFunctionHTML(list);
-            $("#luckysheet-formula-search-c")
-                .html(listHTML)
-                .show();
-            $("#luckysheet-formula-help-c").hide();
+            formulaDialogs.formulaSearchC.el
+                .html(listHTML);
+            formulaDialogs.formulaSearchC.show();
+            formulaDialogs.formulaHelp.hide();
 
             let $c = $editer.parent(),
                 offset = $c.offset();
-            _this.searchFunctionPosition($("#luckysheet-formula-search-c"), $c, offset.left, offset.top);
+            _this.searchFunctionPosition(formulaDialogs.formulaSearchC.el, $c, offset.left, offset.top);
         },
 
         searchFunctionEnter: function($obj) {
@@ -138,18 +139,18 @@ const functionSearch = {
             let functxt = $obj.data("func");
             _this.searchFunctionCell.text(functxt).after('<span dir="auto" class="luckysheet-formula-text-color">(</span>');
             _this.setCaretPosition(_this.searchFunctionCell.next().get(0), 0, 1);
-            $("#luckysheet-formula-search-c").hide();
+            formulaDialogs.formulaSearchC.hide();
             _this.helpFunctionExe(_this.searchFunctionCell.closest("div"), _this.searchFunctionCell.next());
         },
 
         searchFunctionHTML: function(list) {
             let _this = this;
 
-            if ($("#luckysheet-formula-search-c").length == 0) {
+            if (formulaDialogs.formulaSearchC.getLength() == 0) {
                 $("body").append(_this.searchHTML);
-                $("#luckysheet-formula-search-c")
+                formulaDialogs.formulaSearchC.el
                     .on("mouseover", ".luckysheet-formula-search-item", function() {
-                        $("#luckysheet-formula-search-c")
+                        formulaDialogs.formulaSearchC.el
                             .find(".luckysheet-formula-search-item")
                             .removeClass("luckysheet-formula-search-item-active");
                         $(this).addClass("luckysheet-formula-search-item-active");
@@ -294,7 +295,7 @@ const functionSearch = {
 
             let $c = $editer.parent(),
                 offset = $c.offset();
-            _this.searchFunctionPosition($("#luckysheet-formula-help-c"), $c, offset.left, offset.top, true);
+            _this.searchFunctionPosition(formulaDialogs.formulaHelp.el, $c, offset.left, offset.top, true);
         },
 
         helpFunctionExe: function($editer, currSelection) {
@@ -302,7 +303,7 @@ const functionSearch = {
             let functionlist = Store.functionlist;
             let _locale = locale();
             let locale_formulaMore = _locale.formulaMore;
-            if ($("#luckysheet-formula-help-c").length == 0) {
+            if (formulaDialogs.formulaHelp.getLength() == 0) {
                 $("body").after(
                     replaceHtml(_this.helpHTML, {
                         helpClose: locale_formulaMore.helpClose,
@@ -312,14 +313,14 @@ const functionSearch = {
                     }),
                 );
                 $("#luckysheet-formula-help-c .luckysheet-formula-help-close").click(function() {
-                    $("#luckysheet-formula-help-c").hide();
+                    formulaDialogs.formulaHelp.hide();
                 });
                 $("#luckysheet-formula-help-c .luckysheet-formula-help-collapse").click(function() {
                     let $content = $("#luckysheet-formula-help-c .luckysheet-formula-help-content");
                     $content.slideToggle(100, function() {
                         let $c = _this.rangeResizeTo.parent(),
                             offset = $c.offset();
-                        _this.searchFunctionPosition($("#luckysheet-formula-help-c"), $c, offset.left, offset.top, true);
+                        _this.searchFunctionPosition(formulaDialogs.formulaHelp.el, $c, offset.left, offset.top, true);
                     });
 
                     if ($content.is(":hidden")) {
@@ -408,11 +409,13 @@ const functionSearch = {
             let _this = this;
 
             let currSelection = _this.getrangeseleciton();
-            $("#luckysheet-formula-search-c, #luckysheet-formula-help-c").hide();
+            formulaDialogs.formulaSearchC.hide();
+            formulaDialogs.formulaHelp.hide();
             $(
                 "#luckysheet-formula-functionrange .luckysheet-formula-functionrange-highlight .luckysheet-selection-copy-hc",
             ).css("opacity", "0.03");
-            $("#luckysheet-formula-search-c, #luckysheet-formula-help-c").hide();
+            formulaDialogs.formulaSearchC.hide();
+            formulaDialogs.formulaHelp.hide();
             _this.helpFunctionExe($editer, currSelection);
 
             // console.log(currSelection, $(currSelection).closest(".luckysheet-formula-functionrange-cell").length);

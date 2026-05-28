@@ -23,6 +23,8 @@ import {
 import { rowLocation, colLocation, mouseposition } from "../../global/location";
 import method from "../../global/method";
 import Store from "../../store";
+import { getScrollPosition } from "../../utils/domUtils.js";
+import canvasContext from '../../ui/canvasContext.js';
 
 export default function cellDragDrop() {
     //监听拖拽
@@ -58,8 +60,9 @@ export default function cellDragDrop() {
     function handleCellDragStopEvent(event) {
         if (luckysheetConfigsetting && luckysheetConfigsetting.hook && luckysheetConfigsetting.hook.cellDragStop) {
             let mouse = mouseposition(event.pageX, event.pageY);
-            let x = mouse[0] + $("#luckysheet-cell-main").scrollLeft();
-            let y = mouse[1] + $("#luckysheet-cell-main").scrollTop();
+            let scroll = getScrollPosition();
+            let x = mouse[0] + scroll.scrollLeft;
+            let y = mouse[1] + scroll.scrollTop;
 
             let row_location = rowLocation(y),
                 row = row_location[1],
@@ -83,9 +86,7 @@ export default function cellDragDrop() {
 
             let sheetFile = sheetmanage.getSheetByIndex();
 
-            let luckysheetTableContent = $("#luckysheetTableContent")
-                .get(0)
-                .getContext("2d");
+            let luckysheetTableContent = canvasContext.getContext();
             method.createHookFunction(
                 "cellDragStop",
                 Store.flowdata[row_index][col_index],

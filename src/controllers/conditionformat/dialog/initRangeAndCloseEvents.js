@@ -1,7 +1,8 @@
 import { selectionCopyShow } from '../../select';
+import { showModalMask } from '../../../utils/domUtils.js';
 
 export function initRangeAndCloseEvents(_this) {
-      // 选择单元�?
+      // 选择单元�?
       $(document).on("click", ".range .fa-table", function () {
         let id = $(this).parents(".luckysheet-modal-dialog").attr("id");
         $("#" + id).hide();
@@ -33,13 +34,13 @@ export function initRangeAndCloseEvents(_this) {
             source = "2_2";
           }
         }
-        //input�?
+        //input�?
         let v = $(this).siblings("input").val();
         _this.singleRangeDialog(source, v);
         selectionCopyShow(_this.getRangeByTxt(v));
       });
       $(document).on("click", "#luckysheet-singleRange-dialog-confirm", function () {
-        $("#luckysheet-modal-dialog-mask").show();
+        showModalMask();
         $(this).parents("#luckysheet-singleRange-dialog").hide();
         let source = $(this).attr("data-source");
         let v = $(this).parents("#luckysheet-singleRange-dialog").find("input").val();
@@ -72,7 +73,7 @@ export function initRangeAndCloseEvents(_this) {
         selectionCopyShow(range);
       });
       $(document).on("click", "#luckysheet-singleRange-dialog-close", function () {
-        $("#luckysheet-modal-dialog-mask").show();
+        showModalMask();
         $(this).parents("#luckysheet-singleRange-dialog").hide();
         let source = $(this).attr("data-source");
         if (source == "0_1" || source == "0_2") {
@@ -90,7 +91,7 @@ export function initRangeAndCloseEvents(_this) {
       $(document).on("click", ".luckysheet-modal-dialog-title-close", function () {
         let id = $(this).parents(".luckysheet-modal-dialog").attr("id");
   
-        //新建规则弹出�?
+        //新建规则弹出�?
         if (id == "luckysheet-newConditionRule-dialog") {
           let source = $("#" + id).find("#luckysheet-newConditionRule-dialog-close").attr("data-source");
           //新建规则入口
@@ -99,14 +100,14 @@ export function initRangeAndCloseEvents(_this) {
           }
         }
   
-        //编辑规则弹出�?
+        //编辑规则弹出�?
         if (id == "luckysheet-editorConditionRule-dialog") {
           $("#luckysheet-administerRule-dialog").show();
         }
   
         //选择单元格弹出层
         if (id == "luckysheet-singleRange-dialog") {
-          $("#luckysheet-modal-dialog-mask").show();
+          showModalMask();
           let source = $(this).parents("#luckysheet-singleRange-dialog").find("#luckysheet-singleRange-dialog-confirm").attr("data-source");
           if (source == "0_1" || source == "0_2") {
             $("#luckysheet-conditionformat-dialog").show();
@@ -119,21 +120,21 @@ export function initRangeAndCloseEvents(_this) {
           selectionCopyShow(range);
         }
   
-        //选择应用范围弹出�?
+        //选择应用范围弹出�?
         if (id == "luckysheet-multiRange-dialog") {
-          $("#luckysheet-modal-dialog-mask").show();
+          showModalMask();
           $("#luckysheet-administerRule-dialog").show();
           let range = [];
           selectionCopyShow(range);
         }
   
-        //提示�?
+        //提示�?
         if (id == "luckysheet-conditionformat-info-dialog") {
-          $("#luckysheet-modal-dialog-mask").show();
+          showModalMask();
         }
       });
   
-      //提示�?
+      //提示�?
       $(document).on("click", "#luckysheet-conditionformat-info-dialog-close", function () {
         $(this).parents("#luckysheet-conditionformat-info-dialog").hide();
       });

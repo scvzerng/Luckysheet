@@ -29,9 +29,12 @@ import { countfunc } from "../../global/count";
 import formula from "../../global/formula";
 import method from "../../global/method";
 import Store from "../../store";
+import { getScrollPosition } from '../../utils/domUtils.js';
 
 
 import { mouseRender } from './documentMousemoveSub/mouseRender.js';
+import sheetContainer from '../../ui/sheetContainer.js';
+import canvasContext from '../../ui/canvasContext.js';
 
 export default function documentMousemove() {
     //表格mousemove
@@ -43,8 +46,9 @@ export default function documentMousemove() {
 
         if (luckysheetConfigsetting && luckysheetConfigsetting.hook && luckysheetConfigsetting.hook.sheetMousemove) {
             let mouse = mouseposition(event.pageX, event.pageY);
-            let x = mouse[0] + $("#luckysheet-cell-main").scrollLeft();
-            let y = mouse[1] + $("#luckysheet-cell-main").scrollTop();
+            let scroll = getScrollPosition();
+            let x = mouse[0] + scroll.scrollLeft;
+            let y = mouse[1] + scroll.scrollTop;
 
             let row_location = rowLocation(y),
                 row = row_location[1],
@@ -86,9 +90,7 @@ export default function documentMousemove() {
                 rangeMove: !!formula.rangeMove,
             };
 
-            let luckysheetTableContent = $("#luckysheetTableContent")
-                .get(0)
-                .getContext("2d");
+            let luckysheetTableContent = canvasContext.getContext();
 
             if (Store.flowdata && Store.flowdata[row_index]) {
                 method.createHookFunction(
@@ -138,8 +140,9 @@ export default function documentMousemove() {
             }, 15);
         } else if (luckysheetFreezen.horizontalmovestate) {
             let mouse = mouseposition(event.pageX, event.pageY);
-            let scrollLeft = $("#luckysheet-cell-main").scrollLeft();
-            let scrollTop = $("#luckysheet-cell-main").scrollTop();
+            let scroll = getScrollPosition();
+            let scrollLeft = scroll.scrollLeft;
+            let scrollTop = scroll.scrollTop;
             let x = mouse[0] + scrollLeft;
             let y = mouse[1] + scrollTop;
 
@@ -187,8 +190,9 @@ export default function documentMousemove() {
             luckysheetFreezen.saveFreezen(luckysheetFreezen.freezenhorizontaldata, top, null, null);
         } else if (luckysheetFreezen.verticalmovestate) {
             let mouse = mouseposition(event.pageX, event.pageY);
-            let scrollLeft = $("#luckysheet-cell-main").scrollLeft();
-            let scrollTop = $("#luckysheet-cell-main").scrollTop();
+            let scroll = getScrollPosition();
+            let scrollLeft = scroll.scrollLeft;
+            let scrollTop = scroll.scrollTop;
             let x = mouse[0] + scrollLeft;
             let y = mouse[1] + scrollTop;
 
@@ -237,7 +241,7 @@ export default function documentMousemove() {
             luckysheetFreezen.saveFreezen(null, null, luckysheetFreezen.freezenverticaldata, left);
             luckysheetsizeauto(); //调节选区时下部单元格溢出
         } else if (Store.luckysheet_sheet_move_status) {
-            let scrollLeft = $("#luckysheet-sheet-container-c").scrollLeft();
+            let scrollLeft = sheetContainer.getScrollLeft();
             let x = event.pageX + scrollLeft;
 
             if (Math.abs(event.pageX - Store.luckysheet_sheet_move_data.pageX) < 3) {

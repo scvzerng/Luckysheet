@@ -3,6 +3,7 @@ import {isInlineStringCell} from '../../controllers/inlineString';
 import Store from '../../store';
 import { getCellTextInfo } from './getCellTextInfo';
 import { isRowHidden, isColHidden } from '../../utils/util';
+import canvasContext from '../../ui/canvasContext.js';
 
 function rowlenByRange(d, r1, r2, cfg) {
     let cfg_clone = $.extend(true, {}, cfg);
@@ -14,7 +15,7 @@ function rowlenByRange(d, r1, r2, cfg) {
         cfg_clone["customHeight"] = {};
     }
 
-    let canvas = $("#luckysheetTableContent").get(0).getContext("2d");
+    let canvas = canvasContext.getContext();
     canvas.textBaseline = 'top'; //textBaseline以top计算
 
     for(let r = r1; r <= r2; r++){
@@ -87,7 +88,7 @@ function rowlenByRange(d, r1, r2, cfg) {
 function computeRowlenByContent(d, r) {
     let currentRowLen = 0;
 
-    let canvas = $("#luckysheetTableContent").get(0).getContext("2d");
+    let canvas = canvasContext.getContext();
     canvas.textBaseline = 'top'; //textBaseline以top计算
 
     for(let c = 0; c < d[r].length; c++){
@@ -146,7 +147,7 @@ function computeColWidthByContent(d, c, rh) {
     let currentColLen = 0;
     let rowlenArr = computeRowlenArr(rh, c)
 
-    let canvas = $("#luckysheetTableContent").get(0).getContext("2d");
+    let canvas = canvasContext.getContext();
     canvas.textBaseline = 'top'; //textBaseline以top计算
 
     for (var i = 0; i < d.length; i++) {

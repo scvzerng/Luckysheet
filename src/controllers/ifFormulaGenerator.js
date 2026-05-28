@@ -3,9 +3,15 @@ import editor from '../global/editor';
 import {luckysheetupdateCell} from './updateCell';
 import { modelHTML } from './constant';
 import { replaceHtml } from '../utils/util';
+import { showModalMask, hideModalMask, isModalMaskVisible } from '../utils/domUtils.js';
 import Store from '../store';
 import { getLastSelection, getFocusCell } from '../utils/storeAccess.js';
 import locale from '../locale/locale';
+import formulaDialogs from '../ui/formulaDialogs.js';
+import richTextEditor from '../ui/richTextEditor.js';
+import functionBox from '../ui/functionBox.js';
+import countShow from '../ui/countShow.js';
+import formulaRangeSelect from '../ui/formulaRangeSelect.js';
 
 //if公式生成器
 const ifFormulaGenerator = {
@@ -17,7 +23,7 @@ const ifFormulaGenerator = {
         const locale_button = _locale.button;
         //点击选择单元格
         $(document).off("focus.IFcompareValue").on("focus.IFcompareValue", "#luckysheet-ifFormulaGenerator-dialog #compareValue", function(){
-            $("#luckysheet-modal-dialog-mask").hide();
+            hideModalMask();
             _this.singleRangeFocus = true;
         });
         $(document).off("click.IFsingRange").on("click.IFsingRange", "#luckysheet-ifFormulaGenerator-dialog .singRange", function(){
@@ -31,31 +37,31 @@ const ifFormulaGenerator = {
             }
         });
         $(document).off("click.IFsingRangeConfirm").on("click.IFsingRangeConfirm", "#luckysheet-ifFormulaGenerator-singleRange-confirm", function(){
-            $("#luckysheet-formula-functionrange-select").hide();
+            formulaRangeSelect.hide();
 
-            $("#luckysheet-ifFormulaGenerator-singleRange-dialog").hide();
-            $("#luckysheet-modal-dialog-mask").show();
-            $("#luckysheet-ifFormulaGenerator-dialog").show();
+            formulaDialogs.ifFormulaSingleRange.hide();
+            showModalMask();
+            formulaDialogs.ifFormulaDialog.show();
 
             let value = $(this).parents("#luckysheet-ifFormulaGenerator-singleRange-dialog").find("input").val().trim();
             $("#luckysheet-ifFormulaGenerator-dialog #compareValue").val(value);
 
-            _this.singleRangeFocus = false;                 
+            _this.singleRangeFocus = false;
         });
         $(document).off("click.IFsingRangeCancel").on("click.IFsingRangeCancel", "#luckysheet-ifFormulaGenerator-singleRange-cancel", function(){
-            $("#luckysheet-formula-functionrange-select").hide();
+            formulaRangeSelect.hide();
 
-            $("#luckysheet-ifFormulaGenerator-singleRange-dialog").hide();
-            $("#luckysheet-modal-dialog-mask").show();
-            $("#luckysheet-ifFormulaGenerator-dialog").show();
+            formulaDialogs.ifFormulaSingleRange.hide();
+            showModalMask();
+            formulaDialogs.ifFormulaDialog.show();
 
-            _this.singleRangeFocus = false;                 
+            _this.singleRangeFocus = false;
         });
         $(document).off("click.IFsingRangeClose").on("click.IFsingRangeClose", "#luckysheet-ifFormulaGenerator-singleRange-dialog .luckysheet-modal-dialog-title-close", function(){
-            $("#luckysheet-formula-functionrange-select").hide();
+            formulaRangeSelect.hide();
 
-            $("#luckysheet-modal-dialog-mask").show();
-            $("#luckysheet-ifFormulaGenerator-dialog").show();
+            showModalMask();
+            formulaDialogs.ifFormulaDialog.show();
 
             _this.singleRangeFocus = false;
         });
@@ -67,23 +73,23 @@ const ifFormulaGenerator = {
             _this.singleRangeFocus = false;
         });
         $(document).off("click.IFmultiRangeConfirm").on("click.IFmultiRangeConfirm", "#luckysheet-ifFormulaGenerator-multiRange-confirm", function(){
-            $("#luckysheet-formula-functionrange-select").hide();
-            $("#luckysheet-row-count-show").hide();
-            $("#luckysheet-column-count-show").hide();
+            formulaRangeSelect.hide();
+            countShow.row.hide();
+            countShow.column.hide();
 
-            $("#luckysheet-ifFormulaGenerator-multiRange-dialog").hide();
-            $("#luckysheet-modal-dialog-mask").show();
-            $("#luckysheet-ifFormulaGenerator-dialog").show();
+            formulaDialogs.ifFormulaMultiRange.hide();
+            showModalMask();
+            formulaDialogs.ifFormulaDialog.show();
 
             let value = $(this).parents("#luckysheet-ifFormulaGenerator-multiRange-dialog").find("input").val().trim();
             let cellrange = formula.getcellrange(value);
-            let str_r = cellrange["row"][0], 
-                end_r = cellrange["row"][1], 
-                str_c = cellrange["column"][0], 
+            let str_r = cellrange["row"][0],
+                end_r = cellrange["row"][1],
+                str_c = cellrange["column"][0],
                 end_c = cellrange["column"][1];
             let d = editor.deepCopyFlowData(Store.flowdata);//取数据
             let arr = [];
-            
+
             //获取范围内所有数值
             for(let r = str_r; r <= end_r; r++){
                 for(let c = str_c; c <= end_c; c++){
@@ -106,27 +112,26 @@ const ifFormulaGenerator = {
 
             let largeNum = arr[0];
             let smallNum = arr[arr.length - 1];
-            
+
             //赋值
             $("#luckysheet-ifFormulaGenerator-dialog #smallRange").val(smallNum);
             $("#luckysheet-ifFormulaGenerator-dialog #largeRange").val(largeNum);
         });
         $(document).off("click.IFmultiRangeCancel").on("click.IFmultiRangeCancel", "#luckysheet-ifFormulaGenerator-multiRange-cancel", function(){
-            $("#luckysheet-formula-functionrange-select").hide();
-            $("#luckysheet-row-count-show").hide();
-            $("#luckysheet-column-count-show").hide();
+            formulaRangeSelect.hide();
+            countShow.row.hide();
+            countShow.column.hide();
 
-            $("#luckysheet-ifFormulaGenerator-multiRange-dialog").hide();
-            $("#luckysheet-modal-dialog-mask").show();
-            $("#luckysheet-ifFormulaGenerator-dialog").show();
+            formulaDialogs.ifFormulaMultiRange.hide();
+            showModalMask();
+            formulaDialogs.ifFormulaDialog.show();
         });
         $(document).off("click.IFmultiRangeClose").on("click.IFmultiRangeClose", "#luckysheet-ifFormulaGenerator-multiRange-dialog .luckysheet-modal-dialog-title-close", function(){
-            $("#luckysheet-formula-functionrange-select").hide();
-            $("#luckysheet-row-count-show").hide();
-            $("#luckysheet-column-count-show").hide();
+            countShow.row.hide();
+            countShow.column.hide();
 
-            $("#luckysheet-modal-dialog-mask").show();
-            $("#luckysheet-ifFormulaGenerator-dialog").show();
+            showModalMask();
+            formulaDialogs.ifFormulaDialog.show();
         });
 
         //选择 划分方式
@@ -137,7 +142,7 @@ const ifFormulaGenerator = {
                 $("#DivisionMethodVal").hide();
             }
             else{
-                $("#DivisionMethodVal").show();   
+                $("#DivisionMethodVal").show();
             }
 
             $("#luckysheet-ifFormulaGenerator-dialog .ifList").empty();
@@ -169,13 +174,13 @@ const ifFormulaGenerator = {
                                     '<input type="text" class="markText formulaInputFocus" value="">'+
                                     '<i class="fa fa-remove" aria-hidden="true"></i>'+
                                 '</div>';
-                $("#luckysheet-ifFormulaGenerator-dialog .ifList").append(itemHtml);                
+                $("#luckysheet-ifFormulaGenerator-dialog .ifList").append(itemHtml);
             }
             else{
                 let smallRange = $(this).parents("#luckysheet-ifFormulaGenerator-dialog").find("#smallRange").val().trim();
                 let largeRange = $(this).parents("#luckysheet-ifFormulaGenerator-dialog").find("#largeRange").val().trim();
                 let DivisionMethodVal = $(this).parents("#luckysheet-ifFormulaGenerator-dialog").find("#DivisionMethodVal").val().trim();
-                
+
                 if(smallRange == "" || largeRange == ""){
                     _this.info(locale_formula.ifGenTipRangeNotforNull);
                     return;
@@ -249,34 +254,34 @@ const ifFormulaGenerator = {
                     str = 'if('+ a +',"'+ markText +'",'+ str +')';
                 }
             })
-            
+
             if(str.length == 0){
                 _this.info(locale_formula.ifGenTipNotGenCondition);
                 return;
             }
 
-            $("#luckysheet-modal-dialog-mask").hide();
-            $("#luckysheet-ifFormulaGenerator-dialog").hide();
+            hideModalMask();
+            formulaDialogs.ifFormulaDialog.hide();
 
             let last = getLastSelection();
             let _focus = getFocusCell();
             let row_index = _focus.row,
                 col_index = _focus.col;
-            
+
             luckysheetupdateCell(row_index, col_index, Store.flowdata);
 
-            $("#luckysheet-rich-text-editor").html("=" + str);
-            $("#luckysheet-functionbox-cell").html($("#luckysheet-rich-text-editor").html());
+            richTextEditor.setHtml("=" + str);
+            functionBox.setHtml(richTextEditor.getHtml());
 
             $("#luckysheet-wa-functionbox-confirm").click();
         });
 
         //info
         $(document).on("click", "#luckysheet-ifFormulaGenerator-info .luckysheet-model-close-btn", function(){
-            $("#luckysheet-modal-dialog-mask").show();
+            showModalMask();
         });
         $(document).on("click", "#luckysheet-ifFormulaGenerator-info .luckysheet-modal-dialog-title-close", function(){
-            $("#luckysheet-modal-dialog-mask").show();
+            showModalMask();
         });
     },
     ifFormulaDialog: function(fp){
@@ -286,8 +291,8 @@ const ifFormulaGenerator = {
         const locale_formula = _locale.formula;
         const locale_button = _locale.button;
 
-        $("#luckysheet-modal-dialog-mask").show();
-        $("#luckysheet-ifFormulaGenerator-dialog").remove();
+        showModalMask();
+        formulaDialogs.ifFormulaDialog.remove();
 
         let compareValue = "";
         let ifListHtml = '';
@@ -299,7 +304,7 @@ const ifFormulaGenerator = {
                 let txt = arr[i].replace("and(","").replace(/\)/g,"").replace(/\"/g,"");
                 let arr2 = txt.split(",");
                 arr2 = _this.clearArr(arr2);
-                
+
                 compareValue = _this.splitTxt(arr2[0])[0];
 
                 let smallNum, largeNum, markText;
@@ -329,8 +334,8 @@ const ifFormulaGenerator = {
                                     '<span>'+locale_formula.ifGenTipLableTitile+'：</span>'+
                                     '<input type="text" class="markText formulaInputFocus" value="'+ markText +'">'+
                                     '<i class="fa fa-remove" aria-hidden="true"></i>'+
-                                '</div>'; 
-                ifListHtml += itemHtml;                             
+                                '</div>';
+                ifListHtml += itemHtml;
             }
         }
 
@@ -365,20 +370,20 @@ const ifFormulaGenerator = {
                       '</div>'+
                       '<div class="ifList">'+ifListHtml+'</div>';
 
-        $("body").append(replaceHtml(modelHTML, { 
-            "id": "luckysheet-ifFormulaGenerator-dialog", 
-            "addclass": "luckysheet-ifFormulaGenerator-dialog", 
-            "title": locale_formula.ifGenerate, 
-            "content": content, 
-            "botton": '<button id="luckysheet-ifFormulaGenerator-dialog-confirm" class="btn btn-primary">'+locale_button.confirm+'</button><button class="btn btn-default luckysheet-model-close-btn">'+locale_button.cancel+'</button>', 
-            "style": "z-index:100003" 
+        $("body").append(replaceHtml(modelHTML, {
+            "id": "luckysheet-ifFormulaGenerator-dialog",
+            "addclass": "luckysheet-ifFormulaGenerator-dialog",
+            "title": locale_formula.ifGenerate,
+            "content": content,
+            "botton": '<button id="luckysheet-ifFormulaGenerator-dialog-confirm" class="btn btn-primary">'+locale_button.confirm+'</button><button class="btn btn-default luckysheet-model-close-btn">'+locale_button.cancel+'</button>',
+            "style": "z-index:100003"
         }));
-        let $t = $("#luckysheet-ifFormulaGenerator-dialog").find(".luckysheet-modal-dialog-content").css("min-width", 590).end(), 
-            myh = $t.outerHeight(), 
+        let $t = formulaDialogs.ifFormulaDialog.setContentCss({"min-width": 590}),
+            myh = $t.outerHeight(),
             myw = $t.outerWidth();
         let winw = $(window).width(), winh = $(window).height();
         let scrollLeft = $(document).scrollLeft(), scrollTop = $(document).scrollTop();
-        $("#luckysheet-ifFormulaGenerator-dialog").css({ "left": (winw + scrollLeft - myw) / 2, "top": (winh + scrollTop - myh) / 3 }).show();
+        formulaDialogs.ifFormulaDialog.showAt({ "left": (winw + scrollLeft - myw) / 2, "top": (winh + scrollTop - myh) / 3 });
     },
     clearArr: function(arr){
         for(let i = 0; i < arr.length; i++){
@@ -391,7 +396,7 @@ const ifFormulaGenerator = {
     },
     splitTxt: function(txt){
         let compareValue, smallNum, largeNum;
-        
+
         if(txt.indexOf(">=") != -1){
             compareValue = txt.split(">=")[0];
             smallNum = txt.split(">=")[1];
@@ -418,9 +423,9 @@ const ifFormulaGenerator = {
         }
     },
     singleRangeDialog: function(value){
-        $("#luckysheet-modal-dialog-mask").hide();
-        $("#luckysheet-ifFormulaGenerator-dialog").hide();
-        $("#luckysheet-ifFormulaGenerator-singleRange-dialog").remove();
+        hideModalMask();
+        formulaDialogs.ifFormulaDialog.hide();
+        formulaDialogs.ifFormulaSingleRange.remove();
 
         const _locale = locale();
         const locale_formula = _locale.formula;
@@ -430,44 +435,46 @@ const ifFormulaGenerator = {
             value = "";
         }
 
-        $("body").append(replaceHtml(modelHTML, { 
-            "id": "luckysheet-ifFormulaGenerator-singleRange-dialog", 
-            "addclass": "luckysheet-ifFormulaGenerator-singleRange-dialog", 
-            "title": locale_formula.ifGenTipSelectCell, 
-            "content": '<input readonly="readonly" placeholder="'+locale_formula.ifGenTipSelectCellPlace+'" value="'+ value +'">', 
-            "botton": '<button id="luckysheet-ifFormulaGenerator-singleRange-confirm" class="btn btn-primary">'+locale_button.confirm+'</button><button id="luckysheet-ifFormulaGenerator-singleRange-cancel" class="btn btn-default">'+locale_button.cancel+'</button>', 
-            "style": "z-index:100003" 
+        $("body").append(replaceHtml(modelHTML, {
+            "id": "luckysheet-ifFormulaGenerator-singleRange-dialog",
+            "addclass": "luckysheet-ifFormulaGenerator-singleRange-dialog",
+            "title": locale_formula.ifGenTipSelectCell,
+            "content": '<input readonly="readonly" placeholder="'+locale_formula.ifGenTipSelectCellPlace+'" value="'+ value +'">',
+            "botton": '<button id="luckysheet-ifFormulaGenerator-singleRange-confirm" class="btn btn-primary">'+locale_button.confirm+'</button><button id="luckysheet-ifFormulaGenerator-singleRange-cancel" class="btn btn-default">'+locale_button.cancel+'</button>',
+            "style": "z-index:100003"
         }));
-        let $t = $("#luckysheet-ifFormulaGenerator-singleRange-dialog").find(".luckysheet-modal-dialog-content").css("min-width", 400).end(), 
-            myh = $t.outerHeight(), 
+        formulaDialogs.ifFormulaSingleRange.setContentCss({"min-width": 400});
+        let $t = formulaDialogs.ifFormulaSingleRange.el,
+            myh = $t.outerHeight(),
             myw = $t.outerWidth();
         let winw = $(window).width(), winh = $(window).height();
         let scrollLeft = $(document).scrollLeft(), scrollTop = $(document).scrollTop();
-        $("#luckysheet-ifFormulaGenerator-singleRange-dialog").css({ "left": (winw + scrollLeft - myw) / 2, "top": (winh + scrollTop - myh) / 3 }).show();
+        formulaDialogs.ifFormulaSingleRange.showAt({ "left": (winw + scrollLeft - myw) / 2, "top": (winh + scrollTop - myh) / 3 });
     },
     multiRangeDialog: function(){
-        $("#luckysheet-modal-dialog-mask").hide();
-        $("#luckysheet-ifFormulaGenerator-dialog").hide();
-        $("#luckysheet-ifFormulaGenerator-multiRange-dialog").remove();
+        hideModalMask();
+        formulaDialogs.ifFormulaDialog.hide();
+        formulaDialogs.ifFormulaMultiRange.remove();
 
         const _locale = locale();
         const locale_formula = _locale.formula;
         const locale_button = _locale.button;
 
-        $("body").append(replaceHtml(modelHTML, { 
-            "id": "luckysheet-ifFormulaGenerator-multiRange-dialog", 
-            "addclass": "luckysheet-ifFormulaGenerator-multiRange-dialog", 
-            "title": locale_formula.ifGenTipSelectRange, 
-            "content": '<input readonly="readonly" placeholder="'+locale_formula.ifGenTipSelectRangePlace+'" value="">', 
-            "botton": '<button id="luckysheet-ifFormulaGenerator-multiRange-confirm" class="btn btn-primary">'+locale_button.confirm+'</button><button id="luckysheet-ifFormulaGenerator-multiRange-cancel" class="btn btn-default">'+locale_button.cancel+'</button>', 
-            "style": "z-index:100003" 
+        $("body").append(replaceHtml(modelHTML, {
+            "id": "luckysheet-ifFormulaGenerator-multiRange-dialog",
+            "addclass": "luckysheet-ifFormulaGenerator-multiRange-dialog",
+            "title": locale_formula.ifGenTipSelectRange,
+            "content": '<input readonly="readonly" placeholder="'+locale_formula.ifGenTipSelectRangePlace+'" value="">',
+            "botton": '<button id="luckysheet-ifFormulaGenerator-multiRange-confirm" class="btn btn-primary">'+locale_button.confirm+'</button><button id="luckysheet-ifFormulaGenerator-multiRange-cancel" class="btn btn-default">'+locale_button.cancel+'</button>',
+            "style": "z-index:100003"
         }));
-        let $t = $("#luckysheet-ifFormulaGenerator-multiRange-dialog").find(".luckysheet-modal-dialog-content").css("min-width", 400).end(), 
-            myh = $t.outerHeight(), 
+        formulaDialogs.ifFormulaMultiRange.setContentCss({"min-width": 400});
+        let $t = formulaDialogs.ifFormulaMultiRange.el,
+            myh = $t.outerHeight(),
             myw = $t.outerWidth();
         let winw = $(window).width(), winh = $(window).height();
         let scrollLeft = $(document).scrollLeft(), scrollTop = $(document).scrollTop();
-        $("#luckysheet-ifFormulaGenerator-multiRange-dialog").css({ "left": (winw + scrollLeft - myw) / 2, "top": (winh + scrollTop - myh) / 3 }).show();
+        formulaDialogs.ifFormulaMultiRange.showAt({ "left": (winw + scrollLeft - myw) / 2, "top": (winh + scrollTop - myh) / 3 });
     },
     getIfList: function(compareValue, smallRange, largeRange, method, methodVal){
         const locale_formula = locale().formula;
@@ -481,7 +488,7 @@ const ifFormulaGenerator = {
         let arr = [];
 
         if(method == "0"){
-            let len = Math.ceil((largeRange - smallRange) / methodVal); 
+            let len = Math.ceil((largeRange - smallRange) / methodVal);
             for(let i = 0; i <= len; i++){
                 let num = smallRange + methodVal * i;
                 if(i == 0 || num >= largeRange){
@@ -491,7 +498,7 @@ const ifFormulaGenerator = {
                     arr.push(num);
                 }
             }
-            
+
         }
         else if(method == "1"){
             let addnum = Math.ceil((largeRange - smallRange) / methodVal);
@@ -537,26 +544,26 @@ const ifFormulaGenerator = {
         }
     },
     info: function(title){
-        $("#luckysheet-modal-dialog-mask").show();
-        $("#luckysheet-ifFormulaGenerator-info").remove();
+        showModalMask();
+        formulaDialogs.ifFormulaInfo.remove();
 
         const _locale = locale();
         const locale_button = _locale.button;
 
-        $("body").append(replaceHtml(modelHTML, { 
-            "id": "luckysheet-ifFormulaGenerator-info", 
-            "addclass": "", 
-            "title": title, 
-            "content": "", 
-            "botton": '<button class="btn btn-default luckysheet-model-close-btn">&nbsp;&nbsp;'+locale_button.close+'&nbsp;&nbsp;</button>', 
-            "style": "z-index:100003" 
+        $("body").append(replaceHtml(modelHTML, {
+            "id": "luckysheet-ifFormulaGenerator-info",
+            "addclass": "",
+            "title": title,
+            "content": "",
+            "botton": '<button class="btn btn-default luckysheet-model-close-btn">&nbsp;&nbsp;'+locale_button.close+'&nbsp;&nbsp;</button>',
+            "style": "z-index:100003"
         }));
-        let $t = $("#luckysheet-ifFormulaGenerator-info").find(".luckysheet-modal-dialog-content").css("min-width", 300).end(), 
-            myh = $t.outerHeight(), 
+        let $t = formulaDialogs.ifFormulaInfo.setContentCss({"min-width": 300}),
+            myh = $t.outerHeight(),
             myw = $t.outerWidth();
         let winw = $(window).width(), winh = $(window).height();
         let scrollLeft = $(document).scrollLeft(), scrollTop = $(document).scrollTop();
-        $("#luckysheet-ifFormulaGenerator-info").css({ "left": (winw + scrollLeft - myw) / 2, "top": (winh + scrollTop - myh) / 3 }).show();
+        formulaDialogs.ifFormulaInfo.showAt({ "left": (winw + scrollLeft - myw) / 2, "top": (winh + scrollTop - myh) / 3 });
     }
 }
 

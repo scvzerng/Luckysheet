@@ -25,6 +25,7 @@ import {  hasPartMC,  isEditMode,  checkIsAllowEdit  } from "../../global/valida
 import tooltip from "../../global/tooltip";
 import Store from "../../store";
 import context from "./context";
+import rightClickMenu from '../../ui/rightClickMenu.js';
 
 export default function rightClickButtons() {
     //右键菜单 复制按钮
@@ -152,7 +153,7 @@ export default function rightClickButtons() {
     });
     $("#luckysheetInsertImage").click(function() {
         $("#luckysheet-imgUpload").click();
-        $("#luckysheet-rightclick-menu").hide();
+        rightClickMenu.hide();
     });
     $("#luckysheet-imgUpload").click(function(e) {
         e.stopPropagation();
@@ -173,6 +174,6 @@ export default function rightClickButtons() {
     });
     $("#luckysheetInsertLink").click(function() {
         $("#luckysheet-insertLink-btn-title").click();
-        $("#luckysheet-rightclick-menu").hide();
+        rightClickMenu.hide();
     });
 }

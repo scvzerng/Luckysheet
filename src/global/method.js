@@ -1,14 +1,18 @@
-﻿﻿﻿import {  luckysheetlodingHTML } from '../controllers/constant';
+﻿﻿import {  luckysheetlodingHTML } from '../controllers/constant';
 import sheetmanage from '../controllers/sheetmanage';
 import luckysheetformula from './formula';
 import imageCtrl from '../controllers/imageCtrl';
 import luckysheetFreezen from '../controllers/freezen';
 import { getSheetIndex } from '../methods/get';
+import { getFileBySheetIndex } from '../utils/storeAccess.js';
 import { luckysheetextendData } from './extend';
 import luckysheetConfigsetting from '../controllers/luckysheetConfigsetting';
 import editor from './editor';
 import luckysheetcreatesheet from './createsheet';
+import inputBox from '../ui/inputBox.js';
+import gridWindow from '../ui/gridWindow.js';
 import Store from '../store';
+import formulaDialogs from '../ui/formulaDialogs.js';
 
 const defaultConfig = {
     defaultStore:{
@@ -224,7 +228,7 @@ const method = {
             url = luckysheetConfigsetting.loadSheetUrl;
         }
 
-        $("#luckysheet-grid-window-1").append(luckysheetlodingHTML());
+        gridWindow.append(luckysheetlodingHTML());
         param.currentPage++;
         
         let dataType = 'application/json;charset=UTF-8';
@@ -269,11 +273,11 @@ const method = {
             url = luckysheetConfigsetting.loadSheetUrl;
         }
 
-        $("#luckysheet-grid-window-1").append(luckysheetlodingHTML());
+        gridWindow.append(luckysheetlodingHTML());
 
         let arg = {"gridKey" : luckysheetConfigsetting.gridKey, "index": index};
         param = $.extend(true, param, arg);
-        let file = Store.luckysheetfile[getSheetIndex(index)];
+        let file = getFileBySheetIndex(index);
 
         $.post(url, param, function (d) {
             let dataset = new Function("return " + d)();
@@ -351,8 +355,8 @@ const method = {
         $("body > .luckysheet-cols-menu").remove();
 
         $("#luckysheet-modal-dialog-mask, #luckysheetTextSizeTest, #luckysheet-icon-morebtn-div").remove();
-        $("#luckysheet-input-box").parent().remove();
-        $("#luckysheet-formula-help-c").remove();
+        inputBox.removeParent();
+        formulaDialogs.formulaHelp.remove();
         $(".luckysheet-modal-dialog-slider").remove();
 
         //document event release

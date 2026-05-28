@@ -10,7 +10,7 @@ import luckysheetPostil from '../../postil';
 import sheetmanage from '../../sheetmanage';
 import { mouseposition, rowLocation, colLocation } from '../../../global/location';
 import Store from '../../../store';
-import { getLastSelection } from '../../../utils/storeAccess.js';
+import { getLastSelection, setLastSelection } from '../../../utils/storeAccess.js';
 import method from '../../../global/method';
 import formula from '../../../global/formula';
 import luckysheetformula from '../../../global/formula';
@@ -19,6 +19,17 @@ import { getRangetxt } from '../../../methods/get';
 import { isEditMode } from '../../../global/validate';
 import { luckysheetactiveCell, luckysheetContainerFocus, getObjType } from '../../../utils/util';
 import browser from '../../../global/browser';
+import { getScrollPosition } from '../../../utils/domUtils.js';
+import scrollBarX from '../../../ui/scrollBarX.js';
+import scrollBarY from '../../../ui/scrollBarY.js';
+import formulaDialogs from '../../../ui/formulaDialogs.js';
+import richTextEditor from '../../../ui/richTextEditor.js';
+import imageDialog from '../../../ui/imageDialog.js';
+import formulaRangeSelect from '../../../ui/formulaRangeSelect.js';
+import functionBox from '../../../ui/functionBox.js';
+import countShow from '../../../ui/countShow.js';
+import inputBox from '../../../ui/inputBox.js';
+import canvasContext from '../../../ui/canvasContext.js';
 
 export function handleCellMousedown(event) {
               if ($(event.target).hasClass("luckysheet-mousedown-cancel")) {
@@ -39,8 +50,8 @@ export function handleCellMousedown(event) {
   
               //图片 active/cropping
               if (
-                  $("#luckysheet-modal-dialog-activeImage").is(":visible") ||
-                  $("#luckysheet-modal-dialog-cropping").is(":visible")
+                  imageDialog.active.isVisible() ||
+                  imageDialog.cropping.isVisible()
               ) {
                   imageCtrl.cancelActiveImgItem();
               }
@@ -54,8 +65,9 @@ export function handleCellMousedown(event) {
                   return;
               }
   
-              let x = mouse[0] + $("#luckysheet-cell-main").scrollLeft();
-              let y = mouse[1] + $("#luckysheet-cell-main").scrollTop();
+              let scroll = getScrollPosition();
+              let x = mouse[0] + scroll.scrollLeft;
+              let y = mouse[1] + scroll.scrollTop;
   
               if (
                   luckysheetFreezen.freezenverticaldata != null &&
@@ -72,9 +84,7 @@ export function handleCellMousedown(event) {
               }
   
               let sheetFile = sheetmanage.getSheetByIndex();
-              let luckysheetTableContent = $("#luckysheetTableContent")
-                  .get(0)
-                  .getContext("2d");
+              let luckysheetTableContent = canvasContext.getContext();
   
               let row_location = rowLocation(y),
                   row = row_location[1],
@@ -124,12 +134,12 @@ export function handleCellMousedown(event) {
               luckysheetformula.cellFocus(row_index, col_index);
   
               //若点击单元格部分不在视图内
-              if (col_pre < $("#luckysheet-cell-main").scrollLeft()) {
-                  $("#luckysheet-scrollbar-x").scrollLeft(col_pre);
+              if (col_pre < scroll.scrollLeft) {
+                  scrollBarX.setScrollLeft(col_pre);
               }
-  
-              if (row_pre < $("#luckysheet-cell-main").scrollTop()) {
-                  $("#luckysheet-scrollbar-y").scrollTop(row_pre);
+
+              if (row_pre < scroll.scrollTop) {
+                  scrollBarY.setScrollTop(row_pre);
               }
   
               //mousedown是右键
@@ -178,7 +188,7 @@ export function handleCellMousedown(event) {
               Store.luckysheet_scroll_status = true;
   
               //公式相关
-              let $input = $("#luckysheet-input-box");
+              let $input = inputBox.el;
               if (parseInt($input.css("top")) > 0) {
                   if (
                       formula.rangestart ||
@@ -283,13 +293,12 @@ export function handleCellMousedown(event) {
                           formula.func_selectedrange = last;
                       } else if (
                           event.ctrlKey &&
-                          $("#luckysheet-rich-text-editor")
-                              .find("span")
+                          richTextEditor.find("span")
                               .last()
                               .text() != ","
                       ) {
                           //按住ctrl 选择选区时  先处理上一个选区
-                          let vText = $("#luckysheet-rich-text-editor").text();
+                          let vText = richTextEditor.getText();
   
                           if (vText[vText.length - 1] === ")") {
                               vText = vText.substr(0, vText.length - 1); //先删除最后侧的圆括号)
@@ -321,7 +330,7 @@ export function handleCellMousedown(event) {
   
                               /* 在显示前重新 + 右侧的圆括号) */
   
-                              $("#luckysheet-rich-text-editor").html(vText + ")");
+                              richTextEditor.html(vText + ")");
   
                               formula.canceFunctionrangeSelected();
                               formula.createRangeHightlight();
@@ -331,8 +340,8 @@ export function handleCellMousedown(event) {
                           formula.rangedrag_column_start = false;
                           formula.rangedrag_row_start = false;
   
-                          $("#luckysheet-functionbox-cell").html(vText + ")");
-                          formula.rangeHightlightselected($("#luckysheet-rich-text-editor"));
+                          functionBox.setHtml(vText + ")");
+                          formula.rangeHightlightselected(richTextEditor.el);
   
                           //再进行 选区的选择
                           formula.israngeseleciton();
@@ -373,27 +382,25 @@ export function handleCellMousedown(event) {
                       formula.rangedrag_column_start = false;
                       formula.rangedrag_row_start = false;
   
-                      $("#luckysheet-formula-functionrange-select")
-                          .css({
+                      formulaRangeSelect.showAt({
                               left: left,
                               width: width,
                               top: top,
                               height: height,
-                          })
-                          .show();
-                      $("#luckysheet-formula-help-c").hide();
+                          });
+                      formulaDialogs.formulaHelp.hide();
                       luckysheet_count_show(left, top, width, height, rowseleted, columnseleted);
-  
+
                       setTimeout(function() {
                           let currSelection = window.getSelection();
                           let anchorOffset = currSelection.anchorNode;
-  
+
                           let $editor;
                           if (
-                              $("#luckysheet-search-formula-parm").is(":visible") ||
-                              $("#luckysheet-search-formula-parm-select").is(":visible")
+                              formulaDialogs.searchParm.isVisible() ||
+                              formulaDialogs.searchParmSelect.isVisible()
                           ) {
-                              $editor = $("#luckysheet-rich-text-editor");
+                              $editor = richTextEditor.getElement();
                               formula.rangechangeindex = formula.data_parm_index;
                           } else {
                               $editor = $(anchorOffset).closest("div");
@@ -418,7 +425,7 @@ export function handleCellMousedown(event) {
               }
   
               //条件格式 应用范围可选择多个单元格
-              if ($("#luckysheet-multiRange-dialog").is(":visible")) {
+              if (formulaDialogs.multiRange.isVisible()) {
                   conditionformat.selectStatus = true;
                   Store.luckysheet_select_status = false;
   
@@ -551,7 +558,7 @@ export function handleCellMousedown(event) {
               }
   
               //条件格式 条件值只能选择单个单元格
-              if ($("#luckysheet-singleRange-dialog").is(":visible")) {
+              if (formulaDialogs.singleRange.isVisible()) {
                   Store.luckysheet_select_status = false;
   
                   selectionCopyShow([{ row: [row_index, row_index], column: [col_index, col_index] }]);
@@ -570,31 +577,29 @@ export function handleCellMousedown(event) {
               if (ifFormulaGenerator.singleRangeFocus) {
                   $("#luckysheet-ifFormulaGenerator-dialog .singRange").click();
               }
-              if ($("#luckysheet-ifFormulaGenerator-singleRange-dialog").is(":visible")) {
+              if (formulaDialogs.ifFormulaSingleRange.isVisible()) {
                   //选择单个单元格
                   Store.luckysheet_select_status = false;
                   formula.rangestart = false;
   
-                  $("#luckysheet-formula-functionrange-select")
-                      .css({
+                  formulaRangeSelect.showAt({
                           left: col_pre,
                           width: col - col_pre - 1,
                           top: row_pre,
                           height: row - row_pre - 1,
-                      })
-                      .show();
-                  $("#luckysheet-formula-help-c").hide();
-  
+                      });
+                  formulaDialogs.formulaHelp.hide();
+
                   let range = getRangetxt(
                       Store.currentSheetIndex,
                       { row: [row_index, row_index], column: [col_index, col_index] },
                       Store.currentSheetIndex,
                   );
                   $("#luckysheet-ifFormulaGenerator-singleRange-dialog input").val(range);
-  
+
                   return;
               }
-              if ($("#luckysheet-ifFormulaGenerator-multiRange-dialog").is(":visible")) {
+              if (formulaDialogs.ifFormulaMultiRange.isVisible()) {
                   //选择范围
                   Store.luckysheet_select_status = false;
                   formula.func_selectedrange = {
@@ -613,15 +618,13 @@ export function handleCellMousedown(event) {
                   };
                   formula.rangestart = true;
   
-                  $("#luckysheet-formula-functionrange-select")
-                      .css({
+                  formulaRangeSelect.showAt({
                           left: col_pre,
                           width: col - col_pre - 1,
                           top: row_pre,
                           height: row - row_pre - 1,
-                      })
-                      .show();
-                  $("#luckysheet-formula-help-c").hide();
+                      });
+                  formulaDialogs.formulaHelp.hide();
   
                   let range = getRangetxt(
                       Store.currentSheetIndex,
@@ -630,8 +633,8 @@ export function handleCellMousedown(event) {
                   );
                   $("#luckysheet-ifFormulaGenerator-multiRange-dialog input").val(range);
   
-                  $("#luckysheet-row-count-show").hide();
-                  $("#luckysheet-column-count-show").hide();
+                  countShow.row.hide();
+                  countShow.column.hide();
   
                   return;
               }
@@ -725,7 +728,7 @@ export function handleCellMousedown(event) {
                       last["top_move"] = top;
                       last["height_move"] = height;
   
-                      Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1] = last;
+                      setLastSelection(last);
   
                       //交替颜色选择范围
                       if ($("#luckysheet-alternateformat-rangeDialog").is(":visible")) {
@@ -793,7 +796,8 @@ export function handleCellMousedown(event) {
                   $("#luckysheet-alternateformat-range .fa-table").click();
               }
   
-              $("#luckysheet-row-count-show, #luckysheet-column-count-show").hide();
+              countShow.row.hide();
+              countShow.column.hide();
   
               if (!isEditMode()) {
               }

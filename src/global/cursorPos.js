@@ -1,4 +1,6 @@
 import Store from '../store';
+import rightClickMenu from '../ui/rightClickMenu.js';
+import resizeHandles from '../ui/resizeHandles.js';
 
 function luckysheetRangeLast(obj) {
     let range;
@@ -56,10 +58,9 @@ function hideMenuByCancel(event){
     }
 
     if (!$(event.target).hasClass("luckysheet-mousedown-cancel") && $(event.target).filter("[class*='sp-palette']").length == 0 && $(event.target).filter("[class*='sp-thumb']").length == 0 && $(event.target).filter("[class*='sp-']").length == 0) {
-        $("#luckysheet-rightclick-menu").hide();
-        $("#luckysheet-cols-h-hover").hide();
+        rightClickMenu.hide();
+        resizeHandles.colHover.hide();
         $("#luckysheet-cols-menu-btn").hide();
-        // $("#luckysheet-rightclick-menu").hide();
         $("#luckysheet-sheet-list, #luckysheet-rightclick-sheet-menu, #luckysheet-user-menu").hide();
         $("body > .luckysheet-filter-menu, body > .luckysheet-filter-submenu, body > .luckysheet-cols-menu").hide();
         //$("body > luckysheet-menuButton").hide();

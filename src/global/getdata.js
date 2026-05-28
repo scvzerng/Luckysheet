@@ -1,6 +1,5 @@
 import { getObjType,rgbTohex,isRowHidden } from '../utils/util';
-import { getSheetIndex } from '../methods/get';
-import { getCurrentFile } from '../utils/storeAccess.js';
+import { getCurrentFile, getFileBySheetIndex } from '../utils/storeAccess.js';
 import formula from './formula';
 import editor from './editor';
 import { dynamicArrayCompute } from './dynamicArray';
@@ -22,8 +21,9 @@ export function getdatabyselection(range, sheetIndex) {
     //取数据
     let d, cfg;
     if(sheetIndex != null && sheetIndex != Store.currentSheetIndex){
-        d = Store.luckysheetfile[getSheetIndex(sheetIndex)]["data"];
-        cfg = Store.luckysheetfile[getSheetIndex(sheetIndex)]["config"];
+        let file = getFileBySheetIndex(sheetIndex);
+        d = file["data"];
+        cfg = file["config"];
     }
     else{
         d = editor.deepCopyFlowData(Store.flowdata);

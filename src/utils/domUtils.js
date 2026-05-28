@@ -1,4 +1,7 @@
 import Store from '../store/index.js';
+import inputBox from '../ui/inputBox.js';
+import cellMain from '../ui/cellMain.js';
+import formulaDialogs from '../ui/formulaDialogs.js';
 
 export function getScrollPosition() {
     let cellMain = $("#luckysheet-cell-main");
@@ -9,10 +12,10 @@ export function getScrollPosition() {
 }
 
 export function getCellMainSize() {
-    let cellMain = $("#luckysheet-cell-main");
+    let el = cellMain.el;
     return {
-        winH: cellMain.height(),
-        winW: cellMain.width()
+        winH: el.height(),
+        winW: el.width()
     };
 }
 
@@ -35,11 +38,11 @@ export function getMousePositionWithScroll(mouse) {
 }
 
 export function isInputBoxActive() {
-    return parseInt($("#luckysheet-input-box").css("top")) > 0;
+    return parseInt(inputBox.getCss("top")) > 0;
 }
 
 export function resetInputBoxStyle() {
-    $("#luckysheet-input-box").removeAttr("style");
+    inputBox.resetStyle();
 }
 
 export function showModalMask() {
@@ -59,7 +62,7 @@ export function isImageEditing() {
 }
 
 export function isFormulaDialogVisible() {
-    return $("#luckysheet-singleRange-dialog").is(":visible") || $("#luckysheet-multiRange-dialog").is(":visible");
+    return formulaDialogs.singleRange.isVisible() || formulaDialogs.multiRange.isVisible();
 }
 
 export function checkMenuOverflow(tlen, userlen, menuleft) {
@@ -67,7 +70,7 @@ export function checkMenuOverflow(tlen, userlen, menuleft) {
 }
 
 export function createSelectionSetDiv(index) {
-    $("#luckysheet-cell-main").append('<div id="luckysheet-datavisual-selection-set-' + index + '" class="luckysheet-datavisual-selection-set"></div>');
+    cellMain.append('<div id="luckysheet-datavisual-selection-set-' + index + '" class="luckysheet-datavisual-selection-set"></div>');
 }
 
 export function getWindowSize() {

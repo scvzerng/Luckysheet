@@ -1,6 +1,10 @@
 import Store from '../../store';
 import { getCurrentFile } from '../../utils/storeAccess.js';
 import { isColHidden } from '../../utils/util';
+import { getScrollPosition } from '../../utils/domUtils.js';
+import scrollBarY from '../../ui/scrollBarY.js';
+import cellMain from '../../ui/cellMain.js';
+import rightClickMenu from '../../ui/rightClickMenu.js';
 
 function createFilterOptions(luckysheet_filter_save, filterObj) {
     $("#luckysheet-filter-selected-sheet" + Store.currentSheetIndex).remove();
@@ -21,7 +25,7 @@ function createFilterOptions(luckysheet_filter_save, filterObj) {
         col_pre = c1 - 1 == -1 ? 0 : Store.visibledatacolumn[c1 - 1];
 
     let newSelectedHTML = '<div id="luckysheet-filter-selected-sheet'+ Store.currentSheetIndex +'" class="luckysheet-cell-selected luckysheet-filter-selected"  style="left:'+ col_pre +'px;width:'+ (col - col_pre - 1) +'px;top:'+ row_pre +'px;height:'+ (row - row_pre - 1) +'px;display:block;border-color:#897BFF;z-index:20;background:none;"></div>';
-    $("#luckysheet-cell-main").append(newSelectedHTML);
+    cellMain.append(newSelectedHTML);
 
     let optionHTML = "";
 
@@ -65,12 +69,12 @@ function createFilterOptions(luckysheet_filter_save, filterObj) {
         }
     }
 
-    $("#luckysheet-cell-main").append('<div id="luckysheet-filter-options-sheet'+ Store.currentSheetIndex +'" class="luckysheet-filter-options-c">' + optionHTML + '</div>');
-    $("#luckysheet-rightclick-menu").hide();
+    cellMain.append('<div id="luckysheet-filter-options-sheet'+ Store.currentSheetIndex +'" class="luckysheet-filter-options-c">' + optionHTML + '</div>');
+    rightClickMenu.hide();
     $("#luckysheet-filter-menu, #luckysheet-filter-submenu").hide();
 
-    if ($("#luckysheet-cell-main").scrollTop() > luckysheet_filter_save["top_move"]) {
-        $("#luckysheet-scrollbar-y").scrollTop(luckysheet_filter_save["top_move"]);
+    if (getScrollPosition().scrollTop > luckysheet_filter_save["top_move"]) {
+        scrollBarY.setScrollTop(luckysheet_filter_save["top_move"]);
     }
 
     let file = getCurrentFile();

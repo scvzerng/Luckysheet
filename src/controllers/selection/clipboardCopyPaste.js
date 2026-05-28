@@ -9,9 +9,8 @@ import { rowlenByRange } from "../../global/getRowlen";
 import {  isEditMode,  hasPartMC } from "../../global/validate";
 import {  jfrefreshgrid } from "../../global/refresh";
 import {  update  } from "../../global/format";
-import { getSheetIndex } from "../../methods/get";
 import {  getObjType } from "../../utils/util";
-import { getCurrentFile, getLastSelection } from "../../utils/storeAccess.js";
+import { getCurrentFile, getFileBySheetIndex, getLastSelection } from "../../utils/storeAccess.js";
 import Store from "../../store";
 import locale from "../../locale/locale";
 const clipboardCopyPasteModule = {
@@ -224,7 +223,7 @@ const clipboardCopyPasteModule = {
     //复制范围 是否有 条件格式和数据验证
     let cdformat = null;
     if (copyRange["copyRange"].length == 1) {
-      let c_file = Store.luckysheetfile[getSheetIndex(copySheetIndex)];
+      let c_file = getFileBySheetIndex(copySheetIndex);
       let a_file = getCurrentFile();
       let ruleArr_cf = $.extend(true, [], c_file["luckysheet_conditionformat_save"]);
       if (ruleArr_cf != null && ruleArr_cf.length > 0) {

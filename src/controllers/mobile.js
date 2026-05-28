@@ -3,7 +3,10 @@ import { selectHightlightShow } from './select';
 import menuButton from './menuButton';
 import luckysheetFreezen from './freezen';
 import Store from '../store';
-import { getLastSelection } from '../utils/storeAccess.js';
+import { getLastSelection, setLastSelection } from '../utils/storeAccess.js';
+import { getScrollPosition } from '../utils/domUtils.js';
+import scrollBarX from '../ui/scrollBarX.js';
+import scrollBarY from '../ui/scrollBarY.js';
 
 //设备是移动端
 export default function mobileinit(){
@@ -41,8 +44,8 @@ export default function mobileinit(){
             luckysheet_touchmove_startPos.x = touch.pageX;
             luckysheet_touchmove_startPos.y = touch.pageY;
 
-            let scrollLeft = $("#luckysheet-scrollbar-x").scrollLeft();
-            let scrollTop = $("#luckysheet-scrollbar-y").scrollTop();
+            let scrollLeft = scrollBarX.getScrollLeft();
+            let scrollTop = scrollBarY.getScrollTop();
 
             // console.log("start",scrollTop, slideY,touch.pageY);
 
@@ -59,12 +62,12 @@ export default function mobileinit(){
                 scrollTop = 0;
             }
             
-            $("#luckysheet-scrollbar-y").scrollTop(scrollTop);
+            scrollBarY.setScrollTop(scrollTop);
 
             luckysheet_touchmove_startPos.vy_y = slideY;
             luckysheet_touchmove_startPos.scrollTop = scrollTop;
 
-            $("#luckysheet-scrollbar-x").scrollLeft(scrollLeft);
+            scrollBarX.setScrollLeft(scrollLeft);
 
             luckysheet_touchmove_startPos.vy_x = slideX;
 
@@ -74,8 +77,9 @@ export default function mobileinit(){
         }
         else if(luckysheet_touchhandle_status){//选区
             let mouse = mouseposition(touch.pageX, touch.pageY);
-            let x = mouse[0] + $("#luckysheet-cell-main").scrollLeft();
-            let y = mouse[1] + $("#luckysheet-cell-main").scrollTop();
+            let scroll = getScrollPosition();
+            let x = mouse[0] + scroll.scrollLeft;
+            let y = mouse[1] + scroll.scrollTop;
 
             let row_location = rowLocation(y), 
                 row = row_location[1], 
@@ -160,7 +164,7 @@ export default function mobileinit(){
             last["top_move"] = top;
             last["height_move"] = height;
 
-            Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1] = last;
+            setLastSelection(last);
 
             selectHightlightShow();
             
@@ -193,7 +197,7 @@ export default function mobileinit(){
                         luckysheet_touchmove_startPos.scrollTop += vy_y;
                     }
             
-                    $("#luckysheet-scrollbar-y").scrollTop(luckysheet_touchmove_startPos.scrollTop);
+                    scrollBarY.setScrollTop(luckysheet_touchmove_startPos.scrollTop);
             
                     if(luckysheet_touchmove_startPos.vy_x>0){
                         luckysheet_touchmove_startPos.scrollLeft -= vy_x;
@@ -202,7 +206,7 @@ export default function mobileinit(){
                         luckysheet_touchmove_startPos.scrollLeft += vy_x;
                     }
             
-                    $("#luckysheet-scrollbar-x").scrollLeft(luckysheet_touchmove_startPos.scrollLeft);
+                    scrollBarX.setScrollLeft(luckysheet_touchmove_startPos.scrollLeft);
          
                     if(vy_x<=0 && vy_y<=0){
                         clearInterval(_scrollTimer);

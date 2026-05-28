@@ -1,3 +1,4 @@
+import { hasChinaword } from '../../global/validate.js';
 
 
 function common_extend(jsonbject1, jsonbject2) {
@@ -41,4 +42,8 @@ function getObjType(obj) {
     return map[toString.call(obj)];
 }
 
-export { common_extend, getObjType };
+function isNumericString(s) {
+    return !isNaN(parseFloat(s)) && !hasChinaword(s);
+}
+
+export { common_extend, getObjType, isNumericString };

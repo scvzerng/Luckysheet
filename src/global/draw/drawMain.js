@@ -8,12 +8,14 @@ import { dynamicArrayCompute } from "../dynamicArray";
 import { getRealCellValue } from "../getdata";
 import { getBorderInfoComputeRange } from "../border";
 import { getCurrentFile, getMaxRowIndex, getMaxColIndex } from "../../utils/storeAccess.js";
+import { getScrollPosition } from '../../utils/domUtils.js';
 import {  getObjType, isRowHidden, isColHidden } from "../../utils/util";
 import { nullCellRender, cellRender } from "./cellRender";
 import { getCellOverflowMap, cellOverflow_colIn } from "./cellOverflow";
 import method from "../method";
 import Store from "../../store";
 import sheetmanage from "../../controllers/sheetmanage";
+import canvasContext from '../../ui/canvasContext.js';
 function luckysheetDrawMain(scrollWidth, scrollHeight, drawWidth, drawHeight, offsetLeft, offsetTop, columnOffsetCell, rowOffsetCell, mycanvas) {
   if (Store.flowdata == null) {
     return;
@@ -24,11 +26,14 @@ function luckysheetDrawMain(scrollWidth, scrollHeight, drawWidth, drawHeight, of
   clearTimeout(Store.measureTextCacheTimeOut);
 
   //鍙傛暟鏈畾涔夊鐞?
-  if (scrollWidth == null) {
-    scrollWidth = $("#luckysheet-cell-main").scrollLeft();
-  }
-  if (scrollHeight == null) {
-    scrollHeight = $("#luckysheet-cell-main").scrollTop();
+  if (scrollWidth == null || scrollHeight == null) {
+    let scroll = getScrollPosition();
+    if (scrollWidth == null) {
+      scrollWidth = scroll.scrollLeft;
+    }
+    if (scrollHeight == null) {
+      scrollHeight = scroll.scrollTop;
+    }
   }
   if (drawWidth == null) {
     drawWidth = Store.luckysheetTableContentHW[0];
@@ -52,7 +57,7 @@ function luckysheetDrawMain(scrollWidth, scrollHeight, drawWidth, drawHeight, of
   //琛ㄦ牸canvas
   let luckysheetTableContent = null;
   if (mycanvas == null) {
-    luckysheetTableContent = $("#luckysheetTableContent").get(0).getContext("2d");
+    luckysheetTableContent = canvasContext.getContext();
   } else {
     if (getObjType(mycanvas) == "object") {
       try {

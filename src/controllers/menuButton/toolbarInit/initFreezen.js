@@ -6,10 +6,11 @@ import locale from '../../../locale/locale';
 import Store from '../../../store';
 import { getLastSelection } from '../../../utils/storeAccess.js';
 import { luckysheetContainerFocus, mouseclickposition, replaceHtml } from '../../../utils/util';
-import { checkMenuOverflow } from '../../../utils/domUtils.js';
+import { checkMenuOverflow, getScrollPosition } from '../../../utils/domUtils.js';
 import luckysheetFreezen from '../../freezen';
 import luckysheetsizeauto from '../../resize';
 import { luckysheet_searcharray } from '../../sheetSearch';
+import cellMain from '../../../ui/cellMain.js';
 
 export function initFreezen(_this) {
       //冻结行列
@@ -133,7 +134,8 @@ export function initFreezen(_this) {
                 luckysheetFreezen.saveFreezen(null, null, freezenverticaldata, left);
                 luckysheetFreezen.createFreezenVertical(freezenverticaldata, left);
               } else {
-                let scrollTop = $("#luckysheet-cell-main").scrollTop();
+                let scroll = getScrollPosition();
+                let scrollTop = scroll.scrollTop;
                 let row_st = luckysheet_searcharray(Store.visibledatarow, scrollTop);
                 if (row_st == -1) {
                   row_st = 0;
@@ -142,7 +144,7 @@ export function initFreezen(_this) {
                 let freezenhorizontaldata = [Store.visibledatarow[row_st], row_st + 1, scrollTop, luckysheetFreezen.cutVolumn(Store.visibledatarow, row_st + 1), top];
                 luckysheetFreezen.saveFreezen(freezenhorizontaldata, top, null, null);
                 luckysheetFreezen.createFreezenHorizontal(freezenhorizontaldata, top);
-                let scrollLeft = $("#luckysheet-cell-main").scrollLeft();
+                let scrollLeft = scroll.scrollLeft;
                 let col_st = luckysheet_searcharray(Store.visibledatacolumn, scrollLeft);
                 if (col_st == -1) {
                   col_st = 0;
@@ -167,10 +169,10 @@ export function initFreezen(_this) {
               }
               // 固定超出屏幕范围
               let rangeTop = getLastSelection().top;
-              if (luckysheetFreezen.freezenRealFirstRowColumn && rangeTop > $("#luckysheet-cell-main").height()) {
+              if (luckysheetFreezen.freezenRealFirstRowColumn && rangeTop > cellMain.getHeight()) {
                 return tooltip.info(locale_freezen.rangeRCOverErrorTitle, locale_freezen.rangeRCOverError);
               }
-              let scrollTop = $("#luckysheet-cell-main").scrollTop();
+              let scrollTop = getScrollPosition().scrollTop;
               let row_st = luckysheet_searcharray(Store.visibledatarow, scrollTop);
               let last = getLastSelection();
               let row_focus = last["row_focus"] == null ? last["row"][0] : last["row_focus"];
@@ -204,10 +206,10 @@ export function initFreezen(_this) {
               }
               // 固定超出屏幕范围
               let rangeLeft = getLastSelection().left;
-              if (luckysheetFreezen.freezenRealFirstRowColumn && rangeLeft > $("#luckysheet-cell-main").width()) {
+              if (luckysheetFreezen.freezenRealFirstRowColumn && rangeLeft > cellMain.getWidth()) {
                 return tooltip.info(locale_freezen.rangeRCOverErrorTitle, locale_freezen.rangeRCOverError);
               }
-              let scrollLeft = $("#luckysheet-cell-main").scrollLeft();
+              let scrollLeft = getScrollPosition().scrollLeft;
               let col_st = luckysheet_searcharray(Store.visibledatacolumn, scrollLeft);
               let last = getLastSelection();
               let column_focus = last["column_focus"] == null ? last["column"][0] : last["column_focus"];
@@ -243,10 +245,11 @@ export function initFreezen(_this) {
               // 固定超出屏幕范围
               let rangeTop = getLastSelection().top;
               let rangeLeft = getLastSelection().left;
-              if (luckysheetFreezen.freezenRealFirstRowColumn && (rangeTop > $("#luckysheet-cell-main").height() || rangeLeft > $("#luckysheet-cell-main").width())) {
+              if (luckysheetFreezen.freezenRealFirstRowColumn && (rangeTop > cellMain.getHeight() || rangeLeft > cellMain.getWidth())) {
                 return tooltip.info(locale_freezen.rangeRCOverErrorTitle, locale_freezen.rangeRCOverError);
               }
-              let scrollTop = $("#luckysheet-cell-main").scrollTop();
+              let scroll = getScrollPosition();
+              let scrollTop = scroll.scrollTop;
               let row_st = luckysheet_searcharray(Store.visibledatarow, scrollTop);
               let last = getLastSelection();
               let row_focus = last["row_focus"] == null ? last["row"][0] : last["row_focus"];
@@ -262,7 +265,7 @@ export function initFreezen(_this) {
                 luckysheetFreezen.saveFreezen(freezenhorizontaldata, top, null, null);
               }
               luckysheetFreezen.createFreezenHorizontal(freezenhorizontaldata, top);
-              let scrollLeft = $("#luckysheet-cell-main").scrollLeft();
+              let scrollLeft = scroll.scrollLeft;
               let col_st = luckysheet_searcharray(Store.visibledatacolumn, scrollLeft);
               let column_focus = last["column_focus"] == null ? last["column"][0] : last["column_focus"];
               col_st = Math.max(col_st - 1, column_focus - 1, 0);

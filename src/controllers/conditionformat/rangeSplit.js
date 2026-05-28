@@ -1,4 +1,4 @@
-import {  getSheetIndex } from "../../methods/get";
+import {  getFileBySheetIndex } from "../../utils/storeAccess.js";
 import Store from "../../store";
 
 //条件格式
@@ -531,7 +531,7 @@ const rangeSplitModule = {
   },
   getCFPartRange: function (sheetIndex, range1, range2) {
     let ruleArr = [];
-    let cf = Store.luckysheetfile[getSheetIndex(sheetIndex)].luckysheet_conditionformat_save;
+    let cf = getFileBySheetIndex(sheetIndex).luckysheet_conditionformat_save;
     if (cf != null && cf.length > 0) {
       label: for (let i = 0; i < cf.length; i++) {
         let cellrange = cf[i].cellrange;

@@ -5,9 +5,11 @@ import { luckysheetrefreshgrid } from '../global/refresh';
 import { setluckysheet_scroll_status } from '../methods/set';
 import { syncDataToStore } from '../utils/storeAccess.js';
 import { getObjType } from '../utils/util';
+import { getScrollPosition } from '../utils/domUtils.js';
 import luckysheetFreezen from './freezen';
 import menuButton from './menuButton';
 import Store from '../store';
+import cellMain from '../ui/cellMain.js';
 import method from '../global/method';
 
 //批注
@@ -51,16 +53,15 @@ const luckysheetPostil = {
         //批注框 改变大小
         $("#luckysheet-postil-showBoxs").off("mousedown.resize").on("mousedown.resize", ".luckysheet-postil-show .luckysheet-postil-dialog-resize .luckysheet-postil-dialog-resize-item", function(event){
             _this.currentObj = $(this).closest(".luckysheet-postil-show-main");
-            _this.currentWinW = $("#luckysheet-cell-main")[0].scrollWidth;
-            _this.currentWinH = $("#luckysheet-cell-main")[0].scrollHeight;
+            _this.currentWinW = cellMain.getScrollWidth();
+            _this.currentWinH = cellMain.getScrollHeight();
 
             _this.resize = $(this).data("type");
 
-            let scrollTop = $("#luckysheet-cell-main").scrollTop(), 
-                scrollLeft = $("#luckysheet-cell-main").scrollLeft();
+            let scroll = getScrollPosition();
             let mouse = mouseposition(event.pageX, event.pageY);
-            let x = mouse[0] + scrollLeft;
-            let y = mouse[1] + scrollTop;
+            let x = mouse[0] + scroll.scrollLeft;
+            let y = mouse[1] + scroll.scrollTop;
 
             let position = _this.currentObj.position();
             let width = _this.currentObj.width();
@@ -71,10 +72,10 @@ const luckysheetPostil = {
                 y, 
                 width, 
                 height, 
-                position.left + scrollLeft, 
-                position.top + scrollTop, 
-                scrollLeft, 
-                scrollTop
+                position.left + scroll.scrollLeft, 
+                position.top + scroll.scrollTop, 
+                scroll.scrollLeft, 
+                scroll.scrollTop
             ];
 
             setluckysheet_scroll_status(true);
@@ -97,13 +98,12 @@ const luckysheetPostil = {
         //批注框 移动
         $("#luckysheet-postil-showBoxs").off("mousedown.move").on("mousedown.move", ".luckysheet-postil-show .luckysheet-postil-dialog-move .luckysheet-postil-dialog-move-item", function(event){
             _this.currentObj = $(this).closest(".luckysheet-postil-show-main");
-            _this.currentWinW = $("#luckysheet-cell-main")[0].scrollWidth;
-            _this.currentWinH = $("#luckysheet-cell-main")[0].scrollHeight;
+            _this.currentWinW = cellMain.getScrollWidth();
+            _this.currentWinH = cellMain.getScrollHeight();
 
             _this.move = true;
 
-            let scrollTop = $("#luckysheet-cell-main").scrollTop(), 
-                scrollLeft = $("#luckysheet-cell-main").scrollLeft();
+            let scroll = getScrollPosition();
 
             let offset = _this.currentObj.offset();
             let position = _this.currentObj.position();
@@ -113,8 +113,8 @@ const luckysheetPostil = {
                 event.pageY - offset.top, 
                 position.left, 
                 position.top, 
-                scrollLeft, 
-                scrollTop
+                scroll.scrollLeft, 
+                scroll.scrollTop
             ];
 
             setluckysheet_scroll_status(true);
@@ -144,23 +144,22 @@ const luckysheetPostil = {
         }
 
         let mouse = mouseposition(event.pageX, event.pageY);
-        let scrollLeft = $("#luckysheet-cell-main").scrollLeft();
-        let scrollTop = $("#luckysheet-cell-main").scrollTop();
+        let scroll = getScrollPosition();
         let x = mouse[0];
         let y = mouse[1];
         let offsetX = 0;
         let offsetY = 0;
 
         if(luckysheetFreezen.freezenverticaldata != null && mouse[0] < (luckysheetFreezen.freezenverticaldata[0] - luckysheetFreezen.freezenverticaldata[2])){
-            offsetX = scrollLeft;
+            offsetX = scroll.scrollLeft;
         } else {
-            x += scrollLeft;
+            x += scroll.scrollLeft;
         }
 
         if(luckysheetFreezen.freezenhorizontaldata != null && mouse[1] < (luckysheetFreezen.freezenhorizontaldata[0] - luckysheetFreezen.freezenhorizontaldata[2])){
-            offsetY = scrollTop;
+            offsetY = scroll.scrollTop;
         } else {
-            y += scrollTop;
+            y += scroll.scrollTop;
         }
 
         let row_index = rowLocation(y)[2];
@@ -223,7 +222,7 @@ const luckysheetPostil = {
                         '<div style="width:'+ (width - 12) +'px;min-height:'+ (height - 12) +'px;color:#000;padding:5px;border:1px solid #000;background-color:rgb(255,255,225);position:absolute;left:'+ fromX +'px;top:'+ fromY +'px;z-index:100;">'+ commentDivs +'</div>' +
                     '</div>';
 
-        $(html).appendTo($("#luckysheet-cell-main"));
+        cellMain.append(html);
 
         let ctx = $("#luckysheet-postil-overshow .arrowCanvas").get(0).getContext("2d");
 
@@ -631,17 +630,16 @@ const luckysheetPostil = {
                 col_pre = margeset.column[0];
             }
 
-            let scrollLeft = $("#luckysheet-cell-main").scrollLeft();
-            let scrollTop = $("#luckysheet-cell-main").scrollTop();
+            let scroll = getScrollPosition();
 
             let toX = col;
             let toY = row_pre;
 
             if(luckysheetFreezen.freezenverticaldata != null && toX < (luckysheetFreezen.freezenverticaldata[0] - luckysheetFreezen.freezenverticaldata[2])){
-                toX += scrollLeft;
+                toX += scroll.scrollLeft;
             }
             if(luckysheetFreezen.freezenhorizontaldata != null && toY < (luckysheetFreezen.freezenhorizontaldata[0] - luckysheetFreezen.freezenhorizontaldata[2])){
-                toY += scrollTop;
+                toY += scroll.scrollTop;
             }
 
             let left = postil["left"] == null ? toX + 18 * Store.zoomRatio : postil["left"] * Store.zoomRatio;
@@ -759,17 +757,16 @@ const luckysheetPostil = {
                             col_pre = margeset.column[0];
                         }
 
-                        let scrollLeft = $("#luckysheet-cell-main").scrollLeft();
-                        let scrollTop = $("#luckysheet-cell-main").scrollTop();
+                        let scroll = getScrollPosition();
             
                         let toX = col;
                         let toY = row_pre;
             
                         if(luckysheetFreezen.freezenverticaldata != null && toX < (luckysheetFreezen.freezenverticaldata[0] - luckysheetFreezen.freezenverticaldata[2])){
-                            toX += scrollLeft;
+                            toX += scroll.scrollLeft;
                         }
                         if(luckysheetFreezen.freezenhorizontaldata != null && toY < (luckysheetFreezen.freezenhorizontaldata[0] - luckysheetFreezen.freezenhorizontaldata[2])){
-                            toY += scrollTop;
+                            toY += scroll.scrollTop;
                         }
 
                         let left = postil["left"] == null ? toX + 18 * Store.zoomRatio : postil["left"] * Store.zoomRatio;

@@ -9,6 +9,8 @@ import ifFormulaGenerator from '../../ifFormulaGenerator';
 import insertFormula from '../../insertFormula';
 import { luckysheetupdateCell } from '../../updateCell';
 import { checkMenuOverflow } from '../../../utils/domUtils.js';
+import richTextEditor from '../../../ui/richTextEditor.js';
+import functionBox from '../../../ui/functionBox.js';
 
 export function initFunction(_this) {
       //公式
@@ -118,8 +120,8 @@ export function initFunction(_this) {
                 }
               } else {
                 //单元格无计算
-                $("#luckysheet-rich-text-editor").html('<span dir="auto" class="luckysheet-formula-text-color">=</span>');
-                $("#luckysheet-functionbox-cell").html($("#luckysheet-rich-text-editor").html());
+                richTextEditor.setHtml('<span dir="auto" class="luckysheet-formula-text-color">=</span>');
+                functionBox.setHtml(richTextEditor.getHtml());
                 insertFormula.formulaListDialog();
               }
               insertFormula.init();

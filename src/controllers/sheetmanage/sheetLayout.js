@@ -1,5 +1,6 @@
 import luckysheetConfigsetting from "../luckysheetConfigsetting";
 import Store from "../../store";
+import sheetContainer from "../../ui/sheetContainer.js";
 const sheetLayoutModule = {
   ordersheet: function (property) {
     return function (a, b) {
@@ -49,8 +50,7 @@ const sheetLayoutModule = {
   },
   // *控制sheet栏的左右滚动按钮是否显示
   locationSheet: function () {
-    let $c = $("#luckysheet-sheet-container-c"),
-      winW = $("#" + Store.container).width();
+    let winW = $("#" + Store.container).width();
     let $cursheet = $("#luckysheet-sheet-container-c > div.luckysheet-sheets-item-active").eq(0);
     let scrollLeftpx = 0;
     let c_width = 0;
@@ -61,7 +61,7 @@ const sheetLayoutModule = {
       c_width += $(this).outerWidth();
     });
     setTimeout(function () {
-      $c.scrollLeft(scrollLeftpx - 10);
+      sheetContainer.setScrollLeft(scrollLeftpx - 10);
       if (luckysheetConfigsetting.showsheetbarConfig.sheet) {
         if (c_width >= winW * 0.7) {
           $("#luckysheet-sheet-area .luckysheet-sheets-scroll").css("display", "inline-block");
@@ -74,10 +74,9 @@ const sheetLayoutModule = {
     }, 1);
   },
   sheetArrowShowAndHide() {
-    const $wrap = $("#luckysheet-sheet-container-c");
-    if (!$wrap.length) return;
-    var sw = $wrap[0].scrollWidth;
-    var w = Math.ceil($wrap.width());
+    if (!sheetContainer.exists()) return;
+    var sw = sheetContainer.getScrollWidth();
+    var w = Math.ceil(sheetContainer.getWidth());
     if (sw > w) {
       if (luckysheetConfigsetting.showsheetbarConfig.sheet) {
         $("#luckysheet-sheet-area .luckysheet-sheets-scroll").css("display", "inline-block");
@@ -90,14 +89,13 @@ const sheetLayoutModule = {
   },
   // *显示sheet栏左右的灰色
   sheetBarShowAndHide(index) {
-    let $c = $("#luckysheet-sheet-container-c");
     if (index != null) {
       let $sheet = $("#luckysheet-sheets-item" + index);
-      $c.scrollLeft($sheet.offset().left);
+      sheetContainer.setScrollLeft($sheet.offset().left);
     }
-    let c_width = $c.width(),
-      c_srollwidth = $c[0].scrollWidth,
-      scrollLeft = $c.scrollLeft();
+    let c_width = sheetContainer.getWidth(),
+      c_srollwidth = sheetContainer.getScrollWidth(),
+      scrollLeft = sheetContainer.getScrollLeft();
     if (scrollLeft <= 0) {
       $("#luckysheet-sheet-container .docs-sheet-fade-left").hide();
     } else {

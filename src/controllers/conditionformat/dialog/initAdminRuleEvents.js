@@ -1,7 +1,11 @@
 import { getSheetIndex } from '../../../methods/get';
+import { getFileBySheetIndex } from '../../../utils/storeAccess.js';
 import Store from '../../../store';
 import { selectionCopyShow } from '../../select';
 import sheetmanage from '../../sheetmanage';
+import { showModalMask, hideModalMask } from '../../../utils/domUtils.js';
+import countShow from '../../../ui/countShow.js';
+import formulaRangeSelect from '../../../ui/formulaRangeSelect.js';
 
 export function initAdminRuleEvents(_this) {
       // 管理规则
@@ -21,7 +25,7 @@ export function initAdminRuleEvents(_this) {
         let fileClone = $.extend(true, [], _this.fileClone);
         for (let c = 0; c < fileClone.length; c++) {
           let sheetIndex = fileClone[c]["index"];
-          Store.luckysheetfile[getSheetIndex(sheetIndex)]["luckysheet_conditionformat_save"] = fileClone[getSheetIndex(sheetIndex)]["luckysheet_conditionformat_save"];
+          getFileBySheetIndex(sheetIndex)["luckysheet_conditionformat_save"] = fileClone[getSheetIndex(sheetIndex)]["luckysheet_conditionformat_save"];
         }
         let fileC = $.extend(true, [], Store.luckysheetfile);
         let currentRules = _this.getCurrentRules(fileC);
@@ -30,11 +34,11 @@ export function initAdminRuleEvents(_this) {
         _this.ref(historyRules, currentRules);
   
         //隐藏一些dom
-        $("#luckysheet-modal-dialog-mask").hide();
+        hideModalMask();
         $("#luckysheet-administerRule-dialog").hide();
       });
       $(document).off("click.CFadministerRuleClose").on("click.CFadministerRuleClose", "#luckysheet-administerRule-dialog-close", function () {
-        $("#luckysheet-modal-dialog-mask").hide();
+        hideModalMask();
         $("#luckysheet-administerRule-dialog").hide();
         _this.fileClone = [];
       });
@@ -84,18 +88,18 @@ export function initAdminRuleEvents(_this) {
         $("#luckysheet-administerRule-dialog .item[data-item=" + dataItem + "] input").val(v);
         let sheetIndex = $("#luckysheet-administerRule-dialog .chooseSheet option:selected").val();
         _this.fileClone[getSheetIndex(sheetIndex)]["luckysheet_conditionformat_save"][dataItem].cellrange = _this.getRangeByTxt(v);
-        $("#luckysheet-modal-dialog-mask").show();
+        showModalMask();
         $("#luckysheet-administerRule-dialog").show();
         let range = [];
         selectionCopyShow(range);
       });
       $(document).off("click.CFmultiRangeClose").on("click.CFmultiRangeClose", "#luckysheet-multiRange-dialog-close", function () {
         $(this).parents("#luckysheet-multiRange-dialog").hide();
-        $("#luckysheet-modal-dialog-mask").show();
+        showModalMask();
         $("#luckysheet-administerRule-dialog").show();
-        $("#luckysheet-formula-functionrange-select").hide();
-        $("#luckysheet-row-count-show").hide();
-        $("#luckysheet-column-count-show").hide();
+        formulaRangeSelect.hide();
+        countShow.row.hide();
+        countShow.column.hide();
         let range = [];
         selectionCopyShow(range);
       });

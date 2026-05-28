@@ -2,6 +2,7 @@ import Store from '../store';
 import { computeRowlenByContent,computeColWidthByContent } from './getRowlen';
 import luckysheetConfigsetting from '../controllers/luckysheetConfigsetting';
 import { isRowHidden, isColHidden } from '../utils/util';
+import { rowHeader, colHeader } from '../ui/rowColHeader.js';
 
 export default function rhchInit(rowheight, colwidth) {
     zoomSetting();//Zoom sheet on first load
@@ -100,7 +101,7 @@ export function zoomSetting(){
     //zoom
     Store.rowHeaderWidth = luckysheetConfigsetting.rowHeaderWidth * Store.zoomRatio;
     Store.columnHeaderHeight = luckysheetConfigsetting.columnHeaderHeight *Store.zoomRatio;
-    $("#luckysheet-rows-h").width((Store.rowHeaderWidth-1.5));
-    $("#luckysheet-cols-h-c").height((Store.columnHeaderHeight-1.5));
+    rowHeader.setWidth((Store.rowHeaderWidth-1.5));
+    colHeader.setHeight((Store.columnHeaderHeight-1.5));
     $("#luckysheet-left-top").css({width:Store.rowHeaderWidth-1.5, height:Store.columnHeaderHeight-1.5});
 }

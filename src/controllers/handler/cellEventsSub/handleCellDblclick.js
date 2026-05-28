@@ -3,8 +3,9 @@ import menuButton from '../../menuButton';
 import { luckysheetupdateCell } from '../../updateCell';
 import { mouseposition, rowLocation, colLocation } from '../../../global/location';
 import Store from '../../../store';
-import { isInputBoxActive } from '../../../utils/domUtils.js';
+import { isInputBoxActive, getScrollPosition } from '../../../utils/domUtils.js';
 import { selectHightlightShow } from '../../select';
+import formulaDialogs from '../../../ui/formulaDialogs.js';
 
 export function handleCellDblclick(event) {
               if ($(event.target).hasClass("luckysheet-mousedown-cancel")) {
@@ -28,8 +29,9 @@ export function handleCellDblclick(event) {
                   return;
               }
   
-              let scrollLeft = $("#luckysheet-cell-main").scrollLeft(),
-                  scrollTop = $("#luckysheet-cell-main").scrollTop();
+              let scroll = getScrollPosition();
+              let scrollLeft = scroll.scrollLeft,
+                  scrollTop = scroll.scrollTop;
               let x = mouse[0] + scrollLeft;
               let y = mouse[1] + scrollTop;
   
@@ -61,8 +63,8 @@ export function handleCellDblclick(event) {
   
   
               if (
-                  $("#luckysheet-search-formula-parm").is(":visible") ||
-                  $("#luckysheet-search-formula-parm-select").is(":visible")
+                  formulaDialogs.searchParm.isVisible() ||
+                  formulaDialogs.searchParmSelect.isVisible()
               ) {
                   //公式参数栏显示
                   $("#luckysheet-cell-selected").hide();
@@ -71,8 +73,8 @@ export function handleCellDblclick(event) {
                   $("#luckysheet-administerRule-dialog").is(":visible") ||
                   $("#luckysheet-newConditionRule-dialog").is(":visible") ||
                   $("#luckysheet-editorConditionRule-dialog").is(":visible") ||
-                  $("#luckysheet-singleRange-dialog").is(":visible") ||
-                  $("#luckysheet-multiRange-dialog").is(":visible")
+                  formulaDialogs.singleRange.isVisible() ||
+                  formulaDialogs.multiRange.isVisible()
               ) {
                   //条件格式
                   return;

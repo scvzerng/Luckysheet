@@ -1,4 +1,5 @@
 import { hasChinaword } from './validate';
+import { isNumericString } from '../utils/util';
 import dayjs from 'dayjs'
 
 function isdatetime(s) {
@@ -60,7 +61,7 @@ function isdatatypemulti(s) {
         type["date"] = true;
     }
 
-    if (!isNaN(parseFloat(s)) && !hasChinaword(s)) {
+    if (isNumericString(s)) {
         type["num"] = true;
     }
 
@@ -73,7 +74,7 @@ function isdatatype(s) {
     if (isdatetime(s)) {
         type = "date";
     }
-    else if (!isNaN(parseFloat(s)) && !hasChinaword(s)) {
+    else if (isNumericString(s)) {
         type = "num";
     }
 

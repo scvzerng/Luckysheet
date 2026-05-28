@@ -6,8 +6,13 @@ import { isRealNum, isRealNull } from '../global/validate';
 import { modelHTML } from './constant';
 import { luckysheet_count_show } from './select';
 import { replaceHtml, getObjType } from '../utils/util';
+import { showModalMask, hideModalMask } from '../utils/domUtils.js';
 import Store from '../store';
 import locale from '../locale/locale';
+import formulaDialogs from '../ui/formulaDialogs.js';
+import richTextEditor from '../ui/richTextEditor.js';
+import functionBox from '../ui/functionBox.js';
+import formulaRangeSelect from '../ui/formulaRangeSelect.js';
 
 //插入函数
 const insertFormula = {
@@ -56,8 +61,8 @@ const insertFormula = {
             let formula = $("#luckysheet-search-formula .listBox.on").attr("name");
             let formulaTxt = '<span dir="auto" class="luckysheet-formula-text-color">=</span><span dir="auto" class="luckysheet-formula-text-color">'+ formula.toUpperCase() +'</span><span dir="auto" class="luckysheet-formula-text-color">(</span><span dir="auto" class="luckysheet-formula-text-color">)</span>';
             
-            $("#luckysheet-rich-text-editor").html(formulaTxt);
-            $("#luckysheet-functionbox-cell").html($("#luckysheet-rich-text-editor").html());
+            richTextEditor.setHtml(formulaTxt);
+            functionBox.setHtml(richTextEditor.getHtml());
 
             _this.formulaParmDialog(formula);
         });
@@ -129,10 +134,10 @@ const insertFormula = {
             formula.data_parm_index = $(this).parents(".parmBox").index();
             
             //选取范围弹出框
-            $("#luckysheet-search-formula-parm").hide();
-            $("#luckysheet-modal-dialog-mask").hide();
+            formulaDialogs.searchParm.hide();
+            hideModalMask();
 
-            $("#luckysheet-search-formula-parm-select").remove();
+            formulaDialogs.searchParmSelect.remove();
             
             if($(this).parents(".parmBox").find(".txt input").val() == ""){
                 $("body").append(replaceHtml(modelHTML, { 
@@ -155,12 +160,13 @@ const insertFormula = {
                 }));
             }
 
-            let $t = $("#luckysheet-search-formula-parm-select").find(".luckysheet-modal-dialog-content").css("min-width", 300).end(), 
-                myh = $t.outerHeight(), 
+            formulaDialogs.searchParmSelect.setContentCss({"min-width": 300});
+            let $t = formulaDialogs.searchParmSelect.el,
+                myh = $t.outerHeight(),
                 myw = $t.outerWidth();
             let winw = $(window).width(), winh = $(window).height();
             let scrollLeft = $(document).scrollLeft(), scrollTop = $(document).scrollTop();
-            $("#luckysheet-search-formula-parm-select").css({ "left": (winw + scrollLeft - myw) / 2, "top": (winh + scrollTop - myh) / 3 }).show();
+            formulaDialogs.searchParmSelect.showAt({ "left": (winw + scrollLeft - myw) / 2, "top": (winh + scrollTop - myh) / 3 });
             
             //参数选区虚线框
             _this.parmTxtShow($(this).parents(".parmBox").find(".txt input").val());
@@ -175,8 +181,8 @@ const insertFormula = {
         $(document).off("click.fxParamSelectCf").on("click.fxParamSelectCf", "#luckysheet-search-formula-parm-select-confirm", function(){
             let parmIndex = $("#luckysheet-search-formula-parm-select-input").attr("data_parm_index");
 
-            $("#luckysheet-search-formula-parm-select").hide();
-            $("#luckysheet-search-formula-parm").show();
+            formulaDialogs.searchParmSelect.hide();
+            formulaDialogs.searchParm.show();
             $("#luckysheet-search-formula-parm .parmBox").eq(parmIndex).find(".txt input").focus();
         });
     },
@@ -187,7 +193,7 @@ const insertFormula = {
         let locale_formulaMore = _locale.formulaMore;
         let locale_button = _locale.button
 
-        $("#luckysheet-modal-dialog-mask").show();
+        showModalMask();
         $("#luckysheet-search-formula").remove();
 
         $("body").append(replaceHtml(modelHTML, { 
@@ -273,9 +279,9 @@ const insertFormula = {
         }
 
         $("#luckysheet-search-formula").hide();
-        $("#luckysheet-modal-dialog-mask").hide();
+        hideModalMask();
         
-        $("#luckysheet-search-formula-parm").remove();
+        formulaDialogs.searchParm.remove();
         $("body").append(replaceHtml(modelHTML, { 
             "id": "luckysheet-search-formula-parm", 
             "addclass": "luckysheet-search-formula-parm", 
@@ -284,12 +290,13 @@ const insertFormula = {
             "botton": '<button id="luckysheet-search-formula-parm-confirm" class="btn btn-primary">'+locale_button.confirm+'</button><button class="btn btn-default luckysheet-model-close-btn">'+locale_button.cancel+'</button>', 
             "style": "z-index:100003" 
         }));
-        let $t = $("#luckysheet-search-formula-parm").find(".luckysheet-modal-dialog-content").css("min-width", 300).end(), 
-            myh = $t.outerHeight(), 
+        formulaDialogs.searchParm.setContentCss({"min-width": 300});
+        let $t = formulaDialogs.searchParm.el,
+            myh = $t.outerHeight(),
             myw = $t.outerWidth();
         let winw = $(window).width(), winh = $(window).height();
         let scrollLeft = $(document).scrollLeft(), scrollTop = $(document).scrollTop();
-        $("#luckysheet-search-formula-parm").css({ "left": (winw + scrollLeft - myw) / 2, "top": (winh + scrollTop - myh) / 3 }).show();
+        formulaDialogs.searchParm.showAt({ "left": (winw + scrollLeft - myw) / 2, "top": (winh + scrollTop - myh) / 3 });
         
         //参数栏第一个参数聚焦，显示选取虚线框
         $("#luckysheet-search-formula-parm .parmBox:eq(0) input").focus();
@@ -350,13 +357,13 @@ const insertFormula = {
                 let col = Store.visibledatacolumn[c2], 
                     col_pre = c1 - 1 == -1 ? 0 : Store.visibledatacolumn[c1 - 1];
 
-                $("#luckysheet-formula-functionrange-select").css({ 
+                formulaRangeSelect.showAt({ 
                     "left": col_pre, 
                     "width": col - col_pre - 1, 
                     "top": row_pre, 
                     "height": row - row_pre - 1 
-                }).show();
-                $("#luckysheet-formula-help-c").hide();
+                });
+                formulaDialogs.formulaHelp.hide();
 
                 luckysheet_count_show(col_pre, row_pre, col - col_pre - 1, row - row_pre - 1, cellrange.row, cellrange.column);
 
@@ -383,10 +390,10 @@ const insertFormula = {
                     $("#luckysheet-search-formula-parm .parmBox").eq(formula.data_parm_index).find(".val").text(" = {"+ txtdata.v +"}");
                 }
             }
-            else{ //参数不是选区
+            else if(getObjType(txtdata) != "object"){ //参数不是选区
                 $("#luckysheet-search-formula-parm .parmBox").eq(formula.data_parm_index).find(".val").text(" = {"+ parmtxt +"}");
 
-                $("#luckysheet-formula-functionrange-select").hide();
+                formulaRangeSelect.hide();
             }
         }
         else{   
@@ -409,13 +416,13 @@ const insertFormula = {
             let col = Store.visibledatacolumn[c2], 
                 col_pre = c1 - 1 == -1 ? 0 : Store.visibledatacolumn[c1 - 1];
 
-            $("#luckysheet-formula-functionrange-select").css({ 
+            formulaRangeSelect.showAt({ 
                 "left": col_pre, 
                 "width": col - col_pre - 1, 
                 "top": row_pre, 
                 "height": row - row_pre - 1 
-            }).show();
-            $("#luckysheet-formula-help-c").hide();
+            });
+            formulaDialogs.formulaHelp.hide();
 
             luckysheet_count_show(col_pre, row_pre, col - col_pre - 1, row - row_pre - 1, cellrange.row, cellrange.column);
 
@@ -427,7 +434,7 @@ const insertFormula = {
         let parmValArr = []; //参数值集合
         let lvi = -1; //最后一个有值的参数索引
 
-        let formulatxt = $("#luckysheet-search-formula-parm").find(".luckysheet-modal-dialog-title-text").text();
+        let formulatxt = formulaDialogs.searchParm.el.find(".luckysheet-modal-dialog-title-text").text();
         let p = Store.luckysheet_function[formulatxt].p;
         
         $("#luckysheet-search-formula-parm .parmBox").each(function(i, e){
@@ -467,11 +474,11 @@ const insertFormula = {
         }
 
         let function_str = formula.functionHTMLGenerate(functionHtmlTxt);
-        $("#luckysheet-rich-text-editor").html(function_str);
-        $("#luckysheet-functionbox-cell").html($("#luckysheet-rich-text-editor").html());
+        richTextEditor.setHtml(function_str);
+        functionBox.setHtml(richTextEditor.getHtml());
         
-        if(isVal){ //公式计算
-            let fp = $.trim(formula.functionParserExe($("#luckysheet-rich-text-editor").text()));
+        if(isVal){
+            let fp = $.trim(formula.functionParserExe(richTextEditor.getText()));
             
             let result = null;
 

@@ -3,6 +3,7 @@ import Store from '../../../store';
 import { isEditMode } from '../../../global/validate';
 import { $$, showrightclickmenu } from '../../../utils/util';
 import locale from '../../../locale/locale';
+import rightClickMenu from '../../../ui/rightClickMenu.js';
 
 export function handleCellMouseup(event) {
               if (event.which == "3") {
@@ -315,7 +316,7 @@ export function handleCellMouseup(event) {
                       $$("#luckysheet-cols-rows-data .luckysheet-menuseparator").style.display = "none";
                   }
   
-                  showrightclickmenu($("#luckysheet-rightclick-menu"), x, y);
+                  rightClickMenu.showAt(x, y);
               }
   
               // 备注：在mousedown中发送光标信息会漏处理部分(选区)范围

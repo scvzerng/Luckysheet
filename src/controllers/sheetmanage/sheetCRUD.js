@@ -4,6 +4,8 @@ import {  replaceHtml } from "../../utils/util";
 import {  sheetHTML } from "../constant";
 import Store from "../../store";
 import method from "../../global/method";
+import sheetContainer from "../../ui/sheetContainer.js";
+import cellMain from '../../ui/cellMain.js';
 const sheetCRUDModule = {
   addNewSheet: function (e) {
     if (isEditMode() || Store.allowEdit === false) {
@@ -18,7 +20,7 @@ const sheetCRUDModule = {
     let order = Store.luckysheetfile.length;
     let index = _this.generateRandomSheetIndex();
     let sheetname = _this.generateRandomSheetName(Store.luckysheetfile);
-    $("#luckysheet-sheet-container-c").append(replaceHtml(sheetHTML, {
+    sheetContainer.append(replaceHtml(sheetHTML, {
       index: index,
       active: "",
       name: sheetname,
@@ -51,7 +53,7 @@ const sheetCRUDModule = {
     Store.luckysheetfile.push(sheetconfig);
     $("#luckysheet-sheet-area div.luckysheet-sheets-item").removeClass("luckysheet-sheets-item-active");
     $("#luckysheet-sheets-item" + index).addClass("luckysheet-sheets-item-active");
-    $("#luckysheet-cell-main").append('<div id="luckysheet-datavisual-selection-set-' + index + '" class="luckysheet-datavisual-selection-set"></div>');
+    cellMain.append('<div id="luckysheet-datavisual-selection-set-' + index + '" class="luckysheet-datavisual-selection-set"></div>');
     cleargridelement(e);
     if (Store.clearjfundo) {
       Store.jfundo.length = 0;
@@ -92,7 +94,7 @@ const sheetCRUDModule = {
       colorset = '<div class="luckysheet-sheets-item-color" style=" position: absolute; width: 100%; height: 3px; bottom: 0px; left: 0px; background-color: ' + copyjson.color + ';"></div>';
     }
     let copyobject = $("#luckysheet-sheets-item" + copyindex);
-    $("#luckysheet-sheet-container-c").append(replaceHtml(sheetHTML, {
+    sheetContainer.append(replaceHtml(sheetHTML, {
       index: copyjson.index,
       active: "",
       name: copyjson.name,
@@ -104,7 +106,7 @@ const sheetCRUDModule = {
     Store.luckysheetfile.splice(copyarrindex + 1, 0, copyjson);
     $("#luckysheet-sheet-area div.luckysheet-sheets-item").removeClass("luckysheet-sheets-item-active");
     $("#luckysheet-sheets-item" + index).addClass("luckysheet-sheets-item-active");
-    $("#luckysheet-cell-main").append('<div id="luckysheet-datavisual-selection-set-' + index + '" class="luckysheet-datavisual-selection-set"></div>');
+    cellMain.append('<div id="luckysheet-datavisual-selection-set-' + index + '" class="luckysheet-datavisual-selection-set"></div>');
     cleargridelement(e);
     _this.changeSheetExec(index, undefined, undefined, true);
     _this.reOrderAllSheet();
@@ -197,9 +199,9 @@ const sheetCRUDModule = {
       //     this.sheetMaxIndex = sheetIndex;
       // }
 
-      $("#luckysheet-cell-main").append("<div " + display + ' id="luckysheet-datavisual-selection-set-' + sheetIndex + '" class="luckysheet-datavisual-selection-set"></div>');
+      cellMain.append("<div " + display + ' id="luckysheet-datavisual-selection-set-' + sheetIndex + '" class="luckysheet-datavisual-selection-set"></div>');
     }
-    $("#luckysheet-sheet-container-c").append(btn.join(""));
+    sheetContainer.append(btn.join(""));
     _this.locationSheet();
   },
   createSheetbydata: function (data, isrenew, isBefore = true) {
@@ -208,7 +210,7 @@ const sheetCRUDModule = {
     if (data.color != null) {
       colorset = '<div class="luckysheet-sheets-item-color" style=" position: absolute; width: 100%; height: 3px; bottom: 0px; left: 0px; background-color: ' + data.color + ';"></div>';
     }
-    $("#luckysheet-sheet-container-c").append(replaceHtml(sheetHTML, {
+    sheetContainer.append(replaceHtml(sheetHTML, {
       index: data.index,
       active: "",
       name: data.name,
@@ -228,7 +230,7 @@ const sheetCRUDModule = {
     Store.luckysheetfile.push(data);
     $("#luckysheet-sheet-area div.luckysheet-sheets-item").removeClass("luckysheet-sheets-item-active");
     $("#luckysheet-sheets-item" + data.index).addClass("luckysheet-sheets-item-active");
-    $("#luckysheet-cell-main").append('<div id="luckysheet-datavisual-selection-set-' + data.index + '" class="luckysheet-datavisual-selection-set"></div>');
+    cellMain.append('<div id="luckysheet-datavisual-selection-set-' + data.index + '" class="luckysheet-datavisual-selection-set"></div>');
     cleargridelement();
     if (isrenew != null) {
       data.hide = 0;

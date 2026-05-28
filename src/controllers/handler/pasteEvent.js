@@ -19,13 +19,14 @@ import {
     luckysheetContainerFocus,
     $$,
 } from "../../utils/util";
-import {  getSheetIndex } from "../../methods/get";
+import {  getFileBySheetIndex } from "../../utils/storeAccess.js";
 import {  isEditMode } from "../../global/validate";
 import editor from "../../global/editor";
 import {  genarate } from "../../global/format";
 import method from "../../global/method";
 import locale from "../../locale/locale";
 import Store from "../../store";
+import richTextEditor from '../../ui/richTextEditor.js';
 
 export default function pasteEvent() {
     //粘贴事件处理
@@ -36,7 +37,7 @@ export default function pasteEvent() {
         }
 
         if (selection.isPasteAction) {
-            $("#luckysheet-rich-text-editor").blur();
+            richTextEditor.blur();
             selection.isPasteAction = false;
 
             let clipboardData = e.originalEvent && e.originalEvent.clipboardData;
@@ -85,7 +86,7 @@ export default function pasteEvent() {
                 if (copy_index == Store.currentSheetIndex) {
                     d = editor.deepCopyFlowData(Store.flowdata);
                 } else {
-                    d = Store.luckysheetfile[getSheetIndex(copy_index)].data;
+                    d = getFileBySheetIndex(copy_index).data;
                 }
 
                 for (let r = copy_r1; r <= copy_r2; r++) {

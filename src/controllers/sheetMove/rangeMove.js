@@ -6,6 +6,11 @@ import Store from "../../store";
 import { getLastSelection } from "../../utils/storeAccess.js";
 import { rowHasMerge, colHasMerge, getRowMerge, getColMerge } from "./mergeHelper";
 import { getNextIndex } from "./dataBoundary";
+import { getScrollPosition } from "../../utils/domUtils.js";
+import scrollBarX from "../../ui/scrollBarX.js";
+import scrollBarY from "../../ui/scrollBarY.js";
+import formulaRangeSelect from '../../ui/formulaRangeSelect.js';
+import cellMain from '../../ui/cellMain.js';
 //shift + 方向键  调整选区
 function luckysheetMoveHighlightRange(postion, index, type, isScroll) {
   if (isScroll == null) {
@@ -307,43 +312,44 @@ function luckysheetMoveHighlightRange(postion, index, type, isScroll) {
       "row_focus": rf,
       "column_focus": cf
     };
-    $("#luckysheet-formula-functionrange-select").css({
+    formulaRangeSelect.showAt({
       "left": left,
       "width": width,
       "top": top,
       "height": height
-    }).show();
+    });
     formula.rangeSetValue({
       "row": rowseleted,
       "column": columnseleted
     });
   }
-  let scrollLeft = $("#luckysheet-cell-main").scrollLeft();
-  let scrollTop = $("#luckysheet-cell-main").scrollTop();
-  let winH = $("#luckysheet-cell-main").height(),
-    winW = $("#luckysheet-cell-main").width();
+  let scroll = getScrollPosition();
+  let scrollLeft = scroll.scrollLeft;
+  let scrollTop = scroll.scrollTop;
+  let winH = cellMain.getHeight(),
+    winW = cellMain.getWidth();
   let sleft = 0,
     stop = 0;
   if (col - scrollLeft - winW + 20 > 0) {
     sleft = col - winW + 20;
     if (isScroll) {
-      $("#luckysheet-scrollbar-x").scrollLeft(sleft);
+      scrollBarX.setScrollLeft(sleft);
     }
   } else if (col_pre - scrollLeft - 20 < 0) {
     sleft = col_pre - 20;
     if (isScroll) {
-      $("#luckysheet-scrollbar-x").scrollLeft(sleft);
+      scrollBarX.setScrollLeft(sleft);
     }
   }
   if (row - scrollTop - winH + 20 > 0) {
     stop = row - winH + 20;
     if (isScroll) {
-      $("#luckysheet-scrollbar-y").scrollTop(stop);
+      scrollBarY.setScrollTop(stop);
     }
   } else if (row_pre - scrollTop - 20 < 0) {
     stop = row_pre - 20;
     if (isScroll) {
-      $("#luckysheet-scrollbar-y").scrollTop(stop);
+      scrollBarY.setScrollTop(stop);
     }
   }
   clearTimeout(Store.countfuncTimeout);
@@ -594,43 +600,44 @@ function luckysheetMoveHighlightRange2(postion, type, isScroll) {
       "row_focus": rf,
       "column_focus": cf
     };
-    $("#luckysheet-formula-functionrange-select").css({
+    formulaRangeSelect.showAt({
       "left": left,
       "width": width,
       "top": top,
       "height": height
-    }).show();
+    });
     formula.rangeSetValue({
       "row": rowseleted,
       "column": columnseleted
     });
   }
-  let scrollLeft = $("#luckysheet-cell-main").scrollLeft();
-  let scrollTop = $("#luckysheet-cell-main").scrollTop();
-  let winH = $("#luckysheet-cell-main").height(),
-    winW = $("#luckysheet-cell-main").width();
+  let scroll = getScrollPosition();
+  let scrollLeft = scroll.scrollLeft;
+  let scrollTop = scroll.scrollTop;
+  let winH = cellMain.getHeight(),
+    winW = cellMain.getWidth();
   let sleft = 0,
     stop = 0;
   if (col - scrollLeft - winW + 20 > 0) {
     sleft = col - winW + 20;
     if (isScroll) {
-      $("#luckysheet-scrollbar-x").scrollLeft(sleft);
+      scrollBarX.setScrollLeft(sleft);
     }
   } else if (col_pre - scrollLeft - 20 < 0) {
     sleft = col_pre - 20;
     if (isScroll) {
-      $("#luckysheet-scrollbar-x").scrollLeft(sleft);
+      scrollBarX.setScrollLeft(sleft);
     }
   }
   if (row - scrollTop - winH + 20 > 0) {
     stop = row - winH + 20;
     if (isScroll) {
-      $("#luckysheet-scrollbar-y").scrollTop(stop);
+      scrollBarY.setScrollTop(stop);
     }
   } else if (row_pre - scrollTop - 20 < 0) {
     stop = row_pre - 20;
     if (isScroll) {
-      $("#luckysheet-scrollbar-y").scrollTop(stop);
+      scrollBarY.setScrollTop(stop);
     }
   }
   clearTimeout(Store.countfuncTimeout);

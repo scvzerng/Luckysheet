@@ -3,6 +3,7 @@ import { countfunc } from "../../global/count";
 import { getObjType, replaceHtml } from "../../utils/util";
 import Store from "../../store";
 import locale from "../../locale/locale";
+import cellMain from '../../ui/cellMain.js';
 
 //选区下拉
 const uiModule = {
@@ -27,7 +28,7 @@ const uiModule = {
     let col = colLocationByIndex(col_index)[1],
       col_pre = colLocationByIndex(col_index)[0];
     $("#luckysheet-dropCell-icon").remove();
-    $("#luckysheet-cell-main").append(_this.iconHtml);
+    cellMain.append(_this.iconHtml);
     $("#luckysheet-dropCell-icon").css({
       "left": col,
       "top": row

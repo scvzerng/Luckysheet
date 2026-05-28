@@ -6,9 +6,10 @@ import {  orderbydata1D  } from '../../global/sort';
 import {  update } from '../../global/format';
 import filterState from './filterState';
 import { orderbydatafiler } from './orderbydatafiler';
+import cellMain from '../../ui/cellMain.js';
 
 export function filterOptionClick() {
-    $("#luckysheet-cell-main").on("click", ".luckysheet-filter-options", function (e) {
+    cellMain.onClick(".luckysheet-filter-options", function (e) {
         let $t = $(e.currentTarget), 
             toffset = $t.offset(), 
             $menu = $("#luckysheet-filter-menu"), 

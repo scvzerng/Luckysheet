@@ -3,13 +3,14 @@ import Store from "../../store";
 import { getLastSelection, getFocusCell } from '../../utils/storeAccess.js';
 import { isInputBoxActive } from '../../utils/domUtils.js';
 import formula from "../formula";
+import formulaDialogs from '../../ui/formulaDialogs.js';
 
 export function exitEditMode(options = {}){
     if(isInputBoxActive()){
 
 
-        if ($("#luckysheet-formula-search-c").is(":visible") && formula.searchFunctionCell != null) {
-            formula.searchFunctionEnter($("#luckysheet-formula-search-c").find(".luckysheet-formula-search-item-active"));
+        if (formulaDialogs.formulaSearchC.isVisible() && formula.searchFunctionCell != null) {
+            formula.searchFunctionEnter(formulaDialogs.formulaSearchC.el.find(".luckysheet-formula-search-item-active"));
         }
         else {
             formula.updatecell(Store.luckysheetCellUpdate[0], Store.luckysheetCellUpdate[1]);
@@ -21,13 +22,11 @@ export function exitEditMode(options = {}){
             }];
         }
 
-        //若有参数弹出框，隐藏
-        if($("#luckysheet-search-formula-parm").is(":visible")){
-            $("#luckysheet-search-formula-parm").hide();
+        if(formulaDialogs.searchParm.isVisible()){
+            formulaDialogs.searchParm.hide();
         }
-        //若有参数选取范围弹出框，隐藏
-        if($("#luckysheet-search-formula-parm-select").is(":visible")){
-            $("#luckysheet-search-formula-parm-select").hide();
+        if(formulaDialogs.searchParmSelect.isVisible()){
+            formulaDialogs.searchParmSelect.hide();
         }
 
     }

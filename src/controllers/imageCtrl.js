@@ -4,12 +4,15 @@ import { modelHTML } from './constant';
 import { getCurrentFile, getLastSelection, getFocusCell, getHeaderTotalHeight } from '../utils/storeAccess.js';
 import { setluckysheet_scroll_status } from '../methods/set';
 import { replaceHtml } from '../utils/util';
+import { showModalMask, hideModalMask, getScrollPosition } from '../utils/domUtils.js';
 import Store from '../store';
 import locale from '../locale/locale';
 import tooltip from '../global/tooltip';
 import method from '../global/method';
 import { createColorPicker, getPicker, STANDARD_PALETTE } from '../components/ColorPicker';
 import '../components/ColorPicker/colorPicker.css';
+import imageDialog from '../ui/imageDialog.js';
+import cellMain from '../ui/cellMain.js';
 
 const imageCtrl = {
     imgItem: {
@@ -237,7 +240,7 @@ const imageCtrl = {
         const locale_toolbar = _locale.toolbar;
         const locale_imageCtrl = _locale.imageCtrl;
 
-        $("#luckysheet-modal-dialog-mask").show();
+        showModalMask();
         $("#luckysheet-imageCtrl-colorSelect-dialog").remove();
 
         $("body").append(replaceHtml(modelHTML, { 
@@ -305,7 +308,7 @@ const imageCtrl = {
 
         //关闭
         $("#luckysheet-modal-dialog-slider-imageCtrl .luckysheet-model-close-btn").click(function () {
-            $("#luckysheet-modal-dialog-slider-imageCtrl").hide();
+            imageDialog.slider.hide();
             luckysheetsizeauto();
         });
 
@@ -343,7 +346,7 @@ const imageCtrl = {
         //边框选择颜色 确定 
         $(document).off("click.selectColorConfirm").on("click.selectColorConfirm", "#luckysheet-imageCtrl-colorSelect-dialog-confirm", function(){
             let $parent = $(this).parents("#luckysheet-imageCtrl-colorSelect-dialog");
-            $("#luckysheet-modal-dialog-mask").hide();
+            hideModalMask();
             $parent.hide();
 
             let currenColor = $parent.find(".currenColor span").attr("title");
@@ -374,7 +377,7 @@ const imageCtrl = {
             let top = imgItemParam.top;
             let position = imgItemParam.position;
         
-            $("#luckysheet-modal-dialog-activeImage").show().css({
+            imageDialog.active.showAt({
                 "width": width,
                 "height": height,
                 "left": left,
@@ -408,16 +411,16 @@ const imageCtrl = {
         //image move
         $("#luckysheet-modal-dialog-activeImage").off("mousedown.move").on("mousedown.move", ".luckysheet-modal-dialog-content", function(e) {
             
-            if(!$("#luckysheet-modal-dialog-slider-imageCtrl").is(":visible")){
+            if(!imageDialog.slider.isVisible()){
                 _this.sliderHtmlShow();
             }
             
             _this.move = true;
             
-            _this.currentWinW = $("#luckysheet-cell-main")[0].scrollWidth;
-            _this.currentWinH = $("#luckysheet-cell-main")[0].scrollHeight;
+            _this.currentWinW = cellMain.getScrollWidth();
+            _this.currentWinH = cellMain.getScrollHeight();
 
-            let offset = $("#luckysheet-modal-dialog-activeImage").offset();
+            let offset = imageDialog.active.getOffset();
 
             _this.moveXY = [
                 e.pageX - offset.left, 
@@ -432,30 +435,29 @@ const imageCtrl = {
         //image resize
         $("#luckysheet-modal-dialog-activeImage").off("mousedown.resize").on("mousedown.resize", ".luckysheet-modal-dialog-resize-item", function(e) {
             
-            _this.currentWinW = $("#luckysheet-cell-main")[0].scrollWidth;
-            _this.currentWinH = $("#luckysheet-cell-main")[0].scrollHeight;
+            _this.currentWinW = cellMain.getScrollWidth();
+            _this.currentWinH = cellMain.getScrollHeight();
 
             _this.resize = $(this).data("type");
 
-            let scrollTop = $("#luckysheet-cell-main").scrollTop(), 
-                scrollLeft = $("#luckysheet-cell-main").scrollLeft();
+            let scroll = getScrollPosition();
             let mouse = mouseposition(e.pageX, e.pageY);
-            let x = mouse[0] + scrollLeft;
-            let y = mouse[1] + scrollTop;
+            let x = mouse[0] + scroll.scrollLeft;
+            let y = mouse[1] + scroll.scrollTop;
 
-            let position = $("#luckysheet-modal-dialog-activeImage").position();
-            let width = $("#luckysheet-modal-dialog-activeImage").width();
-            let height = $("#luckysheet-modal-dialog-activeImage").height();
+            let position = imageDialog.active.getPosition();
+            let width = imageDialog.active.getWidth();
+            let height = imageDialog.active.getHeight();
 
             _this.resizeXY = [
                 x, 
                 y, 
                 width, 
                 height, 
-                position.left + scrollLeft, 
-                position.top + scrollTop, 
-                scrollLeft, 
-                scrollTop
+                position.left + scroll.scrollLeft, 
+                position.top + scroll.scrollTop, 
+                scroll.scrollLeft, 
+                scroll.scrollTop
             ];
 
             setluckysheet_scroll_status(true);
@@ -479,11 +481,10 @@ const imageCtrl = {
         $("#luckysheet-modal-dialog-cropping").off("mousedown.cropChange").on("mousedown.cropChange", ".resize-item", function(e) {
             _this.cropChange = $(this).data("type");
 
-            let scrollTop = $("#luckysheet-cell-main").scrollTop(), 
-                scrollLeft = $("#luckysheet-cell-main").scrollLeft();
+            let scroll = getScrollPosition();
             let mouse = mouseposition(e.pageX, e.pageY);
-            let x = mouse[0] + scrollLeft;
-            let y = mouse[1] + scrollTop;
+            let x = mouse[0] + scroll.scrollLeft;
+            let y = mouse[1] + scroll.scrollTop;
 
             _this.cropChangeXY = [
                 x, 
@@ -526,7 +527,7 @@ const imageCtrl = {
                 let top = imgItemParam.top;
                 let position = imgItemParam.position;
             
-                $("#luckysheet-modal-dialog-activeImage").show().css({
+                imageDialog.active.showAt({
                     "width": width,
                     "height": height,
                     "left": left,
@@ -601,9 +602,9 @@ const imageCtrl = {
     cancelActiveImgItem: function(){
         let _this = this;
 
-        $("#luckysheet-modal-dialog-activeImage").hide();
-        $("#luckysheet-modal-dialog-cropping").hide();
-        $("#luckysheet-modal-dialog-slider-imageCtrl").hide();
+        imageDialog.active.hide();
+        imageDialog.cropping.hide();
+        imageDialog.slider.hide();
 
         let imgItem = _this.images[_this.currentImgId];
         let imgItemParam = _this.getImgItemParam(imgItem);
@@ -670,11 +671,10 @@ const imageCtrl = {
         imgItem.crop.width = width;
         imgItem.crop.height = height;
 
-        let scrollTop = $("#luckysheet-cell-main").scrollTop(), 
-            scrollLeft = $("#luckysheet-cell-main").scrollLeft();
+        let scroll = getScrollPosition();
 
-        imgItem.fixedLeft = img.left - scrollLeft + Store.rowHeaderWidth;
-        imgItem.fixedTop = img.top - scrollTop + getHeaderTotalHeight();
+        imgItem.fixedLeft = img.left - scroll.scrollLeft + Store.rowHeaderWidth;
+        imgItem.fixedTop = img.top - scroll.scrollTop + getHeaderTotalHeight();
 
         let id = _this.generateRandomId();
         let modelHtml = _this.modelHtml(id, imgItem);
@@ -744,8 +744,8 @@ const imageCtrl = {
         let _this = this;
         _this.cropping = true;
 
-        $("#luckysheet-modal-dialog-activeImage").hide();
-        $("#luckysheet-modal-dialog-slider-imageCtrl").hide();
+        imageDialog.active.hide();
+        imageDialog.slider.hide();
 
         let item = _this.images[_this.currentImgId];
         let imgItemParam = _this.getImgItemParam(item);
@@ -756,7 +756,7 @@ const imageCtrl = {
         let top = imgItemParam.top;
         let position = imgItemParam.position;
     
-        $("#luckysheet-modal-dialog-cropping").show().css({
+        imageDialog.cropping.showAt({
             "width": width,
             "height": height,
             "left": left,
@@ -796,7 +796,7 @@ const imageCtrl = {
         let _this = this;
         _this.cropping = false;
 
-        $("#luckysheet-modal-dialog-cropping").hide();
+        imageDialog.cropping.hide();
 
         let item = _this.images[_this.currentImgId];
         let imgItemParam = _this.getImgItemParam(item);
@@ -807,7 +807,7 @@ const imageCtrl = {
         let top = imgItemParam.top;
         let position = imgItemParam.position;
 
-        $("#luckysheet-modal-dialog-activeImage").show().css({
+        imageDialog.active.showAt({
             "width": width,
             "height": height,
             "left": left,
@@ -856,7 +856,7 @@ const imageCtrl = {
         let top = imgItemParam.top;
         let position = imgItemParam.position;
         
-        $("#luckysheet-modal-dialog-activeImage").show().css({
+        imageDialog.active.showAt({
             "width": width,
             "height": height,
             "left": left,
@@ -884,9 +884,9 @@ const imageCtrl = {
             return;
         }
         
-        $("#luckysheet-modal-dialog-activeImage").hide();
-        $("#luckysheet-modal-dialog-cropping").hide();
-        $("#luckysheet-modal-dialog-slider-imageCtrl").hide();
+        imageDialog.active.hide();
+        imageDialog.cropping.hide();
+        imageDialog.slider.hide();
         $("#" + _this.currentImgId).remove();
 
 
@@ -940,11 +940,10 @@ const imageCtrl = {
         img.default.left = left - img.crop.offsetLeft;
         img.default.top = top - img.crop.offsetTop;
 
-        let scrollTop = $("#luckysheet-cell-main").scrollTop(), 
-            scrollLeft = $("#luckysheet-cell-main").scrollLeft();
+        let scroll = getScrollPosition();
 
-        img.fixedLeft = img.default.left - scrollLeft + Store.rowHeaderWidth;
-        img.fixedTop = img.default.top - scrollTop + getHeaderTotalHeight();
+        img.fixedLeft = img.default.left - scroll.scrollLeft + Store.rowHeaderWidth;
+        img.fixedTop = img.default.top - scroll.scrollTop + getHeaderTotalHeight();
 
         let id = _this.generateRandomId();
         let modelHtml = _this.modelHtml(id, img);
@@ -959,9 +958,9 @@ const imageCtrl = {
     allImagesShow: function() {
         let _this = this;
         
-        $("#luckysheet-modal-dialog-activeImage").hide();
-        $("#luckysheet-modal-dialog-cropping").hide();
-        $("#luckysheet-modal-dialog-slider-imageCtrl").hide();
+        imageDialog.active.hide();
+        imageDialog.cropping.hide();
+        imageDialog.slider.hide();
         $("#luckysheet-image-showBoxs .img-list").empty();
 
         if(_this.images == null){

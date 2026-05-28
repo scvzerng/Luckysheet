@@ -9,6 +9,14 @@ export function getCurrentFile() {
     return Store.luckysheetfile[order];
 }
 
+export function getFileBySheetIndex(sheetIndex) {
+    let order = getSheetIndex(sheetIndex);
+    if (order == null) {
+        return null;
+    }
+    return Store.luckysheetfile[order];
+}
+
 export function getCurrentSheetOrder() {
     return getSheetIndex(Store.currentSheetIndex);
 }
@@ -18,6 +26,13 @@ export function getLastSelection() {
         return null;
     }
     return Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1];
+}
+
+export function setLastSelection(value) {
+    if (Store.luckysheet_select_save == null || Store.luckysheet_select_save.length === 0) {
+        return;
+    }
+    Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1] = value;
 }
 
 export function getFocusCell() {

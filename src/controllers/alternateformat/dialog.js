@@ -3,6 +3,7 @@ import locale from '../../locale/locale';
 import { getRangetxt } from '../../methods/get';
 import { getCurrentFile } from '../../utils/storeAccess.js';
 import { replaceHtml } from '../../utils/util';
+import { showModalMask, hideModalMask } from '../../utils/domUtils.js';
 import { luckysheetAlternateformatHtml, modelHTML } from '../constant';
 import { luckysheetsizeauto } from '../resize';
 import { selectHightlightShow } from '../select';
@@ -266,7 +267,7 @@ function init() {
             let $parent = $(this).parents("#luckysheet-alternateformat-colorSelect-dialog");
             const _locale = locale()
             const alternatingColors =_locale.alternatingColors;
-            $("#luckysheet-modal-dialog-mask").hide();
+            hideModalMask();
             $parent.hide();
 
             //获取currenColor colorType source
@@ -435,7 +436,7 @@ function init() {
             _this.ref(historyRules, currentRules);
 
             //隐藏一些dom
-            $("#luckysheet-modal-dialog-mask").hide();
+            hideModalMask();
             $("#luckysheet-modal-dialog-slider-alternateformat").hide();
 
             luckysheetsizeauto();
@@ -565,7 +566,7 @@ function addCustomModel(format) {
 }
 
 function colorSelectDialog(currenColor, colorType, source) {
-        $("#luckysheet-modal-dialog-mask").show();
+        showModalMask();
         $("#luckysheet-alternateformat-colorSelect-dialog").remove();
 
         const _locale = locale()
@@ -649,7 +650,7 @@ function colorSelectDialog(currenColor, colorType, source) {
 }
 
 function rangeDialog(value) {
-        $("#luckysheet-modal-dialog-mask").hide();
+        hideModalMask();
         $("#luckysheet-alternateformat-rangeDialog").remove();
 
         const _locale = locale()

@@ -1,4 +1,5 @@
 import { getObjType } from './typeUtils.js';
+import { showModalMask } from '../domUtils.js';
 
 const createProxy = (data, k, callback) => {
     if (!data.hasOwnProperty(k)) {
@@ -32,7 +33,7 @@ function openSelfModel(id, isshowMask = true) {
     }).show();
 
     if (isshowMask) {
-        $("#luckysheet-modal-dialog-mask").show();
+        showModalMask();
     }
 }
 

@@ -7,6 +7,7 @@ import formula from "../formula";
 import { luckysheetrefreshgrid } from "../refresh";
 import tooltip from "../tooltip";
 import { isEditMode } from "../validate";
+import { getScrollPosition } from '../../utils/domUtils.js';
 
 export function frozenFirstRow(order) {
     // store frozen
@@ -26,7 +27,7 @@ export function frozenFirstRow(order) {
                 top
             ];
         } else {
-            let scrollTop = $("#luckysheet-cell-main").scrollTop();
+            let scrollTop = getScrollPosition().scrollTop;
             row_st = luckysheet_searcharray(Store.visibledatarow, scrollTop);
             if(row_st == -1){
                 row_st = 0;
@@ -74,7 +75,7 @@ export function frozenFirstColumn(order) {
                 left
             ];
         } else {
-            let scrollLeft = $("#luckysheet-cell-main").scrollLeft();
+            let scrollLeft = getScrollPosition().scrollLeft;
 
             col_st = luckysheet_searcharray(Store.visibledatacolumn, scrollLeft);
             if(col_st == -1){
@@ -128,7 +129,7 @@ export function frozenRowRange(range, order) {
     luckysheetFreezen.saveFrozen("freezenRowRange", order, range);
 
     if (!order || order == getSheetIndex(Store.currentSheetIndex)) {
-        let scrollTop = $("#luckysheet-cell-main").scrollTop();
+        let scrollTop = getScrollPosition().scrollTop;
         let row_st = luckysheet_searcharray(Store.visibledatarow, scrollTop);
 
         let row_focus = range.row_focus;
@@ -186,7 +187,7 @@ export function frozenColumnRange(range, order) {
     luckysheetFreezen.saveFrozen("freezenColumnRange", order, range);
 
     if (!order || order == getSheetIndex(Store.currentSheetIndex)) {
-        let scrollLeft = $("#luckysheet-cell-main").scrollLeft();
+        let scrollLeft = getScrollPosition().scrollLeft;
         let col_st = luckysheet_searcharray(Store.visibledatacolumn, scrollLeft);
 
         let column_focus = range.column_focus;
@@ -299,7 +300,8 @@ export function setBothFrozen(isRange, options = {}) {
         luckysheetFreezen.saveFrozen("freezenRC", order)
 
         if (isCurrentSheet) {
-            let scrollTop = $("#luckysheet-cell-main").scrollTop();
+            let scroll = getScrollPosition();
+            let scrollTop = scroll.scrollTop;
             let row_st = luckysheet_searcharray(Store.visibledatarow, scrollTop);
             if(row_st == -1){
                 row_st = 0;
@@ -316,7 +318,7 @@ export function setBothFrozen(isRange, options = {}) {
 
             luckysheetFreezen.createFreezenHorizontal(freezenhorizontaldata, top);
 
-            let scrollLeft = $("#luckysheet-cell-main").scrollLeft();
+            let scrollLeft = scroll.scrollLeft;
             let col_st = luckysheet_searcharray(Store.visibledatacolumn, scrollLeft);
             if(col_st == -1){
                 col_st = 0;
@@ -359,7 +361,8 @@ export function setBothFrozen(isRange, options = {}) {
                 }
             }
 
-            let scrollTop = $("#luckysheet-cell-main").scrollTop();
+            let scroll = getScrollPosition();
+            let scrollTop = scroll.scrollTop;
             let row_st = luckysheet_searcharray(Store.visibledatarow, scrollTop);
 
             let row_focus = range.row_focus;
@@ -384,7 +387,7 @@ export function setBothFrozen(isRange, options = {}) {
 
             luckysheetFreezen.createFreezenHorizontal(freezenhorizontaldata, top);
 
-            let scrollLeft = $("#luckysheet-cell-main").scrollLeft();
+            let scrollLeft = scroll.scrollLeft;
             let col_st = luckysheet_searcharray(Store.visibledatacolumn, scrollLeft);
 
             let column_focus = range.column_focus;
