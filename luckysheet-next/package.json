@@ -1,0 +1,28 @@
+{
+  "name": "luckysheet-next",
+  "version": "0.1.0",
+  "description": "Luckysheet DDD refactoring - TypeScript, no jQuery",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --config vite.config.next.ts",
+    "build": "tsc --noEmit --project tsconfig.next.json && vite build --config vite.config.next.ts",
+    "typecheck": "tsc --noEmit --project tsconfig.next.json",
+    "test": "vitest run --config vitest.config.next.ts",
+    "test:watch": "vitest --config vitest.config.next.ts",
+    "test:coverage": "vitest run --config vitest.config.next.ts --coverage",
+    "lint": "eslint src --ext .ts --fix",
+    "lint:check": "eslint src --ext .ts"
+  },
+  "dependencies": {
+    "dayjs": "^1.11.10",
+    "flatpickr": "^4.6.13",
+    "@simonwep/pickr": "^1.9.1",
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0",
+    "vite": "^5.2.0",
+    "vitest": "^4.1.7",
+    "jsdom": "^29.1.0"
+  }
+}
