@@ -1,5 +1,6 @@
 import {  getSheetIndex } from "../../methods/get";
 import Store from "../../store";
+import { parseRgbString } from "../../utils/utilSub/colorUtils.js";
 
 import { computeDataBar } from './computeSub/computeDataBar.js';
 import { computeColorGradation } from './computeSub/computeColorGradation.js';
@@ -53,17 +54,12 @@ const computeModule = {
     }
   },
   getcolorGradation: function (color1, color2, value1, value2, value) {
-    let rgb1 = color1.split(',');
-    let r1 = parseInt(rgb1[0].split('(')[1]);
-    let g1 = parseInt(rgb1[1]);
-    let b1 = parseInt(rgb1[2].split(')')[0]);
-    let rgb2 = color2.split(',');
-    let r2 = parseInt(rgb2[0].split('(')[1]);
-    let g2 = parseInt(rgb2[1]);
-    let b2 = parseInt(rgb2[2].split(')')[0]);
-    let r = Math.round(r1 - (r1 - r2) / (value1 - value2) * (value1 - value));
-    let g = Math.round(g1 - (g1 - g2) / (value1 - value2) * (value1 - value));
-    let b = Math.round(b1 - (b1 - b2) / (value1 - value2) * (value1 - value));
+    let c1 = parseRgbString(color1);
+    let c2 = parseRgbString(color2);
+    if (!c1 || !c2) return color1;
+    let r = Math.round(c1.r - (c1.r - c2.r) / (value1 - value2) * (value1 - value));
+    let g = Math.round(c1.g - (c1.g - c2.g) / (value1 - value2) * (value1 - value));
+    let b = Math.round(c1.b - (c1.b - c2.b) / (value1 - value2) * (value1 - value));
     return "rgb(" + r + ", " + g + ", " + b + ")";
   }
 };

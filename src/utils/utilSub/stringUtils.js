@@ -20,6 +20,10 @@ function replaceHtml(temp, dataarry) {
     });
 }
 
+function getCharByteLength(char) {
+    return Math.ceil(char.charCodeAt(0).toString(2).length / 8);
+}
+
 function getByteLen(val, subLen) {
     if (subLen === 0) {
         return "";
@@ -31,13 +35,7 @@ function getByteLen(val, subLen) {
 
     let len = 0;
     for (let i = 0; i < val.length; i++) {
-        let a = val.charAt(i);
-
-        if (a.match(/[^\x00-\xff]/gi) != null) {
-            len += 2;
-        } else {
-            len += 1;
-        }
+        len += getCharByteLength(val.charAt(i));
 
         if (isRealNum(subLen) && len === ~~subLen) {
             return val.substring(0, i);
@@ -53,4 +51,4 @@ function camel2split(camel) {
     });
 }
 
-export { isJsonString, replaceHtml, getByteLen, camel2split };
+export { isJsonString, replaceHtml, getByteLen, getCharByteLength, camel2split };

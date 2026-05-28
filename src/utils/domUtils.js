@@ -38,7 +38,11 @@ export function getMousePositionWithScroll(mouse) {
 }
 
 export function isInputBoxActive() {
-    return parseInt(inputBox.getCss("top")) > 0;
+    return inputBox.getTop() > 0;
+}
+
+export function getInputBoxTop() {
+    return inputBox.getTop();
 }
 
 export function resetInputBoxStyle() {

@@ -9,6 +9,7 @@ class InputBox {
     }
 
     getCss(prop) { return this.el.css(prop); }
+    getTop() { return parseInt(this.el.css("top")); }
     setCss(props) { this.el.css(props); return this; }
 
     setStyleCssText(value) { this.el.get(0).style.cssText = value; return this; }
