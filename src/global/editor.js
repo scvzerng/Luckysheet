@@ -38,16 +38,7 @@ const editor = {
             let funcTxt = 'data:text/javascript;chartset=US-ASCII,onmessage = function (e) { postMessage(e.data); };';
             _this.deepCopyFlowDataState = false;
 
-            //适配IE
-            let worker;
-            if(browser.isIE() == 1){
-                let response = "self.onmessage=function(e){postMessage(e.data);}";
-                worker = new Worker('./plugins/Worker-helper.js');
-                worker.postMessage(response);
-            }
-            else{
-                worker = new Worker(funcTxt);
-            }
+            let worker = new Worker(funcTxt);
 
             _this.deepCopyFlowDataWorker = worker;
             worker.postMessage(flowData);

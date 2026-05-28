@@ -7,13 +7,7 @@ import {  replaceHtml,  getObjType } from "../../utils/util";
 import Store from "../../store";
 const clipboardCopyModule = {
   clearcopy: function (e) {
-    let clipboardData = window.clipboardData; //for IE
-    if (!clipboardData) {
-      // for chrome
-      if (!!e) {
-        clipboardData = e.originalEvent.clipboardData;
-      }
-    }
+    let clipboardData = e && e.originalEvent && e.originalEvent.clipboardData;
     let cpdata = " ";
     Store.luckysheet_selection_range = [];
     selectionCopyShow();
@@ -76,11 +70,7 @@ const clipboardCopyModule = {
   },
   copy: function (e) {
     //copy事件
-    let clipboardData = window.clipboardData; //for IE
-    if (!clipboardData) {
-      // for chrome
-      clipboardData = e.originalEvent.clipboardData;
-    }
+    let clipboardData = e.originalEvent && e.originalEvent.clipboardData;
     Store.luckysheet_selection_range = [];
     //copy范围
     let rowIndexArr = [],
@@ -487,11 +477,7 @@ const clipboardCopyModule = {
   },
   copybyformat: function (e, txt) {
     //copy事件
-    let clipboardData = window.clipboardData; //for IE
-    if (!clipboardData) {
-      // for chrome
-      clipboardData = e.originalEvent && e.originalEvent.clipboardData;
-    }
+    let clipboardData = e.originalEvent && e.originalEvent.clipboardData;
     Store.luckysheet_selection_range = [{
       row: Store.luckysheet_select_save[0].row,
       column: Store.luckysheet_select_save[0].column

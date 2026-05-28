@@ -39,11 +39,7 @@ export default function pasteEvent() {
             $("#luckysheet-rich-text-editor").blur();
             selection.isPasteAction = false;
 
-            let clipboardData = window.clipboardData; //for IE
-            if (!clipboardData) {
-                // for chrome
-                clipboardData = e.originalEvent.clipboardData;
-            }
+            let clipboardData = e.originalEvent && e.originalEvent.clipboardData;
 
             let txtdata = clipboardData.getData("text/html") || clipboardData.getData("text/plain");
 
@@ -435,11 +431,7 @@ export default function pasteEvent() {
             // 阻止默认粘贴
             e.preventDefault();
 
-            let clipboardData = window.clipboardData; //for IE
-            if (!clipboardData) {
-                // for chrome
-                clipboardData = e.originalEvent.clipboardData;
-            }
+            let clipboardData = e.originalEvent && e.originalEvent.clipboardData;
             let text = clipboardData.getData("text/plain");
             // 插入
             document.execCommand("insertText", false, text);

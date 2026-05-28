@@ -51,7 +51,6 @@
 fieldset[disabled] .btn {
     cursor: not-allowed;
     opacity: 0.65;
-    filter: alpha(opacity=65);
     -webkit-box-shadow: none;
     box-shadow: none;
 }
@@ -339,13 +338,7 @@ fieldset[disabled] .btn-danger.focus {
 }
 
 .luckysheet-row-count-show div {
-    /*-webkit-writing-mode: vertical-rl;*/
     writing-mode: vertical-rl;
-    /*-ms-writing-mode: tb-rl;*/
-    writing-mode: vertical-rl;
-    -ms-writing-mode: initial;
-    *writing-mode: tb-rl;
-    /* IE 写法 */
 }
 
 .luckysheet-row-count-show div:last-child {

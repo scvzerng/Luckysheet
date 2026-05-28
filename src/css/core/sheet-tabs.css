@@ -95,17 +95,14 @@ div.luckysheet-sheets-m:hover {
 
 .docs-sheet-fade1 {
     opacity: 0.82;
-    filter: alpha(opacity=82);
 }
 
 .docs-sheet-fade2 {
     opacity: 0.62;
-    filter: alpha(opacity=62);
 }
 
 .docs-sheet-fade3 {
     opacity: 0.4;
-    filter: alpha(opacity=40);
 }
 
 .luckysheet-sheet-area div.luckysheet-sheet-container {

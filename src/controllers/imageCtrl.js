@@ -1,4 +1,4 @@
-﻿import { mouseposition } from '../global/location';
+import { mouseposition } from '../global/location';
 import luckysheetsizeauto from './resize';
 import { modelHTML } from './constant';
 import { getSheetIndex } from '../methods/get';
@@ -909,10 +909,7 @@ const imageCtrl = {
 
         _this.copyImgItemObj = $.extend(true, {}, _this.images[_this.currentImgId]);
 
-        let clipboardData = window.clipboardData; //for IE
-        if (!clipboardData) { // for chrome
-            clipboardData = e.originalEvent.clipboardData;
-        }
+        let clipboardData = e.originalEvent && e.originalEvent.clipboardData;
 
         let cpdata = '<table data-type="luckysheet_copy_action_image"><tr><td><td></tr></table>';
 

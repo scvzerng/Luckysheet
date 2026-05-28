@@ -202,7 +202,6 @@
     position: absolute;
     text-align: right;
     opacity: 0.5;
-    filter: alpha(opacity=50);
     color: #000;
     user-select: none;
     font-family: Arial;

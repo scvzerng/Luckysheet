@@ -20,10 +20,6 @@
     }
 
     function __window_event_constructor(){
-        if(document.all){
-            return window.event;
-        }
-
         var _caller = __window_event_constructor.caller;
         
         while(_caller != null){

@@ -91,23 +91,9 @@ const tooltip = {
         let scrollLeft = $(document).scrollLeft(), scrollTop = $(document).scrollTop();
         $("#luckysheet-confirm").css({ "left": (winw + scrollLeft - myw) / 2, "top": (winh + scrollTop - myh) / 3 }).show();
         $t.find(".luckysheet-model-conform-btn").click(function () {
-            if(browser.isIE() == "1"){
-                alert(locale_screenshot.browserNotTip);
-            }
-            else{
-                if (!!window.ActiveXObject || "ActiveXObject" in window){
-                    if ($("#IframeReportImg").length === 0){
-                        $('<iframe style="display:none;" id="IframeReportImg" name="IframeReportImg" onload="downloadImg();" width="0" height="0" src="about:blank"></iframe>').appendTo("body");
-                    }
-                    if ($('#IframeReportImg').attr("src") != imgurl) {
-                        $('#IframeReportImg').attr("src",imgurl);
-                    } else {
-                        if ($('#IframeReportImg').src != "about:blank") {
-                            window.frames["IframeReportImg"].document.execCommand("SaveAs");
-                        }
-                    }
-                }  
-            }
+            let $a = $("<a></a>").attr("href", imgurl).attr("download", "luckysheet.png").appendTo("body");
+            $a[0].click();
+            $a.remove();
         });
         $t.find(".luckysheet-model-cancel-btn").click(function () {
             $("#luckysheet-confirm").hide();
@@ -117,13 +103,8 @@ const tooltip = {
         $('#luckysheet-confirm .luckysheet-model-copy-btn').click(function(){
             let dt = new clipboard.DT();
             dt.setData("text/html", "<img src='"+ imgurl +"'>");
-            if(browser.isIE() == "1"){
-                alert(locale_screenshot.rightclickTip);
-            }
-            else{
-                clipboard.write(dt);
-                alert(locale_screenshot.successTip);  
-            }
+            clipboard.write(dt);
+            alert(locale_screenshot.successTip);
         });
     },
     sheetConfig: function () {
