@@ -208,7 +208,7 @@ export function initBorder(_this) {
             sub: "luckysheet-menuButton-sub",
             resetColor: locale_toolbar.resetColor
           });
-          $("body").append(menu + colormenu + submenu);
+          document.body.insertAdjacentHTML('beforeend', menu + colormenu + submenu);
           $menuButton = $("#" + menuButtonId).width(170);
           _this.focus($menuButton, "border-all");
           $("#" + submenuid + " canvas").each(function (i) {

@@ -45,7 +45,7 @@ export function initMoreFormat(_this) {
           });
   
           //luckysheet-icon-fmt-other-menuButton_sub
-          $("body").append(menu + submenu);
+          document.body.insertAdjacentHTML('beforeend', menu + submenu);
           $menuButton = $("#" + menuButtonId).width(250);
           _this.focus($menuButton);
           $menuButton.find(".luckysheet-cols-menuitem").click(function () {

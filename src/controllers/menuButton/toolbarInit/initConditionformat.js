@@ -225,7 +225,7 @@ export function initConditionformat(_this) {
             item: subitemset6,
             subclass: "luckysheet-menuButton-sub"
           });
-          $("body").append(menu + submenu + submenu2 + submenu3 + submenu4 + submenu6);
+          document.body.insertAdjacentHTML('beforeend', menu + submenu + submenu2 + submenu3 + submenu4 + submenu6);
           $menuButton = $("#" + menuButtonId).width(190);
           $("#luckysheet-icon-highlightCellRule-menuButton").width(160);
           $("#luckysheet-icon-projectSelectRule-menuButton").width(180);

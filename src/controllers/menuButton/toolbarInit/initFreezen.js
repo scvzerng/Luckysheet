@@ -64,7 +64,7 @@ export function initFreezen(_this) {
             subclass: "",
             sub: ""
           });
-          $("body").append(menu);
+          document.body.insertAdjacentHTML('beforeend', menu);
           $menuButton = $("#" + menuButtonId).width(170);
           $menuButton.find(".luckysheet-cols-menuitem").click(function () {
             $menuButton.hide();

@@ -73,7 +73,7 @@ export function initSearchReplace(_this) {
             subclass: "",
             sub: ""
           });
-          $("body").append(menu);
+          document.body.insertAdjacentHTML('beforeend', menu);
           $menuButton = $("#" + menuButtonId).width(180);
           $menuButton.find(".luckysheet-cols-menuitem").click(function () {
             $menuButton.hide();

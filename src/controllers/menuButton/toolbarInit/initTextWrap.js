@@ -36,7 +36,7 @@ export function initTextWrap(_this) {
             subclass: "",
             sub: ""
           });
-          $("body").append(menu);
+          document.body.insertAdjacentHTML('beforeend', menu);
           $menuButton = $("#" + menuButtonId).width(120);
           _this.focus($menuButton, "clip");
           $menuButton.find(".luckysheet-cols-menuitem").click(function () {

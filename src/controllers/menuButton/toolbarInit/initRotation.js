@@ -48,7 +48,7 @@ export function initRotation(_this) {
             subclass: "",
             sub: ""
           });
-          $("body").append(menu);
+          document.body.insertAdjacentHTML('beforeend', menu);
   
           // 文字旋转�?Stack Vertically 太长了，拉宽�?60
           $menuButton = $("#" + menuButtonId).width(160);

@@ -370,7 +370,7 @@ const ifFormulaGenerator = {
                       '</div>'+
                       '<div class="ifList">'+ifListHtml+'</div>';
 
-        $("body").append(replaceHtml(modelHTML, {
+        document.body.insertAdjacentHTML('beforeend', replaceHtml(modelHTML, {
             "id": "luckysheet-ifFormulaGenerator-dialog",
             "addclass": "luckysheet-ifFormulaGenerator-dialog",
             "title": locale_formula.ifGenerate,
@@ -435,7 +435,7 @@ const ifFormulaGenerator = {
             value = "";
         }
 
-        $("body").append(replaceHtml(modelHTML, {
+        document.body.insertAdjacentHTML('beforeend', replaceHtml(modelHTML, {
             "id": "luckysheet-ifFormulaGenerator-singleRange-dialog",
             "addclass": "luckysheet-ifFormulaGenerator-singleRange-dialog",
             "title": locale_formula.ifGenTipSelectCell,
@@ -460,7 +460,7 @@ const ifFormulaGenerator = {
         const locale_formula = _locale.formula;
         const locale_button = _locale.button;
 
-        $("body").append(replaceHtml(modelHTML, {
+        document.body.insertAdjacentHTML('beforeend', replaceHtml(modelHTML, {
             "id": "luckysheet-ifFormulaGenerator-multiRange-dialog",
             "addclass": "luckysheet-ifFormulaGenerator-multiRange-dialog",
             "title": locale_formula.ifGenTipSelectRange,
@@ -550,7 +550,7 @@ const ifFormulaGenerator = {
         const _locale = locale();
         const locale_button = _locale.button;
 
-        $("body").append(replaceHtml(modelHTML, {
+        document.body.insertAdjacentHTML('beforeend', replaceHtml(modelHTML, {
             "id": "luckysheet-ifFormulaGenerator-info",
             "addclass": "",
             "title": title,

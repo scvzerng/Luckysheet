@@ -13,7 +13,7 @@ const tooltip = {
         let _locale = locale();
         let locale_button = _locale.button;
 
-        $("body").append(replaceHtml(modelHTML, { 
+        document.body.insertAdjacentHTML('beforeend', replaceHtml(modelHTML, { 
             "id": "luckysheet-info", 
             "addclass": "", 
             "title": title, 
@@ -42,7 +42,7 @@ const tooltip = {
             name2 = locale_button.cancel;
         }
 
-        $("body").append(replaceHtml(modelHTML, { 
+        document.body.insertAdjacentHTML('beforeend', replaceHtml(modelHTML, { 
             "id": "luckysheet-confirm", 
             "addclass": "", 
             "style": "z-index:100003", 
@@ -77,12 +77,12 @@ const tooltip = {
         const locale_screenshot = _locale.screenshot;
         showModalMask();
         $("#luckysheet-confirm").remove();
-        $("body").append(replaceHtml(modelHTML, { 
-            "id": "luckysheet-confirm", 
-            "addclass": "", 
-            "style": "z-index:100003", 
-            "title": title, 
-            "content": content, 
+        document.body.insertAdjacentHTML('beforeend', replaceHtml(modelHTML, {
+            "id": "luckysheet-confirm",
+            "addclass": "",
+            "style": "z-index:100003",
+            "title": title,
+            "content": content,
             "botton": '<a style="text-decoration:none;color:#fff;" class="download btn btn-primary luckysheet-model-conform-btn">&nbsp;&nbsp;'+ locale_screenshot.downLoadBtn +'&nbsp;&nbsp;</a>&nbsp;&nbsp;<button class="btn btn-primary luckysheet-model-copy-btn">&nbsp;&nbsp;'+ locale_screenshot.downLoadCopy +'&nbsp;&nbsp;</button><button class="btn btn-default luckysheet-model-cancel-btn">&nbsp;&nbsp;'+ locale_screenshot.downLoadClose +'&nbsp;&nbsp;</button>' 
         }));
         let $t = $("#luckysheet-confirm").find(".luckysheet-modal-dialog-content").css("min-width", 300).end(), 
@@ -137,7 +137,7 @@ const tooltip = {
                 }
 
                 if ($toolup.length == 0) {
-                    $("body").append(luckysheetToolHTML);
+                    document.body.insertAdjacentHTML('beforeend', luckysheetToolHTML);
                     $toolup = $("#luckysheet-tooltip-up");
                 }
 
@@ -175,7 +175,7 @@ const tooltip = {
 
         let htmldiv = '<div id="luckysheetpopover" class="luckysheetpopover"><div class="luckysheetpopover-content">'+locale_paint.start+'</div><div class="luckysheetpopover-btn">'+ btntxt +'</div></div>';
         $("#luckysheetpopover").remove();
-        $("body").append(htmldiv);
+        document.body.insertAdjacentHTML('beforeend', htmldiv);
         $("#luckysheetpopover .luckysheetpopover-content").html(content);
 
         let w = $("#luckysheetpopover").outerWidth(),

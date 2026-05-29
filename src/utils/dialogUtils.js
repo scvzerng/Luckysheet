@@ -12,14 +12,14 @@ export function createDialog(options) {
         html = html.replace(new RegExp("\\{\\{" + key + "\\}\\}", "g"), options[key]);
     }
 
-    $("body").append(html);
+    document.body.insertAdjacentHTML('beforeend', html);
     return $("#" + options.id);
 }
 
 export function createToolbarMenu(menu, submenu) {
     if (submenu) {
-        $("body").append(menu + submenu);
+        document.body.insertAdjacentHTML('beforeend', menu + submenu);
     } else {
-        $("body").append(menu);
+        document.body.insertAdjacentHTML('beforeend', menu);
     }
 }

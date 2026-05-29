@@ -42,7 +42,7 @@ const sizeUtilsModule = {
       return _this.getTextHeightCache[f];
     }
     if ($("#luckysheetTextSizeTest").length == 0) {
-      $('<span id="luckysheetTextSizeTest" style="float:left;white-space:nowrap;visibility:hidden;margin:0;padding:0;">' + text + "</span>").appendTo($("body"));
+      document.body.insertAdjacentHTML('beforeend', '<span id="luckysheetTextSizeTest" style="float:left;white-space:nowrap;visibility:hidden;margin:0;padding:0;">' + text + "</span>");
     }
     let o = $("#luckysheetTextSizeTest").text(text).css({
         font: f

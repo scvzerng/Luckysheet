@@ -147,7 +147,7 @@ const functionSearch = {
             let _this = this;
 
             if (formulaDialogs.formulaSearchC.getLength() == 0) {
-                $("body").append(_this.searchHTML);
+                document.body.insertAdjacentHTML('beforeend', _this.searchHTML);
                 formulaDialogs.formulaSearchC.el
                     .on("mouseover", ".luckysheet-formula-search-item", function() {
                         formulaDialogs.formulaSearchC.el
@@ -290,7 +290,7 @@ const functionSearch = {
             let _locale = locale();
             let locale_formulaMore = _locale.formulaMore;
             if (formulaDialogs.formulaHelp.getLength() == 0) {
-                $("body").after(
+                document.body.insertAdjacentHTML('afterend',
                     replaceHtml(_this.helpHTML, {
                         helpClose: locale_formulaMore.helpClose,
                         helpCollapse: locale_formulaMore.helpCollapse,

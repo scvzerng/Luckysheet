@@ -74,7 +74,7 @@ export function initMerge(_this) {
             subclass: "",
             sub: ""
           });
-          $("body").append(menu);
+          document.body.insertAdjacentHTML('beforeend', menu);
           $menuButton = $("#" + menuButtonId);
           _this.focus($menuButton);
           $menuButton.find(".luckysheet-cols-menuitem").click(function () {

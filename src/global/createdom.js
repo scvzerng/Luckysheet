@@ -104,13 +104,13 @@ export default function luckysheetcreatedom(colwidth, rowheight, data, menu, tit
     scrollBarY.setInnerDivHeight(Store.rh_height + Store.columnHeaderHeight - Store.cellMainSrollBarSize - 3);
 
     //新建行菜单
-    $("body").append(maskHTML);
-    $("body").append(colsmenuHTML);
-    $("body").append(rightclickHTML());
-    $("body").append(inputHTML);
-    $("body").append(replaceHtml(filtermenuHTML(), { "menuid": "filter" }));
-    $("body").append(replaceHtml(filtersubmenuHTML(), { "menuid": "filter" }));
-    $("body").append(sheetconfigHTML());
+    document.body.insertAdjacentHTML('beforeend', maskHTML);
+    document.body.insertAdjacentHTML('beforeend', colsmenuHTML);
+    document.body.insertAdjacentHTML('beforeend', rightclickHTML());
+    document.body.insertAdjacentHTML('beforeend', inputHTML);
+    document.body.insertAdjacentHTML('beforeend', replaceHtml(filtermenuHTML(), { "menuid": "filter" }));
+    document.body.insertAdjacentHTML('beforeend', replaceHtml(filtersubmenuHTML(), { "menuid": "filter" }));
+    document.body.insertAdjacentHTML('beforeend', sheetconfigHTML());
 
     rowHeader.setWidth((Store.rowHeaderWidth-1.5));
     colHeader.setHeight((Store.columnHeaderHeight-1.5));

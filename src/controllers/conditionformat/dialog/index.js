@@ -78,7 +78,7 @@ const dialogModule = {
     hideModalMask();
     formulaDialogs.singleRange.remove();
     const conditionformat_Text = locale().conditionformat;
-    $("body").append(replaceHtml(modelHTML, {
+    document.body.insertAdjacentHTML('beforeend', replaceHtml(modelHTML, {
       "id": "luckysheet-singleRange-dialog",
       "addclass": "luckysheet-singleRange-dialog",
       "title": conditionformat_Text.selectCell,
@@ -104,7 +104,7 @@ const dialogModule = {
     hideModalMask();
     formulaDialogs.multiRange.remove();
     const conditionformat_Text = locale().conditionformat;
-    $("body").append(replaceHtml(modelHTML, {
+    document.body.insertAdjacentHTML('beforeend', replaceHtml(modelHTML, {
       "id": "luckysheet-multiRange-dialog",
       "addclass": "luckysheet-multiRange-dialog",
       "title": conditionformat_Text.selectRange,
@@ -131,7 +131,7 @@ const dialogModule = {
     showModalMask();
     conditionformatDialog.main.remove();
     const conditionformat_Text = locale().conditionformat;
-    $("body").append(replaceHtml(modelHTML, {
+    document.body.insertAdjacentHTML('beforeend', replaceHtml(modelHTML, {
       "id": "luckysheet-conditionformat-dialog",
       "addclass": "luckysheet-conditionformat-dialog",
       "title": title,
@@ -216,7 +216,7 @@ const dialogModule = {
                                 <div style="clear:both;"></div>
                             </div>
                         </div>`;
-    $("body").append(replaceHtml(modelHTML, {
+    document.body.insertAdjacentHTML('beforeend', replaceHtml(modelHTML, {
       "id": "luckysheet-CFicons-dialog",
       "addclass": "luckysheet-CFicons-dialog",
       "title": conditionformat_Text.icons,
@@ -273,7 +273,7 @@ const dialogModule = {
                                 <div class="listBox"></div>
                             </div>
                         </div>`;
-    $("body").append(replaceHtml(modelHTML, {
+    document.body.insertAdjacentHTML('beforeend', replaceHtml(modelHTML, {
       "id": "luckysheet-administerRule-dialog",
       "addclass": "luckysheet-administerRule-dialog",
       "title": conditionformat_Text.conditionformatManageRules,
@@ -310,7 +310,7 @@ const dialogModule = {
     conditionformatDialog.adminRule.hide();
     conditionformatDialog.newRule.remove();
     let content = '<div>' + '<div class="boxTitle">' + conditionformat_Text.chooseRuleType + '：</div>' + _this.ruleTypeHtml() + '<div class="boxTitle">' + conditionformat_Text.editRuleDescription + '：</div>' + '<div class="ruleExplainBox">' + ruleExplainHtml + '</div>' + '</div>';
-    $("body").append(replaceHtml(modelHTML, {
+    document.body.insertAdjacentHTML('beforeend', replaceHtml(modelHTML, {
       "id": "luckysheet-newConditionRule-dialog",
       "addclass": "luckysheet-newEditorRule-dialog",
       "title": conditionformat_Text.newFormatRule,
@@ -385,7 +385,7 @@ const dialogModule = {
     conditionformatDialog.adminRule.hide();
     conditionformatDialog.editRule.remove();
     let content = '<div>' + '<div class="boxTitle">' + conditionformat_Text.chooseRuleType + '：</div>' + _this.ruleTypeHtml() + '<div class="boxTitle">' + conditionformat_Text.editRuleDescription + '：</div>' + '<div class="ruleExplainBox">' + ruleExplainHtml + '</div>' + '</div>';
-    $("body").append(replaceHtml(modelHTML, {
+    document.body.insertAdjacentHTML('beforeend', replaceHtml(modelHTML, {
       "id": "luckysheet-editorConditionRule-dialog",
       "addclass": "luckysheet-newEditorRule-dialog",
       "title": conditionformat_Text.editFormatRule,
@@ -520,7 +520,7 @@ const dialogModule = {
   infoDialog: function (title, content) {
     showModalMask();
     $("#luckysheet-conditionformat-info-dialog").remove();
-    $("body").append(replaceHtml(modelHTML, {
+    document.body.insertAdjacentHTML('beforeend', replaceHtml(modelHTML, {
       "id": "luckysheet-conditionformat-info-dialog",
       "addclass": "",
       "title": title,

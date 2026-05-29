@@ -32,7 +32,7 @@ export function initFontFamily(_this) {
             subclass: "",
             sub: ""
           });
-          $("body").append(menu);
+          document.body.insertAdjacentHTML('beforeend', menu);
           $menuButton = $("#" + menuButtonId).width(200);
           _this.focus($menuButton);
           $menuButton.on("click", ".luckysheet-cols-menuitem", function () {

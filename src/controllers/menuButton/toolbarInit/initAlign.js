@@ -44,7 +44,7 @@ export function initAlign(_this) {
             subclass: "",
             sub: ""
           });
-          $("body").append(menu);
+          document.body.insertAdjacentHTML('beforeend', menu);
           $menuButton = $("#" + menuButtonId).width(120);
           _this.focus($menuButton);
           $menuButton.find(".luckysheet-cols-menuitem").click(function () {

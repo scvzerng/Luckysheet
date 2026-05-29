@@ -91,7 +91,7 @@ export function initFontSize(_this) {
             subclass: "",
             sub: ""
           });
-          $("body").append(menu);
+          document.body.insertAdjacentHTML('beforeend', menu);
           $menuButton = $("#" + menuButtonId).width(150);
           _this.focus($menuButton, 10);
           $menuButton.find(".luckysheet-cols-menuitem").click(function () {

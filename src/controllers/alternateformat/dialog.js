@@ -119,7 +119,7 @@ function init() {
         let _this = this;
 
         $("#luckysheet-modal-dialog-slider-alternateformat").remove();
-        $("body").append(luckysheetAlternateformatHtml());
+        document.body.insertAdjacentHTML('beforeend', luckysheetAlternateformatHtml());
         luckysheetsizeauto();
 
         //关闭
@@ -596,7 +596,7 @@ function colorSelectDialog(currenColor, colorType, source) {
             title = alternatingColors.selectionCellColor;
         }
 
-        $("body").append(replaceHtml(modelHTML, { 
+        document.body.insertAdjacentHTML('beforeend', replaceHtml(modelHTML, { 
             "id": "luckysheet-alternateformat-colorSelect-dialog", 
             "addclass": "luckysheet-alternateformat-colorSelect-dialog", 
             "title": title, 
@@ -671,7 +671,7 @@ function rangeDialog(value) {
         const alternatingColors =_locale.alternatingColors;
         const locale_button = _locale.button;
 
-        $("body").append(replaceHtml(modelHTML, { 
+        document.body.insertAdjacentHTML('beforeend', replaceHtml(modelHTML, { 
             "id": "luckysheet-alternateformat-rangeDialog", 
             "addclass": "luckysheet-alternateformat-rangeDialog", 
             "title": alternatingColors.selectRange, 

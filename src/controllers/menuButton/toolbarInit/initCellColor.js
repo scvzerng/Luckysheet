@@ -40,7 +40,7 @@ export function initCellColor(_this) {
             sub: "",
             resetColor: locale_toolbar.resetColor
           });
-          $("body").append(menu);
+          document.body.insertAdjacentHTML('beforeend', menu);
           $menuButton = $("#" + menuButtonId);
           createColorPicker($("#" + menuButtonId).find(".luckysheet-color-selected")[0], {
             showPaletteOnly: true,
