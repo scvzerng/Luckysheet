@@ -6,13 +6,14 @@ import { checkMenuOverflow } from '../../../utils/domUtils.js';
 
 export function initFontFamily(_this) {
       //字体设置
-      $("#luckysheet-icon-font-family").mousedown(function (e) {
+      document.getElementById("luckysheet-icon-font-family").addEventListener("mousedown", function (e) {
         hideMenuByCancel(e);
         e.stopPropagation();
-      }).click(function () {
-        let menuButtonId = $(this).attr("id") + "-menuButton";
-        let $menuButton = $("#" + menuButtonId);
-        if ($menuButton.length == 0) {
+      });
+      document.getElementById("luckysheet-icon-font-family").addEventListener("click", function () {
+        let menuButtonId = this.getAttribute("id") + "-menuButton";
+        let menuButton = document.getElementById(menuButtonId);
+        if (menuButton == null) {
           // const locale_fontarray = locale().fontarray;
           // let itemdata = [];
   
@@ -33,26 +34,29 @@ export function initFontFamily(_this) {
             sub: ""
           });
           document.body.insertAdjacentHTML('beforeend', menu);
-          $menuButton = $("#" + menuButtonId).width(200);
-          _this.focus($menuButton);
-          $menuButton.on("click", ".luckysheet-cols-menuitem", function () {
-            $menuButton.hide();
-            luckysheetContainerFocus();
-            let $t = $(this),
-              itemvalue = $t.attr("itemvalue"),
-              itemname = $t.attr("itemname");
-            _this.focus($menuButton, itemvalue);
-            $("#luckysheet-icon-font-family").find(".luckysheet-toolbar-menu-button-caption").html(" " + itemname + " ");
-            let d = editor.deepCopyFlowData(Store.flowdata);
-            _this.updateFormat(d, "ff", itemvalue);
+          menuButton = document.getElementById(menuButtonId);
+          menuButton.style.width = "200px";
+          _this.focus(menuButton);
+          menuButton.addEventListener("click", function (e) {
+            if (e.target.closest(".luckysheet-cols-menuitem")) {
+              let item = e.target.closest(".luckysheet-cols-menuitem");
+              menuButton.style.display = "none";
+              luckysheetContainerFocus();
+              let itemvalue = item.getAttribute("itemvalue");
+              let itemname = item.getAttribute("itemname");
+              _this.focus(menuButton, itemvalue);
+              document.getElementById("luckysheet-icon-font-family").querySelector(".luckysheet-toolbar-menu-button-caption").innerHTML = " " + itemname + " ";
+              let d = editor.deepCopyFlowData(Store.flowdata);
+              _this.updateFormat(d, "ff", itemvalue);
+            }
           });
         }
-        let userlen = $(this).outerWidth();
-        let tlen = $menuButton.outerWidth();
-        let menuleft = $(this).offset().left;
+        let userlen = this.offsetWidth;
+        let tlen = menuButton.offsetWidth;
+        let menuleft = this.getBoundingClientRect().left + window.pageXOffset;
         if (checkMenuOverflow(tlen, userlen, menuleft)) {
           menuleft = menuleft - tlen + userlen;
         }
-        mouseclickposition($menuButton, menuleft, $(this).offset().top + 25, "lefttop");
+        mouseclickposition(menuButton, menuleft, this.getBoundingClientRect().top + window.pageYOffset + 25, "lefttop");
       });
 }

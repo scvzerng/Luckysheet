@@ -13,24 +13,28 @@ import '../../../components/ColorPicker/colorPicker.css';
 
 export function initTextColor(_this) {
       //字体颜色
-      $("#luckysheet-icon-text-color").mousedown(function (e) {
+      let textColorEl = document.getElementById("luckysheet-icon-text-color");
+      textColorEl.addEventListener("mousedown", function (e) {
         hideMenuByCancel(e);
         e.stopPropagation();
-      }).click(function () {
+      });
+      textColorEl.addEventListener("click", function () {
         let d = editor.deepCopyFlowData(Store.flowdata);
-        let color = $(this).attr("color");
+        let color = this.getAttribute("color");
         if (color == null) {
           color = "#000000";
         }
         _this.updateFormat(d, "fc", color);
       });
-      $("#luckysheet-icon-text-color-menu").mousedown(function (e) {
+      let textColorMenuEl = document.getElementById("luckysheet-icon-text-color-menu");
+      textColorMenuEl.addEventListener("mousedown", function (e) {
         hideMenuByCancel(e);
         e.stopPropagation();
-      }).click(function () {
-        let menuButtonId = $(this).attr("id") + "-menuButton";
-        let $menuButton = $("#" + menuButtonId);
-        if ($menuButton.length == 0) {
+      });
+      textColorMenuEl.addEventListener("click", function () {
+        let menuButtonId = this.getAttribute("id") + "-menuButton";
+        let menuButton = document.getElementById(menuButtonId);
+        if (menuButton == null) {
           const _locale = locale();
           const locale_toolbar = _locale.toolbar;
           const locale_button = _locale.button;
@@ -54,8 +58,8 @@ export function initTextColor(_this) {
             resetColor: locale_toolbar.resetColor
           });
           document.body.insertAdjacentHTML('beforeend', menu);
-          $menuButton = $("#" + menuButtonId);
-          createColorPicker($("#" + menuButtonId).find(".luckysheet-color-selected")[0], {
+          menuButton = document.getElementById(menuButtonId);
+          createColorPicker(document.querySelector("#" + menuButtonId + " .luckysheet-color-selected"), {
             showPaletteOnly: true,
             flat: true,
             hideAfterPaletteSelect: true,
@@ -77,13 +81,14 @@ export function initTextColor(_this) {
               document.getElementById("luckysheet-icon-text-color").setAttribute("color", hexColor);
               let d = editor.deepCopyFlowData(Store.flowdata);
               _this.updateFormat(d, "fc", hexColor);
-              $menuButton.hide();
+              menuButton.style.display = "none";
               luckysheetContainerFocus();
             }
           });
-          $menuButton.find(".luckysheet-color-reset").click(function () {
-            $menuButton.hide();
-            luckysheetContainerFocus();
+          menuButton.querySelectorAll(".luckysheet-color-reset").forEach(function (item) {
+            item.addEventListener("click", function () {
+              menuButton.style.display = "none";
+              luckysheetContainerFocus();
             let input = document.querySelector("#" + menuButtonId + " .luckysheet-color-selected");
             input.value = "#000000";
             document.getElementById("luckysheet-icon-text-color").removeAttribute("color");
@@ -92,12 +97,13 @@ export function initTextColor(_this) {
             document.querySelector("#luckysheet-icon-text-color .text-color-bar").style.backgroundColor = "#000000";
             let d = editor.deepCopyFlowData(Store.flowdata);
             _this.updateFormat(d, "fc", null);
+            });
           });
-  
-          //交替颜色
-          $menuButton.find(".luckysheet-icon-alternateformat").click(function () {
-            $menuButton.hide();
-            luckysheetContainerFocus();
+
+          menuButton.querySelectorAll(".luckysheet-icon-alternateformat").forEach(function (item) {
+            item.addEventListener("click", function () {
+              menuButton.style.display = "none";
+              luckysheetContainerFocus();
             if (Store.luckysheet_select_save.length > 1) {
               if (isEditMode()) {
                 alert(locale_alternatingColors.errorInfo);
@@ -114,20 +120,21 @@ export function initTextColor(_this) {
             }
             alternateformat.init();
             alternateformat.perfect();
+            });
           });
         }
-        let userlen = $(this).outerWidth();
-        let tlen = $menuButton.outerWidth();
-        let menuleft = $(this).offset().left;
+        let userlen = this.offsetWidth;
+        let tlen = menuButton.offsetWidth;
+        let menuleft = this.getBoundingClientRect().left + window.pageXOffset;
         if (checkMenuOverflow(tlen, userlen, menuleft)) {
           menuleft = menuleft - tlen + userlen;
         }
-        let offsetTop = $(this).offset().top + 26;
+        let offsetTop = this.getBoundingClientRect().top + window.pageYOffset + 26;
         setTimeout(function () {
           let input = document.querySelector("#" + menuButtonId + " .luckysheet-color-selected");
           getPicker(input)?.set(input.value);
           getPicker(input)?.resetView();
-          mouseclickposition($menuButton, menuleft - 28, offsetTop, "lefttop");
+          mouseclickposition(menuButton, menuleft - 28, offsetTop, "lefttop");
         }, 1);
       });
 }

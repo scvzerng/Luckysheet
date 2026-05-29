@@ -7,10 +7,10 @@ import { iconfontObjects } from '../../constant';
 
 export function initTextWrap(_this) {
       //文本换行
-      $("#luckysheet-icon-textwrap-menu").click(function () {
-        let menuButtonId = $(this).attr("id") + "-menuButton";
-        let $menuButton = $("#" + menuButtonId);
-        if ($menuButton.length == 0) {
+      document.getElementById("luckysheet-icon-textwrap-menu").addEventListener("click", function () {
+        let menuButtonId = this.getAttribute("id") + "-menuButton";
+        let menuButton = document.getElementById(menuButtonId);
+        if (menuButton == null) {
           const _locale = locale();
           const locale_textWrap = _locale.textWrap;
           let itemdata = [{
@@ -37,28 +37,31 @@ export function initTextWrap(_this) {
             sub: ""
           });
           document.body.insertAdjacentHTML('beforeend', menu);
-          $menuButton = $("#" + menuButtonId).width(120);
-          _this.focus($menuButton, "clip");
-          $menuButton.find(".luckysheet-cols-menuitem").click(function () {
-            $menuButton.hide();
-            luckysheetContainerFocus();
-            let $t = $(this),
-              itemvalue = $t.attr("itemvalue");
-            _this.focus($menuButton, itemvalue);
-            let $icon = $("#luckysheet-icon-textwrap").attr("type", itemvalue).find(".luckysheet-icon-img-container");
-  
-            // add iconfont
-            $icon.removeAttr("class").addClass("luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-textwrap-" + itemvalue + iconfontObject[itemvalue]);
-            let d = editor.deepCopyFlowData(Store.flowdata);
-            _this.updateFormat(d, "tb", itemvalue);
+          menuButton = document.getElementById(menuButtonId);
+          menuButton.style.width = "120px";
+          _this.focus(menuButton, "clip");
+          menuButton.querySelectorAll(".luckysheet-cols-menuitem").forEach(function (item) {
+            item.addEventListener("click", function () {
+              menuButton.style.display = "none";
+              luckysheetContainerFocus();
+              let itemvalue = this.getAttribute("itemvalue");
+              _this.focus(menuButton, itemvalue);
+              let textwrapEl = document.getElementById("luckysheet-icon-textwrap");
+              textwrapEl.setAttribute("type", itemvalue);
+              let icon = textwrapEl.querySelector(".luckysheet-icon-img-container");
+
+              icon.className = "luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-textwrap-" + itemvalue + iconfontObject[itemvalue];
+              let d = editor.deepCopyFlowData(Store.flowdata);
+              _this.updateFormat(d, "tb", itemvalue);
+            });
           });
         }
-        let userlen = $(this).outerWidth();
-        let tlen = $menuButton.outerWidth();
-        let menuleft = $(this).offset().left;
+        let userlen = this.offsetWidth;
+        let tlen = menuButton.offsetWidth;
+        let menuleft = this.getBoundingClientRect().left + window.pageXOffset;
         if (checkMenuOverflow(tlen, userlen, menuleft)) {
           menuleft = menuleft - tlen + userlen;
         }
-        mouseclickposition($menuButton, menuleft - 28, $(this).offset().top + 25, "lefttop");
+        mouseclickposition(menuButton, menuleft - 28, this.getBoundingClientRect().top + window.pageYOffset + 25, "lefttop");
       });
 }

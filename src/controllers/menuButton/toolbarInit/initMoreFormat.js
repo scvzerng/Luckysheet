@@ -7,13 +7,13 @@ import luckysheetMoreFormat from '../../moreFormat';
 
 export function initMoreFormat(_this) {
       //更多格式
-      $("#luckysheet-icon-fmt-other").click(function () {
+      document.getElementById("luckysheet-icon-fmt-other").addEventListener("click", function () {
         const _locale = locale();
         const locale_format = _locale.format;
         const locale_defaultFmt = _locale.defaultFmt;
-        let menuButtonId = $(this).attr("id") + "-menuButton";
-        let $menuButton = $("#" + menuButtonId);
-        if ($menuButton.length == 0) {
+        let menuButtonId = this.getAttribute("id") + "-menuButton";
+        let menuButton = document.getElementById(menuButtonId);
+        if (menuButton == null) {
           let itemdata = locale_defaultFmt;
           let itemset = _this.createButtonMenu(itemdata);
   
@@ -46,45 +46,48 @@ export function initMoreFormat(_this) {
   
           //luckysheet-icon-fmt-other-menuButton_sub
           document.body.insertAdjacentHTML('beforeend', menu + submenu);
-          $menuButton = $("#" + menuButtonId).width(250);
-          _this.focus($menuButton);
-          $menuButton.find(".luckysheet-cols-menuitem").click(function () {
-            $menuButton.hide();
-            luckysheetContainerFocus();
-            let $t = $(this),
-              itemvalue = $t.attr("itemvalue"),
-              itemname = $t.attr("itemname");
-            $("#luckysheet-icon-fmt-other").find(".luckysheet-toolbar-menu-button-caption").html(" " + itemname + " ");
-            if (itemvalue == "fmtOtherSelf") {
-              return;
-            }
-            let d = editor.deepCopyFlowData(Store.flowdata); //取数�?
-            _this.focus($menuButton, itemvalue);
-            _this.updateFormat(d, "ct", itemvalue);
+          menuButton = document.getElementById(menuButtonId);
+          menuButton.style.width = "250px";
+          _this.focus(menuButton);
+          menuButton.querySelectorAll(".luckysheet-cols-menuitem").forEach(function (item) {
+            item.addEventListener("click", function () {
+              menuButton.style.display = "none";
+              luckysheetContainerFocus();
+              let itemvalue = this.getAttribute("itemvalue");
+              let itemname = this.getAttribute("itemname");
+              document.getElementById("luckysheet-icon-fmt-other").querySelector(".luckysheet-toolbar-menu-button-caption").innerHTML = " " + itemname + " ";
+              if (itemvalue == "fmtOtherSelf") {
+                return;
+              }
+              let d = editor.deepCopyFlowData(Store.flowdata);
+              _this.focus(menuButton, itemvalue);
+              _this.updateFormat(d, "ct", itemvalue);
+            });
           });
-  
-          //更多格式
-          $("#luckysheet-icon-fmtOtherSelf-menuButton").find(".luckysheet-cols-menuitem").click(function () {
-            $menuButton.hide();
-            const _elFmtOther = document.getElementById("luckysheet-icon-fmtOtherSelf-menuButton"); if (_elFmtOther) _elFmtOther.style.display = 'none';
-            luckysheetContainerFocus();
-            let itemvalue = $(this).attr("itemvalue");
-            luckysheetMoreFormat.createDialog(itemvalue);
-            luckysheetMoreFormat.init();
+
+          document.querySelectorAll("#luckysheet-icon-fmtOtherSelf-menuButton .luckysheet-cols-menuitem").forEach(function (item) {
+            item.addEventListener("click", function () {
+              menuButton.style.display = "none";
+              const _elFmtOther = document.getElementById("luckysheet-icon-fmtOtherSelf-menuButton"); if (_elFmtOther) _elFmtOther.style.display = 'none';
+              luckysheetContainerFocus();
+              let itemvalue = this.getAttribute("itemvalue");
+              luckysheetMoreFormat.createDialog(itemvalue);
+              luckysheetMoreFormat.init();
+            });
           });
         } else {
-          const text = $(this).find(".luckysheet-toolbar-menu-button-caption").text().trim();
+          const text = this.querySelector(".luckysheet-toolbar-menu-button-caption").textContent.trim();
           const format = locale_defaultFmt.find(f => f.text === text);
           if (format) {
-            _this.focus($menuButton, format.value);
+            _this.focus(menuButton, format.value);
           }
         }
-        let userlen = $(this).outerWidth();
-        let tlen = $menuButton.outerWidth();
-        let menuleft = $(this).offset().left;
+        let userlen = this.offsetWidth;
+        let tlen = menuButton.offsetWidth;
+        let menuleft = this.getBoundingClientRect().left + window.pageXOffset;
         if (checkMenuOverflow(tlen, userlen, menuleft)) {
           menuleft = menuleft - tlen + userlen;
         }
-        mouseclickposition($menuButton, menuleft, $(this).offset().top + 25, "lefttop");
+        mouseclickposition(menuButton, menuleft, this.getBoundingClientRect().top + window.pageYOffset + 25, "lefttop");
       });
 }

@@ -12,18 +12,18 @@ import '../../../components/ColorPicker/colorPicker.css';
 
 export function initCellColor(_this) {
       //背景颜色
-      $("#luckysheet-icon-cell-color").click(function () {
+      document.getElementById("luckysheet-icon-cell-color").addEventListener("click", function () {
         let d = editor.deepCopyFlowData(Store.flowdata);
-        let color = $(this).attr("color");
+        let color = this.getAttribute("color");
         if (color == null) {
           color = "#ffffff";
         }
         _this.updateFormat(d, "bg", color);
       });
-      $("#luckysheet-icon-cell-color-menu").click(function () {
-        let menuButtonId = $(this).attr("id") + "-menuButton";
-        let $menuButton = $("#" + menuButtonId);
-        if ($menuButton.length == 0) {
+      document.getElementById("luckysheet-icon-cell-color-menu").addEventListener("click", function () {
+        let menuButtonId = this.getAttribute("id") + "-menuButton";
+        let menuButton = document.getElementById(menuButtonId);
+        if (menuButton == null) {
           let subid = "cell-color-self";
           const _locale = locale();
           const locale_toolbar = _locale.toolbar;
@@ -41,8 +41,8 @@ export function initCellColor(_this) {
             resetColor: locale_toolbar.resetColor
           });
           document.body.insertAdjacentHTML('beforeend', menu);
-          $menuButton = $("#" + menuButtonId);
-          createColorPicker($("#" + menuButtonId).find(".luckysheet-color-selected")[0], {
+          menuButton = document.getElementById(menuButtonId);
+          createColorPicker(document.querySelector("#" + menuButtonId + " .luckysheet-color-selected"), {
             showPaletteOnly: true,
             flat: true,
             hideAfterPaletteSelect: true,
@@ -64,13 +64,14 @@ export function initCellColor(_this) {
               document.getElementById("luckysheet-icon-cell-color").setAttribute("color", hexColor);
               let d = editor.deepCopyFlowData(Store.flowdata);
               _this.updateFormat(d, "bg", hexColor);
-              $menuButton.hide();
+              menuButton.style.display = "none";
               luckysheetContainerFocus();
             }
           });
-          $menuButton.find(".luckysheet-color-reset").click(function () {
-            $menuButton.hide();
-            luckysheetContainerFocus();
+          menuButton.querySelectorAll(".luckysheet-color-reset").forEach(function (item) {
+            item.addEventListener("click", function () {
+              menuButton.style.display = "none";
+              luckysheetContainerFocus();
             let input = document.querySelector("#" + menuButtonId + " .luckysheet-color-selected");
             input.value = "#ffffff";
             document.getElementById("luckysheet-icon-cell-color").removeAttribute("color");
@@ -79,16 +80,16 @@ export function initCellColor(_this) {
             document.querySelector("#luckysheet-icon-cell-color .text-color-bar").style.backgroundColor = "#ffffff";
             let d = editor.deepCopyFlowData(Store.flowdata);
             _this.updateFormat(d, "bg", null);
+            });
           });
-  
-          //交替颜色
-          $menuButton.find(".luckysheet-icon-alternateformat").click(function () {
-            // *如果禁止前台编辑，则中止下一步操�?
-            if (!checkIsAllowEdit()) {
-              return;
-            }
-            $menuButton.hide();
-            luckysheetContainerFocus();
+
+          menuButton.querySelectorAll(".luckysheet-icon-alternateformat").forEach(function (item) {
+            item.addEventListener("click", function () {
+              if (!checkIsAllowEdit()) {
+                return;
+              }
+              menuButton.style.display = "none";
+              luckysheetContainerFocus();
             if (Store.luckysheet_select_save.length > 1) {
               if (isEditMode()) {
                 alert(locale_alternatingColors.errorInfo);
@@ -105,21 +106,22 @@ export function initCellColor(_this) {
             }
             alternateformat.init();
             alternateformat.perfect();
+            });
           });
           document.querySelector("#" + menuButtonId + " .luckysheet-color-selected").value = "#fff";
         }
-        let userlen = $(this).outerWidth();
-        let tlen = $menuButton.outerWidth();
-        let menuleft = $(this).offset().left;
+        let userlen = this.offsetWidth;
+        let tlen = menuButton.offsetWidth;
+        let menuleft = this.getBoundingClientRect().left + window.pageXOffset;
         if (checkMenuOverflow(tlen, userlen, menuleft)) {
           menuleft = menuleft - tlen + userlen;
         }
-        let offsetTop = $(this).offset().top + 26;
+        let offsetTop = this.getBoundingClientRect().top + window.pageYOffset + 26;
         setTimeout(function () {
           let input = document.querySelector("#" + menuButtonId + " .luckysheet-color-selected");
           getPicker(input)?.set(input.value);
           getPicker(input)?.resetView();
-          mouseclickposition($menuButton, menuleft - 28, offsetTop, "lefttop");
+          mouseclickposition(menuButton, menuleft - 28, offsetTop, "lefttop");
         }, 1);
       });
 }

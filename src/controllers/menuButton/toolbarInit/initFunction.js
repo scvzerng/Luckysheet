@@ -14,17 +14,16 @@ import functionBox from '../../../ui/functionBox.js';
 
 export function initFunction(_this) {
       //公式
-      $("#luckysheet-icon-function").click(function () {
+      document.getElementById("luckysheet-icon-function").addEventListener("click", function () {
         _this.autoSelectionFormula("SUM");
       });
-  
-      //公式菜单
-      $("#luckysheet-icon-function-menu").click(function () {
-        let menuButtonId = $(this).attr("id") + "-menuButton";
-        let $menuButton = $("#" + menuButtonId);
+
+      document.getElementById("luckysheet-icon-function-menu").addEventListener("click", function () {
+        let menuButtonId = this.getAttribute("id") + "-menuButton";
+        let menuButton = document.getElementById(menuButtonId);
         const _locale = locale();
         const locale_formula = _locale.formula;
-        if ($menuButton.length == 0) {
+        if (menuButton == null) {
           let itemdata = [{
             text: locale_formula.sum,
             value: "SUM",
@@ -66,12 +65,13 @@ export function initFunction(_this) {
             sub: ""
           });
           document.body.insertAdjacentHTML('beforeend', menu);
-          $menuButton = $("#" + menuButtonId).width(180);
-          $menuButton.find(".luckysheet-cols-menuitem").click(function () {
-            $menuButton.hide();
-            luckysheetContainerFocus();
-            let $t = $(this),
-              itemvalue = $t.attr("itemvalue");
+          menuButton = document.getElementById(menuButtonId);
+          menuButton.style.width = "180px";
+          menuButton.querySelectorAll(".luckysheet-cols-menuitem").forEach(function (item) {
+            item.addEventListener("click", function () {
+              menuButton.style.display = "none";
+              luckysheetContainerFocus();
+              let itemvalue = this.getAttribute("itemvalue");
             if (itemvalue == "if") {
               let last = getLastSelection();
               let r = last["row_focus"] == null ? last["row"][0] : last["row_focus"];
@@ -128,14 +128,15 @@ export function initFunction(_this) {
             } else {
               _this.autoSelectionFormula(itemvalue);
             }
+            });
           });
         }
-        let userlen = $(this).outerWidth();
-        let tlen = $menuButton.outerWidth();
-        let menuleft = $(this).offset().left;
+        let userlen = this.offsetWidth;
+        let tlen = menuButton.offsetWidth;
+        let menuleft = this.getBoundingClientRect().left + window.pageXOffset;
         if (checkMenuOverflow(tlen, userlen, menuleft)) {
           menuleft = menuleft - tlen + userlen;
         }
-        mouseclickposition($menuButton, menuleft - 48, $(this).offset().top + 25, "lefttop");
+        mouseclickposition(menuButton, menuleft - 48, this.getBoundingClientRect().top + window.pageYOffset + 25, "lefttop");
       });
 }

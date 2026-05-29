@@ -1,7 +1,6 @@
 import {  isRealNull } from '../../global/validate';
 import { luckysheetlodingHTML } from '../constant';
 import Store from '../../store';
-import {  showrightclickmenu  } from '../../utils/util';
 import {  orderbydata1D  } from '../../global/sort';
 import {  update } from '../../global/format';
 import filterState from './filterState';
@@ -10,66 +9,111 @@ import cellMain from '../../ui/cellMain.js';
 
 export function filterOptionClick() {
     cellMain.onClick(".luckysheet-filter-options", function (e) {
-        let $t = $(e.currentTarget), 
-            toffset = $t.offset(), 
-            $menu = $("#luckysheet-filter-menu"), 
+        let t = this,
+            tRect = t.getBoundingClientRect(),
+            toffset = { top: tRect.top + window.pageYOffset, left: tRect.left + window.pageXOffset },
+            menu = document.getElementById("luckysheet-filter-menu"),
             winH = document.documentElement.clientHeight,
             winW = document.documentElement.clientWidth;
 
-        let st_r = $t.data("str"), 
-            ed_r = $t.data("edr"), 
-            cindex = $t.data("cindex"), 
-            st_c = $t.data("stc"), 
-            ed_c = $t.data("edc"), 
-            rowhidden = $t.data("rowhidden") == "" ? {} : JSON.parse($t.data("rowhidden").replace(/\'/g, '"'));
+        let st_r = t.dataset.str,
+            ed_r = t.dataset.edr,
+            cindex = t.dataset.cindex,
+            st_c = t.dataset.stc,
+            ed_c = t.dataset.edc,
+            rowhidden = t.dataset.rowhidden == "" ? {} : JSON.parse(t.dataset.rowhidden.replace(/'/g, '"'));
 
-        $("body .luckysheet-cols-menu").hide();
-        $("#luckysheet-filter-menu, #luckysheet-filter-submenu").hide();
-        $("#luckysheet-filter-byvalue-input").val("");
-        $("#luckysheet-filter-bycondition").next().hide();
-        $("#luckysheet-filter-byvalue").next().show();
+        document.querySelectorAll("body .luckysheet-cols-menu").forEach(el => { el.style.display = 'none'; });
+        if (menu) menu.style.display = 'none';
+        const submenuEl = document.getElementById("luckysheet-filter-submenu");
+        if (submenuEl) submenuEl.style.display = 'none';
+        const byvalueInput = document.getElementById("luckysheet-filter-byvalue-input");
+        if (byvalueInput) byvalueInput.value = "";
+        const bycondition = document.getElementById("luckysheet-filter-bycondition");
+        if (bycondition && bycondition.nextElementSibling) bycondition.nextElementSibling.style.display = 'none';
+        const byvalue = document.getElementById("luckysheet-filter-byvalue");
+        if (byvalue && byvalue.nextElementSibling) byvalue.nextElementSibling.style.display = '';
 
-        $menu.data("str", st_r);
-        $menu.data("edr", ed_r);
-        $menu.data("cindex", cindex);
-        $menu.data("stc", st_c);
-        $menu.data("edc", ed_c);
+        if (menu) {
+            menu.dataset.str = st_r;
+            menu.dataset.edr = ed_r;
+            menu.dataset.cindex = cindex;
+            menu.dataset.stc = st_c;
+            menu.dataset.edc = ed_c;
+        }
 
-        $("#luckysheet-filter-menu .luckysheet-filter-selected-input").hide().find("input").val();
-        $("#luckysheet-filter-selected span").data("type", "0").data("type", null).text(filterState.locale_filter.filiterInputNone);
+        document.querySelectorAll("#luckysheet-filter-menu .luckysheet-filter-selected-input").forEach(el => {
+            el.style.display = 'none';
+            const input = el.querySelector("input");
+            if (input) input.value;
+        });
+        const selectedSpan = document.querySelector("#luckysheet-filter-selected span");
+        if (selectedSpan) {
+            selectedSpan.dataset.type = "0";
+            selectedSpan.dataset.type = null;
+            selectedSpan.textContent = filterState.locale_filter.filiterInputNone;
+        }
 
-        let byconditiontype = $t.data("byconditiontype");
-        $("#luckysheet-filter-selected span").data("value", $t.data("byconditionvalue")).data("type", byconditiontype).text($t.data("byconditiontext"));
+        let byconditiontype = t.dataset.byconditiontype;
+        if (selectedSpan) {
+            selectedSpan.dataset.value = t.dataset.byconditionvalue;
+            selectedSpan.dataset.type = byconditiontype;
+            selectedSpan.textContent = t.dataset.byconditiontext;
+        }
 
         if (byconditiontype == "2") {
-            let $input = $("#luckysheet-filter-menu .luckysheet-filter-selected-input2").show().find("input");
-            $input.eq(0).val($t.data("byconditionvalue1"));
-            $input.eq(1).val($t.data("byconditionvalue2"));
+            const input2Container = document.querySelector("#luckysheet-filter-menu .luckysheet-filter-selected-input2");
+            if (input2Container) {
+                input2Container.style.display = '';
+                const inputs = input2Container.querySelectorAll("input");
+                if (inputs[0]) inputs[0].value = t.dataset.byconditionvalue1;
+                if (inputs[1]) inputs[1].value = t.dataset.byconditionvalue2;
+            }
         }
         else if (byconditiontype == "1") {
-            $("#luckysheet-filter-menu .luckysheet-filter-selected-input").eq(0).show().find("input").val($t.data("byconditionvalue1"));
+            const firstInput = document.querySelectorAll("#luckysheet-filter-menu .luckysheet-filter-selected-input")[0];
+            if (firstInput) {
+                firstInput.style.display = '';
+                const input = firstInput.querySelector("input");
+                if (input) input.value = t.dataset.byconditionvalue1;
+            }
         }
 
-        $("#luckysheet-filter-orderby-asc").off("click").on("click", function () {
-            orderbydatafiler(st_r, st_c, ed_r, ed_c, cindex, true);
-        });
+        const orderbyAsc = document.getElementById("luckysheet-filter-orderby-asc");
+        if (orderbyAsc) {
+            const newHandlerAsc = function () {
+                orderbydatafiler(st_r, st_c, ed_r, ed_c, cindex, true);
+            };
+            if (orderbyAsc._filterHandler) orderbyAsc.removeEventListener("click", orderbyAsc._filterHandler);
+            orderbyAsc._filterHandler = newHandlerAsc;
+            orderbyAsc.addEventListener("click", newHandlerAsc);
+        }
 
-        $("#luckysheet-filter-orderby-desc").off("click").on("click", function () {
-            orderbydatafiler(st_r, st_c, ed_r, ed_c, cindex, false);
-        });
+        const orderbyDesc = document.getElementById("luckysheet-filter-orderby-desc");
+        if (orderbyDesc) {
+            const newHandlerDesc = function () {
+                orderbydatafiler(st_r, st_c, ed_r, ed_c, cindex, false);
+            };
+            if (orderbyDesc._filterHandler) orderbyDesc.removeEventListener("click", orderbyDesc._filterHandler);
+            orderbyDesc._filterHandler = newHandlerDesc;
+            orderbyDesc.addEventListener("click", newHandlerDesc);
+        }
 
-        const loadingObj = luckysheetlodingHTML("#luckysheet-filter-byvalue-select",{text:filterState.locale_filter.filiterMoreDataTip});
-        $("#luckysheet-filter-byvalue-select").empty().append(loadingObj.el);
+        const byvalueSelect = document.getElementById("luckysheet-filter-byvalue-select");
+        if (byvalueSelect) byvalueSelect.innerHTML = '';
+        const loadingObj = luckysheetlodingHTML(byvalueSelect, {text: filterState.locale_filter.filiterMoreDataTip});
 
-        let rowhiddenother = {}; //其它筛选列的隐藏行
-        $("#luckysheet-filter-options-sheet" + Store.currentSheetIndex + " .luckysheet-filter-options").not(this).each(function () {
-            let $t = $(this), rh = $t.data("rowhidden");
+        let rowhiddenother = {};
+        const filterOpts = document.querySelectorAll("#luckysheet-filter-options-sheet" + Store.currentSheetIndex + " .luckysheet-filter-options");
+        filterOpts.forEach(function (opt) {
+            if (opt === t) return;
+            let rh = opt.dataset.rowhidden;
 
             if (rh == "") {
-                return true;
+                return;
             }
 
-            rh = JSON.parse(rh.replace(/\'/g, '"'));
+            rh = JSON.parse(rh.replace(/'/g, '"'));
 
             for (let r in rh) {
                 rowhiddenother[r] = 0;
@@ -79,13 +123,11 @@ export function filterOptionClick() {
         let data = Store.flowdata;
 
         setTimeout(function () {
-            //日期值
-            let dvmap = {};  
+            let dvmap = {};
             let dvmap_uncheck = {};
 
-            //除日期以外的值
-            let vmap = {}; 
-            let vmap_uncheck = {};  
+            let vmap = {};
+            let vmap_uncheck = {};
 
             for (let r = st_r + 1; r <= ed_r; r++) {
                 if(r in rowhiddenother){
@@ -98,7 +140,7 @@ export function filterOptionClick() {
 
                 let cell = Store.flowdata[r][cindex];
 
-                if(cell != null && !isRealNull(cell.v) && cell.ct != null && cell.ct.t == "d" ){ //单元格是日期
+                if(cell != null && !isRealNull(cell.v) && cell.ct != null && cell.ct.t == "d" ){
                     let v = update("YYYY-MM-DD", cell.v);
 
                     let y = v.split("-")[0];
@@ -147,7 +189,7 @@ export function filterOptionClick() {
                     }
 
                     if(!(m in vmap[v])){
-                        vmap[v][m] = 0;                            
+                        vmap[v][m] = 0;
                     }
 
                     vmap[v][m]++;
@@ -158,7 +200,6 @@ export function filterOptionClick() {
                 }
             }
 
-            //遍历数据加到页面
             let item = [];
 
             if(JSON.stringify(dvmap).length > 2){
@@ -174,25 +215,22 @@ export function filterOptionClick() {
                             let dayL = dvmap[y][m][d];
                             msum += dayL;
 
-                            //月 小于 10
                             let mT;
                             if(Number(m) < 10){
                                 mT = "0" + Number(m);
                             }
                             else{
-                                mT = m;    
+                                mT = m;
                             }
 
-                            //日 小于 10
                             let dT;
                             if(Number(d) < 10){
                                 dT = "0" + Number(d);
                             }
                             else{
-                                dT = d;    
+                                dT = d;
                             }
 
-                            //日是否选中状态
                             if((y in dvmap_uncheck) && (m in dvmap_uncheck) && (d in dvmap_uncheck)){
                                 dayHtml +=  '<div class="day luckysheet-mousedown-cancel cf" data-check="false" title="'+ y +'-'+ mT +'-'+ dT +'">' +
                                                 '<input class="luckysheet-mousedown-cancel" type="checkbox"/>' +
@@ -211,16 +249,14 @@ export function filterOptionClick() {
 
                         ysum += msum;
 
-                        //月 小于 10
                         let mT2;
                         if(Number(m) < 10){
                             mT2 = "0" + Number(m);
                         }
                         else{
-                            mT2 = m;    
+                            mT2 = m;
                         }
 
-                        //月是否选中状态
                         if((y in dvmap_uncheck) && (m in dvmap_uncheck)){
                             monthHtml += '<div class="monthBox luckysheet-mousedown-cancel">' +
                                             '<div class="month luckysheet-mousedown-cancel cf" data-check="false" title="'+ y +'-'+ mT2 +'">' +
@@ -245,7 +281,6 @@ export function filterOptionClick() {
                         }
                     }
 
-                    //年是否选中状态
                     let yearHtml;
                     if(y in dvmap_uncheck){
                         yearHtml =  '<div class="yearBox luckysheet-mousedown-cancel">' +
@@ -290,7 +325,6 @@ export function filterOptionClick() {
                             text = x;
                         }
 
-                        //是否选中状态
                         let dataHtml;
                         if((v + "#$$$#" + x) in vmap_uncheck){
                             dataHtml =  '<div class="textBox luckysheet-mousedown-cancel cf" data-check="false" data-filter="'+ (v + "#$$$#" + x) +'" title="'+ text +'">' +
@@ -312,16 +346,27 @@ export function filterOptionClick() {
                 }
             }
 
-            // 适配小屏设备
             let containerH = winH - toffset.top - 350
             if (containerH < 0) containerH = 100
-            //$("#luckysheet-filter-byvalue-select").html("<div class='ListBox luckysheet-mousedown-cancel' style='min-height: 100px; max-height: " + containerH + "px; overflow-y: auto; overflow-x: hidden;'><table cellspacing='0' style='width:100%;' class='luckysheet-mousedown-cancel'>" + item.join("") + "</table></div>");
 
-            $("#luckysheet-filter-byvalue-select").append("<div class='ListBox luckysheet-mousedown-cancel' style='min-height: 100px; max-height: " + containerH + "px; overflow-y: auto; overflow-x: hidden;'><table cellspacing='0' style='width:100%;' class='luckysheet-mousedown-cancel'>" + item.join("") + "</table></div>");
-            loadingObj.close();
+            if (byvalueSelect) {
+                byvalueSelect.insertAdjacentHTML('beforeend', "<div class='ListBox luckysheet-mousedown-cancel' style='min-height: 100px; max-height: " + containerH + "px; overflow-y: auto; overflow-x: hidden;'><table cellspacing='0' style='width:100%;' class='luckysheet-mousedown-cancel'>" + item.join("") + "</table></div>");
+            }
+            if (loadingObj) loadingObj.close();
         }, 1);
 
-        showrightclickmenu($menu, toffset.left, toffset.top + 20);
+        if (menu) {
+            let menuW = menu.offsetWidth,
+                menuH = menu.offsetHeight;
+            let top = toffset.top + 20,
+                left = toffset.left;
+            if (left + menuW > winW) { left = toffset.left - menuW; }
+            if (top + menuH > winH) { top = winH - menuH; }
+            if (top < 0) { top = 0; }
+            menu.style.top = top + 'px';
+            menu.style.left = left + 'px';
+            menu.style.display = '';
+        }
 
         e.stopPropagation();
         return false;

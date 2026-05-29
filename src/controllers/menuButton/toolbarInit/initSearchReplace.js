@@ -9,12 +9,12 @@ import luckysheetSearchReplace from '../../searchReplace';
 
 export function initSearchReplace(_this) {
       //查找和替�?
-      $("#luckysheet-icon-seachmore").click(function () {
-        let menuButtonId = $(this).attr("id") + "-menuButton";
-        let $menuButton = $("#" + menuButtonId);
+      document.getElementById("luckysheet-icon-seachmore").addEventListener("click", function () {
+        let menuButtonId = this.getAttribute("id") + "-menuButton";
+        let menuButton = document.getElementById(menuButtonId);
         const _locale = locale();
         const locale_findAndReplace = _locale.findAndReplace;
-        if ($menuButton.length == 0) {
+        if (menuButton == null) {
           let itemdata = [{
             text: locale_findAndReplace.find + " ...",
             value: "search",
@@ -74,12 +74,13 @@ export function initSearchReplace(_this) {
             sub: ""
           });
           document.body.insertAdjacentHTML('beforeend', menu);
-          $menuButton = $("#" + menuButtonId).width(180);
-          $menuButton.find(".luckysheet-cols-menuitem").click(function () {
-            $menuButton.hide();
-            luckysheetContainerFocus();
-            let $t = $(this),
-              itemvalue = $t.attr("itemvalue");
+          menuButton = document.getElementById(menuButtonId);
+          menuButton.style.width = "180px";
+          menuButton.querySelectorAll(".luckysheet-cols-menuitem").forEach(function (item) {
+            item.addEventListener("click", function () {
+              menuButton.style.display = "none";
+              luckysheetContainerFocus();
+              let itemvalue = this.getAttribute("itemvalue");
             if (itemvalue == "search" || itemvalue == "replace") {
               //查找替换
               if (itemvalue == "search") {
@@ -88,7 +89,7 @@ export function initSearchReplace(_this) {
                 luckysheetSearchReplace.createDialog(1);
               }
               luckysheetSearchReplace.init();
-              $("#luckysheet-search-replace #searchInput input").focus();
+              document.querySelector("#luckysheet-search-replace #searchInput input").focus();
             } else if (itemvalue == "location") {
               //定位条件
               luckysheetLocationCell.createDialog();
@@ -149,14 +150,15 @@ export function initSearchReplace(_this) {
               let range = structuredClone(Store.luckysheet_select_save);
               luckysheetLocationCell.apply(range, "locationStepColumn");
             }
+            });
           });
         }
-        let userlen = $(this).outerWidth();
-        let tlen = $menuButton.outerWidth();
-        let menuleft = $(this).offset().left;
+        let userlen = this.offsetWidth;
+        let tlen = menuButton.offsetWidth;
+        let menuleft = this.getBoundingClientRect().left + window.pageXOffset;
         if (checkMenuOverflow(tlen, userlen, menuleft)) {
           menuleft = menuleft - tlen + userlen;
         }
-        mouseclickposition($menuButton, menuleft, $(this).offset().top + 25, "lefttop");
+        mouseclickposition(menuButton, menuleft, this.getBoundingClientRect().top + window.pageYOffset + 25, "lefttop");
       });
 }

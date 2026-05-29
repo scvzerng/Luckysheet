@@ -7,10 +7,10 @@ import { createFilter } from '../../filter';
 
 export function initAutofilter(_this) {
       //过滤和排�?
-      $("#luckysheet-icon-autofilter").click(function () {
-        let menuButtonId = $(this).attr("id") + "-menuButton";
-        let $menuButton = $("#" + menuButtonId);
-        if ($menuButton.length == 0) {
+      document.getElementById("luckysheet-icon-autofilter").addEventListener("click", function () {
+        let menuButtonId = this.getAttribute("id") + "-menuButton";
+        let menuButton = document.getElementById(menuButtonId);
+        if (menuButton == null) {
           const _locale = locale();
           const locale_sort = _locale.sort;
           const locale_filter = _locale.filter;
@@ -47,35 +47,37 @@ export function initAutofilter(_this) {
             sub: ""
           });
           document.body.insertAdjacentHTML('beforeend', menu);
-          $menuButton = $("#" + menuButtonId).width(150);
-          $menuButton.find(".luckysheet-cols-menuitem").click(function () {
-            $menuButton.hide();
-            luckysheetContainerFocus();
-            let $t = $(this),
-              itemvalue = $t.attr("itemvalue");
-            if (itemvalue == "diysort") {
-              $("#luckysheetorderby").click();
-            } else if (itemvalue == "asc") {
-              sortSelection(true);
-            } else if (itemvalue == "desc") {
-              sortSelection(false);
-            } else if (itemvalue == "filter") {
-              if ($("#luckysheet-filter-options-sheet" + Store.currentSheetIndex).length > 0) {
-                $("#luckysheet-filter-initial").click();
-              } else {
-                createFilter();
+          menuButton = document.getElementById(menuButtonId);
+          menuButton.style.width = "150px";
+          menuButton.querySelectorAll(".luckysheet-cols-menuitem").forEach(function (item) {
+            item.addEventListener("click", function () {
+              menuButton.style.display = "none";
+              luckysheetContainerFocus();
+              let itemvalue = this.getAttribute("itemvalue");
+              if (itemvalue == "diysort") {
+                document.getElementById("luckysheetorderby").click();
+              } else if (itemvalue == "asc") {
+                sortSelection(true);
+              } else if (itemvalue == "desc") {
+                sortSelection(false);
+              } else if (itemvalue == "filter") {
+                if (document.getElementById("luckysheet-filter-options-sheet" + Store.currentSheetIndex) != null) {
+                  document.getElementById("luckysheet-filter-initial").click();
+                } else {
+                  createFilter();
+                }
+              } else if (itemvalue == "clearfilter") {
+                document.getElementById("luckysheet-filter-initial").click();
               }
-            } else if (itemvalue == "clearfilter") {
-              $("#luckysheet-filter-initial").click();
-            }
+            });
           });
         }
-        let userlen = $(this).outerWidth();
-        let tlen = $menuButton.outerWidth();
-        let menuleft = $(this).offset().left;
+        let userlen = this.offsetWidth;
+        let tlen = menuButton.offsetWidth;
+        let menuleft = this.getBoundingClientRect().left + window.pageXOffset;
         if (checkMenuOverflow(tlen, userlen, menuleft)) {
           menuleft = menuleft - tlen + userlen;
         }
-        mouseclickposition($menuButton, menuleft, $(this).offset().top + 25, "lefttop");
+        mouseclickposition(menuButton, menuleft, this.getBoundingClientRect().top + window.pageYOffset + 25, "lefttop");
       });
 }

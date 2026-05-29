@@ -14,10 +14,10 @@ import cellMain from '../../../ui/cellMain.js';
 
 export function initFreezen(_this) {
       //冻结行列
-      $("#luckysheet-icon-freezen-menu").click(function () {
-        let menuButtonId = $(this).attr("id") + "-menuButton";
-        let $menuButton = $("#" + menuButtonId);
-        if ($menuButton.length == 0) {
+      document.getElementById("luckysheet-icon-freezen-menu").addEventListener("click", function () {
+        let menuButtonId = this.getAttribute("id") + "-menuButton";
+        let menuButton = document.getElementById(menuButtonId);
+        if (menuButton == null) {
           const _locale = locale();
           const locale_freezen = _locale.freezen;
           let itemdata = [{
@@ -65,16 +65,18 @@ export function initFreezen(_this) {
             sub: ""
           });
           document.body.insertAdjacentHTML('beforeend', menu);
-          $menuButton = $("#" + menuButtonId).width(170);
-          $menuButton.find(".luckysheet-cols-menuitem").click(function () {
-            $menuButton.hide();
-            luckysheetContainerFocus();
-            let $t = $(this),
-              itemvalue = $t.attr("itemvalue");
-            _this.focus($menuButton, itemvalue);
-            if (itemvalue === "freezenCancel") {
-              $menuButton.find(".fa.fa-check").remove();
-            }
+          menuButton = document.getElementById(menuButtonId);
+          menuButton.style.width = "170px";
+          menuButton.querySelectorAll(".luckysheet-cols-menuitem").forEach(function (item) {
+            item.addEventListener("click", function () {
+              menuButton.style.display = "none";
+              luckysheetContainerFocus();
+              let itemvalue = this.getAttribute("itemvalue");
+              _this.focus(menuButton, itemvalue);
+              if (itemvalue === "freezenCancel") {
+                let checkEl = menuButton.querySelector(".fa.fa-check");
+                if (checkEl) checkEl.remove();
+              }
   
             // store frozen
             luckysheetFreezen.saveFrozen(itemvalue);
@@ -298,14 +300,15 @@ export function initFreezen(_this) {
             setTimeout(function () {
               luckysheetsizeauto();
             }, 0);
+            });
           });
         }
-        let userlen = $(this).outerWidth();
-        let tlen = $menuButton.outerWidth();
-        let menuleft = $(this).offset().left;
+        let userlen = this.offsetWidth;
+        let tlen = menuButton.offsetWidth;
+        let menuleft = this.getBoundingClientRect().left + window.pageXOffset;
         if (checkMenuOverflow(tlen, userlen, menuleft)) {
           menuleft = menuleft - tlen + userlen;
         }
-        mouseclickposition($menuButton, menuleft - 68, $(this).offset().top + 25, "lefttop");
+        mouseclickposition(menuButton, menuleft - 68, this.getBoundingClientRect().top + window.pageYOffset + 25, "lefttop");
       });
 }

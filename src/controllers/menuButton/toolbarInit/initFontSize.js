@@ -7,7 +7,8 @@ import { checkMenuOverflow, isInputBoxActive } from '../../../utils/domUtils.js'
 export function initFontSize(_this) {
       //字体大小
       let luckysheet_fs_setTimeout = null;
-      $("#luckysheet-icon-font-size").mousedown(function (e) {
+      let fontSizeEl = document.getElementById("luckysheet-icon-font-size");
+      fontSizeEl.addEventListener("mousedown", function (e) {
         if (isInputBoxActive()) {
           let w = window.getSelection();
           if (w.type != "None") {
@@ -19,10 +20,11 @@ export function initFontSize(_this) {
         }
         hideMenuByCancel(e);
         e.stopPropagation();
-      }).click(function () {
-        let menuButtonId = $(this).attr("id") + "-menuButton";
-        let $menuButton = $("#" + menuButtonId);
-        if ($menuButton.length == 0) {
+      });
+      fontSizeEl.addEventListener("click", function () {
+        let menuButtonId = this.getAttribute("id") + "-menuButton";
+        let menuButton = document.getElementById(menuButtonId);
+        if (menuButton == null) {
           let itemdata = [{
             text: "9",
             value: "9",
@@ -92,51 +94,54 @@ export function initFontSize(_this) {
             sub: ""
           });
           document.body.insertAdjacentHTML('beforeend', menu);
-          $menuButton = $("#" + menuButtonId).width(150);
-          _this.focus($menuButton, 10);
-          $menuButton.find(".luckysheet-cols-menuitem").click(function () {
-            $menuButton.hide();
-            luckysheetContainerFocus();
-            let $t = $(this),
-              itemvalue = $t.attr("itemvalue"),
-              $input = $("#luckysheet-icon-font-size input");
-            $("#luckysheet-icon-font-size").attr("itemvalue", itemvalue);
-            _this.focus($menuButton, itemvalue);
-            $input.val(itemvalue);
-            let d = editor.deepCopyFlowData(Store.flowdata);
-            _this.updateFormat(d, "fs", itemvalue);
-            clearTimeout(luckysheet_fs_setTimeout);
+          menuButton = document.getElementById(menuButtonId);
+          menuButton.style.width = "150px";
+          _this.focus(menuButton, 10);
+          menuButton.querySelectorAll(".luckysheet-cols-menuitem").forEach(function (item) {
+            item.addEventListener("click", function () {
+              menuButton.style.display = "none";
+              luckysheetContainerFocus();
+              let itemvalue = this.getAttribute("itemvalue");
+              let input = document.querySelector("#luckysheet-icon-font-size input");
+              document.getElementById("luckysheet-icon-font-size").setAttribute("itemvalue", itemvalue);
+              _this.focus(menuButton, itemvalue);
+              input.value = itemvalue;
+              let d = editor.deepCopyFlowData(Store.flowdata);
+              _this.updateFormat(d, "fs", itemvalue);
+              clearTimeout(luckysheet_fs_setTimeout);
+            });
           });
         }
-        let userlen = $(this).outerWidth();
-        let tlen = $menuButton.outerWidth();
-        let defualtvalue = $("#luckysheet-icon-font-size").attr("itemvalue");
+        let userlen = this.offsetWidth;
+        let tlen = menuButton.offsetWidth;
+        let defualtvalue = document.getElementById("luckysheet-icon-font-size").getAttribute("itemvalue");
         if (defualtvalue == null) {
           defualtvalue = 10;
         }
-        _this.focus($menuButton, defualtvalue);
-        let menuleft = $(this).offset().left;
+        _this.focus(menuButton, defualtvalue);
+        let menuleft = this.getBoundingClientRect().left + window.pageXOffset;
         if (checkMenuOverflow(tlen, userlen, menuleft)) {
           menuleft = menuleft - tlen + userlen;
         }
-        mouseclickposition($menuButton, menuleft, $(this).offset().top + 25, "lefttop");
-      }).find("input.luckysheet-toolbar-textinput").keydown(function (e) {
+        mouseclickposition(menuButton, menuleft, this.getBoundingClientRect().top + window.pageYOffset + 25, "lefttop");
+      });
+      fontSizeEl.querySelector("input.luckysheet-toolbar-textinput").addEventListener("keydown", function (e) {
         hideMenuByCancel(e);
         e.stopPropagation();
-      }).keyup(function (e) {
+      });
+      fontSizeEl.querySelector("input.luckysheet-toolbar-textinput").addEventListener("keyup", function (e) {
         if (e.keyCode != 13) {
-          //Enter
           return;
         }
-        let $this = $(this);
-        let itemvalue = parseInt($this.val());
-        let $menuButton = $("#luckysheet-icon-font-size-menuButton");
-        _this.focus($menuButton, itemvalue);
+        let self = this;
+        let itemvalue = parseInt(self.value);
+        let menuButton = document.getElementById("luckysheet-icon-font-size-menuButton");
+        _this.focus(menuButton, itemvalue);
         let d = editor.deepCopyFlowData(Store.flowdata);
         _this.updateFormat(d, "fs", itemvalue);
         luckysheet_fs_setTimeout = setTimeout(function () {
-          $menuButton.hide();
-          $this.blur();
+          menuButton.style.display = "none";
+          self.blur();
         }, 200);
       });
 }

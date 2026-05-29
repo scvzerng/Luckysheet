@@ -13,19 +13,18 @@ import '../../../components/ColorPicker/colorPicker.css';
 
 export function initBorder(_this) {
       //边框设置
-      $("#luckysheet-icon-border-all").click(function () {
-        // *如果禁止前台编辑，则中止下一步操�?
+      document.getElementById("luckysheet-icon-border-all").addEventListener("click", function () {
         if (!checkIsAllowEdit()) {
           return;
         }
         let d = editor.deepCopyFlowData(Store.flowdata);
-        let type = $(this).attr("type");
+        let type = this.getAttribute("type");
         if (type == null) {
           type = "border-all";
         }
         let subcolormenuid = "luckysheet-icon-borderColor-menuButton";
-        let color = $("#" + subcolormenuid).find(".luckysheet-color-selected").val();
-        let style = $("#luckysheetborderSizepreview").attr("itemvalue");
+        let color = document.querySelector("#" + subcolormenuid + " .luckysheet-color-selected").value;
+        let style = document.getElementById("luckysheetborderSizepreview").getAttribute("itemvalue");
         if (color == null || color == "") {
           color = "#000";
         }
@@ -59,10 +58,10 @@ export function initBorder(_this) {
           luckysheetrefreshgrid();
         }, 1);
       });
-      $("#luckysheet-icon-border-menu").click(function () {
-        let menuButtonId = $(this).attr("id") + "-menuButton";
-        let $menuButton = $("#" + menuButtonId);
-        if ($menuButton.length == 0) {
+      document.getElementById("luckysheet-icon-border-menu").addEventListener("click", function () {
+        let menuButtonId = this.getAttribute("id") + "-menuButton";
+        let menuButton = document.getElementById(menuButtonId);
+        if (menuButton == null) {
           let canvasH = 10,
             canvasW = 120;
           const _locale = locale();
@@ -209,47 +208,53 @@ export function initBorder(_this) {
             resetColor: locale_toolbar.resetColor
           });
           document.body.insertAdjacentHTML('beforeend', menu + colormenu + submenu);
-          $menuButton = $("#" + menuButtonId).width(170);
-          _this.focus($menuButton, "border-all");
-          $("#" + submenuid + " canvas").each(function (i) {
-            let type = $(this).attr("type");
-            let itemvalue = $(this).closest(".luckysheet-cols-menuitem").attr("itemvalue");
-            let canvasborder = $(this).addClass("luckysheet-mousedown-cancel").get(0).getContext("2d");
+          menuButton = document.getElementById(menuButtonId);
+          menuButton.style.width = "170px";
+          _this.focus(menuButton, "border-all");
+          document.querySelectorAll("#" + submenuid + " canvas").forEach(function (canvasEl) {
+            let type = canvasEl.getAttribute("type");
+            let itemvalue = canvasEl.closest(".luckysheet-cols-menuitem").getAttribute("itemvalue");
+            canvasEl.classList.add("luckysheet-mousedown-cancel");
+            let canvasborder = canvasEl.getContext("2d");
             canvasborder.translate(0.5, 0.5);
             _this.setLineDash(canvasborder, itemvalue, "h", 0, 5, 100, 5);
             canvasborder.strokeStyle = "#000000";
             canvasborder.stroke();
             canvasborder.closePath();
           });
-          $("#" + submenuid + " .luckysheet-cols-menuitem").click(function () {
-            const _elBorder = document.getElementById(submenuid); if (_elBorder) _elBorder.style.display = 'none';
-            let $t = $(this),
-              itemvalue = $t.attr("itemvalue");
+          document.querySelectorAll("#" + submenuid + " .luckysheet-cols-menuitem").forEach(function (item) {
+            item.addEventListener("click", function () {
+              const _elBorder = document.getElementById(submenuid); if (_elBorder) _elBorder.style.display = 'none';
+              let itemvalue = this.getAttribute("itemvalue");
             if (itemvalue == 0) {
-              $("#luckysheetborderSizepreview").attr("src", "data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==").attr("itemvalue", null);
-            } else {
-              let bg = $t.find("canvas").get(0).toDataURL("image/png");
-              $("#luckysheetborderSizepreview").attr("src", bg).attr("itemvalue", itemvalue);
-            }
-            _this.focus($("#" + submenuid), itemvalue);
+                let preview = document.getElementById("luckysheetborderSizepreview");
+                preview.setAttribute("src", "data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==");
+                preview.removeAttribute("itemvalue");
+              } else {
+                let bg = this.querySelector("canvas").toDataURL("image/png");
+                let preview = document.getElementById("luckysheetborderSizepreview");
+                preview.setAttribute("src", bg);
+                preview.setAttribute("itemvalue", itemvalue);
+              }
+              _this.focus(document.getElementById(submenuid), itemvalue);
+            });
           });
   
           // border choose menu
-          $menuButton.find(".luckysheet-cols-menuitem").click(function () {
-            // *如果禁止前台编辑，则中止下一步操�?
-            if (!checkIsAllowEdit()) {
-              return;
-            }
-            $menuButton.hide();
-            luckysheetContainerFocus();
-            let $t = $(this),
-              itemvalue = $t.attr("itemvalue");
+          document.querySelectorAll("#" + menuButtonId + " .luckysheet-cols-menuitem").forEach(function (item) {
+            item.addEventListener("click", function () {
+              if (!checkIsAllowEdit()) {
+                return;
+              }
+              menuButton.style.display = "none";
+              luckysheetContainerFocus();
+              let itemvalue = this.getAttribute("itemvalue");
             if (itemvalue == "borderColor" || itemvalue == "borderSize") {
               return;
             }
             let d = editor.deepCopyFlowData(Store.flowdata);
-            let color = $("#" + subcolormenuid).find(".luckysheet-color-selected").val();
-            let style = $("#luckysheetborderSizepreview").attr("itemvalue");
+            let color = document.querySelector("#" + subcolormenuid + " .luckysheet-color-selected").value;
+            let style = document.getElementById("luckysheetborderSizepreview").getAttribute("itemvalue");
             if (color == null || color == "") {
               color = "#000";
             }
@@ -282,14 +287,14 @@ export function initBorder(_this) {
             setTimeout(function () {
               luckysheetrefreshgrid();
             }, 1);
-            $("#luckysheet-icon-border-all").attr("type", itemvalue);
-            let $icon = $("#luckysheet-icon-border-all").find(".luckysheet-icon-img-container");
-  
-            // add iconfont
-            $icon.removeAttr("class").addClass("luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-" + itemvalue + iconfontObject[itemvalue]);
-            _this.focus($menuButton, itemvalue);
+            document.getElementById("luckysheet-icon-border-all").setAttribute("type", itemvalue);
+            let icon = document.getElementById("luckysheet-icon-border-all").querySelector(".luckysheet-icon-img-container");
+
+            icon.className = "luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-" + itemvalue + iconfontObject[itemvalue];
+            _this.focus(menuButton, itemvalue);
+            });
           });
-          createColorPicker($("#" + subcolormenuid).find(".luckysheet-color-selected")[0], {
+          createColorPicker(document.querySelector("#" + subcolormenuid + " .luckysheet-color-selected"), {
             showPaletteOnly: true,
             flat: true,
             hideAfterPaletteSelect: true,
@@ -311,20 +316,22 @@ export function initBorder(_this) {
               document.querySelector("#" + subcolormenuid + " .luckysheet-color-selected").value = hexColor;
             }
           });
-          $("#" + subcolormenuid).find(".luckysheet-color-reset").click(function () {
+          document.querySelectorAll("#" + subcolormenuid + " .luckysheet-color-reset").forEach(function (item) {
+            item.addEventListener("click", function () {
             let input = document.querySelector("#" + subcolormenuid + " .luckysheet-color-selected");
             input.value = "#000";
             document.getElementById("luckysheet-icon-cell-color").removeAttribute("color");
             getPicker(input)?.set("#000");
             document.getElementById("luckysheet-icon-borderColor-linecolor").style.borderBottomColor = "#000";
+            });
           });
         }
-        let userlen = $(this).outerWidth();
-        let tlen = $menuButton.outerWidth();
-        let menuleft = $(this).offset().left;
+        let userlen = this.offsetWidth;
+        let tlen = menuButton.offsetWidth;
+        let menuleft = this.getBoundingClientRect().left + window.pageXOffset;
         if (checkMenuOverflow(tlen, userlen, menuleft)) {
           menuleft = menuleft - tlen + userlen;
         }
-        mouseclickposition($menuButton, menuleft - 28, $(this).offset().top + 25, "lefttop");
+        mouseclickposition(menuButton, menuleft - 28, this.getBoundingClientRect().top + window.pageYOffset + 25, "lefttop");
       });
 }

@@ -1,26 +1,38 @@
 import Store from '../../store';
 import { getCurrentFile } from '../../utils/storeAccess.js';
 
-function labelFilterOptionState($top, optionstate, rowhidden, caljs, notSave, str, edr, cindex, stc, edc) {
+function labelFilterOptionState(topEl, optionstate, rowhidden, caljs, notSave, str, edr, cindex, stc, edc) {
     if (optionstate) {
-        $top.addClass("luckysheet-filter-options-active").data("rowhidden", JSON.stringify(rowhidden)).data("caljs", JSON.stringify(caljs)).html('<i class="fa fa-filter luckysheet-mousedown-cancel" aria-hidden="true"></i>');
+        topEl.classList.add("luckysheet-filter-options-active");
+        topEl.dataset.rowhidden = JSON.stringify(rowhidden);
+        topEl.dataset.caljs = JSON.stringify(caljs);
+        topEl.innerHTML = '<i class="fa fa-filter luckysheet-mousedown-cancel" aria-hidden="true"></i>';
 
         if (caljs != null) {
-            $top.data("byconditionvalue", caljs["value"]).data("byconditiontype", caljs["type"]).data("byconditiontext", caljs["text"]);
+            topEl.dataset.byconditionvalue = caljs["value"];
+            topEl.dataset.byconditiontype = caljs["type"];
+            topEl.dataset.byconditiontext = caljs["text"];
 
             if (caljs["value1"] != null) {
-                $top.data("byconditionvalue1", caljs["value1"]);
+                topEl.dataset.byconditionvalue1 = caljs["value1"];
             }
 
             if (caljs["value2"] != null) {
-                $top.data("byconditionvalue2", caljs["value2"]);
+                topEl.dataset.byconditionvalue2 = caljs["value2"];
             }
         }
     }
     else {
-        $top.removeClass("luckysheet-filter-options-active").data("rowhidden", "").data("caljs", "").html('<i class="fa fa-caret-down luckysheet-mousedown-cancel" aria-hidden="true"></i>');
+        topEl.classList.remove("luckysheet-filter-options-active");
+        topEl.dataset.rowhidden = "";
+        topEl.dataset.caljs = "";
+        topEl.innerHTML = '<i class="fa fa-caret-down luckysheet-mousedown-cancel" aria-hidden="true"></i>';
 
-        $top.data("byconditionvalue", "null").data("byconditiontype", "0").data("byconditiontext", "无").data("byconditionvalue1", "").data("byconditionvalue2", "");
+        topEl.dataset.byconditionvalue = "null";
+        topEl.dataset.byconditiontype = "0";
+        topEl.dataset.byconditiontext = "无";
+        topEl.dataset.byconditionvalue1 = "";
+        topEl.dataset.byconditionvalue2 = "";
     }
 
     if(notSave){
@@ -32,8 +44,8 @@ function labelFilterOptionState($top, optionstate, rowhidden, caljs, notSave, st
 
         if (optionstate) {
             let param = {
-                "caljs": caljs, 
-                "rowhidden": rowhidden, 
+                "caljs": caljs,
+                "rowhidden": rowhidden,
                 "optionstate": optionstate,
                 "str": str,
                 "edr": edr,

@@ -7,20 +7,20 @@ import { iconfontObjects } from '../../constant';
 
 export function initValign(_this) {
       //垂直对齐
-      $("#luckysheet-icon-valign").click(function () {
-        let itemvalue = $("#luckysheet-icon-valign").attr("type");
+      document.getElementById("luckysheet-icon-valign").addEventListener("click", function () {
+        let itemvalue = document.getElementById("luckysheet-icon-valign").getAttribute("type");
         if (itemvalue == null) {
           itemvalue = "bottom";
         }
         let d = editor.deepCopyFlowData(Store.flowdata);
         _this.updateFormat(d, "vt", itemvalue);
       });
-      $("#luckysheet-icon-valign-menu").click(function () {
-        let menuButtonId = $(this).attr("id") + "-menuButton";
-        let $menuButton = $("#" + menuButtonId);
+      document.getElementById("luckysheet-icon-valign-menu").addEventListener("click", function () {
+        let menuButtonId = this.getAttribute("id") + "-menuButton";
+        let menuButton = document.getElementById(menuButtonId);
         const _locale = locale();
         const locale_align = _locale.align;
-        if ($menuButton.length == 0) {
+        if (menuButton == null) {
           let itemdata = [{
             text: locale_align.top,
             value: "top",
@@ -45,28 +45,31 @@ export function initValign(_this) {
             sub: ""
           });
           document.body.insertAdjacentHTML('beforeend', menu);
-          $menuButton = $("#" + menuButtonId).width(120);
-          _this.focus($menuButton, "bottom");
-          $menuButton.find(".luckysheet-cols-menuitem").click(function () {
-            $menuButton.hide();
-            luckysheetContainerFocus();
-            let $t = $(this),
-              itemvalue = $t.attr("itemvalue");
-            _this.focus($menuButton, itemvalue);
-            let $icon = $("#luckysheet-icon-valign").attr("type", itemvalue).find(".luckysheet-icon-img-container");
-  
-            // add iconfont
-            $icon.removeAttr("class").addClass("luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-valign-" + itemvalue + iconfontObject[itemvalue]);
-            let d = editor.deepCopyFlowData(Store.flowdata);
-            _this.updateFormat(d, "vt", itemvalue);
+          menuButton = document.getElementById(menuButtonId);
+          menuButton.style.width = "120px";
+          _this.focus(menuButton, "bottom");
+          menuButton.querySelectorAll(".luckysheet-cols-menuitem").forEach(function (item) {
+            item.addEventListener("click", function () {
+              menuButton.style.display = "none";
+              luckysheetContainerFocus();
+              let itemvalue = this.getAttribute("itemvalue");
+              _this.focus(menuButton, itemvalue);
+              let valignEl = document.getElementById("luckysheet-icon-valign");
+              valignEl.setAttribute("type", itemvalue);
+              let icon = valignEl.querySelector(".luckysheet-icon-img-container");
+
+              icon.className = "luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-valign-" + itemvalue + iconfontObject[itemvalue];
+              let d = editor.deepCopyFlowData(Store.flowdata);
+              _this.updateFormat(d, "vt", itemvalue);
+            });
           });
         }
-        let userlen = $(this).outerWidth();
-        let tlen = $menuButton.outerWidth();
-        let menuleft = $(this).offset().left;
+        let userlen = this.offsetWidth;
+        let tlen = menuButton.offsetWidth;
+        let menuleft = this.getBoundingClientRect().left + window.pageXOffset;
         if (checkMenuOverflow(tlen, userlen, menuleft)) {
           menuleft = menuleft - tlen + userlen;
         }
-        mouseclickposition($menuButton, menuleft - 28, $(this).offset().top + 25, "lefttop");
+        mouseclickposition(menuButton, menuleft - 28, this.getBoundingClientRect().top + window.pageYOffset + 25, "lefttop");
       });
 }

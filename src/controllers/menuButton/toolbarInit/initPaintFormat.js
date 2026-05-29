@@ -8,7 +8,7 @@ import resizeHandles from '../../../ui/resizeHandles.js';
 
 export function initPaintFormat(_this) {
       //格式�?
-      $("#luckysheet-icon-paintformat").click(function (e) {
+      document.getElementById("luckysheet-icon-paintformat").addEventListener("click", function (e) {
         // *如果禁止前台编辑，则中止下一步操�?
         if (!checkIsAllowEdit()) {
           return;
@@ -83,7 +83,7 @@ export function initPaintFormat(_this) {
         _this.luckysheetPaintModelOn = true;
         _this.luckysheetPaintSingle = true;
       });
-      $("#luckysheet-icon-paintformat").dblclick(function () {
+      document.getElementById("luckysheet-icon-paintformat").addEventListener("dblclick", function () {
         // *如果禁止前台编辑，则中止下一步操�?
         if (!checkIsAllowEdit()) {
           return;

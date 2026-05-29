@@ -7,18 +7,18 @@ import { iconfontObjects } from '../../constant';
 
 export function initAlign(_this) {
       //水平对齐
-      $("#luckysheet-icon-align").click(function () {
-        let itemvalue = $("#luckysheet-icon-align").attr("type");
+      document.getElementById("luckysheet-icon-align").addEventListener("click", function () {
+        let itemvalue = document.getElementById("luckysheet-icon-align").getAttribute("type");
         if (itemvalue == null) {
           itemvalue = "left";
         }
         let d = editor.deepCopyFlowData(Store.flowdata);
         _this.updateFormat(d, "ht", itemvalue);
       });
-      $("#luckysheet-icon-align-menu").click(function () {
-        let menuButtonId = $(this).attr("id") + "-menuButton";
-        let $menuButton = $("#" + menuButtonId);
-        if ($menuButton.length == 0) {
+      document.getElementById("luckysheet-icon-align-menu").addEventListener("click", function () {
+        let menuButtonId = this.getAttribute("id") + "-menuButton";
+        let menuButton = document.getElementById(menuButtonId);
+        if (menuButton == null) {
           const _locale = locale();
           const locale_align = _locale.align;
           let itemdata = [{
@@ -45,28 +45,31 @@ export function initAlign(_this) {
             sub: ""
           });
           document.body.insertAdjacentHTML('beforeend', menu);
-          $menuButton = $("#" + menuButtonId).width(120);
-          _this.focus($menuButton);
-          $menuButton.find(".luckysheet-cols-menuitem").click(function () {
-            $menuButton.hide();
-            luckysheetContainerFocus();
-            let $t = $(this),
-              itemvalue = $t.attr("itemvalue");
-            _this.focus($menuButton, itemvalue);
-            let $icon = $("#luckysheet-icon-align").attr("type", itemvalue).find(".luckysheet-icon-img-container");
-  
-            // add iconfont
-            $icon.removeAttr("class").addClass("luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-align-" + itemvalue + iconfontObject[itemvalue]);
-            let d = editor.deepCopyFlowData(Store.flowdata);
-            _this.updateFormat(d, "ht", itemvalue);
+          menuButton = document.getElementById(menuButtonId);
+          menuButton.style.width = "120px";
+          _this.focus(menuButton);
+          menuButton.querySelectorAll(".luckysheet-cols-menuitem").forEach(function (item) {
+            item.addEventListener("click", function () {
+              menuButton.style.display = "none";
+              luckysheetContainerFocus();
+              let itemvalue = this.getAttribute("itemvalue");
+              _this.focus(menuButton, itemvalue);
+              let alignEl = document.getElementById("luckysheet-icon-align");
+              alignEl.setAttribute("type", itemvalue);
+              let icon = alignEl.querySelector(".luckysheet-icon-img-container");
+
+              icon.className = "luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-align-" + itemvalue + iconfontObject[itemvalue];
+              let d = editor.deepCopyFlowData(Store.flowdata);
+              _this.updateFormat(d, "ht", itemvalue);
+            });
           });
         }
-        let userlen = $(this).outerWidth();
-        let tlen = $menuButton.outerWidth();
-        let menuleft = $(this).offset().left;
+        let userlen = this.offsetWidth;
+        let tlen = menuButton.offsetWidth;
+        let menuleft = this.getBoundingClientRect().left + window.pageXOffset;
         if (checkMenuOverflow(tlen, userlen, menuleft)) {
           menuleft = menuleft - tlen + userlen;
         }
-        mouseclickposition($menuButton, menuleft - 28, $(this).offset().top + 25, "lefttop");
+        mouseclickposition(menuButton, menuleft - 28, this.getBoundingClientRect().top + window.pageYOffset + 25, "lefttop");
       });
 }

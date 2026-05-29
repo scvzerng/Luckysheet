@@ -7,11 +7,11 @@ import luckysheetPostil from '../../postil';
 
 export function initPostil(_this) {
       //批注
-      $("#luckysheet-icon-postil").click(function () {
-        let menuButtonId = $(this).attr("id") + "-menuButton";
-        let $menuButton = $("#" + menuButtonId);
+      document.getElementById("luckysheet-icon-postil").addEventListener("click", function () {
+        let menuButtonId = this.getAttribute("id") + "-menuButton";
+        let menuButton = document.getElementById(menuButtonId);
         const locale_comment = locale().comment;
-        $menuButton.remove();
+        if (menuButton) menuButton.remove();
   
         // if($menuButton.length == 0){
         luckysheetPostil.removeActivePs();
@@ -70,12 +70,13 @@ export function initPostil(_this) {
           sub: ""
         });
         document.body.insertAdjacentHTML('beforeend', menu);
-        $menuButton = $("#" + menuButtonId).width(150);
-        $menuButton.find(".luckysheet-cols-menuitem").click(function () {
-          $menuButton.hide();
-          luckysheetContainerFocus();
-          let $t = $(this),
-            itemvalue = $t.attr("itemvalue");
+        menuButton = document.getElementById(menuButtonId);
+        menuButton.style.width = "150px";
+        menuButton.querySelectorAll(".luckysheet-cols-menuitem").forEach(function (item) {
+          item.addEventListener("click", function () {
+            menuButton.style.display = "none";
+            luckysheetContainerFocus();
+            let itemvalue = this.getAttribute("itemvalue");
           if (itemvalue == "newPs") {
             luckysheetPostil.newPs(row_index, col_index);
           } else if (itemvalue == "editPs") {
@@ -87,15 +88,15 @@ export function initPostil(_this) {
           } else if (itemvalue == "showHideAllPs") {
             luckysheetPostil.showHideAllPs();
           }
+          });
         });
-        // }
-  
-        let userlen = $(this).outerWidth();
-        let tlen = $menuButton.outerWidth();
-        let menuleft = $(this).offset().left;
+
+        let userlen = this.offsetWidth;
+        let tlen = menuButton.offsetWidth;
+        let menuleft = this.getBoundingClientRect().left + window.pageXOffset;
         if (checkMenuOverflow(tlen, userlen, menuleft)) {
           menuleft = menuleft - tlen + userlen;
         }
-        mouseclickposition($menuButton, menuleft, $(this).offset().top + 25, "lefttop");
+        mouseclickposition(menuButton, menuleft, this.getBoundingClientRect().top + window.pageYOffset + 25, "lefttop");
       });
 }

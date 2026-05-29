@@ -13,11 +13,11 @@ import sheetmanage from '../../sheetmanage';
 
 export function initConditionformat(_this) {
       //条件格式
-      $("#luckysheet-icon-conditionformat").click(function () {
-        let menuButtonId = $(this).attr("id") + "-menuButton";
-        let $menuButton = $("#" + menuButtonId);
+      document.getElementById("luckysheet-icon-conditionformat").addEventListener("click", function () {
+        let menuButtonId = this.getAttribute("id") + "-menuButton";
+        let menuButton = document.getElementById(menuButtonId);
         const conditionformat_text = locale().conditionformat;
-        if ($menuButton.length == 0) {
+        if (menuButton == null) {
           let itemdata = [{
             text: conditionformat_text.highlightCellRules,
             value: "highlightCellRule",
@@ -226,14 +226,15 @@ export function initConditionformat(_this) {
             subclass: "luckysheet-menuButton-sub"
           });
           document.body.insertAdjacentHTML('beforeend', menu + submenu + submenu2 + submenu3 + submenu4 + submenu6);
-          $menuButton = $("#" + menuButtonId).width(190);
-          $("#luckysheet-icon-highlightCellRule-menuButton").width(160);
-          $("#luckysheet-icon-projectSelectRule-menuButton").width(180);
-          $menuButton.find(".luckysheet-cols-menuitem").click(function () {
-            $menuButton.hide();
-            luckysheetContainerFocus();
-            let $t = $(this),
-              itemvalue = $t.attr("itemvalue");
+          menuButton = document.getElementById(menuButtonId);
+          menuButton.style.width = "190px";
+          document.getElementById("luckysheet-icon-highlightCellRule-menuButton").style.width = "160px";
+          document.getElementById("luckysheet-icon-projectSelectRule-menuButton").style.width = "180px";
+          menuButton.querySelectorAll(".luckysheet-cols-menuitem").forEach(function (item) {
+            item.addEventListener("click", function () {
+              menuButton.style.display = "none";
+              luckysheetContainerFocus();
+              let itemvalue = this.getAttribute("itemvalue");
             if (itemvalue == "icons") {
               if (Store.luckysheet_select_save.length == 0) {
                 if (isEditMode()) {
@@ -295,16 +296,16 @@ export function initConditionformat(_this) {
                 conditionformat.init();
               }
             }
+            });
           });
   
           //突出显示单元格规则子菜单点击事件
           offNS("CFhighlightCellRule");
           onNS(document, "click.CFhighlightCellRule", "#luckysheet-icon-highlightCellRule-menuButton .luckysheet-cols-menuitem", function () {
-            $menuButton.hide();
+            menuButton.style.display = "none";
             const _elHighlight = document.getElementById("luckysheet-icon-highlightCellRule-menuButton"); if (_elHighlight) _elHighlight.style.display = 'none';
             luckysheetContainerFocus();
-            let $t = $(this),
-              itemvalue = $t.attr("itemvalue");
+            let itemvalue = this.getAttribute("itemvalue");
             if (Store.luckysheet_select_save.length == 0) {
               if (isEditMode()) {
                 alert(conditionformat_text.pleaseSelectRange);
@@ -414,11 +415,10 @@ export function initConditionformat(_this) {
           //项目选取规则子菜单点击事�?
           offNS("CFprojectSelectRule");
           onNS(document, "click.CFprojectSelectRule", "#luckysheet-icon-projectSelectRule-menuButton .luckysheet-cols-menuitem", function () {
-            $menuButton.hide();
+            menuButton.style.display = "none";
             const _elProject = document.getElementById("luckysheet-icon-projectSelectRule-menuButton"); if (_elProject) _elProject.style.display = 'none';
             luckysheetContainerFocus();
-            let $t = $(this),
-              itemvalue = $t.attr("itemvalue");
+            let itemvalue = this.getAttribute("itemvalue");
             if (Store.luckysheet_select_save.length == 0) {
               if (isEditMode()) {
                 alert(conditionformat_text.pleaseSelectRange);
@@ -514,11 +514,10 @@ export function initConditionformat(_this) {
           //数据条子菜单点击事件
           offNS("CFdataBar");
           onNS(document, "click.CFdataBar", "#luckysheet-icon-dataBar-menuButton .luckysheet-cols-menuitem", function () {
-            $menuButton.hide();
+            menuButton.style.display = "none";
             const _elDataBar = document.getElementById("luckysheet-icon-dataBar-menuButton"); if (_elDataBar) _elDataBar.style.display = 'none';
             luckysheetContainerFocus();
-            let $t = $(this),
-              itemvalue = $t.attr("itemvalue");
+            let itemvalue = this.getAttribute("itemvalue");
             if (Store.luckysheet_select_save.length > 0) {
               let cellrange = structuredClone(Store.luckysheet_select_save);
               let format = conditionformat.dataBarList[itemvalue]["format"];
@@ -529,11 +528,10 @@ export function initConditionformat(_this) {
           //色阶子菜单点击事�?
           offNS("CFcolorGradation");
           onNS(document, "click.CFcolorGradation", "#luckysheet-icon-colorGradation-menuButton .luckysheet-cols-menuitem", function () {
-            $menuButton.hide();
+            menuButton.style.display = "none";
             const _elColorGrad = document.getElementById("luckysheet-icon-colorGradation-menuButton"); if (_elColorGrad) _elColorGrad.style.display = 'none';
             luckysheetContainerFocus();
-            let $t = $(this),
-              itemvalue = $t.attr("itemvalue");
+            let itemvalue = this.getAttribute("itemvalue");
             if (Store.luckysheet_select_save.length > 0) {
               let cellrange = structuredClone(Store.luckysheet_select_save);
               let format = conditionformat.colorGradationList[itemvalue]["format"];
@@ -544,22 +542,21 @@ export function initConditionformat(_this) {
           //清除规则子菜单点击事�?
           offNS("CFdeleteRule");
           onNS(document, "click.CFdeleteRule", "#luckysheet-icon-deleteRule-menuButton .luckysheet-cols-menuitem", function () {
-            $menuButton.hide();
+            menuButton.style.display = "none";
             const _elDeleteRule = document.getElementById("luckysheet-icon-deleteRule-menuButton"); if (_elDeleteRule) _elDeleteRule.style.display = 'none';
             luckysheetContainerFocus();
-            let $t = $(this),
-              itemvalue = $t.attr("itemvalue");
+            let itemvalue = this.getAttribute("itemvalue");
             if (itemvalue == "delSheet") {
               conditionformat.updateItem("delSheet");
             }
           });
         }
-        let userlen = $(this).outerWidth();
-        let tlen = $menuButton.outerWidth();
-        let menuleft = $(this).offset().left;
+        let userlen = this.offsetWidth;
+        let tlen = menuButton.offsetWidth;
+        let menuleft = this.getBoundingClientRect().left + window.pageXOffset;
         if (checkMenuOverflow(tlen, userlen, menuleft)) {
           menuleft = menuleft - tlen + userlen;
         }
-        mouseclickposition($menuButton, menuleft, $(this).offset().top + 25, "lefttop");
+        mouseclickposition(menuButton, menuleft, this.getBoundingClientRect().top + window.pageYOffset + 25, "lefttop");
       });
 }
