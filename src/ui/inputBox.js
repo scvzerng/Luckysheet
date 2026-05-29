@@ -18,7 +18,7 @@ class InputBox {
     hide() { this.el.style.display = 'none'; return this; }
     resetStyle() { this.el.removeAttribute("style"); return this; }
     click() { this.el.click(); return this; }
-    removeParent() { this.el.parentElement.remove(); this._el = null; return this; }
+    removeParent() { if (this.el && this.el.parentElement) this.el.parentElement.remove(); this._el = null; return this; }
 
     find(selector) { return this.el.querySelector(selector); }
     getNativeElement() { return this.el; }
