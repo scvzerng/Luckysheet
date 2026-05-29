@@ -4,12 +4,13 @@ import { luckysheetrefreshgrid } from "../../global/refresh";
 import {  luckysheet_CFiconsImg  } from "../constant";
 import locale from "../../locale/locale";
 import Store from "../../store";
+import conditionformatDialog from '../../ui/conditionformatDialog.js';
 
 //条件格式
 const ruleManagerModule = {
   getConditionRuleList: function (index) {
     let _this = this;
-    $("#luckysheet-administerRule-dialog .ruleList .listBox").empty();
+    conditionformatDialog.adminRule.find(".ruleList .listBox").empty();
     let ruleArr = _this.fileClone[getSheetIndex(index)].luckysheet_conditionformat_save; //条件格式规则集合
     if (ruleArr != null && ruleArr.length > 0) {
       const conditionformat_Text = locale().conditionformat;
@@ -51,9 +52,9 @@ const ruleManagerModule = {
 
         //条件格式规则列表dom
         let itemHtml = '<div class="item" data-item="' + i + '">' + '<div class="ruleName" title="' + ruleName + '">' + ruleName + '</div>' + '<div class="format">' + formatHtml + '</div>' + '<div class="ruleRange">' + '<input class="formulaInputFocus" readonly="true" value="' + rangeTxtArr.join(",") + '"/>' + '<i class="fa fa-table" aria-hidden="true" title="' + conditionformat_Text.selectRange + '"></i>' + '</div>' + '</div>';
-        $("#luckysheet-administerRule-dialog .ruleList .listBox").prepend(itemHtml);
+        conditionformatDialog.adminRule.find(".ruleList .listBox").prepend(itemHtml);
       }
-      $("#luckysheet-administerRule-dialog .ruleList .listBox .item canvas").each(function (i) {
+      conditionformatDialog.adminRule.find(".ruleList .listBox .item canvas").each(function (i) {
         let x = $(this).closest(".item").attr("data-item");
         let type = ruleArr[x]["type"];
         let format = ruleArr[x]["format"];
@@ -116,7 +117,7 @@ const ruleManagerModule = {
           }
         }
       });
-      $("#luckysheet-administerRule-dialog .ruleList .listBox .item").eq(0).addClass("on");
+      conditionformatDialog.adminRule.find(".ruleList .listBox .item").eq(0).addClass("on");
     }
   },
   getConditionRuleName: function (conditionName, conditionRange, conditionValue) {

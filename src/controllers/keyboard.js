@@ -34,10 +34,12 @@ import scrollBarX from '../ui/scrollBarX.js';
 import scrollBarY from '../ui/scrollBarY.js';
 import formulaDialogs from '../ui/formulaDialogs.js';
 import inputBox from '../ui/inputBox.js';
+import inputBoxIndex from '../ui/inputBoxIndex.js';
 import richTextEditor from '../ui/richTextEditor.js';
 import functionBox from '../ui/functionBox.js';
 import cellMain from '../ui/cellMain.js';
 import formulaRangeSelect from '../ui/formulaRangeSelect.js';
+import conditionformatDialog from '../ui/conditionformatDialog.js';
 
 
 let luckysheet_shiftkeydown = false;
@@ -104,11 +106,11 @@ function formulaMoveEvent(dir, ctrlKey, shiftKey, event){
             let anchor = $(window.getSelection().anchorNode);
             // console.log(anchor.parent().next().text());
             if(anchor.parent().next().text() == null || anchor.parent().next().text() == ""){
-                let vText = $("#luckysheet-input-box #luckysheet-input-box-index").text();
+                let vText = inputBoxIndex.getText();
                 let range = formula.getcellrange(vText);
 
                 if(range == null){
-                    range = formula.getcellrange($("#luckysheet-input-box-index").text());
+                    range = formula.getcellrange(inputBoxIndex.getText());
                 }
 
                 let r1 = range["row"][0], r2 = range["row"][1];
@@ -188,13 +190,13 @@ function formulaMoveEvent(dir, ctrlKey, shiftKey, event){
 
                     event.preventDefault();
                 }
-                else if(anchor.is("#luckysheet-rich-text-editor") && anchor.context.childElementCount == anchorOffset){
+                else if(anchor.is(richTextEditor.el) && anchor.context.childElementCount == anchorOffset){
                     formula.updatecell(Store.luckysheetCellUpdate[0], Store.luckysheetCellUpdate[1]);
                     luckysheetMoveHighlightCell("down", -1, "rangeOfSelect");
 
                     event.preventDefault();
                 }
-                else if(anchor.parent().is("#luckysheet-rich-text-editor") && anchor.context.length == anchorOffset){
+                else if(anchor.parent().is(richTextEditor.el) && anchor.context.length == anchorOffset){
                     formula.updatecell(Store.luckysheetCellUpdate[0], Store.luckysheetCellUpdate[1]);
                     luckysheetMoveHighlightCell("down", -1, "rangeOfSelect");
 
@@ -208,13 +210,13 @@ function formulaMoveEvent(dir, ctrlKey, shiftKey, event){
 
                     event.preventDefault();
                 }
-                else if(anchor.is("#luckysheet-rich-text-editor") && anchor.context.childElementCount == anchorOffset){
+                else if(anchor.is(richTextEditor.el) && anchor.context.childElementCount == anchorOffset){
                     formula.updatecell(Store.luckysheetCellUpdate[0], Store.luckysheetCellUpdate[1]);
                     luckysheetMoveHighlightCell("down", 1, "rangeOfSelect");
 
                     event.preventDefault();
                 }
-                else if(anchor.parent().is("#luckysheet-rich-text-editor") && anchor.context.length == anchorOffset){
+                else if(anchor.parent().is(richTextEditor.el) && anchor.context.length == anchorOffset){
                     formula.updatecell(Store.luckysheetCellUpdate[0], Store.luckysheetCellUpdate[1]);
                     luckysheetMoveHighlightCell("down", 1, "rangeOfSelect");
 
@@ -228,13 +230,13 @@ function formulaMoveEvent(dir, ctrlKey, shiftKey, event){
 
                     event.preventDefault();
                 }
-                else if(anchor.is("#luckysheet-rich-text-editor") && anchorOffset == 1){
+                else if(anchor.is(richTextEditor.el) && anchorOffset == 1){
                     formula.updatecell(Store.luckysheetCellUpdate[0], Store.luckysheetCellUpdate[1]);
                     luckysheetMoveHighlightCell("right", -1, "rangeOfSelect");
 
                     event.preventDefault();
                 }
-                else if(anchor.parent().is("#luckysheet-rich-text-editor") && anchorOffset == 0){
+                else if(anchor.parent().is(richTextEditor.el) && anchorOffset == 0){
                     formula.updatecell(Store.luckysheetCellUpdate[0], Store.luckysheetCellUpdate[1]);
                     luckysheetMoveHighlightCell("right", -1, "rangeOfSelect");
 
@@ -251,13 +253,13 @@ function formulaMoveEvent(dir, ctrlKey, shiftKey, event){
 
                     event.preventDefault();
                 }
-                else if(anchor.is("#luckysheet-rich-text-editor") && anchor.context.childElementCount == anchorOffset){
+                else if(anchor.is(richTextEditor.el) && anchor.context.childElementCount == anchorOffset){
                     formula.updatecell(Store.luckysheetCellUpdate[0], Store.luckysheetCellUpdate[1]);
                     luckysheetMoveHighlightCell("right", 1, "rangeOfSelect");
 
                     event.preventDefault();
                 }
-                else if(anchor.parent().is("#luckysheet-rich-text-editor") && anchor.context.length == anchorOffset){
+                else if(anchor.parent().is(richTextEditor.el) && anchor.context.length == anchorOffset){
                     formula.updatecell(Store.luckysheetCellUpdate[0], Store.luckysheetCellUpdate[1]);
                     luckysheetMoveHighlightCell("right", 1, "rangeOfSelect");
 
@@ -395,7 +397,7 @@ export function keyboardInitial(){
             event.preventDefault();
         }
         else if (kcode == keycode.ENTER) {
-            if($(event.target).hasClass("formulaInputFocus") || $("#luckysheet-conditionformat-dialog").is(":visible")){
+            if($(event.target).hasClass("formulaInputFocus") || conditionformatDialog.main.isVisible()){
                 return;
             }
             else if (String.fromCharCode(kcode) != null && $("#luckysheet-cell-selected").is(":visible")) {

@@ -5,13 +5,14 @@ import Store from '../../../store';
 import locale from '../../../locale/locale';
 import { getPicker } from '../../../components/ColorPicker';
 import { hideModalMask } from '../../../utils/domUtils.js';
+import conditionformatDialog from '../../../ui/conditionformatDialog.js';
 
 export function initConditionDialogEvents(_this) {
       const conditionformat_Text = locale().conditionformat;
       // 删除规则
       $(document).off("click.CFdeleteConditionRule").on("click.CFdeleteConditionRule", "#deleteConditionRule", function () {
-        let sheetIndex = $("#luckysheet-administerRule-dialog .chooseSheet option:selected").val();
-        let itemIndex = $("#luckysheet-administerRule-dialog .ruleList .listBox .item.on").attr("data-item");
+        let sheetIndex = conditionformatDialog.adminRule.find(".chooseSheet option:selected").val();
+        let itemIndex = conditionformatDialog.adminRule.find(".ruleList .listBox .item.on").attr("data-item");
         _this.fileClone[getSheetIndex(sheetIndex)]["luckysheet_conditionformat_save"].splice(itemIndex, 1);
         _this.administerRuleDialog();
       });
@@ -19,7 +20,7 @@ export function initConditionDialogEvents(_this) {
       // 规则子菜单弹出层 点击确定修改样式
       $(document).off("click.CFdefault").on("click.CFdefault", "#luckysheet-conditionformat-dialog-confirm", function () {
         //条件名称
-        let conditionName = $("#luckysheet-conditionformat-dialog .box").attr("data-itemvalue");
+        let conditionName = conditionformatDialog.main.find(".box").attr("data-itemvalue");
   
         //条件单元�?
         let conditionRange = [];
@@ -27,7 +28,7 @@ export function initConditionDialogEvents(_this) {
         //条件�?
         let conditionValue = [];
         if (conditionName == "greaterThan" || conditionName == "lessThan" || conditionName == "equal" || conditionName == "textContains") {
-          let v = $("#luckysheet-conditionformat-dialog #conditionVal").val().trim();
+          let v = conditionformatDialog.main.find("#conditionVal").val().trim();
   
           let result = parseConditionRange(v, _this, conditionformat_Text);
           if (result == null) {
@@ -37,8 +38,8 @@ export function initConditionDialogEvents(_this) {
           conditionValue.push(...result.conditionValue);
         } else if (conditionName == "betweenness") {
           //介于
-          let v1 = $("#luckysheet-conditionformat-dialog #conditionVal").val().trim();
-          let v2 = $("#luckysheet-conditionformat-dialog #conditionVal2").val().trim();
+          let v1 = conditionformatDialog.main.find("#conditionVal").val().trim();
+          let v2 = conditionformatDialog.main.find("#conditionVal2").val().trim();
   
           let result1 = parseConditionRange(v1, _this, conditionformat_Text);
           if (result1 == null) {
@@ -59,7 +60,7 @@ export function initConditionDialogEvents(_this) {
           conditionValue.push(...result2.conditionValue);
         } else if (conditionName == "occurrenceDate") {
           //日期
-          let v = $("#luckysheet-conditionformat-dialog #daterange-btn").val();
+          let v = conditionformatDialog.main.find("#daterange-btn").val();
           if (v == "" || v == null) {
             _this.infoDialog(conditionformat_Text.pleaseSelectADate, "");
             return;
@@ -67,9 +68,9 @@ export function initConditionDialogEvents(_this) {
           conditionValue.push(v);
         } else if (conditionName == "duplicateValue") {
           //重复�?
-          conditionValue.push($("#luckysheet-conditionformat-dialog #conditionVal option:selected").val());
+          conditionValue.push(conditionformatDialog.main.find("#conditionVal option:selected").val());
         } else if (conditionName == "top10" || conditionName == "top10%" || conditionName == "last10" || conditionName == "last10%") {
-          let v = $("#luckysheet-conditionformat-dialog #conditionVal").val().trim();
+          let v = conditionformatDialog.main.find("#conditionVal").val().trim();
           if (parseInt(v) != v || parseInt(v) < 1 || parseInt(v) > 1000) {
             _this.infoDialog(conditionformat_Text.pleaseEnterInteger, "");
             return;
@@ -124,7 +125,7 @@ export function initConditionDialogEvents(_this) {
   
         //隐藏一些dom
         hideModalMask();
-        $("#luckysheet-conditionformat-dialog").hide();
+        conditionformatDialog.main.hide();
       });
   
       // 图标集弹出层 选择

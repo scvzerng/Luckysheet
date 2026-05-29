@@ -10,6 +10,9 @@ import method from '../global/method';
 import locale from '../locale/locale';
 import { refreshMenuButtonFocus } from "../global/api";
 import selectionCopy from '../ui/selectionCopy.js';
+import cellSelectedFocus from '../ui/cellSelectedFocus.js';
+import cellMain from '../ui/cellMain.js';
+import countShow from '../ui/countShow.js';
 
 //公式函数 选区实体框
 function seletedHighlistByindex(id, r1, r2, c1, c2) {
@@ -149,7 +152,7 @@ function selectHightlightShow(isRestore = false) {
 
             if (i == Store.luckysheet_select_save.length - 1) {
                 //focus 取选区数组最后一个
-                $("#luckysheet-cell-selected-focus").css({
+                cellSelectedFocus.setCss({
                     "left": Store.luckysheet_select_save[i]["left"],
                     "width": Store.luckysheet_select_save[i]["width"],
                     "top": Store.luckysheet_select_save[i]["top"],
@@ -366,7 +369,7 @@ function selectionCopyShow(range) {
                 '<div class="luckysheet-selection-copy-left luckysheet-copy"></div>' +
                 '<div class="luckysheet-selection-copy-hc"></div>' +
                 '</div>';
-            $("#luckysheet-selection-copy").append(copyDomHtml);
+            selectionCopy.append(copyDomHtml);
         }
     }
 }
@@ -377,8 +380,8 @@ function luckysheet_count_show(left, top, width, height, rowseleted, columnselet
         coll = columnseleted[1] - columnseleted[0] + 1;
     let drawWidth = Store.luckysheetTableContentHW[0],
         drawHeight = Store.luckysheetTableContentHW[1];
-    let scrollWidth = $("#luckysheet-cell-main").scrollLeft(),
-        scrollHeight = $("#luckysheet-cell-main").scrollTop();
+    let scrollWidth = cellMain.getScrollLeft(),
+        scrollHeight = cellMain.getScrollTop();
 
     const _locale = locale();
     const locale_info = _locale.info;
@@ -398,10 +401,10 @@ function luckysheet_count_show(left, top, width, height, rowseleted, columnselet
             topv = scrollHeight + drawHeight / 2;
         }
 
-        $("#luckysheet-row-count-show").css({ "left": leftv, "top": topv, "display": "block", "width": "11px" }).html("<div>" + rowl.toString().split("").join("</div><div>") + "</div><div>" + locale_info.row + "</div>");
+        countShow.row.showAt({ "left": leftv, "top": topv, "display": "block", "width": "11px" }, "<div>" + rowl.toString().split("").join("</div><div>") + "</div><div>" + locale_info.row + "</div>");
     }
     else {
-        $("#luckysheet-row-count-show").hide();
+        countShow.row.hide();
     }
 
     if (coll >= 4) {
@@ -419,10 +422,10 @@ function luckysheet_count_show(left, top, width, height, rowseleted, columnselet
             leftv = scrollWidth + drawWidth / 2;
         }
 
-        $("#luckysheet-column-count-show").css({ "left": leftv, "top": topv, "display": "block" }).text(coll + locale_info.column);
+        countShow.column.showAt({ "left": leftv, "top": topv, "display": "block" }, coll + locale_info.column);
     }
     else {
-        $("#luckysheet-column-count-show").hide();
+        countShow.column.hide();
     }
 }
 

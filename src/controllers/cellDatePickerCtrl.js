@@ -77,7 +77,7 @@ const cellDatePickerCtrl = {
             time_24hr = false;
         }
 
-        const fp = flatpickr('#luckysheet-input-box', {
+        const fp = flatpickr(inputBox.getSelector(), {
             allowInput: false,
             noCalendar,
             enableSeconds,

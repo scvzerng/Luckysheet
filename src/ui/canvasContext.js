@@ -35,11 +35,14 @@ class CanvasContext {
             width: cssWidth,
             height: cssHeight
         });
+        this._ctx = null;
         return this;
     }
 
     initContext(attrs, cssProps) {
-        return this.el.attr(attrs).css(cssProps).get(0).getContext("2d");
+        this.el.attr(attrs).css(cssProps);
+        this._ctx = this.el.get(0).getContext("2d");
+        return this._ctx;
     }
 }
 

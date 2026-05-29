@@ -13,6 +13,7 @@ import localforage from 'localforage';
 import scrollBarX from '../../ui/scrollBarX.js';
 import scrollBarY from '../../ui/scrollBarY.js';
 import cellMain from '../../ui/cellMain.js';
+import canvasContext from '../../ui/canvasContext.js';
 const sheetInitModule = {
   initialjfFile: function (menu, title) {
     let _this = this;
@@ -69,13 +70,13 @@ const sheetInitModule = {
       tooltip.createHoverTip("#luckysheet_info_detail", ".luckysheet_info_detail_back, .luckysheet_info_detail_input, .luckysheet_info_detail_update");
       tooltip.createHoverTip("#luckysheet-wa-editor", ".luckysheet-toolbar-menu-button, .luckysheet-toolbar-button, .luckysheet-toolbar-combo-button");
       Store.luckysheetTableContentHW = [cellMain.getWidth() + Store.rowHeaderWidth - Store.cellMainSrollBarSize, cellMain.getHeight() + Store.columnHeaderHeight - Store.cellMainSrollBarSize];
-      $("#luckysheetTableContent, #luckysheetTableContentF").attr({
+      canvasContext.initContext({
         width: Math.ceil(Store.luckysheetTableContentHW[0] * Store.devicePixelRatio),
         height: Math.ceil(Store.luckysheetTableContentHW[1] * Store.devicePixelRatio)
-      }).css({
+      }, {
         width: Store.luckysheetTableContentHW[0],
         height: Store.luckysheetTableContentHW[1]
-      }).get(0).getContext("2d");
+      });
       let locale_info = locale().info;
       let key = luckysheetConfigsetting.gridKey;
       let cahce_key = key + "__qkcache";

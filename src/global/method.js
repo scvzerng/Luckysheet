@@ -13,6 +13,11 @@ import inputBox from '../ui/inputBox.js';
 import gridWindow from '../ui/gridWindow.js';
 import Store from '../store';
 import formulaDialogs from '../ui/formulaDialogs.js';
+import countShow from '../ui/countShow.js';
+import formulaRangeSelect from '../ui/formulaRangeSelect.js';
+import resizeHandles from '../ui/resizeHandles.js';
+import cellSelectedFocus from '../ui/cellSelectedFocus.js';
+import selectionCopy from '../ui/selectionCopy.js';
 
 const defaultConfig = {
     defaultStore:{
@@ -327,7 +332,13 @@ const method = {
 
             $("#"+ Store.container +" .luckysheet-datavisual-selection-set").remove();
 
-            $("#luckysheet-row-count-show, #luckysheet-formula-functionrange-select, #luckysheet-row-count-show, #luckysheet-column-count-show, #luckysheet-change-size-line, #luckysheet-cell-selected-focus, #luckysheet-selection-copy, #luckysheet-cell-selected-extend, #luckysheet-cell-selected-move, #luckysheet-cell-selected").hide();
+            countShow.row.hide();
+            countShow.column.hide();
+            formulaRangeSelect.hide();
+            resizeHandles.changeSizeLine.hide();
+            cellSelectedFocus.hide();
+            selectionCopy.hide();
+            $("#luckysheet-cell-selected-extend, #luckysheet-cell-selected-move, #luckysheet-cell-selected").hide();
 
             delete sheetfile.load;
     },

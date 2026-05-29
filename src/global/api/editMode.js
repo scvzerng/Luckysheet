@@ -4,6 +4,7 @@ import { getLastSelection, getFocusCell } from '../../utils/storeAccess.js';
 import { isInputBoxActive } from '../../utils/domUtils.js';
 import formula from "../formula";
 import formulaDialogs from '../../ui/formulaDialogs.js';
+import conditionformatDialog from '../../ui/conditionformatDialog.js';
 
 export function exitEditMode(options = {}){
     if(isInputBoxActive()){
@@ -38,7 +39,7 @@ export function exitEditMode(options = {}){
 
 export function enterEditMode(options = {}){
 
-    if($("#luckysheet-conditionformat-dialog").is(":visible")){
+    if(conditionformatDialog.main.isVisible()){
         return;
     }
     else if ($("#luckysheet-cell-selected").is(":visible")) {

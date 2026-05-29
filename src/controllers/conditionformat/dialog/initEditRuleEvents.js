@@ -4,13 +4,14 @@ import locale from '../../../locale/locale';
 import { getPicker } from '../../../components/ColorPicker';
 import countShow from '../../../ui/countShow.js';
 import formulaRangeSelect from '../../../ui/formulaRangeSelect.js';
+import conditionformatDialog from '../../../ui/conditionformatDialog.js';
 
 export function initEditRuleEvents(_this) {
       const conditionformat_Text = locale().conditionformat;
       // 编辑规则
       $(document).off("click.CFeditorConditionRule").on("click.CFeditorConditionRule", "#editorConditionRule", function () {
-        let sheetIndex = $("#luckysheet-administerRule-dialog .chooseSheet option:selected").val();
-        let itemIndex = $("#luckysheet-administerRule-dialog .ruleList .listBox .item.on").attr("data-item");
+        let sheetIndex = conditionformatDialog.adminRule.find(".chooseSheet option:selected").val();
+        let itemIndex = conditionformatDialog.adminRule.find(".ruleList .listBox .item.on").attr("data-item");
         let rule = {
           "sheetIndex": sheetIndex,
           "itemIndex": itemIndex,
@@ -143,13 +144,13 @@ export function initEditRuleEvents(_this) {
             //排名靠前靠后
             //条件名称
             if (type1 == "top") {
-              if ($("#luckysheet-editorConditionRule-dialog #isPercent").is(":selected")) {
+              if ($("#luckysheet-editorConditionRule-dialog #isPercent").is(":checked")) {
                 conditionName = "top10%";
               } else {
                 conditionName = "top10";
               }
             } else if (type1 == "last") {
-              if ($("#luckysheet-editorConditionRule-dialog #isPercent").is(":selected")) {
+              if ($("#luckysheet-editorConditionRule-dialog #isPercent").is(":checked")) {
                 conditionName = "last10%";
               } else {
                 conditionName = "last10";
@@ -229,7 +230,7 @@ export function initEditRuleEvents(_this) {
       $(document).off("click.CFeditorConditionRuleClose").on("click.CFeditorConditionRuleClose", "#luckysheet-editorConditionRule-dialog-close", function () {
         //编辑规则隐藏，管理规则显�?
         $("#luckysheet-editorConditionRule-dialog").hide();
-        $("#luckysheet-administerRule-dialog").show();
+        conditionformatDialog.adminRule.show();
         //隐藏虚线�?
         formulaRangeSelect.hide();
         countShow.row.hide();

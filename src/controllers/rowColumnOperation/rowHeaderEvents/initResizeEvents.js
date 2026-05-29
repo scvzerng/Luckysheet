@@ -8,27 +8,29 @@ import imageCtrl from '../../imageCtrl';
 import luckysheetConfigsetting from '../../luckysheetConfigsetting';
 import luckysheetPostil from '../../postil';
 import cellMain from '../../../ui/cellMain.js';
+import resizeHandles from '../../../ui/resizeHandles.js';
+import inputBox from '../../../ui/inputBox.js';
+import imageDialog from '../../../ui/imageDialog.js';
+import rightClickMenu from '../../../ui/rightClickMenu.js';
+import { rowHeader, colHeader } from '../../../ui/rowColHeader.js';
 
 export function initResizeEvents() {
-    $("#luckysheet-rows-change-size").mousedown(function (event) {
-      // *如果禁止前台编辑，则中止下一步操�?
+    resizeHandles.rowChangeSize.onMousedown(function (event) {
       if (!checkIsAllowEdit()) {
         return;
       }
-      //有批注在编辑�?
       luckysheetPostil.removeActivePs();
   
-      //图片 active/cropping
-      if ($("#luckysheet-modal-dialog-activeImage").is(":visible") || $("#luckysheet-modal-dialog-cropping").is(":visible")) {
+      if (imageDialog.active.isVisible() || imageDialog.cropping.isVisible()) {
         imageCtrl.cancelActiveImgItem();
       }
-      $("#luckysheet-input-box").hide();
-      $("#luckysheet-rows-change-size").css({
+      inputBox.hide();
+      resizeHandles.rowChangeSize.setCss({
         opacity: 1
       });
       let mouse = mouseposition(event.pageX, event.pageY);
-      let y = mouse[1] + $("#luckysheet-rows-h").scrollTop();
-      let scrollLeft = $("#luckysheet-cell-main").scrollLeft();
+      let y = mouse[1] + rowHeader.getScrollTop();
+      let scrollLeft = cellMain.getScrollLeft();
       let winW = cellMain.getWidth();
       let row_location = rowLocation(y),
         row = row_location[1],
@@ -36,7 +38,7 @@ export function initResizeEvents() {
         row_index = row_location[2];
       Store.luckysheet_rows_change_size = true;
       Store.luckysheet_scroll_status = true;
-      $("#luckysheet-change-size-line").css({
+      resizeHandles.changeSizeLine.setCss({
         height: "1px",
         "border-width": "0 0px 1px 0",
         top: row - 3,
@@ -45,35 +47,32 @@ export function initResizeEvents() {
         display: "block",
         cursor: "ns-resize"
       });
-      $("#luckysheet-sheettable, #luckysheet-rows-h, #luckysheet-rows-h canvas").css("cursor", "ns-resize");
+      rowHeader.setCursor("ns-resize");
       Store.luckysheet_rows_change_size_start = [row_pre, row_index];
-      $("#luckysheet-rightclick-menu").hide();
-      $("#luckysheet-rows-h-hover").hide();
+      rightClickMenu.hide();
+      resizeHandles.rowHover.hide();
       $("#luckysheet-cols-menu-btn").hide();
       event.stopPropagation();
     });
   
     //表格列标�?改变列宽按钮
-    $("#luckysheet-cols-change-size").mousedown(function (event) {
-      // *如果禁止前台编辑，则中止下一步操�?
+    resizeHandles.colChangeSize.onMousedown(function (event) {
       if (!checkIsAllowEdit()) {
         return;
       }
-      //有批注在编辑�?
       luckysheetPostil.removeActivePs();
   
-      //图片 active/cropping
-      if ($("#luckysheet-modal-dialog-activeImage").is(":visible") || $("#luckysheet-modal-dialog-cropping").is(":visible")) {
+      if (imageDialog.active.isVisible() || imageDialog.cropping.isVisible()) {
         imageCtrl.cancelActiveImgItem();
       }
-      $("#luckysheet-input-box").hide();
-      $("#luckysheet-cols-change-size").css({
+      inputBox.hide();
+      resizeHandles.colChangeSize.setCss({
         opacity: 1
       });
       let mouse = mouseposition(event.pageX, event.pageY);
-      let scrollLeft = $("#luckysheet-cols-h-c").scrollLeft();
-      let scrollTop = $("#luckysheet-cell-main").scrollTop();
-      let winH = $("#luckysheet-cell-main").height();
+      let scrollLeft = colHeader.getScrollLeft();
+      let scrollTop = cellMain.getScrollTop();
+      let winH = cellMain.getHeight();
       let x = mouse[0] + scrollLeft;
       let row_index = getMaxRowIndex(),
         row = Store.visibledatarow[row_index],
@@ -84,7 +83,7 @@ export function initResizeEvents() {
         col_index = col_location[2];
       Store.luckysheet_cols_change_size = true;
       Store.luckysheet_scroll_status = true;
-      $("#luckysheet-change-size-line").css({
+      resizeHandles.changeSizeLine.setCss({
         height: winH + scrollTop,
         "border-width": "0 1px 0 0",
         top: 0,
@@ -93,14 +92,15 @@ export function initResizeEvents() {
         display: "block",
         cursor: "ew-resize"
       });
-      $("#luckysheet-sheettable, #luckysheet-cols-h-c, .luckysheet-cols-h-cells, .luckysheet-cols-h-cells canvas").css("cursor", "ew-resize");
+      colHeader.setCursor("ew-resize");
       Store.luckysheet_cols_change_size_start = [col_pre, col_index];
-      $("#luckysheet-rightclick-menu").hide();
-      $("#luckysheet-cols-h-hover").hide();
+      rightClickMenu.hide();
+      resizeHandles.colHover.hide();
       $("#luckysheet-cols-menu-btn").hide();
       Store.luckysheet_cols_dbclick_times = 0;
       event.stopPropagation();
-    }).dblclick(function () {
+    });
+    resizeHandles.colChangeSize.onDblclick(function () {
       luckysheetcolsdbclick();
     });
   
@@ -110,13 +110,13 @@ export function initResizeEvents() {
       if (!checkIsAllowEdit()) {
         return;
       }
-      let $menu = $("#luckysheet-rightclick-menu");
+      let $menu = rightClickMenu.el;
       let offset = $(this).offset();
       $("#luckysheet-cols-rows-shift").show();
       Store.luckysheetRightHeadClickIs = "column";
-      $("#luckysheet-rightclick-menu .luckysheet-cols-rows-shift-word").text(locale().rightclick.column);
-      $("#luckysheet-rightclick-menu .luckysheet-cols-rows-shift-left").text(locale().rightclick.left);
-      $("#luckysheet-rightclick-menu .luckysheet-cols-rows-shift-right").text(locale().rightclick.right);
+      rightClickMenu.findText(".luckysheet-cols-rows-shift-word", locale().rightclick.column);
+      rightClickMenu.findText(".luckysheet-cols-rows-shift-left", locale().rightclick.left);
+      rightClickMenu.findText(".luckysheet-cols-rows-shift-right", locale().rightclick.right);
       $("#luckysheet-cols-rows-add").show();
       $("#luckysheet-cols-rows-data").hide();
       $("#luckysheet-cols-rows-shift").show();

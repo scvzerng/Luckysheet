@@ -20,6 +20,7 @@ import { colHeader } from '../../../ui/rowColHeader.js';
 import formulaRangeSelect from '../../../ui/formulaRangeSelect.js';
 import functionBox from '../../../ui/functionBox.js';
 import resizeHandles from '../../../ui/resizeHandles.js';
+import imageDialog from '../../../ui/imageDialog.js';
 
 export function initColHeaderEvents() {
     colHeader.onMousedown(function (event) {
@@ -27,7 +28,7 @@ export function initColHeaderEvents() {
       luckysheetPostil.removeActivePs();
   
       //图片 active/cropping
-      if ($("#luckysheet-modal-dialog-activeImage").is(":visible") || $("#luckysheet-modal-dialog-cropping").is(":visible")) {
+      if (imageDialog.active.isVisible() || imageDialog.cropping.isVisible()) {
         imageCtrl.cancelActiveImgItem();
       }
       let mouse = mouseposition(event.pageX, event.pageY);
@@ -188,7 +189,7 @@ export function initColHeaderEvents() {
               row: [0, row_index],
               column: columnseleted
             }, Store.currentSheetIndex);
-            $("#luckysheet-ifFormulaGenerator-multiRange-dialog input").val(range);
+            formulaDialogs.ifFormulaMultiRange.find("input").val(range);
           }
           formula.rangedrag_column_start = true;
           formula.rangestart = false;
@@ -348,10 +349,10 @@ export function initColHeaderEvents() {
           return;
         }
         Store.luckysheetRightHeadClickIs = "column";
-        $("#luckysheet-rightclick-menu .luckysheet-cols-rows-shift-word").text(locale().rightclick.column);
-        $("#luckysheet-rightclick-menu .luckysheet-cols-rows-shift-size").text(locale().rightclick.width);
-        $("#luckysheet-rightclick-menu .luckysheet-cols-rows-shift-left").text(locale().rightclick.left);
-        $("#luckysheet-rightclick-menu .luckysheet-cols-rows-shift-right").text(locale().rightclick.right);
+        rightClickMenu.findText(".luckysheet-cols-rows-shift-word", locale().rightclick.column);
+        rightClickMenu.findText(".luckysheet-cols-rows-shift-size", locale().rightclick.width);
+        rightClickMenu.findText(".luckysheet-cols-rows-shift-left", locale().rightclick.left);
+        rightClickMenu.findText(".luckysheet-cols-rows-shift-right", locale().rightclick.right);
         $("#luckysheet-cols-rows-add").show();
         $("#luckysheet-cols-rows-data").show();
         $("#luckysheet-cols-rows-shift").hide();

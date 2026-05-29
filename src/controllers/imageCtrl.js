@@ -209,7 +209,7 @@ const imageCtrl = {
     sliderHtmlShow: function() {
         let _this = this;
 
-        $("#luckysheet-modal-dialog-slider-imageCtrl").remove();
+        imageDialog.slider.el.remove();
 
         let sliderHtml = _this.getSliderHtml();
         $("body").append(sliderHtml);
@@ -219,18 +219,18 @@ const imageCtrl = {
 
         //类型
         let type = imgItem.type;
-        $("#luckysheet-modal-dialog-slider-imageCtrl #imgItemType" + type).prop("checked", true);
+        imageDialog.slider.el.find("#imgItemType" + type).prop("checked", true);
 
         //固定位置
         let isFixedPos = imgItem.isFixedPos;
-        $("#luckysheet-modal-dialog-slider-imageCtrl #imgItemIsFixedPos").prop("checked", isFixedPos);
+        imageDialog.slider.el.find("#imgItemIsFixedPos").prop("checked", isFixedPos);
 
         //边框宽度
         let border = imgItem.border;
-        $("#luckysheet-modal-dialog-slider-imageCtrl #imgItemBorderWidth").val(border.width);
-        $("#luckysheet-modal-dialog-slider-imageCtrl #imgItemBorderRadius").val(border.radius);
-        $("#luckysheet-modal-dialog-slider-imageCtrl #imgItemBorderStyle").val(border.style);
-        $("#luckysheet-modal-dialog-slider-imageCtrl #imgItemBorderColor span").css("background-color", border.color).attr("title", border.color);
+        imageDialog.slider.el.find("#imgItemBorderWidth").val(border.width);
+        imageDialog.slider.el.find("#imgItemBorderRadius").val(border.radius);
+        imageDialog.slider.el.find("#imgItemBorderStyle").val(border.style);
+        imageDialog.slider.el.find("#imgItemBorderColor span").css("background-color", border.color).attr("title", border.color);
     
         _this.init();
     },
@@ -307,38 +307,38 @@ const imageCtrl = {
         let _this = this;
 
         //关闭
-        $("#luckysheet-modal-dialog-slider-imageCtrl .luckysheet-model-close-btn").click(function () {
+        imageDialog.slider.el.find(".luckysheet-model-close-btn").click(function () {
             imageDialog.slider.hide();
             luckysheetsizeauto();
         });
 
         //常规
-        $("#luckysheet-modal-dialog-slider-imageCtrl").off("change.radio").on("change.radio", ".radio-item input[type=radio][name=imgItemType]", function() {
+        imageDialog.slider.el.off("change.radio").on("change.radio", ".radio-item input[type=radio][name=imgItemType]", function() {
             _this.configChange("type", this.value);
         })
 
         //固定位置
-        $("#luckysheet-modal-dialog-slider-imageCtrl").off("change.checkbox").on("change.checkbox", ".slider-box-checkbox input[type=checkbox]", function() {
+        imageDialog.slider.el.off("change.checkbox").on("change.checkbox", ".slider-box-checkbox input[type=checkbox]", function() {
             _this.configChange("fixedPos", this.checked);
         })
 
         //边框宽度
-        $("#luckysheet-modal-dialog-slider-imageCtrl").off("change.borderWidth").on("change.borderWidth", "#imgItemBorderWidth", function() {
+        imageDialog.slider.el.off("change.borderWidth").on("change.borderWidth", "#imgItemBorderWidth", function() {
             _this.configChange("border-width", this.valueAsNumber);
         })
 
         //边框半径
-        $("#luckysheet-modal-dialog-slider-imageCtrl").off("change.borderRadius").on("change.borderRadius", "#imgItemBorderRadius", function() {
+        imageDialog.slider.el.off("change.borderRadius").on("change.borderRadius", "#imgItemBorderRadius", function() {
             _this.configChange("border-radius", this.valueAsNumber);
         })
 
         //边框样式
-        $("#luckysheet-modal-dialog-slider-imageCtrl").off("change.borderStyle").on("change.borderStyle", "#imgItemBorderStyle", function() {
+        imageDialog.slider.el.off("change.borderStyle").on("change.borderStyle", "#imgItemBorderStyle", function() {
             _this.configChange("border-style", this.value);
         })
 
         //边框颜色 选择
-        $("#luckysheet-modal-dialog-slider-imageCtrl").off("click.color").on("click.color", "#imgItemBorderColor", function() {
+        imageDialog.slider.el.off("click.color").on("click.color", "#imgItemBorderColor", function() {
             let currenColor = $(this).find("span").attr("title");
             _this.colorSelectDialog(currenColor);
         })
@@ -350,7 +350,7 @@ const imageCtrl = {
             $parent.hide();
 
             let currenColor = $parent.find(".currenColor span").attr("title");
-            $("#luckysheet-modal-dialog-slider-imageCtrl #imgItemBorderColor span").css("background-color", currenColor).attr("title", currenColor);
+            imageDialog.slider.el.find("#imgItemBorderColor span").css("background-color", currenColor).attr("title", currenColor);
 
             _this.configChange("border-color", currenColor);            
         });
@@ -386,13 +386,13 @@ const imageCtrl = {
             });
             let imageUrlHandle = Store.toJsonOptions && Store.toJsonOptions['imageUrlHandle'];
             let imgUrl = typeof imageUrlHandle === 'function' ? imageUrlHandle(item.src) : item.src;
-            $("#luckysheet-modal-dialog-activeImage .luckysheet-modal-dialog-content").css({
+            imageDialog.active.el.find(".luckysheet-modal-dialog-content").css({
                 "background-image": "url(" + imgUrl + ")",
                 "background-size": item.default.width * Store.zoomRatio + "px " + item.default.height * Store.zoomRatio + "px",
                 "background-position": -item.crop.offsetLeft * Store.zoomRatio + "px " + -item.crop.offsetTop * Store.zoomRatio + "px"
             })
 
-            $("#luckysheet-modal-dialog-activeImage .luckysheet-modal-dialog-border").css({
+            imageDialog.active.el.find(".luckysheet-modal-dialog-border").css({
                 "border-width": item.border.width * Store.zoomRatio,
                 "border-style": item.border.style,
                 "border-color": item.border.color,
@@ -409,7 +409,7 @@ const imageCtrl = {
         })
 
         //image move
-        $("#luckysheet-modal-dialog-activeImage").off("mousedown.move").on("mousedown.move", ".luckysheet-modal-dialog-content", function(e) {
+        imageDialog.active.el.off("mousedown.move").on("mousedown.move", ".luckysheet-modal-dialog-content", function(e) {
             
             if(!imageDialog.slider.isVisible()){
                 _this.sliderHtmlShow();
@@ -433,7 +433,7 @@ const imageCtrl = {
         })
 
         //image resize
-        $("#luckysheet-modal-dialog-activeImage").off("mousedown.resize").on("mousedown.resize", ".luckysheet-modal-dialog-resize-item", function(e) {
+        imageDialog.active.el.off("mousedown.resize").on("mousedown.resize", ".luckysheet-modal-dialog-resize-item", function(e) {
             
             _this.currentWinW = cellMain.getScrollWidth();
             _this.currentWinH = cellMain.getScrollHeight();
@@ -466,19 +466,19 @@ const imageCtrl = {
         })
 
         //image croppingEnter
-        $("#luckysheet-modal-dialog-activeImage").off("mousedown.croppingEnter").on("mousedown.croppingEnter", ".luckysheet-modal-controll-crop", function(e) {
+        imageDialog.active.el.off("mousedown.croppingEnter").on("mousedown.croppingEnter", ".luckysheet-modal-controll-crop", function(e) {
             _this.croppingEnter();
             e.stopPropagation();
         })
 
         //image croppingExit
-        $("#luckysheet-modal-dialog-cropping").off("mousedown.croppingExit").on("mousedown.croppingExit", ".luckysheet-modal-controll-crop", function(e) {
+        imageDialog.cropping.el.off("mousedown.croppingExit").on("mousedown.croppingExit", ".luckysheet-modal-controll-crop", function(e) {
             _this.croppingExit();
             e.stopPropagation();
         })
 
         //image crop change
-        $("#luckysheet-modal-dialog-cropping").off("mousedown.cropChange").on("mousedown.cropChange", ".resize-item", function(e) {
+        imageDialog.cropping.el.off("mousedown.cropChange").on("mousedown.cropChange", ".resize-item", function(e) {
             _this.cropChange = $(this).data("type");
 
             let scroll = getScrollPosition();
@@ -537,7 +537,7 @@ const imageCtrl = {
                 break;
             case "border-width":
                 imgItem.border.width = value;
-                $("#luckysheet-modal-dialog-activeImage .luckysheet-modal-dialog-border").css({
+                imageDialog.active.el.find(".luckysheet-modal-dialog-border").css({
                     "border-width": value,
                     "left": -value,
                     "right": -value,
@@ -547,15 +547,15 @@ const imageCtrl = {
                 break;
             case "border-radius":
                 imgItem.border.radius = value;
-                $("#luckysheet-modal-dialog-activeImage .luckysheet-modal-dialog-border").css("border-radius", value);
+                imageDialog.active.el.find(".luckysheet-modal-dialog-border").css("border-radius", value);
                 break;
             case "border-style":
                 imgItem.border.style = value;
-                $("#luckysheet-modal-dialog-activeImage .luckysheet-modal-dialog-border").css("border-style", value);
+                imageDialog.active.el.find(".luckysheet-modal-dialog-border").css("border-style", value);
                 break;
             case "border-color":
                 imgItem.border.color = value;
-                $("#luckysheet-modal-dialog-activeImage .luckysheet-modal-dialog-border").css("border-color", value);
+                imageDialog.active.el.find(".luckysheet-modal-dialog-border").css("border-color", value);
                 break;
         }
         
@@ -691,7 +691,7 @@ const imageCtrl = {
 
         _this.move = false;
 
-        let obj = $("#luckysheet-modal-dialog-activeImage")[0];
+        let obj = imageDialog.active.el[0];
         let item = _this.images[_this.currentImgId];
 
 		var zoomRatio = Store.zoomRatio;
@@ -715,7 +715,7 @@ const imageCtrl = {
 		
 		var zoomRatio = Store.zoomRatio;
 
-        let obj = $("#luckysheet-modal-dialog-activeImage")[0];
+        let obj = imageDialog.active.el[0];
 
         let item = _this.images[_this.currentImgId];
         let scaleX = obj.clientWidth / item.crop.width;
@@ -767,7 +767,7 @@ const imageCtrl = {
         let imageUrlHandle = Store.toJsonOptions && Store.toJsonOptions['imageUrlHandle'];
         let imgSrc = typeof imageUrlHandle === 'function' ? imageUrlHandle(item.src) : item.src;
 
-        $("#luckysheet-modal-dialog-cropping .cropping-mask").css({
+        imageDialog.cropping.el.find(".cropping-mask").css({
             "width": item.default.width,
             "height": item.default.height,
             "background-image": "url(" + imgSrc + ")",
@@ -775,13 +775,13 @@ const imageCtrl = {
             "top": -item.crop.offsetTop
         })
 
-        $("#luckysheet-modal-dialog-cropping .cropping-content").css({
+        imageDialog.cropping.el.find(".cropping-content").css({
             "background-image": "url(" + imgSrc + ")",
             "background-size": item.default.width + "px " + item.default.height + "px",
             "background-position": -item.crop.offsetLeft + "px " + -item.crop.offsetTop + "px"
         })
 
-        $("#luckysheet-modal-dialog-cropping .luckysheet-modal-dialog-border").css({
+        imageDialog.cropping.el.find(".luckysheet-modal-dialog-border").css({
             "border-width": item.border.width,
             "border-style": item.border.style,
             "border-color": item.border.color,
@@ -817,7 +817,7 @@ const imageCtrl = {
         let imageUrlHandle = Store.toJsonOptions && Store.toJsonOptions['imageUrlHandle'];
         let imgSrc = typeof imageUrlHandle === 'function' ? imageUrlHandle(item.src) : item.src;
 
-        $("#luckysheet-modal-dialog-activeImage .luckysheet-modal-dialog-content").css({
+        imageDialog.active.el.find(".luckysheet-modal-dialog-content").css({
             "background-image": "url(" + imgSrc + ")",
             "background-size": item.default.width + "px " + item.default.height + "px",
             "background-position": -item.crop.offsetLeft + "px " + -item.crop.offsetTop + "px"
@@ -867,7 +867,7 @@ const imageCtrl = {
         let imageUrlHandle = Store.toJsonOptions && Store.toJsonOptions['imageUrlHandle'];
         let imgSrc = typeof imageUrlHandle === 'function' ? imageUrlHandle(imgItem.src) : imgItem.src;
 
-        $("#luckysheet-modal-dialog-activeImage .luckysheet-modal-dialog-content").css({
+        imageDialog.active.el.find(".luckysheet-modal-dialog-content").css({
             "background-image": "url(" + imgSrc + ")",
             "background-size": imgItem.default.width + "px " + imgItem.default.height + "px",
             "background-position": -imgItem.crop.offsetLeft + "px " + -imgItem.crop.offsetTop + "px"

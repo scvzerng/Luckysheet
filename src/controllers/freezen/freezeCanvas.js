@@ -1,4 +1,6 @@
 import Store from "../../store";
+import gridWindow from "../../ui/gridWindow.js";
+import canvasContext from "../../ui/canvasContext.js";
 const freezeCanvasModule = {
   createAssistCanvas: function () {
     let _this = this;
@@ -43,7 +45,7 @@ const freezeCanvasModule = {
     }
   },
   createCanvas: function (id, width, height, left, top) {
-    let c = $("<canvas/>").appendTo("#luckysheet-grid-window-1").attr({
+    let c = $("<canvas/>").appendTo(gridWindow.el).attr({
       "id": id,
       "width": Math.ceil(width * Store.devicePixelRatio),
       "height": Math.ceil(height * Store.devicePixelRatio)
@@ -59,7 +61,7 @@ const freezeCanvasModule = {
     });
   },
   removeAssistCanvas: function () {
-    $("#luckysheet-grid-window-1 > canvas").not($("#luckysheetTableContent")).remove();
+    gridWindow.removeCanvasExcept(canvasContext.el);
     $("#luckysheet-cell-selected").css("z-index", 15);
   }
 };

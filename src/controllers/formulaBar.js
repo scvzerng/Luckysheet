@@ -121,7 +121,7 @@ export function formulaBarInitial(){
     });
 
     //公式栏 取消（X）按钮
-    $("#luckysheet-wa-functionbox-cancel").click(function () {
+    functionBox.onCancelClick(function () {
         if (!$(this).hasClass("luckysheet-wa-calculate-active")) {
             return;
         }
@@ -137,7 +137,7 @@ export function formulaBarInitial(){
     });
 
     //公式栏 确认（）按钮
-    $("#luckysheet-wa-functionbox-confirm").click(function () {
+    functionBox.onConfirmClick(function () {
         if (!$(this).hasClass("luckysheet-wa-calculate-active")) {
             return;
         }

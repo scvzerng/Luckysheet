@@ -12,6 +12,8 @@ import {  getRangetxt } from "../../methods/get";
 import {  getObjType } from "../../utils/util";
 import Store from "../../store";
 import formulaRangeSelect from '../../ui/formulaRangeSelect.js';
+import formulaDialogs from '../../ui/formulaDialogs.js';
+import richTextEditor from '../../ui/richTextEditor.js';
 const formulaAutoInputModule = {
   activeFormulaInput: function (row_index, col_index, rowh, columnh, formula, isnull) {
     let _this = this;
@@ -21,9 +23,9 @@ const formulaAutoInputModule = {
     luckysheetupdateCell(row_index, col_index, Store.flowdata, true);
     if (isnull) {
       let formulaTxt = '<span dir="auto" class="luckysheet-formula-text-color">=</span><span dir="auto" class="luckysheet-formula-text-color">' + formula.toUpperCase() + '</span><span dir="auto" class="luckysheet-formula-text-color">(</span><span dir="auto" class="luckysheet-formula-text-color">)</span>';
-      $("#luckysheet-rich-text-editor").html(formulaTxt);
+      richTextEditor.setHtml(formulaTxt);
       let currSelection = window.getSelection();
-      let $span = $("#luckysheet-rich-text-editor").find("span");
+      let $span = richTextEditor.find("span");
       luckysheetformula.setCaretPosition($span.get($span.length - 2), 0, 1);
       return;
     }
@@ -35,7 +37,7 @@ const formulaAutoInputModule = {
       row: rowh,
       column: columnh
     }, Store.currentSheetIndex) + '</span><span dir="auto" class="luckysheet-formula-text-color">)</span>';
-    $("#luckysheet-rich-text-editor").html(formulaTxt);
+    richTextEditor.setHtml(formulaTxt);
     luckysheetformula.israngeseleciton();
     luckysheetformula.rangestart = true;
     luckysheetformula.rangedrag_column_start = false;
@@ -63,7 +65,7 @@ const formulaAutoInputModule = {
       top: row_pre,
       height: row - row_pre - 1
     }).show();
-    $("#luckysheet-formula-help-c").hide();
+    formulaDialogs.formulaHelp.hide();
   },
   backFormulaInput: function (d, r, c, rowh, columnh, formula) {
     let _this = this;

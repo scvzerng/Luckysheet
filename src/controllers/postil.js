@@ -1,4 +1,4 @@
-﻿﻿import { rowLocation, colLocation, mouseposition } from '../global/location';
+﻿﻿﻿﻿﻿﻿﻿import { rowLocation, colLocation, mouseposition } from '../global/location';
 import editor from '../global/editor';
 import { luckysheetRangeLast } from '../global/cursorPos';
 import { luckysheetrefreshgrid } from '../global/refresh';
@@ -139,7 +139,7 @@ const luckysheetPostil = {
 
         $("#luckysheet-postil-overshow").remove();
 
-        if($(event.target).closest("#luckysheet-cell-main").length == 0){
+        if($(event.target).closest(cellMain.el).length == 0){
             return;
         }
 
@@ -306,7 +306,7 @@ const luckysheetPostil = {
     buildAllPs: function(data){
         let _this = this;
 
-        $("#luckysheet-cell-main #luckysheet-postil-showBoxs").empty();
+        cellMain.find("#luckysheet-postil-showBoxs").empty();
 
         for(let r = 0; r < data.length; r++){
             for(let c = 0; c < data[0].length; c++){
@@ -394,7 +394,7 @@ const luckysheetPostil = {
                             '</div>' +
                         '</div>';
 
-            $(html).appendTo($("#luckysheet-cell-main #luckysheet-postil-showBoxs"));
+            $(html).appendTo(cellMain.find("#luckysheet-postil-showBoxs"));
 
             let ctx = $("#luckysheet-postil-show_"+ r +"_"+ c +" .arrowCanvas").get(0).getContext("2d");
 
@@ -464,7 +464,7 @@ const luckysheetPostil = {
                         '</div>' +
                     '</div>';
 
-        $(html).appendTo($("#luckysheet-cell-main #luckysheet-postil-showBoxs"));
+        $(html).appendTo(cellMain.find("#luckysheet-postil-showBoxs"));
 
         let ctx = $("#luckysheet-postil-show_"+ r +"_"+ c +" .arrowCanvas").get(0).getContext("2d");
 
@@ -564,7 +564,7 @@ const luckysheetPostil = {
                             '</div>' +
                         '</div>';
 
-            $(html).appendTo($("#luckysheet-cell-main #luckysheet-postil-showBoxs"));
+            $(html).appendTo(cellMain.find("#luckysheet-postil-showBoxs"));
 
             let ctx = $("#luckysheet-postil-show_"+ r +"_"+ c +" .arrowCanvas").get(0).getContext("2d");
 
@@ -685,7 +685,7 @@ const luckysheetPostil = {
                             '</div>' +
                         '</div>';
 
-            $(html).appendTo($("#luckysheet-cell-main #luckysheet-postil-showBoxs"));
+            $(html).appendTo(cellMain.find("#luckysheet-postil-showBoxs"));
 
             let ctx = $("#luckysheet-postil-show_"+ r +"_"+ c +" .arrowCanvas").get(0).getContext("2d");
 
@@ -721,7 +721,7 @@ const luckysheetPostil = {
         let rc = [];
         if(allPs.length > 0){
             if(isAllShow){ //全部显示，操作为隐藏所有批注
-                $("#luckysheet-cell-main #luckysheet-postil-showBoxs").empty();
+                cellMain.find("#luckysheet-postil-showBoxs").empty();
 
                 for(let i = 0; i < allPs.length; i++){
                     let rowIndex = allPs[i].split("_")[0];
@@ -814,7 +814,7 @@ const luckysheetPostil = {
                                         '</div>' +
                                     '</div>';
 
-                        $(html).appendTo($("#luckysheet-cell-main #luckysheet-postil-showBoxs"));
+                        $(html).appendTo(cellMain.find("#luckysheet-postil-showBoxs"));
 
                         let ctx = $("#luckysheet-postil-show_"+ rowIndex +"_"+ colIndex +" .arrowCanvas").get(0).getContext("2d");
 

@@ -6,6 +6,7 @@ import Store from '../../../store';
 import { isInputBoxActive, getScrollPosition } from '../../../utils/domUtils.js';
 import { selectHightlightShow } from '../../select';
 import formulaDialogs from '../../../ui/formulaDialogs.js';
+import conditionformatDialog from '../../../ui/conditionformatDialog.js';
 
 export function handleCellDblclick(event) {
               if ($(event.target).hasClass("luckysheet-mousedown-cancel")) {
@@ -69,8 +70,8 @@ export function handleCellDblclick(event) {
                   //公式参数栏显示
                   $("#luckysheet-cell-selected").hide();
               } else if (
-                  $("#luckysheet-conditionformat-dialog").is(":visible") ||
-                  $("#luckysheet-administerRule-dialog").is(":visible") ||
+                  conditionformatDialog.main.isVisible() ||
+                  conditionformatDialog.adminRule.isVisible() ||
                   $("#luckysheet-newConditionRule-dialog").is(":visible") ||
                   $("#luckysheet-editorConditionRule-dialog").is(":visible") ||
                   formulaDialogs.singleRange.isVisible() ||

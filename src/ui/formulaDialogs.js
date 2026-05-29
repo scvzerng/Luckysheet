@@ -7,7 +7,7 @@ class FormulaDialog {
     }
 
     get el() {
-        if (!this._el || this._el.length === 0) this._el = $(this._selector);
+        if (!this._el || this._el.length === 0 || this._el.closest("body").length === 0) this._el = $(this._selector);
         return this._el;
     }
 

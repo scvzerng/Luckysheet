@@ -203,8 +203,8 @@ const functionSearch = {
             let _locale = locale();
             let locale_formulaMore = _locale.formulaMore;
 
-            $("#luckysheet-formula-help-c .luckysheet-arguments-help-function-name").html($func.n);
-            $("#luckysheet-formula-help-c .luckysheet-arguments-help-parameter-content").html($func.d);
+            formulaDialogs.formulaHelp.find(".luckysheet-arguments-help-function-name").html($func.n);
+            formulaDialogs.formulaHelp.find(".luckysheet-arguments-help-parameter-content").html($func.d);
 
             let helpformula =
                 '<span class="luckysheet-arguments-help-function-name">${name}</span> <span class="luckysheet-arguments-paren">(</span> <span class="luckysheet-arguments-parameter-holder"> ${param} </span> <span class="luckysheet-arguments-paren">)</span>';
@@ -254,41 +254,27 @@ const functionSearch = {
             fht = fht.substr(0, fht.length - 2);
             ahf = ahf.substr(0, ahf.length - 2);
 
-            $("#luckysheet-formula-help-c .luckysheet-formula-help-title .luckysheet-arguments-parameter-holder").html(fht); //介绍
-            $("#luckysheet-formula-help-c .luckysheet-arguments-help-formula .luckysheet-arguments-parameter-holder").html(
+            formulaDialogs.formulaHelp.find(".luckysheet-formula-help-title .luckysheet-arguments-parameter-holder").html(fht);
+            formulaDialogs.formulaHelp.find(".luckysheet-arguments-help-formula .luckysheet-arguments-parameter-holder").html(
                 ahf,
-            ); //示例
-            $("#luckysheet-formula-help-c .luckysheet-formula-help-content-param").html(fhcp); //参数
+            );
+            formulaDialogs.formulaHelp.find(".luckysheet-formula-help-content-param").html(fhcp);
 
             if (paramIndex == null) {
-                $(
-                    "#luckysheet-formula-help-c .luckysheet-formula-help-title-formula .luckysheet-arguments-help-function-name",
-                ).css("font-weight", "bold");
+                formulaDialogs.formulaHelp.find(".luckysheet-formula-help-title-formula .luckysheet-arguments-help-function-name").css("font-weight", "bold");
             } else {
-                $(
-                    "#luckysheet-formula-help-c .luckysheet-formula-help-title-formula .luckysheet-arguments-help-function-name",
-                ).css("font-weight", "normal");
+                formulaDialogs.formulaHelp.find(".luckysheet-formula-help-title-formula .luckysheet-arguments-help-function-name").css("font-weight", "normal");
                 let index = paramIndex >= $func.p.length ? $func.p.length - 1 : paramIndex;
-                $(
-                    "#luckysheet-formula-help-c .luckysheet-formula-help-title .luckysheet-arguments-parameter-holder .luckysheet-arguments-help-parameter",
-                ).removeClass("luckysheet-arguments-help-parameter-active");
-                $(
-                    "#luckysheet-formula-help-c .luckysheet-formula-help-title .luckysheet-arguments-parameter-holder .luckysheet-arguments-help-parameter",
-                )
+                formulaDialogs.formulaHelp.find(".luckysheet-formula-help-title .luckysheet-arguments-parameter-holder .luckysheet-arguments-help-parameter").removeClass("luckysheet-arguments-help-parameter-active");
+                formulaDialogs.formulaHelp.find(".luckysheet-formula-help-title .luckysheet-arguments-parameter-holder .luckysheet-arguments-help-parameter")
                     .eq(index)
                     .addClass("luckysheet-arguments-help-parameter-active");
-                $(
-                    "#luckysheet-formula-help-c .luckysheet-arguments-help-formula .luckysheet-arguments-parameter-holder .luckysheet-arguments-help-parameter",
-                ).removeClass("luckysheet-arguments-help-parameter-active");
-                $(
-                    "#luckysheet-formula-help-c .luckysheet-arguments-help-formula .luckysheet-arguments-parameter-holder .luckysheet-arguments-help-parameter",
-                )
+                formulaDialogs.formulaHelp.find(".luckysheet-arguments-help-formula .luckysheet-arguments-parameter-holder .luckysheet-arguments-help-parameter").removeClass("luckysheet-arguments-help-parameter-active");
+                formulaDialogs.formulaHelp.find(".luckysheet-arguments-help-formula .luckysheet-arguments-parameter-holder .luckysheet-arguments-help-parameter")
                     .eq(index)
                     .addClass("luckysheet-arguments-help-parameter-active");
-                $(
-                    "#luckysheet-formula-help-c .luckysheet-formula-help-content-param .luckysheet-arguments-help-section",
-                ).removeClass("luckysheet-arguments-help-parameter-active");
-                $("#luckysheet-formula-help-c .luckysheet-formula-help-content-param .luckysheet-arguments-help-section")
+                formulaDialogs.formulaHelp.find(".luckysheet-formula-help-content-param .luckysheet-arguments-help-section").removeClass("luckysheet-arguments-help-parameter-active");
+                formulaDialogs.formulaHelp.find(".luckysheet-formula-help-content-param .luckysheet-arguments-help-section")
                     .eq(index)
                     .addClass("luckysheet-arguments-help-parameter-active");
             }
@@ -312,11 +298,11 @@ const functionSearch = {
                         helpAbstract: locale_formulaMore.helpAbstract,
                     }),
                 );
-                $("#luckysheet-formula-help-c .luckysheet-formula-help-close").click(function() {
+                formulaDialogs.formulaHelp.find(".luckysheet-formula-help-close").click(function() {
                     formulaDialogs.formulaHelp.hide();
                 });
-                $("#luckysheet-formula-help-c .luckysheet-formula-help-collapse").click(function() {
-                    let $content = $("#luckysheet-formula-help-c .luckysheet-formula-help-content");
+                formulaDialogs.formulaHelp.find(".luckysheet-formula-help-collapse").click(function() {
+                    let $content = formulaDialogs.formulaHelp.find(".luckysheet-formula-help-content");
                     $content.slideToggle(100, function() {
                         let $c = _this.rangeResizeTo.parent(),
                             offset = $c.offset();

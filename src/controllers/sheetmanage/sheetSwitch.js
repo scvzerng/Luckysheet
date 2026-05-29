@@ -8,6 +8,7 @@ import luckysheetsizeauto from "../resize";
 import luckysheetFreezen from "../freezen";
 import Store from "../../store";
 import method from "../../global/method";
+import cellMain from "../../ui/cellMain.js";
 import luckysheetformula from "../../global/formula";
 import gridWindow from '../../ui/gridWindow.js';
 const sheetSwitchModule = {
@@ -138,7 +139,7 @@ const sheetSwitchModule = {
         });
       }
     }
-    $("#luckysheet-cell-main .luckysheet-datavisual-selection-set").hide();
+    cellMain.find(".luckysheet-datavisual-selection-set").hide();
     $("#luckysheet-datavisual-selection-set-" + index).show();
     luckysheetformula.hideButton();
     luckysheetFreezen.initialFreezen(index);

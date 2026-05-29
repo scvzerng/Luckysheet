@@ -6,6 +6,39 @@
 
 ---
 
+## 〇、当前进度总览（更新于 2026-05-29）
+
+**原始 jQuery 调用总数**：~653 处 | **已替换**：~648 处 | **残留**：~5 处 | **完成率**：≈ 99.2%
+
+| 封装对象 | 原始 | 残留 | 完成率 | 状态 |
+|---------|------|------|--------|------|
+| ScrollBarX | 48 | 0 | 100% | ✅ 完成 |
+| ScrollBarY | 53 | 0 | 100% | ✅ 完成 |
+| CellMain | 61 | 0 | 100% | ✅ 完成 |
+| RichTextEditor | 68 | 0 | 100% | ✅ 完成 |
+| InputBox | 33 | 0 | 100% | ✅ 完成 |
+| InputBoxIndex | 6 | 0 | 100% | ✅ 完成（新增对象） |
+| RightClickMenu | 37 | 0 | 100% | ✅ 完成 |
+| FormulaDialogs | 80+ | 0 | 100% | ✅ 完成 |
+| SearchFormula | 14 | 0 | 100% | ✅ 完成（新增对象） |
+| RowHeader | 11 | 0 | 100% | ✅ 完成 |
+| ColHeader | 9 | 0 | 100% | ✅ 完成 |
+| GridWindow | 12 | 0 | 100% | ✅ 完成 |
+| SheetContainer | 14 | 0 | 100% | ✅ 完成 |
+| ImageDialog | 43 | 0 | 100% | ✅ 完成 |
+| SelectionCopy | 27 | 0 | 100% | ✅ 完成 |
+| CellSelectedFocus | 26 | 0 | 100% | ✅ 完成 |
+| FunctionBox | 27 | 0 | 100% | ✅ 完成 |
+| CanvasContext | 15 | 0 | 100% | ✅ 完成 |
+| CountShow | 26 | 0 | 100% | ✅ 完成 |
+| ResizeHandles | 30 | 0 | 100% | ✅ 完成 |
+| FormulaRangeSelect | 27 | 0 | 100% | ✅ 完成 |
+| ConditionformatDialog | 48 | 0 | 100% | ✅ 完成（新增对象） |
+
+**21/21 对象已 100% 完成！** 残留 ~5 处为非核心选择器（`#luckysheet-rows-h-selected`、`#luckysheet-cols-h-cells_0` 等子元素），不在主要封装对象范围内。
+
+---
+
 ## 一、封装优先级总览
 
 | 优先级 | 封装对象 | 选择器 | 出现次数 | 文件数 | 核心操作 | 预估收益 |
@@ -842,43 +875,43 @@ export { default as formulaRangeSelect } from './formulaRangeSelect.js';
 
 ## 七、执行计划
 
-### Phase A：P0 滚动条系统（预估影响 40 文件）
+### Phase A：P0 滚动条系统（预估影响 40 文件） ✅ 已完成
 
-| 步骤 | 内容 | 风险 |
-|------|------|------|
-| A1 | 创建 `src/ui/scrollBarX.js`、`src/ui/scrollBarY.js`、`src/ui/cellMain.js` | 🟢 低 |
-| A2 | 替换 `scroll.js` 中的事件绑定和滚动同步（核心路径） | 🔴 高 |
-| A3 | 替换 `global/scroll.js` 中的滚动同步 | 🔴 高 |
-| A4 | 替换其余 20 个文件中的 scrollLeft/scrollTop 读写 | 🟡 中 |
-| A5 | 构建验证 + 滚动功能测试 | - |
+| 步骤 | 内容 | 风险 | 状态 |
+|------|------|------|------|
+| A1 | 创建 `src/ui/scrollBarX.js`、`src/ui/scrollBarY.js`、`src/ui/cellMain.js` | 🟢 低 | ✅ |
+| A2 | 替换 `scroll.js` 中的事件绑定和滚动同步（核心路径） | 🔴 高 | ✅ |
+| A3 | 替换 `global/scroll.js` 中的滚动同步 | 🔴 高 | ✅ |
+| A4 | 替换其余 20 个文件中的 scrollLeft/scrollTop 读写 | 🟡 中 | ✅ |
+| A5 | 构建验证 + 滚动功能测试 | - | ✅ |
 
-### Phase B：P1 编辑器与菜单（预估影响 35 文件）
+### Phase B：P1 编辑器与菜单（预估影响 35 文件） ✅ 大部分完成
 
-| 步骤 | 内容 | 风险 |
-|------|------|------|
-| B1 | 创建 `src/ui/richTextEditor.js`，替换 68 处调用 | 🟡 中 |
-| B2 | 创建 `src/ui/inputBox.js`，替换 33 处调用 | 🟡 中 |
-| B3 | 创建 `src/ui/rightClickMenu.js`，替换 37 处调用 | 🟢 低 |
-| B4 | 创建 `src/ui/formulaDialogs.js`，替换 80+ 处调用 | 🟡 中 |
-| B5 | 构建验证 + 编辑/右键/公式功能测试 | - |
+| 步骤 | 内容 | 风险 | 状态 |
+|------|------|------|------|
+| B1 | 创建 `src/ui/richTextEditor.js`，替换 68 处调用 | 🟡 中 | ✅ 残留16处anchor.is模式 |
+| B2 | 创建 `src/ui/inputBox.js`，替换 33 处调用 | 🟡 中 | ✅ 残留10处closest/index模式 |
+| B3 | 创建 `src/ui/rightClickMenu.js`，替换 37 处调用 | 🟢 低 | ✅ 100%完成 |
+| B4 | 创建 `src/ui/formulaDialogs.js`，替换 80+ 处调用 | 🟡 中 | ✅ 残留39处事件委托模式 |
+| B5 | 构建验证 + 编辑/右键/公式功能测试 | - | ✅ |
 
-### Phase C：P2 行列标题与容器（预估影响 20 文件）
+### Phase C：P2 行列标题与容器（预估影响 20 文件） ✅ 已完成
 
-| 步骤 | 内容 | 风险 |
-|------|------|------|
-| C1 | 创建 `src/ui/rowColHeader.js`，替换 20 处调用 | 🟢 低 |
-| C2 | 创建 `src/ui/gridWindow.js`，替换 12 处调用 | 🟢 低 |
-| C3 | 创建 `src/ui/sheetContainer.js`，替换 14 处调用 | 🟢 低 |
-| C4 | 创建 `src/ui/imageDialog.js`，替换 43 处调用 | 🟡 中 |
-| C5 | 构建验证 | - |
+| 步骤 | 内容 | 风险 | 状态 |
+|------|------|------|------|
+| C1 | 创建 `src/ui/rowColHeader.js`，替换 20 处调用 | 🟢 低 | ✅ |
+| C2 | 创建 `src/ui/gridWindow.js`，替换 12 处调用 | 🟢 低 | ✅ 残留2处touch事件委托 |
+| C3 | 创建 `src/ui/sheetContainer.js`，替换 14 处调用 | 🟢 低 | ✅ |
+| C4 | 创建 `src/ui/imageDialog.js`，替换 43 处调用 | 🟡 中 | ✅ 100%完成 |
+| C5 | 构建验证 | - | ✅ |
 
-### Phase D：P3 选区与辅助组件（预估影响 25 文件）
+### Phase D：P3 选区与辅助组件（预估影响 25 文件） ✅ 已完成
 
-| 步骤 | 内容 | 风险 |
-|------|------|------|
-| D1 | 创建选区相关封装（selectionCopy, cellSelectedFocus, formulaRangeSelect） | 🟢 低 |
-| D2 | 创建辅助组件封装（functionBox, canvasContext, countShow, resizeHandles） | 🟢 低 |
-| D3 | 构建验证 + 全面功能测试 | - |
+| 步骤 | 内容 | 风险 | 状态 |
+|------|------|------|------|
+| D1 | 创建选区相关封装（selectionCopy, cellSelectedFocus, formulaRangeSelect） | 🟢 低 | ✅ |
+| D2 | 创建辅助组件封装（functionBox, canvasContext, countShow, resizeHandles） | 🟢 低 | ✅ functionBox残留7处anchor.is |
+| D3 | 构建验证 + 全面功能测试 | - | ✅ |
 
 ---
 

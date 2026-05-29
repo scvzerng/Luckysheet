@@ -7,6 +7,7 @@ import { getLastSelection, setLastSelection } from '../utils/storeAccess.js';
 import { getScrollPosition } from '../utils/domUtils.js';
 import scrollBarX from '../ui/scrollBarX.js';
 import scrollBarY from '../ui/scrollBarY.js';
+import gridWindow from '../ui/gridWindow.js';
 
 //设备是移动端
 export default function mobileinit(){
@@ -18,7 +19,7 @@ export default function mobileinit(){
         luckysheet_touchmove_startPos = {},
         luckysheet_touchhandle_status = false,
         _scrollTimer = null;
-    $(document).on("touchstart", "#luckysheet-grid-window-1", function(event){
+    gridWindow.el.on("touchstart", function(event){
         clearInterval(_scrollTimer);//clear timer
         luckysheet_touchmove_status = true;
 
@@ -30,7 +31,7 @@ export default function mobileinit(){
             moveType:"y",
         }
     })
-    $(document).on("touchmove", "#luckysheet-grid-window-1", function(event){
+    gridWindow.el.on("touchmove", function(event){
         if(event.originalEvent.targetTouches.length > 1 || (event.scale && event.scale !== 1)){
             return;
         }

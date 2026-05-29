@@ -51,10 +51,10 @@ const sheetLayoutModule = {
   // *控制sheet栏的左右滚动按钮是否显示
   locationSheet: function () {
     let winW = $("#" + Store.container).width();
-    let $cursheet = $("#luckysheet-sheet-container-c > div.luckysheet-sheets-item-active").eq(0);
+    let $cursheet = sheetContainer.getActiveSheetItem();
     let scrollLeftpx = 0;
     let c_width = 0;
-    $("#luckysheet-sheet-container-c > div.luckysheet-sheets-item:visible").each(function () {
+    sheetContainer.find("div.luckysheet-sheets-item:visible").each(function () {
       if ($(this).hasClass("luckysheet-sheets-item-active")) {
         scrollLeftpx = c_width;
       }

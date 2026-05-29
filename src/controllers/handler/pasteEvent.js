@@ -428,7 +428,7 @@ export default function pasteEvent() {
                 }
                 $("#luckysheet-copy-content").empty();
             }
-        } else if ($(e.target).closest("#luckysheet-rich-text-editor").length > 0) {
+        } else if ($(e.target).closest(richTextEditor.el).length > 0) {
             // 阻止默认粘贴
             e.preventDefault();
 

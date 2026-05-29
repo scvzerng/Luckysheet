@@ -24,6 +24,8 @@ import { handleCellMousedown } from './cellEventsSub/handleCellMousedown.js';
 import { handleCellMouseup } from './cellEventsSub/handleCellMouseup.js';
 import { handleCellDblclick } from './cellEventsSub/handleCellDblclick.js';
 import richTextEditor from '../../ui/richTextEditor.js';
+import cellMain from '../../ui/cellMain.js';
+import canvasContext from '../../ui/canvasContext.js';
 
 export default function cellEvents() {
     $(window).resize(function() {
@@ -37,14 +39,22 @@ export default function cellEvents() {
         menuButton.inputMenuButtonFocus(e.target);
     });
 
-    $("#luckysheet-cell-main, #luckysheetTableContent")
-        .mousedown(function(event) {
-            handleCellMousedown(event);
-        })
-        .mouseup(function(event) {
-            handleCellMouseup(event);
-        })
-        .dblclick(function(event) {
-            handleCellDblclick(event);
-        });
+    cellMain.onCellMousedown(function(event) {
+        handleCellMousedown(event);
+    });
+    cellMain.onCellMouseup(function(event) {
+        handleCellMouseup(event);
+    });
+    cellMain.onCellDblclick(function(event) {
+        handleCellDblclick(event);
+    });
+    canvasContext.el.mousedown(function(event) {
+        handleCellMousedown(event);
+    });
+    canvasContext.el.mouseup(function(event) {
+        handleCellMouseup(event);
+    });
+    canvasContext.el.dblclick(function(event) {
+        handleCellDblclick(event);
+    });
 }

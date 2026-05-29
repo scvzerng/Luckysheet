@@ -13,6 +13,7 @@ import formulaDialogs from '../ui/formulaDialogs.js';
 import richTextEditor from '../ui/richTextEditor.js';
 import functionBox from '../ui/functionBox.js';
 import formulaRangeSelect from '../ui/formulaRangeSelect.js';
+import searchFormula from '../ui/searchFormula.js';
 
 //插入函数
 const insertFormula = {
@@ -22,43 +23,43 @@ const insertFormula = {
         let locale_formulaMore = _locale.formulaMore;
         let locale_button = _locale.button;
 
-        $(document).off("keyup.fxSFLI").on("keyup.fxSFLI", "#searchFormulaListInput", function(){
-            $("#formulaTypeList").empty();
+        searchFormula.el.off("keyup.fxSFLI").on("keyup.fxSFLI", "#searchFormulaListInput", function(){
+            searchFormula.find("#formulaTypeList").empty();
             let txt = $(this).val().toUpperCase();
             let functionlist = Store.functionlist;
 
             if(txt == ""){
                 //若没有查找内容则根据类别筛选
-                _this.formulaListByType($("#formulaTypeSelect option:selected").val());
+                _this.formulaListByType(searchFormula.find("#formulaTypeSelect option:selected").val());
             }
             else{
                 for(let i = 0; i < functionlist.length; i++){
                     if(/^[a-zA-Z]+$/.test(txt)){
                         if(functionlist[i].n.indexOf(txt) != "-1"){
-                            $('<div class="listBox" name="'+ functionlist[i].n +'"><span>'+ functionlist[i].n +'</span><span>'+ functionlist[i].a +'</span></div>').appendTo($("#formulaTypeList"));
+                            $('<div class="listBox" name="'+ functionlist[i].n +'"><span>'+ functionlist[i].n +'</span><span>'+ functionlist[i].a +'</span></div>').appendTo(searchFormula.find("#formulaTypeList"));
                         }
                     }
                     else if(functionlist[i].a.indexOf(txt) != "-1"){
-                        $('<div class="listBox" name="'+ functionlist[i].n +'"><span>'+ functionlist[i].n +'</span><span>'+ functionlist[i].a +'</span></div>').appendTo($("#formulaTypeList"));
+                        $('<div class="listBox" name="'+ functionlist[i].n +'"><span>'+ functionlist[i].n +'</span><span>'+ functionlist[i].a +'</span></div>').appendTo(searchFormula.find("#formulaTypeList"));
                     }
                 }
             }
             
-            $("#formulaTypeList .listBox:first-child").addClass("on"); //默认公式列表第一个为选中状态
+            searchFormula.find("#formulaTypeList .listBox:first-child").addClass("on"); //默认公式列表第一个为选中状态
         });
 
-        $(document).off("change.fxFormulaTS").on("change.fxFormulaTS", "#formulaTypeSelect", function(){
-            let type = $("#formulaTypeSelect option:selected").val();
+        searchFormula.el.off("change.fxFormulaTS").on("change.fxFormulaTS", "#formulaTypeSelect", function(){
+            let type = searchFormula.find("#formulaTypeSelect option:selected").val();
             _this.formulaListByType(type);
         });
 
-        $(document).off("click.fxListbox").on("click.fxListbox", "#formulaTypeList .listBox", function(){
+        searchFormula.el.off("click.fxListbox").on("click.fxListbox", "#formulaTypeList .listBox", function(){
             $(this).addClass("on").siblings().removeClass("on");
         });
 
         //选择公式后弹出参数栏弹框
-        $(document).off("click.fxFormulaCf").on("click.fxFormulaCf", "#luckysheet-search-formula-confirm", function(){
-            let formula = $("#luckysheet-search-formula .listBox.on").attr("name");
+        searchFormula.el.off("click.fxFormulaCf").on("click.fxFormulaCf", function(){
+            let formula = searchFormula.find(".listBox.on").attr("name");
             let formulaTxt = '<span dir="auto" class="luckysheet-formula-text-color">=</span><span dir="auto" class="luckysheet-formula-text-color">'+ formula.toUpperCase() +'</span><span dir="auto" class="luckysheet-formula-text-color">(</span><span dir="auto" class="luckysheet-formula-text-color">)</span>';
             
             richTextEditor.setHtml(formulaTxt);
@@ -68,11 +69,11 @@ const insertFormula = {
         });
 
         //公式参数框
-        $(document).off("focus.fxParamInput").on("focus.fxParamInput", "#luckysheet-search-formula-parm .parmBox input", function(){
+        formulaDialogs.searchParm.el.off("focus.fxParamInput").on("focus.fxParamInput", ".parmBox input", function(){
             let parmIndex = $(this).parents(".parmBox").index();
             formula.data_parm_index = parmIndex;
 
-            let formulatxt = $(this).parents("#luckysheet-search-formula-parm").find(".luckysheet-modal-dialog-title-text").text();
+            let formulatxt = formulaDialogs.searchParm.find(".luckysheet-modal-dialog-title-text").text();
             let parmLen = Store.luckysheet_function[formulatxt].p.length;
 
             let parmDetail, parmRepeat;
@@ -92,22 +93,21 @@ const insertFormula = {
             _this.functionStrCompute();
             
             //参数名称和释义切换
-            $("#luckysheet-search-formula-parm .parmDetailsBox").empty();
+            formulaDialogs.searchParm.find(".parmDetailsBox").empty();
 
             let parmName = $(this).parents(".parmBox").find(".name").text();
-            $('<span>'+ parmName +':</span><span>'+ parmDetail +'</span>').appendTo($("#luckysheet-search-formula-parm .parmDetailsBox"));
-            
-            //公式参数可自增（参数自增最多5个）
+            $('<span>'+ parmName +':</span><span>'+ parmDetail +'</span>').appendTo(formulaDialogs.searchParm.find(".parmDetailsBox"));
+
             if(parmRepeat == "y"){
-                let parmCount = $("#luckysheet-search-formula-parm .parmBox").length;
+                let parmCount = formulaDialogs.searchParm.find(".parmBox").length;
 
                 if(parmCount < 5 && parmIndex == (parmCount - 1)){
-                    $('<div class="parmBox"><div class="name">'+ locale_formulaMore.valueTitle +''+ (parmCount + 1) +'</div><div class="txt"><input class="formulaInputFocus" /><i class="fa fa-table" aria-hidden="true" title="'+locale_formulaMore.tipSelectDataRange+'"></i></div><div class="val">=</div></div>').appendTo($("#luckysheet-search-formula-parm .parmListBox"));
+                    $('<div class="parmBox"><div class="name">'+ locale_formulaMore.valueTitle +''+ (parmCount + 1) +'</div><div class="txt"><input class="formulaInputFocus" /><i class="fa fa-table" aria-hidden="true" title="'+locale_formulaMore.tipSelectDataRange+'"></i></div><div class="val">=</div></div>').appendTo(formulaDialogs.searchParm.find(".parmListBox"));
                 }
             }
         });
 
-        $(document).off("blur.fxParamInput").on("blur.fxParamInput", "#luckysheet-search-formula-parm .parmBox input", function(){
+        formulaDialogs.searchParm.el.off("blur.fxParamInput").on("blur.fxParamInput", ".parmBox input", function(){
             let txt = $(this).val();
 
             if(formula.getfunctionParam(txt).fn == null && !formula.iscelldata(txt)){
@@ -121,7 +121,7 @@ const insertFormula = {
             }
         });
         
-        $(document).off("keyup.fxParamInput").on("keyup.fxParamInput", "#luckysheet-search-formula-parm .parmBox input", function(){
+        formulaDialogs.searchParm.el.off("keyup.fxParamInput").on("keyup.fxParamInput", ".parmBox input", function(){
             //参数选区显示，参数值显示
             _this.parmTxtShow($(this).val());
 
@@ -130,7 +130,7 @@ const insertFormula = {
         });
 
         //点击图标选取数据范围
-        $(document).off("click.fxParamI").on("click.fxParamI", "#luckysheet-search-formula-parm .parmBox i", function(){
+        formulaDialogs.searchParm.el.off("click.fxParamI").on("click.fxParamI", ".parmBox i", function(){
             formula.data_parm_index = $(this).parents(".parmBox").index();
             
             //选取范围弹出框
@@ -173,17 +173,17 @@ const insertFormula = {
         });
 
         //点击确定
-        $(document).off("click.fxParamCf").on("click.fxParamCf", "#luckysheet-search-formula-parm-confirm", function(){
-            $("#luckysheet-wa-functionbox-confirm").click();
+        formulaDialogs.searchParm.el.off("click.fxParamCf").on("click.fxParamCf", function(){
+            functionBox.confirmClick();
         });
 
         //选取范围后传回参数栏弹框
-        $(document).off("click.fxParamSelectCf").on("click.fxParamSelectCf", "#luckysheet-search-formula-parm-select-confirm", function(){
-            let parmIndex = $("#luckysheet-search-formula-parm-select-input").attr("data_parm_index");
+        formulaDialogs.searchParmSelect.el.off("click.fxParamSelectCf").on("click.fxParamSelectCf", function(){
+            let parmIndex = formulaDialogs.searchParmSelect.find("#luckysheet-search-formula-parm-select-input").attr("data_parm_index");
 
             formulaDialogs.searchParmSelect.hide();
             formulaDialogs.searchParm.show();
-            $("#luckysheet-search-formula-parm .parmBox").eq(parmIndex).find(".txt input").focus();
+            formulaDialogs.searchParm.find(".parmBox").eq(parmIndex).find(".txt input").focus();
         });
     },
     formulaListDialog: function(){
@@ -194,7 +194,7 @@ const insertFormula = {
         let locale_button = _locale.button
 
         showModalMask();
-        $("#luckysheet-search-formula").remove();
+        searchFormula.remove();
 
         $("body").append(replaceHtml(modelHTML, { 
             "id": "luckysheet-search-formula", 
@@ -204,27 +204,27 @@ const insertFormula = {
             "botton": '<button id="luckysheet-search-formula-confirm" class="btn btn-primary">'+locale_button.confirm+'</button><button class="btn btn-default luckysheet-model-close-btn">'+locale_button.cancel+'</button>', 
             "style": "z-index:100003" 
         }));
-        let $t = $("#luckysheet-search-formula").find(".luckysheet-modal-dialog-content").css("min-width", 300).end(), 
+        let $t = searchFormula.find(".luckysheet-modal-dialog-content").css("min-width", 300).end(),
             myh = $t.outerHeight(), 
             myw = $t.outerWidth();
         let winw = $(window).width(), winh = $(window).height();
         let scrollLeft = $(document).scrollLeft(), scrollTop = $(document).scrollTop();
-        $("#luckysheet-search-formula").css({ "left": (winw + scrollLeft - myw) / 2, "top": (winh + scrollTop - myh) / 3, "user-select": "none" }).show();
+        searchFormula.setCss({ "left": (winw + scrollLeft - myw) / 2, "top": (winh + scrollTop - myh) / 3, "user-select": "none" }).show();
         
         _this.formulaListByType("0"); //默认公式列表为类型0
         $("#searchFormulaListInput").focus();
     },
     formulaListByType: function(type){
-        $("#formulaTypeList").empty();
+        searchFormula.find("#formulaTypeList").empty();
         let functionlist = Store.functionlist;
                     
         for(let i = 0; i < functionlist.length; i++){
             if((type == "-1" && functionlist[i].t > 14) || functionlist[i].t == type){
-                $('<div class="listBox" name="'+ functionlist[i].n +'"><span>'+ functionlist[i].n +'</span><span>'+ functionlist[i].a +'</span></div>').appendTo($("#formulaTypeList"));
+                $('<div class="listBox" name="'+ functionlist[i].n +'"><span>'+ functionlist[i].n +'</span><span>'+ functionlist[i].a +'</span></div>').appendTo(searchFormula.find("#formulaTypeList"));
             }
         }
 
-        $("#formulaTypeList .listBox:first-child").addClass("on"); //默认公式列表第一个为选中状态
+        searchFormula.find("#formulaTypeList .listBox:first-child").addClass("on"); //默认公式列表第一个为选中状态
     },
     formulaParmDialog: function(formulaTxt, parm){ //参数弹出框
         let parm_title = '',
@@ -278,7 +278,7 @@ const insertFormula = {
             }
         }
 
-        $("#luckysheet-search-formula").hide();
+        searchFormula.hide();
         hideModalMask();
         
         formulaDialogs.searchParm.remove();
@@ -299,10 +299,10 @@ const insertFormula = {
         formulaDialogs.searchParm.showAt({ "left": (winw + scrollLeft - myw) / 2, "top": (winh + scrollTop - myh) / 3 });
         
         //参数栏第一个参数聚焦，显示选取虚线框
-        $("#luckysheet-search-formula-parm .parmBox:eq(0) input").focus();
+        formulaDialogs.searchParm.find(".parmBox:eq(0) input").focus();
 
         //遍历参数，有参数显示值，无显示空
-        $("#luckysheet-search-formula-parm .parmBox").each(function(index,e){
+        formulaDialogs.searchParm.find(".parmBox").each(function(index,e){
             let parmtxt = $(e).find(".txt input").val();
             
             if(formula.getfunctionParam(parmtxt).fn == null){ //参数不是公式
@@ -325,18 +325,18 @@ const insertFormula = {
                             }
                         }
 
-                        $("#luckysheet-search-formula-parm .parmBox").eq(index).find(".val").text(" = {"+ txtArr.join(",") +"}");
+                        formulaDialogs.searchParm.find(".parmBox").eq(index).find(".val").text(" = {"+ txtArr.join(",") +"}");
                     }
-                    else{ //参数为单个单元格选区
-                        $("#luckysheet-search-formula-parm .parmBox").eq(index).find(".val").text(" = {"+ txtdata.v +"}");
+                    else{
+                        formulaDialogs.searchParm.find(".parmBox").eq(index).find(".val").text(" = {"+ txtdata.v +"}");
                     }
                 }
-                else{ //参数不是选区
-                    $("#luckysheet-search-formula-parm .parmBox").eq(index).find(".val").text(" = {"+ parmtxt +"}");
+                else{
+                    formulaDialogs.searchParm.find(".parmBox").eq(index).find(".val").text(" = {"+ parmtxt +"}");
                 }
             }
-            else{ //参数是公式
-                $("#luckysheet-search-formula-parm .parmBox").eq(index).find(".val").text(" = {"+ (new Function("return " + $.trim(formula.functionParserExe("=" + parmtxt)))()) +"}");
+            else{
+                formulaDialogs.searchParm.find(".parmBox").eq(index).find(".val").text(" = {"+ (new Function("return " + $.trim(formula.functionParserExe("=" + parmtxt)))()) +"}");
             }
         })
 
@@ -384,14 +384,14 @@ const insertFormula = {
                         }
                     }
 
-                    $("#luckysheet-search-formula-parm .parmBox").eq(formula.data_parm_index).find(".val").text(" = {"+ txtArr.join(",") +"}");
+                    formulaDialogs.searchParm.find(".parmBox").eq(formula.data_parm_index).find(".val").text(" = {"+ txtArr.join(",") +"}");
                 }
-                else{ //参数为单个单元格选区
-                    $("#luckysheet-search-formula-parm .parmBox").eq(formula.data_parm_index).find(".val").text(" = {"+ txtdata.v +"}");
+                else{
+                    formulaDialogs.searchParm.find(".parmBox").eq(formula.data_parm_index).find(".val").text(" = {"+ txtdata.v +"}");
                 }
             }
-            else if(getObjType(txtdata) != "object"){ //参数不是选区
-                $("#luckysheet-search-formula-parm .parmBox").eq(formula.data_parm_index).find(".val").text(" = {"+ parmtxt +"}");
+            else if(getObjType(txtdata) != "object"){
+                formulaDialogs.searchParm.find(".parmBox").eq(formula.data_parm_index).find(".val").text(" = {"+ parmtxt +"}");
 
                 formulaRangeSelect.hide();
             }
@@ -426,18 +426,18 @@ const insertFormula = {
 
             luckysheet_count_show(col_pre, row_pre, col - col_pre - 1, row - row_pre - 1, cellrange.row, cellrange.column);
 
-            $("#luckysheet-search-formula-parm .parmBox").eq(formula.data_parm_index).find(".val").text(" = {"+ (new Function("return " + $.trim(formula.functionParserExe("=" + parmtxt)))()) +"}");
+            formulaDialogs.searchParm.find(".parmBox").eq(formula.data_parm_index).find(".val").text(" = {"+ (new Function("return " + $.trim(formula.functionParserExe("=" + parmtxt)))()) +"}");
         }
     },
     functionStrCompute: function(){
-        let isVal = true; //参数不为空
-        let parmValArr = []; //参数值集合
-        let lvi = -1; //最后一个有值的参数索引
+        let isVal = true;
+        let parmValArr = [];
+        let lvi = -1;
 
-        let formulatxt = formulaDialogs.searchParm.el.find(".luckysheet-modal-dialog-title-text").text();
+        let formulatxt = formulaDialogs.searchParm.find(".luckysheet-modal-dialog-title-text").text();
         let p = Store.luckysheet_function[formulatxt].p;
-        
-        $("#luckysheet-search-formula-parm .parmBox").each(function(i, e){
+
+        formulaDialogs.searchParm.find(".parmBox").each(function(i, e){
             let parmtxt = $(e).find(".txt input").val();
 
             let parmRequire;
@@ -460,17 +460,17 @@ const insertFormula = {
         //单元格显示
         let functionHtmlTxt;
         if(lvi == -1){
-            functionHtmlTxt = "=" + $("#luckysheet-search-formula-parm .luckysheet-modal-dialog-title-text").text() + "()"; 
+            functionHtmlTxt = "=" + formulaDialogs.searchParm.find(".luckysheet-modal-dialog-title-text").text() + "()";
         }
         else if(lvi == 0){
-            functionHtmlTxt = "=" + $("#luckysheet-search-formula-parm .luckysheet-modal-dialog-title-text").text() + "(" + $("#luckysheet-search-formula-parm .parmBox").eq(0).find(".txt input").val() + ")"; 
+            functionHtmlTxt = "=" + formulaDialogs.searchParm.find(".luckysheet-modal-dialog-title-text").text() + "(" + formulaDialogs.searchParm.find(".parmBox").eq(0).find(".txt input").val() + ")";
         }
         else{
             for(let j = 0; j <= lvi; j++){
-                parmValArr.push($("#luckysheet-search-formula-parm .parmBox").eq(j).find(".txt input").val());
+                parmValArr.push(formulaDialogs.searchParm.find(".parmBox").eq(j).find(".txt input").val());
             }
 
-            functionHtmlTxt = "=" + $("#luckysheet-search-formula-parm .luckysheet-modal-dialog-title-text").text() + "(" + parmValArr.join(",") + ")";    
+            functionHtmlTxt = "=" + formulaDialogs.searchParm.find(".luckysheet-modal-dialog-title-text").text() + "(" + parmValArr.join(",") + ")";
         }
 
         let function_str = formula.functionHTMLGenerate(functionHtmlTxt);
@@ -489,7 +489,7 @@ const insertFormula = {
                 result = formula.error.n;
             }
 
-            $("#luckysheet-search-formula-parm .result span").text(result);
+            formulaDialogs.searchParm.find(".result span").text(result);
         }
     }
 }

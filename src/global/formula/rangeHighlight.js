@@ -17,6 +17,7 @@ import {
 } from "../../function/func";
 import Store from "../../store";
 import richTextEditor from '../../ui/richTextEditor.js';
+import functionBox from '../../ui/functionBox.js';
 
 const rangeHighlight = {
         rangeHightlightHTML:
@@ -88,7 +89,7 @@ const rangeHighlight = {
                     lasttxt = txt.substr(anchorOffset - 1, 1);
                     return anchor.parent();
                 }
-            } else if (anchor.is("#luckysheet-rich-text-editor") || anchor.is("#luckysheet-functionbox-cell")) {
+            } else if (anchor.is(richTextEditor.el) || anchor.is(functionBox.el)) {
                 let txt = $.trim(
                     anchor
                         .find("span")
@@ -104,8 +105,8 @@ const rangeHighlight = {
                     return anchor.find("span").last();
                 }
             } else if (
-                anchor.parent().is("#luckysheet-rich-text-editor") ||
-                anchor.parent().is("#luckysheet-functionbox-cell") ||
+                anchor.parent().is(richTextEditor.el) ||
+                anchor.parent().is(functionBox.el) ||
                 anchorOffset == 0
             ) {
                 if (anchorOffset == 0) {

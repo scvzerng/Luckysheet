@@ -16,3 +16,6 @@ export { default as canvasContext } from './canvasContext.js';
 export { default as countShow } from './countShow.js';
 export { default as resizeHandles } from './resizeHandles.js';
 export { default as formulaRangeSelect } from './formulaRangeSelect.js';
+export { default as inputBoxIndex } from './inputBoxIndex.js';
+export { default as searchFormula } from './searchFormula.js';
+export { default as conditionformatDialog } from './conditionformatDialog.js';

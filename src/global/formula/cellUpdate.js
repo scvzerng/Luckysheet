@@ -28,6 +28,10 @@ import { resetInputBoxStyle } from '../../utils/domUtils.js';
 import formulaDialogs from '../../ui/formulaDialogs.js';
 import richTextEditor from '../../ui/richTextEditor.js';
 import canvasContext from '../../ui/canvasContext.js';
+import countShow from '../../ui/countShow.js';
+import formulaRangeSelect from '../../ui/formulaRangeSelect.js';
+import inputBoxIndex from '../../ui/inputBoxIndex.js';
+import functionBox from '../../ui/functionBox.js';
 
 const cellUpdate = {
         updatecell: function(r, c, value, isRefresh = true) {
@@ -383,10 +387,8 @@ const cellUpdate = {
 
             $("#luckysheet-formula-functionrange .luckysheet-formula-functionrange-highlight").remove();
             resetInputBoxStyle();
-            $("#luckysheet-input-box-index").hide();
-            $("#luckysheet-wa-functionbox-cancel, #luckysheet-wa-functionbox-confirm").removeClass(
-                "luckysheet-wa-calculate-active",
-            );
+            inputBoxIndex.hide();
+            functionBox.unsetActive();
 
             _this.rangestart = false;
             _this.rangedrag_column_start = false;
@@ -395,7 +397,8 @@ const cellUpdate = {
 
         canceFunctionrangeSelected: function() {
             formulaRangeSelect.hide();
-            $("#luckysheet-row-count-show, #luckysheet-column-count-show").hide();
+            countShow.row.hide();
+            countShow.column.hide();
             // $("#luckysheet-cols-h-selected, #luckysheet-rows-h-selected").hide();
             formulaDialogs.formulaSearchC.hide();
             formulaDialogs.formulaHelp.hide();

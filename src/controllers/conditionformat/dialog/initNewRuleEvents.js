@@ -9,12 +9,13 @@ import { getPicker } from '../../../components/ColorPicker';
 import { hideModalMask } from '../../../utils/domUtils.js';
 import countShow from '../../../ui/countShow.js';
 import formulaRangeSelect from '../../../ui/formulaRangeSelect.js';
+import conditionformatDialog from '../../../ui/conditionformatDialog.js';
 
 export function initNewRuleEvents(_this) {
       const conditionformat_Text = locale().conditionformat;
       // 新建规则
       $(document).off("click.CFnewConditionRule").on("click.CFnewConditionRule", "#newConditionRule", function () {
-        let sheetIndex = $("#luckysheet-administerRule-dialog .chooseSheet option:selected").val();
+        let sheetIndex = conditionformatDialog.adminRule.find(".chooseSheet option:selected").val();
         if (Store.luckysheet_select_save.length == 0) {
           if (isEditMode()) {
             alert(conditionformat_Text.pleaseSelectRange);
@@ -148,13 +149,13 @@ export function initNewRuleEvents(_this) {
             //排名靠前靠后
             //条件名称
             if (type1 == "top") {
-              if ($("#luckysheet-newConditionRule-dialog #isPercent").is(":selected")) {
+              if ($("#luckysheet-newConditionRule-dialog #isPercent").is(":checked")) {
                 conditionName = "top10%";
               } else {
                 conditionName = "top10";
               }
             } else if (type1 == "last") {
-              if ($("#luckysheet-newConditionRule-dialog #isPercent").is(":selected")) {
+              if ($("#luckysheet-newConditionRule-dialog #isPercent").is(":checked")) {
                 conditionName = "last10%";
               } else {
                 conditionName = "last10";
@@ -257,7 +258,7 @@ export function initNewRuleEvents(_this) {
           hideModalMask();
         }
         if (source == 1) {
-          $("#luckysheet-administerRule-dialog").show();
+          conditionformatDialog.adminRule.show();
         }
   
         //新建规则隐藏

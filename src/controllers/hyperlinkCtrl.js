@@ -271,7 +271,7 @@ const hyperlinkCtrl = {
 
         $("#luckysheet-hyperlink-overshow").remove();
 
-        if($(event.target).closest("#luckysheet-cell-main").length == 0){
+        if($(event.target).closest(cellMain.el).length == 0){
             return;
         }
 

@@ -22,6 +22,7 @@ import {  isRealNull,  isEditMode } from "../../global/validate";
 import { countfunc } from "../../global/count";
 import Store from "../../store";
 import { getScrollPosition } from "../../utils/domUtils.js";
+import cellMain from "../../ui/cellMain.js";
 
 export default function selectionDrag() {
     // //禁止前台编辑(只可 框选单元格、滚动查看表格)
@@ -30,7 +31,7 @@ export default function selectionDrag() {
     // }
 
     //选区拖动替换
-    $("#luckysheet-cell-main div.luckysheet-cs-draghandle").mousedown(function(event) {
+    cellMain.find("div.luckysheet-cs-draghandle").mousedown(function(event) {
         if (isEditMode() || Store.allowEdit === false) {
             //此模式下禁用选区拖动
             return;
@@ -42,7 +43,7 @@ export default function selectionDrag() {
             .end()
             .find(".luckysheet-cs-draghandle")
             .css("cursor", "move");
-        $("#luckysheet-cell-main, #luckysheetTableContent, #luckysheet-sheettable_0").css("cursor", "move");
+        cellMain.setCursor("move");
 
         Store.luckysheet_cell_selected_move = true;
         Store.luckysheet_scroll_status = true;
@@ -75,7 +76,7 @@ export default function selectionDrag() {
     });
 
     //选区下拉
-    $("#luckysheet-cell-main div.luckysheet-cs-fillhandle")
+    cellMain.find("div.luckysheet-cs-fillhandle")
         .mousedown(function(event) {
             if (isEditMode() || Store.allowEdit === false) {
                 //此模式下禁用选区下拉
@@ -88,7 +89,7 @@ export default function selectionDrag() {
                 .end()
                 .find(".luckysheet-cs-draghandle")
                 .css("cursor", "crosshair");
-            $("#luckysheet-cell-main, #luckysheetTableContent, #luckysheet-sheettable_0").css("cursor", "crosshair");
+            cellMain.setCursor("crosshair");
 
             let pageX = event.pageX, pageY = event.pageY;
 

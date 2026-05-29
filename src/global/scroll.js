@@ -5,6 +5,7 @@ import scrollBarX from '../ui/scrollBarX.js';
 import scrollBarY from '../ui/scrollBarY.js';
 import cellMain from '../ui/cellMain.js';
 import inputBox from '../ui/inputBox.js';
+import inputBoxIndex from '../ui/inputBoxIndex.js';
 import { rowHeader, colHeader } from '../ui/rowColHeader.js';
 import canvasContext from '../ui/canvasContext.js';
 
@@ -43,7 +44,7 @@ export default function luckysheetscrollevent(isadjust) {
     
     cellMain.el.scrollLeft(scrollLeft).scrollTop(scrollTop);
 
-    $("#luckysheet-input-box-index").css({
+    inputBoxIndex.setCss({
         "left": inputBox.getCss("left"),
         "top": (parseInt(inputBox.getCss("top")) - 20) + "px",
         "z-index": inputBox.getCss("z-index")

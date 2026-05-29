@@ -2,12 +2,13 @@ import Store from '../store/index.js';
 import inputBox from '../ui/inputBox.js';
 import cellMain from '../ui/cellMain.js';
 import formulaDialogs from '../ui/formulaDialogs.js';
+import imageDialog from '../ui/imageDialog.js';
 
 export function getScrollPosition() {
-    let cellMain = $("#luckysheet-cell-main");
+    let el = cellMain.el;
     return {
-        scrollTop: cellMain.scrollTop(),
-        scrollLeft: cellMain.scrollLeft()
+        scrollTop: el.scrollTop(),
+        scrollLeft: el.scrollLeft()
     };
 }
 
@@ -20,12 +21,12 @@ export function getCellMainSize() {
 }
 
 export function getScrollAndSize() {
-    let cellMain = $("#luckysheet-cell-main");
+    let el = cellMain.el;
     return {
-        scrollTop: cellMain.scrollTop(),
-        scrollLeft: cellMain.scrollLeft(),
-        winH: cellMain.height(),
-        winW: cellMain.width()
+        scrollTop: el.scrollTop(),
+        scrollLeft: el.scrollLeft(),
+        winH: el.height(),
+        winW: el.width()
     };
 }
 
@@ -62,7 +63,7 @@ export function isModalMaskVisible() {
 }
 
 export function isImageEditing() {
-    return $("#luckysheet-modal-dialog-activeImage").is(":visible") || $("#luckysheet-modal-dialog-cropping").is(":visible");
+    return imageDialog.active.isVisible() || imageDialog.cropping.isVisible();
 }
 
 export function isFormulaDialogVisible() {

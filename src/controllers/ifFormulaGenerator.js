@@ -22,12 +22,12 @@ const ifFormulaGenerator = {
         const locale_formula = _locale.formula;
         const locale_button = _locale.button;
         //点击选择单元格
-        $(document).off("focus.IFcompareValue").on("focus.IFcompareValue", "#luckysheet-ifFormulaGenerator-dialog #compareValue", function(){
+        formulaDialogs.ifFormulaDialog.el.off("focus.IFcompareValue").on("focus.IFcompareValue", "#compareValue", function(){
             hideModalMask();
             _this.singleRangeFocus = true;
         });
-        $(document).off("click.IFsingRange").on("click.IFsingRange", "#luckysheet-ifFormulaGenerator-dialog .singRange", function(){
-            let value = $("#luckysheet-ifFormulaGenerator-dialog #compareValue").val().trim();
+        formulaDialogs.ifFormulaDialog.el.off("click.IFsingRange").on("click.IFsingRange", ".singRange", function(){
+            let value = formulaDialogs.ifFormulaDialog.find("#compareValue").val().trim();
 
             if(formula.iscelldata(value)){
                 _this.singleRangeDialog(value);
@@ -36,19 +36,19 @@ const ifFormulaGenerator = {
                 _this.singleRangeDialog();
             }
         });
-        $(document).off("click.IFsingRangeConfirm").on("click.IFsingRangeConfirm", "#luckysheet-ifFormulaGenerator-singleRange-confirm", function(){
+        formulaDialogs.ifFormulaSingleRange.el.off("click.IFsingRangeConfirm").on("click.IFsingRangeConfirm", function(){
             formulaRangeSelect.hide();
 
             formulaDialogs.ifFormulaSingleRange.hide();
             showModalMask();
             formulaDialogs.ifFormulaDialog.show();
 
-            let value = $(this).parents("#luckysheet-ifFormulaGenerator-singleRange-dialog").find("input").val().trim();
-            $("#luckysheet-ifFormulaGenerator-dialog #compareValue").val(value);
+            let value = formulaDialogs.ifFormulaSingleRange.find("input").val().trim();
+            formulaDialogs.ifFormulaDialog.find("#compareValue").val(value);
 
             _this.singleRangeFocus = false;
         });
-        $(document).off("click.IFsingRangeCancel").on("click.IFsingRangeCancel", "#luckysheet-ifFormulaGenerator-singleRange-cancel", function(){
+        formulaDialogs.ifFormulaSingleRange.el.off("click.IFsingRangeCancel").on("click.IFsingRangeCancel", function(){
             formulaRangeSelect.hide();
 
             formulaDialogs.ifFormulaSingleRange.hide();
@@ -57,7 +57,7 @@ const ifFormulaGenerator = {
 
             _this.singleRangeFocus = false;
         });
-        $(document).off("click.IFsingRangeClose").on("click.IFsingRangeClose", "#luckysheet-ifFormulaGenerator-singleRange-dialog .luckysheet-modal-dialog-title-close", function(){
+        formulaDialogs.ifFormulaSingleRange.el.off("click.IFsingRangeClose").on("click.IFsingRangeClose", ".luckysheet-modal-dialog-title-close", function(){
             formulaRangeSelect.hide();
 
             showModalMask();
@@ -67,12 +67,12 @@ const ifFormulaGenerator = {
         });
 
         //点击选择范围
-        $(document).off("click.IFmultiRange").on("click.IFmultiRange", "#luckysheet-ifFormulaGenerator-dialog .multiRange", function(){
+        formulaDialogs.ifFormulaDialog.el.off("click.IFmultiRange").on("click.IFmultiRange", ".multiRange", function(){
             _this.multiRangeDialog();
 
             _this.singleRangeFocus = false;
         });
-        $(document).off("click.IFmultiRangeConfirm").on("click.IFmultiRangeConfirm", "#luckysheet-ifFormulaGenerator-multiRange-confirm", function(){
+        formulaDialogs.ifFormulaMultiRange.el.off("click.IFmultiRangeConfirm").on("click.IFmultiRangeConfirm", function(){
             formulaRangeSelect.hide();
             countShow.row.hide();
             countShow.column.hide();
@@ -81,7 +81,7 @@ const ifFormulaGenerator = {
             showModalMask();
             formulaDialogs.ifFormulaDialog.show();
 
-            let value = $(this).parents("#luckysheet-ifFormulaGenerator-multiRange-dialog").find("input").val().trim();
+            let value = formulaDialogs.ifFormulaMultiRange.find("input").val().trim();
             let cellrange = formula.getcellrange(value);
             let str_r = cellrange["row"][0],
                 end_r = cellrange["row"][1],
@@ -114,10 +114,10 @@ const ifFormulaGenerator = {
             let smallNum = arr[arr.length - 1];
 
             //赋值
-            $("#luckysheet-ifFormulaGenerator-dialog #smallRange").val(smallNum);
-            $("#luckysheet-ifFormulaGenerator-dialog #largeRange").val(largeNum);
+            formulaDialogs.ifFormulaDialog.find("#smallRange").val(smallNum);
+            formulaDialogs.ifFormulaDialog.find("#largeRange").val(largeNum);
         });
-        $(document).off("click.IFmultiRangeCancel").on("click.IFmultiRangeCancel", "#luckysheet-ifFormulaGenerator-multiRange-cancel", function(){
+        formulaDialogs.ifFormulaMultiRange.el.off("click.IFmultiRangeCancel").on("click.IFmultiRangeCancel", function(){
             formulaRangeSelect.hide();
             countShow.row.hide();
             countShow.column.hide();
@@ -126,7 +126,7 @@ const ifFormulaGenerator = {
             showModalMask();
             formulaDialogs.ifFormulaDialog.show();
         });
-        $(document).off("click.IFmultiRangeClose").on("click.IFmultiRangeClose", "#luckysheet-ifFormulaGenerator-multiRange-dialog .luckysheet-modal-dialog-title-close", function(){
+        formulaDialogs.ifFormulaMultiRange.el.off("click.IFmultiRangeClose").on("click.IFmultiRangeClose", ".luckysheet-modal-dialog-title-close", function(){
             countShow.row.hide();
             countShow.column.hide();
 
@@ -135,28 +135,28 @@ const ifFormulaGenerator = {
         });
 
         //选择 划分方式
-        $(document).on("change", "#DivisionMethod", function(){
+        formulaDialogs.ifFormulaDialog.el.on("change", "#DivisionMethod", function(){
             let value = $(this).find("option:selected").val();
 
             if(value == "2"){
-                $("#DivisionMethodVal").hide();
+                formulaDialogs.ifFormulaDialog.find("#DivisionMethodVal").hide();
             }
             else{
-                $("#DivisionMethodVal").show();
+                formulaDialogs.ifFormulaDialog.find("#DivisionMethodVal").show();
             }
 
-            $("#luckysheet-ifFormulaGenerator-dialog .ifList").empty();
+            formulaDialogs.ifFormulaDialog.find(".ifList").empty();
         });
 
         //点击 生成 按钮
-        $(document).off("click.IFcreateBtn").on("click.IFcreateBtn", "#luckysheet-ifFormulaGenerator-dialog #createBtn", function(){
-            let compareValue = $(this).parents("#luckysheet-ifFormulaGenerator-dialog").find("#compareValue").val().trim();
+        formulaDialogs.ifFormulaDialog.el.off("click.IFcreateBtn").on("click.IFcreateBtn", "#createBtn", function(){
+            let compareValue = formulaDialogs.ifFormulaDialog.find("#compareValue").val().trim();
             if(compareValue == ""){
                 _this.info(locale_formula.ifGenTipNotNullValue);
                 return;
             }
 
-            let method = $(this).parents("#luckysheet-ifFormulaGenerator-dialog").find("#DivisionMethod option:selected").val();
+            let method = formulaDialogs.ifFormulaDialog.find("#DivisionMethod option:selected").val();
             if(method == "2"){
                 let itemHtml =  '<div class="item">'+
                                     '<input type="number" class="smallNum formulaInputFocus"/>'+
@@ -174,12 +174,12 @@ const ifFormulaGenerator = {
                                     '<input type="text" class="markText formulaInputFocus" value="">'+
                                     '<i class="fa fa-remove" aria-hidden="true"></i>'+
                                 '</div>';
-                $("#luckysheet-ifFormulaGenerator-dialog .ifList").append(itemHtml);
+                formulaDialogs.ifFormulaDialog.find(".ifList").append(itemHtml);
             }
             else{
-                let smallRange = $(this).parents("#luckysheet-ifFormulaGenerator-dialog").find("#smallRange").val().trim();
-                let largeRange = $(this).parents("#luckysheet-ifFormulaGenerator-dialog").find("#largeRange").val().trim();
-                let DivisionMethodVal = $(this).parents("#luckysheet-ifFormulaGenerator-dialog").find("#DivisionMethodVal").val().trim();
+                let smallRange = formulaDialogs.ifFormulaDialog.find("#smallRange").val().trim();
+                let largeRange = formulaDialogs.ifFormulaDialog.find("#largeRange").val().trim();
+                let DivisionMethodVal = formulaDialogs.ifFormulaDialog.find("#DivisionMethodVal").val().trim();
 
                 if(smallRange == "" || largeRange == ""){
                     _this.info(locale_formula.ifGenTipRangeNotforNull);
@@ -195,13 +195,13 @@ const ifFormulaGenerator = {
         });
 
         //点击 删除条件
-        $(document).on("click", "#luckysheet-ifFormulaGenerator-dialog .item .fa-remove", function(){
+        formulaDialogs.ifFormulaDialog.el.on("click", ".item .fa-remove", function(){
             $(this).parents(".item").remove();
         });
 
         //点击 确认 按钮
-        $(document).off("click.IFconfirmBtn").on("click.IFconfirmBtn", "#luckysheet-ifFormulaGenerator-dialog-confirm", function(){
-            let $item = $(this).parents("#luckysheet-ifFormulaGenerator-dialog").find(".ifList .item");
+        formulaDialogs.ifFormulaDialog.el.off("click.IFconfirmBtn").on("click.IFconfirmBtn", function(){
+            let $item = formulaDialogs.ifFormulaDialog.find(".ifList .item");
             let str = '';
 
             $($item.toArray().reverse()).each(function(i, e){
@@ -273,14 +273,14 @@ const ifFormulaGenerator = {
             richTextEditor.setHtml("=" + str);
             functionBox.setHtml(richTextEditor.getHtml());
 
-            $("#luckysheet-wa-functionbox-confirm").click();
+            functionBox.confirmClick();
         });
 
         //info
-        $(document).on("click", "#luckysheet-ifFormulaGenerator-info .luckysheet-model-close-btn", function(){
+        formulaDialogs.ifFormulaInfo.el.on("click", ".luckysheet-model-close-btn", function(){
             showModalMask();
         });
-        $(document).on("click", "#luckysheet-ifFormulaGenerator-info .luckysheet-modal-dialog-title-close", function(){
+        formulaDialogs.ifFormulaInfo.el.on("click", ".luckysheet-modal-dialog-title-close", function(){
             showModalMask();
         });
     },
@@ -479,7 +479,7 @@ const ifFormulaGenerator = {
     getIfList: function(compareValue, smallRange, largeRange, method, methodVal){
         const locale_formula = locale().formula;
 
-        $("#luckysheet-ifFormulaGenerator-dialog .ifList").empty();
+        formulaDialogs.ifFormulaDialog.find(".ifList").empty();
 
         smallRange = parseInt(smallRange);
         largeRange = parseInt(largeRange);
@@ -540,7 +540,7 @@ const ifFormulaGenerator = {
                                 '<input type="text" class="markText formulaInputFocus" value="'+ markText +'">'+
                                 '<i class="fa fa-remove" aria-hidden="true"></i>'+
                             '</div>';
-            $("#luckysheet-ifFormulaGenerator-dialog .ifList").append(itemHtml);
+            formulaDialogs.ifFormulaDialog.find(".ifList").append(itemHtml);
         }
     },
     info: function(title){

@@ -2,6 +2,9 @@ import {getFontStyleByCell, textTrim} from "../global/getdata";
 import {selectTextContent,selectTextContentCross,selectTextContentCollapse} from '../global/cursorPos';
 import locale from '../locale/locale';
 import Store from '../store';
+import richTextEditor from '../ui/richTextEditor.js';
+import inputBox from '../ui/inputBox.js';
+import functionBox from '../ui/functionBox.js';
 
 export const inlineStyleAffectAttribute = {"bl":1, "it":1 , "ff":1, "cl":1, "un":1,"fs":1,"fc":1};
 export const inlineStyleAffectCssName = {"font-weight":1, "font-style":1 , "font-family":1, "text-decoration":1, "border-bottom":1,"font-size":1,"color":1};
@@ -41,24 +44,24 @@ export function updateInlineStringFormat(cell, attr, value, $input){
 
     let cac = range.commonAncestorContainer;
     let $textEditor;
-    if(cac.id=="luckysheet-rich-text-editor"){
+    if(richTextEditor.getNativeElement()===cac){
         $textEditor = $(cac);
     }
     else{
-        $textEditor = $(cac).closest("#luckysheet-rich-text-editor");
+        $textEditor = $(cac).closest(richTextEditor.el);
     }
-    let $functionbox = $(cac).closest("#luckysheet-functionbox-cell");
+    let $functionbox = $(cac).closest(functionBox.el);
 
     if($textEditor.length==0 && $functionbox.length==0 && Store.inlineStringEditRange!=null){
         range = Store.inlineStringEditRange;
         cac = range.commonAncestorContainer;
-        if(cac.id=="luckysheet-rich-text-editor"){
+        if(richTextEditor.getNativeElement()===cac){
             $textEditor = $(cac);
         }
         else{
-            $textEditor = $(cac).closest("#luckysheet-rich-text-editor");
+            $textEditor = $(cac).closest(richTextEditor.el);
         }
-        $functionbox = $(cac).closest("#luckysheet-functionbox-cell");
+        $functionbox = $(cac).closest(functionBox.el);
     }
 
     if(range.collapsed===true){
@@ -89,7 +92,7 @@ export function updateInlineStringFormat(cell, attr, value, $input){
             if(left!=""){
                 let cssText = span.style.cssText;
                 if(inherit){
-                    let box = $(span).closest("#luckysheet-input-box").get(0);
+                    let box = $(span).closest(inputBox.el).get(0);
                     if(box!=null){
                         cssText = extendCssText(box.style.cssText, cssText);
                     }
@@ -110,7 +113,7 @@ export function updateInlineStringFormat(cell, attr, value, $input){
                 let cssText = getCssText(span.style.cssText, attr, value);
 
                 if(inherit){
-                    let box = $(span).closest("#luckysheet-input-box").get(0);
+                    let box = $(span).closest(inputBox.el).get(0);
                     if(box!=null){
                         cssText = extendCssText(box.style.cssText, cssText);
                     }
@@ -122,7 +125,7 @@ export function updateInlineStringFormat(cell, attr, value, $input){
             if(right!=""){
                 let cssText = span.style.cssText;
                 if(inherit){
-                    let box = $(span).closest("#luckysheet-input-box").get(0);
+                    let box = $(span).closest(inputBox.el).get(0);
                     if(box!=null){
                         cssText = extendCssText(box.style.cssText, cssText);
                     }
@@ -240,13 +243,13 @@ export function enterKeyControll(cell){
     var range = w.getRangeAt(0);
     let cac = range.commonAncestorContainer;
     let $textEditor;
-    if(cac.id=="luckysheet-rich-text-editor"){
+    if(richTextEditor.getNativeElement()===cac){
         $textEditor = $(cac);
     }
     else{
-        $textEditor = $(cac).closest("#luckysheet-rich-text-editor");
+        $textEditor = $(cac).closest(richTextEditor.el);
     }
-    let $functionbox = $(cac).closest("#luckysheet-functionbox-cell");
+    let $functionbox = $(cac).closest(functionBox.el);
 
     // if(range.collapsed===true){
     //     return;
@@ -257,7 +260,7 @@ export function enterKeyControll(cell){
     
     if($textEditor.length>0){
         let startSpan = startContainer.parentNode;
-        if(startContainer.id=="luckysheet-rich-text-editor"){
+        if(richTextEditor.getNativeElement()===startContainer){
             startSpan = $(startContainer).find("span");
             if(startSpan.length==0){
                 // 在末尾换行操作会导致数据丢失(覆盖)
@@ -315,7 +318,7 @@ export function enterKeyControll(cell){
                 cont = "<span style='"+ cssText +"'>" + sleft + "\n" + sright + "</span>";
             }
             
-            if(startContainer.id=="luckysheet-rich-text-editor"){
+            if(richTextEditor.getNativeElement()===startContainer){
                 $(startSpan).replaceWith(cont);
                 let textSpan = $textEditor.find("span");
                 spanIndex = textSpan.length-1;

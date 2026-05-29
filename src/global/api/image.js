@@ -3,6 +3,7 @@ import Store from "../../store";
 import { getObjType } from "../../utils/util";
 import { getCurrentSheetOrder, getLastSelection, getFocusCell } from '../../utils/storeAccess.js';
 import tooltip from "../tooltip";
+import imageDialog from "../../ui/imageDialog.js";
 
 export function insertImage(src, options = {}){
     let {
@@ -230,9 +231,9 @@ export function deleteImage(options = {}){
 
     if(file.index == Store.currentSheetIndex){
         if(imageCtrl.currentImgId != null && (idList == 'all' || idList.includes(imageCtrl.currentImgId))){
-            $("#luckysheet-modal-dialog-activeImage").hide();
-            $("#luckysheet-modal-dialog-cropping").hide();
-            $("#luckysheet-modal-dialog-slider-imageCtrl").hide();
+            imageDialog.active.hide();
+            imageDialog.cropping.hide();
+            imageDialog.slider.hide();
         }
 
         imageCtrl.images = images;

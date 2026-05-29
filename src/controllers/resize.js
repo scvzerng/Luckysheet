@@ -14,6 +14,8 @@ import scrollBarY from '../ui/scrollBarY.js';
 import { rowHeader } from '../ui/rowColHeader.js';
 import gridWindow from '../ui/gridWindow.js';
 import cellMain from '../ui/cellMain.js';
+import { colHeader } from '../ui/rowColHeader.js';
+import canvasContext from '../ui/canvasContext.js';
 
 let gridW = 0,
     gridH = 0;
@@ -276,7 +278,8 @@ export function changeSheetContainerSize(gridW, gridH){
     Store.cellmainHeight = gridH - (getHeaderTotalHeight() + Store.sheetBarHeight + Store.statisticBarHeight);
     Store.cellmainWidth = gridW - Store.rowHeaderWidth;
 
-    $("#luckysheet-cols-h-c, #luckysheet-cell-main").width(Store.cellmainWidth);
+    colHeader.setWidth(Store.cellmainWidth);
+    cellMain.setWidth(Store.cellmainWidth);
     cellMain.setHeight(Store.cellmainHeight);
     rowHeader.setHeight(Store.cellmainHeight - Store.cellMainSrollBarSize);
 
@@ -291,14 +294,15 @@ export function changeSheetContainerSize(gridW, gridH){
         Store.cellmainHeight + Store.columnHeaderHeight - Store.cellMainSrollBarSize
     ];
 
-    $("#luckysheetTableContent, #luckysheetTableContentF").attr({
-        width: Math.ceil(Store.luckysheetTableContentHW[0] * Store.devicePixelRatio),
-        height: Math.ceil(Store.luckysheetTableContentHW[1] * Store.devicePixelRatio)
-    })
-    .css({ width: Store.luckysheetTableContentHW[0], height: Store.luckysheetTableContentHW[1] });
+    canvasContext.setCanvasSize(
+        Math.ceil(Store.luckysheetTableContentHW[0] * Store.devicePixelRatio),
+        Math.ceil(Store.luckysheetTableContentHW[1] * Store.devicePixelRatio),
+        Store.luckysheetTableContentHW[0],
+        Store.luckysheetTableContentHW[1]
+    );
 
-    $("#" + Store.container).find("#luckysheet-grid-window-1").css("bottom", Store.sheetBarHeight);
     $("#" + Store.container).find(".luckysheet-grid-window").css("bottom", Store.statisticBarHeight);
+    gridWindow.setCssBottom(Store.sheetBarHeight);
 
     let gridwidth = gridWindow.getWidth();
     $("#luckysheet-freezebar-horizontal").find(".luckysheet-freezebar-horizontal-handle")

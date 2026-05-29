@@ -20,6 +20,7 @@ import imageDialog from '../../../ui/imageDialog.js';
 import { rowHeader, colHeader } from '../../../ui/rowColHeader.js';
 import resizeHandles from '../../../ui/resizeHandles.js';
 import cellMain from '../../../ui/cellMain.js';
+import formulaDialogs from '../../../ui/formulaDialogs.js';
 
             export function mouseRender(event) {
                 if (!event || event.pageX === undefined) return;
@@ -279,7 +280,7 @@ import cellMain from '../../../ui/cellMain.js';
                     selectionCopyShow(conditionformat.selectRange);
 
                     let range = conditionformat.getTxtByRange(conditionformat.selectRange);
-                    $("#luckysheet-multiRange-dialog input").val(range);
+                    formulaDialogs.multiRange.find("input").val(range);
                 } else if (formula.rangestart) {
                     formula.rangedrag({ pageX, pageY });
                 } else if (formula.rangedrag_row_start) {
@@ -1040,7 +1041,7 @@ import cellMain from '../../../ui/cellMain.js';
                     let offsetLeft = Math.round(imgItem.crop.offsetLeft * scaleX);
                     let offsetTop = Math.round(imgItem.crop.offsetTop * scaleY);
 
-                    $("#luckysheet-modal-dialog-activeImage .luckysheet-modal-dialog-content").css({
+                    imageDialog.active.el.find(".luckysheet-modal-dialog-content").css({
                         "background-size": defaultWidth + "px " + defaultHeight + "px",
                         "background-position": -offsetLeft + "px " + -offsetTop + "px",
                     });
@@ -1249,7 +1250,7 @@ import cellMain from '../../../ui/cellMain.js';
                     let imageUrlHandle = Store.toJsonOptions && Store.toJsonOptions["imageUrlHandle"];
                     let imgSrc = typeof imageUrlHandle === "function" ? imageUrlHandle(imgItem.src) : imgItem.src;
 
-                    $("#luckysheet-modal-dialog-cropping .cropping-mask").css({
+                    imageDialog.cropping.el.find(".cropping-mask").css({
                         width: imgItem.default.width,
                         height: imgItem.default.height,
                         "background-image": "url(" + imgSrc + ")",
@@ -1257,7 +1258,7 @@ import cellMain from '../../../ui/cellMain.js';
                         top: -offsetTop,
                     });
 
-                    $("#luckysheet-modal-dialog-cropping .cropping-content").css({
+                    imageDialog.cropping.el.find(".cropping-content").css({
                         "background-image": "url(" + imgSrc + ")",
                         "background-size": imgItem.default.width + "px " + imgItem.default.height + "px",
                         "background-position": -offsetLeft + "px " + -offsetTop + "px",

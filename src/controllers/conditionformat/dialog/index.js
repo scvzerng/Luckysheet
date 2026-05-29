@@ -10,6 +10,7 @@ import { createColorPicker, getPicker, STANDARD_PALETTE } from '../../../compone
 import '../../../components/ColorPicker/colorPicker.css';
 import { showModalMask, hideModalMask } from '../../../utils/domUtils.js';
 import formulaDialogs from '../../../ui/formulaDialogs.js';
+import conditionformatDialog from '../../../ui/conditionformatDialog.js';
 
 import { initAdminRuleEvents } from './initAdminRuleEvents.js';
 import { initNewRuleEvents } from './initNewRuleEvents.js';
@@ -128,7 +129,7 @@ const dialogModule = {
   conditionformatDialog: function (title, content) {
     let _this = this;
     showModalMask();
-    $("#luckysheet-conditionformat-dialog").remove();
+    conditionformatDialog.main.remove();
     const conditionformat_Text = locale().conditionformat;
     $("body").append(replaceHtml(modelHTML, {
       "id": "luckysheet-conditionformat-dialog",
@@ -139,14 +140,14 @@ const dialogModule = {
                         <button class="btn btn-default luckysheet-model-close-btn">${conditionformat_Text.cancel}</button>`,
       "style": "z-index:9999"
     }));
-    let $t = $("#luckysheet-conditionformat-dialog").find(".luckysheet-modal-dialog-content").css("min-width", 300).end(),
+    let $t = conditionformatDialog.main.find(".luckysheet-modal-dialog-content").css("min-width", 300).end(),
       myh = $t.outerHeight(),
       myw = $t.outerWidth();
     let winw = $(window).width(),
       winh = $(window).height();
     let scrollLeft = $(document).scrollLeft(),
       scrollTop = $(document).scrollTop();
-    $("#luckysheet-conditionformat-dialog").css({
+    conditionformatDialog.main.el.css({
       "left": (winw + scrollLeft - myw) / 2,
       "top": (winh + scrollTop - myh) / 3
     }).show();
@@ -237,7 +238,7 @@ const dialogModule = {
   },
   administerRuleDialog: function () {
     showModalMask();
-    $("#luckysheet-administerRule-dialog").remove();
+    conditionformatDialog.adminRule.remove();
     const conditionformat_Text = locale().conditionformat;
 
     //工作表
@@ -281,20 +282,20 @@ const dialogModule = {
                         <button id="luckysheet-administerRule-dialog-close" class="btn btn-default">${conditionformat_Text.close}</button>`,
       "style": "z-index:100003"
     }));
-    let $t = $("#luckysheet-administerRule-dialog").find(".luckysheet-modal-dialog-content").css("min-width", 400).end(),
+    let $t = conditionformatDialog.adminRule.find(".luckysheet-modal-dialog-content").css("min-width", 400).end(),
       myh = $t.outerHeight(),
       myw = $t.outerWidth();
     let winw = $(window).width(),
       winh = $(window).height();
     let scrollLeft = $(document).scrollLeft(),
       scrollTop = $(document).scrollTop();
-    $("#luckysheet-administerRule-dialog").css({
+    conditionformatDialog.adminRule.el.css({
       "left": (winw + scrollLeft - myw) / 2,
       "top": (winh + scrollTop - myh) / 3
     }).show();
 
     //当前工作表的规则列表
-    let index = $("#luckysheet-administerRule-dialog .chooseSheet option:selected").val();
+    let index = conditionformatDialog.adminRule.find(".chooseSheet option:selected").val();
     this.getConditionRuleList(index);
   },
   newConditionRuleDialog: function (source) {
@@ -306,8 +307,8 @@ const dialogModule = {
 
     //弹出层
     showModalMask();
-    $("#luckysheet-administerRule-dialog").hide();
-    $("#luckysheet-newConditionRule-dialog").remove();
+    conditionformatDialog.adminRule.hide();
+    conditionformatDialog.newRule.remove();
     let content = '<div>' + '<div class="boxTitle">' + conditionformat_Text.chooseRuleType + '：</div>' + _this.ruleTypeHtml() + '<div class="boxTitle">' + conditionformat_Text.editRuleDescription + '：</div>' + '<div class="ruleExplainBox">' + ruleExplainHtml + '</div>' + '</div>';
     $("body").append(replaceHtml(modelHTML, {
       "id": "luckysheet-newConditionRule-dialog",
@@ -381,8 +382,8 @@ const dialogModule = {
 
     //弹出层
     showModalMask();
-    $("#luckysheet-administerRule-dialog").hide();
-    $("#luckysheet-editorConditionRule-dialog").remove();
+    conditionformatDialog.adminRule.hide();
+    conditionformatDialog.editRule.remove();
     let content = '<div>' + '<div class="boxTitle">' + conditionformat_Text.chooseRuleType + '：</div>' + _this.ruleTypeHtml() + '<div class="boxTitle">' + conditionformat_Text.editRuleDescription + '：</div>' + '<div class="ruleExplainBox">' + ruleExplainHtml + '</div>' + '</div>';
     $("body").append(replaceHtml(modelHTML, {
       "id": "luckysheet-editorConditionRule-dialog",

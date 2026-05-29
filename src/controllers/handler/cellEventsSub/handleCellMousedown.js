@@ -23,6 +23,7 @@ import { getScrollPosition } from '../../../utils/domUtils.js';
 import scrollBarX from '../../../ui/scrollBarX.js';
 import scrollBarY from '../../../ui/scrollBarY.js';
 import formulaDialogs from '../../../ui/formulaDialogs.js';
+import cellMain from '../../../ui/cellMain.js';
 import richTextEditor from '../../../ui/richTextEditor.js';
 import imageDialog from '../../../ui/imageDialog.js';
 import formulaRangeSelect from '../../../ui/formulaRangeSelect.js';
@@ -43,7 +44,7 @@ export function handleCellMousedown(event) {
                   .end()
                   .find(".luckysheet-cs-draghandle")
                   .css("cursor", "default");
-              $("#luckysheet-cell-main, #luckysheetTableContent, #luckysheet-sheettable_0").css("cursor", "default");
+              cellMain.setCursorDefault();
   
               //有批注在编辑时
               luckysheetPostil.removeActivePs();
@@ -400,7 +401,7 @@ export function handleCellMousedown(event) {
                               formulaDialogs.searchParm.isVisible() ||
                               formulaDialogs.searchParmSelect.isVisible()
                           ) {
-                              $editor = richTextEditor.getElement();
+                              $editor = richTextEditor.el;
                               formula.rangechangeindex = formula.data_parm_index;
                           } else {
                               $editor = $(anchorOffset).closest("div");
@@ -549,7 +550,7 @@ export function handleCellMousedown(event) {
                   selectionCopyShow(conditionformat.selectRange);
   
                   let range = conditionformat.getTxtByRange(conditionformat.selectRange);
-                  $("#luckysheet-multiRange-dialog input").val(range);
+                  formulaDialogs.multiRange.find("input").val(range);
   
                   return;
               } else {
@@ -568,14 +569,14 @@ export function handleCellMousedown(event) {
                       { row: [row_index, row_index], column: [col_index, col_index] },
                       Store.currentSheetIndex,
                   );
-                  $("#luckysheet-singleRange-dialog input").val(range);
+                  formulaDialogs.singleRange.find("input").val(range);
   
                   return;
               }
   
               //if公式生成器
               if (ifFormulaGenerator.singleRangeFocus) {
-                  $("#luckysheet-ifFormulaGenerator-dialog .singRange").click();
+                  formulaDialogs.ifFormulaDialog.find(".singRange").click();
               }
               if (formulaDialogs.ifFormulaSingleRange.isVisible()) {
                   //选择单个单元格
@@ -595,7 +596,7 @@ export function handleCellMousedown(event) {
                       { row: [row_index, row_index], column: [col_index, col_index] },
                       Store.currentSheetIndex,
                   );
-                  $("#luckysheet-ifFormulaGenerator-singleRange-dialog input").val(range);
+                  formulaDialogs.ifFormulaSingleRange.find("input").val(range);
 
                   return;
               }
@@ -631,7 +632,7 @@ export function handleCellMousedown(event) {
                       { row: [row_index, row_index], column: [col_index, col_index] },
                       Store.currentSheetIndex,
                   );
-                  $("#luckysheet-ifFormulaGenerator-multiRange-dialog input").val(range);
+                  formulaDialogs.ifFormulaMultiRange.find("input").val(range);
   
                   countShow.row.hide();
                   countShow.column.hide();

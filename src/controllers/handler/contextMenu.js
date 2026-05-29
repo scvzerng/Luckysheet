@@ -16,10 +16,13 @@ import {
     luckysheetContainerFocus,
     $$,
 } from "../../utils/util";
+import rightClickMenu from "../../ui/rightClickMenu.js";
 
 export default function contextMenu() {
-    //禁止浏览器 右键默认菜单
-    $(".luckysheet-grid-container, #luckysheet-rightclick-menu").on("contextmenu", function(e) {
+    $(".luckysheet-grid-container").on("contextmenu", function(e) {
+        e.preventDefault();
+    });
+    rightClickMenu.el.on("contextmenu", function(e) {
         e.preventDefault();
     });
 }

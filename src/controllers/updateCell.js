@@ -17,6 +17,8 @@ import { getScrollPosition, resetInputBoxStyle } from '../utils/domUtils.js';
 import method from '../global/method';
 import richTextEditor from '../ui/richTextEditor.js';
 import inputBox from '../ui/inputBox.js';
+import inputBoxIndex from '../ui/inputBoxIndex.js';
+import functionBox from '../ui/functionBox.js';
 
 export function luckysheetupdateCell(row_index1, col_index1, d, cover, isnotfocus) {
     if(isEditMode() || Store.allowEdit===false){//此模式下禁用单元格编辑
@@ -93,8 +95,8 @@ export function luckysheetupdateCell(row_index1, col_index1, d, cover, isnotfocu
         inputBox.setCss({"z-index": 10002});
     }
     
-    $("#luckysheet-input-box-index").html(chatatABC(col_index) + (row_index + 1)).hide();
-    $("#luckysheet-wa-functionbox-cancel, #luckysheet-wa-functionbox-confirm").addClass("luckysheet-wa-calculate-active");
+    inputBoxIndex.setCellRef(chatatABC(col_index) + (row_index + 1)).hide();
+    functionBox.setActive();
     
     let value = "", isCenter=false;
     

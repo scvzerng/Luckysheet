@@ -24,9 +24,12 @@ import {
 import { countfunc } from "../../global/count";
 import formula from "../../global/formula";
 import Store from "../../store";
+import rightClickMenu from "../../ui/rightClickMenu.js";
+import conditionformatDialog from '../../ui/conditionformatDialog.js';
+import functionBox from '../../ui/functionBox.js';
 
 export default function globalEvents() {
-    $("#luckysheet-rightclick-menu input").on("keydown", function(e) {
+    rightClickMenu.find("input").on("keydown", function(e) {
         e.stopPropagation();
     });
 
@@ -126,7 +129,7 @@ export default function globalEvents() {
         function(e) {
             //选择文本颜色和单元格颜色弹出框取消
             if ($("#textcolorselect").is(":visible") || $("#cellcolorselect").is(":visible")) {
-                $("#luckysheet-conditionformat-dialog").show();
+                conditionformatDialog.main.show();
             }
             $(e.currentTarget)
                 .parents(".luckysheet-modal-dialog")

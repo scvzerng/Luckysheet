@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿import sheetmanage from './sheetmanage';
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿import sheetmanage from './sheetmanage';
 import { sheetselectlistitemHTML, sheetselectlistHTML, keycode } from './constant';
 import {
     replaceHtml,
@@ -18,6 +18,7 @@ import {pagerInit} from '../global/api'
 import method from '../global/method';
 import luckysheetsizeauto from './resize';
 import inputBox from '../ui/inputBox.js';
+import inputBoxIndex from '../ui/inputBoxIndex.js';
 import sheetContainer from '../ui/sheetContainer.js';
 import { createColorPicker, getPicker, STANDARD_PALETTE, SHEET_TAB_PALETTE } from '../components/ColorPicker';
 import '../components/ColorPicker/colorPicker.css';
@@ -133,8 +134,8 @@ let luckysheetsheetrightclick = function ($t, $cur, e) {
         setTimeout(function () {
             formula.setCaretPosition(formula.rangeSetValueTo.get(0), 0, formula.rangeSetValueTo.text().length);
             formula.createRangeHightlight();
-            $("#luckysheet-input-box-index").find(".luckysheet-input-box-index-sheettxt").remove().end().prepend("<span class='luckysheet-input-box-index-sheettxt'>" + sheetmanage.getSheetName(formula.rangetosheet) + "!</span>").show();
-            $("#luckysheet-input-box-index").css({"left": inputBox.getCss("left"), "top": (parseInt(inputBox.getCss("top")) - 20) + "px", "z-index": inputBox.getCss("z-index")});
+            inputBoxIndex.setSheetPrefix("<span class='luckysheet-input-box-index-sheettxt'>" + sheetmanage.getSheetName(formula.rangetosheet) + "!</span>");
+            inputBoxIndex.setCss({"left": inputBox.getCss("left"), "top": (parseInt(inputBox.getCss("top")) - 20) + "px", "z-index": inputBox.getCss("z-index")});
         }, 1);
     }
     else {
@@ -378,7 +379,7 @@ export function initialSheetBar(){
     $("#luckysheetsheetconfigdelete").click(function (e) {
         $("#luckysheet-sheet-list, #luckysheet-rightclick-sheet-menu").hide();
 
-        if($("#luckysheet-sheet-container-c .luckysheet-sheets-item:visible").length <= 1){
+        if(sheetContainer.findVisible(".luckysheet-sheets-item").length <= 1){
             if(isEditMode()){
                 alert(locale_sheetconfig.noMoreSheet);
             }

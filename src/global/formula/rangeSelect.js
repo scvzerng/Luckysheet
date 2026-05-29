@@ -76,7 +76,7 @@ const rangeSelect = {
                 ) {
                     return true;
                 }
-            } else if (anchor.is("#luckysheet-rich-text-editor") || anchor.is("#luckysheet-functionbox-cell")) {
+            } else if (anchor.is(richTextEditor.el) || anchor.is(functionBox.el)) {
                 let txt = $.trim(
                         anchor
                             .find("span")
@@ -107,8 +107,8 @@ const rangeSelect = {
                     return true;
                 }
             } else if (
-                anchor.parent().is("#luckysheet-rich-text-editor") ||
-                anchor.parent().is("#luckysheet-functionbox-cell") ||
+                anchor.parent().is(richTextEditor.el) ||
+                anchor.parent().is(functionBox.el) ||
                 anchorOffset == 0
             ) {
                 if (anchorOffset == 0) {
@@ -176,8 +176,8 @@ const rangeSelect = {
                 ) {
                     //公式参数框选取范围
                     $editor = richTextEditor.el;
-                    $("#luckysheet-search-formula-parm-select-input").val(range);
-                    $("#luckysheet-search-formula-parm .parmBox")
+                    formulaDialogs.searchParmSelect.find("#luckysheet-search-formula-parm-select-input").val(range);
+                    formulaDialogs.searchParm.find(".parmBox")
                         .eq(_this.data_parm_index)
                         .find(".txt input")
                         .val(range);
@@ -198,13 +198,12 @@ const rangeSelect = {
                             }
                         }
 
-                        $("#luckysheet-search-formula-parm .parmBox")
+                        formulaDialogs.searchParm.find(".parmBox")
                             .eq(_this.data_parm_index)
                             .find(".val")
                             .text(" = {" + txtArr.join(",") + "}");
                     } else {
-                        //参数为单个单元格选区
-                        $("#luckysheet-search-formula-parm .parmBox")
+                        formulaDialogs.searchParm.find(".parmBox")
                             .eq(_this.data_parm_index)
                             .find(".val")
                             .text(" = {" + txtdata.v + "}");
@@ -214,7 +213,7 @@ const rangeSelect = {
                     let isVal = true; //参数不为空
                     let parmValArr = []; //参数值集合
                     let lvi = -1; //最后一个有值的参数索引
-                    $("#luckysheet-search-formula-parm .parmBox").each(function(i, e) {
+                    formulaDialogs.searchParm.find(".parmBox").each(function(i, e) {
                         let parmtxt = $(e)
                             .find(".txt input")
                             .val();
@@ -235,13 +234,13 @@ const rangeSelect = {
                     let functionHtmlTxt;
                     if (lvi == -1) {
                         functionHtmlTxt =
-                            "=" + $("#luckysheet-search-formula-parm .luckysheet-modal-dialog-title-text").text() + "()";
+                            "=" + formulaDialogs.searchParm.find(".luckysheet-modal-dialog-title-text").text() + "()";
                     } else if (lvi == 0) {
                         functionHtmlTxt =
                             "=" +
-                            $("#luckysheet-search-formula-parm .luckysheet-modal-dialog-title-text").text() +
+                            formulaDialogs.searchParm.find(".luckysheet-modal-dialog-title-text").text() +
                             "(" +
-                            $("#luckysheet-search-formula-parm .parmBox")
+                            formulaDialogs.searchParm.find(".parmBox")
                                 .eq(0)
                                 .find(".txt input")
                                 .val() +
@@ -249,7 +248,7 @@ const rangeSelect = {
                     } else {
                         for (let j = 0; j <= lvi; j++) {
                             parmValArr.push(
-                                $("#luckysheet-search-formula-parm .parmBox")
+                                formulaDialogs.searchParm.find(".parmBox")
                                     .eq(j)
                                     .find(".txt input")
                                     .val(),
@@ -257,7 +256,7 @@ const rangeSelect = {
                         }
                         functionHtmlTxt =
                             "=" +
-                            $("#luckysheet-search-formula-parm .luckysheet-modal-dialog-title-text").text() +
+                            formulaDialogs.searchParm.find(".luckysheet-modal-dialog-title-text").text() +
                             "(" +
                             parmValArr.join(",") +
                             ")";
@@ -270,7 +269,7 @@ const rangeSelect = {
                     if (isVal) {
                         let fp = $.trim(_this.functionParserExe(richTextEditor.getText()));
                         let result = new Function("return " + fp)();
-                        $("#luckysheet-search-formula-parm .result span").text(result);
+                        formulaDialogs.searchParm.find(".result span").text(result);
                     }
                 } else {
                     let currSelection = window.getSelection();
@@ -302,7 +301,7 @@ const rangeSelect = {
                 _this.functionHTMLIndex++;
             }
 
-            if ($editor.attr("id") == "luckysheet-rich-text-editor") {
+            if ($editor.is(richTextEditor.el)) {
                 functionBox.setHtml(richTextEditor.getHtml());
             } else {
                 richTextEditor.setHtml(functionBox.getHtml());
@@ -410,7 +409,7 @@ const rangeSelect = {
                     { row: rowseleted, column: columnseleted },
                     Store.currentSheetIndex,
                 );
-                $("#luckysheet-ifFormulaGenerator-multiRange-dialog input").val(range);
+                formulaDialogs.ifFormulaMultiRange.find("input").val(range);
             } else {
                 _this.rangeSetValue({
                     row: rowseleted,

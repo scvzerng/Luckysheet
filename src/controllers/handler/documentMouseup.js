@@ -43,6 +43,7 @@ import { getScrollPosition } from '../../utils/domUtils.js';
 import { rowHeader, colHeader } from '../../ui/rowColHeader.js';
 import resizeHandles from '../../ui/resizeHandles.js';
 import canvasContext from '../../ui/canvasContext.js';
+import cellMain from '../../ui/cellMain.js';
 
 export default function documentMouseup() {
     //表格mouseup
@@ -141,7 +142,7 @@ export default function documentMouseup() {
             .end()
             .find(".luckysheet-cs-draghandle")
             .css("cursor", "move");
-        $("#luckysheet-cell-main, #luckysheetTableContent, #luckysheet-sheettable_0").css("cursor", "default");
+        cellMain.setCursorDefault();
 
         //行标题窗格主体
         Store.luckysheet_rows_selected_status = false;
@@ -303,7 +304,7 @@ export default function documentMouseup() {
 
             resizeHandles.changeSizeLine.hide();
             resizeHandles.rowChangeSize.setCss({opacity: 0});
-            $("#luckysheet-sheettable, #luckysheet-rows-h, #luckysheet-rows-h canvas").css("cursor", "default");
+            rowHeader.setCursor("default");
 
             let mouse = mouseposition(event.pageX, event.pageY);
             let scrollTop = rowHeader.getScrollTop();
@@ -395,9 +396,7 @@ export default function documentMouseup() {
             Store.luckysheet_cols_change_size = false;
             resizeHandles.changeSizeLine.hide();
             resizeHandles.colChangeSize.setCss({opacity: 0});
-            $(
-                "#luckysheet-sheettable, #luckysheet-cols-h-c, .luckysheet-cols-h-cells, .luckysheet-cols-h-cells canvas",
-            ).css("cursor", "default");
+            colHeader.setCursor("default");
 
             let mouse = mouseposition(event.pageX, event.pageY);
             let scrollLeft = colHeader.getScrollLeft();
