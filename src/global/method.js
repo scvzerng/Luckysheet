@@ -234,7 +234,7 @@ const method = {
             url = luckysheetConfigsetting.loadSheetUrl;
         }
 
-        gridWindow.append(luckysheetlodingHTML());
+        const _loadingObj1 = luckysheetlodingHTML(gridWindow.el);
         param.currentPage++;
         
         let dataType = 'application/json;charset=UTF-8';
@@ -275,7 +275,7 @@ const method = {
             url = luckysheetConfigsetting.loadSheetUrl;
         }
 
-        gridWindow.append(luckysheetlodingHTML());
+        const _loadingObj2 = luckysheetlodingHTML(gridWindow.el);
 
         let arg = {"gridKey" : luckysheetConfigsetting.gridKey, "index": index};
         param = deepMerge(param, arg);

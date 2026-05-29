@@ -69,6 +69,10 @@ const luckysheetlodingHTML = function(target, coverConfig) {
     if (!target) {
         return;
     }
+    let targetEl = typeof target === 'string' ? document.querySelector(target) : target;
+    if (!targetEl) {
+        return;
+    }
     const config = customLoadingConfig();
     if (coverConfig && JSON.stringify(coverConfig) !== "{}") {
         Object.assign(config, coverConfig);
@@ -95,7 +99,7 @@ const luckysheetlodingHTML = function(target, coverConfig) {
     loading.id = id;
     loading.className = "luckysheet-loading-mask " + config.customClass;
     loading.innerHTML = loadingHtml;
-    target.appendChild(loading);
+    targetEl.appendChild(loading);
 
     function show() {
         if (id) {

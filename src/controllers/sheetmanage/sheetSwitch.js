@@ -102,7 +102,7 @@ const sheetSwitchModule = {
           luckysheetrefreshgrid();
         }, 1);
       } else {
-        gridWindow.append(luckysheetlodingHTML());
+        luckysheetlodingHTML(gridWindow.el);
         let sheetindex = _this.checkLoadSheetIndex(file);
         fetch(loadSheetUrl, {
           method: 'POST',
