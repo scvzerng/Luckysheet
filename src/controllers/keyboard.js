@@ -184,6 +184,7 @@ function formulaMoveEvent(dir, ctrlKey, shiftKey, event){
         }
         else if(!ctrlKey && !shiftKey){
             let anchorNode = window.getSelection().anchorNode;
+            if (!anchorNode) return;
             let anchorEl = anchorNode.nodeType === Node.TEXT_NODE ? anchorNode.parentElement : anchorNode;
             let anchorOffset = window.getSelection().anchorOffset;
 

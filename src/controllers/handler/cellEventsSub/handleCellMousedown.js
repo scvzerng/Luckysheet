@@ -316,7 +316,7 @@ export function handleCellMousedown(event) {
                                   // all browsers, except IE before version 9
                                   let currSelection = window.getSelection();
                                   formula.functionRangeIndex = [
-                                      (() => { const _p = currSelection.anchorNode.parentElement; return _p ? Array.from(_p.parentElement.children).indexOf(_p) : -1; })(),
+                                      (() => { const _an = currSelection.anchorNode; if (!_an) return -1; const _p = _an.nodeType === Node.TEXT_NODE ? _an.parentElement : _an; return _p && _p.parentElement ? Array.from(_p.parentElement.children).indexOf(_p) : -1; })(),
                                       currSelection.anchorOffset,
                                   ];
                               } else {
