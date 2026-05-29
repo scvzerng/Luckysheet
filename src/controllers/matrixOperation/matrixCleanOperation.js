@@ -9,8 +9,8 @@ import Store from '../../store';
 function initialMatrixCleanOperation() {
     const locale_drag = locale().drag;
     //矩阵操作选区 删除两端0值 按行
-    $("#luckysheet-matrix-delezero-row").click(function (event) {
-        $("body .luckysheet-cols-menu").hide();
+    const _elDelezeroRow = document.getElementById("luckysheet-matrix-delezero-row"); if (_elDelezeroRow) _elDelezeroRow.addEventListener("click", function (event) {
+        document.querySelectorAll("body .luckysheet-cols-menu").forEach(el => el.style.display = 'none');
         luckysheetContainerFocus();
 
         if(Store.luckysheet_select_save.length > 1){
@@ -77,8 +77,8 @@ function initialMatrixCleanOperation() {
     });
 
     //矩阵操作选区 删除两端0值 按列
-    $("#luckysheet-matrix-delezero-column").click(function (event) {
-        $("body .luckysheet-cols-menu").hide();
+    const _elDelezeroCol = document.getElementById("luckysheet-matrix-delezero-column"); if (_elDelezeroCol) _elDelezeroCol.addEventListener("click", function (event) {
+        document.querySelectorAll("body .luckysheet-cols-menu").forEach(el => el.style.display = 'none');
         luckysheetContainerFocus();
 
         if(Store.luckysheet_select_save.length > 1){
@@ -158,8 +158,8 @@ function initialMatrixCleanOperation() {
     });
 
     //矩阵操作选区 删除重复值 按行
-    $("#luckysheet-matrix-delerpt-row").click(function (event) {
-        $("body .luckysheet-cols-menu").hide();
+    const _elDelerptRow = document.getElementById("luckysheet-matrix-delerpt-row"); if (_elDelerptRow) _elDelerptRow.addEventListener("click", function (event) {
+        document.querySelectorAll("body .luckysheet-cols-menu").forEach(el => el.style.display = 'none');
         luckysheetContainerFocus();
 
         if(Store.luckysheet_select_save.length > 1){
@@ -219,8 +219,8 @@ function initialMatrixCleanOperation() {
     });
 
     //矩阵操作选区 删除重复值 按列
-    $("#luckysheet-matrix-delerpt-column").click(function (event) {
-        $("body .luckysheet-cols-menu").hide();
+    const _elDelerptCol = document.getElementById("luckysheet-matrix-delerpt-column"); if (_elDelerptCol) _elDelerptCol.addEventListener("click", function (event) {
+        document.querySelectorAll("body .luckysheet-cols-menu").forEach(el => el.style.display = 'none');
         luckysheetContainerFocus();
 
         if(Store.luckysheet_select_save.length > 1){

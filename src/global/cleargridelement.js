@@ -10,14 +10,14 @@ export default function cleargridelement(event) {
     resizeHandles.colHover.hide();
     rightClickMenu.hide();
 
-    $("#luckysheet-cell-selected-boxs .luckysheet-cell-selected").hide();
-    $("#luckysheet-cols-h-selected .luckysheet-cols-h-selected").hide();
-    $("#luckysheet-rows-h-selected .luckysheet-rows-h-selected").hide();
+    document.querySelectorAll("#luckysheet-cell-selected-boxs .luckysheet-cell-selected").forEach(el => el.style.display = 'none');
+    document.querySelectorAll("#luckysheet-cols-h-selected .luckysheet-cols-h-selected").forEach(el => el.style.display = 'none');
+    document.querySelectorAll("#luckysheet-rows-h-selected .luckysheet-rows-h-selected").forEach(el => el.style.display = 'none');
 
     cellSelectedFocus.hide();
     resizeHandles.rowHover.hide();
     selectionCopy.el.find(".luckysheet-selection-copy").hide();
-    $("#luckysheet-cols-menu-btn").hide();
+    const _elColsMenuBtn = document.getElementById("luckysheet-cols-menu-btn"); if (_elColsMenuBtn) _elColsMenuBtn.style.display = 'none';
     countShow.row.hide();
     countShow.column.hide();
     if (!event) {
@@ -28,9 +28,10 @@ export default function cleargridelement(event) {
     //}
 
     //选区下拉icon隐藏
-    if($("#luckysheet-dropCell-icon").is(":visible")){
+    const _elDropCell = document.getElementById("luckysheet-dropCell-icon");
+    if(_elDropCell && _elDropCell.offsetWidth > 0){
         if(event){
-            $("#luckysheet-dropCell-icon").remove();
+            _elDropCell.remove();
         }
     }
     //格式刷

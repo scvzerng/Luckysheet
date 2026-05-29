@@ -102,7 +102,7 @@ const luckysheetSplitColumn = {
         offNS("SPCconfirm");
         onNS(document, "click.SPCconfirm", "#luckysheet-splitColumn-dialog #luckysheet-splitColumn-dialog-confirm", function(){
             hideModalMask();
-            $("#luckysheet-splitColumn-dialog").hide();
+            const _elSplitCol = document.getElementById("luckysheet-splitColumn-dialog"); if (_elSplitCol) _elSplitCol.style.display = 'none';
 
             let regStr = _this.getRegStr();
             let dataArr = _this.getDataArr(regStr);

@@ -117,16 +117,10 @@ function dynamicArrayHightShow(r, c) {
         let col = Store.visibledatacolumn[d_col_end], 
             col_pre = d_col - 1 == -1 ? 0 : Store.visibledatacolumn[d_col - 1];
 
-        $("#luckysheet-dynamicArray-hightShow").css({ 
-            "left": col_pre, 
-            "width": col - col_pre - 1, 
-            "top": row_pre, 
-            "height": row - row_pre - 1, 
-            "display": "block" 
-        });
+        const _elDynArr = document.getElementById("luckysheet-dynamicArray-hightShow"); if (_elDynArr) { Object.assign(_elDynArr.style, { left: col_pre, width: col - col_pre - 1, top: row_pre, height: row - row_pre - 1, display: "block" }); }
     }
     else{
-        $("#luckysheet-dynamicArray-hightShow").hide();
+        const _elDynArr = document.getElementById("luckysheet-dynamicArray-hightShow"); if (_elDynArr) _elDynArr.style.display = 'none';
     }
 }
 

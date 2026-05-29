@@ -241,14 +241,14 @@ const controlHistory = {
             //行高、列宽 刷新  
             jfrefreshgrid_rhcw(_dataSize.rowCount, _dataSize.colCount);
 
-            $("#luckysheet-filter-menu, #luckysheet-filter-submenu").hide();
+            [document.getElementById("luckysheet-filter-menu"), document.getElementById("luckysheet-filter-submenu")].forEach(el => { if (el) el.style.display = 'none'; });
         }
         else if (ctr.type == "datachangeAll_filter") {
             let $top = $("#luckysheet-filter-options-sheet" + Store.currentSheetIndex + " .luckysheet-filter-options").eq(ctr["optionsindex"]);
-            let st_r = $top.data("str"), 
-                ed_r = $top.data("edr"), 
-                cindex = $top.data("cindex"), 
-                st_c = $top.data("stc"), 
+            let st_r = $top.data("str"),
+                ed_r = $top.data("edr"),
+                cindex = $top.data("cindex"),
+                st_c = $top.data("stc"),
                 ed_c = $top.data("edc");
 
             labelFilterOptionState($top, json.hasKey(ctr.rowhidenPre), ctr.rowhidenPre, ctr.caljs, true, st_r, ed_r, cindex, st_c, ed_c);
@@ -265,7 +265,7 @@ const controlHistory = {
             //行高、列宽 刷新  
             jfrefreshgrid_rhcw(_dataSize.rowCount, _dataSize.colCount);
             
-            $("#luckysheet-filter-menu, #luckysheet-filter-submenu").hide();
+            [document.getElementById("luckysheet-filter-menu"), document.getElementById("luckysheet-filter-submenu")].forEach(el => { if (el) el.style.display = 'none'; });
         }
         else if (ctr.type == "filtershow") {
             $('#luckysheet-filter-selected-sheet' + ctr.sheetIndex + ', #luckysheet-filter-options-sheet' + ctr.sheetIndex).remove();
@@ -275,7 +275,7 @@ const controlHistory = {
             sheetmanage.deleteSheet(ctr.index);
             sheetmanage.changeSheetExec(ctr.currentSheetIndex);
             resetInputBoxStyle();
-            $("#luckysheet-sheet-list, #luckysheet-rightclick-sheet-menu").hide();
+            [document.getElementById("luckysheet-sheet-list"), document.getElementById("luckysheet-rightclick-sheet-menu")].forEach(el => { if (el) el.style.display = 'none'; });
         }
         else if (ctr.type == "copySheet") {
             sheetmanage.deleteSheet(ctr.index);
@@ -293,7 +293,7 @@ const controlHistory = {
             if(!isDupName){
                 sheetmanage.createSheetbydata(ctr, "isrenew");
                 resetInputBoxStyle();
-                $("#luckysheet-sheet-list, #luckysheet-rightclick-sheet-menu").hide();
+                [document.getElementById("luckysheet-sheet-list"), document.getElementById("luckysheet-rightclick-sheet-menu")].forEach(el => { if (el) el.style.display = 'none'; });
             }
         }
         else if (ctr.type == "sheetName") {
@@ -538,11 +538,11 @@ const controlHistory = {
             jfrefreshgrid_rhcw(_dataSize.rowCount, _dataSize.colCount);
             
 
-            $("#luckysheet-filter-menu .luckysheet-filter-selected-input").hide().find("input").val();
+            document.querySelectorAll("#luckysheet-filter-menu .luckysheet-filter-selected-input").forEach(el => { el.style.display = 'none'; el.querySelector("input") && (el.querySelector("input").value); });
             $("#luckysheet-filter-selected span").data("type", "0").data("type", null).text("无");
 
             $('#luckysheet-filter-selected-sheet' + Store.currentSheetIndex + ', #luckysheet-filter-options-sheet' + Store.currentSheetIndex).remove();
-            $("#luckysheet-filter-menu, #luckysheet-filter-submenu").hide();
+            [document.getElementById("luckysheet-filter-menu"), document.getElementById("luckysheet-filter-submenu")].forEach(el => { if (el) el.style.display = 'none'; });
         }
         else if (ctr.type == "datachangeAll_filter") {
             let $top = $("#luckysheet-filter-options-sheet" + Store.currentSheetIndex + " .luckysheet-filter-options").eq(ctr["optionsindex"]);
@@ -562,7 +562,7 @@ const controlHistory = {
             //行高、列宽 刷新  
             jfrefreshgrid_rhcw(_dataSize.rowCount, _dataSize.colCount);
 
-            $("#luckysheet-filter-menu, #luckysheet-filter-submenu").hide();
+            [document.getElementById("luckysheet-filter-menu"), document.getElementById("luckysheet-filter-submenu")].forEach(el => { if (el) el.style.display = 'none'; });
         }
         else if (ctr.type == "filtershow") {
             Store.luckysheet_select_save = [ctr.filter_save];
@@ -573,7 +573,7 @@ const controlHistory = {
         else if (ctr.type == "addSheet") {
             sheetmanage.createSheetbydata(ctr.sheetconfig);
             resetInputBoxStyle();
-            $("#luckysheet-sheet-list, #luckysheet-rightclick-sheet-menu").hide();
+            [document.getElementById("luckysheet-sheet-list"), document.getElementById("luckysheet-rightclick-sheet-menu")].forEach(el => { if (el) el.style.display = 'none'; });
         }
         else if (ctr.type == "copySheet") {
             sheetmanage.copySheet(ctr.copyindex);
@@ -589,7 +589,7 @@ const controlHistory = {
             }
             
             resetInputBoxStyle();
-            $("#luckysheet-sheet-list, #luckysheet-rightclick-sheet-menu").hide();
+            [document.getElementById("luckysheet-sheet-list"), document.getElementById("luckysheet-rightclick-sheet-menu")].forEach(el => { if (el) el.style.display = 'none'; });
         }
         else if (ctr.type == "sheetName") {
             getFileBySheetIndex(ctr.sheetIndex).name = ctr.txt;

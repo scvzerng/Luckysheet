@@ -226,13 +226,13 @@ export function initEditRuleEvents(_this) {
         _this.fileClone[getSheetIndex(sheetIndex)]["luckysheet_conditionformat_save"][itemIndex] = rule;
   
         //编辑规则隐藏，管理规则显�?
-        $("#luckysheet-editorConditionRule-dialog").hide();
+        const _elEditRule1 = document.getElementById("luckysheet-editorConditionRule-dialog"); if (_elEditRule1) _elEditRule1.style.display = 'none';
         _this.administerRuleDialog();
       });
       offNS("CFeditorConditionRuleClose");
       onNS(document, "click.CFeditorConditionRuleClose", "#luckysheet-editorConditionRule-dialog-close", function () {
         //编辑规则隐藏，管理规则显�?
-        $("#luckysheet-editorConditionRule-dialog").hide();
+        const _elEditRule2 = document.getElementById("luckysheet-editorConditionRule-dialog"); if (_elEditRule2) _elEditRule2.style.display = 'none';
         conditionformatDialog.adminRule.show();
         //隐藏虚线�?
         formulaRangeSelect.hide();

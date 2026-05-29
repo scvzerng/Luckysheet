@@ -94,18 +94,18 @@ const luckysheetlodingHTML = function(target, coverConfig) {
     const loading = document.createElement("div");
     loading.id = id;
     loading.className = "luckysheet-loading-mask " + config.customClass;
-    $(loading).html(loadingHtml);
-    $(target).append(loading);
+    loading.innerHTML = loadingHtml;
+    target.appendChild(loading);
 
     function show() {
         if (id) {
-            $("#" + id).show();
+            const _elLoadShow2 = document.getElementById(id); if (_elLoadShow2) _elLoadShow2.style.display = '';
         }
     }
 
     function close() {
         if (id) {
-            $("#" + id).hide();
+            const _elLoadHide = document.getElementById(id); if (_elLoadHide) _elLoadHide.style.display = 'none';
         }
     }
     return {

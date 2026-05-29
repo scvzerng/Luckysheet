@@ -22,13 +22,12 @@ const clipboardPasteModule = {
     }
     const _locale = locale();
     const local_drag = _locale.drag;
-    let textarea = $("#luckysheet-copy-content");
-    textarea.focus();
-    textarea.select();
+    let textarea = document.getElementById("luckysheet-copy-content");
+    if (textarea) { textarea.focus(); textarea.select(); }
 
     // 等50毫秒，keyPress事件发生了再去处理数据
     setTimeout(function () {
-      let data = textarea.html();
+      let data = textarea ? textarea.innerHTML : "";
       if (data.indexOf("luckysheet_copy_action_table") > -1 && Store.luckysheet_copy_save["copyRange"] != null && Store.luckysheet_copy_save["copyRange"].length > 0) {
         if (Store.luckysheet_paste_iscut) {
           Store.luckysheet_paste_iscut = false;

@@ -1,21 +1,20 @@
-import $ from '../jquery-bridge.js';
-
 class GridWindow {
     constructor() { this._el = null; }
-    get el() { if (!this._el || this._el.length === 0) this._el = $("#luckysheet-grid-window-1"); return this._el; }
+    get el() { if (!this._el || !document.body.contains(this._el)) this._el = document.getElementById("luckysheet-grid-window-1"); return this._el; }
 
-    getWidth() { return this.el.width(); }
-    getHeight() { return this.el.height(); }
-    append(html) { this.el.append(html); return this; }
-    appendCanvas(canvasHtml) { $(canvasHtml).appendTo(this.el); return this; }
-    onMousewheel(callback) { this.el.mousewheel(callback); return this; }
-    setCss(props) { this.el.css(props); return this; }
-    find(selector) { return this.el.find(selector); }
+    getWidth() { return this.el.getBoundingClientRect().width; }
+    getHeight() { return this.el.getBoundingClientRect().height; }
+    append(html) { this.el.insertAdjacentHTML('beforeend', html); return this; }
+    appendCanvas(canvasHtml) { this.el.insertAdjacentHTML('beforeend', canvasHtml); return this; }
+    onMousewheel(callback) { this.el.addEventListener("wheel", callback); return this; }
+    setCss(props) { for (const [k, v] of Object.entries(props)) this.el.style[k] = typeof v === 'number' ? v + 'px' : v; return this; }
+    find(selector) { return this.el.querySelector(selector); }
     removeCanvasExcept(selector) {
-        this.el.find("> canvas").not(selector).remove();
+        const canvases = this.el.querySelectorAll(":scope > canvas");
+        canvases.forEach(c => { if (!c.matches(selector)) c.remove(); });
         return this;
     }
-    setCssBottom(value) { this.el.css("bottom", value); return this; }
+    setCssBottom(value) { this.el.style.bottom = typeof value === 'number' ? value + 'px' : value; return this; }
 }
 
 export default new GridWindow();

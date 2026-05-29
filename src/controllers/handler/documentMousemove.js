@@ -132,8 +132,10 @@ export default function documentMousemove() {
             }
 
             Store.calculatebarHeight = mpx;
-            $("#luckysheet-wa-calculate").css("height", Store.calculatebarHeight - 2);
-            $("#luckysheet-wa-calculate-size").css({ background: "#5e5e5e", cursor: "ns-resize" });
+            const _calcBar = document.getElementById("luckysheet-wa-calculate");
+            if (_calcBar) _calcBar.style.height = (Store.calculatebarHeight - 2) + 'px';
+            const _calcSize = document.getElementById("luckysheet-wa-calculate-size");
+            if (_calcSize) Object.assign(_calcSize.style, { background: "#5e5e5e", cursor: "ns-resize" });
 
             clearTimeout(formula.functionResizeTimeout);
             formula.functionResizeTimeout = setTimeout(function() {
@@ -161,9 +163,9 @@ export default function documentMousemove() {
                 top = luckysheetFreezen.windowHeight - 4;
             }
 
-            $("#luckysheet-freezebar-horizontal")
-                .find(".luckysheet-freezebar-horizontal-handle")
-                .css({ top: top });
+            const _freezeH = document.getElementById("luckysheet-freezebar-horizontal");
+            const _freezeHHandle = _freezeH ? _freezeH.querySelector(".luckysheet-freezebar-horizontal-handle") : null;
+            if (_freezeHHandle) _freezeHHandle.style.top = top + 'px';
 
             if (top + scrollTop - Store.columnHeaderHeight >= row_pre + (row - row_pre) / 2) {
                 top = row - 2 - scrollTop + Store.columnHeaderHeight;
@@ -185,9 +187,8 @@ export default function documentMousemove() {
                 ];
             }
 
-            $("#luckysheet-freezebar-horizontal")
-                .find(".luckysheet-freezebar-horizontal-drop")
-                .css({ top: top });
+            const _freezeHDrop = _freezeH ? _freezeH.querySelector(".luckysheet-freezebar-horizontal-drop") : null;
+            if (_freezeHDrop) _freezeHDrop.style.top = top + 'px';
             luckysheetFreezen.saveFreezen(luckysheetFreezen.freezenhorizontaldata, top, null, null);
         } else if (luckysheetFreezen.verticalmovestate) {
             let mouse = mouseposition(event.pageX, event.pageY);
@@ -212,9 +213,9 @@ export default function documentMousemove() {
                 left = luckysheetFreezen.windowWidth - 4;
             }
 
-            $("#luckysheet-freezebar-vertical")
-                .find(".luckysheet-freezebar-vertical-handle")
-                .css({ left: left });
+            const _freezeV = document.getElementById("luckysheet-freezebar-vertical");
+            const _freezeVHandle = _freezeV ? _freezeV.querySelector(".luckysheet-freezebar-vertical-handle") : null;
+            if (_freezeVHandle) _freezeVHandle.style.left = left + 'px';
 
             if (left + scrollLeft - Store.rowHeaderWidth >= col_pre + (col - col_pre) / 2) {
                 left = col - 2 - scrollLeft + Store.rowHeaderWidth;
@@ -236,9 +237,8 @@ export default function documentMousemove() {
                 ];
             }
 
-            $("#luckysheet-freezebar-vertical")
-                .find(".luckysheet-freezebar-vertical-drop")
-                .css({ left: left });
+            const _freezeVDrop = _freezeV ? _freezeV.querySelector(".luckysheet-freezebar-vertical-drop") : null;
+            if (_freezeVDrop) _freezeVDrop.style.left = left + 'px';
             luckysheetFreezen.saveFreezen(null, null, luckysheetFreezen.freezenverticaldata, left);
             luckysheetsizeauto(); //调节选区时下部单元格溢出
         } else if (Store.luckysheet_sheet_move_status) {
@@ -249,54 +249,53 @@ export default function documentMousemove() {
                 return;
             }
 
-            let winW = $("#luckysheet-sheet-container").width();
-            let left = x - Store.luckysheet_sheet_move_data.curleft - $("#luckysheet-sheet-container").offset().left;
-            Store.luckysheet_sheet_move_data.activeobject.css({ left: left });
+            const _sheetContainer = document.getElementById("luckysheet-sheet-container");
+            let winW = _sheetContainer ? _sheetContainer.getBoundingClientRect().width : 0;
+            const _containerRect = _sheetContainer ? _sheetContainer.getBoundingClientRect() : {left: 0};
+            let left = x - Store.luckysheet_sheet_move_data.curleft - (_containerRect.left + window.pageXOffset);
+            if (Store.luckysheet_sheet_move_data.activeobject) Store.luckysheet_sheet_move_data.activeobject.style.left = left + 'px';
 
             let row_index = luckysheet_searcharray(
                 Store.luckysheet_sheet_move_data.widthlist,
                 left + Store.luckysheet_sheet_move_data.curleft,
             );
-            Store.luckysheet_sheet_move_data.cursorobject.css({ cursor: "move" });
+            if (Store.luckysheet_sheet_move_data.cursorobject) Store.luckysheet_sheet_move_data.cursorobject.style.cursor = "move";
 
             if (left - scrollLeft <= 6) {
-                $("#luckysheet-sheets-leftscroll").click();
+                const _leftScroll = document.getElementById("luckysheet-sheets-leftscroll"); if (_leftScroll) _leftScroll.click();
             }
 
             if (left - scrollLeft >= winW - 40) {
-                $("#luckysheet-sheets-rightscroll").click();
+                const _rightScroll = document.getElementById("luckysheet-sheets-rightscroll"); if (_rightScroll) _rightScroll.click();
             }
 
             if (row_index != Store.luckysheet_sheet_move_data.curindex) {
+                const _clone = document.getElementById("luckysheet-sheets-item-clone");
+                const _visibleItems = document.querySelectorAll("#luckysheet-sheet-area div.luckysheet-sheets-item:visible");
                 if (row_index == -1 && left > 0) {
                     row_index = Store.luckysheet_sheet_move_data.widthlist.length - 1;
-                    $("#luckysheet-sheets-item-clone").insertAfter(
-                        $("#luckysheet-sheet-area div.luckysheet-sheets-item:visible").eq(row_index),
-                    );
+                    const _target = _visibleItems[row_index];
+                    if (_clone && _target) _target.after(_clone);
                 } else if (row_index == -1 && left <= 0) {
-                    $("#luckysheet-sheets-item-clone").insertBefore(
-                        $("#luckysheet-sheet-area div.luckysheet-sheets-item:visible").eq(0),
-                    );
+                    const _target = _visibleItems[0];
+                    if (_clone && _target) _target.before(_clone);
                 } else {
-                    $("#luckysheet-sheets-item-clone").insertAfter(
-                        $("#luckysheet-sheet-area div.luckysheet-sheets-item:visible").eq(row_index),
-                    );
+                    const _target = _visibleItems[row_index];
+                    if (_clone && _target) _target.after(_clone);
                 }
 
                 Store.luckysheet_sheet_move_data.widthlist = [];
-                $("#luckysheet-sheet-area div.luckysheet-sheets-item:visible").each(function(i) {
+                _visibleItems.forEach(function(item, i) {
                     if (i == 0) {
-                        Store.luckysheet_sheet_move_data.widthlist.push(parseInt($(this).outerWidth()));
+                        Store.luckysheet_sheet_move_data.widthlist.push(parseInt(item.offsetWidth));
                     } else {
                         Store.luckysheet_sheet_move_data.widthlist.push(
-                            parseInt($(this).outerWidth()) + Store.luckysheet_sheet_move_data.widthlist[i - 1],
+                            parseInt(item.offsetWidth) + Store.luckysheet_sheet_move_data.widthlist[i - 1],
                         );
                     }
                 });
 
-                Store.luckysheet_sheet_move_data.curindex = $(
-                    "#luckysheet-sheet-area div.luckysheet-sheets-item:visible",
-                ).index($("#luckysheet-sheets-item-clone"));
+                Store.luckysheet_sheet_move_data.curindex = _clone ? Array.from(_visibleItems).indexOf(_clone) : -1;
             }
         } else if (Store.luckysheet_model_move_state) {
             let scrollTop = document.documentElement.scrollTop,
@@ -305,8 +304,8 @@ export default function documentMousemove() {
                 x = event.pageX + scrollLeft;
             let winH = document.documentElement.clientHeight,
                 winW = document.documentElement.clientWidth;
-            let myh = Store.luckysheet_model_move_obj.height(),
-                myw = Store.luckysheet_model_move_obj.width();
+            let myh = Store.luckysheet_model_move_obj.getBoundingClientRect().height,
+                myw = Store.luckysheet_model_move_obj.getBoundingClientRect().width;
             let top = y - Store.luckysheet_model_xy[1],
                 left = x - Store.luckysheet_model_xy[0];
 
@@ -326,7 +325,8 @@ export default function documentMousemove() {
                 left = winW - myw - 86;
             }
 
-            Store.luckysheet_model_move_obj.css({ top: top, left: left });
+            Store.luckysheet_model_move_obj.style.top = top + 'px';
+            Store.luckysheet_model_move_obj.style.left = left + 'px';
             event.preventDefault();
         } else if (
             !!Store.luckysheet_scroll_status ||

@@ -7,8 +7,8 @@ import cellMain from '../../ui/cellMain.js';
 import rightClickMenu from '../../ui/rightClickMenu.js';
 
 function createFilterOptions(luckysheet_filter_save, filterObj) {
-    $("#luckysheet-filter-selected-sheet" + Store.currentSheetIndex).remove();
-    $("#luckysheet-filter-options-sheet" + Store.currentSheetIndex).remove();
+    const _elFilterSel = document.getElementById("luckysheet-filter-selected-sheet" + Store.currentSheetIndex); if (_elFilterSel) _elFilterSel.remove();
+    const _elFilterOpt = document.getElementById("luckysheet-filter-options-sheet" + Store.currentSheetIndex); if (_elFilterOpt) _elFilterOpt.remove();
 
     if(luckysheet_filter_save == null || JSON.stringify(luckysheet_filter_save) == "{}"){
         return;
@@ -71,7 +71,7 @@ function createFilterOptions(luckysheet_filter_save, filterObj) {
 
     cellMain.append('<div id="luckysheet-filter-options-sheet'+ Store.currentSheetIndex +'" class="luckysheet-filter-options-c">' + optionHTML + '</div>');
     rightClickMenu.hide();
-    $("#luckysheet-filter-menu, #luckysheet-filter-submenu").hide();
+    [document.getElementById("luckysheet-filter-menu"), document.getElementById("luckysheet-filter-submenu")].forEach(el => { if (el) el.style.display = 'none'; });
 
     if (getScrollPosition().scrollTop > luckysheet_filter_save["top_move"]) {
         scrollBarY.setScrollTop(luckysheet_filter_save["top_move"]);

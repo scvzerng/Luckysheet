@@ -22,14 +22,14 @@ let jfnqrt = function (x, p) {
 function initialMatrixCalcOperation() {
     const locale_drag = locale().drag;
     //矩阵操作选区 矩阵计算
-    $("#luckysheet-matrix-cal-confirm").click(function (event) {
+    const _elCalConfirm = document.getElementById("luckysheet-matrix-cal-confirm"); if (_elCalConfirm) _elCalConfirm.addEventListener("click", function (event) {
 
         // Click input element, don't comfirm 
         if(event.target.nodeName === 'INPUT' || event.target.nodeName === 'SELECT'){
             return;
         }
 
-        $("body .luckysheet-cols-menu").hide();
+        document.querySelectorAll("body .luckysheet-cols-menu").forEach(el => el.style.display = 'none');
         luckysheetContainerFocus();
 
         if(Store.luckysheet_select_save.length > 1){
@@ -47,8 +47,8 @@ function initialMatrixCalcOperation() {
             return;
         }
 
-        let caltype = $("#luckysheet-matrix-cal-type").val(), 
-            calvalue = parseInt($("#luckysheet-matrix-cal-value").val());
+        let caltype = document.getElementById("luckysheet-matrix-cal-type").value,
+            calvalue = parseInt(document.getElementById("luckysheet-matrix-cal-value").value);
 
         if(calvalue.toString() == "NaN"){
             if(isEditMode()){

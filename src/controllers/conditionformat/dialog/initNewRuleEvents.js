@@ -224,7 +224,7 @@ export function initNewRuleEvents(_this) {
             "conditionValue": conditionValue
           };
         }
-        $("#luckysheet-newConditionRule-dialog").hide();
+        const _elNewRule1 = document.getElementById("luckysheet-newConditionRule-dialog"); if (_elNewRule1) _elNewRule1.style.display = 'none';
   
         //新建规则的入�?
         let source = $(this).attr("data-source");
@@ -266,7 +266,7 @@ export function initNewRuleEvents(_this) {
         }
   
         //新建规则隐藏
-        $("#luckysheet-newConditionRule-dialog").hide();
+        const _elNewRule2 = document.getElementById("luckysheet-newConditionRule-dialog"); if (_elNewRule2) _elNewRule2.style.display = 'none';
   
         //隐藏虚线�?
         formulaRangeSelect.hide();

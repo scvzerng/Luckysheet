@@ -1,22 +1,26 @@
-import $ from '../jquery-bridge.js';
-
 class FunctionBox {
     constructor() { this._el = null; }
-    get el() { if (!this._el || this._el.length === 0) this._el = $("#luckysheet-functionbox-cell"); return this._el; }
+    get el() { if (!this._el || !document.body.contains(this._el)) this._el = document.getElementById("luckysheet-functionbox-cell"); return this._el; }
 
-    getHtml() { return this.el.html(); }
-    setHtml(value) { this.el.html(value); return this; }
+    getHtml() { return this.el.innerHTML; }
+    setHtml(value) { this.el.innerHTML = value; return this; }
     focus() { this.el.focus(); return this; }
     blur() { this.el.blur(); return this; }
-    isVisible() { return this.el.is(":visible"); }
-    getNativeElement() { return this.el[0]; }
-    find(selector) { return this.el.find(selector); }
-    confirmClick() { $("#luckysheet-wa-functionbox-confirm").click(); return this; }
-    cancelClick() { $("#luckysheet-wa-functionbox-cancel").click(); return this; }
-    setActive() { $("#luckysheet-wa-functionbox-cancel, #luckysheet-wa-functionbox-confirm").addClass("luckysheet-wa-calculate-active"); return this; }
-    unsetActive() { $("#luckysheet-wa-functionbox-cancel, #luckysheet-wa-functionbox-confirm").removeClass("luckysheet-wa-calculate-active"); return this; }
-    onConfirmClick(callback) { $("#luckysheet-wa-functionbox-confirm").click(callback); return this; }
-    onCancelClick(callback) { $("#luckysheet-wa-functionbox-cancel").click(callback); return this; }
+    isVisible() { return this.el.offsetWidth > 0; }
+    getNativeElement() { return this.el; }
+    find(selector) { return this.el.querySelector(selector); }
+    confirmClick() { document.getElementById("luckysheet-wa-functionbox-confirm").click(); return this; }
+    cancelClick() { document.getElementById("luckysheet-wa-functionbox-cancel").click(); return this; }
+    setActive() {
+        document.querySelectorAll("#luckysheet-wa-functionbox-cancel, #luckysheet-wa-functionbox-confirm").forEach(el => el.classList.add("luckysheet-wa-calculate-active"));
+        return this;
+    }
+    unsetActive() {
+        document.querySelectorAll("#luckysheet-wa-functionbox-cancel, #luckysheet-wa-functionbox-confirm").forEach(el => el.classList.remove("luckysheet-wa-calculate-active"));
+        return this;
+    }
+    onConfirmClick(callback) { document.getElementById("luckysheet-wa-functionbox-confirm").addEventListener("click", callback); return this; }
+    onCancelClick(callback) { document.getElementById("luckysheet-wa-functionbox-cancel").addEventListener("click", callback); return this; }
 }
 
 export default new FunctionBox();

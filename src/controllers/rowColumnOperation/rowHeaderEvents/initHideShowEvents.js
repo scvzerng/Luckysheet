@@ -10,7 +10,7 @@ import rightClickMenu from '../../../ui/rightClickMenu.js';
 export function initHideShowEvents() {
   
     //隐藏选中行列
-    $("#luckysheet-hide-selected").click(function (event) {
+    const _elHide = document.getElementById("luckysheet-hide-selected"); if (_elHide) _elHide.addEventListener("click", function (event) {
       rightClickMenu.hide();
       luckysheetContainerFocus();
       const locale_drag = locale().drag;
@@ -98,7 +98,7 @@ export function initHideShowEvents() {
     });
 
     //取消隐藏选中行列
-    $("#luckysheet-show-selected").click(function (event) {
+    const _elShow = document.getElementById("luckysheet-show-selected"); if (_elShow) _elShow.addEventListener("click", function (event) {
       rightClickMenu.hide();
       luckysheetContainerFocus();
       const locale_drag = locale().drag;

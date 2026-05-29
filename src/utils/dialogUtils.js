@@ -13,7 +13,7 @@ export function createDialog(options) {
     }
 
     document.body.insertAdjacentHTML('beforeend', html);
-    return $("#" + options.id);
+    return document.getElementById(options.id);
 }
 
 export function createToolbarMenu(menu, submenu) {

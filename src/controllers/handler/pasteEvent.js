@@ -121,9 +121,8 @@ export default function pasteEvent() {
                             v = "";
                         }
                         if (isInlineStr) {
-                            const cpData = $(cpDataArr[r - copy_r1][c - copy_c1])
-                                .text()
-                                .replace(/\s|\n/g, " ");
+                            const _tmpDiv = document.createElement('div'); _tmpDiv.innerHTML = cpDataArr[r - copy_r1][c - copy_c1];
+                            const cpData = _tmpDiv.textContent.replace(/\s|\n/g, " ");
                             const storeValue = v.replace(/\n/g, "").replace(/\s/g, " ");
                             if (cpData != storeValue) {
                                 isEqual = false;
@@ -164,17 +163,14 @@ export default function pasteEvent() {
                 imageCtrl.pasteImgItem();
             } else {
                 if (txtdata.indexOf("table") > -1) {
-                    $("#luckysheet-copy-content").html(txtdata);
+                    const _copyContent = document.getElementById("luckysheet-copy-content"); _copyContent.innerHTML = txtdata;
 
-                    let data = new Array($("#luckysheet-copy-content").find("table tr").length);
+                    let data = new Array(_copyContent.querySelectorAll("table tr").length);
                     let colLen = 0;
                     const cellElements = "th, td";
-                    $("#luckysheet-copy-content")
-                        .find("table tr")
-                        .eq(0)
-                        .find(cellElements)
-                        .each(function() {
-                            let colspan = parseInt($(this).attr("colspan"));
+                    const _firstRowCells = _copyContent.querySelectorAll("table tr")[0] ? _copyContent.querySelectorAll("table tr")[0].querySelectorAll(cellElements) : [];
+                    _firstRowCells.forEach(function(td) {
+                            let colspan = parseInt(td.getAttribute("colspan"));
                             if (isNaN(colspan)) {
                                 colspan = 1;
                             }
@@ -187,33 +183,31 @@ export default function pasteEvent() {
 
                     let r = 0;
                     let borderInfo = {};
-                    $("#luckysheet-copy-content")
-                        .find("table tr")
-                        .each(function() {
-                            let $tr = $(this);
+                    _copyContent
+                        .querySelectorAll("table tr")
+                        .forEach(function(tr) {
                             let c = 0;
-                            $tr.find(cellElements).each(function() {
-                                let $td = $(this);
+                            tr.querySelectorAll(cellElements).forEach(function(td) {
                                 let cell = {};
-                                let txt = $td.text();
+                                let txt = td.textContent;
                                 if (txt.trim().length == 0) {
                                     cell.v = null;
                                     cell.m = "";
                                 } else {
-                                    let mask = genarate($td.text());
+                                    let mask = genarate(td.textContent);
                                     cell.v = mask[2];
                                     cell.ct = mask[1];
                                     cell.m = mask[0];
                                 }
 
-                                let bg = $td.css("background-color");
+                                let bg = getComputedStyle(td).backgroundColor;
                                 if (bg == "rgba(0, 0, 0, 0)") {
                                     bg = null;
                                 }
 
                                 cell.bg = bg;
 
-                                let bl = $td.css("font-weight");
+                                let bl = getComputedStyle(td).fontWeight;
                                 if (bl == 400 || bl == "normal") {
                                     cell.bl = 0;
                                 } else {
@@ -221,19 +215,19 @@ export default function pasteEvent() {
                                 }
 
                                 // 检测下划线
-                                let un = $td.css("text-decoration");
+                                let un = getComputedStyle(td).textDecoration;
                                 if (un.indexOf("underline") != -1) {
                                     cell.un = 1;
                                 }
 
-                                let it = $td.css("font-style");
+                                let it = getComputedStyle(td).fontStyle;
                                 if (it == "normal") {
                                     cell.it = 0;
                                 } else {
                                     cell.it = 1;
                                 }
 
-                                let ff = $td.css("font-family");
+                                let ff = getComputedStyle(td).fontFamily;
                                 let ffs = ff.split(",");
                                 for (let i = 0; i < ffs.length; i++) {
                                     let fa = ffs[i].toLowerCase().trim();
@@ -245,14 +239,14 @@ export default function pasteEvent() {
                                         break;
                                     }
                                 }
-                                let fs = Math.round((parseInt($td.css("font-size")) * 72) / 96);
+                                let fs = Math.round((parseInt(getComputedStyle(td).fontSize) * 72) / 96);
                                 cell.fs = fs;
 
-                                let fc = $td.css("color");
+                                let fc = getComputedStyle(td).color;
                                 cell.fc = fc;
 
                                 // 水平对齐属性
-                                let ht = $td.css("text-align");
+                                let ht = getComputedStyle(td).textAlign;
                                 if (ht == "center") {
                                     cell.ht = 0;
                                 } else if (ht == "right") {
@@ -262,7 +256,7 @@ export default function pasteEvent() {
                                 }
 
                                 // 垂直对齐属性
-                                let vt = $td.css("vertical-align");
+                                let vt = getComputedStyle(td).verticalAlign;
                                 if (vt == "middle") {
                                     cell.vt = 0;
                                 } else if (vt == "top" || vt == "text-top") {
@@ -281,8 +275,8 @@ export default function pasteEvent() {
 
                                 if (data[r][c] == null) {
                                     data[r][c] = cell;
-                                    let rowspan = parseInt($td.attr("rowspan"));
-                                    let colspan = parseInt($td.attr("colspan"));
+                                    let rowspan = parseInt(td.getAttribute("rowspan"));
+                                    let colspan = parseInt(td.getAttribute("colspan"));
 
                                     if (isNaN(rowspan)) {
                                         rowspan = 1;
@@ -298,15 +292,15 @@ export default function pasteEvent() {
                                     for (let rp = 0; rp < rowspan; rp++) {
                                         for (let cp = 0; cp < colspan; cp++) {
                                             if (rp == 0) {
-                                                let bt = $td.css("border-top");
+                                                let bt = getComputedStyle(td).borderTop;
                                                 if (
                                                     bt != null &&
                                                     bt.length > 0 &&
                                                     bt.substr(0, 3).toLowerCase() != "0px"
                                                 ) {
-                                                    let width = $td.css("border-top-width");
-                                                    let type = $td.css("border-top-style");
-                                                    let color = $td.css("border-top-color");
+                                                    let width = getComputedStyle(td).borderTopWidth;
+                                                    let type = getComputedStyle(td).borderTopStyle;
+                                                    let color = getComputedStyle(td).borderTopColor;
                                                     let borderconfig = menuButton.getQKBorder(width, type, color);
 
                                                     if (borderInfo[r + rp + "_" + (c + cp)] == null) {
@@ -321,15 +315,15 @@ export default function pasteEvent() {
                                             }
 
                                             if (rp == rowspan - 1) {
-                                                let bb = $td.css("border-bottom");
+                                                let bb = getComputedStyle(td).borderBottom;
                                                 if (
                                                     bb != null &&
                                                     bb.length > 0 &&
                                                     bb.substr(0, 3).toLowerCase() != "0px"
                                                 ) {
-                                                    let width = $td.css("border-bottom-width");
-                                                    let type = $td.css("border-bottom-style");
-                                                    let color = $td.css("border-bottom-color");
+                                                    let width = getComputedStyle(td).borderBottomWidth;
+                                                    let type = getComputedStyle(td).borderBottomStyle;
+                                                    let color = getComputedStyle(td).borderBottomColor;
                                                     let borderconfig = menuButton.getQKBorder(width, type, color);
 
                                                     if (borderInfo[r + rp + "_" + (c + cp)] == null) {
@@ -344,15 +338,15 @@ export default function pasteEvent() {
                                             }
 
                                             if (cp == 0) {
-                                                let bl = $td.css("border-left");
+                                                let bl = getComputedStyle(td).borderLeft;
                                                 if (
                                                     bl != null &&
                                                     bl.length > 0 &&
                                                     bl.substr(0, 3).toLowerCase() != "0px"
                                                 ) {
-                                                    let width = $td.css("border-left-width");
-                                                    let type = $td.css("border-left-style");
-                                                    let color = $td.css("border-left-color");
+                                                    let width = getComputedStyle(td).borderLeftWidth;
+                                                    let type = getComputedStyle(td).borderLeftStyle;
+                                                    let color = getComputedStyle(td).borderLeftColor;
                                                     let borderconfig = menuButton.getQKBorder(width, type, color);
 
                                                     if (borderInfo[r + rp + "_" + (c + cp)] == null) {
@@ -367,15 +361,15 @@ export default function pasteEvent() {
                                             }
 
                                             if (cp == colspan - 1) {
-                                                let br = $td.css("border-right");
+                                                let br = getComputedStyle(td).borderRight;
                                                 if (
                                                     br != null &&
                                                     br.length > 0 &&
                                                     br.substr(0, 3).toLowerCase() != "0px"
                                                 ) {
-                                                    let width = $td.css("border-right-width");
-                                                    let type = $td.css("border-right-style");
-                                                    let color = $td.css("border-right-color");
+                                                    let width = getComputedStyle(td).borderRightWidth;
+                                                    let type = getComputedStyle(td).borderRightStyle;
+                                                    let color = getComputedStyle(td).borderRightColor;
                                                     let borderconfig = menuButton.getQKBorder(width, type, color);
 
                                                     if (borderInfo[r + rp + "_" + (c + cp)] == null) {
@@ -415,7 +409,7 @@ export default function pasteEvent() {
 
                     Store.luckysheet_selection_range = [];
                     selection.pasteHandler(data, borderInfo);
-                    $("#luckysheet-copy-content").empty();
+                    _copyContent.innerHTML = '';
                 }
 
                 //复制的是图片
@@ -427,9 +421,9 @@ export default function pasteEvent() {
                     txtdata = clipboardData.getData("text/plain");
                     selection.pasteHandler(txtdata);
                 }
-                $("#luckysheet-copy-content").empty();
+                _copyContent.innerHTML = '';
             }
-        } else if ($(e.target).closest(richTextEditor.el).length > 0) {
+        } else if (richTextEditor.el.contains(e.target)) {
             // 阻止默认粘贴
             e.preventDefault();
 

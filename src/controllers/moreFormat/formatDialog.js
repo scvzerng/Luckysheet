@@ -376,7 +376,7 @@ const luckysheetMoreFormat = {
         //确定
         offNS("moreFormatConfirm");
         onNS(document, "click.moreFormatConfirm", "#luckysheet-moreFormat-dialog #luckysheet-moreFormat-dialog-confirm", function(){
-            $("#luckysheet-moreFormat-dialog").hide();
+            const _elMoreFmt = document.getElementById("luckysheet-moreFormat-dialog"); if (_elMoreFmt) _elMoreFmt.style.display = 'none';
             hideModalMask();
 
             let d = editor.deepCopyFlowData(Store.flowdata);

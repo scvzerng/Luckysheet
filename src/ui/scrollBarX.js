@@ -1,28 +1,27 @@
-import $ from '../jquery-bridge.js';
-
 class ScrollBarX {
     constructor() { this._el = null; }
 
     get el() {
-        if (!this._el || this._el.length === 0) this._el = $("#luckysheet-scrollbar-x");
+        if (!this._el || !document.body.contains(this._el)) this._el = document.getElementById("luckysheet-scrollbar-x");
         return this._el;
     }
 
-    getScrollLeft() { return this.el.scrollLeft(); }
-    setScrollLeft(value) { this.el.scrollLeft(value); return this; }
+    getScrollLeft() { return this.el.scrollLeft; }
+    setScrollLeft(value) { this.el.scrollLeft = value; return this; }
 
-    setHeight(value) { this.el.height(value); return this; }
-    setWidth(value) { this.el.width(value); return this; }
-    setCssLeft(value) { this.el.css("left", value); return this; }
+    setHeight(value) { this.el.style.height = typeof value === 'number' ? value + 'px' : value; return this; }
+    setWidth(value) { this.el.style.width = typeof value === 'number' ? value + 'px' : value; return this; }
+    setCssLeft(value) { this.el.style.left = typeof value === 'number' ? value + 'px' : value; return this; }
 
-    getScrollWidth() { return this.el[0].scrollWidth; }
-    getOffsetWidth() { return this.el[0].offsetWidth; }
+    getScrollWidth() { return this.el.scrollWidth; }
+    getOffsetWidth() { return this.el.offsetWidth; }
 
-    onScroll(callback) { this.el.scroll(callback); return this; }
-    onMousewheel(callback) { this.el.mousewheel(callback); return this; }
+    onScroll(callback) { this.el.addEventListener("scroll", callback); return this; }
+    onMousewheel(callback) { this.el.addEventListener("wheel", callback); return this; }
 
     setInnerDivWidth(value) {
-        $("#luckysheet-scrollbar-x div").width(value);
+        const div = document.querySelector("#luckysheet-scrollbar-x div");
+        if (div) div.style.width = typeof value === 'number' ? value + 'px' : value;
         return this;
     }
 }

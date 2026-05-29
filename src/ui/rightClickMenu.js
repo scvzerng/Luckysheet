@@ -1,27 +1,27 @@
-import $ from '../jquery-bridge.js';
-
 class RightClickMenu {
     constructor() { this._el = null; }
 
     get el() {
-        if (!this._el || this._el.length === 0) this._el = $("#luckysheet-rightclick-menu");
+        if (!this._el || !document.body.contains(this._el)) this._el = document.getElementById("luckysheet-rightclick-menu");
         return this._el;
     }
 
-    hide() { this.el.hide(); return this; }
-    show() { this.el.show(); return this; }
+    hide() { this.el.style.display = 'none'; return this; }
+    show() { this.el.style.display = ''; return this; }
     showAt(x, y) {
         let winH = document.documentElement.clientHeight, winW = document.documentElement.clientWidth;
-        let menuW = this.el.width(), menuH = this.el.height();
+        let menuW = this.el.getBoundingClientRect().width, menuH = this.el.getBoundingClientRect().height;
         let top = y, left = x;
         if (x + menuW > winW) { left = x - menuW; }
         if (y + menuH > winH) { top = y - menuH; }
         if (top < 0) { top = 0; }
-        this.el.css({ top: top, left: left }).show();
+        this.el.style.top = top + 'px';
+        this.el.style.left = left + 'px';
+        this.el.style.display = '';
         return this;
     }
-    find(selector) { return this.el.find(selector); }
-    findText(selector, text) { this.el.find(selector).text(text); return this; }
+    find(selector) { return this.el.querySelector(selector); }
+    findText(selector, text) { const el = this.el.querySelector(selector); if (el) el.textContent = text; return this; }
 }
 
 export default new RightClickMenu();

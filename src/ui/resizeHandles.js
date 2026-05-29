@@ -1,19 +1,17 @@
-import $ from '../jquery-bridge.js';
-
 class ResizeHandle {
     constructor(selector) {
         this._selector = selector;
         this._el = null;
     }
-    get el() { if (!this._el || this._el.length === 0) this._el = $(this._selector); return this._el; }
+    get el() { if (!this._el || !document.body.contains(this._el)) this._el = document.querySelector(this._selector); return this._el; }
 
-    setCss(props) { this.el.css(props); return this; }
-    hide() { this.el.hide(); return this; }
-    show() { this.el.show(); return this; }
-    addClass(cls) { this.el.addClass(cls); return this; }
-    removeClass(cls) { this.el.removeClass(cls); return this; }
-    onMousedown(callback) { this.el.mousedown(callback); return this; }
-    onDblclick(callback) { this.el.dblclick(callback); return this; }
+    setCss(props) { for (const [k, v] of Object.entries(props)) this.el.style[k] = typeof v === 'number' ? v + 'px' : v; return this; }
+    hide() { this.el.style.display = 'none'; return this; }
+    show() { this.el.style.display = ''; return this; }
+    addClass(cls) { this.el.classList.add(cls); return this; }
+    removeClass(cls) { this.el.classList.remove(cls); return this; }
+    onMousedown(callback) { this.el.addEventListener("mousedown", callback); return this; }
+    onDblclick(callback) { this.el.addEventListener("dblclick", callback); return this; }
 }
 
 const resizeHandles = {

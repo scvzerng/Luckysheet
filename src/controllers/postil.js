@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿import { rowLocation, colLocation, mouseposition } from '../global/location';
+﻿﻿﻿﻿﻿﻿﻿﻿﻿import { rowLocation, colLocation, mouseposition } from '../global/location';
 import editor from '../global/editor';
 import { luckysheetRangeLast } from '../global/cursorPos';
 import { luckysheetrefreshgrid } from '../global/refresh';
@@ -495,7 +495,7 @@ const luckysheetPostil = {
         let _this = this;
 
         if($("#luckysheet-postil-show_"+ r +"_"+ c).length > 0){
-            $("#luckysheet-postil-show_"+ r +"_"+ c).show();
+            const _elPostil = document.getElementById("luckysheet-postil-show_"+ r +"_"+ c); if (_elPostil) _elPostil.style.display = '';
             $("#luckysheet-postil-show_"+ r +"_"+ c).addClass("luckysheet-postil-show-active");
             $("#luckysheet-postil-show_"+ r +"_"+ c).find(".luckysheet-postil-dialog-resize").show();
         }
@@ -911,7 +911,7 @@ const luckysheetPostil = {
                 _this.buildPs(r, c, cell.ps);
             }
             else{
-                $("#" + id).hide();
+                const _elPostilHide = document.getElementById(id); if (_elPostilHide) _elPostilHide.style.display = 'none';
             }
         });
     },

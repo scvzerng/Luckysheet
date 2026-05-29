@@ -41,7 +41,7 @@ export function initRowHeaderEvents() {
         col = Store.visibledatacolumn[col_index],
         col_pre = 0;
       rightClickMenu.hide();
-      $("#luckysheet-sheet-list, #luckysheet-rightclick-sheet-menu").hide();
+      [document.getElementById("luckysheet-sheet-list"), document.getElementById("luckysheet-rightclick-sheet-menu")].forEach(el => { if (el) el.style.display = 'none'; });
   
       //mousedown是右�?
       if (event.which == "3") {
@@ -333,16 +333,16 @@ export function initRowHeaderEvents() {
           //非编辑模式下禁止右键功能�?
           return;
         }
-        $("#luckysheet-cols-rows-shift").hide();
+        const _elShift1 = document.getElementById("luckysheet-cols-rows-shift"); if (_elShift1) _elShift1.style.display = 'none';
         Store.luckysheetRightHeadClickIs = "row";
         rightClickMenu.findText(".luckysheet-cols-rows-shift-word", locale().rightclick.row);
         rightClickMenu.findText(".luckysheet-cols-rows-shift-size", locale().rightclick.height);
         rightClickMenu.findText(".luckysheet-cols-rows-shift-left", locale().rightclick.top);
         rightClickMenu.findText(".luckysheet-cols-rows-shift-right", locale().rightclick.bottom);
-        $("#luckysheet-cols-rows-add").show();
-        $("#luckysheet-cols-rows-data").show();
-        $("#luckysheet-cols-rows-shift").hide();
-        $("#luckysheet-cols-rows-handleincell").hide();
+        const _elAdd1 = document.getElementById("luckysheet-cols-rows-add"); if (_elAdd1) _elAdd1.style.display = '';
+        const _elData1 = document.getElementById("luckysheet-cols-rows-data"); if (_elData1) _elData1.style.display = '';
+        const _elShift2 = document.getElementById("luckysheet-cols-rows-shift"); if (_elShift2) _elShift2.style.display = 'none';
+        const _elHandleInCell1 = document.getElementById("luckysheet-cols-rows-handleincell"); if (_elHandleInCell1) _elHandleInCell1.style.display = 'none';
         $$("#luckysheet-cols-rows-add .luckysheet-menuseparator").style.display = "block";
         $$("#luckysheet-cols-rows-data .luckysheet-menuseparator").style.display = "block";
   

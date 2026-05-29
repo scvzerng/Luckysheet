@@ -166,7 +166,7 @@ export function initDeleteCellEvents() {
   
     //删除单元格（左移、上移）
     $("#luckysheet-delCellsMoveLeft").click(function (event) {
-      $("body .luckysheet-cols-menu").hide();
+      document.querySelectorAll("body .luckysheet-cols-menu").forEach(el => el.style.display = 'none');
       luckysheetContainerFocus();
       const locale_drag = locale().drag;
       if (Store.luckysheet_select_save.length > 1) {
@@ -184,7 +184,7 @@ export function initDeleteCellEvents() {
       luckysheetDeleteCell("moveLeft", str, edr, stc, edc);
     });
     $("#luckysheet-delCellsMoveUp").click(function (event) {
-      $("body .luckysheet-cols-menu").hide();
+      document.querySelectorAll("body .luckysheet-cols-menu").forEach(el => el.style.display = 'none');
       luckysheetContainerFocus();
       const locale_drag = locale().drag;
       if (Store.luckysheet_select_save.length > 1) {

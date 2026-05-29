@@ -114,17 +114,17 @@ const luckysheetSearchReplace = {
                 .addClass("on")
                 .siblings()
                 .removeClass("on");
-            $("#luckysheet-search-replace #replaceInput").hide();
-            $("#luckysheet-search-replace #replaceAllBtn").hide();
-            $("#luckysheet-search-replace #replaceBtn").hide();
+            const _elRepIn1 = document.querySelector("#luckysheet-search-replace #replaceInput"); if (_elRepIn1) _elRepIn1.style.display = 'none';
+            const _elRepAll1 = document.querySelector("#luckysheet-search-replace #replaceAllBtn"); if (_elRepAll1) _elRepAll1.style.display = 'none';
+            const _elRepBtn1 = document.querySelector("#luckysheet-search-replace #replaceBtn"); if (_elRepBtn1) _elRepBtn1.style.display = 'none';
         } else if (source == "1") {
             $("#luckysheet-search-replace #replaceTab")
                 .addClass("on")
                 .siblings()
                 .removeClass("on");
-            $("#luckysheet-search-replace #replaceInput").show();
-            $("#luckysheet-search-replace #replaceAllBtn").show();
-            $("#luckysheet-search-replace #replaceBtn").show();
+            const _elRepIn2 = document.querySelector("#luckysheet-search-replace #replaceInput"); if (_elRepIn2) _elRepIn2.style.display = '';
+            const _elRepAll2 = document.querySelector("#luckysheet-search-replace #replaceAllBtn"); if (_elRepAll2) _elRepAll2.style.display = '';
+            const _elRepBtn2 = document.querySelector("#luckysheet-search-replace #replaceBtn"); if (_elRepBtn2) _elRepBtn2.style.display = '';
         }
     },
     init: function() {
@@ -140,15 +140,15 @@ const luckysheetSearchReplace = {
 
                 let $id = $(this).attr("id");
                 if ($id == "searchTab") {
-                    $("#luckysheet-search-replace #replaceInput").hide();
-                    $("#luckysheet-search-replace #replaceAllBtn").hide();
-                    $("#luckysheet-search-replace #replaceBtn").hide();
+                    const _elRepIn3 = document.querySelector("#luckysheet-search-replace #replaceInput"); if (_elRepIn3) _elRepIn3.style.display = 'none';
+                    const _elRepAll3 = document.querySelector("#luckysheet-search-replace #replaceAllBtn"); if (_elRepAll3) _elRepAll3.style.display = 'none';
+                    const _elRepBtn3 = document.querySelector("#luckysheet-search-replace #replaceBtn"); if (_elRepBtn3) _elRepBtn3.style.display = 'none';
 
                     $("#luckysheet-search-replace #searchInput input").focus();
                 } else if ($id == "replaceTab") {
-                    $("#luckysheet-search-replace #replaceInput").show();
-                    $("#luckysheet-search-replace #replaceAllBtn").show();
-                    $("#luckysheet-search-replace #replaceBtn").show();
+                    const _elRepIn4 = document.querySelector("#luckysheet-search-replace #replaceInput"); if (_elRepIn4) _elRepIn4.style.display = '';
+                    const _elRepAll4 = document.querySelector("#luckysheet-search-replace #replaceAllBtn"); if (_elRepAll4) _elRepAll4.style.display = '';
+                    const _elRepBtn4 = document.querySelector("#luckysheet-search-replace #replaceBtn"); if (_elRepBtn4) _elRepBtn4.style.display = '';
 
                     $("#luckysheet-search-replace #replaceInput input").focus();
                 }
@@ -677,7 +677,7 @@ const luckysheetSearchReplace = {
         Store.luckysheet_select_save = [{ row: [r, r], column: [c, c] }];
 
         if ($("#luckysheet-search-replace #searchAllbox").is(":visible")) {
-            $("#luckysheet-search-replace #searchAllbox").hide();
+            const _elSearchBox1 = document.querySelector("#luckysheet-search-replace #searchAllbox"); if (_elSearchBox1) _elSearchBox1.style.display = 'none';
         }
 
         jfrefreshgrid(d, Store.luckysheet_select_save);
@@ -815,7 +815,7 @@ const luckysheetSearchReplace = {
         }
 
         if ($("#luckysheet-search-replace #searchAllbox").is(":visible")) {
-            $("#luckysheet-search-replace #searchAllbox").hide();
+            const _elSearchBox2 = document.querySelector("#luckysheet-search-replace #searchAllbox"); if (_elSearchBox2) _elSearchBox2.style.display = 'none';
         }
 
         jfrefreshgrid(d, range);

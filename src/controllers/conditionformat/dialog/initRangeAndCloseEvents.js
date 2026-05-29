@@ -8,7 +8,7 @@ export function initRangeAndCloseEvents(_this) {
       offNS("CFrangeFaTable");
       onNS(document, "click.CFrangeFaTable", ".range .fa-table", function () {
         let id = $(this).parents(".luckysheet-modal-dialog").attr("id");
-        $("#" + id).hide();
+        const _elRangeHide = document.getElementById(id); if (_elRangeHide) _elRangeHide.style.display = 'none';
         let source;
         if (id == "luckysheet-conditionformat-dialog") {
           let $id = $(this).siblings("input").attr("id");

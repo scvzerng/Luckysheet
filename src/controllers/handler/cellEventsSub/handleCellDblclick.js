@@ -9,7 +9,7 @@ import formulaDialogs from '../../../ui/formulaDialogs.js';
 import conditionformatDialog from '../../../ui/conditionformatDialog.js';
 
 export function handleCellDblclick(event) {
-              if ($(event.target).hasClass("luckysheet-mousedown-cancel")) {
+              if (event.target.classList.contains("luckysheet-mousedown-cancel")) {
                   return;
               }
   
@@ -68,20 +68,20 @@ export function handleCellDblclick(event) {
                   formulaDialogs.searchParmSelect.isVisible()
               ) {
                   //公式参数栏显示
-                  $("#luckysheet-cell-selected").hide();
+                  const _elCellSel = document.getElementById("luckysheet-cell-selected"); if (_elCellSel) _elCellSel.style.display = 'none';
               } else if (
                   conditionformatDialog.main.isVisible() ||
                   conditionformatDialog.adminRule.isVisible() ||
-                  $("#luckysheet-newConditionRule-dialog").is(":visible") ||
-                  $("#luckysheet-editorConditionRule-dialog").is(":visible") ||
+                  (document.getElementById("luckysheet-newConditionRule-dialog")?.offsetWidth > 0) ||
+                  (document.getElementById("luckysheet-editorConditionRule-dialog")?.offsetWidth > 0) ||
                   formulaDialogs.singleRange.isVisible() ||
                   formulaDialogs.multiRange.isVisible()
               ) {
                   //条件格式
                   return;
               } else if (
-                  $("#luckysheet-modal-dialog-slider-alternateformat").is(":visible") ||
-                  $("#luckysheet-alternateformat-rangeDialog").is(":visible")
+                  (document.getElementById("luckysheet-modal-dialog-slider-alternateformat")?.offsetWidth > 0) ||
+                  (document.getElementById("luckysheet-alternateformat-rangeDialog")?.offsetWidth > 0)
               ) {
                   //交替颜色
                   return;

@@ -22,8 +22,8 @@ import locale from "../../locale/locale";
 
 export default function freezeButtons() {
     //冻结行列
-    $("#luckysheet-freezen-btn-horizontal").click(function() {
-        if ($(this).text().trim() == locale().freezen.freezenCancel) {
+    const _freezenBtnH = document.getElementById("luckysheet-freezen-btn-horizontal"); if (_freezenBtnH) _freezenBtnH.addEventListener("click", function() {
+        if (this.textContent.trim() == locale().freezen.freezenCancel) {
             luckysheetFreezen.saveFrozen("freezenCancel");
 
             if (luckysheetFreezen.freezenverticaldata != null) {
@@ -40,9 +40,9 @@ export default function freezeButtons() {
 
             luckysheetFreezen.scrollAdapt();
             // cancel 之后 勾勾取消
-            $("#luckysheet-icon-freezen-menu-menuButton")
-                .find(".fa.fa-check")
-                .remove();
+            const _menuBtn = document.getElementById("luckysheet-icon-freezen-menu-menuButton");
+            const _check = _menuBtn ? _menuBtn.querySelector(".fa.fa-check") : null;
+            if (_check) _check.remove();
         } else {
             luckysheetFreezen.saveFrozen("freezenRow");
 
@@ -59,7 +59,7 @@ export default function freezeButtons() {
         }
     });
 
-    $("#luckysheet-freezen-btn-vertical").click(function() {
+    const _freezenBtnV = document.getElementById("luckysheet-freezen-btn-vertical"); if (_freezenBtnV) _freezenBtnV.addEventListener("click", function() {
         if (luckysheetFreezen.freezenverticaldata != null) {
             luckysheetFreezen.saveFrozen("freezenCancel");
 

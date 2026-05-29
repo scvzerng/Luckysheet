@@ -26,7 +26,7 @@ const tooltip = {
             myw = $t.outerWidth();
         let winw = document.documentElement.clientWidth, winh = document.documentElement.clientHeight;
         let scrollLeft = document.documentElement.scrollLeft, scrollTop = document.documentElement.scrollTop;
-        $("#luckysheet-info").css({ "left": (winw + scrollLeft - myw) / 2, "top": (winh + scrollTop - myh) / 3 }).show();
+        const _elInfo = document.getElementById("luckysheet-info"); if (_elInfo) { _elInfo.style.left = (winw + scrollLeft - myw) / 2; _elInfo.style.top = (winh + scrollTop - myh) / 3; _elInfo.style.display = ''; }
     },
     confirm: function (title, content, func1, func2, name1, name2) {
         showModalMask();
@@ -55,19 +55,19 @@ const tooltip = {
             myw = $t.outerWidth();
         let winw = document.documentElement.clientWidth, winh = document.documentElement.clientHeight;
         let scrollLeft = document.documentElement.scrollLeft, scrollTop = document.documentElement.scrollTop;
-        $("#luckysheet-confirm").css({ "left": (winw + scrollLeft - myw) / 2, "top": (winh + scrollTop - myh) / 3 }).show();
+        const _elConfirm = document.getElementById("luckysheet-confirm"); if (_elConfirm) { _elConfirm.style.left = (winw + scrollLeft - myw) / 2; _elConfirm.style.top = (winh + scrollTop - myh) / 3; _elConfirm.style.display = ''; }
         $t.find(".luckysheet-model-conform-btn").click(function () {
             if (typeof func1 == 'function') {
                 func1();
             }
-            $("#luckysheet-confirm").hide();
+            const _elHide1 = document.getElementById("luckysheet-confirm"); if (_elHide1) _elHide1.style.display = 'none';
             hideModalMask();
         });
         $t.find(".luckysheet-model-cancel-btn").click(function () {
             if (typeof func2 == 'function') {
                 func2();
             }
-            $("#luckysheet-confirm").hide();
+            const _elHide2 = document.getElementById("luckysheet-confirm"); if (_elHide2) _elHide2.style.display = 'none';
             hideModalMask();
         });
     },
@@ -90,14 +90,14 @@ const tooltip = {
             myw = $t.outerWidth();
         let winw = document.documentElement.clientWidth, winh = document.documentElement.clientHeight;
         let scrollLeft = document.documentElement.scrollLeft, scrollTop = document.documentElement.scrollTop;
-        $("#luckysheet-confirm").css({ "left": (winw + scrollLeft - myw) / 2, "top": (winh + scrollTop - myh) / 3 }).show();
+        const _elConfirm2 = document.getElementById("luckysheet-confirm"); if (_elConfirm2) { _elConfirm2.style.left = (winw + scrollLeft - myw) / 2; _elConfirm2.style.top = (winh + scrollTop - myh) / 3; _elConfirm2.style.display = ''; }
         $t.find(".luckysheet-model-conform-btn").click(function () {
             let $a = $("<a></a>").attr("href", imgurl).attr("download", "luckysheet.png").appendTo("body");
             $a[0].click();
             $a.remove();
         });
         $t.find(".luckysheet-model-cancel-btn").click(function () {
-            $("#luckysheet-confirm").hide();
+            const _elHide3 = document.getElementById("luckysheet-confirm"); if (_elHide3) _elHide3.style.display = 'none';
             hideModalMask();
         });
 

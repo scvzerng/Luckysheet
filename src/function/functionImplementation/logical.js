@@ -121,7 +121,7 @@ const logicalFunctions = {
     try {
       var value_if_error = func_methods.getFirstValue(arguments[1], "text");
       var value = func_methods.getFirstValue(arguments[0], "text");
-      // (getObjType(value) === 'string' && $.trim(value) === ''It means that the cell associated with IFERROR has been deleted by keyboard
+      // (getObjType(value) === 'string' && value.trim() === ''It means that the cell associated with IFERROR has been deleted by keyboard
       if (valueIsError(value) || getObjType(value) === 'string' && value.trim() === '') {
         return value_if_error;
       }

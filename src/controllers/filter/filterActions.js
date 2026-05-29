@@ -12,7 +12,7 @@ import { getCurrentFile, syncConfigToStore, getDataSize } from '../../utils/stor
 export function filterActions() {
     $("#luckysheet-filter-initial").click(function () {
 
-        $("#luckysheet-filter-menu .luckysheet-filter-selected-input").hide().find("input").val();
+        document.querySelectorAll("#luckysheet-filter-menu .luckysheet-filter-selected-input").forEach(el => { el.style.display = 'none'; el.querySelector("input") && (el.querySelector("input").value); });
         $("#luckysheet-filter-selected span").data("type", "0").data("type", null).text(filterState.locale_filter.conditionNone);
 
         let redo = {};
@@ -50,7 +50,7 @@ export function filterActions() {
         Store.jfredo.push(redo);
 
         $('#luckysheet-filter-selected-sheet' + Store.currentSheetIndex + ', #luckysheet-filter-options-sheet' + Store.currentSheetIndex).remove();
-        $("#luckysheet-filter-menu, #luckysheet-filter-submenu").hide();
+        [document.getElementById("luckysheet-filter-menu"), document.getElementById("luckysheet-filter-submenu")].forEach(el => { if (el) el.style.display = 'none'; });
 
         //清除筛选发送给后台
         getCurrentFile().filter = null;
@@ -69,7 +69,7 @@ export function filterActions() {
     //按照值进行筛选
     $("#luckysheet-filter-byvalue-input").on('input propertychange', function () {
         let v = $(this).val().toString();
-        $("#luckysheet-filter-byvalue-select .ListBox .luckysheet-mousedown-cancel").show();
+        document.querySelectorAll("#luckysheet-filter-byvalue-select .ListBox .luckysheet-mousedown-cancel").forEach(el => el.style.display = '');
 
         if(v != ""){
             $("#luckysheet-filter-byvalue-select .ListBox input[type='checkbox']").each(function(i, e){
@@ -109,7 +109,7 @@ export function filterActions() {
 
     //筛选取消
     $("#luckysheet-filter-cancel").click(function () {
-        $("#luckysheet-filter-menu, #luckysheet-filter-submenu").hide();
+        [document.getElementById("luckysheet-filter-menu"), document.getElementById("luckysheet-filter-submenu")].forEach(el => { if (el) el.style.display = 'none'; });
     });
 
     //筛选 确认
@@ -538,7 +538,7 @@ export function filterActions() {
         let _dataSize = getDataSize();
         jfrefreshgrid_rhcw(_dataSize.rowCount, _dataSize.colCount);
 
-        $("#luckysheet-filter-menu, #luckysheet-filter-submenu").hide();
+        [document.getElementById("luckysheet-filter-menu"), document.getElementById("luckysheet-filter-submenu")].forEach(el => { if (el) el.style.display = 'none'; });
         cleargridelement();
     });
 }

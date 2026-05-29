@@ -1,15 +1,13 @@
-import $ from '../jquery-bridge.js';
-
 class SelectionCopy {
     constructor() { this._el = null; }
-    get el() { if (!this._el || this._el.length === 0) this._el = $("#luckysheet-selection-copy"); return this._el; }
+    get el() { if (!this._el || !document.body.contains(this._el)) this._el = document.getElementById("luckysheet-selection-copy"); return this._el; }
 
-    setCss(props) { this.el.css(props); return this; }
-    show() { this.el.show(); return this; }
-    hide() { this.el.hide(); return this; }
-    empty() { this.el.empty(); return this; }
-    append(html) { this.el.append(html); return this; }
-    isVisible() { return this.el.is(":visible"); }
+    setCss(props) { for (const [k, v] of Object.entries(props)) this.el.style[k] = typeof v === 'number' ? v + 'px' : v; return this; }
+    show() { this.el.style.display = ''; return this; }
+    hide() { this.el.style.display = 'none'; return this; }
+    empty() { this.el.innerHTML = ''; return this; }
+    append(html) { this.el.insertAdjacentHTML('beforeend', html); return this; }
+    isVisible() { return this.el.offsetWidth > 0; }
 }
 
 export default new SelectionCopy();

@@ -66,8 +66,8 @@ export function setRangeFilter(type, options = {}) {
 
         file.filter_select = null;
 
-        $("#luckysheet-filter-selected-sheet" + file.index).remove();
-        $("#luckysheet-filter-options-sheet" + file.index).remove();
+        const _elFilterSelRm = document.getElementById("luckysheet-filter-selected-sheet" + file.index); if (_elFilterSelRm) _elFilterSelRm.remove();
+        const _elFilterOptRm = document.getElementById("luckysheet-filter-options-sheet" + file.index); if (_elFilterOptRm) _elFilterOptRm.remove();
 
         return {
             "row": luckysheet_filter_save.row,

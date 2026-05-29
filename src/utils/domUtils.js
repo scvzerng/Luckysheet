@@ -51,15 +51,15 @@ export function resetInputBoxStyle() {
 }
 
 export function showModalMask() {
-    $("#luckysheet-modal-dialog-mask").show();
+    const _elMask = document.getElementById("luckysheet-modal-dialog-mask"); if (_elMask) _elMask.style.display = '';
 }
 
 export function hideModalMask() {
-    $("#luckysheet-modal-dialog-mask").hide();
+    const _elMaskHide = document.getElementById("luckysheet-modal-dialog-mask"); if (_elMaskHide) _elMaskHide.style.display = 'none';
 }
 
 export function isModalMaskVisible() {
-    return $("#luckysheet-modal-dialog-mask").is(":visible");
+    const _elMask = document.getElementById("luckysheet-modal-dialog-mask"); return _elMask ? _elMask.offsetWidth > 0 : false;
 }
 
 export function isImageEditing() {
@@ -71,7 +71,7 @@ export function isFormulaDialogVisible() {
 }
 
 export function checkMenuOverflow(tlen, userlen, menuleft) {
-    return tlen > userlen && tlen + menuleft > $("#" + Store.container).width();
+    const _elContainer = document.getElementById(Store.container); return tlen > userlen && tlen + menuleft > (_elContainer ? _elContainer.getBoundingClientRect().width : 0);
 }
 
 export function createSelectionSetDiv(index) {

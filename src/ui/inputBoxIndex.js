@@ -1,22 +1,23 @@
-import $ from '../jquery-bridge.js';
-
 class InputBoxIndex {
     constructor() { this._el = null; }
 
     get el() {
-        if (!this._el || this._el.length === 0) this._el = $("#luckysheet-input-box-index");
+        if (!this._el || !document.body.contains(this._el)) this._el = document.getElementById("luckysheet-input-box-index");
         return this._el;
     }
 
-    hide() { this.el.hide(); return this; }
-    show() { this.el.show(); return this; }
-    setCss(props) { this.el.css(props); return this; }
-    setHtml(value) { this.el.html(value); return this; }
-    getText() { return this.el.text(); }
-    find(selector) { return this.el.find(selector); }
-    setCellRef(text) { this.el.html(text); return this; }
+    hide() { this.el.style.display = 'none'; return this; }
+    show() { this.el.style.display = ''; return this; }
+    setCss(props) { for (const [k, v] of Object.entries(props)) this.el.style[k] = typeof v === 'number' ? v + 'px' : v; return this; }
+    setHtml(value) { this.el.innerHTML = value; return this; }
+    getText() { return this.el.textContent; }
+    find(selector) { return this.el.querySelector(selector); }
+    setCellRef(text) { this.el.innerHTML = text; return this; }
     setSheetPrefix(sheetName) {
-        this.el.find(".luckysheet-input-box-index-sheettxt").remove().end().prepend(sheetName).show();
+        const sheettxt = this.el.querySelector(".luckysheet-input-box-index-sheettxt");
+        if (sheettxt) sheettxt.remove();
+        this.el.insertAdjacentHTML('afterbegin', sheetName);
+        this.el.style.display = '';
         return this;
     }
 }

@@ -149,7 +149,7 @@ export function filterColorEvents() {
             $("#luckysheet-filter-orderby-color-submenu").css({ "top": top, "left": left }).show();
         },
         function(){
-            submenuhide = setTimeout(function () { $("#luckysheet-filter-orderby-color-submenu").hide(); }, 200);
+            submenuhide = setTimeout(function () { const _elColorSub = document.getElementById("luckysheet-filter-orderby-color-submenu"); if (_elColorSub) _elColorSub.style.display = 'none'; }, 200);
         }
     );
 
@@ -157,7 +157,7 @@ export function filterColorEvents() {
         clearTimeout(submenuhide);
     } });
     document.addEventListener("mouseleave", function(e) { const t = e.target.closest("#luckysheet-filter-orderby-color-submenu"); if (t && document.contains(t)) {
-        $(t).hide();
+        t.style.display = 'none';
     } });
     document.addEventListener("click", function(e) { const t = e.target.closest("#luckysheet-filter-orderby-color-submenu .item label"); if (t && document.contains(t)) {
         $(t).siblings("input[type='checkbox']").click();
@@ -341,7 +341,7 @@ export function filterColorEvents() {
         let _dataSize = getDataSize();
         jfrefreshgrid_rhcw(_dataSize.rowCount, _dataSize.colCount);
 
-        $("#luckysheet-filter-menu, #luckysheet-filter-submenu, #luckysheet-filter-orderby-color-submenu").hide();
+        [document.getElementById("luckysheet-filter-menu"), document.getElementById("luckysheet-filter-submenu"), document.getElementById("luckysheet-filter-orderby-color-submenu")].forEach(el => { if (el) el.style.display = 'none'; });
         cleargridelement();
     });
 }

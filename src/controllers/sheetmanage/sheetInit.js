@@ -95,7 +95,7 @@ const sheetInitModule = {
           _this.restoreSheetAll(Store.currentSheetIndex);
 
           // luckysheetrefreshgrid(0, 0);
-          $("#luckysheet_info_detail_save").html(locale_info.detailSave);
+          const _elDetailSave = document.getElementById("luckysheet_info_detail_save"); if (_elDetailSave) _elDetailSave.innerHTML = locale_info.detailSave;
 
           // Store toolbar button width value
           menuToolBarWidth();

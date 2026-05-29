@@ -57,21 +57,21 @@ const uiModule = {
       }));
       let typeItemHide = _this.typeItemHide();
       if (!typeItemHide[0] && !typeItemHide[1] && !typeItemHide[2] && !typeItemHide[3] && !typeItemHide[4] && !typeItemHide[5] && !typeItemHide[6]) {
-        $("#luckysheet-dropCell-typeList .luckysheet-cols-menuitem[data-type=1]").hide();
-        $("#luckysheet-dropCell-typeList .luckysheet-cols-menuitem[data-type=4]").hide();
-        $("#luckysheet-dropCell-typeList .luckysheet-cols-menuitem[data-type=5]").hide();
-        $("#luckysheet-dropCell-typeList .luckysheet-cols-menuitem[data-type=6]").hide();
-        $("#luckysheet-dropCell-typeList .luckysheet-cols-menuitem[data-type=7]").hide();
-        $("#luckysheet-dropCell-typeList .luckysheet-cols-menuitem[data-type=8]").hide();
+        document.querySelectorAll("#luckysheet-dropCell-typeList .luckysheet-cols-menuitem[data-type=1]").forEach(el => el.style.display = 'none');
+        document.querySelectorAll("#luckysheet-dropCell-typeList .luckysheet-cols-menuitem[data-type=4]").forEach(el => el.style.display = 'none');
+        document.querySelectorAll("#luckysheet-dropCell-typeList .luckysheet-cols-menuitem[data-type=5]").forEach(el => el.style.display = 'none');
+        document.querySelectorAll("#luckysheet-dropCell-typeList .luckysheet-cols-menuitem[data-type=6]").forEach(el => el.style.display = 'none');
+        document.querySelectorAll("#luckysheet-dropCell-typeList .luckysheet-cols-menuitem[data-type=7]").forEach(el => el.style.display = 'none');
+        document.querySelectorAll("#luckysheet-dropCell-typeList .luckysheet-cols-menuitem[data-type=8]").forEach(el => el.style.display = 'none');
       }
       if (!typeItemHide[2]) {
-        $("#luckysheet-dropCell-typeList .luckysheet-cols-menuitem[data-type=4]").hide();
-        $("#luckysheet-dropCell-typeList .luckysheet-cols-menuitem[data-type=5]").hide();
-        $("#luckysheet-dropCell-typeList .luckysheet-cols-menuitem[data-type=6]").hide();
-        $("#luckysheet-dropCell-typeList .luckysheet-cols-menuitem[data-type=7]").hide();
+        document.querySelectorAll("#luckysheet-dropCell-typeList .luckysheet-cols-menuitem[data-type=4]").forEach(el => el.style.display = 'none');
+        document.querySelectorAll("#luckysheet-dropCell-typeList .luckysheet-cols-menuitem[data-type=5]").forEach(el => el.style.display = 'none');
+        document.querySelectorAll("#luckysheet-dropCell-typeList .luckysheet-cols-menuitem[data-type=6]").forEach(el => el.style.display = 'none');
+        document.querySelectorAll("#luckysheet-dropCell-typeList .luckysheet-cols-menuitem[data-type=7]").forEach(el => el.style.display = 'none');
       }
       if (!typeItemHide[3]) {
-        $("#luckysheet-dropCell-typeList .luckysheet-cols-menuitem[data-type=8]").hide();
+        document.querySelectorAll("#luckysheet-dropCell-typeList .luckysheet-cols-menuitem[data-type=8]").forEach(el => el.style.display = 'none');
       }
       let left = $(this).offset().left;
       let top = $(this).offset().top + 25;
@@ -108,7 +108,7 @@ const uiModule = {
       let type = $(this).attr("data-type");
       _this.applyType = type;
       _this.update();
-      $("#luckysheet-dropCell-typeList").hide();
+      const _elDropTypeList = document.getElementById("luckysheet-dropCell-typeList"); if (_elDropTypeList) _elDropTypeList.style.display = 'none';
       $("#luckysheet-dropCell-icon").css("backgroundColor", "#f1f1f1");
       $("#luckysheet-dropCell-icon").mouseleave(function () {
         $(this).css("backgroundColor", "#f1f1f1");

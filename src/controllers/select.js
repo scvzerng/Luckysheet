@@ -31,7 +31,7 @@ function seletedHighlistByindex(id, r1, r2, c1, c2) {
 
 //Set selection highlight
 function selectHightlightShow(isRestore = false) {
-    $("#luckysheet-cell-selected-boxs").show();
+    const _elSelBoxs2 = document.getElementById("luckysheet-cell-selected-boxs"); if (_elSelBoxs2) _elSelBoxs2.style.display = '';
     $("#luckysheet-cell-selected-boxs #luckysheet-cell-selected").siblings(".luckysheet-cell-selected").remove();
 
     if (Store.luckysheet_select_save.length > 0) {

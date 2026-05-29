@@ -413,7 +413,7 @@ const dialogModule = {
     //type1
     $("#luckysheet-editorConditionRule-dialog #type1").val(type1);
     if (type1 == "dataBar" || type1 == "colorGradation" || type1 == "icons" || type1 == "number" || type1 == "text" || type1 == "date") {
-      $("#luckysheet-editorConditionRule-dialog ." + type1 + "Box").show();
+      document.querySelectorAll("#luckysheet-editorConditionRule-dialog ." + type1 + "Box").forEach(el => el.style.display = '');
       $("#luckysheet-editorConditionRule-dialog ." + type1 + "Box").siblings().hide();
     }
     if (type1 == "date") {
@@ -432,13 +432,13 @@ const dialogModule = {
       } else if (type1 == "colorGradation") {
         if (ruleFormat.length == 3) {
           $("#luckysheet-editorConditionRule-dialog .colorGradationBox #type2").val("threeColor");
-          $("#luckysheet-editorConditionRule-dialog .colorGradationBox .midVal").show();
+          document.querySelectorAll("#luckysheet-editorConditionRule-dialog .colorGradationBox .midVal").forEach(el => el.style.display = '');
           getPicker(document.querySelector("#luckysheet-editorConditionRule-dialog .colorGradationBox .maxVal .luckysheet-conditionformat-config-color"))?.set(ruleFormat[0]);
           getPicker(document.querySelector("#luckysheet-editorConditionRule-dialog .colorGradationBox .midVal .luckysheet-conditionformat-config-color"))?.set(ruleFormat[1]);
           getPicker(document.querySelector("#luckysheet-editorConditionRule-dialog .colorGradationBox .minVal .luckysheet-conditionformat-config-color"))?.set(ruleFormat[2]);
         } else if (ruleFormat.length == 2) {
           $("#luckysheet-editorConditionRule-dialog .colorGradationBox #type2").val("twoColor");
-          $("#luckysheet-editorConditionRule-dialog .colorGradationBox .midVal").hide();
+          document.querySelectorAll("#luckysheet-editorConditionRule-dialog .colorGradationBox .midVal").forEach(el => el.style.display = 'none');
           getPicker(document.querySelector("#luckysheet-editorConditionRule-dialog .colorGradationBox .maxVal .luckysheet-conditionformat-config-color"))?.set(ruleFormat[0]);
           getPicker(document.querySelector("#luckysheet-editorConditionRule-dialog .colorGradationBox .minVal .luckysheet-conditionformat-config-color"))?.set(ruleFormat[1]);
         }
@@ -471,8 +471,8 @@ const dialogModule = {
         }
         $("#luckysheet-editorConditionRule-dialog .numberBox #conditionVal input").val(val1);
         if (conditionName == "betweenness") {
-          $("#luckysheet-editorConditionRule-dialog .numberBox .txt").show();
-          $("#luckysheet-editorConditionRule-dialog .numberBox #conditionVal2").show();
+          document.querySelectorAll("#luckysheet-editorConditionRule-dialog .numberBox .txt").forEach(el => el.style.display = '');
+          document.querySelectorAll("#luckysheet-editorConditionRule-dialog .numberBox #conditionVal2").forEach(el => el.style.display = '');
           let val2;
           if (rule.conditionRange[1] != null) {
             val2 = getRangetxt(Store.currentSheetIndex, {
@@ -484,8 +484,8 @@ const dialogModule = {
           }
           $("#luckysheet-editorConditionRule-dialog .numberBox #conditionVal2 input").val(val2);
         } else {
-          $("#luckysheet-editorConditionRule-dialog .numberBox .txt").hide();
-          $("#luckysheet-editorConditionRule-dialog .numberBox #conditionVal2").hide();
+          document.querySelectorAll("#luckysheet-editorConditionRule-dialog .numberBox .txt").forEach(el => el.style.display = 'none');
+          document.querySelectorAll("#luckysheet-editorConditionRule-dialog .numberBox #conditionVal2").forEach(el => el.style.display = 'none');
         }
       } else if (type1 == "text") {
         let val1;

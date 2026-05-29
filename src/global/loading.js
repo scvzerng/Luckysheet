@@ -1,7 +1,7 @@
 export function showloading(txt) {
-    $("#luckysheet-cell-loading").find("span").text(txt).end().show();
+    const _elLoading = document.getElementById("luckysheet-cell-loading"); if (_elLoading) { const _span = _elLoading.querySelector("span"); if (_span) _span.textContent = txt; _elLoading.style.display = ''; }
 };
 
 export function hideloading() {
-    $("#luckysheet-cell-loading").hide();
+    const _elLoading = document.getElementById("luckysheet-cell-loading"); if (_elLoading) _elLoading.style.display = 'none';
 };

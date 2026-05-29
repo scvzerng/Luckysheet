@@ -37,12 +37,13 @@ export default function selectionDrag() {
             return;
         }
 
-        $("#luckysheet-cell-selected")
-            .find(".luckysheet-cs-fillhandle")
-            .css("cursor", "move")
-            .end()
-            .find(".luckysheet-cs-draghandle")
-            .css("cursor", "move");
+        const _elCellSel = document.getElementById("luckysheet-cell-selected");
+        if (_elCellSel) {
+            const _elFillHandle = _elCellSel.querySelector(".luckysheet-cs-fillhandle");
+            if (_elFillHandle) _elFillHandle.style.cursor = "move";
+            const _elDragHandle = _elCellSel.querySelector(".luckysheet-cs-draghandle");
+            if (_elDragHandle) _elDragHandle.style.cursor = "move";
+        }
         cellMain.setCursor("move");
 
         Store.luckysheet_cell_selected_move = true;
@@ -64,13 +65,16 @@ export default function selectionDrag() {
 
         Store.luckysheet_cell_selected_move_index = [row_index, col_index];
 
-        $("#luckysheet-cell-selected-move").css({
-            left: col_pre,
-            width: col - col_pre - 1,
-            top: row_pre,
-            height: row - row_pre - 1,
-            display: "block",
-        });
+        const _elCellSelectedMove = document.getElementById("luckysheet-cell-selected-move");
+        if (_elCellSelectedMove) {
+            Object.assign(_elCellSelectedMove.style, {
+                left: col_pre,
+                width: col - col_pre - 1,
+                top: row_pre,
+                height: row - row_pre - 1,
+                display: "block",
+            });
+        }
 
         event.stopPropagation();
     });
@@ -83,12 +87,13 @@ export default function selectionDrag() {
                 return;
             }
 
-            $("#luckysheet-cell-selected")
-                .find(".luckysheet-cs-fillhandle")
-                .css("cursor", "crosshair")
-                .end()
-                .find(".luckysheet-cs-draghandle")
-                .css("cursor", "crosshair");
+            const _elCellSel2 = document.getElementById("luckysheet-cell-selected");
+            if (_elCellSel2) {
+                const _elFillHandle2 = _elCellSel2.querySelector(".luckysheet-cs-fillhandle");
+                if (_elFillHandle2) _elFillHandle2.style.cursor = "crosshair";
+                const _elDragHandle2 = _elCellSel2.querySelector(".luckysheet-cs-draghandle");
+                if (_elDragHandle2) _elDragHandle2.style.cursor = "crosshair";
+            }
             cellMain.setCursor("crosshair");
 
             let pageX = event.pageX, pageY = event.pageY;
@@ -113,13 +118,16 @@ export default function selectionDrag() {
 
                 Store.luckysheet_cell_selected_extend_index = [row_index, col_index];
 
-                $("#luckysheet-cell-selected-extend").css({
-                    left: col_pre,
-                    width: col - col_pre - 1,
-                    top: row_pre,
-                    height: row - row_pre - 1,
-                    display: "block",
-                });
+                const _elCellSelectedExtend = document.getElementById("luckysheet-cell-selected-extend");
+                if (_elCellSelectedExtend) {
+                    Object.assign(_elCellSelectedExtend.style, {
+                        left: col_pre,
+                        width: col - col_pre - 1,
+                        top: row_pre,
+                        height: row - row_pre - 1,
+                        display: "block",
+                    });
+                }
             }, 100);
 
             event.stopPropagation();
@@ -232,9 +240,9 @@ export default function selectionDrag() {
             luckysheetDropCell.update();
             luckysheetDropCell.createIcon();
 
-            $("#luckysheet-cell-selected-move").hide();
+            const _elMoveHide = document.getElementById("luckysheet-cell-selected-move"); if (_elMoveHide) _elMoveHide.style.display = 'none';
 
-            $("#luckysheet-sheettable").css("cursor", "default");
+            const _elSheettable = document.getElementById("luckysheet-sheettable"); if (_elSheettable) _elSheettable.style.cursor = "default";
             clearTimeout(Store.countfuncTimeout);
             Store.countfuncTimeout = setTimeout(function() {
                 countfunc();

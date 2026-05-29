@@ -66,7 +66,7 @@ export function initMoreFormat(_this) {
           //更多格式
           $("#luckysheet-icon-fmtOtherSelf-menuButton").find(".luckysheet-cols-menuitem").click(function () {
             $menuButton.hide();
-            $("#luckysheet-icon-fmtOtherSelf-menuButton").hide();
+            const _elFmtOther = document.getElementById("luckysheet-icon-fmtOtherSelf-menuButton"); if (_elFmtOther) _elFmtOther.style.display = 'none';
             luckysheetContainerFocus();
             let itemvalue = $(this).attr("itemvalue");
             luckysheetMoreFormat.createDialog(itemvalue);

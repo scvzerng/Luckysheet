@@ -25,9 +25,10 @@ export function handleCellMouseup(event) {
   
                   const cellRightClickConfig = luckysheetConfigsetting.cellRightClickConfig;
   
-                  $("#luckysheet-cols-rows-data").show();
-                  $("#luckysheet-cols-rows-handleincell").show();
-                  $("#luckysheet-cols-rows-add, #luckysheet-cols-rows-shift").hide();
+                  const _colsRowsData = document.getElementById("luckysheet-cols-rows-data"); if (_colsRowsData) _colsRowsData.style.display = '';
+                  const _handleInCell = document.getElementById("luckysheet-cols-rows-handleincell"); if (_handleInCell) _handleInCell.style.display = '';
+                  const _colsRowsAdd = document.getElementById("luckysheet-cols-rows-add"); if (_colsRowsAdd) _colsRowsAdd.style.display = 'none';
+                  const _colsRowsShift = document.getElementById("luckysheet-cols-rows-shift"); if (_colsRowsShift) _colsRowsShift.style.display = 'none';
   
                   $$("#luckysheet-cols-rows-data .luckysheet-menuseparator").style.display = "block";
                   $$("#luckysheet-cols-rows-handleincell .luckysheet-menuseparator").style.display = "block";
@@ -60,14 +61,14 @@ export function handleCellMouseup(event) {
                       rightClickMenu.findText(".luckysheet-cols-rows-shift-left", locale().rightclick.left);
                       rightClickMenu.findText(".luckysheet-cols-rows-shift-right", locale().rightclick.right);
   
-                      $("#luckysheet-cols-rows-add").show();
+                      if (_colsRowsAdd) _colsRowsAdd.style.display = '';
                       // $("#luckysheet-cols-rows-data").show();
-                      $("#luckysheet-cols-rows-shift").hide();
-                      $("#luckysheet-cols-rows-handleincell").hide();
+                      if (_colsRowsShift) _colsRowsShift.style.display = 'none';
+                      if (_handleInCell) _handleInCell.style.display = 'none';
                       Store.luckysheet_cols_menu_status = true;
-  
+
                       $$("#luckysheet-cols-rows-add .luckysheet-menuseparator").style.display = "block";
-  
+
                       // 自定义右键菜单：向左向右增加列，删除列，隐藏显示列，设置列宽
                       $$("#luckysheet-top-left-add-selected").style.display = cellRightClickConfig.insertColumn
                           ? "block"
@@ -134,13 +135,11 @@ export function handleCellMouseup(event) {
                       }
   
                       if (isSame) {
-                          $("#luckysheet-cols-rows-add")
-                              .find("input[type='number'].rcsize")
-                              .val(first_collen);
+                          const _rcSizeInput = _colsRowsAdd ? _colsRowsAdd.querySelector("input[type='number'].rcsize") : null;
+                          if (_rcSizeInput) _rcSizeInput.value = first_collen;
                       } else {
-                          $("#luckysheet-cols-rows-add")
-                              .find("input[type='number'].rcsize")
-                              .val("");
+                          const _rcSizeInput = _colsRowsAdd ? _colsRowsAdd.querySelector("input[type='number'].rcsize") : null;
+                          if (_rcSizeInput) _rcSizeInput.value = "";
                       }
                   } else if (
                       obj_s["column"] != null &&
@@ -173,10 +172,10 @@ export function handleCellMouseup(event) {
                       rightClickMenu.findText(".luckysheet-cols-rows-shift-size", locale().rightclick.height);
                       rightClickMenu.findText(".luckysheet-cols-rows-shift-left", locale().rightclick.top);
                       rightClickMenu.findText(".luckysheet-cols-rows-shift-right", locale().rightclick.bottom);
-                      $("#luckysheet-cols-rows-add").show();
+                      if (_colsRowsAdd) _colsRowsAdd.style.display = '';
                       // $("#luckysheet-cols-rows-data").show();
-                      $("#luckysheet-cols-rows-shift").hide();
-                      $("#luckysheet-cols-rows-handleincell").hide();
+                      if (_colsRowsShift) _colsRowsShift.style.display = 'none';
+                      if (_handleInCell) _handleInCell.style.display = 'none';
                       Store.luckysheet_cols_menu_status = true;
   
                       $$("#luckysheet-cols-rows-add .luckysheet-menuseparator").style.display = "block";
@@ -247,13 +246,11 @@ export function handleCellMouseup(event) {
                       }
   
                       if (isSame) {
-                          $("#luckysheet-cols-rows-add")
-                              .find("input[type='number'].rcsize")
-                              .val(first_rowlen);
+                          const _rcSizeInput2 = _colsRowsAdd ? _colsRowsAdd.querySelector("input[type='number'].rcsize") : null;
+                          if (_rcSizeInput2) _rcSizeInput2.value = first_rowlen;
                       } else {
-                          $("#luckysheet-cols-rows-add")
-                              .find("input[type='number'].rcsize")
-                              .val("");
+                          const _rcSizeInput2 = _colsRowsAdd ? _colsRowsAdd.querySelector("input[type='number'].rcsize") : null;
+                          if (_rcSizeInput2) _rcSizeInput2.value = "";
                       }
                   } else {
                       // 如果全部按钮都隐藏，则整个菜单容器也要隐藏

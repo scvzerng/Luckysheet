@@ -40,16 +40,19 @@ const refreshButton = {
         },
 
         addButtonListener:function(txt, r, c){
-            let listener =  $("#luckysheet-formula-refresh").data("listener")
+            let listener = document.getElementById("luckysheet-formula-refresh")?.dataset.listener
 
             if(!listener){
                 console.info('listener')
-                $("#luckysheet-formula-refresh").data("listener","true")
-                $("#luckysheet-formula-refresh").on('click',(e)=>{
-                    this.execFunctionGroupForce(true);
-                    jfrefreshgrid()
-                    e.stopPropagation();
-                })
+                const _elFormulaRefresh = document.getElementById("luckysheet-formula-refresh");
+                if (_elFormulaRefresh) {
+                    _elFormulaRefresh.dataset.listener = "true";
+                    _elFormulaRefresh.addEventListener('click',(e)=>{
+                        this.execFunctionGroupForce(true);
+                        jfrefreshgrid()
+                        e.stopPropagation();
+                    })
+                }
             }
 
         },
@@ -72,16 +75,11 @@ const refreshButton = {
                 col_pre = margeset.column[0];
             }
 
-            $("#luckysheet-formula-refresh").show().css({
-                'max-width': col - col_pre,
-                'max-height': row - row_pre,
-                'left': col - 20,
-                'top': row_pre + (row - row_pre - 20) / 2
-            })
+            const _elFormulaRefresh = document.getElementById("luckysheet-formula-refresh"); if (_elFormulaRefresh) { _elFormulaRefresh.style.display = ''; _elFormulaRefresh.style.maxWidth = col - col_pre; _elFormulaRefresh.style.maxHeight = row - row_pre; _elFormulaRefresh.style.left = col - 20; _elFormulaRefresh.style.top = row_pre + (row - row_pre - 20) / 2; }
         },
 
         hideButton: function() {
-            $("#luckysheet-formula-refresh").hide()
+            const _elFormulaRefreshHide = document.getElementById("luckysheet-formula-refresh"); if (_elFormulaRefreshHide) _elFormulaRefreshHide.style.display = 'none'
         }
 };
 

@@ -129,7 +129,7 @@ const alternateformat = {
 
         //关闭
         $("#luckysheet-modal-dialog-slider-alternateformat .luckysheet-model-close-btn").click(function () {
-            $("#luckysheet-modal-dialog-slider-alternateformat").hide();
+            const _elAF1 = document.getElementById("luckysheet-modal-dialog-slider-alternateformat"); if (_elAF1) _elAF1.style.display = 'none';
             luckysheetsizeauto();
         });
 
@@ -152,10 +152,10 @@ const alternateformat = {
         });
         offNS("AFrangeIcon");
         onNS(document, "click.AFrangeIcon", "#luckysheet-alternateformat-range .fa-table", function(){
-            $("#luckysheet-modal-dialog-slider-alternateformat").hide();
-            luckysheetsizeauto();
+            const _elAF2 = document.getElementById("luckysheet-modal-dialog-slider-alternateformat"); if (_elAF2) _elAF2.style.display = 'none';
+             luckysheetsizeauto();
 
-            let rangeValue = $(this).parents("#luckysheet-alternateformat-range").find("input").val().trim();
+             let rangeValue = $(this).parents("#luckysheet-alternateformat-range").find("input").val().trim();
             _this.rangeDialog(rangeValue);
         });
         offNS("AFrDCf");
@@ -164,7 +164,7 @@ const alternateformat = {
             $("#luckysheet-modal-dialog-slider-alternateformat #luckysheet-alternateformat-range input").val(rangeValue);
 
             $(this).parents("#luckysheet-alternateformat-rangeDialog").hide();
-            $("#luckysheet-modal-dialog-slider-alternateformat").show();
+            const _elAFShow1 = document.getElementById("luckysheet-modal-dialog-slider-alternateformat"); if (_elAFShow1) _elAFShow1.style.display = '';
             luckysheetsizeauto();
 
             _this.update();
@@ -172,13 +172,13 @@ const alternateformat = {
         offNS("AFrDCl");
         onNS(document, "click.AFrDCl", "#luckysheet-alternateformat-rangeDialog-close", function(){
             $(this).parents("#luckysheet-alternateformat-rangeDialog").hide();
-            $("#luckysheet-modal-dialog-slider-alternateformat").show();
+            const _elAFShow2 = document.getElementById("luckysheet-modal-dialog-slider-alternateformat"); if (_elAFShow2) _elAFShow2.style.display = '';
             luckysheetsizeauto();
         });
         offNS("AFrDTitle");
         onNS(document, "click.AFrDTitle", "#luckysheet-alternateformat-rangeDialog .luckysheet-modal-dialog-title-close", function(){
             $(this).parents("#luckysheet-alternateformat-rangeDialog").hide();
-            $("#luckysheet-modal-dialog-slider-alternateformat").show();
+            const _elAFShow3 = document.getElementById("luckysheet-modal-dialog-slider-alternateformat"); if (_elAFShow3) _elAFShow3.style.display = '';
             luckysheetsizeauto();
         });
 
@@ -456,7 +456,7 @@ const alternateformat = {
 
             //隐藏一些dom
             hideModalMask();
-            $("#luckysheet-modal-dialog-slider-alternateformat").hide();
+            const _elAF3 = document.getElementById("luckysheet-modal-dialog-slider-alternateformat"); if (_elAF3) _elAF3.style.display = 'none';
 
             luckysheetsizeauto();
         });
@@ -498,20 +498,20 @@ const alternateformat = {
     checkboxChange: function(hasRowHeader, hasRowFooter){
         if(hasRowHeader){
             $("#luckysheet-alternateformat-rowHeader").prop("checked", true);
-            $("#luckysheet-alternateformat-modelToning .header").show();
+            document.querySelectorAll("#luckysheet-alternateformat-modelToning .header").forEach(el => el.style.display = '');
         }
         else{
             $("#luckysheet-alternateformat-rowHeader").removeAttr("checked");  
-            $("#luckysheet-alternateformat-modelToning .header").hide(); 
+            document.querySelectorAll("#luckysheet-alternateformat-modelToning .header").forEach(el => el.style.display = 'none');
         }
 
         if(hasRowFooter){
             $("#luckysheet-alternateformat-rowFooter").prop("checked", true);
-            $("#luckysheet-alternateformat-modelToning .footer").show();
+            document.querySelectorAll("#luckysheet-alternateformat-modelToning .footer").forEach(el => el.style.display = '');
         }
         else{
             $("#luckysheet-alternateformat-rowFooter").removeAttr("checked"); 
-            $("#luckysheet-alternateformat-modelToning .footer").hide();  
+            document.querySelectorAll("#luckysheet-alternateformat-modelToning .footer").forEach(el => el.style.display = 'none');  
         }
 
         this.getModelBox(hasRowHeader, hasRowFooter);

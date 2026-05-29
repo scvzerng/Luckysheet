@@ -126,7 +126,7 @@ const luckysheetLocationCell = {
         offNS("locationCellConfirm");
         onNS(document, "click.locationCellConfirm", "#luckysheet-locationCell-dialog #luckysheet-locationCell-dialog-confirm", function(){
             hideModalMask();
-            $("#luckysheet-locationCell-dialog").hide();
+            const _elLocCell = document.getElementById("luckysheet-locationCell-dialog"); if (_elLocCell) _elLocCell.style.display = 'none';
 
             let $radio = $("#luckysheet-locationCell-dialog .listItem input:radio:checked");
             let id = $radio.attr("id");

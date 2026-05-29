@@ -222,7 +222,7 @@ export function initBorder(_this) {
             canvasborder.closePath();
           });
           $("#" + submenuid + " .luckysheet-cols-menuitem").click(function () {
-            $("#" + submenuid).hide();
+            const _elBorder = document.getElementById(submenuid); if (_elBorder) _elBorder.style.display = 'none';
             let $t = $(this),
               itemvalue = $t.attr("itemvalue");
             if (itemvalue == 0) {

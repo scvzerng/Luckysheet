@@ -54,12 +54,7 @@ const cellDatePickerCtrl = {
             col_pre = margeset.column[0];
         }
 
-        $(".cell-date-picker").show().css({
-            width: col - col_pre + 1,
-            height: row - row_pre + 1,
-            left: col_pre,
-            top: row_pre
-        })
+        document.querySelectorAll(".cell-date-picker").forEach(el => { el.style.display = ''; el.style.width = col - col_pre + 1; el.style.height = row - row_pre + 1; el.style.left = col_pre; el.style.top = row_pre; });
 
         if (/[上午下午]/.test(type)) {
             hasChineseTime = true

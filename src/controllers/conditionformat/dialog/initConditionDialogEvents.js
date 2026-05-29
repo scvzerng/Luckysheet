@@ -89,13 +89,13 @@ export function initConditionDialogEvents(_this) {
   
         //格式颜色
         let textcolor;
-        if ($("#checkTextColor").is(":checked")) {
+        if (document.getElementById("checkTextColor")?.checked) {
           textcolor = getPicker(document.getElementById("textcolorshow"))?.get('hex') || "#000";
         } else {
           textcolor = null;
         }
         let cellcolor;
-        if ($("#checkCellColor").is(":checked")) {
+        if (document.getElementById("checkCellColor")?.checked) {
           cellcolor = getPicker(document.getElementById("cellcolorshow"))?.get('hex') || "#fff";
         } else {
           cellcolor = null;
@@ -135,13 +135,13 @@ export function initConditionDialogEvents(_this) {
       offNS("CFicons");
       onNS(document, "click.CFicons", "#luckysheet-CFicons-dialog .item", function () {
         hideModalMask();
-        $("#luckysheet-CFicons-dialog").hide();
+        const _elCFicons = document.getElementById("luckysheet-CFicons-dialog"); if (_elCFicons) _elCFicons.style.display = 'none';
         if (Store.luckysheet_select_save.length > 0) {
           let cellrange = structuredClone(Store.luckysheet_select_save);
           let format = {
-            "len": $(this).attr("data-len"),
-            "leftMin": $(this).attr("data-leftMin"),
-            "top": $(this).attr("data-top")
+            "len": this.getAttribute("data-len"),
+            "leftMin": this.getAttribute("data-leftMin"),
+            "top": this.getAttribute("data-top")
           };
           _this.updateItem("icons", cellrange, format);
         }

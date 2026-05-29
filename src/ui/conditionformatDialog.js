@@ -1,14 +1,12 @@
-import $ from '../jquery-bridge.js';
-
 class ConditionformatDialog {
     constructor(selector) { this._selector = selector; this._el = null; }
-    get el() { if (!this._el || this._el.length === 0 || this._el.closest("body").length === 0) this._el = $(this._selector); return this._el; }
-    hide() { this.el.hide(); return this; }
-    show() { this.el.show(); return this; }
+    get el() { if (!this._el || !document.body.contains(this._el)) this._el = document.querySelector(this._selector); return this._el; }
+    hide() { this.el.style.display = 'none'; return this; }
+    show() { this.el.style.display = ''; return this; }
     remove() { this.el.remove(); this._el = null; return this; }
-    find(selector) { return this.el.find(selector); }
-    isVisible() { return this.el.is(":visible"); }
-    showAt(props) { this.el.css(props).show(); return this; }
+    find(selector) { return this.el.querySelector(selector); }
+    isVisible() { return this.el.offsetWidth > 0; }
+    showAt(props) { for (const [k, v] of Object.entries(props)) this.el.style[k] = typeof v === 'number' ? v + 'px' : v; this.el.style.display = ''; return this; }
 }
 
 const conditionformatDialog = {

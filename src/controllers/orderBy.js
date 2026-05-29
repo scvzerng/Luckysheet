@@ -41,7 +41,7 @@ export function orderByInitial(){
     let luckysheet_sort_initial = true;
     $("#luckysheetorderby").click(function () {
 
-        $("body .luckysheet-cols-menu").hide();
+        document.querySelectorAll("body .luckysheet-cols-menu").forEach(el => el.style.display = 'none');
         const locale_sort = _locale.sort;
         if(Store.luckysheet_select_save.length > 1){
             if(isEditMode()){
@@ -226,7 +226,7 @@ export function orderByInitial(){
 
                 jfrefreshgrid(d, [{ "row": [str, r2], "column": [c1, c2] }], allParam);
 
-                $("#luckysheet-sort-dialog").hide();
+                const _elSortDialog = document.getElementById("luckysheet-sort-dialog"); if (_elSortDialog) _elSortDialog.style.display = 'none';
                 hideModalMask();
             });
         }

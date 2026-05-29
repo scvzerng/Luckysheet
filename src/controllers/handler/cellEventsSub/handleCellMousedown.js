@@ -33,17 +33,18 @@ import inputBox from '../../../ui/inputBox.js';
 import canvasContext from '../../../ui/canvasContext.js';
 
 export function handleCellMousedown(event) {
-              if ($(event.target).hasClass("luckysheet-mousedown-cancel")) {
+              if (event.target.classList.contains("luckysheet-mousedown-cancel")) {
                   return;
               }
   
   
-              $("#luckysheet-cell-selected")
-                  .find(".luckysheet-cs-fillhandle")
-                  .css("cursor", "default")
-                  .end()
-                  .find(".luckysheet-cs-draghandle")
-                  .css("cursor", "default");
+              const _cellSelected = document.getElementById("luckysheet-cell-selected");
+              if (_cellSelected) {
+                  const _fillHandle = _cellSelected.querySelector(".luckysheet-cs-fillhandle");
+                  if (_fillHandle) _fillHandle.style.cursor = "default";
+                  const _dragHandle = _cellSelected.querySelector(".luckysheet-cs-draghandle");
+                  if (_dragHandle) _dragHandle.style.cursor = "default";
+              }
               cellMain.setCursorDefault();
   
               //有批注在编辑时
@@ -189,8 +190,7 @@ export function handleCellMousedown(event) {
               Store.luckysheet_scroll_status = true;
   
               //公式相关
-              let $input = inputBox.el;
-              if (parseInt($input.css("top")) > 0) {
+              if (inputBox.getTop() > 0) {
                   if (
                       formula.rangestart ||
                       formula.rangedrag_column_start ||
@@ -294,9 +294,7 @@ export function handleCellMousedown(event) {
                           formula.func_selectedrange = last;
                       } else if (
                           event.ctrlKey &&
-                          richTextEditor.find("span")
-                              .last()
-                              .text() != ","
+                          (() => { const _s = richTextEditor.el.querySelectorAll("span"); return _s.length ? _s[_s.length - 1].textContent : ""; })() != ","
                       ) {
                           //按住ctrl 选择选区时  先处理上一个选区
                           let vText = richTextEditor.getText();
@@ -318,9 +316,7 @@ export function handleCellMousedown(event) {
                                   // all browsers, except IE before version 9
                                   let currSelection = window.getSelection();
                                   formula.functionRangeIndex = [
-                                      $(currSelection.anchorNode)
-                                          .parent()
-                                          .index(),
+                                      (() => { const _p = currSelection.anchorNode.parentElement; return _p ? Array.from(_p.parentElement.children).indexOf(_p) : -1; })(),
                                       currSelection.anchorOffset,
                                   ];
                               } else {
@@ -331,7 +327,7 @@ export function handleCellMousedown(event) {
   
                               /* 在显示前重新 + 右侧的圆括号) */
   
-                              richTextEditor.html(vText + ")");
+                              richTextEditor.setHtml(vText + ")");
   
                               formula.canceFunctionrangeSelected();
                               formula.createRangeHightlight();
@@ -396,20 +392,21 @@ export function handleCellMousedown(event) {
                           let currSelection = window.getSelection();
                           let anchorOffset = currSelection.anchorNode;
 
-                          let $editor;
+                          let _editor;
                           if (
                               formulaDialogs.searchParm.isVisible() ||
                               formulaDialogs.searchParmSelect.isVisible()
                           ) {
-                              $editor = richTextEditor.el;
+                              _editor = richTextEditor.el;
                               formula.rangechangeindex = formula.data_parm_index;
                           } else {
-                              $editor = $(anchorOffset).closest("div");
+                              const _anchorEl = anchorOffset.nodeType === Node.TEXT_NODE ? anchorOffset.parentElement : anchorOffset;
+                              _editor = _anchorEl ? _anchorEl.closest("div") : null;
                           }
-  
-                          let $span = $editor.find("span[rangeindex='" + formula.rangechangeindex + "']");
-                          if ($span && $span != undefined && $span != null && $span && $span.html().length) {
-                              formula.setCaretPosition($span.get(0), 0, $span.html().length);
+
+                          let _span = _editor ? _editor.querySelector("span[rangeindex='" + formula.rangechangeindex + "']") : null;
+                          if (_span && _span.innerHTML.length) {
+                              formula.setCaretPosition(_span, 0, _span.innerHTML.length);
                           }
                       }, 1);
                       return;
@@ -417,7 +414,7 @@ export function handleCellMousedown(event) {
                       formula.updatecell(Store.luckysheetCellUpdate[0], Store.luckysheetCellUpdate[1]);
                       Store.luckysheet_select_status = true;
   
-                      if ($("#luckysheet-info").is(":visible")) {
+                      const _info = document.getElementById("luckysheet-info"); if (_info && _info.offsetWidth > 0) {
                           Store.luckysheet_select_status = false;
                       }
                   }
@@ -550,7 +547,7 @@ export function handleCellMousedown(event) {
                   selectionCopyShow(conditionformat.selectRange);
   
                   let range = conditionformat.getTxtByRange(conditionformat.selectRange);
-                  formulaDialogs.multiRange.find("input").val(range);
+                  let _multiRangeInput = formulaDialogs.multiRange.find("input"); if (_multiRangeInput) _multiRangeInput.value = range;
   
                   return;
               } else {
@@ -569,14 +566,14 @@ export function handleCellMousedown(event) {
                       { row: [row_index, row_index], column: [col_index, col_index] },
                       Store.currentSheetIndex,
                   );
-                  formulaDialogs.singleRange.find("input").val(range);
+                  let _singleRangeInput = formulaDialogs.singleRange.find("input"); if (_singleRangeInput) _singleRangeInput.value = range;
   
                   return;
               }
   
               //if公式生成器
               if (ifFormulaGenerator.singleRangeFocus) {
-                  formulaDialogs.ifFormulaDialog.find(".singRange").click();
+                  let _singRangeBtn = formulaDialogs.ifFormulaDialog.find(".singRange"); if (_singRangeBtn) _singRangeBtn.click();
               }
               if (formulaDialogs.ifFormulaSingleRange.isVisible()) {
                   //选择单个单元格
@@ -596,7 +593,7 @@ export function handleCellMousedown(event) {
                       { row: [row_index, row_index], column: [col_index, col_index] },
                       Store.currentSheetIndex,
                   );
-                  formulaDialogs.ifFormulaSingleRange.find("input").val(range);
+                  let _ifSingleInput = formulaDialogs.ifFormulaSingleRange.find("input"); if (_ifSingleInput) _ifSingleInput.value = range;
 
                   return;
               }
@@ -632,7 +629,7 @@ export function handleCellMousedown(event) {
                       { row: [row_index, row_index], column: [col_index, col_index] },
                       Store.currentSheetIndex,
                   );
-                  formulaDialogs.ifFormulaMultiRange.find("input").val(range);
+                  let _ifMultiInput = formulaDialogs.ifFormulaMultiRange.find("input"); if (_ifMultiInput) _ifMultiInput.value = range;
   
                   countShow.row.hide();
                   countShow.column.hide();
@@ -728,10 +725,10 @@ export function handleCellMousedown(event) {
                       setLastSelection(last);
   
                       //交替颜色选择范围
-                      if ($("#luckysheet-alternateformat-rangeDialog").is(":visible")) {
-                          $("#luckysheet-alternateformat-rangeDialog input").val(
-                              getRangetxt(Store.currentSheetIndex, Store.luckysheet_select_save),
-                          );
+                      const _rangeDialog = document.getElementById("luckysheet-alternateformat-rangeDialog");
+                      if (_rangeDialog && _rangeDialog.offsetWidth > 0) {
+                          const _rangeDialogInput = _rangeDialog.querySelector("input");
+                          if (_rangeDialogInput) _rangeDialogInput.value = getRangetxt(Store.currentSheetIndex, Store.luckysheet_select_save);
                       }
   
                   } else if (event.ctrlKey) {
@@ -790,7 +787,7 @@ export function handleCellMousedown(event) {
               //交替颜色
               if (alternateformat.rangefocus) {
                   alternateformat.rangefocus = false;
-                  $("#luckysheet-alternateformat-range .fa-table").click();
+                  const _faTable = document.querySelector("#luckysheet-alternateformat-range .fa-table"); if (_faTable) _faTable.click();
               }
   
               countShow.row.hide();

@@ -90,12 +90,12 @@ export function setRangeShow(range, options = {}) {
         selectHightlightShow();
 
         if(!show){
-            $("#luckysheet-cell-selected-boxs").hide();
+            const _elSelBoxs = document.getElementById("luckysheet-cell-selected-boxs"); if (_elSelBoxs) _elSelBoxs.style.display = 'none';
             cellSelectedFocus.hide();
             countShow.row.hide();
             countShow.column.hide();
-            $("#luckysheet-rows-h-selected").empty();
-            $("#luckysheet-cols-h-selected").empty();
+            const _elRowsH = document.getElementById("luckysheet-rows-h-selected"); if (_elRowsH) _elRowsH.innerHTML = '';
+            const _elColsH = document.getElementById("luckysheet-cols-h-selected"); if (_elColsH) _elColsH.innerHTML = '';
         }
     }
 

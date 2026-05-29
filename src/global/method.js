@@ -339,7 +339,7 @@ const method = {
             resizeHandles.changeSizeLine.hide();
             cellSelectedFocus.hide();
             selectionCopy.hide();
-            $("#luckysheet-cell-selected-extend, #luckysheet-cell-selected-move, #luckysheet-cell-selected").hide();
+            [document.getElementById("luckysheet-cell-selected-extend"), document.getElementById("luckysheet-cell-selected-move"), document.getElementById("luckysheet-cell-selected")].forEach(el => { if (el) el.style.display = 'none'; });
 
             delete sheetfile.load;
     },

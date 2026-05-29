@@ -112,8 +112,8 @@ const hyperlinkCtrl = {
         onNS(document, "change.linkType", "#luckysheet-insertLink-dialog-linkType", function(e){
             let value = this.value;
 
-            $("#luckysheet-insertLink-dialog .show-box").hide();
-            $("#luckysheet-insertLink-dialog .show-box-" + value).show();
+            document.querySelectorAll("#luckysheet-insertLink-dialog .show-box").forEach(el => el.style.display = 'none');
+            const _elShowBox = document.querySelector("#luckysheet-insertLink-dialog .show-box-" + value); if (_elShowBox) _elShowBox.style.display = '';
         })
 
         //确认按钮
@@ -188,7 +188,7 @@ const hyperlinkCtrl = {
             );
 
             hideModalMask();
-            $("#luckysheet-insertLink-dialog").hide();
+            const _elLinkDialog = document.getElementById("luckysheet-insertLink-dialog"); if (_elLinkDialog) _elLinkDialog.style.display = 'none';
         })
     },
     dataAllocation: function(){
@@ -209,8 +209,8 @@ const hyperlinkCtrl = {
         let linkType = item.linkType || 'external';
         $("#luckysheet-insertLink-dialog-linkType").val(linkType);
 
-        $("#luckysheet-insertLink-dialog .show-box").hide();
-        $("#luckysheet-insertLink-dialog .show-box-" + linkType).show();
+        document.querySelectorAll("#luckysheet-insertLink-dialog .show-box").forEach(el => el.style.display = 'none');
+        const _elShowBox2 = document.querySelector("#luckysheet-insertLink-dialog .show-box-" + linkType); if (_elShowBox2) _elShowBox2.style.display = '';
 
         //链接地址
         let linkAddress = item.linkAddress || '';

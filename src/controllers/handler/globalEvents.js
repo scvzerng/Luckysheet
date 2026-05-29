@@ -30,14 +30,23 @@ import conditionformatDialog from '../../ui/conditionformatDialog.js';
 import functionBox from '../../ui/functionBox.js';
 
 export default function globalEvents() {
-    rightClickMenu.find("input").on("keydown", function(e) {
-        e.stopPropagation();
-    });
+    const _menuEl = document.getElementById("luckysheet-rightclick-menu");
+    if (_menuEl) {
+        const _menuInput = _menuEl.querySelector("input");
+        if (_menuInput) _menuInput.addEventListener("keydown", function(e) {
+            e.stopPropagation();
+        });
+    }
 
-    $("#luckysheet-modal-dialog-mask").on("click dbclick mousedown mousemove mouseup", function(e) {
-        e.stopPropagation();
-        e.preventDefault();
-    });
+    const _mask = document.getElementById("luckysheet-modal-dialog-mask");
+    if (_mask) {
+        ["click", "dblclick", "mousedown", "mousemove", "mouseup"].forEach(function(evt) {
+            _mask.addEventListener(evt, function(e) {
+                e.stopPropagation();
+                e.preventDefault();
+            });
+        });
+    }
 
     let copychange = function() {
         if (document.hidden || document.webkitHidden || document.msHidden) {
@@ -57,7 +66,7 @@ export default function globalEvents() {
         hideMenuByCancel(event);
 
         if (
-            $(event.target).closest("#luckysheet-wa-editor").length > 0 &&
+            event.target.closest("#luckysheet-wa-editor") !== null &&
             isInputBoxActive()
         ) {
             formula.updatecell(Store.luckysheetCellUpdate[0], Store.luckysheetCellUpdate[1]);
@@ -66,9 +75,9 @@ export default function globalEvents() {
     });
 
     //表格左上角点击 全选表格
-    $("#luckysheet-left-top").click(function(event) {
+    const _leftTop = document.getElementById("luckysheet-left-top"); if (_leftTop) _leftTop.addEventListener("click", function(event) {
 
-        $("#luckysheet-wa-functionbox-confirm").click();
+        const _confirmBtn = document.getElementById("luckysheet-wa-functionbox-confirm"); if (_confirmBtn) _confirmBtn.click();
         Store.luckysheet_select_status = false;
 
         Store.luckysheet_select_save = [
@@ -93,14 +102,14 @@ export default function globalEvents() {
     });
 
     //回退 重做 按钮
-    $("#luckysheet-icon-undo").click(function(event) {
-        if ($(this).hasClass("disabled")) {
+    const _undoBtn = document.getElementById("luckysheet-icon-undo"); if (_undoBtn) _undoBtn.addEventListener("click", function(event) {
+        if (this.classList.contains("disabled")) {
             return;
         }
         controlHistory.redo(event);
     });
-    $("#luckysheet-icon-redo").click(function(event) {
-        if ($(this).hasClass("disabled")) {
+    const _redoBtn = document.getElementById("luckysheet-icon-redo"); if (_redoBtn) _redoBtn.addEventListener("click", function(event) {
+        if (this.classList.contains("disabled")) {
             return;
         }
         controlHistory.undo(event);
@@ -108,49 +117,47 @@ export default function globalEvents() {
 
     //模态框拖动
     onNS(document, "mousedown.luckysheetEvent", "div.luckysheet-modal-dialog", function(e) {
-        if (!$(e.target).is(".luckysheet-modal-dialog")) {
+        if (!e.target.matches(".luckysheet-modal-dialog")) {
             return;
         }
 
         Store.luckysheet_model_move_state = true;
 
-        Store.luckysheet_model_move_obj = $(e.currentTarget);
-        let toffset = Store.luckysheet_model_move_obj.offset();
+        Store.luckysheet_model_move_obj = e.currentTarget;
+        const _objRect = Store.luckysheet_model_move_obj.getBoundingClientRect();
+        let toffset = {top: _objRect.top + window.pageYOffset, left: _objRect.left + window.pageXOffset};
         Store.luckysheet_model_xy = [e.pageX - toffset.left, e.pageY - toffset.top];
     });
 
     //模态框关闭
     onNS(document, "click.luckysheetEvent", ".luckysheet-modal-dialog-title-close, .luckysheet-model-close-btn", function(e) {
             //选择文本颜色和单元格颜色弹出框取消
-            if ($("#textcolorselect").is(":visible") || $("#cellcolorselect").is(":visible")) {
+            const _textColor = document.getElementById("textcolorselect");
+            const _cellColor = document.getElementById("cellcolorselect");
+            if ((_textColor && _textColor.offsetWidth > 0) || (_cellColor && _cellColor.offsetWidth > 0)) {
                 conditionformatDialog.main.show();
             }
-            $(e.currentTarget)
-                .parents(".luckysheet-modal-dialog")
-                .hide();
+            e.currentTarget.closest(".luckysheet-modal-dialog").style.display = 'none';
             hideModalMask();
 
             //函数查找功能所有弹出框关闭和取消
             if (
-                $(this)
-                    .parents(".luckysheet-modal-dialog")
-                    .hasClass("luckysheet-search-formula")
+                this.closest(".luckysheet-modal-dialog")
+                    .classList.contains("luckysheet-search-formula")
             ) {
                 formula.dontupdate();
                 luckysheetMoveHighlightCell("down", 0, "rangeOfSelect");
             }
             if (
-                $(this)
-                    .parents(".luckysheet-modal-dialog")
-                    .hasClass("luckysheet-search-formula-parm")
+                this.closest(".luckysheet-modal-dialog")
+                    .classList.contains("luckysheet-search-formula-parm")
             ) {
                 formula.dontupdate();
                 luckysheetMoveHighlightCell("down", 0, "rangeOfSelect");
             }
             if (
-                $(this)
-                    .parents(".luckysheet-modal-dialog")
-                    .hasClass("luckysheet-search-formula-parm-select")
+                this.closest(".luckysheet-modal-dialog")
+                    .classList.contains("luckysheet-search-formula-parm-select")
             ) {
                 formula.dontupdate();
                 luckysheetMoveHighlightCell("down", 0, "rangeOfSelect");

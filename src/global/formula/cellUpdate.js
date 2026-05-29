@@ -87,7 +87,7 @@ const cellUpdate = {
                 }
 
                 curv.ct.t = "inlineStr";
-                curv.ct.s = convertSpanToShareString($input.find("span"));
+                curv.ct.s = convertSpanToShareString($input.querySelectorAll("span"));
                 if (isCopyVal) {
                     curv.ct.s = [
                         {
@@ -98,7 +98,7 @@ const cellUpdate = {
             }
 
             // API, we get value from user
-            value = value || $input.text();
+            value = value || $input.textContent;
 
             // Hook function
             if (!method.createHookFunction("cellUpdateBefore", r, c, value, isRefresh)) {
@@ -385,7 +385,7 @@ const cellUpdate = {
 
             _this.canceFunctionrangeSelected();
 
-            $("#luckysheet-formula-functionrange .luckysheet-formula-functionrange-highlight").remove();
+            document.querySelectorAll("#luckysheet-formula-functionrange .luckysheet-formula-functionrange-highlight").forEach(el => el.remove());
             resetInputBoxStyle();
             inputBoxIndex.hide();
             functionBox.unsetActive();

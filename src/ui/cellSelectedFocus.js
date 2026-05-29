@@ -1,12 +1,14 @@
-import $ from '../jquery-bridge.js';
-
 class CellSelectedFocus {
     constructor() { this._el = null; }
-    get el() { if (!this._el || this._el.length === 0) this._el = $("#luckysheet-cell-selected-focus"); return this._el; }
+    get el() { if (!this._el || !document.body.contains(this._el)) this._el = document.getElementById("luckysheet-cell-selected-focus"); return this._el; }
 
-    showAt(props) { this.el.show().css(props); return this; }
-    hide() { this.el.hide(); return this; }
-    setCss(props) { this.el.css(props); return this; }
+    showAt(props) {
+        this.el.style.display = '';
+        for (const [k, v] of Object.entries(props)) this.el.style[k] = typeof v === 'number' ? v + 'px' : v;
+        return this;
+    }
+    hide() { this.el.style.display = 'none'; return this; }
+    setCss(props) { for (const [k, v] of Object.entries(props)) this.el.style[k] = typeof v === 'number' ? v + 'px' : v; return this; }
 }
 
 export default new CellSelectedFocus();

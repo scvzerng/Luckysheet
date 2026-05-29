@@ -11,8 +11,8 @@ const sheetLayoutModule = {
   },
   getCurrentOrder: function () {
     let orders = {};
-    $("#luckysheet-sheet-area div.luckysheet-sheets-item").each(function (a) {
-      let index = $(this).data("index");
+    document.querySelectorAll("#luckysheet-sheet-area div.luckysheet-sheets-item").forEach(function (el, a) {
+      let index = el.dataset.index;
       for (let i = 0; i < Store.luckysheetfile.length; i++) {
         if (Store.luckysheetfile[i].index == index) {
           orders[index.toString()] = a;
@@ -24,8 +24,8 @@ const sheetLayoutModule = {
   },
   reOrderAllSheet: function () {
     let orders = {};
-    $("#luckysheet-sheet-area div.luckysheet-sheets-item").each(function (a) {
-      let index = $(this).data("index");
+    document.querySelectorAll("#luckysheet-sheet-area div.luckysheet-sheets-item").forEach(function (el, a) {
+      let index = el.dataset.index;
       for (let i = 0; i < Store.luckysheetfile.length; i++) {
         if (Store.luckysheetfile[i].index == index) {
           Store.luckysheetfile[i].order = a;
@@ -50,25 +50,28 @@ const sheetLayoutModule = {
   },
   // *控制sheet栏的左右滚动按钮是否显示
   locationSheet: function () {
-    let winW = $("#" + Store.container).width();
+    const _elContainer = document.getElementById(Store.container);
+    let winW = _elContainer ? _elContainer.getBoundingClientRect().width : 0;
     let $cursheet = sheetContainer.getActiveSheetItem();
     let scrollLeftpx = 0;
     let c_width = 0;
-    sheetContainer.find("div.luckysheet-sheets-item:visible").each(function () {
-      if ($(this).hasClass("luckysheet-sheets-item-active")) {
-        scrollLeftpx = c_width;
+    document.querySelectorAll("#luckysheet-sheet-area div.luckysheet-sheets-item").forEach(function (el) {
+      if (el.offsetWidth > 0) {
+        if (el.classList.contains("luckysheet-sheets-item-active")) {
+          scrollLeftpx = c_width;
+        }
+        c_width += el.offsetWidth;
       }
-      c_width += $(this).outerWidth();
     });
     setTimeout(function () {
       sheetContainer.setScrollLeft(scrollLeftpx - 10);
       if (luckysheetConfigsetting.showsheetbarConfig.sheet) {
         if (c_width >= winW * 0.7) {
-          $("#luckysheet-sheet-area .luckysheet-sheets-scroll").css("display", "inline-block");
-          $("#luckysheet-sheet-container .docs-sheet-fade-left").show();
+          document.querySelectorAll("#luckysheet-sheet-area .luckysheet-sheets-scroll").forEach(el => el.style.display = 'inline-block');
+          document.querySelectorAll("#luckysheet-sheet-container .docs-sheet-fade-left").forEach(el => el.style.display = '');
         } else {
-          $("#luckysheet-sheet-area .luckysheet-sheets-scroll").css("display", "none");
-          $("#luckysheet-sheet-container .docs-sheet-fade-left").hide();
+          document.querySelectorAll("#luckysheet-sheet-area .luckysheet-sheets-scroll").forEach(el => el.style.display = 'none');
+          document.querySelectorAll("#luckysheet-sheet-container .docs-sheet-fade-left").forEach(el => el.style.display = 'none');
         }
       }
     }, 1);
@@ -79,32 +82,35 @@ const sheetLayoutModule = {
     var w = Math.ceil(sheetContainer.getWidth());
     if (sw > w) {
       if (luckysheetConfigsetting.showsheetbarConfig.sheet) {
-        $("#luckysheet-sheet-area .luckysheet-sheets-scroll").css("display", "inline-block");
-        $("#luckysheet-sheet-container .docs-sheet-fade-left").show();
+        document.querySelectorAll("#luckysheet-sheet-area .luckysheet-sheets-scroll").forEach(el => el.style.display = 'inline-block');
+        document.querySelectorAll("#luckysheet-sheet-container .docs-sheet-fade-left").forEach(el => el.style.display = '');
       }
     } else {
-      $("#luckysheet-sheet-area .luckysheet-sheets-scroll").css("display", "none");
-      $("#luckysheet-sheet-container .docs-sheet-fade-left").hide();
+      document.querySelectorAll("#luckysheet-sheet-area .luckysheet-sheets-scroll").forEach(el => el.style.display = 'none');
+      document.querySelectorAll("#luckysheet-sheet-container .docs-sheet-fade-left").forEach(el => el.style.display = 'none');
     }
   },
   // *显示sheet栏左右的灰色
   sheetBarShowAndHide(index) {
     if (index != null) {
-      let $sheet = $("#luckysheet-sheets-item" + index);
-      sheetContainer.setScrollLeft($sheet.offset().left);
+      const _elSheet = document.getElementById("luckysheet-sheets-item" + index);
+      if (_elSheet) {
+        const rect = _elSheet.getBoundingClientRect();
+        sheetContainer.setScrollLeft(rect.left + window.pageXOffset);
+      }
     }
     let c_width = sheetContainer.getWidth(),
       c_srollwidth = sheetContainer.getScrollWidth(),
       scrollLeft = sheetContainer.getScrollLeft();
     if (scrollLeft <= 0) {
-      $("#luckysheet-sheet-container .docs-sheet-fade-left").hide();
+      document.querySelectorAll("#luckysheet-sheet-container .docs-sheet-fade-left").forEach(el => el.style.display = 'none');
     } else {
-      $("#luckysheet-sheet-container .docs-sheet-fade-left").show();
+      document.querySelectorAll("#luckysheet-sheet-container .docs-sheet-fade-left").forEach(el => el.style.display = '');
     }
     if (c_width + scrollLeft >= c_srollwidth) {
-      $("#luckysheet-sheet-container .docs-sheet-fade-right").hide();
+      document.querySelectorAll("#luckysheet-sheet-container .docs-sheet-fade-right").forEach(el => el.style.display = 'none');
     } else {
-      $("#luckysheet-sheet-container .docs-sheet-fade-right").show();
+      document.querySelectorAll("#luckysheet-sheet-container .docs-sheet-fade-right").forEach(el => el.style.display = '');
     }
   }
 };

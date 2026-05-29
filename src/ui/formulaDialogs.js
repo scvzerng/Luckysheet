@@ -1,5 +1,3 @@
-import $ from '../jquery-bridge.js';
-
 class FormulaDialog {
     constructor(selector) {
         this._selector = selector;
@@ -7,22 +5,25 @@ class FormulaDialog {
     }
 
     get el() {
-        if (!this._el || this._el.length === 0 || this._el.closest("body").length === 0) this._el = $(this._selector);
+        if (!this._el || !document.body.contains(this._el)) this._el = document.querySelector(this._selector);
         return this._el;
     }
 
-    isVisible() { return this.el.is(":visible"); }
-    hide() { this.el.hide(); return this; }
-    show() { this.el.show(); return this; }
-    showAt(props) { this.el.css(props).show(); return this; }
+    isVisible() { return this.el.offsetWidth > 0; }
+    hide() { this.el.style.display = 'none'; return this; }
+    show() { this.el.style.display = ''; return this; }
+    showAt(props) { for (const [k, v] of Object.entries(props)) this.el.style[k] = typeof v === 'number' ? v + 'px' : v; this.el.style.display = ''; return this; }
     remove() { this.el.remove(); this._el = null; return this; }
     setContentCss(props) {
-        this.el.find(".luckysheet-modal-dialog-content").css(props).end();
+        const content = this.el.querySelector(".luckysheet-modal-dialog-content");
+        if (content) {
+            for (const [k, v] of Object.entries(props)) content.style[k] = typeof v === 'number' ? v + 'px' : v;
+        }
         return this;
     }
-    getLength() { return this.el.length; }
-    setCss(props) { this.el.css(props); return this; }
-    find(selector) { return this.el.find(selector); }
+    getLength() { return this.el ? 1 : 0; }
+    setCss(props) { for (const [k, v] of Object.entries(props)) this.el.style[k] = typeof v === 'number' ? v + 'px' : v; return this; }
+    find(selector) { return this.el.querySelector(selector); }
 }
 
 const formulaDialogs = {

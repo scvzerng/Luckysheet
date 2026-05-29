@@ -691,8 +691,8 @@ const formulaParser = {
                     }
                 } else {
                     if (matchConfig.dquote == 0 && matchConfig.squote == 0) {
-                        // str += $.trim(s);
-                        str += s; //Do not use $.trim(s). When obtaining the worksheet name that contains spaces, you should keep the spaces
+                        // str += s.trim();
+                        str += s; //Do not use s.trim(). When obtaining the worksheet name that contains spaces, you should keep the spaces
                     } else {
                         str += s;
                     }

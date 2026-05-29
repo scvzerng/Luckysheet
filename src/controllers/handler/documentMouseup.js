@@ -137,12 +137,13 @@ export default function documentMouseup() {
         window.cancelAnimationFrame(Store.jfautoscrollTimeout);
         Store.luckysheet_scroll_status = false;
 
-        $("#luckysheet-cell-selected")
-            .find(".luckysheet-cs-fillhandle")
-            .css("cursor", "crosshair")
-            .end()
-            .find(".luckysheet-cs-draghandle")
-            .css("cursor", "move");
+        const _cellSelected = document.getElementById("luckysheet-cell-selected");
+        if (_cellSelected) {
+            const _fillHandle = _cellSelected.querySelector(".luckysheet-cs-fillhandle");
+            if (_fillHandle) _fillHandle.style.cursor = "crosshair";
+            const _dragHandle = _cellSelected.querySelector(".luckysheet-cs-draghandle");
+            if (_dragHandle) _dragHandle.style.cursor = "move";
+        }
         cellMain.setCursorDefault();
 
         //行标题窗格主体
@@ -155,15 +156,15 @@ export default function documentMouseup() {
 
         if (formula.functionResizeStatus) {
             formula.functionResizeStatus = false;
-            $("#luckysheet-wa-calculate-size").removeAttr("style");
+            const _calcSize = document.getElementById("luckysheet-wa-calculate-size"); if (_calcSize) _calcSize.removeAttribute("style");
         }
 
         if (luckysheetFreezen.horizontalmovestate) {
             luckysheetFreezen.horizontalmovestate = false;
-            $("#luckysheet-freezebar-horizontal").removeClass("luckysheet-freezebar-active");
-            $("#luckysheet-freezebar-horizontal")
-                .find(".luckysheet-freezebar-horizontal-handle")
-                .css("cursor", "-webkit-grab");
+            const _freezeHBar = document.getElementById("luckysheet-freezebar-horizontal");
+            if (_freezeHBar) _freezeHBar.classList.remove("luckysheet-freezebar-active");
+            const _freezeHHandle = _freezeHBar ? _freezeHBar.querySelector(".luckysheet-freezebar-horizontal-handle") : null;
+            if (_freezeHHandle) _freezeHHandle.style.cursor = "-webkit-grab";
             if (luckysheetFreezen.freezenhorizontaldata[4] <= Store.columnHeaderHeight) {
                 luckysheetFreezen.cancelFreezenHorizontal();
             }
@@ -173,10 +174,10 @@ export default function documentMouseup() {
 
         if (luckysheetFreezen.verticalmovestate) {
             luckysheetFreezen.verticalmovestate = false;
-            $("#luckysheet-freezebar-vertical").removeClass("luckysheet-freezebar-active");
-            $("#luckysheet-freezebar-vertical")
-                .find(".luckysheet-freezebar-vertical-handle")
-                .css("cursor", "-webkit-grab");
+            const _freezeVBar = document.getElementById("luckysheet-freezebar-vertical");
+            if (_freezeVBar) _freezeVBar.classList.remove("luckysheet-freezebar-active");
+            const _freezeVHandle = _freezeVBar ? _freezeVBar.querySelector(".luckysheet-freezebar-vertical-handle") : null;
+            if (_freezeVHandle) _freezeVHandle.style.cursor = "-webkit-grab";
             if (luckysheetFreezen.freezenverticaldata[4] <= Store.rowHeaderWidth) {
                 luckysheetFreezen.cancelFreezenVertical();
             }
@@ -187,10 +188,11 @@ export default function documentMouseup() {
 
         if (Store.luckysheet_sheet_move_status) {
             Store.luckysheet_sheet_move_status = false;
-            Store.luckysheet_sheet_move_data.activeobject.insertBefore($("#luckysheet-sheets-item-clone"));
-            Store.luckysheet_sheet_move_data.activeobject.removeAttr("style");
-            $("#luckysheet-sheets-item-clone").remove();
-            Store.luckysheet_sheet_move_data.cursorobject.css({ cursor: "pointer" });
+            const _sheetClone = document.getElementById("luckysheet-sheets-item-clone");
+            if (Store.luckysheet_sheet_move_data.activeobject && _sheetClone) _sheetClone.before(Store.luckysheet_sheet_move_data.activeobject);
+            if (Store.luckysheet_sheet_move_data.activeobject) Store.luckysheet_sheet_move_data.activeobject.removeAttribute("style");
+            if (_sheetClone) _sheetClone.remove();
+            if (Store.luckysheet_sheet_move_data.cursorobject) Store.luckysheet_sheet_move_data.cursorobject.style.cursor = "pointer";
             Store.luckysheet_sheet_move_data = {};
             sheetmanage.reOrderAllSheet();
         }
@@ -225,7 +227,7 @@ export default function documentMouseup() {
         if (luckysheetPostil.move) {
             luckysheetPostil.move = false;
 
-            let ps_id = luckysheetPostil.currentObj.closest(".luckysheet-postil-show").attr("id");
+            let ps_id = luckysheetPostil.currentObj.closest(".luckysheet-postil-show").id;
 
             let ps_r = ps_id.split("luckysheet-postil-show_")[1].split("_")[0];
             let ps_c = ps_id.split("luckysheet-postil-show_")[1].split("_")[1];
@@ -233,11 +235,11 @@ export default function documentMouseup() {
             let d = editor.deepCopyFlowData(Store.flowdata);
             let rc = [];
 
-            d[ps_r][ps_c].ps.left = luckysheetPostil.currentObj.position().left;
-            d[ps_r][ps_c].ps.top = luckysheetPostil.currentObj.position().top;
+            d[ps_r][ps_c].ps.left = luckysheetPostil.currentObj.offsetLeft;
+            d[ps_r][ps_c].ps.top = luckysheetPostil.currentObj.offsetTop;
             d[ps_r][ps_c].ps.value = luckysheetPostil.currentObj
-                .find(".formulaInputFocus")
-                .html()
+                .querySelector(".formulaInputFocus")
+                .innerHTML
                 .replaceAll("<div>", "\n")
                 .replaceAll(/<(.*)>.*?|<(.*) \/>/g, "")
                 .trim();
@@ -246,14 +248,14 @@ export default function documentMouseup() {
 
             luckysheetPostil.ref(d, rc);
 
-            $("#" + ps_id).remove();
+            const _psEl = document.getElementById(ps_id); if (_psEl) _psEl.remove();
 
             if (d[ps_r][ps_c].ps.isshow) {
                 luckysheetPostil.buildPs(ps_r, ps_c, d[ps_r][ps_c].ps);
-                $("#" + ps_id).addClass("luckysheet-postil-show-active");
-                $("#" + ps_id)
-                    .find(".luckysheet-postil-dialog-resize")
-                    .show();
+                const _psEl2 = document.getElementById(ps_id);
+                if (_psEl2) _psEl2.classList.add("luckysheet-postil-show-active");
+                const _resizeEl = _psEl2 ? _psEl2.querySelector(".luckysheet-postil-dialog-resize") : null;
+                if (_resizeEl) _resizeEl.style.display = '';
             } else {
                 luckysheetPostil.editPs(ps_r, ps_c);
             }
@@ -263,7 +265,7 @@ export default function documentMouseup() {
         if (luckysheetPostil.resize) {
             luckysheetPostil.resize = null;
 
-            let ps_id = luckysheetPostil.currentObj.closest(".luckysheet-postil-show").attr("id");
+            let ps_id = luckysheetPostil.currentObj.closest(".luckysheet-postil-show").id;
 
             let ps_r = ps_id.split("luckysheet-postil-show_")[1].split("_")[0];
             let ps_c = ps_id.split("luckysheet-postil-show_")[1].split("_")[1];
@@ -271,13 +273,13 @@ export default function documentMouseup() {
             let d = editor.deepCopyFlowData(Store.flowdata);
             let rc = [];
 
-            d[ps_r][ps_c].ps.left = luckysheetPostil.currentObj.position().left;
-            d[ps_r][ps_c].ps.top = luckysheetPostil.currentObj.position().top;
-            d[ps_r][ps_c].ps.width = luckysheetPostil.currentObj.outerWidth();
-            d[ps_r][ps_c].ps.height = luckysheetPostil.currentObj.outerHeight();
+            d[ps_r][ps_c].ps.left = luckysheetPostil.currentObj.offsetLeft;
+            d[ps_r][ps_c].ps.top = luckysheetPostil.currentObj.offsetTop;
+            d[ps_r][ps_c].ps.width = luckysheetPostil.currentObj.offsetWidth;
+            d[ps_r][ps_c].ps.height = luckysheetPostil.currentObj.offsetHeight;
             d[ps_r][ps_c].ps.value = luckysheetPostil.currentObj
-                .find(".formulaInputFocus")
-                .html()
+                .querySelector(".formulaInputFocus")
+                .innerHTML
                 .replaceAll("<div>", "\n")
                 .replaceAll(/<(.*)>.*?|<(.*) \/>/g, "")
                 .trim();
@@ -286,14 +288,14 @@ export default function documentMouseup() {
 
             luckysheetPostil.ref(d, rc);
 
-            $("#" + ps_id).remove();
+            const _psEl3 = document.getElementById(ps_id); if (_psEl3) _psEl3.remove();
 
             if (d[ps_r][ps_c].ps.isshow) {
                 luckysheetPostil.buildPs(ps_r, ps_c, d[ps_r][ps_c].ps);
-                $("#" + ps_id).addClass("luckysheet-postil-show-active");
-                $("#" + ps_id)
-                    .find(".luckysheet-postil-dialog-resize")
-                    .show();
+                const _psEl4 = document.getElementById(ps_id);
+                if (_psEl4) _psEl4.classList.add("luckysheet-postil-show-active");
+                const _resizeEl2 = _psEl4 ? _psEl4.querySelector(".luckysheet-postil-dialog-resize") : null;
+                if (_resizeEl2) _resizeEl2.style.display = '';
             } else {
                 luckysheetPostil.editPs(ps_r, ps_c);
             }
@@ -507,7 +509,7 @@ export default function documentMouseup() {
 
         //改变选择框的位置并替换目标单元格
         if (Store.luckysheet_cell_selected_move) {
-            $("#luckysheet-cell-selected-move").hide();
+            const _elMoveHide1 = document.getElementById("luckysheet-cell-selected-move"); if (_elMoveHide1) _elMoveHide1.style.display = 'none';
 
             Store.luckysheet_cell_selected_move = false;
             let mouse = mouseposition(event.pageX, event.pageY);
@@ -761,7 +763,7 @@ export default function documentMouseup() {
 
             selectHightlightShow();
 
-            $("#luckysheet-sheettable").css("cursor", "default");
+            const _sheetTable = document.getElementById("luckysheet-sheettable"); if (_sheetTable) _sheetTable.style.cursor = "default";
             clearTimeout(Store.countfuncTimeout);
             Store.countfuncTimeout = setTimeout(function() {
                 countfunc();
@@ -771,7 +773,7 @@ export default function documentMouseup() {
         //选区下拉
         if (Store.luckysheet_cell_selected_extend) {
             Store.luckysheet_cell_selected_extend = false;
-            $("#luckysheet-cell-selected-extend").hide();
+            const _elExtendHide = document.getElementById("luckysheet-cell-selected-extend"); if (_elExtendHide) _elExtendHide.style.display = 'none';
 
 
             let mouse = mouseposition(event.pageX, event.pageY);
@@ -955,9 +957,9 @@ export default function documentMouseup() {
             luckysheetDropCell.update();
             luckysheetDropCell.createIcon();
 
-            $("#luckysheet-cell-selected-move").hide();
+            const _elMoveHide2 = document.getElementById("luckysheet-cell-selected-move"); if (_elMoveHide2) _elMoveHide2.style.display = 'none';
 
-            $("#luckysheet-sheettable").css("cursor", "default");
+            const _sheetTable2 = document.getElementById("luckysheet-sheettable"); if (_sheetTable2) _sheetTable2.style.cursor = "default";
             clearTimeout(Store.countfuncTimeout);
             Store.countfuncTimeout = setTimeout(function() {
                 countfunc();

@@ -301,7 +301,7 @@ export function initConditionformat(_this) {
           offNS("CFhighlightCellRule");
           onNS(document, "click.CFhighlightCellRule", "#luckysheet-icon-highlightCellRule-menuButton .luckysheet-cols-menuitem", function () {
             $menuButton.hide();
-            $("#luckysheet-icon-highlightCellRule-menuButton").hide();
+            const _elHighlight = document.getElementById("luckysheet-icon-highlightCellRule-menuButton"); if (_elHighlight) _elHighlight.style.display = 'none';
             luckysheetContainerFocus();
             let $t = $(this),
               itemvalue = $t.attr("itemvalue");
@@ -415,7 +415,7 @@ export function initConditionformat(_this) {
           offNS("CFprojectSelectRule");
           onNS(document, "click.CFprojectSelectRule", "#luckysheet-icon-projectSelectRule-menuButton .luckysheet-cols-menuitem", function () {
             $menuButton.hide();
-            $("#luckysheet-icon-projectSelectRule-menuButton").hide();
+            const _elProject = document.getElementById("luckysheet-icon-projectSelectRule-menuButton"); if (_elProject) _elProject.style.display = 'none';
             luckysheetContainerFocus();
             let $t = $(this),
               itemvalue = $t.attr("itemvalue");
@@ -515,7 +515,7 @@ export function initConditionformat(_this) {
           offNS("CFdataBar");
           onNS(document, "click.CFdataBar", "#luckysheet-icon-dataBar-menuButton .luckysheet-cols-menuitem", function () {
             $menuButton.hide();
-            $("#luckysheet-icon-dataBar-menuButton").hide();
+            const _elDataBar = document.getElementById("luckysheet-icon-dataBar-menuButton"); if (_elDataBar) _elDataBar.style.display = 'none';
             luckysheetContainerFocus();
             let $t = $(this),
               itemvalue = $t.attr("itemvalue");
@@ -530,7 +530,7 @@ export function initConditionformat(_this) {
           offNS("CFcolorGradation");
           onNS(document, "click.CFcolorGradation", "#luckysheet-icon-colorGradation-menuButton .luckysheet-cols-menuitem", function () {
             $menuButton.hide();
-            $("#luckysheet-icon-colorGradation-menuButton").hide();
+            const _elColorGrad = document.getElementById("luckysheet-icon-colorGradation-menuButton"); if (_elColorGrad) _elColorGrad.style.display = 'none';
             luckysheetContainerFocus();
             let $t = $(this),
               itemvalue = $t.attr("itemvalue");
@@ -545,7 +545,7 @@ export function initConditionformat(_this) {
           offNS("CFdeleteRule");
           onNS(document, "click.CFdeleteRule", "#luckysheet-icon-deleteRule-menuButton .luckysheet-cols-menuitem", function () {
             $menuButton.hide();
-            $("#luckysheet-icon-deleteRule-menuButton").hide();
+            const _elDeleteRule = document.getElementById("luckysheet-icon-deleteRule-menuButton"); if (_elDeleteRule) _elDeleteRule.style.display = 'none';
             luckysheetContainerFocus();
             let $t = $(this),
               itemvalue = $t.attr("itemvalue");

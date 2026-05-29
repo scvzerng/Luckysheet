@@ -9,8 +9,8 @@ import Store from '../../store';
 function initialMatrixFlipOperation() {
     const locale_drag = locale().drag;
     //矩阵操作选区 翻转 上下
-    $("#luckysheet-matrix-turn-up").click(function (event) {
-        $("body .luckysheet-cols-menu").hide();
+    const _elTurnUp = document.getElementById("luckysheet-matrix-turn-up"); if (_elTurnUp) _elTurnUp.addEventListener("click", function (event) {
+        document.querySelectorAll("body .luckysheet-cols-menu").forEach(el => el.style.display = 'none');
         luckysheetContainerFocus();
 
         if(Store.luckysheet_select_save.length > 1){
@@ -45,8 +45,8 @@ function initialMatrixFlipOperation() {
     });
 
     //矩阵操作选区 翻转 左右
-    $("#luckysheet-matrix-turn-left").click(function (event) {
-        $("body .luckysheet-cols-menu").hide();
+    const _elTurnLeft = document.getElementById("luckysheet-matrix-turn-left"); if (_elTurnLeft) _elTurnLeft.addEventListener("click", function (event) {
+        document.querySelectorAll("body .luckysheet-cols-menu").forEach(el => el.style.display = 'none');
         luckysheetContainerFocus();
 
         if(Store.luckysheet_select_save.length > 1){
@@ -81,8 +81,8 @@ function initialMatrixFlipOperation() {
     });
 
     //矩阵操作选区 翻转 顺时针
-    $("#luckysheet-matrix-turn-cw").click(function (event) {
-        $("body .luckysheet-cols-menu").hide();
+    const _elTurnCw = document.getElementById("luckysheet-matrix-turn-cw"); if (_elTurnCw) _elTurnCw.addEventListener("click", function (event) {
+        document.querySelectorAll("body .luckysheet-cols-menu").forEach(el => el.style.display = 'none');
         luckysheetContainerFocus();
 
         if(Store.luckysheet_select_save.length > 1){
@@ -117,8 +117,8 @@ function initialMatrixFlipOperation() {
     });
 
     //矩阵操作选区 翻转 逆时针
-    $("#luckysheet-matrix-turn-anticw").click(function (event) {
-        $("body .luckysheet-cols-menu").hide();
+    const _elTurnAnticw = document.getElementById("luckysheet-matrix-turn-anticw"); if (_elTurnAnticw) _elTurnAnticw.addEventListener("click", function (event) {
+        document.querySelectorAll("body .luckysheet-cols-menu").forEach(el => el.style.display = 'none');
         luckysheetContainerFocus();
 
         if(Store.luckysheet_select_save.length > 1){
@@ -153,8 +153,8 @@ function initialMatrixFlipOperation() {
     });
 
     //矩阵操作选区 转置
-    $("#luckysheet-matrix-turn-trans").click(function (event) {
-        $("body .luckysheet-cols-menu").hide();
+    const _elTurnTrans = document.getElementById("luckysheet-matrix-turn-trans"); if (_elTurnTrans) _elTurnTrans.addEventListener("click", function (event) {
+        document.querySelectorAll("body .luckysheet-cols-menu").forEach(el => el.style.display = 'none');
         luckysheetContainerFocus();
 
         if(Store.luckysheet_select_save.length > 1){

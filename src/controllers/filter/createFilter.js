@@ -11,8 +11,8 @@ function createFilter() {
 
     if(Store.luckysheet_select_save.length > 1){
         rightClickMenu.hide();
-        $("#luckysheet-filter-menu, #luckysheet-filter-submenu").hide();
-        $("#" + Store.container).attr("tabindex", 0).focus();
+        [document.getElementById("luckysheet-filter-menu"), document.getElementById("luckysheet-filter-submenu")].forEach(el => { if (el) el.style.display = 'none'; });
+        const _elContainer = document.getElementById(Store.container); if (_elContainer) { _elContainer.setAttribute("tabindex", 0); _elContainer.focus(); }
 
         const locale_splitText = locale().splitText;
 
@@ -26,7 +26,8 @@ function createFilter() {
         return;
     }
 
-    $('#luckysheet-filter-selected-sheet' + Store.currentSheetIndex + ', #luckysheet-filter-options-sheet' + Store.currentSheetIndex).remove();
+    const _elFilterSelRm = document.getElementById("luckysheet-filter-selected-sheet" + Store.currentSheetIndex); if (_elFilterSelRm) _elFilterSelRm.remove();
+    const _elFilterOptRm = document.getElementById("luckysheet-filter-options-sheet" + Store.currentSheetIndex); if (_elFilterOptRm) _elFilterOptRm.remove();
 
     let last = Store.luckysheet_select_save[0];
     if (last["row"][0] == last["row"][1] && last["column"][0] == last["column"][1]) {
