@@ -11,7 +11,7 @@ function initialFilterHandler() {
     const _locale = locale();
     filterState.locale_filter = _locale.filter;
     filterState.locale_button = _locale.button;
-    $("#luckysheetfilter").click(createFilter);
+    document.getElementById("luckysheetfilter").addEventListener("click", createFilter);
 
     filterMenuEvents();
     filterOptionClick();

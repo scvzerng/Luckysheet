@@ -17,8 +17,8 @@ import '../../components/ColorPicker/colorPicker.css';
 function getModelBox(hasRowHeader, hasRowFooter) {
         let _this = this;
 
-        $("#luckysheet-modal-dialog-slider-alternateformat #luckysheet-alternateformat-modelList").empty();
-        $("#luckysheet-modal-dialog-slider-alternateformat #luckysheet-alternateformat-modelCustom").empty();
+        document.querySelector("#luckysheet-modal-dialog-slider-alternateformat #luckysheet-alternateformat-modelList").innerHTML = '';
+        document.querySelector("#luckysheet-modal-dialog-slider-alternateformat #luckysheet-alternateformat-modelCustom").innerHTML = '';
 
         //格式样式 模板
         let modelListHtml = '';
@@ -63,11 +63,11 @@ function getModelBox(hasRowHeader, hasRowFooter) {
                              '</div>';
         }
 
-        $("#luckysheet-modal-dialog-slider-alternateformat #luckysheet-alternateformat-modelList").append(modelListHtml);
+        document.querySelector("#luckysheet-modal-dialog-slider-alternateformat #luckysheet-alternateformat-modelList").insertAdjacentHTML('beforeend', modelListHtml);
 
         //自定义 模板
         let modelCustom = getCurrentFile()["luckysheet_alternateformat_save_modelCustom"];
-        if(modelCustom != null && modelCustom.length > 0){
+        if(modelCustom != null && modelCustom !== null){
             let modelCustomHtml = '';
 
             for(let i = 0; i < modelCustom.length; i++){
@@ -110,7 +110,7 @@ function getModelBox(hasRowHeader, hasRowFooter) {
                                     '</div>';
             }
 
-            $("#luckysheet-modal-dialog-slider-alternateformat #luckysheet-alternateformat-modelCustom").append(modelCustomHtml);
+            document.querySelector("#luckysheet-modal-dialog-slider-alternateformat #luckysheet-alternateformat-modelCustom").insertAdjacentHTML('beforeend', modelCustomHtml);
         }
     },
 }
@@ -118,12 +118,12 @@ function getModelBox(hasRowHeader, hasRowFooter) {
 function init() {
         let _this = this;
 
-        $("#luckysheet-modal-dialog-slider-alternateformat").remove();
+        document.getElementById("luckysheet-modal-dialog-slider-alternateformat").remove();
         document.body.insertAdjacentHTML('beforeend', luckysheetAlternateformatHtml());
         luckysheetsizeauto();
 
         //关闭
-        $("#luckysheet-modal-dialog-slider-alternateformat .luckysheet-model-close-btn").click(function () {
+        document.querySelector("#luckysheet-modal-dialog-slider-alternateformat .luckysheet-model-close-btn").addEventListener("click", function () {
             const _elAFD1 = document.getElementById("luckysheet-modal-dialog-slider-alternateformat"); if (_elAFD1) _elAFD1.style.display = 'none';
              luckysheetsizeauto();
          });
@@ -139,7 +139,7 @@ function init() {
 
         offNS("AFrangeInput");
         onNS(document, "keydown.AFrangeInput", "#luckysheet-alternateformat-range input", function(e){
-            let rangeValue = $(this).val().trim();
+            let rangeValue = this.value.trim();
             if(e.keyCode == 13){
                 _this.update();
             }
@@ -149,15 +149,15 @@ function init() {
             const _elAFD2 = document.getElementById("luckysheet-modal-dialog-slider-alternateformat"); if (_elAFD2) _elAFD2.style.display = 'none';
             luckysheetsizeauto();
 
-            let rangeValue = $(this).parents("#luckysheet-alternateformat-range").find("input").val().trim();
+            let rangeValue = this.closest("#luckysheet-alternateformat-range").querySelector("input").value.trim();
             _this.rangeDialog(rangeValue);
         });
         offNS("AFrDCf");
         onNS(document, "click.AFrDCf", "#luckysheet-alternateformat-rangeDialog-confirm", function(){
-            let rangeValue = $(this).parents("#luckysheet-alternateformat-rangeDialog").find("input").val().trim();
-            $("#luckysheet-modal-dialog-slider-alternateformat #luckysheet-alternateformat-range input").val(rangeValue);
+            let rangeValue = this.closest("#luckysheet-alternateformat-rangeDialog").querySelector("input").value.trim();
+            document.querySelector("#luckysheet-modal-dialog-slider-alternateformat #luckysheet-alternateformat-range input").value = rangeValue;
 
-            $(this).parents("#luckysheet-alternateformat-rangeDialog").hide();
+            this.closest("#luckysheet-alternateformat-rangeDialog").style.display = 'none';
             const _elAFDShow1 = document.getElementById("luckysheet-modal-dialog-slider-alternateformat"); if (_elAFDShow1) _elAFDShow1.style.display = '';
             luckysheetsizeauto();
 
@@ -165,13 +165,13 @@ function init() {
         });
         offNS("AFrDCl");
         onNS(document, "click.AFrDCl", "#luckysheet-alternateformat-rangeDialog-close", function(){
-            $(this).parents("#luckysheet-alternateformat-rangeDialog").hide();
+            this.closest("#luckysheet-alternateformat-rangeDialog").style.display = 'none';
             const _elAFDShow2 = document.getElementById("luckysheet-modal-dialog-slider-alternateformat"); if (_elAFDShow2) _elAFDShow2.style.display = '';
             luckysheetsizeauto();
         });
         offNS("AFrDTitle");
         onNS(document, "click.AFrDTitle", "#luckysheet-alternateformat-rangeDialog .luckysheet-modal-dialog-title-close", function(){
-            $(this).parents("#luckysheet-alternateformat-rangeDialog").hide();
+            this.closest("#luckysheet-alternateformat-rangeDialog").style.display = 'none';
             const _elAFDShow3 = document.getElementById("luckysheet-modal-dialog-slider-alternateformat"); if (_elAFDShow3) _elAFDShow3.style.display = '';
             luckysheetsizeauto();
         });
@@ -180,7 +180,7 @@ function init() {
         offNS("AFrowHeader");
         onNS(document, "change.AFrowHeader", "#luckysheet-alternateformat-rowHeader", function(){
             let hasRowHeader;
-            if($(this).is(":checked")){
+            if(this.checked){
                 hasRowHeader = true;
             }
             else{
@@ -188,7 +188,7 @@ function init() {
             }
 
             let hasRowFooter;
-            if($("#luckysheet-alternateformat-rowFooter").is(":checked")){
+            if(document.getElementById("luckysheet-alternateformat-rowFooter").checked){
                 hasRowFooter = true;
             }
             else{
@@ -202,7 +202,7 @@ function init() {
         offNS("AFrowFooter");
         onNS(document, "change.AFrowFooter", "#luckysheet-alternateformat-rowFooter", function(){
             let hasRowHeader;
-            if($("#luckysheet-alternateformat-rowHeader").is(":checked")){
+            if(document.getElementById("luckysheet-alternateformat-rowHeader").checked){
                 hasRowHeader = true;
             }
             else{
@@ -210,7 +210,7 @@ function init() {
             }
 
             let hasRowFooter;
-            if($(this).is(":checked")){
+            if(this.checked){
                 hasRowFooter = true;
             }
             else{
@@ -225,8 +225,8 @@ function init() {
         //点击样式模板
         offNS("AFmodelbox");
         onNS(document, "click.AFmodelbox", "#luckysheet-modal-dialog-slider-alternateformat .modelbox", function(){
-            let index = $(this).index();
-            let $id = $(this).parents(".cf").attr("id");
+            let index = Array.from(this.parentElement.children).indexOf(this);
+            let $id = this.closest(".cf").getAttribute("id");
 
             if($id == "luckysheet-alternateformat-modelList"){
                 _this.modelfocusIndex = index;
@@ -243,30 +243,30 @@ function init() {
         //点击选择文本/单元格颜色
         offNS("AFselectColor");
         onNS(document, "click.AFselectColor", "#luckysheet-modal-dialog-slider-alternateformat .luckysheet-color-menu-button-indicator", function(){
-            let $parent = $(this).closest(".toningbox");
+            let $parent = this.closest(".toningbox");
 
             let colorType, currenColor;
-            if($(this).find(".luckysheet-icon-img").hasClass("luckysheet-icon-text-color")){
+            if(this.querySelector(".luckysheet-icon-img").classList.contains("luckysheet-icon-text-color")){
                 colorType = "fc";
-                currenColor = $parent.find(".toningShow").data("fc");
+                currenColor = $parent.querySelector(".toningShow").dataset.fc;
             }
-            else if($(this).find(".luckysheet-icon-img").hasClass("luckysheet-icon-cell-color")){
+            else if(this.querySelector(".luckysheet-icon-img").classList.contains("luckysheet-icon-cell-color")){
                 colorType = "bc";
-                currenColor = $parent.find(".toningShow").data("bc");
+                currenColor = $parent.querySelector(".toningShow").dataset.bc;
             }
 
             //source
             let source;
-            if($parent.hasClass("header")){
+            if($parent.classList.contains("header")){
                 source = "0";
             }
-            else if($parent.hasClass("ctOne")){
+            else if($parent.classList.contains("ctOne")){
                 source = "1";
             }
-            else if($parent.hasClass("ctTwo")){
+            else if($parent.classList.contains("ctTwo")){
                 source = "2";
             }
-            else if($parent.hasClass("footer")){
+            else if($parent.classList.contains("footer")){
                 source = "3";
             }
 
@@ -276,78 +276,78 @@ function init() {
         //选择颜色 确定 添加自定义模板
         offNS("AFselectColorConfirm");
         onNS(document, "click.AFselectColorConfirm", "#luckysheet-alternateformat-colorSelect-dialog-confirm", function(){
-            let $parent = $(this).parents("#luckysheet-alternateformat-colorSelect-dialog");
+            let $parent = this.closest("#luckysheet-alternateformat-colorSelect-dialog");
             const _locale = locale()
             const alternatingColors =_locale.alternatingColors;
             hideModalMask();
-            $parent.hide();
+            $parent.style.display = 'none';
 
             //获取currenColor colorType source
-            let currenColor = $parent.find(".currenColor span").attr("title");
+            let currenColor = $parent.querySelector(".currenColor span").getAttribute("title");
 
             let colorType;
-            if($parent.find(".luckysheet-modal-dialog-title-text").text() == alternatingColors.selectionTextColor){
+            if($parent.querySelector(".luckysheet-modal-dialog-title-text").textContent == alternatingColors.selectionTextColor){
                 colorType = "fc";
             }
-            else if($parent.find(".luckysheet-modal-dialog-title-text").text() == alternatingColors.selectionCellColor){
+            else if($parent.querySelector(".luckysheet-modal-dialog-title-text").textContent == alternatingColors.selectionCellColor){
                 colorType = "bc";
             }
 
-            let source = $parent.find(".currenColor").attr("data-source");
+            let source = $parent.querySelector(".currenColor").getAttribute("data-source");
             
             //赋给颜色
             if(source == "0"){
                 if(colorType == "fc"){
-                    $("#luckysheet-alternateformat-modelToning .header .toningShow").css("color", currenColor);
-                    $("#luckysheet-alternateformat-modelToning .header .toningShow").data("fc", currenColor);
-                    $("#luckysheet-alternateformat-modelToning .header .luckysheet-icon-text-color").parents(".luckysheet-color-menu-button-indicator").css("border-bottom-color", currenColor);
+                    document.querySelector("#luckysheet-alternateformat-modelToning .header .toningShow").style.color = currenColor;
+                    document.querySelector("#luckysheet-alternateformat-modelToning .header .toningShow").dataset.fc = currenColor;
+                    document.querySelector("#luckysheet-alternateformat-modelToning .header .luckysheet-icon-text-color").closest(".luckysheet-color-menu-button-indicator").style.borderBottomColor = currenColor;
                 }
                 if(colorType == "bc"){
-                    $("#luckysheet-alternateformat-modelToning .header .toningShow").css("background-color", currenColor);
-                    $("#luckysheet-alternateformat-modelToning .header .toningShow").data("bc", currenColor);
-                    $("#luckysheet-alternateformat-modelToning .header .luckysheet-icon-cell-color").parents(".luckysheet-color-menu-button-indicator").css("border-bottom-color", currenColor);
+                    document.querySelector("#luckysheet-alternateformat-modelToning .header .toningShow").style.backgroundColor = currenColor;
+                    document.querySelector("#luckysheet-alternateformat-modelToning .header .toningShow").dataset.bc = currenColor;
+                    document.querySelector("#luckysheet-alternateformat-modelToning .header .luckysheet-icon-cell-color").closest(".luckysheet-color-menu-button-indicator").style.borderBottomColor = currenColor;
                 }
             }
             else if(source == "1"){
                 if(colorType == "fc"){
-                    $("#luckysheet-alternateformat-modelToning .ctOne .toningShow").css("color", currenColor);
-                    $("#luckysheet-alternateformat-modelToning .ctOne .toningShow").data("fc", currenColor);
-                    $("#luckysheet-alternateformat-modelToning .ctOne .luckysheet-icon-text-color").parents(".luckysheet-color-menu-button-indicator").css("border-bottom-color", currenColor);
+                    document.querySelector("#luckysheet-alternateformat-modelToning .ctOne .toningShow").style.color = currenColor;
+                    document.querySelector("#luckysheet-alternateformat-modelToning .ctOne .toningShow").dataset.fc = currenColor;
+                    document.querySelector("#luckysheet-alternateformat-modelToning .ctOne .luckysheet-icon-text-color").closest(".luckysheet-color-menu-button-indicator").style.borderBottomColor = currenColor;
                 }
                 if(colorType == "bc"){
-                    $("#luckysheet-alternateformat-modelToning .ctOne .toningShow").css("background-color", currenColor);
-                    $("#luckysheet-alternateformat-modelToning .ctOne .toningShow").data("bc", currenColor);
-                    $("#luckysheet-alternateformat-modelToning .ctOne .luckysheet-icon-cell-color").parents(".luckysheet-color-menu-button-indicator").css("border-bottom-color", currenColor);
+                    document.querySelector("#luckysheet-alternateformat-modelToning .ctOne .toningShow").style.backgroundColor = currenColor;
+                    document.querySelector("#luckysheet-alternateformat-modelToning .ctOne .toningShow").dataset.bc = currenColor;
+                    document.querySelector("#luckysheet-alternateformat-modelToning .ctOne .luckysheet-icon-cell-color").closest(".luckysheet-color-menu-button-indicator").style.borderBottomColor = currenColor;
                 }
             }
             else if(source == "2"){
                 if(colorType == "fc"){
-                    $("#luckysheet-alternateformat-modelToning .ctTwo .toningShow").css("color", currenColor);
-                    $("#luckysheet-alternateformat-modelToning .ctTwo .toningShow").data("fc", currenColor);
-                    $("#luckysheet-alternateformat-modelToning .ctTwo .luckysheet-icon-text-color").parents(".luckysheet-color-menu-button-indicator").css("border-bottom-color", currenColor);
+                    document.querySelector("#luckysheet-alternateformat-modelToning .ctTwo .toningShow").style.color = currenColor;
+                    document.querySelector("#luckysheet-alternateformat-modelToning .ctTwo .toningShow").dataset.fc = currenColor;
+                    document.querySelector("#luckysheet-alternateformat-modelToning .ctTwo .luckysheet-icon-text-color").closest(".luckysheet-color-menu-button-indicator").style.borderBottomColor = currenColor;
                 }
                 if(colorType == "bc"){
-                    $("#luckysheet-alternateformat-modelToning .ctTwo .toningShow").css("background-color", currenColor);
-                    $("#luckysheet-alternateformat-modelToning .ctTwo .toningShow").data("bc", currenColor);
-                    $("#luckysheet-alternateformat-modelToning .ctTwo .luckysheet-icon-cell-color").parents(".luckysheet-color-menu-button-indicator").css("border-bottom-color", currenColor);
+                    document.querySelector("#luckysheet-alternateformat-modelToning .ctTwo .toningShow").style.backgroundColor = currenColor;
+                    document.querySelector("#luckysheet-alternateformat-modelToning .ctTwo .toningShow").dataset.bc = currenColor;
+                    document.querySelector("#luckysheet-alternateformat-modelToning .ctTwo .luckysheet-icon-cell-color").closest(".luckysheet-color-menu-button-indicator").style.borderBottomColor = currenColor;
                 }
             }
             else if(source == "3"){
                 if(colorType == "fc"){
-                    $("#luckysheet-alternateformat-modelToning .footer .toningShow").css("color", currenColor);
-                    $("#luckysheet-alternateformat-modelToning .footer .toningShow").data("fc", currenColor);
-                    $("#luckysheet-alternateformat-modelToning .footer .luckysheet-icon-text-color").parents(".luckysheet-color-menu-button-indicator").css("border-bottom-color", currenColor);
+                    document.querySelector("#luckysheet-alternateformat-modelToning .footer .toningShow").style.color = currenColor;
+                    document.querySelector("#luckysheet-alternateformat-modelToning .footer .toningShow").dataset.fc = currenColor;
+                    document.querySelector("#luckysheet-alternateformat-modelToning .footer .luckysheet-icon-text-color").closest(".luckysheet-color-menu-button-indicator").style.borderBottomColor = currenColor;
                 }
                 if(colorType == "bc"){
-                    $("#luckysheet-alternateformat-modelToning .footer .toningShow").css("background-color", currenColor);
-                    $("#luckysheet-alternateformat-modelToning .footer .toningShow").data("bc", currenColor);
-                    $("#luckysheet-alternateformat-modelToning .footer .luckysheet-icon-cell-color").parents(".luckysheet-color-menu-button-indicator").css("border-bottom-color", currenColor);
+                    document.querySelector("#luckysheet-alternateformat-modelToning .footer .toningShow").style.backgroundColor = currenColor;
+                    document.querySelector("#luckysheet-alternateformat-modelToning .footer .toningShow").dataset.bc = currenColor;
+                    document.querySelector("#luckysheet-alternateformat-modelToning .footer .luckysheet-icon-cell-color").closest(".luckysheet-color-menu-button-indicator").style.borderBottomColor = currenColor;
                 }
             }
             
             //若模板聚焦在固有模板，则新加模板；若模板聚焦在自定义模板，则修改该模板
             let hasRowHeader;
-            if($("#luckysheet-alternateformat-rowHeader").is(":checked")){
+            if(document.getElementById("luckysheet-alternateformat-rowHeader").checked){
                 hasRowHeader = true;
             }
             else{
@@ -355,7 +355,7 @@ function init() {
             }
 
             let hasRowFooter;
-            if($("#luckysheet-alternateformat-rowFooter").is(":checked")){
+            if(document.getElementById("luckysheet-alternateformat-rowFooter").checked){
                 hasRowFooter = true;
             }
             else{
@@ -426,7 +426,7 @@ function init() {
         //点击 移除交替颜色 按钮
         offNS("AFremove");
         onNS(document, "click.AFremove", "#luckysheet-alternateformat-remove", function(){
-            let dataIndex = $(this).data("index");
+            let dataIndex = this.dataset.index;
 
             let file = getCurrentFile();
 
@@ -467,7 +467,7 @@ function perfect() {
         
         //应用范围
         let cellrange = obj["cellrange"];
-        $("#luckysheet-alternateformat-range input").val(getRangetxt(Store.currentSheetIndex, { "row": cellrange["row"], "column": cellrange["column"] }, Store.currentSheetIndex));
+        document.querySelector("#luckysheet-alternateformat-range input").value = getRangetxt(Store.currentSheetIndex, { "row": cellrange["row"], "column": cellrange["column"] }, Store.currentSheetIndex);
         
         Store.luckysheet_select_save = [{ "row": cellrange["row"], "column": cellrange["column"] }];
         selectHightlightShow();
@@ -489,26 +489,26 @@ function perfect() {
         _this.modelboxOn();
 
         //标识 交替颜色的index
-        $("#luckysheet-alternateformat-remove").data("index", existsIndex);
+        document.getElementById("luckysheet-alternateformat-remove").dataset.index = existsIndex;
     },
 }
 
 function checkboxChange(hasRowHeader, hasRowFooter) {
         if(hasRowHeader){
-            $("#luckysheet-alternateformat-rowHeader").prop("checked", true);
+            document.getElementById("luckysheet-alternateformat-rowHeader").checked = true;
             document.querySelectorAll("#luckysheet-alternateformat-modelToning .header").forEach(el => el.style.display = '');
         }
         else{
-            $("#luckysheet-alternateformat-rowHeader").removeAttr("checked");  
+            document.getElementById("luckysheet-alternateformat-rowHeader").removeAttribute("checked");  
             document.querySelectorAll("#luckysheet-alternateformat-modelToning .header").forEach(el => el.style.display = 'none');
         }
 
         if(hasRowFooter){
-            $("#luckysheet-alternateformat-rowFooter").prop("checked", true);
+            document.getElementById("luckysheet-alternateformat-rowFooter").checked = true;
             document.querySelectorAll("#luckysheet-alternateformat-modelToning .footer").forEach(el => el.style.display = '');
         }
         else{
-            $("#luckysheet-alternateformat-rowFooter").removeAttr("checked"); 
+            document.getElementById("luckysheet-alternateformat-rowFooter").removeAttribute("checked"); 
             document.querySelectorAll("#luckysheet-alternateformat-modelToning .footer").forEach(el => el.style.display = 'none');  
         }
 
@@ -520,16 +520,16 @@ function modelboxOn() {
         let _this = this;
 
         //模板 foucs
-        $("#luckysheet-modal-dialog-slider-alternateformat .modelbox").removeClass("on");
+        document.querySelector("#luckysheet-modal-dialog-slider-alternateformat .modelbox").classList.remove("on");
 
         let index = _this.modelfocusIndex;
         let len = _this.FixedModelColor.length;
         
         if(index < len){
-            $("#luckysheet-alternateformat-modelList .modelbox").eq(index).addClass("on");
+            document.querySelector("#luckysheet-alternateformat-modelList .modelbox")[index].classList.add("on");
         }
         else{
-            $("#luckysheet-alternateformat-modelCustom .modelbox").eq(index - len).addClass("on");
+            document.querySelector("#luckysheet-alternateformat-modelCustom .modelbox")[index - len].classList.add("on");
         }
 
         //编辑 对应颜色改变
@@ -541,28 +541,28 @@ function modelToningColor() {
         let format = this.getFormatByIndex();
 
         //页眉
-        $("#luckysheet-alternateformat-modelToning .header .toningShow").css({"color": format["head"].fc, "background-color": format["head"].bc});
-        $("#luckysheet-alternateformat-modelToning .header .toningShow").data("fc", format["head"].fc).data("bc", format["head"].bc);
-        $("#luckysheet-alternateformat-modelToning .header .luckysheet-icon-text-color").parents(".luckysheet-color-menu-button-indicator").css("border-bottom-color", format["head"].fc);
-        $("#luckysheet-alternateformat-modelToning .header .luckysheet-icon-cell-color").parents(".luckysheet-color-menu-button-indicator").css("border-bottom-color", format["head"].bc);
+        Object.assign(document.querySelector("#luckysheet-alternateformat-modelToning .header .toningShow").style, {"color": format["head"].fc, "background-color": format["head"].bc});
+        Object.assign(document.querySelector("#luckysheet-alternateformat-modelToning .header .toningShow").dataset, {fc: format["head"].fc, bc: format["head"].bc});
+        document.querySelector("#luckysheet-alternateformat-modelToning .header .luckysheet-icon-text-color").closest(".luckysheet-color-menu-button-indicator").style.borderBottomColor = format["head"].fc;
+        document.querySelector("#luckysheet-alternateformat-modelToning .header .luckysheet-icon-cell-color").closest(".luckysheet-color-menu-button-indicator").style.borderBottomColor = format["head"].bc;
 
         //颜色1
-        $("#luckysheet-alternateformat-modelToning .ctOne .toningShow").css({"color": format["one"].fc, "background-color": format["one"].bc});
-        $("#luckysheet-alternateformat-modelToning .ctOne .toningShow").data("fc", format["one"].fc).data("bc", format["one"].bc);
-        $("#luckysheet-alternateformat-modelToning .ctOne .luckysheet-icon-text-color").parents(".luckysheet-color-menu-button-indicator").css("border-bottom-color", format["one"].fc);
-        $("#luckysheet-alternateformat-modelToning .ctOne .luckysheet-icon-cell-color").parents(".luckysheet-color-menu-button-indicator").css("border-bottom-color", format["one"].bc);
+        Object.assign(document.querySelector("#luckysheet-alternateformat-modelToning .ctOne .toningShow").style, {"color": format["one"].fc, "background-color": format["one"].bc});
+        Object.assign(document.querySelector("#luckysheet-alternateformat-modelToning .ctOne .toningShow").dataset, {fc: format["one"].fc, bc: format["one"].bc});
+        document.querySelector("#luckysheet-alternateformat-modelToning .ctOne .luckysheet-icon-text-color").closest(".luckysheet-color-menu-button-indicator").style.borderBottomColor = format["one"].fc;
+        document.querySelector("#luckysheet-alternateformat-modelToning .ctOne .luckysheet-icon-cell-color").closest(".luckysheet-color-menu-button-indicator").style.borderBottomColor = format["one"].bc;
 
         //颜色2
-        $("#luckysheet-alternateformat-modelToning .ctTwo .toningShow").css({"color": format["two"].fc, "background-color": format["two"].bc});
-        $("#luckysheet-alternateformat-modelToning .ctTwo .toningShow").data("fc", format["two"].fc).data("bc", format["two"].bc);
-        $("#luckysheet-alternateformat-modelToning .ctTwo .luckysheet-icon-text-color").parents(".luckysheet-color-menu-button-indicator").css("border-bottom-color", format["two"].fc);
-        $("#luckysheet-alternateformat-modelToning .ctTwo .luckysheet-icon-cell-color").parents(".luckysheet-color-menu-button-indicator").css("border-bottom-color", format["two"].bc);
+        Object.assign(document.querySelector("#luckysheet-alternateformat-modelToning .ctTwo .toningShow").style, {"color": format["two"].fc, "background-color": format["two"].bc});
+        Object.assign(document.querySelector("#luckysheet-alternateformat-modelToning .ctTwo .toningShow").dataset, {fc: format["two"].fc, bc: format["two"].bc});
+        document.querySelector("#luckysheet-alternateformat-modelToning .ctTwo .luckysheet-icon-text-color").closest(".luckysheet-color-menu-button-indicator").style.borderBottomColor = format["two"].fc;
+        document.querySelector("#luckysheet-alternateformat-modelToning .ctTwo .luckysheet-icon-cell-color").closest(".luckysheet-color-menu-button-indicator").style.borderBottomColor = format["two"].bc;
 
         //页脚
-        $("#luckysheet-alternateformat-modelToning .footer .toningShow").css({"color": format["foot"].fc, "background-color": format["foot"].bc});
-        $("#luckysheet-alternateformat-modelToning .footer .toningShow").data("fc", format["foot"].fc).data("bc", format["foot"].bc);
-        $("#luckysheet-alternateformat-modelToning .footer .luckysheet-icon-text-color").parents(".luckysheet-color-menu-button-indicator").css("border-bottom-color", format["foot"].fc);
-        $("#luckysheet-alternateformat-modelToning .footer .luckysheet-icon-cell-color").parents(".luckysheet-color-menu-button-indicator").css("border-bottom-color", format["foot"].bc);
+        Object.assign(document.querySelector("#luckysheet-alternateformat-modelToning .footer .toningShow").style, {"color": format["foot"].fc, "background-color": format["foot"].bc});
+        Object.assign(document.querySelector("#luckysheet-alternateformat-modelToning .footer .toningShow").dataset, {fc: format["foot"].fc, bc: format["foot"].bc});
+        document.querySelector("#luckysheet-alternateformat-modelToning .footer .luckysheet-icon-text-color").closest(".luckysheet-color-menu-button-indicator").style.borderBottomColor = format["foot"].fc;
+        document.querySelector("#luckysheet-alternateformat-modelToning .footer .luckysheet-icon-cell-color").closest(".luckysheet-color-menu-button-indicator").style.borderBottomColor = format["foot"].bc;
     },
 }
 
@@ -580,7 +580,7 @@ function addCustomModel(format) {
 
 function colorSelectDialog(currenColor, colorType, source) {
         showModalMask();
-        $("#luckysheet-alternateformat-colorSelect-dialog").remove();
+        document.getElementById("luckysheet-alternateformat-colorSelect-dialog").remove();
 
         const _locale = locale()
         const alternatingColors =_locale.alternatingColors;
@@ -603,21 +603,19 @@ function colorSelectDialog(currenColor, colorType, source) {
             "botton": '<button id="luckysheet-alternateformat-colorSelect-dialog-confirm" class="btn btn-primary">'+locale_button.confirm+'</button><button class="btn btn-default luckysheet-model-close-btn">'+locale_button.cancel+'</button>', 
             "style": "z-index:100003" 
         }));
-        let $t = $("#luckysheet-alternateformat-colorSelect-dialog")
-                .find(".luckysheet-modal-dialog-content")
-                .css("min-width", 300)
-                .end(), 
-            myh = $t.outerHeight(), 
-            myw = $t.outerWidth();
+        let _dialog = document.getElementById("luckysheet-alternateformat-colorSelect-dialog");
+        _dialog.querySelector(".luckysheet-modal-dialog-content").style.minWidth = '300px';
+        let myh = _dialog.offsetHeight,
+            myw = _dialog.offsetWidth;
         let winw = document.documentElement.clientWidth, winh = document.documentElement.clientHeight;
         let scrollLeft = document.documentElement.scrollLeft, scrollTop = document.documentElement.scrollTop;
-        $("#luckysheet-alternateformat-colorSelect-dialog").css({
+        Object.assign(document.getElementById("luckysheet-alternateformat-colorSelect-dialog").style, {
             "left": (winw + scrollLeft - myw) / 2, 
             "top": (winh + scrollTop - myh) / 3 
-        }).show();
+        }); document.getElementById("luckysheet-alternateformat-colorSelect-dialog").style.display = '';
         
         //初始化选择颜色插件
-        createColorPicker($("#luckysheet-alternateformat-colorSelect-dialog").find(".colorshowbox")[0], {
+        createColorPicker(document.getElementById("luckysheet-alternateformat-colorSelect-dialog").querySelector(".colorshowbox"), {
             showPalette: true,
             showPaletteOnly: true,
             preferredFormat: "hex",
@@ -647,7 +645,7 @@ function colorSelectDialog(currenColor, colorType, source) {
                     color = "#000";
                 }
 
-                $("#luckysheet-alternateformat-colorSelect-dialog .currenColor span").css("background-color", color).attr("title", color);
+                document.querySelector("#luckysheet-alternateformat-colorSelect-dialog .currenColor span").style.backgroundColor = color.setAttribute("title", color);
             },
             change: function(color){
                 if (color != null) {
@@ -657,14 +655,14 @@ function colorSelectDialog(currenColor, colorType, source) {
                     color = "#000";
                 }
 
-                $("#luckysheet-alternateformat-colorSelect-dialog .currenColor span").css("background-color", color).attr("title", color);
+                document.querySelector("#luckysheet-alternateformat-colorSelect-dialog .currenColor span").style.backgroundColor = color.setAttribute("title", color);
             }
         });
 }
 
 function rangeDialog(value) {
         hideModalMask();
-        $("#luckysheet-alternateformat-rangeDialog").remove();
+        document.getElementById("luckysheet-alternateformat-rangeDialog").remove();
 
         const _locale = locale()
         const alternatingColors =_locale.alternatingColors;
@@ -678,18 +676,16 @@ function rangeDialog(value) {
             "botton": '<button id="luckysheet-alternateformat-rangeDialog-confirm" class="btn btn-primary">'+locale_button.confirm+'</button><button id="luckysheet-alternateformat-rangeDialog-close" class="btn btn-default">'+locale_button.cancel+'</button>', 
             "style": "z-index:100003" 
         }));
-        let $t = $("#luckysheet-alternateformat-rangeDialog")
-                .find(".luckysheet-modal-dialog-content")
-                .css("min-width", 300)
-                .end(), 
-            myh = $t.outerHeight(), 
-            myw = $t.outerWidth();
+        let _dialog2 = document.getElementById("luckysheet-alternateformat-rangeDialog");
+        _dialog2.querySelector(".luckysheet-modal-dialog-content").style.minWidth = '300px';
+        let myh = _dialog2.offsetHeight,
+            myw = _dialog2.offsetWidth;
         let winw = document.documentElement.clientWidth, winh = document.documentElement.clientHeight;
         let scrollLeft = document.documentElement.scrollLeft, scrollTop = document.documentElement.scrollTop;
-        $("#luckysheet-alternateformat-rangeDialog").css({
+        Object.assign(document.getElementById("luckysheet-alternateformat-rangeDialog").style, {
             "left": (winw + scrollLeft - myw) / 2, 
             "top": (winh + scrollTop - myh) / 3 
-        }).show();
+        }); document.getElementById("luckysheet-alternateformat-rangeDialog").style.display = '';
     },
 }
 

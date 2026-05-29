@@ -48,21 +48,23 @@ const rangeSelect = {
             }
 
             let currSelection = window.getSelection();
-            let anchor = $(currSelection.anchorNode);
+            let anchor = currSelection.anchorNode;
             let anchorOffset = currSelection.anchorOffset;
 
-            if (anchor.parent().is("span") && anchorOffset != 0) {
-                let txt = anchor.text().trim(),
+            if (!anchor) return false;
+
+            if (anchor.nodeType === Node.TEXT_NODE && anchor.parentElement && anchor.parentElement.matches("span") && anchorOffset != 0) {
+                let txt = anchor.textContent.trim(),
                     lasttxt = "";
 
-                if (txt.length == 0 && anchor.parent().prev().length > 0) {
-                    let ahr = anchor.parent().prev();
-                    txt = ahr.text().trim();
+                if (txt === null && anchor.parentElement.previousElementSibling !== null) {
+                    let ahr = anchor.parentElement.previousElementSibling;
+                    txt = ahr.textContent.trim();
                     lasttxt = txt.substr(txt.length - 1, 1);
                     _this.rangeSetValueTo = ahr;
                 } else {
                     lasttxt = txt.substr(anchorOffset - 1, 1);
-                    _this.rangeSetValueTo = anchor.parent();
+                    _this.rangeSetValueTo = anchor.parentElement;
                 }
 
                 if (
@@ -76,20 +78,19 @@ const rangeSelect = {
                 ) {
                     return true;
                 }
-            } else if (anchor.is(richTextEditor.el) || anchor.is(functionBox.el)) {
+            } else if (anchor === richTextEditor.el || anchor === functionBox.el) {
                 let txt = anchor
-                            .find("span")
-                            .last()
-                            .text()
-                            .trim(),
+                            .querySelectorAll("span");
+                let lastSpan = txt[txt.length - 1];
+                txt = lastSpan.textContent.trim(),
                     lasttxt;
 
-                _this.rangeSetValueTo = anchor.find("span").last();
+                _this.rangeSetValueTo = lastSpan;
 
-                if (txt.length == 0 && anchor.find("span").length > 1) {
-                    let ahr = anchor.find("span");
-                    txt = ahr.eq(ahr.length - 2).text().trim();
-                    _this.rangeSetValueTo = ahr;
+                if (txt === null && txt.length > 1) {
+                    let ahr = anchor.querySelectorAll("span");
+                    txt = ahr[ahr.length - 2].textContent.trim();
+                    _this.rangeSetValueTo = ahr[ahr.length - 1];
                 }
 
                 lasttxt = txt.substr(txt.length - 1, 1);
@@ -106,19 +107,19 @@ const rangeSelect = {
                     return true;
                 }
             } else if (
-                anchor.parent().is(richTextEditor.el) ||
-                anchor.parent().is(functionBox.el) ||
+                anchor.parentElement === richTextEditor.el ||
+                anchor.parentElement === functionBox.el ||
                 anchorOffset == 0
             ) {
                 if (anchorOffset == 0) {
-                    anchor = anchor.parent();
+                    anchor = anchor.parentElement;
                 }
 
-                if (anchor.prev().length > 0) {
-                    let txt = anchor.prev().text().trim();
+                if (anchor.previousElementSibling !== null) {
+                    let txt = anchor.previousElementSibling.textContent.trim();
                     let lasttxt = txt.substr(txt.length - 1, 1);
 
-                    _this.rangeSetValueTo = anchor.prev();
+                    _this.rangeSetValueTo = anchor.previousElementSibling;
 
                     if (
                         (istooltip && (lasttxt == "(" || lasttxt == ",")) ||
@@ -175,11 +176,11 @@ const rangeSelect = {
                 ) {
                     //公式参数框选取范围
                     $editor = richTextEditor.el;
-                    formulaDialogs.searchParmSelect.find("#luckysheet-search-formula-parm-select-input").val(range);
-                    formulaDialogs.searchParm.find(".parmBox")
-                        .eq(_this.data_parm_index)
-                        .find(".txt input")
-                        .val(range);
+                    formulaDialogs.searchParmSelect.querySelector("#luckysheet-search-formula-parm-select-input").value = range;
+                    formulaDialogs.searchParm.querySelector(".parmBox")
+                        [_this.data_parm_index]
+                        .querySelector(".txt input")
+                        .value = range;
 
                     //参数对应值显示
                     let txtdata = luckysheet_getcelldata(range).data;
@@ -197,30 +198,30 @@ const rangeSelect = {
                             }
                         }
 
-                        formulaDialogs.searchParm.find(".parmBox")
-                            .eq(_this.data_parm_index)
-                            .find(".val")
-                            .text(" = {" + txtArr.join(",") + "}");
+                        formulaDialogs.searchParm.querySelector(".parmBox")
+                            [_this.data_parm_index]
+                            .querySelector(".val")
+                            .textContent = " = {" + txtArr.join("," + "}");
                     } else {
-                        formulaDialogs.searchParm.find(".parmBox")
-                            .eq(_this.data_parm_index)
-                            .find(".val")
-                            .text(" = {" + txtdata.v + "}");
+                        formulaDialogs.searchParm.querySelector(".parmBox")
+                            [_this.data_parm_index]
+                            .querySelector(".val")
+                            .textContent = " = {" + txtdata.v + "}";
                     }
 
                     //计算结果显示
                     let isVal = true; //参数不为空
                     let parmValArr = []; //参数值集合
                     let lvi = -1; //最后一个有值的参数索引
-                    formulaDialogs.searchParm.find(".parmBox").each(function(i, e) {
-                        let parmtxt = $(e)
-                            .find(".txt input")
-                            .val();
+                    formulaDialogs.searchParm.querySelector(".parmBox").forEach(function(e) {
+                        let parmtxt = e
+                            .querySelector(".txt input")
+                            .value;
                         if (
                             parmtxt == "" &&
-                            $(e)
-                                .find(".txt input")
-                                .attr("data_parm_require") == "m"
+                            e
+                                .querySelector(".txt input")
+                                .getAttribute("data_parm_require") == "m"
                         ) {
                             isVal = false;
                         }
@@ -233,29 +234,29 @@ const rangeSelect = {
                     let functionHtmlTxt;
                     if (lvi == -1) {
                         functionHtmlTxt =
-                            "=" + formulaDialogs.searchParm.find(".luckysheet-modal-dialog-title-text").text() + "()";
+                            "=" + formulaDialogs.searchParm.querySelector(".luckysheet-modal-dialog-title-text").textContent + "()";
                     } else if (lvi == 0) {
                         functionHtmlTxt =
                             "=" +
-                            formulaDialogs.searchParm.find(".luckysheet-modal-dialog-title-text").text() +
+                            formulaDialogs.searchParm.querySelector(".luckysheet-modal-dialog-title-text").textContent +
                             "(" +
-                            formulaDialogs.searchParm.find(".parmBox")
-                                .eq(0)
-                                .find(".txt input")
-                                .val() +
+                            formulaDialogs.searchParm.querySelector(".parmBox")
+                                [0]
+                                .querySelector(".txt input")
+                                .value +
                             ")";
                     } else {
                         for (let j = 0; j <= lvi; j++) {
                             parmValArr.push(
-                                formulaDialogs.searchParm.find(".parmBox")
-                                    .eq(j)
-                                    .find(".txt input")
-                                    .val(),
+                                formulaDialogs.searchParm.querySelector(".parmBox")
+                                    [j]
+                                    .querySelector(".txt input")
+                                    .value,
                             );
                         }
                         functionHtmlTxt =
                             "=" +
-                            formulaDialogs.searchParm.find(".luckysheet-modal-dialog-title-text").text() +
+                            formulaDialogs.searchParm.querySelector(".luckysheet-modal-dialog-title-text").textContent +
                             "(" +
                             parmValArr.join(",") +
                             ")";
@@ -268,16 +269,17 @@ const rangeSelect = {
                     if (isVal) {
                         let fp = _this.functionParserExe(richTextEditor.getText()).trim();
                         let result = new Function("return " + fp)();
-                        formulaDialogs.searchParm.find(".result span").text(result);
+                        formulaDialogs.searchParm.querySelector(".result span").textContent = result;
                     }
                 } else {
                     let currSelection = window.getSelection();
                     let anchorOffset = currSelection.anchorNode;
-                    $editor = $(anchorOffset).closest("div");
+                    $editor = anchorOffset.closest("div");
 
-                    let $span = $editor.find("span[rangeindex='" + _this.rangechangeindex + "']").html(range);
+                    let $span = $editor.querySelector("span[rangeindex='" + _this.rangechangeindex + "']");
+                    $span.innerHTML = range;
 
-                    _this.setCaretPosition($span.get(0), 0, range.length);
+                    _this.setCaretPosition($span, 0, range.length);
                 }
             } else {
                 let function_str =
@@ -288,19 +290,20 @@ const rangeSelect = {
                     ';">' +
                     range +
                     "</span>";
-                let $t = $(function_str).insertAfter(_this.rangeSetValueTo);
+                _this.rangeSetValueTo.insertAdjacentHTML('afterend', function_str);
+                let $t = _this.rangeSetValueTo.nextElementSibling;
                 _this.rangechangeindex = _this.functionHTMLIndex;
-                $editor = $(_this.rangeSetValueTo).closest("div");
+                $editor = _this.rangeSetValueTo.closest("div");
 
                 _this.setCaretPosition(
-                    $editor.find("span[rangeindex='" + _this.rangechangeindex + "']").get(0),
+                    $editor.querySelector("span[rangeindex='" + _this.rangechangeindex + "']"),
                     0,
                     range.length,
                 );
                 _this.functionHTMLIndex++;
             }
 
-            if ($editor.is(richTextEditor.el)) {
+            if ($editor === richTextEditor.el) {
                 functionBox.setHtml(richTextEditor.getHtml());
             } else {
                 richTextEditor.setHtml(functionBox.getHtml());
@@ -408,7 +411,7 @@ const rangeSelect = {
                     { row: rowseleted, column: columnseleted },
                     Store.currentSheetIndex,
                 );
-                formulaDialogs.ifFormulaMultiRange.find("input").val(range);
+                formulaDialogs.ifFormulaMultiRange.querySelector("input").value = range;
             } else {
                 _this.rangeSetValue({
                     row: rowseleted,
@@ -720,9 +723,10 @@ const rangeSelect = {
             };
             let range = _this.getSelectedFromRange(selected);
             let rangetxt = getRangetxt(Store.currentSheetIndex, range, _this.rangetosheet);
-            let $span = _this.rangeResizeTo.find("span[rangeindex='" + rangeindex + "']").html(rangetxt);
+            let $span = _this.rangeResizeTo.querySelector("span[rangeindex='" + rangeindex + "']");
+            $span.innerHTML = rangetxt;
             luckysheetRangeLast(_this.rangeResizeTo[0]);
-            rangeResizeObj.css(selected).data("range", range);
+            rangeResizeObj.dataset.range = range;
         },
 
         getSelectedFromRange: function(obj) {
@@ -750,9 +754,9 @@ const rangeSelect = {
             let _this = this;
 
             _this.rangeResize = null;
-            $("#luckysheet-formula-functionrange-highlight-" + _this.rangeResizeIndex)
-                .find(".luckysheet-selection-copy-hc")
-                .css("opacity", 0.03);
+            document.getElementById("luckysheet-formula-functionrange-highlight-" + _this.rangeResizeIndex)
+                .querySelector(".luckysheet-selection-copy-hc")
+                .style.opacity = 0.03;
         },
 
         rangeMovexy: null,
@@ -829,20 +833,21 @@ const rangeSelect = {
             };
             let range = _this.getSelectedFromRange(selected);
             let rangetxt = getRangetxt(Store.currentSheetIndex, range, _this.rangetosheet);
-            let $span = _this.rangeResizeTo.find("span[rangeindex='" + rangeindex + "']").html(rangetxt);
+            let $span = _this.rangeResizeTo.querySelector("span[rangeindex='" + rangeindex + "']");
+            $span.innerHTML = rangetxt;
             luckysheetRangeLast(_this.rangeResizeTo[0]);
             _this.rangeMoveRangedata = range;
-            obj.css(selected);
+            Object.assign(obj.style, selected);
         },
 
         rangeMoveDragged: function(obj) {
             let _this = this;
 
             _this.rangeMove = false;
-            $("#luckysheet-formula-functionrange-highlight-" + _this.rangeMoveIndex)
-                .data("range", _this.rangeMoveRangedata)
-                .find(".luckysheet-selection-copy-hc")
-                .css("opacity", 0.03);
+            document.getElementById("luckysheet-formula-functionrange-highlight-" + _this.rangeMoveIndex)
+                .dataset.range = _this.rangeMoveRangedata
+                .querySelector(".luckysheet-selection-copy-hc")
+                .style.opacity = 0.03;
         }
 };
 

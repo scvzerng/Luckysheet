@@ -17,20 +17,19 @@ const createProxy = (data, k, callback) => {
 };
 
 function openSelfModel(id, isshowMask = true) {
-    let $t = $("#" + id)
-            .find(".luckysheet-modal-dialog-content")
-            .css("min-width", 300)
-            .end(),
-        myh = $t.outerHeight(),
-        myw = $t.outerWidth();
+    let _dialog = document.getElementById(id);
+    _dialog.querySelector(".luckysheet-modal-dialog-content").style.minWidth = '300px';
+    let myh = _dialog.offsetHeight,
+        myw = _dialog.offsetWidth;
     let winw = document.documentElement.clientWidth,
         winh = document.documentElement.clientHeight;
     let scrollLeft = document.documentElement.scrollLeft,
         scrollTop = document.documentElement.scrollTop;
-    $t.css({
+    Object.assign(_dialog.style, {
         left: (winw + scrollLeft - myw) / 2,
         top: (winh + scrollTop - myh) / 3,
-    }).show();
+    });
+    _dialog.style.display = '';
 
     if (isshowMask) {
         showModalMask();

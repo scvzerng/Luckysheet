@@ -23,25 +23,26 @@ export function getCellHtmlValue(r, c, data) {
 
     if (c_value == null && cell.ct && cell.ct.t == "inlineStr") {
         c_value = cell.ct.s.map(function (val) {
-            var brDom = $('<br style="mso-data-placement:same-cell;">');
+            var brDom = document.createElement('br');
+            brDom.style.cssText = "mso-data-placement:same-cell;";
             var splitValue = val.v.split("\r\n");
             return splitValue.map(function (item) {
                 if (!item) {
                     return "";
                 }
-                var font = $("<font></font>");
-                val.fs && font.css("font-size", val.fs + "pt");
-                val.bl && font.css("font-weight", "bold");
-                val.it && font.css("font-style", "italic");
-                val.un && font.css("text-decoration", "underline");
-                val.fc && font.css("color", val.fc);
+                var font = document.createElement("font");
+                val.fs && (font.style.fontSize = val.fs + "pt");
+                val.bl && (font.style.fontWeight = "bold");
+                val.it && (font.style.fontStyle = "italic");
+                val.un && (font.style.textDecoration = "underline");
+                val.fc && (font.style.color = val.fc);
                 if (val.cl) {
-                    font.append("<s>" + item + "</s>");
+                    font.insertAdjacentHTML('beforeend', "<s>" + item + "</s>");
                 } else {
-                    font.text(item);
+                    font.textContent = item;
                 }
-                return font[0].outerHTML;
-            }).join(brDom[0].outerHTML);
+                return font.outerHTML;
+            }).join(brDom.outerHTML);
         }).join("");
     }
 
@@ -240,7 +241,7 @@ export function getMergedCellBorderStyle(r, c, mc, borderInfoCompute, selection)
 
 export function dataToJsonObject(data) {
     let arr = [];
-    if (data.length === 0) {
+    if (data === null) {
         return arr;
     }
     if (data.length === 1) {
@@ -267,7 +268,7 @@ export function dataToJsonObject(data) {
 
 export function dataToJsonNoHeaderObject(data, startCol) {
     let arr = [];
-    if (data.length === 0) {
+    if (data === null) {
         return arr;
     }
     let st = startCol || 0;

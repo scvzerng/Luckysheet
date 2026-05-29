@@ -11,7 +11,7 @@ export function exitEditMode(options = {}){
 
 
         if (formulaDialogs.formulaSearchC.isVisible() && formula.searchFunctionCell != null) {
-            formula.searchFunctionEnter(formulaDialogs.formulaSearchC.el.find(".luckysheet-formula-search-item-active"));
+            formula.searchFunctionEnter(formulaDialogs.formulaSearchC.el.querySelector(".luckysheet-formula-search-item-active"));
         }
         else {
             formula.updatecell(Store.luckysheetCellUpdate[0], Store.luckysheetCellUpdate[1]);
@@ -24,10 +24,10 @@ export function exitEditMode(options = {}){
         }
 
         if(formulaDialogs.searchParm.isVisible()){
-            formulaDialogs.searchParm.hide();
+            formulaDialogs.searchParm.style.display = 'none';
         }
         if(formulaDialogs.searchParmSelect.isVisible()){
-            formulaDialogs.searchParmSelect.hide();
+            formulaDialogs.searchParmSelect.style.display = 'none';
         }
 
     }
@@ -42,7 +42,7 @@ export function enterEditMode(options = {}){
     if(conditionformatDialog.main.isVisible()){
         return;
     }
-    else if ($("#luckysheet-cell-selected").is(":visible")) {
+    else if (document.getElementById("luckysheet-cell-selected").offsetWidth > 0) {
         let last = getLastSelection();
         let _focus = getFocusCell();
 

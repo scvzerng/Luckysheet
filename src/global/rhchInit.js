@@ -103,5 +103,5 @@ export function zoomSetting(){
     Store.columnHeaderHeight = luckysheetConfigsetting.columnHeaderHeight *Store.zoomRatio;
     rowHeader.setWidth((Store.rowHeaderWidth-1.5));
     colHeader.setHeight((Store.columnHeaderHeight-1.5));
-    $("#luckysheet-left-top").css({width:Store.rowHeaderWidth-1.5, height:Store.columnHeaderHeight-1.5});
+    Object.assign(document.getElementById("luckysheet-left-top").style, {width:Store.rowHeaderWidth-1.5, height:Store.columnHeaderHeight-1.5});
 }

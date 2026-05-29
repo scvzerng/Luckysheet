@@ -5,10 +5,10 @@ import Store from '../../../store';
 
 export function initTextStyle(_this) {
       //加粗
-      $("#luckysheet-icon-bold").mousedown(function (e) {
+      document.getElementById("luckysheet-icon-bold").addEventListener("mousedown", function (e) {
         hideMenuByCancel(e);
         e.stopPropagation();
-      }).click(function (e) {
+      }).addEventListener("click", function (e) {
         let d = editor.deepCopyFlowData(Store.flowdata);
         let flag = checkTheStatusOfTheSelectedCells("bl", 1);
         let foucsStatus = flag ? 0 : 1;
@@ -16,10 +16,10 @@ export function initTextStyle(_this) {
       });
   
       //斜体
-      $("#luckysheet-icon-italic").mousedown(function (e) {
+      document.getElementById("luckysheet-icon-italic").addEventListener("mousedown", function (e) {
         hideMenuByCancel(e);
         e.stopPropagation();
-      }).click(function () {
+      }).addEventListener("click", function () {
         let d = editor.deepCopyFlowData(Store.flowdata);
         let flag = checkTheStatusOfTheSelectedCells("it", 1);
         let foucsStatus = flag ? 0 : 1;
@@ -27,10 +27,10 @@ export function initTextStyle(_this) {
       });
   
       //删除�?
-      $("#luckysheet-icon-strikethrough").mousedown(function (e) {
+      document.getElementById("luckysheet-icon-strikethrough").addEventListener("mousedown", function (e) {
         hideMenuByCancel(e);
         e.stopPropagation();
-      }).click(function () {
+      }).addEventListener("click", function () {
         let d = editor.deepCopyFlowData(Store.flowdata);
         let flag = checkTheStatusOfTheSelectedCells("cl", 1);
         let foucsStatus = flag ? 0 : 1;
@@ -38,10 +38,10 @@ export function initTextStyle(_this) {
       });
   
       //下划�?
-      $("#luckysheet-icon-underline").mousedown(function (e) {
+      document.getElementById("luckysheet-icon-underline").addEventListener("mousedown", function (e) {
         hideMenuByCancel(e);
         e.stopPropagation();
-      }).click(function () {
+      }).addEventListener("click", function () {
         let d = editor.deepCopyFlowData(Store.flowdata);
         let flag = checkTheStatusOfTheSelectedCells("un", 1);
         let foucsStatus = flag ? 0 : 1;

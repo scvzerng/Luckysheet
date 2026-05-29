@@ -25,9 +25,9 @@ const fontManageModule = {
       ret.text = "<span class='luckysheet-mousedown-cancel' style='font-size:11px;font-family:" + fontName + "'>" + fontName + "</span>";
       ret.example = "";
       this.fontSelectList.push(ret);
-      let $menuButton = $("#luckysheet-icon-font-family-menuButton");
+      let $menuButton = document.getElementById("luckysheet-icon-font-family-menuButton");
       let itemset = this.createButtonMenu(this.fontSelectList);
-      $menuButton.html(itemset);
+      $menuButton.innerHTML = itemset;
     }
   },
   fontInitial: function (fontList) {

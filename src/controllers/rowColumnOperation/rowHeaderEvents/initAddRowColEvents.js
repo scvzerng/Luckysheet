@@ -10,13 +10,13 @@ import rightClickMenu from '../../../ui/rightClickMenu.js';
 
 export function initAddRowColEvents() {
     //向左增加列，向上增加�?
-    // $("#luckysheet-add-lefttop, #luckysheet-add-lefttop_t").click(function (event) {
-    $("#luckysheet-top-left-add-selected").click(function (event) {
+    // document.querySelector("#luckysheet-add-lefttop, #luckysheet-add-lefttop_t").addEventListener("click", function (event) {
+    document.getElementById("luckysheet-top-left-add-selected").addEventListener("click", function (event) {
       // Click input element, don't comfirm
       if (event.target.nodeName === "INPUT") {
         return;
       }
-      rightClickMenu.hide();
+      rightClickMenu.style.display = 'none';
       luckysheetContainerFocus();
       const _locale = locale();
       const locale_drag = _locale.drag;
@@ -29,8 +29,8 @@ export function initAddRowColEvents() {
         }
         return;
       }
-      let $t = $(this),
-        value = $t.find("input").val();
+      let $t = this,
+        value = $t.querySelector("input").value;
       if (!isRealNum(value)) {
         if (isEditMode()) {
           alert(locale_info.tipInputNumber);
@@ -56,8 +56,8 @@ export function initAddRowColEvents() {
     });
   
     // When you right-click a cell, a row is inserted before the row by default
-    $("#luckysheetColsRowsHandleAdd_row").click(function (event) {
-      rightClickMenu.hide();
+    document.getElementById("luckysheetColsRowsHandleAdd_row").addEventListener("click", function (event) {
+      rightClickMenu.style.display = 'none';
       luckysheetContainerFocus();
       if (Store.allowEdit === false) {
         return;
@@ -68,8 +68,8 @@ export function initAddRowColEvents() {
       }
       luckysheetextendtable('row', st_index, 1, "lefttop");
     });
-    $("#luckysheetColsRowsHandleAdd_column").click(function (event) {
-      rightClickMenu.hide();
+    document.getElementById("luckysheetColsRowsHandleAdd_column").addEventListener("click", function (event) {
+      rightClickMenu.style.display = 'none';
       luckysheetContainerFocus();
       if (Store.allowEdit === false) {
         return;
@@ -79,8 +79,8 @@ export function initAddRowColEvents() {
     });
   
     // custom right-click a cell buttton click
-    $(".luckysheetColsRowsHandleAdd_custom").click(function (clickEvent) {
-      rightClickMenu.hide();
+    document.querySelector(".luckysheetColsRowsHandleAdd_custom").addEventListener("click", function (clickEvent) {
+      rightClickMenu.style.display = 'none';
       const cellRightClickConfig = luckysheetConfigsetting.cellRightClickConfig;
       const rowIndex = Store.luckysheet_select_save[0].row[0];
       const columnIndex = Store.luckysheet_select_save[0].column[0];
@@ -96,15 +96,15 @@ export function initAddRowColEvents() {
       }
     });
     // Add the row up, and click the text area to trigger the confirmation instead of clicking the confirmation button to enhance the experience
-    // $("#luckysheet-addTopRows").click(function (event) {
-    // $("#luckysheetColsRowsHandleAdd_sub .luckysheet-cols-menuitem:first-child").click(function (event) {
+    // document.getElementById("luckysheet-addTopRows").addEventListener("click", function (event) {
+    // document.querySelector("#luckysheetColsRowsHandleAdd_sub .luckysheet-cols-menuitem:first-child").addEventListener("click", function (event) {
   
     //     // Click input element, don't comfirm
     //     if(event.target.nodeName === 'INPUT'){
     //         return;
     //     }
   
-    //     rightClickMenu.hide();
+    //     rightClickMenu.style.display = 'none';
     //     luckysheetContainerFocus();
   
     //     const _locale = locale();
@@ -122,7 +122,7 @@ export function initAddRowColEvents() {
     //         return;
     //     }
   
-    //     let $t = $(this), value = $t.find("input").val();
+    //     let $t = this, value = $t.querySelector("input").value;
     //     if (!isRealNum(value)) {
     //         if(isEditMode()){
     //             alert(locale_info.tipInputNumber);
@@ -149,23 +149,23 @@ export function initAddRowColEvents() {
     //     let st_index = Store.luckysheet_select_save[0].row[0];
     //     luckysheetextendtable('row', st_index, value, "lefttop");
   
-    //     $("#luckysheetColsRowsHandleAdd_sub").hide();
+    //     document.getElementById("luckysheetColsRowsHandleAdd_sub").style.display = 'none';
     // })
   
     // // input输入时阻止冒泡，禁止父级元素的确认事件触�?
-    // $("input.luckysheet-mousedown-cancel").click(function(event) {
+    // document.querySelector("input.luckysheet-mousedown-cancel").addEventListener("click", function(event) {
     //     event.stopPropagation;
     // })
   
-    // $("#luckysheet-addLeftCols").click(function (event) {
-    // $("#luckysheetColsRowsHandleAdd_sub .luckysheet-cols-menuitem:nth-child(3)").click(function (event) {
+    // document.getElementById("luckysheet-addLeftCols").addEventListener("click", function (event) {
+    // document.querySelector("#luckysheetColsRowsHandleAdd_sub .luckysheet-cols-menuitem:nth-child(3)").addEventListener("click", function (event) {
   
     //     // Click input element, don't comfirm
     //     if(event.target.nodeName === 'INPUT'){
     //         return;
     //     }
   
-    //     rightClickMenu.hide();
+    //     rightClickMenu.style.display = 'none';
     //     luckysheetContainerFocus();
 
     //     const _locale = locale();
@@ -183,7 +183,7 @@ export function initAddRowColEvents() {
     //         return;
     //     }
 
-    //     let $t = $(this), value = $t.find("input").val();
+    //     let $t = this, value = $t.querySelector("input").value;
     //     if (!isRealNum(value)) {
     //         if(isEditMode()){
     //             alert(locale_info.tipInputNumber);
@@ -210,18 +210,18 @@ export function initAddRowColEvents() {
     //     let st_index = Store.luckysheet_select_save[0].column[0];
     //     luckysheetextendtable('column', st_index, value, "lefttop");
 
-    //     $("#luckysheetColsRowsHandleAdd_sub").hide();
+    //     document.getElementById("luckysheetColsRowsHandleAdd_sub").style.display = 'none';
 
     // })
   
     //向右增加列，向下增加�?
-    // $("#luckysheet-add-rightbottom, #luckysheet-add-rightbottom_t").click(function (event) {
-    $("#luckysheet-bottom-right-add-selected").click(function (event) {
+    // document.querySelector("#luckysheet-add-rightbottom, #luckysheet-add-rightbottom_t").addEventListener("click", function (event) {
+    document.getElementById("luckysheet-bottom-right-add-selected").addEventListener("click", function (event) {
       // Click input element, don't comfirm
       if (event.target.nodeName === "INPUT") {
         return;
       }
-      rightClickMenu.hide();
+      rightClickMenu.style.display = 'none';
       luckysheetContainerFocus();
       const _locale = locale();
       const locale_drag = _locale.drag;
@@ -234,8 +234,8 @@ export function initAddRowColEvents() {
         }
         return;
       }
-      let $t = $(this),
-        value = $t.find("input").val();
+      let $t = this,
+        value = $t.querySelector("input").value;
       if (!isRealNum(value)) {
         if (isEditMode()) {
           alert(locale_info.tipInputNumber);

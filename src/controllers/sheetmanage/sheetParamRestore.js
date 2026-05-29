@@ -19,7 +19,7 @@ import resizeHandles from '../../ui/resizeHandles.js';
 const sheetParamRestoreModule = {
   sheetParamRestore: function (file, data) {
     Store.luckysheet_select_save = file["luckysheet_select_save"];
-    if (Store.luckysheet_select_save == null || Store.luckysheet_select_save.length == 0) {
+    if (Store.luckysheet_select_save == null || Store.luckysheet_select_save === null) {
       if (data[0] != null && data[0][0] != null && data[0][0].mc != null) {
         Store.luckysheet_select_save = [{
           row: [0, data[0][0].mc.rs - 1],
@@ -148,7 +148,7 @@ const sheetParamRestoreModule = {
     let index = this.getSheetIndex(sheetIndex);
     let file = Store.luckysheetfile[index];
 
-    // if($('#luckysheet-filter-selected-sheet' + sheetIndex).length > 0 || file.filter_select == null || JSON.stringify(file.filter_select) == "{}"){
+    // if(document.getElementById('#luckysheet-filter-selected-sheet' + sheetIndex) !== null || file.filter_select == null || JSON.stringify(file.filter_select) == "{}"){
     //     if(file.config != null && file.config.rowhidden != null){
     //         file.config.rowhidden =  {};
     //         Store.config = file.config;
@@ -175,11 +175,11 @@ const sheetParamRestoreModule = {
     if (file.config != null && file.config.rowhidden != null) {
       rowhidden = file.config.rowhidden;
     }
-    $("#luckysheet-filter-options-sheet" + sheetIndex + " .luckysheet-filter-options").each(function (i) {
+    document.querySelectorAll("#luckysheet-filter-options-sheet" + sheetIndex + " .luckysheet-filter-options").forEach(function(i) {
       if (file.filter == null) {
         return false;
       }
-      let $top = $(this);
+      let $top = this;
       let item = file.filter[i];
       if (item == null) {
         return true;
@@ -204,7 +204,7 @@ const sheetParamRestoreModule = {
     let _this = this;
     let data = _this.CacheNotLoadControll;
     _this.CacheNotLoadControll = [];
-    if (data.length == 0) {
+    if (data === null) {
       return;
     }
     for (let i = 0; i < data.length; i++) {
@@ -214,7 +214,7 @@ const sheetParamRestoreModule = {
   },
   showSheet: function () {
     // changeSheetContainerSize();
-    $("#luckysheet-cell-flow_0").css({
+    Object.assign(document.getElementById("luckysheet-cell-flow_0").style, {
       width: Store.ch_width,
       top: "-1px"
     }); //width更新
@@ -222,8 +222,8 @@ const sheetParamRestoreModule = {
       width: Store.ch_width - 1,
       height: Store.rh_height
     });
-    $("#luckysheetrowHeader_0").css("height", Store.rh_height);
-    $("#luckysheet-cols-h-cells_0").css("width", Store.ch_width); //width更新
+    document.getElementById("luckysheetrowHeader_0").style.height = Store.rh_height;
+    document.getElementById("luckysheet-cols-h-cells_0").style.width = Store.ch_width; //width更新
 
     scrollBarX.setInnerDivWidth(Store.ch_width);
     scrollBarY.setInnerDivHeight(Store.rh_height + Store.columnHeaderHeight - Store.cellMainSrollBarSize - 3);

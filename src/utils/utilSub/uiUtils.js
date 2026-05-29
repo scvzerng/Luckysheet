@@ -4,8 +4,8 @@ import richTextEditor from '../../ui/richTextEditor.js';
 function showrightclickmenu($menu, x, y) {
     let winH = document.documentElement.clientHeight,
         winW = document.documentElement.clientWidth;
-    let menuW = $menu.width(),
-        menuH = $menu.height();
+    let menuW = $menu.offsetWidth,
+        menuH = $menu.offsetHeight;
     let top = y,
         left = x;
 
@@ -21,7 +21,7 @@ function showrightclickmenu($menu, x, y) {
         top = 0;
     }
 
-    $menu.css({ top: top, left: left }).show();
+    Object.assign($menu.style, { top: top, left: left }); $menu.style.display = '';
 }
 
 function luckysheetactiveCell() {
@@ -31,18 +31,18 @@ function luckysheetactiveCell() {
             const input = richTextEditor.getNativeElement();
             input.focus({ preventScroll: true });
             richTextEditor.select();
-            // $("#luckysheet-rich-text-editor").focus().select();
+            // document.getElementById("luckysheet-rich-text-editor").focus().select();
         }, 50);
     }
 }
 
 function luckysheetContainerFocus() {
-    // $("#" + Store.container).focus({
+    // document.getElementById(Store.container).focus({
     //     preventScroll: true
     // });
 
     // fix jquery error: Uncaught TypeError: ((n.event.special[g.origType] || {}).handle || g.handler).apply is not a function
-    // $("#" + Store.container).attr("tabindex", 0).focus();
+    // document.getElementById(Store.container).setAttribute("tabindex", 0).focus();
 
     // need preventScroll:true,fix Luckysheet has been set top, and clicking the cell will trigger the scrolling problem fix #794 #152
     document.getElementById(Store.container).focus({ preventScroll: true });
@@ -51,8 +51,8 @@ function luckysheetContainerFocus() {
 function mouseclickposition($menu, x, y, p) {
     let winH = document.documentElement.clientHeight,
         winW = document.documentElement.clientWidth;
-    let menuW = $menu.width(),
-        menuH = $menu.height();
+    let menuW = $menu.offsetWidth,
+        menuH = $menu.offsetHeight;
     let top = y,
         left = x;
 
@@ -61,13 +61,13 @@ function mouseclickposition($menu, x, y, p) {
     }
 
     if (p == "lefttop") {
-        $menu.css({ top: y, left: x }).show();
+        Object.assign($menu.style, { top: y, left: x }); $menu.style.display = '';
     } else if (p == "righttop") {
-        $menu.css({ top: y, left: x - menuW }).show();
+        Object.assign($menu.style, { top: y, left: x - menuW }); $menu.style.display = '';
     } else if (p == "leftbottom") {
-        $menu.css({ bottom: winH - y - 12, left: x }).show();
+        Object.assign($menu.style, { bottom: winH - y - 12, left: x }); $menu.style.display = '';
     } else if (p == "rightbottom") {
-        $menu.css({ bottom: winH - y - 12, left: x - menuW }).show();
+        Object.assign($menu.style, { bottom: winH - y - 12, left: x - menuW }); $menu.style.display = '';
     }
 }
 

@@ -40,7 +40,7 @@ export function initRowHeaderEvents() {
       let col_index = getMaxColIndex(),
         col = Store.visibledatacolumn[col_index],
         col_pre = 0;
-      rightClickMenu.hide();
+      rightClickMenu.style.display = 'none';
       [document.getElementById("luckysheet-sheet-list"), document.getElementById("luckysheet-rightclick-sheet-menu")].forEach(el => { if (el) el.style.display = 'none'; });
   
       //mousedown是右�?
@@ -64,7 +64,7 @@ export function initRowHeaderEvents() {
   
       //公式相关
       let $input = inputBox.el;
-      if (parseInt($input.css("top")) > 0) {
+      if (parseInt(getComputedStyle($input).top) > 0) {
         if (formula.rangestart || formula.rangedrag_column_start || formula.rangedrag_row_start || formula.israngeseleciton() || formulaDialogs.ifFormulaMultiRange.isVisible()) {
           //公式选区
           let changeparam = menuButton.mergeMoveMain([0, col_index], rowseleted, {
@@ -119,14 +119,16 @@ export function initRowHeaderEvents() {
             last["top_move"] = top;
             last["height_move"] = height;
             formula.func_selectedrange = last;
-          } else if (event.ctrlKey && richTextEditor.find("span").last().text() != ",") {
+          } else if (event.ctrlKey && richTextEditor.querySelector("span").last().textContent != ",") {
             let vText = richTextEditor.getText() + ",";
-            if (vText.length > 0 && vText.substr(0, 1) == "=") {
+            if (vText !== null && vText.substr(0, 1) == "=") {
               vText = formula.functionHTMLGenerate(vText);
               if (window.getSelection) {
                 // all browsers, except IE before version 9
                 let currSelection = window.getSelection();
-                formula.functionRangeIndex = [$(currSelection.anchorNode).parent().index(), currSelection.anchorOffset];
+                let _an = currSelection.anchorNode;
+                let _p = _an && _an.nodeType === Node.TEXT_NODE ? _an.parentElement : _an;
+                formula.functionRangeIndex = [_p && _p.parentElement ? Array.from(_p.parentElement.children).indexOf(_p) : -1, currSelection.anchorOffset];
               } else {
                 // Internet Explorer before version 9
                 let textRange = document.selection.createRange();
@@ -185,7 +187,7 @@ export function initRowHeaderEvents() {
               row: rowseleted,
               column: [0, col_index]
             }, Store.currentSheetIndex);
-            formulaDialogs.ifFormulaMultiRange.find("input").val(range);
+            formulaDialogs.ifFormulaMultiRange.querySelector("input").value = range;
           }
           formula.rangedrag_row_start = true;
           formula.rangestart = false;
@@ -196,7 +198,7 @@ export function initRowHeaderEvents() {
             top: top,
             height: height
           });
-          formulaDialogs.formulaHelp.hide();
+          formulaDialogs.formulaHelp.style.display = 'none';
           luckysheet_count_show(col_pre, top, col - col_pre - 1, height, rowseleted, [0, col_index]);
           setTimeout(function () {
             let currSelection = window.getSelection();
@@ -206,10 +208,10 @@ export function initRowHeaderEvents() {
               $editor = richTextEditor.el;
               formula.rangechangeindex = formula.data_parm_index;
             } else {
-              $editor = $(anchorOffset).closest("div");
+              $editor = anchorOffset.closest("div");
             }
-            let $span = $editor.find("span[rangeindex='" + formula.rangechangeindex + "']");
-            formula.setCaretPosition($span.get(0), 0, $span.html().length);
+            let $span = $editor.querySelector("span[rangeindex='" + formula.rangechangeindex + "']");
+            formula.setCaretPosition($span, 0, $span.innerHTML.length);
           }, 1);
           return;
         } else {
@@ -296,7 +298,7 @@ export function initRowHeaderEvents() {
     });
     rowHeader.onMousemove(function (event) {
       if (Store.luckysheet_rows_selected_status || Store.luckysheet_rows_change_size || Store.luckysheet_select_status) {
-        resizeHandles.rowHover.hide();
+        resizeHandles.rowHover.style.display = 'none';
         return;
       }
       let mouse = mouseposition(event.pageX, event.pageY);
@@ -320,7 +322,7 @@ export function initRowHeaderEvents() {
       }
     });
     rowHeader.onMouseleave(function (event) {
-      resizeHandles.rowHover.hide();
+      resizeHandles.rowHover.style.display = 'none';
       resizeHandles.rowChangeSize.setCss({opacity: 0});
     });
     rowHeader.onMouseup(function (event) {
@@ -343,8 +345,8 @@ export function initRowHeaderEvents() {
         const _elData1 = document.getElementById("luckysheet-cols-rows-data"); if (_elData1) _elData1.style.display = '';
         const _elShift2 = document.getElementById("luckysheet-cols-rows-shift"); if (_elShift2) _elShift2.style.display = 'none';
         const _elHandleInCell1 = document.getElementById("luckysheet-cols-rows-handleincell"); if (_elHandleInCell1) _elHandleInCell1.style.display = 'none';
-        $$("#luckysheet-cols-rows-add .luckysheet-menuseparator").style.display = "block";
-        $$("#luckysheet-cols-rows-data .luckysheet-menuseparator").style.display = "block";
+        document.querySelector("#luckysheet-cols-rows-add .luckysheet-menuseparator").style.display = "block";
+        document.querySelector("#luckysheet-cols-rows-data .luckysheet-menuseparator").style.display = "block";
   
         // 自定义右键菜单：向上向下增加行，删除行，隐藏显示行，设置行高
         const cellRightClickConfig = luckysheetConfigsetting.cellRightClickConfig;
@@ -353,29 +355,29 @@ export function initRowHeaderEvents() {
         if (!cellRightClickConfig.copy && !cellRightClickConfig.copyAs && !cellRightClickConfig.paste && !cellRightClickConfig.insertRow && !cellRightClickConfig.deleteRow && !cellRightClickConfig.hideRow && !cellRightClickConfig.rowHeight && !cellRightClickConfig.clear && !cellRightClickConfig.matrix && !cellRightClickConfig.sort && !cellRightClickConfig.filter && !cellRightClickConfig.image && !cellRightClickConfig.link && !cellRightClickConfig.data) {
           return;
         }
-        $$("#luckysheet-top-left-add-selected").style.display = cellRightClickConfig.insertRow ? "block" : "none";
-        $$("#luckysheet-bottom-right-add-selected").style.display = cellRightClickConfig.insertRow ? "block" : "none";
-        $$("#luckysheet-del-selected").style.display = cellRightClickConfig.deleteRow ? "block" : "none";
-        $$("#luckysheet-hide-selected").style.display = cellRightClickConfig.hideRow ? "block" : "none";
-        $$("#luckysheet-show-selected").style.display = cellRightClickConfig.hideRow ? "block" : "none";
-        $$("#luckysheet-column-row-width-selected").style.display = cellRightClickConfig.rowHeight ? "block" : "none";
+        document.getElementById("luckysheet-top-left-add-selected").style.display = cellRightClickConfig.insertRow ? "block" : "none";
+        document.getElementById("luckysheet-bottom-right-add-selected").style.display = cellRightClickConfig.insertRow ? "block" : "none";
+        document.getElementById("luckysheet-del-selected").style.display = cellRightClickConfig.deleteRow ? "block" : "none";
+        document.getElementById("luckysheet-hide-selected").style.display = cellRightClickConfig.hideRow ? "block" : "none";
+        document.getElementById("luckysheet-show-selected").style.display = cellRightClickConfig.hideRow ? "block" : "none";
+        document.getElementById("luckysheet-column-row-width-selected").style.display = cellRightClickConfig.rowHeight ? "block" : "none";
   
         // 1. 当一个功能菜单块上方的功能块按钮都隐藏的时候，下方的功能块的顶部分割线也需要隐�?
         if (!cellRightClickConfig.copy && !cellRightClickConfig.copyAs && !cellRightClickConfig.paste) {
-          $$("#luckysheet-cols-rows-add .luckysheet-menuseparator").style.display = "none";
+          document.querySelector("#luckysheet-cols-rows-add .luckysheet-menuseparator").style.display = "none";
           if (!cellRightClickConfig.insertRow && !cellRightClickConfig.deleteRow && !cellRightClickConfig.hideRow && !cellRightClickConfig.rowHeight) {
-            $$("#luckysheet-cols-rows-data .luckysheet-menuseparator").style.display = "none";
+            document.querySelector("#luckysheet-cols-rows-data .luckysheet-menuseparator").style.display = "none";
           }
         }
   
         // 2. 当一个功能菜单块内所有的按钮都隐藏的时候，它顶部的分割线也需要隐藏掉
         if (!cellRightClickConfig.insertRow && !cellRightClickConfig.deleteRow && !cellRightClickConfig.hideRow && !cellRightClickConfig.rowHeight) {
-          $$("#luckysheet-cols-rows-add .luckysheet-menuseparator").style.display = "none";
+          document.querySelector("#luckysheet-cols-rows-add .luckysheet-menuseparator").style.display = "none";
         }
         if (!cellRightClickConfig.clear && !cellRightClickConfig.matrix && !cellRightClickConfig.sort && !cellRightClickConfig.filter && !cellRightClickConfig.image && !cellRightClickConfig.link && !cellRightClickConfig.data) {
-          $$("#luckysheet-cols-rows-data .luckysheet-menuseparator").style.display = "none";
+          document.querySelector("#luckysheet-cols-rows-data .luckysheet-menuseparator").style.display = "none";
         }
-        rightClickMenu.showAt($(this).offset().left + 46, event.pageY);
+        rightClickMenu.showAt(this.getBoundingClientRect().left + window.pageXOffset + 46, event.pageY);
         Store.luckysheet_cols_menu_status = true;
   
         //行高默认�?
@@ -398,9 +400,9 @@ export function initRowHeaderEvents() {
           }
         }
         if (isSame) {
-          $("#luckysheet-cols-rows-add").find("input[type='number'].rcsize").val(first_rowlen);
+          document.getElementById("luckysheet-cols-rows-add").querySelector("input[type='number'].rcsize").value = first_rowlen;
         } else {
-          $("#luckysheet-cols-rows-add").find("input[type='number'].rcsize").val("");
+          document.getElementById("luckysheet-cols-rows-add").querySelector("input[type='number'].rcsize").value = "";
         }
       }
     });

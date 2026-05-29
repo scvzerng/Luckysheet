@@ -35,7 +35,7 @@ export default function luckysheetcreatedom(colwidth, rowheight, data, menu, tit
     gh = replaceHtml(gh, { "logotitle": title });//设置title
     gh = replaceHtml(gh, { "menu": menuToolBar() });//设置需要显示的菜单
 
-    // if (data.length == 0) {
+    // if (data === null) {
     //     Store.flowdata = datagridgrowth(data, rowheight, colwidth);
     // }
     // else if (data.length < rowheight && data[0].length < colwidth) {
@@ -98,7 +98,7 @@ export default function luckysheetcreatedom(colwidth, rowheight, data, menu, tit
 
     gh = replaceHtml(gh, { "flow": flowHTML, "rowHeader": "<div style='height:" + Store.rh_height + "px' id='luckysheetrowHeader_0' class='luckysheetsheetchange'></div>", "columnHeader": colsheader, "functionButton": luckysheetConfigsetting.functionButton });//设置需要显示的菜单
 
-    $("#" + Store.container).append(gh);
+    document.getElementById(Store.container).insertAdjacentHTML('beforeend', gh);
 
     scrollBarX.setInnerDivWidth(Store.ch_width);
     scrollBarY.setInnerDivHeight(Store.rh_height + Store.columnHeaderHeight - Store.cellMainSrollBarSize - 3);
@@ -114,10 +114,10 @@ export default function luckysheetcreatedom(colwidth, rowheight, data, menu, tit
 
     rowHeader.setWidth((Store.rowHeaderWidth-1.5));
     colHeader.setHeight((Store.columnHeaderHeight-1.5));
-    $("#luckysheet-left-top").css({width:Store.rowHeaderWidth-1.5, height:Store.columnHeaderHeight-1.5});
+    Object.assign(document.getElementById("luckysheet-left-top").style, {width:Store.rowHeaderWidth-1.5, height:Store.columnHeaderHeight-1.5});
 
     // //批注
     // luckysheetPostil.buildAllPs(Store.flowdata);
 
-    $("#luckysheet_info_detail_input").val(luckysheetConfigsetting.title);
+    document.getElementById("luckysheet_info_detail_input").value = luckysheetConfigsetting.title;
 }

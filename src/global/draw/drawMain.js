@@ -61,12 +61,12 @@ function luckysheetDrawMain(scrollWidth, scrollHeight, drawWidth, drawHeight, of
   } else {
     if (getObjType(mycanvas) == "object") {
       try {
-        luckysheetTableContent = mycanvas.get(0).getContext("2d");
+        luckysheetTableContent = mycanvas.getContext("2d");
       } catch (err) {
         luckysheetTableContent = mycanvas;
       }
     } else {
-      luckysheetTableContent = $("#" + mycanvas).get(0).getContext("2d");
+      luckysheetTableContent = document.getElementById(mycanvas).getContext("2d");
     }
   }
   luckysheetTableContent.save();
@@ -262,7 +262,7 @@ function luckysheetDrawMain(scrollWidth, scrollHeight, drawWidth, drawHeight, of
       } else {
         value = getRealCellValue(r, c);
       }
-      if (value == null || value.toString().length == 0) {
+      if (value == null || value.toString() === null) {
         nullCellRender(r, c, start_r, start_c, end_r, end_c, luckysheetTableContent, af_compute, cf_compute, offsetLeft, offsetTop, dynamicArray_compute, cellOverflowMap, dataset_col_st, dataset_col_ed, scrollHeight, scrollWidth, bodrder05);
       } else {
         if (r + "_" + c in dynamicArray_compute) {
@@ -312,7 +312,7 @@ function luckysheetDrawMain(scrollWidth, scrollHeight, drawWidth, drawHeight, of
     }
     end_r = Store.visibledatarow[r + mainCell["mc"].rs - 1] - scrollHeight;
     end_c = Store.visibledatacolumn[c + mainCell["mc"].cs - 1] - scrollWidth;
-    if (value == null || value.toString().length == 0) {
+    if (value == null || value.toString() === null) {
       nullCellRender(r, c, start_r, start_c, end_r, end_c, luckysheetTableContent, af_compute, cf_compute, offsetLeft, offsetTop, dynamicArray_compute, cellOverflowMap, dataset_col_st, dataset_col_ed, scrollHeight, scrollWidth, bodrder05, true);
     } else {
       if (r + "_" + c in dynamicArray_compute) {
@@ -336,7 +336,7 @@ function luckysheetDrawMain(scrollWidth, scrollHeight, drawWidth, drawHeight, of
   }
 
   //杈规鍗曠嫭娓叉煋
-  if (Store.config["borderInfo"] != null && Store.config["borderInfo"].length > 0) {
+  if (Store.config["borderInfo"] != null && Store.config["borderInfo"] !== null) {
     //杈规娓叉煋
     let borderInfoCompute = getBorderInfoComputeRange(dataset_row_st, dataset_row_ed, dataset_col_st, dataset_col_ed);
     for (let x in borderInfoCompute) {

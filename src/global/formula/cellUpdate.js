@@ -54,7 +54,7 @@ const cellUpdate = {
             let isCurInline = inputText.slice(0, 1) != "=" && inputHtml.substr(0, 5) == "<span";
 
             let isCopyVal = false;
-            if (!isCurInline && inputText && inputText.length > 0) {
+            if (!isCurInline && inputText && inputText !== null) {
                 let splitArr = inputText
                     .replace(/\r\n/g, "_x000D_")
                     .replace(/&#13;&#10;/g, "_x000D_")
@@ -387,7 +387,7 @@ const cellUpdate = {
 
             document.querySelectorAll("#luckysheet-formula-functionrange .luckysheet-formula-functionrange-highlight").forEach(el => el.remove());
             resetInputBoxStyle();
-            inputBoxIndex.hide();
+            inputBoxIndex.style.display = 'none';
             functionBox.unsetActive();
 
             _this.rangestart = false;
@@ -396,12 +396,12 @@ const cellUpdate = {
         },
 
         canceFunctionrangeSelected: function() {
-            formulaRangeSelect.hide();
-            countShow.row.hide();
-            countShow.column.hide();
-            // $("#luckysheet-cols-h-selected, #luckysheet-rows-h-selected").hide();
-            formulaDialogs.formulaSearchC.hide();
-            formulaDialogs.formulaHelp.hide();
+            formulaRangeSelect.style.display = 'none';
+            countShow.row.style.display = 'none';
+            countShow.column.style.display = 'none';
+            // document.querySelector("#luckysheet-cols-h-selected, #luckysheet-rows-h-selected").style.display = 'none';
+            formulaDialogs.formulaSearchC.style.display = 'none';
+            formulaDialogs.formulaHelp.style.display = 'none';
         }
 };
 

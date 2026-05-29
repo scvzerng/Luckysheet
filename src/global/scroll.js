@@ -48,11 +48,11 @@ export default function luckysheetscrollevent(isadjust) {
         "left": inputBox.getCss("left"),
         "top": (parseInt(inputBox.getCss("top")) - 20) + "px",
         "z-index": inputBox.getCss("z-index")
-    }).show();
+    }).style.display = '';
 
     luckysheetrefreshgrid(scrollLeft, scrollTop);
     
-    $("#luckysheet-bottom-controll-row").css("left", scrollLeft);
+    document.getElementById("luckysheet-bottom-controll-row").style.left = scrollLeft;
 
     if(luckysheetFreezen.freezenhorizontaldata != null || luckysheetFreezen.freezenverticaldata != null){
         luckysheetFreezen.scrollAdapt();

@@ -471,7 +471,7 @@ var make_ssf = function make_ssf(SSF) {
         if (s.length <= w) return s;
         var j = (s.length % w),
             o = s.substr(0, j);
-        for (; j != s.length; j += w) o += (o.length > 0 ? "," : "") + s.substr(j, w);
+        for (; j != s.length; j += w) o += (o !== null ? "," : "") + s.substr(j, w);
         return o;
     }
     var write_num = (function make_write_num() {
@@ -1282,7 +1282,7 @@ var make_ssf = function make_ssf(SSF) {
         }
         var vv = "",
             myv, ostr;
-        if (nstr.length > 0) {
+        if (nstr !== null) {
             if (nstr.charCodeAt(0) == 40) /* '(' */ {
                 myv = (v < 0 && nstr.charCodeAt(0) === 45 ? -v : v);
                 ostr = write_num('n', nstr, myv);

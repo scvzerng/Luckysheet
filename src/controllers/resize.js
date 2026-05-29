@@ -23,30 +23,30 @@ let gridW = 0,
 export default function luckysheetsizeauto(isRefreshCanvas=true) {
     if (!luckysheetConfigsetting.showinfobar) {
         Store.infobarHeight = 0;
-        $("#luckysheet_info_detail").hide();
+        document.getElementById("luckysheet_info_detail").style.display = 'none';
     }
     else {
-        $("#luckysheet_info_detail").show();
+        document.getElementById("luckysheet_info_detail").style.display = '';
         // Store.infobarHeight = 56;
         Store.infobarHeight = document.querySelector('#luckysheet_info_detail').offsetHeight;
     }
 
-    if (!!Store.toobarObject && !!Store.toobarObject.toobarElements && Store.toobarObject.toobarElements.length === 0) {
-        $("#" + Store.container).find(".luckysheet-wa-editor").hide();
+    if (!!Store.toobarObject && !!Store.toobarObject.toobarElements && Store.toobarObject.toobarElements === null) {
+        document.getElementById(Store.container).querySelector(".luckysheet-wa-editor").style.display = 'none';
         Store.toolbarHeight = 0;
     }
     else {
-        $("#" + Store.container).find(".luckysheet-wa-editor").show();
+        document.getElementById(Store.container).querySelector(".luckysheet-wa-editor").style.display = '';
         // Store.toolbarHeight = 72;
         Store.toolbarHeight = document.querySelector('#' + Store.container +' .luckysheet-wa-editor').offsetHeight;
     }
 
     // if (!luckysheetConfigsetting.showsheetbar) {
-    //     $("#" + Store.container).find("#luckysheet-sheet-area").hide();
+    //     document.getElementById(Store.container).querySelector("#luckysheet-sheet-area").style.display = 'none';
     //     Store.sheetBarHeight = 0;
     // }
     // else {
-    //     $("#" + Store.container).find("#luckysheet-sheet-area").show();
+    //     document.getElementById(Store.container).querySelector("#luckysheet-sheet-area").style.display = '';
     //     Store.sheetBarHeight = 31;
     // }
 
@@ -54,11 +54,11 @@ export default function luckysheetsizeauto(isRefreshCanvas=true) {
     customSheetbarConfig();
 
     // if (!luckysheetConfigsetting.showstatisticBar) {
-    //     $("#" + Store.container).find(".luckysheet-stat-area").hide();
+    //     document.getElementById(Store.container).querySelector(".luckysheet-stat-area").style.display = 'none';
     //     Store.statisticBarHeight = 0;
     // }
     // else {
-    //     $("#" + Store.container).find(".luckysheet-stat-area").show();
+    //     document.getElementById(Store.container).querySelector(".luckysheet-stat-area").style.display = '';
     //     Store.statisticBarHeight = 23;
     // }
 
@@ -75,13 +75,13 @@ export default function luckysheetsizeauto(isRefreshCanvas=true) {
         Store.calculatebarHeight = formulaEle.offsetHeight;
     }
 
-    $("#" + Store.container).find(".luckysheet-grid-container").css("top", Store.toolbarHeight + Store.infobarHeight + Store.calculatebarHeight);
+    document.getElementById(Store.container).querySelector(".luckysheet-grid-container").style.top = Store.toolbarHeight + Store.infobarHeight + Store.calculatebarHeight;
 
-    gridW = $("#" + Store.container).width();
+    gridW = document.getElementById(Store.container).offsetWidth;
 
     if(luckysheetConfigsetting.showConfigWindowResize){
-        if($("#luckysheet-modal-dialog-slider-alternateformat").is(":visible")){
-            gridW -= $("#luckysheet-modal-dialog-slider-alternateformat").outerWidth();
+        if(document.getElementById("luckysheet-modal-dialog-slider-alternateformat").offsetWidth > 0){
+            gridW -= document.getElementById("luckysheet-modal-dialog-slider-alternateformat").offsetWidth;
         }
     }
 
@@ -101,28 +101,25 @@ export default function luckysheetsizeauto(isRefreshCanvas=true) {
 
                 </div>
             </div>
-         </div>`,
-         // Add style left:$$('.luckysheet') left, when the worksheet does not fill the full screen
-        morediv = '<div id="luckysheet-icon-morebtn-div" class="luckysheet-wa-editor" style="position:absolute;top:'+ (Store.infobarHeight + Store.toolbarHeight + $("#" + Store.container).offset().top + document.body.scrollTop) +'px;right:0px;z-index:1003;padding:5.5px;visibility:hidden;height:auto;white-space:initial;"></div>';
+         </div>`;
+    const _luckyOffset = (() => { const _r = document.getElementById(Store.container).getBoundingClientRect(); return {top: _r.top + window.pageYOffset, left: _r.left + window.pageXOffset}; })();
+    let morediv = '<div id="luckysheet-icon-morebtn-div" class="luckysheet-wa-editor" style="position:absolute;top:'+ (Store.infobarHeight + Store.toolbarHeight + _luckyOffset.top + document.body.scrollTop) +'px;right:0px;z-index:1003;padding:5.5px;visibility:hidden;height:auto;white-space:initial;"></div>';
 
-    if($("#luckysheet-icon-morebtn-div").length == 0){
+    if(document.getElementById("luckysheet-icon-morebtn-div") === null){
         document.body.insertAdjacentHTML('beforeend', morediv);
     }
 
-    // $("#luckysheet-icon-morebtn-div").hide();
-    $$("#luckysheet-icon-morebtn-div").style.visibility = 'hidden';
-    // $("#luckysheet-icon-morebtn-div > div").appendTo($("#luckysheet-wa-editor"));
+    document.getElementById("luckysheet-icon-morebtn-div").style.visibility = 'hidden';
 
-    $("#luckysheet-icon-morebtn-div > div").each(function(){
-        const $t = $(this)[0];
-        const $container =  $("#luckysheet-wa-editor")[0];
+    document.querySelectorAll("#luckysheet-icon-morebtn-div > div").forEach(function(el) {
+        const _container = document.getElementById("luckysheet-wa-editor");
 
-        $container.appendChild(document.createTextNode(" "));
+        _container.appendChild(document.createTextNode(" "));
 
-        $container.appendChild($t);
+        _container.appendChild(el);
     });
 
-    $("#luckysheet-icon-morebtn").remove();
+    document.getElementById("luckysheet-icon-morebtn").remove();
 
     // 所有按钮宽度与元素定位
     const toobarWidths = Store.toobarObject.toobarWidths;
@@ -151,47 +148,47 @@ export default function luckysheetsizeauto(isRefreshCanvas=true) {
         const element = toobarElements[index];
         if(element instanceof Array){
             for(const ele of element){
-                $("#luckysheet-icon-morebtn-div").append($(`${ele}`));
+                document.getElementById("luckysheet-icon-morebtn-div").insertAdjacentHTML('beforeend', ele);
             }
         }else{
-            $("#luckysheet-icon-morebtn-div").append($(`${element}`));
+            document.getElementById("luckysheet-icon-morebtn-div").insertAdjacentHTML('beforeend', element);
         }
 
     }
 
     if(ismore){
 
-        $("#luckysheet-wa-editor").append(morebtn);
-        $("#luckysheet-icon-morebtn").click(function(){
+        document.getElementById("luckysheet-wa-editor").insertAdjacentHTML('beforeend', morebtn);
+        document.getElementById("luckysheet-icon-morebtn").addEventListener("click", function(){
 
             //When resize, change the width of the more button container in real time
-            $$('#luckysheet-icon-morebtn-div').style.left = '';//reset
+            document.getElementById("luckysheet-icon-morebtn-div").style.left = '';//reset
 
             // *这里计算containerLeft的作用是：获得容器左侧的margin值，以让点击出现的“更多按钮”栏位置不会出错。
-            const containerLeft = $$(`#${Store.container}`).getBoundingClientRect ? $$(`#${Store.container}`).getBoundingClientRect().left : 0;
-            const morebtnLeft = $$('#luckysheet-icon-morebtn-div').getBoundingClientRect().left;//get real left info
+            const containerLeft = document.querySelector(`#${Store.container}`).getBoundingClientRect ? document.querySelector(`#${Store.container}`).getBoundingClientRect().left : 0;
+            const morebtnLeft = document.getElementById("luckysheet-icon-morebtn-div").getBoundingClientRect().left;//get real left info
 
             if(morebtnLeft < containerLeft){
-                $$('#luckysheet-icon-morebtn-div').style.left = containerLeft + 'px';
+                document.getElementById("luckysheet-icon-morebtn-div").style.left = containerLeft + 'px';
             }
 
-            let right = document.documentElement.clientWidth - $("#luckysheet-icon-morebtn").offset().left - $("#luckysheet-icon-morebtn").width()+ document.body.scrollLeft;
+            let right = document.documentElement.clientWidth - document.getElementById("luckysheet-icon-morebtn").getBoundingClientRect().left + window.pageXOffset - document.getElementById("luckysheet-icon-morebtn").offsetWidth+ document.body.scrollLeft;
 
 
-            // $("#luckysheet-icon-morebtn-div").toggle().css("right", right < 0 ? 0 : right);
+            // document.getElementById("luckysheet-icon-morebtn-div").toggle().style.right = right < 0 ? 0 : right;
 
             // use native js operation
-            $$('#luckysheet-icon-morebtn-div').style.right = right < 0 ? 0 : right + 'px';
+            document.getElementById("luckysheet-icon-morebtn-div").style.right = right < 0 ? 0 : right + 'px';
 
             // change to visibility,morebtnLeft will get the actual value
-            if($$('#luckysheet-icon-morebtn-div').style.visibility === 'hidden'){
-                $$('#luckysheet-icon-morebtn-div').style.visibility = 'visible';
+            if(document.getElementById("luckysheet-icon-morebtn-div").style.visibility === 'hidden'){
+                document.getElementById("luckysheet-icon-morebtn-div").style.visibility = 'visible';
             }else{
-                $$('#luckysheet-icon-morebtn-div').style.visibility = 'hidden';
+                document.getElementById("luckysheet-icon-morebtn-div").style.visibility = 'hidden';
             }
 
-            let $txt = $(this).find(".luckysheet-toolbar-menu-button-caption");
-            if($txt.text().indexOf(locale_toolbar.toolMore) > -1){
+            let $txt = this.querySelector(".luckysheet-toolbar-menu-button-caption");
+            if($txt.textContent.indexOf(locale_toolbar.toolMore) > -1){
 
                 const toolCloseHTML = `
                 <div class="luckysheet-toolbar-menu-button-caption luckysheet-inline-block" style="user-select: none;">
@@ -200,7 +197,7 @@ export default function luckysheetsizeauto(isRefreshCanvas=true) {
                 <div class="luckysheet-toolbar-menu-button-dropdown luckysheet-inline-block iconfont-luckysheet luckysheet-iconfont-shangyige" style="user-select: none;font-size:12px;">
                 </div>
                 `
-                $(this).find(".luckysheet-toolbar-button-inner-box").html(toolCloseHTML);
+                this.querySelector(".luckysheet-toolbar-button-inner-box").innerHTML = toolCloseHTML;
             }
             else{
 
@@ -212,48 +209,78 @@ export default function luckysheetsizeauto(isRefreshCanvas=true) {
                 </div>
                 `
 
-                $(this).find(".luckysheet-toolbar-button-inner-box").html(toolMoreHTML);
+                this.querySelector(".luckysheet-toolbar-button-inner-box").innerHTML = toolMoreHTML;
             }
 
         });
-        //$("#luckysheet-wa-editor div").trigger("create");
+        //document.querySelector("#luckysheet-wa-editor div").dispatchEvent(new Event("create", {bubbles: true}));
 
-        // $("#luckysheet-icon-morebtn-div .luckysheet-toolbar-menu-button").css("margin-right", -1);
-        // $("#luckysheet-icon-morebtn-div .luckysheet-toolbar-button-split-left").css("margin-right", -3);
+        // document.querySelector("#luckysheet-icon-morebtn-div .luckysheet-toolbar-menu-button").style.marginRight = -1;
+        // document.querySelector("#luckysheet-icon-morebtn-div .luckysheet-toolbar-button-split-left").style.marginRight = -3;
 
         // “更多”容器中，联动hover效果
-        $("#luckysheet-icon-morebtn-div .luckysheet-toolbar-button-split-left").off("hover").hover(function(){
-            $(this).next(".luckysheet-toolbar-button-split-right").addClass("luckysheet-toolbar-button-split-right-hover");
-        }, function(){
-            $(this).next(".luckysheet-toolbar-button-split-right").removeClass("luckysheet-toolbar-button-split-right-hover");
+        const splitLeft = document.querySelector("#luckysheet-icon-morebtn-div .luckysheet-toolbar-button-split-left");
+        splitLeft.addEventListener("mouseenter", function() {
+            const next = this.nextElementSibling;
+            if (next && next.matches(".luckysheet-toolbar-button-split-right")) {
+                next.classList.add("luckysheet-toolbar-button-split-right-hover");
+            }
+        });
+        splitLeft.addEventListener("mouseleave", function() {
+            const next = this.nextElementSibling;
+            if (next && next.matches(".luckysheet-toolbar-button-split-right")) {
+                next.classList.remove("luckysheet-toolbar-button-split-right-hover");
+            }
         });
 
-        $("#luckysheet-icon-morebtn-div .luckysheet-toolbar-button-split-right").off("hover").hover(function(){
-            $(this).prev(".luckysheet-toolbar-button-split-left").addClass("luckysheet-toolbar-button-hover");
-        }, function(){
-            $(this).prev(".luckysheet-toolbar-button-split-left").removeClass("luckysheet-toolbar-button-hover");
+        const splitRight = document.querySelector("#luckysheet-icon-morebtn-div .luckysheet-toolbar-button-split-right");
+        splitRight.addEventListener("mouseenter", function() {
+            const prev = this.previousElementSibling;
+            if (prev && prev.matches(".luckysheet-toolbar-button-split-left")) {
+                prev.classList.add("luckysheet-toolbar-button-hover");
+            }
+        });
+        splitRight.addEventListener("mouseleave", function() {
+            const prev = this.previousElementSibling;
+            if (prev && prev.matches(".luckysheet-toolbar-button-split-left")) {
+                prev.classList.remove("luckysheet-toolbar-button-hover");
+            }
         });
 
         // tooltip
         tooltip.createHoverTip("#luckysheet-icon-morebtn-div" ,".luckysheet-toolbar-menu-button, .luckysheet-toolbar-button, .luckysheet-toolbar-combo-button");
     }
 
-    $("#"+ Store.container + " .luckysheet-wa-editor .luckysheet-toolbar-button-split-left").off("hover").hover(function(){
-        $(this).next(".luckysheet-toolbar-button-split-right").addClass("luckysheet-toolbar-button-split-right-hover");
-    }, function(){
-        $(this).next(".luckysheet-toolbar-button-split-right").removeClass("luckysheet-toolbar-button-split-right-hover");
-    });
+    let _splitLeft = document.querySelector("#"+ Store.container + " .luckysheet-wa-editor .luckysheet-toolbar-button-split-left");
+    if (_splitLeft) {
+        _splitLeft.addEventListener("mouseenter", function() {
+            let _next = this.nextElementSibling;
+            if (_next && _next.matches(".luckysheet-toolbar-button-split-right")) _next.classList.add("luckysheet-toolbar-button-split-right-hover");
+        });
+        _splitLeft.addEventListener("mouseleave", function() {
+            let _next = this.nextElementSibling;
+            if (_next && _next.matches(".luckysheet-toolbar-button-split-right")) _next.classList.remove("luckysheet-toolbar-button-split-right-hover");
+        });
+    }
 
-    $("#"+ Store.container + " .luckysheet-wa-editor .luckysheet-toolbar-button-split-right").off("hover").hover(function(){
-        $(this).prev(".luckysheet-toolbar-button-split-left").addClass("luckysheet-toolbar-button-hover");
-    }, function(){
-        $(this).prev(".luckysheet-toolbar-button-split-left").removeClass("luckysheet-toolbar-button-hover");
-    });
+    let _splitRight = document.querySelector("#"+ Store.container + " .luckysheet-wa-editor .luckysheet-toolbar-button-split-right");
+    if (_splitRight) {
+        _splitRight.addEventListener("mouseenter", function() {
+            let _prev = this.previousElementSibling;
+            if (_prev && _prev.matches(".luckysheet-toolbar-button-split-left")) _prev.classList.add("luckysheet-toolbar-button-hover");
+        });
+        _splitRight.addEventListener("mouseleave", function() {
+            let _prev = this.previousElementSibling;
+            if (_prev && _prev.matches(".luckysheet-toolbar-button-split-left")) _prev.classList.remove("luckysheet-toolbar-button-hover");
+        });
+    }
 
     // When adding elements to the luckysheet-icon-morebtn-div element of the toolbar, it will affect the height of the entire workbook area, so the height is obtained here
-    gridH = $("#" + Store.container).height();
+    gridH = document.getElementById(Store.container).offsetHeight;
 
-    $("#" + Store.container).find(".luckysheet").height(gridH - 2).width(gridW - 2);
+    let _luckysheetEl = document.getElementById(Store.container).querySelector(".luckysheet");
+    _luckysheetEl.style.height = gridH - 2 + 'px';
+    _luckysheetEl.style.width = gridW - 2 + 'px';
 
     changeSheetContainerSize(gridW, gridH)
 
@@ -269,11 +296,11 @@ export default function luckysheetsizeauto(isRefreshCanvas=true) {
 
 export function changeSheetContainerSize(gridW, gridH){
     if(gridW==null){
-        gridW = $("#" + Store.container).width();
+        gridW = document.getElementById(Store.container).offsetWidth;
     }
 
     if(gridH==null){
-        gridH = $("#" + Store.container).height();
+        gridH = document.getElementById(Store.container).offsetHeight;
     }
     Store.cellmainHeight = gridH - (getHeaderTotalHeight() + Store.sheetBarHeight + Store.statisticBarHeight);
     Store.cellmainWidth = gridW - Store.rowHeaderWidth;
@@ -301,23 +328,16 @@ export function changeSheetContainerSize(gridW, gridH){
         Store.luckysheetTableContentHW[1]
     );
 
-    $("#" + Store.container).find(".luckysheet-grid-window").css("bottom", Store.statisticBarHeight);
+    document.getElementById(Store.container).querySelector(".luckysheet-grid-window").style.bottom = Store.statisticBarHeight;
     gridWindow.setCssBottom(Store.sheetBarHeight);
 
     let gridwidth = gridWindow.getWidth();
-    $("#luckysheet-freezebar-horizontal").find(".luckysheet-freezebar-horizontal-handle")
-    .css({ "width": gridwidth - 10 })
-    .end()
-    .find(".luckysheet-freezebar-horizontal-drop")
-    .css({ "width": gridwidth - 10 });
+    Object.assign(document.getElementById("luckysheet-freezebar-horizontal").querySelector(".luckysheet-freezebar-horizontal-handle").style, { "width": gridwidth - 10 });
+    Object.assign(document.getElementById("luckysheet-freezebar-horizontal").querySelector(".luckysheet-freezebar-horizontal-drop").style, { "width": gridwidth - 10 });
 
     let gridheight = gridWindow.getHeight();
-    $("#luckysheet-freezebar-vertical")
-    .find(".luckysheet-freezebar-vertical-handle")
-    .css({ "height": gridheight - 10 })
-    .end()
-    .find(".luckysheet-freezebar-vertical-drop")
-    .css({ "height": gridheight - 10 });
+    Object.assign(document.getElementById("luckysheet-freezebar-vertical").querySelector(".luckysheet-freezebar-vertical-handle").style, { "height": gridheight - 10 });
+    Object.assign(document.getElementById("luckysheet-freezebar-vertical").querySelector(".luckysheet-freezebar-vertical-drop").style, { "height": gridheight - 10 });
 
     luckysheetFreezen.createAssistCanvas();
 }
@@ -451,24 +471,24 @@ export function menuToolBarWidth() {
 
         if(index !== toobarElements.length - 1){
             if(curr.ele instanceof Array){
-                toobarWidths.push($(curr.ele[0]).offset().left);
+                toobarWidths.push(document.querySelector(curr.ele[0]).getBoundingClientRect().left + window.pageXOffset);
             }else{
-                toobarWidths.push($(curr.ele).offset().left);
+                toobarWidths.push(curr.ele.getBoundingClientRect().left + window.pageXOffset);
             }
         }else{
             if(curr.ele instanceof Array){
-                toobarWidths.push($(curr.ele[0]).offset().left);
-                toobarWidths.push($(curr.ele[0]).offset().left + $(curr.ele[0]).outerWidth() + 5);
+                toobarWidths.push(document.querySelector(curr.ele[0]).getBoundingClientRect().left + window.pageXOffset);
+                toobarWidths.push(document.querySelector(curr.ele[0]).getBoundingClientRect().left + window.pageXOffset + document.querySelector(curr.ele[0]).offsetWidth + 5);
             }else{
-                toobarWidths.push($(curr.ele).offset().left);
-                toobarWidths.push($(curr.ele).offset().left + $(curr.ele).outerWidth() + 5);
+                toobarWidths.push(curr.ele.getBoundingClientRect().left + window.pageXOffset);
+                toobarWidths.push(curr.ele.getBoundingClientRect().left + window.pageXOffset + curr.ele.offsetWidth + 5);
             }
         }
 
     });
 
     //If the container does not occupy the full screen, we need to subtract the left margin
-    const containerLeft = $('#' + Store.container).offset().left;
+    const containerLeft = document.getElementById(Store.container).getBoundingClientRect().left + window.pageXOffset;
     toobarWidths.forEach((item,i)=>{
         toobarWidths[i] -= containerLeft;
     })
@@ -513,19 +533,19 @@ function customSheetbarConfig() {
         if(!config[s]){
             switch (s) {
                 case 'add':
-                    $('#luckysheet-sheets-add').hide();
+                    document.getElementById("luckysheet-sheets-add").style.display = 'none';
                     isHide++;
                     break;
 
                 case 'menu':
-                    $('#luckysheet-sheets-m').hide();
+                    document.getElementById("luckysheet-sheets-m").style.display = 'none';
                     isHide++;
                     break;
 
                 case 'sheet':
-                    $('#luckysheet-sheet-container').hide();
-                    $('#luckysheet-sheets-leftscroll').hide();
-                    $('#luckysheet-sheets-rightscroll').hide();
+                    document.getElementById("luckysheet-sheet-container").style.display = 'none';
+                    document.getElementById("luckysheet-sheets-leftscroll").style.display = 'none';
+                    document.getElementById("luckysheet-sheets-rightscroll").style.display = 'none';
                     isHide++;
                     break;
 
@@ -536,11 +556,11 @@ function customSheetbarConfig() {
     }
 
     if (isHide === 3) {
-        $("#" + Store.container).find("#luckysheet-sheet-area").hide();
+        document.getElementById(Store.container).querySelector("#luckysheet-sheet-area").style.display = 'none';
         Store.sheetBarHeight = 0;
     }
     else {
-        $("#" + Store.container).find("#luckysheet-sheet-area").show();
+        document.getElementById(Store.container).querySelector("#luckysheet-sheet-area").style.display = '';
         Store.sheetBarHeight = 31;
     }
 }
@@ -583,17 +603,17 @@ function customStatisticBarConfig() {
         if(!config[s]){
             switch (s) {
                 case 'count':
-                    $('#luckysheet-sta-content').hide();
+                    document.getElementById("luckysheet-sta-content").style.display = 'none';
                     isHide++;
                     break;
 
                 case 'view':
-                    $('.luckysheet-print-viewList').hide();
+                    document.querySelector('.luckysheet-print-viewList').style.display = 'none';
                     isHide++;
                     break;
 
                 case 'zoom':
-                    $('#luckysheet-zoom-content').hide();
+                    document.getElementById("luckysheet-zoom-content").style.display = 'none';
                     isHide++;
                     break;
 
@@ -604,11 +624,11 @@ function customStatisticBarConfig() {
     }
 
     if (isHide === 3) {
-        $("#" + Store.container).find(".luckysheet-stat-area").hide();
+        document.getElementById(Store.container).querySelector(".luckysheet-stat-area").style.display = 'none';
         Store.statisticBarHeight = 0;
     }
     else {
-        $("#" + Store.container).find(".luckysheet-stat-area").show();
+        document.getElementById(Store.container).querySelector(".luckysheet-stat-area").style.display = '';
         Store.statisticBarHeight = 23;
     }
 }

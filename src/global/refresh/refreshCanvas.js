@@ -23,7 +23,7 @@ function jfrefreshgrid_rhcw(rowheight, colwidth, isRefreshCanvas=true){
 
     let calcChain = getCurrentFile().calcChain;
 
-    if(calcChain != null && calcChain.length > 0){
+    if(calcChain != null && calcChain !== null){
         if(Store.config["rowlen"] == null){
             Store.config["rowlen"] = {};
         }
@@ -40,13 +40,13 @@ function jfrefreshgrid_rhcw(rowheight, colwidth, isRefreshCanvas=true){
     //选区同步
     selectHightlightShow();
     //改变单元格行高，复制虚线框同步
-    if($(".luckysheet-selection-copy").is(":visible")){
+    if(document.querySelector(".luckysheet-selection-copy").offsetWidth > 0){
         selectionCopyShow();
     }
 
     //改变单元格行高，选区下拉icon隐藏
-    if($("#luckysheet-dropCell-icon").is(":visible")){
-        $("#luckysheet-dropCell-icon").remove();
+    if(document.getElementById("luckysheet-dropCell-icon").offsetWidth > 0){
+        document.getElementById("luckysheet-dropCell-icon").remove();
     }
 
     //有冻结状态时，同步行高、列宽
@@ -115,19 +115,19 @@ function jfrefreshgrid_rhcw(rowheight, colwidth, isRefreshCanvas=true){
     }
     else{
         //有筛选标志时，同步筛选按钮和筛选范围位置
-        if($("#luckysheet-filter-options-sheet" + Store.currentSheetIndex + " .luckysheet-filter-options").length > 0){
-            $("#luckysheet-filter-options-sheet" + Store.currentSheetIndex + " .luckysheet-filter-options").each(function(i, e){
-                let str = $(e).data("str"), cindex = $(e).data("cindex");
+        if(document.querySelector("#luckysheet-filter-options-sheet" + Store.currentSheetIndex + " .luckysheet-filter-options") !== null){
+            document.querySelectorAll("#luckysheet-filter-options-sheet" + Store.currentSheetIndex + " .luckysheet-filter-options").forEach(function(e) {
+                let str = e.dataset.str, cindex = e.dataset.cindex;
 
                 let left = Store.visibledatacolumn[cindex] - 20;
                 let top = str - 1 == -1 ? 0 : Store.visibledatarow[str - 1];
 
-                $(e).css({ "left": left, "top": top });
+                Object.assign(e.style, { "left": left, "top": top });
             });
         }
     }
 
-    if($("#luckysheet-filter-selected-sheet" + Store.currentSheetIndex).length > 0){
+    if(document.getElementById("luckysheet-filter-selected-sheet" + Store.currentSheetIndex) !== null){
         let luckysheet_filter_save = getCurrentFile().filter_select;
 
         let r1 = luckysheet_filter_save.row[0], 
@@ -140,7 +140,7 @@ function jfrefreshgrid_rhcw(rowheight, colwidth, isRefreshCanvas=true){
         let col = Store.visibledatacolumn[c2], 
             col_pre = c1 - 1 == -1 ? 0 : Store.visibledatacolumn[c1 - 1];
 
-        $("#luckysheet-filter-selected-sheet" + Store.currentSheetIndex).css({
+        Object.assign(document.getElementById("luckysheet-filter-selected-sheet" + Store.currentSheetIndex).style, {
             "left": col_pre,
             "width": col - col_pre - 1,
             "top": row_pre,

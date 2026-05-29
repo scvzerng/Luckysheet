@@ -5,7 +5,7 @@ import locale from '../locale/locale';
 
 //表格计数栏
 export function countfunc() {
-    if(Store.luckysheet_select_save.length == 0){
+    if(Store.luckysheet_select_save === null){
         return;
     }
 
@@ -70,5 +70,5 @@ export function countfunc() {
         ret += "<span>"+locale_formula.min+":" +  min + "</span>";
     }
 
-    $("#luckysheet-sta-content").html(ret);
+    document.getElementById("luckysheet-sta-content").innerHTML = ret;
 }

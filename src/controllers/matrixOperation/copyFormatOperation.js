@@ -11,8 +11,8 @@ function initialCopyFormatOperation() {
 
     //右键功能键
     //复制为json格式字符串，首行为标题
-    $("#luckysheet-copy-json-head").click(function (event) {
-        $("body .luckysheet-cols-menu").hide();
+    document.getElementById("luckysheet-copy-json-head").addEventListener("click", function (event) {
+        document.querySelector("body .luckysheet-cols-menu").style.display = 'none';
         luckysheetContainerFocus();
 
         if(Store.luckysheet_select_save.length > 1){
@@ -55,7 +55,7 @@ function initialCopyFormatOperation() {
 
         let getdata = getdatabyselection(Store.luckysheet_select_save[0]);
         let arr = [];
-        if (getdata.length == 0) {
+        if (getdata === null) {
             return;
         }
 
@@ -84,8 +84,8 @@ function initialCopyFormatOperation() {
     });
 
     //复制为json格式字符串，无标题，采用ABCD作为标题
-    $("#luckysheet-copy-json-nohead").click(function (event) {
-        $("body .luckysheet-cols-menu").hide();
+    document.getElementById("luckysheet-copy-json-nohead").addEventListener("click", function (event) {
+        document.querySelector("body .luckysheet-cols-menu").style.display = 'none';
         luckysheetContainerFocus();
 
 
@@ -129,7 +129,7 @@ function initialCopyFormatOperation() {
 
         let getdata = getdatabyselection(Store.luckysheet_select_save[0]);
         let arr = [];
-        if (getdata.length == 0) {
+        if (getdata === null) {
             return;
         }
         let st = Store.luckysheet_select_save[0]["column"][0];
@@ -145,8 +145,8 @@ function initialCopyFormatOperation() {
     });
 
     //复制为一维数组
-    $("#luckysheet-copy-array1").click(function (event) {
-        $("body .luckysheet-cols-menu").hide();
+    document.getElementById("luckysheet-copy-array1").addEventListener("click", function (event) {
+        document.querySelector("body .luckysheet-cols-menu").style.display = 'none';
         luckysheetContainerFocus();
 
         if(Store.luckysheet_select_save.length > 1){
@@ -189,7 +189,7 @@ function initialCopyFormatOperation() {
 
         let getdata = getdatabyselection(Store.luckysheet_select_save[0]);
         let arr = [];
-        if (getdata.length == 0) {
+        if (getdata === null) {
             return;
         }
         for (let r = 0; r < getdata.length; r++) {
@@ -202,8 +202,8 @@ function initialCopyFormatOperation() {
     });
 
     //复制为二维数组
-    $("#luckysheet-copy-array2").click(function (event) {
-        $("body .luckysheet-cols-menu").hide();
+    document.getElementById("luckysheet-copy-array2").addEventListener("click", function (event) {
+        document.querySelector("body .luckysheet-cols-menu").style.display = 'none';
         luckysheetContainerFocus();
 
 
@@ -247,7 +247,7 @@ function initialCopyFormatOperation() {
 
         let getdata = getdatabyselection(Store.luckysheet_select_save[0]);
         let arr = [];
-        if (getdata.length == 0) {
+        if (getdata === null) {
             return;
         }
         for (let r = 0; r < getdata.length; r++) {
@@ -262,14 +262,14 @@ function initialCopyFormatOperation() {
     });
 
     //复制为多维数组
-    $("#luckysheet-copy-arraymore-confirm").click(function (event) {
+    document.getElementById("luckysheet-copy-arraymore-confirm").addEventListener("click", function (event) {
 
         // Click input element, don't comfirm 
         if(event.target.nodeName === 'INPUT'){
             return;
         }
 
-        $("body .luckysheet-cols-menu").hide();
+        document.querySelector("body .luckysheet-cols-menu").style.display = 'none';
 
         if(Store.luckysheet_select_save.length > 1){
             if(isEditMode()){
@@ -311,7 +311,7 @@ function initialCopyFormatOperation() {
 
         let getdata = getdatabyselection(Store.luckysheet_select_save[0]);
         let arr = [];
-        if (getdata.length == 0) {
+        if (getdata === null) {
             return;
         }
 
@@ -321,11 +321,11 @@ function initialCopyFormatOperation() {
             }
         }
 
-        let row = $("#luckysheet-copy-arraymore-row").val(), col = $("#luckysheet-copy-arraymore-col").val();
+        let row = document.getElementById("luckysheet-copy-arraymore-row").value, col = document.getElementById("luckysheet-copy-arraymore-col").value;
 
         if (row == "" && col == "") {
             selection.copybyformat(event, JSON.stringify(arr));
-            $("body .luckysheet-cols-menu").hide();
+            document.querySelector("body .luckysheet-cols-menu").style.display = 'none';
             return;
         }
 
@@ -376,7 +376,7 @@ function initialCopyFormatOperation() {
                 a.push(arr[i++]);
                 if (i >= arrlen) {
                     selection.copybyformat(event, JSON.stringify(ret));
-                    $("body .luckysheet-cols-menu").hide();
+                    document.querySelector("body .luckysheet-cols-menu").style.display = 'none';
                     return;
                 }
             }
@@ -387,8 +387,8 @@ function initialCopyFormatOperation() {
     });
 
     //复制为对角线
-    $("#luckysheet-copy-diagonal").click(function (event) {
-        $("body .luckysheet-cols-menu").hide();
+    document.getElementById("luckysheet-copy-diagonal").addEventListener("click", function (event) {
+        document.querySelector("body .luckysheet-cols-menu").style.display = 'none';
         luckysheetContainerFocus();
 
         if(Store.luckysheet_select_save.length > 1){
@@ -431,7 +431,7 @@ function initialCopyFormatOperation() {
 
         let getdata = getdatabyselection(Store.luckysheet_select_save[0]);
         let arr = [];
-        if (getdata.length == 0) {
+        if (getdata === null) {
             return;
         }
 
@@ -447,8 +447,8 @@ function initialCopyFormatOperation() {
     });
 
     //复制为反对角线
-    $("#luckysheet-copy-antidiagonal").click(function (event) {
-        $("body .luckysheet-cols-menu").hide();
+    document.getElementById("luckysheet-copy-antidiagonal").addEventListener("click", function (event) {
+        document.querySelector("body .luckysheet-cols-menu").style.display = 'none';
         luckysheetContainerFocus();
 
 
@@ -492,7 +492,7 @@ function initialCopyFormatOperation() {
 
         let getdata = getdatabyselection(Store.luckysheet_select_save[0]);
         let arr = [];
-        if (getdata.length == 0) {
+        if (getdata === null) {
             return;
         }
 
@@ -508,14 +508,14 @@ function initialCopyFormatOperation() {
     });
 
     //复制为对角偏移n列
-    $("#luckysheet-copy-diagonaloffset").click(function (event) {
+    document.getElementById("luckysheet-copy-diagonaloffset").addEventListener("click", function (event) {
 
         // Click input element, don't comfirm 
         if(event.target.nodeName === 'INPUT'){
             return;
         }
         
-        $("body .luckysheet-cols-menu").hide();
+        document.querySelector("body .luckysheet-cols-menu").style.display = 'none';
         luckysheetContainerFocus();
 
         if(Store.luckysheet_select_save.length > 1){
@@ -558,12 +558,12 @@ function initialCopyFormatOperation() {
 
         let getdata = getdatabyselection(Store.luckysheet_select_save[0]);
         let arr = [];
-        if (getdata.length == 0) {
+        if (getdata === null) {
             return;
         }
 
         let clen = getdata[0].length, 
-            offset = parseInt($("#luckysheet-copy-diagonaloffset-value").val());
+            offset = parseInt(document.getElementById("luckysheet-copy-diagonaloffset-value").value);
 
         if(offset.toString() == "NaN"){
             if(isEditMode()){
@@ -600,8 +600,8 @@ function initialCopyFormatOperation() {
     });
 
     //复制为布尔值
-    $("#luckysheet-copy-boolvalue").click(function (event) {
-        $("body .luckysheet-cols-menu").hide();
+    document.getElementById("luckysheet-copy-boolvalue").addEventListener("click", function (event) {
+        document.querySelector("body .luckysheet-cols-menu").style.display = 'none';
         luckysheetContainerFocus();
 
 
@@ -645,7 +645,7 @@ function initialCopyFormatOperation() {
 
         let getdata = getdatabyselection(Store.luckysheet_select_save[0]);
         let arr = [];
-        if (getdata.length == 0) {
+        if (getdata === null) {
             return;
         }
         for (let r = 0; r < getdata.length; r++) {

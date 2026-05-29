@@ -4,22 +4,22 @@ import Store from '../../../store';
 
 export function initNumberFormat(_this) {
       //货币格式
-      $("#luckysheet-icon-currency").click(function () {
-        let d = editor.deepCopyFlowData(Store.flowdata); //取数�?
+      document.getElementById("luckysheet-icon-currency").addEventListener("click", function () {
+        let d = editor.deepCopyFlowData(Store.flowdata); //取数�?
   
         _this.updateFormat(d, "ct", "¥ #.00");
       });
   
-      //百分�?
-      $("#luckysheet-icon-percent").click(function () {
-        let d = editor.deepCopyFlowData(Store.flowdata); //取数�?
+      //百分�?
+      document.getElementById("luckysheet-icon-percent").addEventListener("click", function () {
+        let d = editor.deepCopyFlowData(Store.flowdata); //取数�?
   
         _this.updateFormat(d, "ct", "0.00%");
       });
   
       //减少小数位数
-      $("#luckysheet-icon-fmt-decimal-decrease").click(function () {
-        let d = editor.deepCopyFlowData(Store.flowdata); //取数�?
+      document.getElementById("luckysheet-icon-fmt-decimal-decrease").addEventListener("click", function () {
+        let d = editor.deepCopyFlowData(Store.flowdata); //取数�?
         let row_index = Store.luckysheet_select_save[0]["row_focus"],
           col_index = Store.luckysheet_select_save[0]["column_focus"];
         let foucsStatus = _this.checkstatus(d, row_index, col_index, "ct");
@@ -70,7 +70,7 @@ export function initNumberFormat(_this) {
         let fmt = "";
         if (foucsStatus.fa.indexOf(".") > -1) {
           let suffix = main;
-          if (tail.length > 0) {
+          if (tail !== null) {
             suffix = main.replace(tail, "");
           }
           let pos = suffix.replace(/#/g, "0");
@@ -85,8 +85,8 @@ export function initNumberFormat(_this) {
       });
   
       //增加小数位数
-      $("#luckysheet-icon-fmt-decimal-increase").click(function () {
-        let d = editor.deepCopyFlowData(Store.flowdata); //取数�?
+      document.getElementById("luckysheet-icon-fmt-decimal-increase").addEventListener("click", function () {
+        let d = editor.deepCopyFlowData(Store.flowdata); //取数�?
         let row_index = Store.luckysheet_select_save[0]["row_focus"],
           col_index = Store.luckysheet_select_save[0]["column_focus"];
         let foucsStatus = _this.checkstatus(d, row_index, col_index, "ct");
@@ -142,14 +142,14 @@ export function initNumberFormat(_this) {
         let fmt = "";
         if (foucsStatus.fa.indexOf(".") > -1) {
           let suffix = main;
-          if (tail.length > 0) {
+          if (tail !== null) {
             suffix = main.replace(tail, "");
           }
           let pos = suffix.replace(/#/g, "0");
           pos += "0";
           fmt = prefix + "." + pos + tail;
         } else {
-          if (tail.length > 0) {
+          if (tail !== null) {
             fmt = main.replace(tail, "") + ".0" + tail;
           } else {
             fmt = main + ".0" + tail;

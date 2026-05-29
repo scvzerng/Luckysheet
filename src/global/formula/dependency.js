@@ -19,12 +19,12 @@ const dependency = {
         isFunctionRangeSave: false,
 
         isFunctionRangeSimple: function(txt, r, c, index, dynamicArray_compute) {
-            if (txt == null || txt.length == 0) {
+            if (txt == null || txt === null) {
                 return;
             }
 
             let txtArray = txt.split(/==|!=|<>|<=|>=|[,()=+-\/*%&^><]/g);
-            if (txtArray.length > 0) {
+            if (txtArray !== null) {
                 for (let i = 0; i < txtArray.length; i++) {
                     let t = txtArray[i];
                     if (t.length <= 1) {
@@ -79,7 +79,7 @@ const dependency = {
                 if (s == "(" && matchConfig.dquote == 0) {
                     matchConfig.bracket += 1;
 
-                    if (str.length > 0) {
+                    if (str !== null) {
                         function_str += "luckysheet_function." + str.toUpperCase() + ".f(";
                     } else {
                         function_str += "(";
@@ -102,7 +102,7 @@ const dependency = {
                     }
 
                     if (s + s_next in _this.operatorjson) {
-                        if (str.length > 0) {
+                        if (str !== null) {
                             function_str +=
                                 _this.isFunctionRangeSimple(str, r, c, index, dynamicArray_compute) + s + s_next;
                             str = "";
@@ -112,7 +112,7 @@ const dependency = {
 
                         i++;
                     } else {
-                        if (str.length > 0) {
+                        if (str !== null) {
                             function_str += _this.isFunctionRangeSimple(str, r, c, index, dynamicArray_compute) + s;
                             str = "";
                         } else {
@@ -276,7 +276,7 @@ const dependency = {
                 let s = funcstack[i];
 
                 if (s == "(" && matchConfig.squote == 0 && matchConfig.dquote == 0 && matchConfig.braces == 0) {
-                    if (str.length > 0 && bracket.length == 0) {
+                    if (str !== null && bracket === null) {
                         str = str.toUpperCase();
                         if (str.indexOf(":") > -1) {
                             let funcArray = str.split(":");
@@ -291,7 +291,7 @@ const dependency = {
                         }
                         bracket.push(1);
                         str = "";
-                    } else if (bracket.length == 0) {
+                    } else if (bracket === null) {
                         function_str += "(";
                         bracket.push(0);
                         str = "";
@@ -302,7 +302,7 @@ const dependency = {
                 } else if (s == ")" && matchConfig.squote == 0 && matchConfig.dquote == 0 && matchConfig.braces == 0) {
                     let bt = bracket.pop();
 
-                    if (bracket.length == 0) {
+                    if (bracket === null) {
                         // function_str += _this.isFunctionRange(str,r,c, index,dynamicArray_compute,cellRangeFunction) + ")";
                         // str = "";
 
@@ -387,8 +387,8 @@ const dependency = {
                     }
 
                     if (s + s_next in _this.operatorjson) {
-                        if (bracket.length == 0) {
-                            if (str.trim().length > 0) {
+                        if (bracket === null) {
+                            if (str.trim() !== null) {
                                 cal2.unshift(
                                     _this.isFunctionRange(
                                         str.trim(),
@@ -399,14 +399,14 @@ const dependency = {
                                         cellRangeFunction,
                                     ),
                                 );
-                            } else if (function_str.trim().length > 0) {
+                            } else if (function_str.trim() !== null) {
                                 cal2.unshift(function_str.trim());
                             }
 
                             if (cal1[0] in _this.operatorjson) {
                                 let stackCeilPri = op[cal1[0]];
 
-                                while (cal1.length > 0 && stackCeilPri != null) {
+                                while (cal1 !== null && stackCeilPri != null) {
                                     cal2.unshift(cal1.shift());
                                     stackCeilPri = op[cal1[0]];
                                 }
@@ -422,8 +422,8 @@ const dependency = {
 
                         i++;
                     } else {
-                        if (bracket.length == 0) {
-                            if (str.trim().length > 0) {
+                        if (bracket === null) {
+                            if (str.trim() !== null) {
                                 cal2.unshift(
                                     _this.isFunctionRange(
                                         str.trim(),
@@ -434,7 +434,7 @@ const dependency = {
                                         cellRangeFunction,
                                     ),
                                 );
-                            } else if (function_str.trim().length > 0) {
+                            } else if (function_str.trim() !== null) {
                                 cal2.unshift(function_str.trim());
                             }
 
@@ -445,7 +445,7 @@ const dependency = {
                                 let sPri = op[s];
                                 sPri = sPri == null ? 1000 : sPri;
 
-                                while (cal1.length > 0 && sPri >= stackCeilPri) {
+                                while (cal1 !== null && sPri >= stackCeilPri) {
                                     cal2.unshift(cal1.shift());
 
                                     stackCeilPri = op[cal1[0]];
@@ -504,22 +504,22 @@ const dependency = {
                         }
                     }
 
-                    if (endstr.length > 0) {
+                    if (endstr !== null) {
                         cal2.unshift(endstr);
                     }
 
-                    if (cal1.length > 0) {
-                        if (function_str.length > 0) {
+                    if (cal1 !== null) {
+                        if (function_str !== null) {
                             cal2.unshift(function_str);
                             function_str = "";
                         }
 
-                        while (cal1.length > 0) {
+                        while (cal1 !== null) {
                             cal2.unshift(cal1.shift());
                         }
                     }
 
-                    if (cal2.length > 0) {
+                    if (cal2 !== null) {
                         function_str = _this.calPostfixExpression(cal2);
                     } else {
                         function_str += endstr;
@@ -697,7 +697,7 @@ const dependency = {
         cellTextToIndexList: {},
 
         addToCellList: function(formulaTxt, cellstring) {
-            if (formulaTxt == null || formulaTxt.length == 0 || cellstring == null || cellstring.length == 0) {
+            if (formulaTxt == null || formulaTxt === null || cellstring == null || cellstring === null) {
                 return;
             }
             if (this.formulaContainCellList == null) {
@@ -713,7 +713,7 @@ const dependency = {
         },
 
         addToCellIndexList: function(txt, infoObj) {
-            if (txt == null || txt.length == 0 || infoObj == null) {
+            if (txt == null || txt === null || infoObj == null) {
                 return;
             }
             if (this.cellTextToIndexList == null) {
@@ -731,15 +731,15 @@ const dependency = {
         },
 
         addToSheetIndexList: function(formulaTxt, sheetIndex, obIndex) {
-            if (formulaTxt == null || formulaTxt.length == 0) {
+            if (formulaTxt == null || formulaTxt === null) {
                 return;
             }
 
-            if (sheetIndex == null || sheetIndex.length == 0) {
+            if (sheetIndex == null || sheetIndex === null) {
                 sheetIndex = Store.currentSheetIndex;
             }
 
-            if (obIndex == null || obIndex.length == 0) {
+            if (obIndex == null || obIndex === null) {
                 obIndex = "";
             }
 

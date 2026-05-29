@@ -12,16 +12,16 @@ const sheetVisibilityModule = {
       return;
     }
     Store.luckysheetfile[currentIdx].hide = 1;
-    let luckysheetcurrentSheetitem = $("#luckysheet-sheets-item" + index);
-    luckysheetcurrentSheetitem.hide();
-    $("#luckysheet-sheet-area div.luckysheet-sheets-item").removeClass("luckysheet-sheets-item-active");
+    let luckysheetcurrentSheetitem = document.getElementById("luckysheet-sheets-item" + index);
+    luckysheetcurrentSheetitem.style.display = 'none';
+    document.querySelector("#luckysheet-sheet-area div.luckysheet-sheets-item").classList.remove("luckysheet-sheets-item-active");
     let indicator;
     if (luckysheetConfigsetting.showsheetbarConfig.sheet) {
       indicator = luckysheetcurrentSheetitem.nextAll(":visible");
-      if (luckysheetcurrentSheetitem.nextAll(":visible").length > 0) {
-        indicator = indicator.eq(0).data("index");
+      if (luckysheetcurrentSheetitem.nextAll(":visible") !== null) {
+        indicator = indicator[0].dataset.index;
       } else {
-        indicator = luckysheetcurrentSheetitem.prevAll(":visible").eq(0).data("index");
+        indicator = luckysheetcurrentSheetitem.prevAll(":visible")[0].dataset.index;
       }
     } else {
       let nextActiveIdx,
@@ -37,7 +37,7 @@ const sheetVisibilityModule = {
       }
       indicator = Store.luckysheetfile[nextActiveIdx].index;
     }
-    $("#luckysheet-sheets-item" + indicator).addClass("luckysheet-sheets-item-active");
+    document.getElementById("luckysheet-sheets-item" + indicator).classList.add("luckysheet-sheets-item-active");
     _this.changeSheetExec(indicator);
     _this.locationSheet();
 

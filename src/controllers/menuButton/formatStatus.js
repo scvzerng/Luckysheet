@@ -14,31 +14,31 @@ const formatStatusModule = {
     const locale_fontjson = _locale.fontjson;
     if (attr == "bl") {
       if (foucsStatus != "0") {
-        $("#luckysheet-icon-bold").addClass("luckysheet-toolbar-button-hover");
+        document.getElementById("luckysheet-icon-bold").classList.add("luckysheet-toolbar-button-hover");
       } else {
-        $("#luckysheet-icon-bold").removeClass("luckysheet-toolbar-button-hover");
+        document.getElementById("luckysheet-icon-bold").classList.remove("luckysheet-toolbar-button-hover");
       }
     } else if (attr == "it") {
       if (foucsStatus != "0") {
-        $("#luckysheet-icon-italic").addClass("luckysheet-toolbar-button-hover");
+        document.getElementById("luckysheet-icon-italic").classList.add("luckysheet-toolbar-button-hover");
       } else {
-        $("#luckysheet-icon-italic").removeClass("luckysheet-toolbar-button-hover");
+        document.getElementById("luckysheet-icon-italic").classList.remove("luckysheet-toolbar-button-hover");
       }
     } else if (attr == "cl") {
       if (foucsStatus != "0") {
-        $("#luckysheet-icon-strikethrough").addClass("luckysheet-toolbar-button-hover");
+        document.getElementById("luckysheet-icon-strikethrough").classList.add("luckysheet-toolbar-button-hover");
       } else {
-        $("#luckysheet-icon-strikethrough").removeClass("luckysheet-toolbar-button-hover");
+        document.getElementById("luckysheet-icon-strikethrough").classList.remove("luckysheet-toolbar-button-hover");
       }
     } else if (attr == "un") {
       if (foucsStatus != "0") {
-        $("#luckysheet-icon-underline").addClass("luckysheet-toolbar-button-hover");
+        document.getElementById("luckysheet-icon-underline").classList.add("luckysheet-toolbar-button-hover");
       } else {
-        $("#luckysheet-icon-underline").removeClass("luckysheet-toolbar-button-hover");
+        document.getElementById("luckysheet-icon-underline").classList.remove("luckysheet-toolbar-button-hover");
       }
     } else if (attr == "ff") {
       let menuButtonId = "luckysheet-icon-font-family-menuButton";
-      let $menuButton = $("#" + menuButtonId);
+      let $menuButton = document.getElementById(menuButtonId);
       // const locale_fontarray = locale().fontarray;
       let itemname = locale_fontarray[0],
         itemvalue = 0;
@@ -61,17 +61,17 @@ const formatStatusModule = {
         }
       }
       _this.focus($menuButton, itemvalue);
-      $("#luckysheet-icon-font-family").find(".luckysheet-toolbar-menu-button-caption").html(" " + itemname + " ");
+      document.getElementById("luckysheet-icon-font-family").querySelector(".luckysheet-toolbar-menu-button-caption").innerHTML = " " + itemname + " ";
     } else if (attr == "fs") {
-      let $menuButton = $("#luckysheet-icon-font-size-menuButton");
+      let $menuButton = document.getElementById("luckysheet-icon-font-size-menuButton");
       let itemvalue = foucsStatus,
-        $input = $("#luckysheet-icon-font-size input");
+        $input = document.querySelector("#luckysheet-icon-font-size input");
       _this.focus($menuButton, itemvalue);
-      $("#luckysheet-icon-font-size").attr("itemvalue", itemvalue);
-      $input.val(itemvalue);
+      document.getElementById("luckysheet-icon-font-size").setAttribute("itemvalue", itemvalue);
+      $input.value = itemvalue;
     } else if (attr == "ht") {
-      let $menuButton = $("#luckysheet-icon-align-menu-menuButton");
-      let $t = $("luckysheet-icon-align"),
+      let $menuButton = document.getElementById("luckysheet-icon-align-menu-menuButton");
+      let $t = document.querySelector("luckysheet-icon-align"),
         itemvalue = "left";
       if (foucsStatus == "0") {
         itemvalue = "center";
@@ -82,12 +82,14 @@ const formatStatusModule = {
 
       // add iconfont
       const iconfontObject = iconfontObjects.align;
-      let $icon = $("#luckysheet-icon-align").attr("type", itemvalue).find(".luckysheet-icon-img-container");
-      $icon.removeAttr("class").addClass("luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-align-" + itemvalue + iconfontObject[itemvalue]);
-      $menuButton.hide();
+      let _alignEl = document.getElementById("luckysheet-icon-align");
+      _alignEl.setAttribute("type", itemvalue);
+      let $icon = _alignEl.querySelector(".luckysheet-icon-img-container");
+      $icon.className = "luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-align-" + itemvalue + iconfontObject[itemvalue];
+      $menuButton.style.display = 'none';
     } else if (attr == "vt") {
-      let $menuButton = $("#luckysheet-icon-valign-menu-menuButton");
-      let $t = $("luckysheet-icon-valign"),
+      let $menuButton = document.getElementById("luckysheet-icon-valign-menu-menuButton");
+      let $t = document.querySelector("luckysheet-icon-valign"),
         itemvalue = "bottom";
       if (foucsStatus == "1") {
         itemvalue = "top";
@@ -98,12 +100,14 @@ const formatStatusModule = {
 
       // add iconfont
       const iconfontObject = iconfontObjects.align;
-      let $icon = $("#luckysheet-icon-valign").attr("type", itemvalue).find(".luckysheet-icon-img-container");
-      $icon.removeAttr("class").addClass("luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-valign-" + itemvalue + iconfontObject[itemvalue]);
-      $menuButton.hide();
+      let _valignEl = document.getElementById("luckysheet-icon-valign");
+      _valignEl.setAttribute("type", itemvalue);
+      let $icon = _valignEl.querySelector(".luckysheet-icon-img-container");
+      $icon.className = "luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-valign-" + itemvalue + iconfontObject[itemvalue];
+      $menuButton.style.display = 'none';
     } else if (attr == "tb") {
-      let $menuButton = $("#luckysheet-icon-textwrap-menu-menuButton");
-      let $t = $("luckysheet-icon-textwrap"),
+      let $menuButton = document.getElementById("luckysheet-icon-textwrap-menu-menuButton");
+      let $t = document.querySelector("luckysheet-icon-textwrap"),
         itemvalue = "clip";
       if (foucsStatus == "1") {
         itemvalue = "overflow";
@@ -114,12 +118,14 @@ const formatStatusModule = {
 
       // add iconfont
       const iconfontObject = iconfontObjects.textWrap;
-      let $icon = $("#luckysheet-icon-textwrap").attr("type", itemvalue).find(".luckysheet-icon-img-container");
-      $icon.removeAttr("class").addClass("luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-textwrap-" + itemvalue + iconfontObject[itemvalue]);
-      $menuButton.hide();
+      let _textwrapEl = document.getElementById("luckysheet-icon-textwrap");
+      _textwrapEl.setAttribute("type", itemvalue);
+      let $icon = _textwrapEl.querySelector(".luckysheet-icon-img-container");
+      $icon.className = "luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-textwrap-" + itemvalue + iconfontObject[itemvalue];
+      $menuButton.style.display = 'none';
     } else if (attr == "tr") {
-      let $menuButton = $("#luckysheet-icon-rotation-menu-menuButton");
-      let $t = $("luckysheet-icon-rotation"),
+      let $menuButton = document.getElementById("luckysheet-icon-rotation-menu-menuButton");
+      let $t = document.querySelector("luckysheet-icon-rotation"),
         itemvalue = "none";
       if (foucsStatus == "1") {
         itemvalue = "angleup";
@@ -136,15 +142,17 @@ const formatStatusModule = {
 
       // add iconfont
       const iconfontObject = iconfontObjects.rotation;
-      let $icon = $("#luckysheet-icon-rotation").attr("type", itemvalue).find(".luckysheet-icon-img-container");
-      $icon.removeAttr("class").addClass("luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-rotation-" + itemvalue + iconfontObject[itemvalue]);
-      $menuButton.hide();
+      let _rotationEl = document.getElementById("luckysheet-icon-rotation");
+      _rotationEl.setAttribute("type", itemvalue);
+      let $icon = _rotationEl.querySelector(".luckysheet-icon-img-container");
+      $icon.className = "luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-rotation-" + itemvalue + iconfontObject[itemvalue];
+      $menuButton.style.display = 'none';
     } else if (attr == "ct") {
-      let $menuButton = $("#luckysheet-icon-fmt-other");
+      let $menuButton = document.getElementById("luckysheet-icon-fmt-other");
       const _locale = locale();
       const locale_defaultFmt = _locale.defaultFmt;
       if (!foucsStatus) {
-        $menuButton.find(".luckysheet-toolbar-menu-button-caption").html(" " + locale_defaultFmt[0].text + " ");
+        $menuButton.querySelector(".luckysheet-toolbar-menu-button-caption").innerHTML = " " + locale_defaultFmt[0].text + " ";
         return;
       }
       const {
@@ -152,10 +160,10 @@ const formatStatusModule = {
       } = foucsStatus;
       const format = locale_defaultFmt.find(f => f.value === fa);
       if (format) {
-        $menuButton.find(".luckysheet-toolbar-menu-button-caption").html(" " + format.text + " ");
+        $menuButton.querySelector(".luckysheet-toolbar-menu-button-caption").innerHTML = " " + format.text + " ";
       } else {
         const otherFormat = locale_defaultFmt.find(f => f.value === "fmtOtherSelf");
-        $menuButton.find(".luckysheet-toolbar-menu-button-caption").html(" " + otherFormat.text + " ");
+        $menuButton.querySelector(".luckysheet-toolbar-menu-button-caption").innerHTML = " " + otherFormat.text + " ";
       }
     }
   },

@@ -83,7 +83,7 @@ export function initFreezen(_this) {
             if (itemvalue == "freezenRow") {
               //首行冻结
               frozenFirstRow();
-              // let scrollTop = $("#luckysheet-cell-main").scrollTop();
+              // let scrollTop = document.getElementById("luckysheet-cell-main").scrollTop;
               // let row_st = luckysheet_searcharray(Store.visibledatarow, scrollTop);
               // if(row_st == -1){
               //     row_st = 0;
@@ -104,7 +104,7 @@ export function initFreezen(_this) {
             } else if (itemvalue == "freezenColumn") {
               //首列冻结
               frozenFirstColumn();
-              // let scrollLeft = $("#luckysheet-cell-main").scrollLeft();
+              // let scrollLeft = document.getElementById("luckysheet-cell-main").scrollLeft;
               // let col_st = luckysheet_searcharray(Store.visibledatacolumn, scrollLeft);
               // if(col_st == -1){
               //     col_st = 0;
@@ -161,7 +161,7 @@ export function initFreezen(_this) {
             } else if (itemvalue == "freezenRowRange") {
               //选区行冻�?
   
-              if (Store.luckysheet_select_save == null || Store.luckysheet_select_save.length == 0) {
+              if (Store.luckysheet_select_save == null || Store.luckysheet_select_save === null) {
                 if (isEditMode()) {
                   alert(locale_freezen.noSeletionError);
                 } else {
@@ -198,7 +198,7 @@ export function initFreezen(_this) {
               luckysheetrefreshgrid();
             } else if (itemvalue == "freezenColumnRange") {
               //选区列冻�?
-              if (Store.luckysheet_select_save == null || Store.luckysheet_select_save.length == 0) {
+              if (Store.luckysheet_select_save == null || Store.luckysheet_select_save === null) {
                 if (isEditMode()) {
                   alert(locale_freezen.noSeletionError);
                 } else {
@@ -235,7 +235,7 @@ export function initFreezen(_this) {
               luckysheetrefreshgrid();
             } else if (itemvalue == "freezenRCRange") {
               //选区行列冻结
-              if (Store.luckysheet_select_save == null || Store.luckysheet_select_save.length == 0) {
+              if (Store.luckysheet_select_save == null || Store.luckysheet_select_save === null) {
                 if (isEditMode()) {
                   alert(locale_freezen.noSeletionError);
                 } else {

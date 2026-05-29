@@ -13,8 +13,8 @@ import richTextEditor from '../../../ui/richTextEditor.js';
 
 export function initDeleteCellEvents() {
     //隐藏、显示行
-    // $("#luckysheet-hidRows").click(function (event) {
-    //     rightClickMenu.hide();
+    // document.getElementById("luckysheet-hidRows").addEventListener("click", function (event) {
+    //     rightClickMenu.style.display = 'none';
     //     luckysheetContainerFocus();
   
     //     let cfg = structuredClone(Store.config);
@@ -50,8 +50,8 @@ export function initDeleteCellEvents() {
     //     //行高、列�?刷新
     //     jfrefreshgrid_rhcw(Store.flowdata.length, Store.flowdata[0].length);
     // })
-    // $("#luckysheet-showHidRows").click(function (event) {
-    //     rightClickMenu.hide();
+    // document.getElementById("luckysheet-showHidRows").addEventListener("click", function (event) {
+    //     rightClickMenu.style.display = 'none';
     //     luckysheetContainerFocus();
   
     //     let cfg = structuredClone(Store.config);
@@ -89,8 +89,8 @@ export function initDeleteCellEvents() {
     // })
   
     //隐藏、显示列
-    // $("#luckysheet-hidCols").click(function (event) {
-    //     rightClickMenu.hide();
+    // document.getElementById("luckysheet-hidCols").addEventListener("click", function (event) {
+    //     rightClickMenu.style.display = 'none';
     //     luckysheetContainerFocus();
   
     //     let cfg = structuredClone(Store.config);
@@ -126,8 +126,8 @@ export function initDeleteCellEvents() {
     //     //行高、列�?刷新
     //     jfrefreshgrid_rhcw(Store.flowdata.length, Store.flowdata[0].length);
     // })
-    // $("#luckysheet-showHidCols").click(function (event) {
-    //     rightClickMenu.hide();
+    // document.getElementById("luckysheet-showHidCols").addEventListener("click", function (event) {
+    //     rightClickMenu.style.display = 'none';
     //     luckysheetContainerFocus();
   
     //     let cfg = structuredClone(Store.config);
@@ -165,7 +165,7 @@ export function initDeleteCellEvents() {
     // })
   
     //删除单元格（左移、上移）
-    $("#luckysheet-delCellsMoveLeft").click(function (event) {
+    document.getElementById("luckysheet-delCellsMoveLeft").addEventListener("click", function (event) {
       document.querySelectorAll("body .luckysheet-cols-menu").forEach(el => el.style.display = 'none');
       luckysheetContainerFocus();
       const locale_drag = locale().drag;
@@ -183,7 +183,7 @@ export function initDeleteCellEvents() {
         edc = Store.luckysheet_select_save[0].column[1];
       luckysheetDeleteCell("moveLeft", str, edr, stc, edc);
     });
-    $("#luckysheet-delCellsMoveUp").click(function (event) {
+    document.getElementById("luckysheet-delCellsMoveUp").addEventListener("click", function (event) {
       document.querySelectorAll("body .luckysheet-cols-menu").forEach(el => el.style.display = 'none');
       luckysheetContainerFocus();
       const locale_drag = locale().drag;
@@ -203,13 +203,13 @@ export function initDeleteCellEvents() {
     });
   
     //清除单元格内�?
-    $("#luckysheet-delete-text").click(function () {
-      rightClickMenu.hide();
+    document.getElementById("luckysheet-delete-text").addEventListener("click", function () {
+      rightClickMenu.style.display = 'none';
       luckysheetContainerFocus();
       if (Store.allowEdit === false) {
         return;
       }
-      if (Store.luckysheet_select_save.length > 0) {
+      if (Store.luckysheet_select_save !== null) {
         let d = editor.deepCopyFlowData(Store.flowdata);
         let has_PartMC = false;
         for (let s = 0; s < Store.luckysheet_select_save.length; s++) {

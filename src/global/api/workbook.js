@@ -207,13 +207,13 @@ export function getScreenshot(options = {}) {
         ch_width = visibledatacolumn[edc] - visibledatacolumn[stc - 1];
     }
 
-    let newCanvas = $("<canvas>").attr({
-        width: Math.ceil(ch_width * Store.devicePixelRatio),
-        height: Math.ceil(rh_height * Store.devicePixelRatio)
-    }).css({ width: ch_width, height: rh_height });
+    let newCanvas = document.createElement("canvas");
+    newCanvas.width = Math.ceil(ch_width * Store.devicePixelRatio);
+    newCanvas.height = Math.ceil(rh_height * Store.devicePixelRatio);
+    Object.assign(newCanvas.style, { width: ch_width + 'px', height: rh_height + 'px' });
 
     luckysheetDrawMain(scrollWidth, scrollHeight, ch_width, rh_height, 1, 1, null, null, newCanvas);
-    let ctx_newCanvas = newCanvas.get(0).getContext("2d");
+    let ctx_newCanvas = newCanvas.getContext("2d");
 
     //补上 左边框和上边框
     ctx_newCanvas.beginPath();
@@ -244,17 +244,17 @@ export function getScreenshot(options = {}) {
     ctx_newCanvas.stroke();
     ctx_newCanvas.closePath();
 
-    let url = newCanvas.get(0).toDataURL("image/png");
+    let url = newCanvas.toDataURL("image/png");
 
     return url;
 }
 
 export function setWorkbookName(name, options = {}) {
-    if(name == null || name.toString().length == 0){
+    if(name == null || name.toString() === null){
         return tooltip.info("The name parameter is invalid.", "");
     }
 
-    $("#luckysheet_info_detail_input").val(name);
+    document.getElementById("luckysheet_info_detail_input").value = name;
 
     let {
         success
@@ -268,16 +268,16 @@ export function setWorkbookName(name, options = {}) {
 export function getWorkbookName(options = {}) {
 
     let name = "";
-    let element = $("#luckysheet_info_detail_input");
+    let element = document.getElementById("luckysheet_info_detail_input");
 
-    if(element.length == 0){
+    if(element === null){
 
         tooltip.info('Failed to get workbook name, label loading failed!');
         return name;
 
     }
 
-    name = (element.val() || '').trim();
+    name = (element.value || '').trim();
 
     let {
         success
@@ -334,7 +334,7 @@ export function getAllSheets() {
     let data = structuredClone(Store.luckysheetfile);
 
     data.forEach((item, index, arr) => {
-        if(item.data != null && item.data.length > 0){
+        if(item.data != null && item.data !== null){
             item.celldata = sheetmanage.getGridData(item.data);
         }
 
@@ -378,7 +378,7 @@ export function getSheetData(options = {}) {
 
     let data = structuredClone(file.data);
 
-    if(data == null || data.length == 0){
+    if(data == null || data === null){
         data = structuredClone(sheetmanage.buildGridData(file));
     }
 
@@ -446,7 +446,7 @@ export function toJson(){
     const toJsonOptions = Store.toJsonOptions;
 
     // Workbook name
-    toJsonOptions.title = $("#luckysheet_info_detail_input").val();
+    toJsonOptions.title = document.getElementById("luckysheet_info_detail_input").value;
 
     toJsonOptions.data = getAllSheets();
 

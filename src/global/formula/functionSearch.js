@@ -26,8 +26,8 @@ const functionSearch = {
         searchFunctionPosition: function($menu, $editor, x, y, isparam) {
             let winH = document.documentElement.clientHeight,
                 winW = document.documentElement.clientWidth;
-            let menuW = $menu.outerWidth(),
-                menuH = $menu.outerHeight();
+            let menuW = $menu.offsetWidth,
+                menuH = $menu.offsetHeight;
 
             if (isparam == null) {
                 isparam = false;
@@ -35,7 +35,7 @@ const functionSearch = {
 
             let left = x;
             if (x + menuW > winW) {
-                left = x - menuW + $editor.outerWidth();
+                left = x - menuW + $editor.offsetWidth;
             } else {
                 left = x;
             }
@@ -44,14 +44,9 @@ const functionSearch = {
             if (y + menuH > winH) {
                 top = y - menuH;
             } else {
-                top = y + $editor.outerHeight();
+                top = y + $editor.offsetHeight;
                 if (!isparam) {
-                    $menu.html(
-                        $menu
-                            .find(".luckysheet-formula-search-item")
-                            .get()
-                            .reverse(),
-                    );
+                    $menu.innerHTML = Array.from($menu.querySelectorAll(".luckysheet-formula-search-item")).reverse().map(el => el.outerHTML).join('');
                 }
             }
 
@@ -62,12 +57,11 @@ const functionSearch = {
                 left = 0;
             }
 
-            $menu
-                .css({
+            Object.assign($menu.style, {
                     top: top,
                     left: left,
-                })
-                .show();
+                });
+            $menu.style.display = '';
         },
 
         searchFunctionCell: null,
@@ -82,8 +76,8 @@ const functionSearch = {
             if ($cell == null || $editer == null) {
                 return;
             }
-            let inputContent = $editer.text();
-            let searchtxt = $cell.text().toUpperCase();
+            let inputContent = $editer.textContent;
+            let searchtxt = $cell.textContent.toUpperCase();
             let reg = /^[a-zA-Z]|[a-zA-Z_]+$/;
 
             if (!reg.test(searchtxt) || inputContent.substr(0, 1) != "=") {
@@ -124,23 +118,23 @@ const functionSearch = {
 
             let listHTML = _this.searchFunctionHTML(list);
             formulaDialogs.formulaSearchC.el
-                .html(listHTML);
-            formulaDialogs.formulaSearchC.show();
-            formulaDialogs.formulaHelp.hide();
+                .innerHTML = listHTML;
+            formulaDialogs.formulaSearchC.style.display = '';
+            formulaDialogs.formulaHelp.style.display = 'none';
 
-            let $c = $editer.parent(),
-                offset = $c.offset();
+            let $c = $editer.parentElement,
+                offset = (function() { var r = $c.getBoundingClientRect(); return {top: r.top + window.pageYOffset, left: r.left + window.pageXOffset}; })();
             _this.searchFunctionPosition(formulaDialogs.formulaSearchC.el, $c, offset.left, offset.top);
         },
 
         searchFunctionEnter: function($obj) {
             let _this = this;
 
-            let functxt = $obj.data("func");
-            _this.searchFunctionCell.text(functxt).after('<span dir="auto" class="luckysheet-formula-text-color">(</span>');
-            _this.setCaretPosition(_this.searchFunctionCell.next().get(0), 0, 1);
-            formulaDialogs.formulaSearchC.hide();
-            _this.helpFunctionExe(_this.searchFunctionCell.closest("div"), _this.searchFunctionCell.next());
+            let functxt = $obj.dataset.func;
+            _this.searchFunctionCell.textContent = functxt.after('<span dir="auto" class="luckysheet-formula-text-color">(</span>');
+            _this.setCaretPosition(_this.searchFunctionCell.nextElementSibling, 0, 1);
+            formulaDialogs.formulaSearchC.style.display = 'none';
+            _this.helpFunctionExe(_this.searchFunctionCell.closest("div"), _this.searchFunctionCell.nextElementSibling);
         },
 
         searchFunctionHTML: function(list) {
@@ -149,18 +143,27 @@ const functionSearch = {
             if (formulaDialogs.formulaSearchC.getLength() == 0) {
                 document.body.insertAdjacentHTML('beforeend', _this.searchHTML);
                 formulaDialogs.formulaSearchC.el
-                    .on("mouseover", ".luckysheet-formula-search-item", function() {
+                    .addEventListener("mouseover", function(e) {
+                        let item = e.target.closest(".luckysheet-formula-search-item");
+                        if (!item) return;
                         formulaDialogs.formulaSearchC.el
-                            .find(".luckysheet-formula-search-item")
-                            .removeClass("luckysheet-formula-search-item-active");
-                        $(this).addClass("luckysheet-formula-search-item-active");
-                    })
-                    .on("mouseout", ".luckysheet-formula-search-item", function() {})
-                    .on("click", ".luckysheet-formula-search-item", function() {
+                            .querySelector(".luckysheet-formula-search-item-active")
+                            .classList.remove("luckysheet-formula-search-item-active");
+                        item.classList.add("luckysheet-formula-search-item-active");
+                    });
+                formulaDialogs.formulaSearchC.el
+                    .addEventListener("mouseout", function(e) {
+                        let item = e.target.closest(".luckysheet-formula-search-item");
+                        if (!item) return;
+                    });
+                formulaDialogs.formulaSearchC.el
+                    .addEventListener("click", function(e) {
+                        let item = e.target.closest(".luckysheet-formula-search-item");
+                        if (!item) return;
                         if (_this.searchFunctionCell == null) {
                             return;
                         }
-                        _this.searchFunctionEnter($(this));
+                        _this.searchFunctionEnter(item);
                     });
             }
 
@@ -203,8 +206,8 @@ const functionSearch = {
             let _locale = locale();
             let locale_formulaMore = _locale.formulaMore;
 
-            formulaDialogs.formulaHelp.find(".luckysheet-arguments-help-function-name").html($func.n);
-            formulaDialogs.formulaHelp.find(".luckysheet-arguments-help-parameter-content").html($func.d);
+            formulaDialogs.formulaHelp.querySelector(".luckysheet-arguments-help-function-name").innerHTML = $func.n;
+            formulaDialogs.formulaHelp.querySelector(".luckysheet-arguments-help-parameter-content").innerHTML = $func.d;
 
             let helpformula =
                 '<span class="luckysheet-arguments-help-function-name">${name}</span> <span class="luckysheet-arguments-paren">(</span> <span class="luckysheet-arguments-parameter-holder"> ${param} </span> <span class="luckysheet-arguments-paren">)</span>';
@@ -254,33 +257,31 @@ const functionSearch = {
             fht = fht.substr(0, fht.length - 2);
             ahf = ahf.substr(0, ahf.length - 2);
 
-            formulaDialogs.formulaHelp.find(".luckysheet-formula-help-title .luckysheet-arguments-parameter-holder").html(fht);
-            formulaDialogs.formulaHelp.find(".luckysheet-arguments-help-formula .luckysheet-arguments-parameter-holder").html(
-                ahf,
-            );
-            formulaDialogs.formulaHelp.find(".luckysheet-formula-help-content-param").html(fhcp);
+            formulaDialogs.formulaHelp.querySelector(".luckysheet-formula-help-title .luckysheet-arguments-parameter-holder").innerHTML = fht;
+            formulaDialogs.formulaHelp.querySelector(".luckysheet-formula-help-formula .luckysheet-arguments-parameter-holder").innerHTML = ahf;
+            formulaDialogs.formulaHelp.querySelector(".luckysheet-formula-help-content-param").innerHTML = fhcp;
 
             if (paramIndex == null) {
-                formulaDialogs.formulaHelp.find(".luckysheet-formula-help-title-formula .luckysheet-arguments-help-function-name").css("font-weight", "bold");
+                formulaDialogs.formulaHelp.querySelector(".luckysheet-formula-help-title-formula .luckysheet-arguments-help-function-name").style.fontWeight = "bold";
             } else {
-                formulaDialogs.formulaHelp.find(".luckysheet-formula-help-title-formula .luckysheet-arguments-help-function-name").css("font-weight", "normal");
+                formulaDialogs.formulaHelp.querySelector(".luckysheet-formula-help-title-formula .luckysheet-arguments-help-function-name").style.fontWeight = "normal";
                 let index = paramIndex >= $func.p.length ? $func.p.length - 1 : paramIndex;
-                formulaDialogs.formulaHelp.find(".luckysheet-formula-help-title .luckysheet-arguments-parameter-holder .luckysheet-arguments-help-parameter").removeClass("luckysheet-arguments-help-parameter-active");
-                formulaDialogs.formulaHelp.find(".luckysheet-formula-help-title .luckysheet-arguments-parameter-holder .luckysheet-arguments-help-parameter")
-                    .eq(index)
-                    .addClass("luckysheet-arguments-help-parameter-active");
-                formulaDialogs.formulaHelp.find(".luckysheet-arguments-help-formula .luckysheet-arguments-parameter-holder .luckysheet-arguments-help-parameter").removeClass("luckysheet-arguments-help-parameter-active");
-                formulaDialogs.formulaHelp.find(".luckysheet-arguments-help-formula .luckysheet-arguments-parameter-holder .luckysheet-arguments-help-parameter")
-                    .eq(index)
-                    .addClass("luckysheet-arguments-help-parameter-active");
-                formulaDialogs.formulaHelp.find(".luckysheet-formula-help-content-param .luckysheet-arguments-help-section").removeClass("luckysheet-arguments-help-parameter-active");
-                formulaDialogs.formulaHelp.find(".luckysheet-formula-help-content-param .luckysheet-arguments-help-section")
-                    .eq(index)
-                    .addClass("luckysheet-arguments-help-parameter-active");
+                formulaDialogs.formulaHelp.querySelector(".luckysheet-formula-help-title .luckysheet-arguments-parameter-holder .luckysheet-arguments-help-parameter").classList.remove("luckysheet-arguments-help-parameter-active");
+                formulaDialogs.formulaHelp.querySelector(".luckysheet-formula-help-title .luckysheet-arguments-parameter-holder .luckysheet-arguments-help-parameter")
+                    [index]
+                    .classList.add("luckysheet-arguments-help-parameter-active");
+                formulaDialogs.formulaHelp.querySelector(".luckysheet-arguments-help-formula .luckysheet-arguments-parameter-holder .luckysheet-arguments-help-parameter").classList.remove("luckysheet-arguments-help-parameter-active");
+                formulaDialogs.formulaHelp.querySelector(".luckysheet-arguments-help-formula .luckysheet-arguments-parameter-holder .luckysheet-arguments-help-parameter")
+                    [index]
+                    .classList.add("luckysheet-arguments-help-parameter-active");
+                formulaDialogs.formulaHelp.querySelector(".luckysheet-formula-help-content-param .luckysheet-arguments-help-section").classList.remove("luckysheet-arguments-help-parameter-active");
+                formulaDialogs.formulaHelp.querySelector(".luckysheet-formula-help-content-param .luckysheet-arguments-help-section")
+                    [index]
+                    .classList.add("luckysheet-arguments-help-parameter-active");
             }
 
-            let $c = $editer.parent(),
-                offset = $c.offset();
+            let $c = $editer.parentElement,
+                offset = (function() { var r = $c.getBoundingClientRect(); return {top: r.top + window.pageYOffset, left: r.left + window.pageXOffset}; })();
             _this.searchFunctionPosition(formulaDialogs.formulaHelp.el, $c, offset.left, offset.top, true);
         },
 
@@ -298,22 +299,21 @@ const functionSearch = {
                         helpAbstract: locale_formulaMore.helpAbstract,
                     }),
                 );
-                formulaDialogs.formulaHelp.find(".luckysheet-formula-help-close").click(function() {
-                    formulaDialogs.formulaHelp.hide();
+                formulaDialogs.formulaHelp.querySelector(".luckysheet-formula-help-close").addEventListener("click", function() {
+                    formulaDialogs.formulaHelp.style.display = 'none';
                 });
-                formulaDialogs.formulaHelp.find(".luckysheet-formula-help-collapse").click(function() {
-                    let $content = formulaDialogs.formulaHelp.find(".luckysheet-formula-help-content");
-                    $content.slideToggle(100, function() {
-                        let $c = _this.rangeResizeTo.parent(),
-                            offset = $c.offset();
-                        _this.searchFunctionPosition(formulaDialogs.formulaHelp.el, $c, offset.left, offset.top, true);
-                    });
-
-                    if ($content.is(":hidden")) {
-                        $(this).html('<i class="fa fa-angle-up" aria-hidden="true"></i>');
+                formulaDialogs.formulaHelp.querySelector(".luckysheet-formula-help-collapse").addEventListener("click", function() {
+                    let $content = formulaDialogs.formulaHelp.querySelector(".luckysheet-formula-help-content");
+                    if ($content.style.display === 'none') {
+                        $content.style.display = '';
+                        this.innerHTML = '<i class="fa fa-angle-up" aria-hidden="true"></i>';
                     } else {
-                        $(this).html('<i class="fa fa-angle-down" aria-hidden="true"></i>');
+                        $content.style.display = 'none';
+                        this.innerHTML = '<i class="fa fa-angle-down" aria-hidden="true"></i>';
                     }
+                    let $c = _this.rangeResizeTo.parentElement,
+                        offset = (function() { var r = $c.getBoundingClientRect(); return {top: r.top + window.pageYOffset, left: r.left + window.pageXOffset}; })();
+                    _this.searchFunctionPosition(formulaDialogs.formulaHelp.el, $c, offset.left, offset.top, true);
                 });
 
                 for (let i = 0; i < functionlist.length; i++) {
@@ -326,9 +326,8 @@ const functionSearch = {
             }
 
             let $prev = currSelection,
-                funcLen = $editer.length,
-                $span = $editer.find("span"),
-                currentIndex = currSelection.index(),
+                $span = $editer.querySelectorAll("span"),
+                currentIndex = Array.from(currSelection.parentElement.children).indexOf(currSelection),
                 i = currentIndex;
 
             if ($prev == null) {
@@ -338,20 +337,20 @@ const functionSearch = {
             let funcName = null,
                 paramindex = null;
 
-            if ($span.eq(i).is(".luckysheet-formula-text-func")) {
-                funcName = $span.eq(i).text();
+            if ($span[i].matches(".luckysheet-formula-text-func")) {
+                funcName = $span[i].textContent;
             } else {
                 let $cur = null,
                     exceptIndex = [-1, -1];
 
                 while (--i > 0) {
-                    $cur = $span.eq(i);
+                    $cur = $span[i];
 
                     if (
-                        $cur.is(".luckysheet-formula-text-func") ||
-                        $cur.text().trim().toUpperCase() in _this.functionlistPosition
+                        $cur.matches(".luckysheet-formula-text-func") ||
+                        $cur.textContent.trim().toUpperCase() in _this.functionlistPosition
                     ) {
-                        funcName = $cur.text();
+                        funcName = $cur.textContent;
                         paramindex = null;
                         let endstate = true;
 
@@ -364,15 +363,15 @@ const functionSearch = {
                                 continue;
                             }
 
-                            $cur = $span.eq(a);
-                            if ($cur.is(".luckysheet-formula-text-rpar")) {
+                            $cur = $span[a];
+                            if ($cur.matches(".luckysheet-formula-text-rpar")) {
                                 exceptIndex = [i, a];
                                 funcName = null;
                                 endstate = false;
                                 break;
                             }
 
-                            if ($cur.is(".luckysheet-formula-text-comma")) {
+                            if ($cur.matches(".luckysheet-formula-text-comma")) {
                                 paramindex++;
                             }
                         }
@@ -395,28 +394,26 @@ const functionSearch = {
             let _this = this;
 
             let currSelection = _this.getrangeseleciton();
-            formulaDialogs.formulaSearchC.hide();
-            formulaDialogs.formulaHelp.hide();
-            $(
+            formulaDialogs.formulaSearchC.style.display = 'none';
+            formulaDialogs.formulaHelp.style.display = 'none';
+            document.querySelector(
                 "#luckysheet-formula-functionrange .luckysheet-formula-functionrange-highlight .luckysheet-selection-copy-hc",
-            ).css("opacity", "0.03");
-            formulaDialogs.formulaSearchC.hide();
-            formulaDialogs.formulaHelp.hide();
+            ).style.opacity = "0.03";
+            formulaDialogs.formulaSearchC.style.display = 'none';
+            formulaDialogs.formulaHelp.style.display = 'none';
             _this.helpFunctionExe($editer, currSelection);
 
-            // console.log(currSelection, $(currSelection).closest(".luckysheet-formula-functionrange-cell").length);
-            if ($(currSelection).closest(".luckysheet-formula-functionrange-cell").length == 0) {
+            // console.log(currSelection, currSelection.closest(".luckysheet-formula-functionrange-cell").length);
+            if (currSelection.closest(".luckysheet-formula-functionrange-cell") === null) {
                 _this.searchFunction($editer);
                 return;
             }
 
-            let $anchorOffset = $(currSelection).closest(".luckysheet-formula-functionrange-cell");
-            let rangeindex = $anchorOffset.attr("rangeindex");
+            let $anchorOffset = currSelection.closest(".luckysheet-formula-functionrange-cell");
+            let rangeindex = $anchorOffset.getAttribute("rangeindex");
             let rangeid = "luckysheet-formula-functionrange-highlight-" + rangeindex;
 
-            $("#" + rangeid)
-                .find(".luckysheet-selection-copy-hc")
-                .css({
+            Object.assign(document.getElementById(rangeid).querySelector(".luckysheet-selection-copy-hc").style, {
                     opacity: "0.13",
                 });
         }

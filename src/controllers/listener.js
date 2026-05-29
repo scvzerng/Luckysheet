@@ -10,13 +10,13 @@ let undoTimer,redoTimer;
 function undoAccessible(len) {
     clearTimeout(undoTimer);
     undoTimer = setTimeout(() => {
-        $('#luckysheet-icon-undo')[len ? 'removeClass' : 'addClass']('disabled');
+        document.getElementById("luckysheet-icon-undo")[len ? 'removeClass' : 'addClass']('disabled');
     }, 10);
 }
 function redoAccessible(len) {
     clearTimeout(redoTimer);
     redoTimer = setTimeout(() => {
-        $('#luckysheet-icon-redo')[len ? 'removeClass' : 'addClass']('disabled');
+        document.getElementById("luckysheet-icon-redo")[len ? 'removeClass' : 'addClass']('disabled');
     }, 10);
 }
 

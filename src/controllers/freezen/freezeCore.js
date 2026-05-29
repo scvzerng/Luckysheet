@@ -128,7 +128,7 @@ const freezeCoreModule = {
     }
     _this.freezenverticaldata = freezenverticaldata;
 
-    // $("#luckysheet-freezen-btn-horizontal").html('<i class="luckysheet-icon-img-container iconfont-luckysheet luckysheet-iconfont-dongjie1"></i> '+locale().freezen.freezenCancel);
+    // document.getElementById("luckysheet-freezen-btn-horizontal").innerHTML = '<i class="luckysheet-icon-img-container iconfont-luckysheet luckysheet-iconfont-dongjie1"></i> '+locale(.freezen.freezenCancel);
 
     // 解决freeze 不垂直居中的问题
     const freezeHTML = `
@@ -278,7 +278,7 @@ const freezeCoreModule = {
   cancelFreezenHorizontal: function (sheetIndex) {
     let _this = this;
 
-    // $("#luckysheet-freezen-btn-horizontal").html('<i class="luckysheet-icon-img-container iconfont-luckysheet luckysheet-iconfont-dongjie1"></i> '+locale().freezen.default);
+    // document.getElementById("luckysheet-freezen-btn-horizontal").innerHTML = '<i class="luckysheet-icon-img-container iconfont-luckysheet luckysheet-iconfont-dongjie1"></i> '+locale(.freezen.default);
 
     // 解决freeze 不垂直居中的问题
     const freezeHTML = `
@@ -373,9 +373,9 @@ const freezeCoreModule = {
     }
     _this.freezenhorizontaldata = freezenhorizontaldata;
 
-    // $("#luckysheet-freezen-btn-horizontal").html('<i class="fa fa-list-alt"></i> '+locale().freezen.freezenCancel);
+    // document.getElementById("luckysheet-freezen-btn-horizontal").innerHTML = '<i class="fa fa-list-alt"></i> '+locale(.freezen.freezenCancel);
 
-    // $("#luckysheet-freezen-btn-horizontal").html('<i class="luckysheet-icon-img-container iconfont-luckysheet luckysheet-iconfont-dongjie1"></i> '+locale().freezen.freezenCancel);
+    // document.getElementById("luckysheet-freezen-btn-horizontal").innerHTML = '<i class="luckysheet-icon-img-container iconfont-luckysheet luckysheet-iconfont-dongjie1"></i> '+locale(.freezen.freezenCancel);
 
     const freezeHTML = `
             <div class="luckysheet-toolbar-button-outer-box luckysheet-inline-block"

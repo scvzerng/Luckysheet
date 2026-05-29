@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿import { rowLocation, colLocation, mouseposition } from '../global/location';
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿import { rowLocation, colLocation, mouseposition } from '../global/location';
 import editor from '../global/editor';
 import { luckysheetRangeLast } from '../global/cursorPos';
 import { luckysheetrefreshgrid } from '../global/refresh';
@@ -27,77 +27,85 @@ const luckysheetPostil = {
         let _this = this;
 
         //点击批注框 聚焦
-        $("#luckysheet-postil-showBoxs").off("mousedown.showPs").on("mousedown.showPs", ".luckysheet-postil-show", function(event){
-            _this.currentObj = $(this).find(".luckysheet-postil-show-main");
+        document.getElementById("luckysheet-postil-showBoxs").addEventListener("mousedown", function(event){
+            let _target = event.target.closest(".luckysheet-postil-show");
+            if (!_target) return;
+            _this.currentObj = _target.querySelector(".luckysheet-postil-show-main");
 
-            if($(this).hasClass("luckysheet-postil-show-active")){
+            if(_target.classList.contains("luckysheet-postil-show-active")){
                 event.stopPropagation();
                 return;
             }
 
             _this.removeActivePs();
 
-            $(this).addClass("luckysheet-postil-show-active");
-            $(this).find(".luckysheet-postil-dialog-resize").show();
-            $(this).find(".arrowCanvas").css("z-index", 200);
-            $(this).find(".luckysheet-postil-show-main").css("z-index", 200);
+            _target.classList.add("luckysheet-postil-show-active");
+            _target.querySelector(".luckysheet-postil-dialog-resize").style.display = '';
+            _target.querySelector(".arrowCanvas").style.zIndex = 200;
+            _target.querySelector(".luckysheet-postil-show-main").style.zIndex = 200;
 
             event.stopPropagation();
         });
-        $("#luckysheet-postil-showBoxs").off("mouseup.showPs").on("mouseup.showPs", ".luckysheet-postil-show", function(event){
+        document.getElementById("luckysheet-postil-showBoxs").addEventListener("mouseup", function(event){
+            let _target = event.target.closest(".luckysheet-postil-show");
+            if (!_target) return;
             if(event.which == "3"){
                 event.stopPropagation();
             }
         });
 
         //批注框 改变大小
-        $("#luckysheet-postil-showBoxs").off("mousedown.resize").on("mousedown.resize", ".luckysheet-postil-show .luckysheet-postil-dialog-resize .luckysheet-postil-dialog-resize-item", function(event){
-            _this.currentObj = $(this).closest(".luckysheet-postil-show-main");
+        document.getElementById("luckysheet-postil-showBoxs").addEventListener("mousedown", function(event){
+            let _target = event.target.closest(".luckysheet-postil-show .luckysheet-postil-dialog-resize .luckysheet-postil-dialog-resize-item");
+            if (!_target) return;
+            _this.currentObj = _target.closest(".luckysheet-postil-show-main");
             _this.currentWinW = cellMain.getScrollWidth();
             _this.currentWinH = cellMain.getScrollHeight();
 
-            _this.resize = $(this).data("type");
+            _this.resize = _target.dataset.type;
 
             let scroll = getScrollPosition();
             let mouse = mouseposition(event.pageX, event.pageY);
             let x = mouse[0] + scroll.scrollLeft;
             let y = mouse[1] + scroll.scrollTop;
 
-            let position = _this.currentObj.position();
-            let width = _this.currentObj.width();
-            let height = _this.currentObj.height();
+            let position = {top: _this.currentObj.offsetTop, left: _this.currentObj.offsetLeft};
+            let width = _this.currentObj.offsetWidth;
+            let height = _this.currentObj.offsetHeight;
 
             _this.resizeXY = [
-                x, 
-                y, 
-                width, 
-                height, 
-                position.left + scroll.scrollLeft, 
-                position.top + scroll.scrollTop, 
-                scroll.scrollLeft, 
+                x,
+                y,
+                width,
+                height,
+                position.left + scroll.scrollLeft,
+                position.top + scroll.scrollTop,
+                scroll.scrollLeft,
                 scroll.scrollTop
             ];
 
             setluckysheet_scroll_status(true);
 
-            if($(this).closest(".luckysheet-postil-show").hasClass("luckysheet-postil-show-active")){
+            if(_target.closest(".luckysheet-postil-show").classList.contains("luckysheet-postil-show-active")){
                 event.stopPropagation();
                 return;
             }
 
             _this.removeActivePs();
 
-            $(this).closest(".luckysheet-postil-show").addClass("luckysheet-postil-show-active");
-            $(this).closest(".luckysheet-postil-show").find(".luckysheet-postil-dialog-resize").show();
-            $(this).closest(".luckysheet-postil-show").find(".arrowCanvas").css("z-index", 200);
-            $(this).closest(".luckysheet-postil-show").find(".luckysheet-postil-show-main").css("z-index", 200);
+            _target.closest(".luckysheet-postil-show").classList.add("luckysheet-postil-show-active");
+            _target.closest(".luckysheet-postil-show").querySelector(".luckysheet-postil-dialog-resize").style.display = '';
+            _target.closest(".luckysheet-postil-show").querySelector(".arrowCanvas").style.zIndex = 200;
+            _target.closest(".luckysheet-postil-show").querySelector(".luckysheet-postil-show-main").style.zIndex = 200;
 
             event.stopPropagation();
         });
 
         //批注框 移动
-        $("#luckysheet-postil-showBoxs").off("mousedown.move").on("mousedown.move", ".luckysheet-postil-show .luckysheet-postil-dialog-move .luckysheet-postil-dialog-move-item", function(event){
-            _this.currentObj = $(this).closest(".luckysheet-postil-show-main");
+        document.getElementById("luckysheet-postil-showBoxs").addEventListener("mousedown", function(event){
+            let _target = event.target.closest(".luckysheet-postil-show .luckysheet-postil-dialog-move .luckysheet-postil-dialog-move-item");
+            if (!_target) return;
+            _this.currentObj = _target.closest(".luckysheet-postil-show-main");
             _this.currentWinW = cellMain.getScrollWidth();
             _this.currentWinH = cellMain.getScrollHeight();
 
@@ -105,31 +113,31 @@ const luckysheetPostil = {
 
             let scroll = getScrollPosition();
 
-            let offset = _this.currentObj.offset();
-            let position = _this.currentObj.position();
+            let offset = _this.currentObj.getBoundingClientRect();
+            let position = {top: _this.currentObj.offsetTop, left: _this.currentObj.offsetLeft};
 
             _this.moveXY = [
-                event.pageX - offset.left, 
-                event.pageY - offset.top, 
-                position.left, 
-                position.top, 
-                scroll.scrollLeft, 
+                event.pageX - offset.left,
+                event.pageY - offset.top,
+                position.left,
+                position.top,
+                scroll.scrollLeft,
                 scroll.scrollTop
             ];
 
             setluckysheet_scroll_status(true);
 
-            if($(this).closest(".luckysheet-postil-show").hasClass("luckysheet-postil-show-active")){
+            if(_target.closest(".luckysheet-postil-show").classList.contains("luckysheet-postil-show-active")){
                 event.stopPropagation();
                 return;
             }
 
             _this.removeActivePs();
 
-            $(this).closest(".luckysheet-postil-show").addClass("luckysheet-postil-show-active");
-            $(this).closest(".luckysheet-postil-show").find(".luckysheet-postil-dialog-resize").show();
-            $(this).closest(".luckysheet-postil-show").find(".arrowCanvas").css("z-index", 200);
-            $(this).closest(".luckysheet-postil-show").find(".luckysheet-postil-show-main").css("z-index", 200);
+            _target.closest(".luckysheet-postil-show").classList.add("luckysheet-postil-show-active");
+            _target.closest(".luckysheet-postil-show").querySelector(".luckysheet-postil-dialog-resize").style.display = '';
+            _target.closest(".luckysheet-postil-show").querySelector(".arrowCanvas").style.zIndex = 200;
+            _target.closest(".luckysheet-postil-show").querySelector(".luckysheet-postil-show-main").style.zIndex = 200;
 
             event.stopPropagation();
         });
@@ -137,9 +145,9 @@ const luckysheetPostil = {
     overshow: function(event){
         let _this = this;
 
-        $("#luckysheet-postil-overshow").remove();
+        document.getElementById("luckysheet-postil-overshow").remove();
 
-        if($(event.target).closest(cellMain.el).length == 0){
+        if(event.target.closest(cellMain.el) === null){
             return;
         }
 
@@ -177,7 +185,7 @@ const luckysheetPostil = {
 
         let postil = Store.flowdata[row_index][col_index].ps;
 
-        if(postil["isshow"] || $("#luckysheet-postil-show_"+ row_index +"_"+ col_index).length > 0){
+        if(postil["isshow"] || document.querySelector("#luckysheet-postil-show_"+ row_index +"_"+ col_index) !== null){
             return;
         }
 
@@ -224,7 +232,7 @@ const luckysheetPostil = {
 
         cellMain.append(html);
 
-        let ctx = $("#luckysheet-postil-overshow .arrowCanvas").get(0).getContext("2d");
+        let ctx = document.querySelector("#luckysheet-postil-overshow .arrowCanvas").getContext("2d");
 
         _this.drawArrow(ctx, size[4], size[5], size[6], size[7]);
     },
@@ -306,7 +314,7 @@ const luckysheetPostil = {
     buildAllPs: function(data){
         let _this = this;
 
-        cellMain.find("#luckysheet-postil-showBoxs").empty();
+        cellMain.querySelector("#luckysheet-postil-showBoxs").innerHTML = '';
 
         for(let r = 0; r < data.length; r++){
             for(let c = 0; c < data[0].length; c++){
@@ -320,8 +328,8 @@ const luckysheetPostil = {
         _this.init();
     },
     buildPs: function(r, c, postil){
-        if($("#luckysheet-postil-show_"+ r +"_"+ c).length > 0){
-            $("#luckysheet-postil-show_"+ r +"_"+ c).remove();
+        if(document.querySelector("#luckysheet-postil-show_"+ r +"_"+ c) !== null){
+            document.querySelector("#luckysheet-postil-show_"+ r +"_"+ c).remove();
         }
 
         if(postil == null){
@@ -394,9 +402,9 @@ const luckysheetPostil = {
                             '</div>' +
                         '</div>';
 
-            $(html).appendTo(cellMain.find("#luckysheet-postil-showBoxs"));
+            cellMain.querySelector("#luckysheet-postil-showBoxs").insertAdjacentHTML('beforeend', html);
 
-            let ctx = $("#luckysheet-postil-show_"+ r +"_"+ c +" .arrowCanvas").get(0).getContext("2d");
+            let ctx = document.querySelector("#luckysheet-postil-show_"+ r +"_"+ c +" .arrowCanvas").getContext("2d");
 
             _this.drawArrow(ctx, size[4], size[5], size[6], size[7]);
         }
@@ -464,13 +472,13 @@ const luckysheetPostil = {
                         '</div>' +
                     '</div>';
 
-        $(html).appendTo(cellMain.find("#luckysheet-postil-showBoxs"));
+        cellMain.querySelector("#luckysheet-postil-showBoxs").insertAdjacentHTML('beforeend', html);
 
-        let ctx = $("#luckysheet-postil-show_"+ r +"_"+ c +" .arrowCanvas").get(0).getContext("2d");
+        let ctx = document.querySelector("#luckysheet-postil-show_"+ r +"_"+ c +" .arrowCanvas").getContext("2d");
 
         _this.drawArrow(ctx, size[4], size[5], size[6], size[7]);
 
-        $("#luckysheet-postil-show_"+ r +"_"+ c +" .formulaInputFocus").focus();
+        document.querySelector("#luckysheet-postil-show_"+ r +"_"+ c +" .formulaInputFocus").focus();
 
         _this.init();
 
@@ -494,10 +502,10 @@ const luckysheetPostil = {
     editPs: function(r, c){
         let _this = this;
 
-        if($("#luckysheet-postil-show_"+ r +"_"+ c).length > 0){
+        if(document.querySelector("#luckysheet-postil-show_"+ r +"_"+ c) !== null){
             const _elPostil = document.getElementById("luckysheet-postil-show_"+ r +"_"+ c); if (_elPostil) _elPostil.style.display = '';
-            $("#luckysheet-postil-show_"+ r +"_"+ c).addClass("luckysheet-postil-show-active");
-            $("#luckysheet-postil-show_"+ r +"_"+ c).find(".luckysheet-postil-dialog-resize").show();
+            document.querySelector("#luckysheet-postil-show_"+ r +"_"+ c).classList.add("luckysheet-postil-show-active");
+            document.querySelector("#luckysheet-postil-show_"+ r +"_"+ c).querySelector(".luckysheet-postil-dialog-resize").style.display = '';
         }
         else{
             let postil = Store.flowdata[r][c].ps;
@@ -564,15 +572,15 @@ const luckysheetPostil = {
                             '</div>' +
                         '</div>';
 
-            $(html).appendTo(cellMain.find("#luckysheet-postil-showBoxs"));
+            cellMain.querySelector("#luckysheet-postil-showBoxs").insertAdjacentHTML('beforeend', html);
 
-            let ctx = $("#luckysheet-postil-show_"+ r +"_"+ c +" .arrowCanvas").get(0).getContext("2d");
+            let ctx = document.querySelector("#luckysheet-postil-show_"+ r +"_"+ c +" .arrowCanvas").getContext("2d");
 
             _this.drawArrow(ctx, size[4], size[5], size[6], size[7]);
         }
 
-        $("#luckysheet-postil-show_"+ r +"_"+ c +" .formulaInputFocus").focus();
-        luckysheetRangeLast($("#luckysheet-postil-show_"+ r +"_"+ c +" .formulaInputFocus").get(0));
+        document.querySelector("#luckysheet-postil-show_"+ r +"_"+ c +" .formulaInputFocus").focus();
+        luckysheetRangeLast(document.querySelector("#luckysheet-postil-show_"+ r +"_"+ c +" .formulaInputFocus"));
 
         _this.init();
     },
@@ -582,8 +590,8 @@ const luckysheetPostil = {
             return;
         }
 
-        if($("#luckysheet-postil-show_"+ r +"_"+ c).length > 0){
-            $("#luckysheet-postil-show_"+ r +"_"+ c).remove();
+        if(document.querySelector("#luckysheet-postil-show_"+ r +"_"+ c) !== null){
+            document.querySelector("#luckysheet-postil-show_"+ r +"_"+ c).remove();
         }
 
         let d = editor.deepCopyFlowData(Store.flowdata);
@@ -611,7 +619,7 @@ const luckysheetPostil = {
         if(isshow){
             d[r][c].ps.isshow = false;
 
-            $("#luckysheet-postil-show_"+ r +"_"+ c).remove();
+            document.querySelector("#luckysheet-postil-show_"+ r +"_"+ c).remove();
         }
         else{
             d[r][c].ps.isshow = true;
@@ -685,9 +693,9 @@ const luckysheetPostil = {
                             '</div>' +
                         '</div>';
 
-            $(html).appendTo(cellMain.find("#luckysheet-postil-showBoxs"));
+            cellMain.querySelector("#luckysheet-postil-showBoxs").insertAdjacentHTML('beforeend', html);
 
-            let ctx = $("#luckysheet-postil-show_"+ r +"_"+ c +" .arrowCanvas").get(0).getContext("2d");
+            let ctx = document.querySelector("#luckysheet-postil-show_"+ r +"_"+ c +" .arrowCanvas").getContext("2d");
 
             _this.drawArrow(ctx, size[4], size[5], size[6], size[7]);
 
@@ -719,9 +727,9 @@ const luckysheetPostil = {
         }
 
         let rc = [];
-        if(allPs.length > 0){
+        if(allPs !== null){
             if(isAllShow){ //全部显示，操作为隐藏所有批注
-                cellMain.find("#luckysheet-postil-showBoxs").empty();
+                cellMain.querySelector("#luckysheet-postil-showBoxs").innerHTML = '';
 
                 for(let i = 0; i < allPs.length; i++){
                     let rowIndex = allPs[i].split("_")[0];
@@ -814,9 +822,9 @@ const luckysheetPostil = {
                                         '</div>' +
                                     '</div>';
 
-                        $(html).appendTo(cellMain.find("#luckysheet-postil-showBoxs"));
+                        cellMain.querySelector("#luckysheet-postil-showBoxs").insertAdjacentHTML('beforeend', html);
 
-                        let ctx = $("#luckysheet-postil-show_"+ rowIndex +"_"+ colIndex +" .arrowCanvas").get(0).getContext("2d");
+                        let ctx = document.querySelector("#luckysheet-postil-show_"+ rowIndex +"_"+ colIndex +" .arrowCanvas").getContext("2d");
 
                         _this.drawArrow(ctx, size[4], size[5], size[6], size[7]);
 
@@ -831,29 +839,29 @@ const luckysheetPostil = {
         _this.init();
     },
     removeActivePs: function(){
-        if($("#luckysheet-postil-showBoxs .luckysheet-postil-show-active").length > 0){
+        if(document.querySelector("#luckysheet-postil-showBoxs .luckysheet-postil-show-active") !== null){
             
 
-            let id = $("#luckysheet-postil-showBoxs .luckysheet-postil-show-active").attr("id");
+            let id = document.querySelector("#luckysheet-postil-showBoxs .luckysheet-postil-show-active").getAttribute("id");
             let r = id.split("luckysheet-postil-show_")[1].split("_")[0];
             let c = id.split("luckysheet-postil-show_")[1].split("_")[1];
 
             // interpret <div> as new line
-            let value = $("#" + id).find(".formulaInputFocus").html().replaceAll('<div>', '\n').replaceAll(/<(.*)>.*?|<(.*) \/>/g, '').trim();
+            let value = document.getElementById(id).querySelector(".formulaInputFocus").innerHTML.replaceAll('<div>', '\n').replaceAll(/<(.*)>.*?|<(.*) \/>/g, '').trim();
             // Hook function
             if(!method.createHookFunction('commentUpdateBefore',r,c,value)){
                 if (!Store.flowdata[r][c].ps.isshow) {
-                    $("#" + id).remove();
+                    document.getElementById(id).remove();
                 }
                 return;
             }
 
             const previousCell = structuredClone(Store.flowdata[r][c]);
 
-            $("#" + id).removeClass("luckysheet-postil-show-active");
-            $("#" + id).find(".luckysheet-postil-dialog-resize").hide();
-            $("#" + id).find(".arrowCanvas").css("z-index", 100);
-            $("#" + id).find(".luckysheet-postil-show-main").css("z-index", 100);
+            document.getElementById(id).classList.remove("luckysheet-postil-show-active");
+            document.getElementById(id).querySelector(".luckysheet-postil-dialog-resize").style.display = 'none';
+            document.getElementById(id).querySelector(".arrowCanvas").style.zIndex = 100;
+            document.getElementById(id).querySelector(".luckysheet-postil-show-main").style.zIndex = 100;
 
             let d = editor.deepCopyFlowData(Store.flowdata);
             let rc = [];
@@ -864,7 +872,7 @@ const luckysheetPostil = {
             this.ref(d, rc);
 
             if(!d[r][c].ps.isshow){
-                $("#" + id).remove();
+                document.getElementById(id).remove();
             }
             // Hook function
             setTimeout(() => {
@@ -899,8 +907,8 @@ const luckysheetPostil = {
     positionSync: function(){
         let _this = this;
 
-        $("#luckysheet-postil-showBoxs .luckysheet-postil-show").each(function(i, e){
-            let id = $(e).attr("id");
+        document.querySelector("#luckysheet-postil-showBoxs .luckysheet-postil-show").forEach(function(e) {
+            let id = e.getAttribute("id");
 
             let r = id.split("luckysheet-postil-show_")[1].split("_")[0];
             let c = id.split("luckysheet-postil-show_")[1].split("_")[1];

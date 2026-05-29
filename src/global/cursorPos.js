@@ -58,12 +58,12 @@ function hideMenuByCancel(event){
     }
 
     if (!event.target.classList.contains("luckysheet-mousedown-cancel") && !event.target.matches("[class*='sp-palette']") && !event.target.matches("[class*='sp-thumb']") && !event.target.matches("[class*='sp-']")) {
-        rightClickMenu.hide();
-        resizeHandles.colHover.hide();
+        rightClickMenu.style.display = 'none';
+        resizeHandles.colHover.style.display = 'none';
         const _elColsMenuBtn2 = document.getElementById("luckysheet-cols-menu-btn"); if (_elColsMenuBtn2) _elColsMenuBtn2.style.display = 'none';
         [document.getElementById("luckysheet-sheet-list"), document.getElementById("luckysheet-rightclick-sheet-menu"), document.getElementById("luckysheet-user-menu")].forEach(el => { if (el) el.style.display = 'none'; });
         document.querySelectorAll("body > .luckysheet-filter-menu, body > .luckysheet-filter-submenu, body > .luckysheet-cols-menu").forEach(el => el.style.display = 'none');
-        //$("body > luckysheet-menuButton").hide();
+        //document.querySelector("body > luckysheet-menuButton").style.display = 'none';
         Store.luckysheet_cols_menu_status = false;
     }
 }

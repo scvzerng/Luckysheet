@@ -41,14 +41,16 @@ const sizeUtilsModule = {
     if (f in _this.getTextHeightCache) {
       return _this.getTextHeightCache[f];
     }
-    if ($("#luckysheetTextSizeTest").length == 0) {
+    if (document.getElementById("luckysheetTextSizeTest") === null) {
       document.body.insertAdjacentHTML('beforeend', '<span id="luckysheetTextSizeTest" style="float:left;white-space:nowrap;visibility:hidden;margin:0;padding:0;">' + text + "</span>");
     }
-    let o = $("#luckysheetTextSizeTest").text(text).css({
+    let o = document.getElementById("luckysheetTextSizeTest");
+    o.textContent = text;
+    Object.assign(o.style, {
         font: f
-      }),
-      w = o.innerWidth(),
-      h = o.innerHeight();
+    });
+    let w = o.offsetWidth,
+      h = o.offsetHeight;
     _this.getTextHeightCache[f] = [w, h];
     return [w, h];
   }

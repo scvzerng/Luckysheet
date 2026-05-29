@@ -303,13 +303,13 @@ export function handleCellMousedown(event) {
                               vText = vText.substr(0, vText.length - 1); //先删除最后侧的圆括号)
                           }
   
-                          if (vText.length > 0) {
+                          if (vText !== null) {
                               let lastWord = vText.substr(vText.length - 1, 1);
                               if (lastWord != "," && lastWord != "=" && lastWord != "(") {
                                   vText += ",";
                               }
                           }
-                          if (vText.length > 0 && vText.substr(0, 1) == "=") {
+                          if (vText !== null && vText.substr(0, 1) == "=") {
                               vText = formula.functionHTMLGenerate(vText);
   
                               if (window.getSelection) {
@@ -385,7 +385,7 @@ export function handleCellMousedown(event) {
                               top: top,
                               height: height,
                           });
-                      formulaDialogs.formulaHelp.hide();
+                      formulaDialogs.formulaHelp.style.display = 'none';
                       luckysheet_count_show(left, top, width, height, rowseleted, columnseleted);
 
                       setTimeout(function() {
@@ -547,7 +547,7 @@ export function handleCellMousedown(event) {
                   selectionCopyShow(conditionformat.selectRange);
   
                   let range = conditionformat.getTxtByRange(conditionformat.selectRange);
-                  let _multiRangeInput = formulaDialogs.multiRange.find("input"); if (_multiRangeInput) _multiRangeInput.value = range;
+                  let _multiRangeInput = formulaDialogs.multiRange.querySelector("input"); if (_multiRangeInput) _multiRangeInput.value = range;
   
                   return;
               } else {
@@ -566,14 +566,14 @@ export function handleCellMousedown(event) {
                       { row: [row_index, row_index], column: [col_index, col_index] },
                       Store.currentSheetIndex,
                   );
-                  let _singleRangeInput = formulaDialogs.singleRange.find("input"); if (_singleRangeInput) _singleRangeInput.value = range;
+                  let _singleRangeInput = formulaDialogs.singleRange.querySelector("input"); if (_singleRangeInput) _singleRangeInput.value = range;
   
                   return;
               }
   
               //if公式生成器
               if (ifFormulaGenerator.singleRangeFocus) {
-                  let _singRangeBtn = formulaDialogs.ifFormulaDialog.find(".singRange"); if (_singRangeBtn) _singRangeBtn.click();
+                  let _singRangeBtn = formulaDialogs.ifFormulaDialog.querySelector(".singRange"); if (_singRangeBtn) _singRangeBtn.click();
               }
               if (formulaDialogs.ifFormulaSingleRange.isVisible()) {
                   //选择单个单元格
@@ -586,14 +586,14 @@ export function handleCellMousedown(event) {
                           top: row_pre,
                           height: row - row_pre - 1,
                       });
-                  formulaDialogs.formulaHelp.hide();
+                  formulaDialogs.formulaHelp.style.display = 'none';
 
                   let range = getRangetxt(
                       Store.currentSheetIndex,
                       { row: [row_index, row_index], column: [col_index, col_index] },
                       Store.currentSheetIndex,
                   );
-                  let _ifSingleInput = formulaDialogs.ifFormulaSingleRange.find("input"); if (_ifSingleInput) _ifSingleInput.value = range;
+                  let _ifSingleInput = formulaDialogs.ifFormulaSingleRange.querySelector("input"); if (_ifSingleInput) _ifSingleInput.value = range;
 
                   return;
               }
@@ -622,17 +622,17 @@ export function handleCellMousedown(event) {
                           top: row_pre,
                           height: row - row_pre - 1,
                       });
-                  formulaDialogs.formulaHelp.hide();
+                  formulaDialogs.formulaHelp.style.display = 'none';
   
                   let range = getRangetxt(
                       Store.currentSheetIndex,
                       { row: [row_index, row_index], column: [col_index, col_index] },
                       Store.currentSheetIndex,
                   );
-                  let _ifMultiInput = formulaDialogs.ifFormulaMultiRange.find("input"); if (_ifMultiInput) _ifMultiInput.value = range;
+                  let _ifMultiInput = formulaDialogs.ifFormulaMultiRange.querySelector("input"); if (_ifMultiInput) _ifMultiInput.value = range;
   
-                  countShow.row.hide();
-                  countShow.column.hide();
+                  countShow.row.style.display = 'none';
+                  countShow.column.style.display = 'none';
   
                   return;
               }
@@ -790,8 +790,8 @@ export function handleCellMousedown(event) {
                   const _faTable = document.querySelector("#luckysheet-alternateformat-range .fa-table"); if (_faTable) _faTable.click();
               }
   
-              countShow.row.hide();
-              countShow.column.hide();
+              countShow.row.style.display = 'none';
+              countShow.column.style.display = 'none';
   
               if (!isEditMode()) {
               }
@@ -817,13 +817,13 @@ export function handleCellMousedown(event) {
                   luckysheetTableContent,
               );
   
-              //$("#luckysheet-cols-h-c .luckysheet-cols-h-cells-c .luckysheet-cols-h-cells-clip .luckysheet-cols-h-cell-sel").removeClass("luckysheet-cols-h-cell-sel").addClass("luckysheet-cols-h-cell-nosel");
+              //document.querySelector("#luckysheet-cols-h-c .luckysheet-cols-h-cells-c .luckysheet-cols-h-cells-clip .luckysheet-cols-h-cell-sel").classList.remove("luckysheet-cols-h-cell-sel").classList.add("luckysheet-cols-h-cell-nosel");
   
-              //$("#luckysheet-rows-h .luckysheet-rows-h-cells .luckysheet-rows-h-cells-c .luckysheet-rows-h-cells-clip .luckysheet-rows-h-cell-sel").removeClass("luckysheet-rows-h-cell-sel").addClass("luckysheet-rows-h-cell-nosel");
+              //document.querySelector("#luckysheet-rows-h .luckysheet-rows-h-cells .luckysheet-rows-h-cells-c .luckysheet-rows-h-cells-clip .luckysheet-rows-h-cell-sel").classList.remove("luckysheet-rows-h-cell-sel").classList.add("luckysheet-rows-h-cell-nosel");
   
-              //$("#luckysheet-cols-h-c .luckysheet-cols-h-cells-c .luckysheet-cols-h-cells-clip .luckysheet-cols-h-cell-nosel").eq(col_index).removeClass("luckysheet-cols-h-cell-nosel").addClass("luckysheet-cols-h-cell-sel");
+              //document.querySelector("#luckysheet-cols-h-c .luckysheet-cols-h-cells-c .luckysheet-cols-h-cells-clip .luckysheet-cols-h-cell-nosel")[col_index].classList.remove("luckysheet-cols-h-cell-nosel").classList.add("luckysheet-cols-h-cell-sel");
   
-              //$("#luckysheet-rows-h .luckysheet-rows-h-cells .luckysheet-rows-h-cells-c .luckysheet-rows-h-cells-clip .luckysheet-rows-h-cell-nosel").eq(row_index).removeClass("luckysheet-rows-h-cell-nosel").addClass("luckysheet-rows-h-cell-sel");
+              //document.querySelector("#luckysheet-rows-h .luckysheet-rows-h-cells .luckysheet-rows-h-cells-c .luckysheet-rows-h-cells-clip .luckysheet-rows-h-cell-nosel")[row_index].classList.remove("luckysheet-rows-h-cell-nosel").classList.add("luckysheet-rows-h-cell-sel");
   
               //event.stopImmediatePropagation();
 }

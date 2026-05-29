@@ -51,8 +51,8 @@ const sheetCRUDModule = {
       };
     }
     Store.luckysheetfile.push(sheetconfig);
-    $("#luckysheet-sheet-area div.luckysheet-sheets-item").removeClass("luckysheet-sheets-item-active");
-    $("#luckysheet-sheets-item" + index).addClass("luckysheet-sheets-item-active");
+    document.querySelector("#luckysheet-sheet-area div.luckysheet-sheets-item").classList.remove("luckysheet-sheets-item-active");
+    document.getElementById("luckysheet-sheets-item" + index).classList.add("luckysheet-sheets-item-active");
     cellMain.append('<div id="luckysheet-datavisual-selection-set-' + index + '" class="luckysheet-datavisual-selection-set"></div>');
     cleargridelement(e);
     if (Store.clearjfundo) {
@@ -93,7 +93,7 @@ const sheetCRUDModule = {
     if (copyjson.color != null) {
       colorset = '<div class="luckysheet-sheets-item-color" style=" position: absolute; width: 100%; height: 3px; bottom: 0px; left: 0px; background-color: ' + copyjson.color + ';"></div>';
     }
-    let copyobject = $("#luckysheet-sheets-item" + copyindex);
+    let copyobject = document.getElementById("luckysheet-sheets-item" + copyindex);
     sheetContainer.append(replaceHtml(sheetHTML, {
       index: copyjson.index,
       active: "",
@@ -102,10 +102,10 @@ const sheetCRUDModule = {
       style: "",
       colorset: colorset
     }));
-    $("#luckysheet-sheets-item" + copyjson.index).insertAfter(copyobject);
+    copyobject.parentElement.insertBefore(document.getElementById("luckysheet-sheets-item" + copyjson.index), copyobject.nextElementSibling);
     Store.luckysheetfile.splice(copyarrindex + 1, 0, copyjson);
-    $("#luckysheet-sheet-area div.luckysheet-sheets-item").removeClass("luckysheet-sheets-item-active");
-    $("#luckysheet-sheets-item" + index).addClass("luckysheet-sheets-item-active");
+    document.querySelector("#luckysheet-sheet-area div.luckysheet-sheets-item").classList.remove("luckysheet-sheets-item-active");
+    document.getElementById("luckysheet-sheets-item" + index).classList.add("luckysheet-sheets-item-active");
     cellMain.append('<div id="luckysheet-datavisual-selection-set-' + index + '" class="luckysheet-datavisual-selection-set"></div>');
     cleargridelement(e);
     _this.changeSheetExec(index, undefined, undefined, true);
@@ -117,7 +117,7 @@ const sheetCRUDModule = {
         index: copyjson.index,
         sheetIndex: copyjson.index
       });
-    } else if (Store.jfredo.length > 0) {
+    } else if (Store.jfredo !== null) {
       let jfredostr = Store.jfredo[Store.jfredo.length - 1];
       if (jfredostr.type == "copySheet") {
         jfredostr.index = copyjson.index;
@@ -140,8 +140,8 @@ const sheetCRUDModule = {
       return;
     }
     _this.setSheetHide(index, true);
-    $("#luckysheet-sheets-item" + index).remove();
-    $("#luckysheet-datavisual-selection-set-" + index).remove();
+    document.getElementById("luckysheet-sheets-item" + index).remove();
+    document.getElementById("luckysheet-datavisual-selection-set-" + index).remove();
     let removedsheet = Store.luckysheetfile.splice(arrIndex, 1);
     _this.reOrderAllSheet();
     if (Store.clearjfundo) {
@@ -222,14 +222,16 @@ const sheetCRUDModule = {
       let previndex = data.order;
       if (previndex >= Store.luckysheetfile.length) {
         previndex = Store.luckysheetfile.length - 1;
-        $("#luckysheet-sheets-item" + data.index).insertAfter($("#luckysheet-sheets-item" + Store.luckysheetfile[previndex].index));
+        let _ref = document.getElementById("luckysheet-sheets-item" + Store.luckysheetfile[previndex].index);
+        _ref.parentElement.insertBefore(document.getElementById("luckysheet-sheets-item" + data.index), _ref.nextElementSibling);
       } else {
-        $("#luckysheet-sheets-item" + data.index).insertBefore($("#luckysheet-sheets-item" + Store.luckysheetfile[previndex].index));
+        let _ref = document.getElementById("luckysheet-sheets-item" + Store.luckysheetfile[previndex].index);
+        _ref.parentElement.insertBefore(document.getElementById("luckysheet-sheets-item" + data.index), _ref);
       }
     }
     Store.luckysheetfile.push(data);
-    $("#luckysheet-sheet-area div.luckysheet-sheets-item").removeClass("luckysheet-sheets-item-active");
-    $("#luckysheet-sheets-item" + data.index).addClass("luckysheet-sheets-item-active");
+    document.querySelector("#luckysheet-sheet-area div.luckysheet-sheets-item").classList.remove("luckysheet-sheets-item-active");
+    document.getElementById("luckysheet-sheets-item" + data.index).classList.add("luckysheet-sheets-item-active");
     cellMain.append('<div id="luckysheet-datavisual-selection-set-' + data.index + '" class="luckysheet-datavisual-selection-set"></div>');
     cleargridelement();
     if (isrenew != null) {

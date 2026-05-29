@@ -26,15 +26,14 @@ const rangeHighlight = {
         createRangeHightlight: function() {
             let _this = this;
 
-            let $span = richTextEditor.find("span.luckysheet-formula-functionrange-cell");
-            $("#luckysheet-formula-functionrange .luckysheet-formula-functionrange-highlight").remove();
+            let $spanList = document.querySelectorAll("#luckysheet-formula-functionrange span");
+            document.querySelector("#luckysheet-formula-functionrange .luckysheet-formula-functionrange-highlight")?.remove();
 
-            $span.each(function() {
-                let rangeindex = $(this).attr("rangeindex"),
-                    range = $(this).text();
+            $spanList.forEach(function(span) {
+                let rangeindex = span.getAttribute("rangeindex"),
+                    range = span.textContent;
 
-                $("#luckysheet-formula-functionrange").append(
-                    replaceHtml(_this.rangeHightlightHTML, {
+                document.getElementById("luckysheet-formula-functionrange").insertAdjacentHTML('beforeend', replaceHtml(_this.rangeHightlightHTML, {
                         id: rangeindex,
                     }),
                 );
@@ -47,16 +46,11 @@ const rangeHighlight = {
                     cellrange.sheetIndex == Store.currentSheetIndex ||
                     (cellrange.sheetIndex == -1 && _this.rangetosheet == Store.currentSheetIndex)
                 ) {
-                    $("#" + rangeid)
-                        .data("range", cellrange)
-                        .find(".luckysheet-copy")
-                        .css({ background: luckyColor[rangeindex] })
-                        .end()
-                        .find(".luckysheet-highlight")
-                        .css({ background: luckyColor[rangeindex] })
-                        .end()
-                        .find(".luckysheet-selection-copy-hc")
-                        .css({ background: luckyColor[rangeindex] });
+                    let _rangeEl = document.getElementById(rangeid);
+                    _rangeEl.dataset.range = cellrange;
+                    Object.assign(_rangeEl.querySelector(".luckysheet-copy").style, { background: luckyColor[rangeindex] });
+                    Object.assign(_rangeEl.querySelector(".luckysheet-highlight").style, { background: luckyColor[rangeindex] });
+                    Object.assign(_rangeEl.querySelector(".luckysheet-selection-copy-hc").style, { background: luckyColor[rangeindex] });
 
                     seletedHighlistByindex(
                         rangeid,
@@ -73,49 +67,47 @@ const rangeHighlight = {
 
         getrangeseleciton: function() {
             let currSelection = window.getSelection();
-            let anchor = $(currSelection.anchorNode);
+            let anchor = currSelection.anchorNode;
             let anchorOffset = currSelection.anchorOffset;
 
-            if (anchor.parent().is("span") && anchorOffset != 0) {
-                let txt = anchor.text().trim(),
+            if (!anchor) return null;
+
+            if (anchor.nodeType === Node.TEXT_NODE && anchor.parentElement && anchor.parentElement.matches("span") && anchorOffset != 0) {
+                let txt = anchor.textContent.trim(),
                     lasttxt = "";
 
-                if (txt.length == 0 && anchor.parent().prev().length > 0) {
-                    let ahr = anchor.parent().prev();
-                    txt = ahr.text().trim();
+                if (txt === null && anchor.parentElement.previousElementSibling !== null) {
+                    let ahr = anchor.parentElement.previousElementSibling;
+                    txt = ahr.textContent.trim();
                     lasttxt = txt.substr(txt.length - 1, 1);
                     return ahr;
                 } else {
                     lasttxt = txt.substr(anchorOffset - 1, 1);
-                    return anchor.parent();
+                    return anchor.parentElement;
                 }
-            } else if (anchor.is(richTextEditor.el) || anchor.is(functionBox.el)) {
-                let txt = anchor
-                        .find("span")
-                        .last()
-                        .text()
-                        .trim();
+            } else if (anchor === richTextEditor.el || anchor === functionBox.el) {
+                let spans = anchor.querySelectorAll("span");
+                let txt = spans[spans.length - 1].textContent.trim();
 
-                if (txt.length == 0 && anchor.find("span").length > 1) {
-                    let ahr = anchor.find("span");
-                    txt = ahr.eq(ahr.length - 2).text().trim();
+                if (txt === null && spans.length > 1) {
+                    txt = spans[spans.length - 2].textContent.trim();
                     return ahr;
                 } else {
-                    return anchor.find("span").last();
+                    return anchor.querySelector("span").last();
                 }
             } else if (
-                anchor.parent().is(richTextEditor.el) ||
-                anchor.parent().is(functionBox.el) ||
+                anchor.parentElement === richTextEditor.el ||
+                anchor.parentElement === functionBox.el ||
                 anchorOffset == 0
             ) {
                 if (anchorOffset == 0) {
-                    anchor = anchor.parent();
+                    anchor = anchor.parentElement;
                 }
 
-                if (anchor.prev().length > 0) {
-                    let txt = anchor.prev().text().trim();
+                if (anchor.previousElementSibling !== null) {
+                    let txt = anchor.previousElementSibling.textContent.trim();
                     let lasttxt = txt.substr(txt.length - 1, 1);
-                    return anchor.prev();
+                    return anchor.previousElementSibling;
                 }
             }
 

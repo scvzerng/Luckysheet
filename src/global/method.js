@@ -244,7 +244,7 @@ const method = {
             method: 'POST',
             headers: { "Content-Type": "application/json;charset=UTF-8", "x-auth-token": token },
             body: JSON.stringify(param)
-        }).then(function(response) { return response.text(); }).then(function(d) {
+        }).then(function(response) { return response.textContent; }).then(function(d) {
             if(typeof d == "string"){
                 try { d = JSON.parse(d); } catch(e) {}
             }
@@ -285,7 +285,7 @@ const method = {
             method: 'POST',
             headers: { "Content-Type": "application/x-www-form-urlencoded" },
             body: new URLSearchParams(param).toString()
-        }).then(function(response) { return response.text(); }).then(function(d) {
+        }).then(function(response) { return response.textContent; }).then(function(d) {
             let dataset = new Function("return " + d)();
             file.celldata = dataset[index.toString()];
             let data = sheetmanage.buildGridData(file);
@@ -331,14 +331,14 @@ const method = {
             Store.flowdata = [];
             editor.webWorkerFlowDataCache(Store.flowdata);//worker存数据
 
-            $("#"+ Store.container +" .luckysheet-datavisual-selection-set").remove();
+            document.querySelector("#"+ Store.container +" .luckysheet-datavisual-selection-set").remove();
 
-            countShow.row.hide();
-            countShow.column.hide();
-            formulaRangeSelect.hide();
-            resizeHandles.changeSizeLine.hide();
-            cellSelectedFocus.hide();
-            selectionCopy.hide();
+            countShow.row.style.display = 'none';
+            countShow.column.style.display = 'none';
+            formulaRangeSelect.style.display = 'none';
+            resizeHandles.changeSizeLine.style.display = 'none';
+            cellSelectedFocus.style.display = 'none';
+            selectionCopy.style.display = 'none';
             [document.getElementById("luckysheet-cell-selected-extend"), document.getElementById("luckysheet-cell-selected-move"), document.getElementById("luckysheet-cell-selected")].forEach(el => { if (el) el.style.display = 'none'; });
 
             delete sheetfile.load;
@@ -363,13 +363,13 @@ const method = {
         sheetmanage.changeSheet(Store.luckysheetfile[0].index);
     },
     destroy:function(){
-        $("#" + Store.container).empty();
-        $("body > .luckysheet-cols-menu").remove();
+        document.getElementById(Store.container).innerHTML = '';
+        document.querySelector("body > .luckysheet-cols-menu").remove();
 
-        $("#luckysheet-modal-dialog-mask, #luckysheetTextSizeTest, #luckysheet-icon-morebtn-div").remove();
+        document.querySelector("#luckysheet-modal-dialog-mask, #luckysheetTextSizeTest, #luckysheet-icon-morebtn-div").remove();
         inputBox.removeParent();
         formulaDialogs.formulaHelp.remove();
-        $(".luckysheet-modal-dialog-slider").remove();
+        document.querySelector(".luckysheet-modal-dialog-slider").remove();
 
         //document event release
         offNS("luckysheetEvent");

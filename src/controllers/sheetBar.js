@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿import sheetmanage from './sheetmanage';
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿import sheetmanage from './sheetmanage';
 import { sheetselectlistitemHTML, sheetselectlistHTML, keycode } from './constant';
 import {
     replaceHtml,
@@ -48,7 +48,7 @@ function showsheetconfigmenu() {
             noColorSelectedText: locale_toolbar.noColorSelectedText,
             palette: SHEET_TAB_PALETTE,
             change: function (color) {
-                let $input = $(this);
+                let $input = this;
                 if (color != null) {
                     color = color.toHexString();
                 }
@@ -57,12 +57,13 @@ function showsheetconfigmenu() {
                 }
 
                 let oldcolor = null;
-                if(luckysheetcurrentSheetitem.find(".luckysheet-sheets-item-color").length>0){
-                    oldcolor = luckysheetcurrentSheetitem.find(".luckysheet-sheets-item-color").css("background-color");
+                if(luckysheetcurrentSheetitem.querySelector(".luckysheet-sheets-item-color") !== null){
+                    oldcolor = getComputedStyle(luckysheetcurrentSheetitem.querySelector(".luckysheet-sheets-item-color")).backgroundColor;
                 }
 
-                luckysheetcurrentSheetitem.find(".luckysheet-sheets-item-color").remove();
-                luckysheetcurrentSheetitem.append('<div class="luckysheet-sheets-item-color" style=" position: absolute; width: 100%; height: 3px; bottom: 0px; left: 0px; background-color: ' + color + ';"></div>');
+                let _colorEl = luckysheetcurrentSheetitem.querySelector(".luckysheet-sheets-item-color");
+                if (_colorEl) _colorEl.remove();
+                luckysheetcurrentSheetitem.insertAdjacentHTML('beforeend', '<div class="luckysheet-sheets-item-color" style=" position: absolute; width: 100%; height: 3px; bottom: 0px; left: 0px; background-color: ' + color + ';"></div>');
                 let index = getSheetIndex(Store.currentSheetIndex);
                 Store.luckysheetfile[index].color = color;
 
@@ -80,13 +81,14 @@ function showsheetconfigmenu() {
             }
         });
 
-        $("#luckysheetsheetconfigcolorreset").click(function () {
+        document.getElementById("luckysheetsheetconfigcolorreset").addEventListener("click", function () {
             let oldcolor = null;
-            if(luckysheetcurrentSheetitem.find(".luckysheet-sheets-item-color").length>0){
-                oldcolor = luckysheetcurrentSheetitem.find(".luckysheet-sheets-item-color").css("background-color");
+            if(luckysheetcurrentSheetitem.querySelector(".luckysheet-sheets-item-color") !== null){
+                oldcolor = getComputedStyle(luckysheetcurrentSheetitem.querySelector(".luckysheet-sheets-item-color")).backgroundColor;
             }
 
-            luckysheetcurrentSheetitem.find(".luckysheet-sheets-item-color").remove();
+            let _colorEl2 = luckysheetcurrentSheetitem.querySelector(".luckysheet-sheets-item-color");
+            if (_colorEl2) _colorEl2.remove();
             let index = getSheetIndex(Store.currentSheetIndex);
             Store.luckysheetfile[index].color = null;
 
@@ -105,12 +107,12 @@ function showsheetconfigmenu() {
     }
 
     let index = getSheetIndex(Store.currentSheetIndex);
-    if (Store.luckysheetfile[index].color != null && Store.luckysheetfile[index].color.length > 0) {
+    if (Store.luckysheetfile[index].color != null && Store.luckysheetfile[index].color !== null) {
         getPicker(document.getElementById("luckysheetsheetconfigcolorur"))?.set(Store.luckysheetfile[index].color);
 
     }
 
-    $("#luckysheetsheetconfigcolorur").parent().find("span, div, button, input, a").addClass("luckysheet-mousedown-cancel");
+    document.getElementById("luckysheetsheetconfigcolorur").parentElement.querySelector("span, div, button, input, a").classList.add("luckysheet-mousedown-cancel");
 
     // 如果全部按钮设置了隐藏，则不显示
     const config = luckysheetConfigsetting.sheetRightClickConfig;
@@ -120,19 +122,19 @@ function showsheetconfigmenu() {
     }
 
     setTimeout(function(){
-        mouseclickposition($("#luckysheet-rightclick-sheet-menu"), luckysheetcurrentSheetitem.offset().left + luckysheetcurrentSheetitem.width(), luckysheetcurrentSheetitem.offset().top - 18, "leftbottom");
+        mouseclickposition(document.getElementById("luckysheet-rightclick-sheet-menu"), luckysheetcurrentSheetitem.getBoundingClientRect().left + luckysheetcurrentSheetitem.offsetWidth, luckysheetcurrentSheetitem.getBoundingClientRect().top + window.pageYOffset - 18, "leftbottom");
     },1);
 }
 
 let luckysheetsheetrightclick = function ($t, $cur, e) {
         //引用单元格范围时，禁止切换sheer
     clearTimeout(jfdbclicklagTimeout);
-    if ($cur.hasClass("luckysheet-sheets-item-name") && $cur.attr("contenteditable") == "true") {
+    if ($cur.classList.contains("luckysheet-sheets-item-name") && $cur.getAttribute("contenteditable") == "true") {
         return;
     }
     if (formula.rangestart || formula.rangedrag_column_start || formula.rangedrag_row_start || formula.israngeseleciton()) {
         setTimeout(function () {
-            formula.setCaretPosition(formula.rangeSetValueTo.get(0), 0, formula.rangeSetValueTo.text().length);
+            formula.setCaretPosition(formula.rangeSetValueTo, 0, formula.rangeSetValueTo.textContent.length);
             formula.createRangeHightlight();
             inputBoxIndex.setSheetPrefix("<span class='luckysheet-input-box-index-sheettxt'>" + sheetmanage.getSheetName(formula.rangetosheet) + "!</span>");
             inputBoxIndex.setCss({"left": inputBox.getCss("left"), "top": (parseInt(inputBox.getCss("top")) - 20) + "px", "z-index": inputBox.getCss("z-index")});
@@ -145,17 +147,17 @@ let luckysheetsheetrightclick = function ($t, $cur, e) {
         }
 
         resetInputBoxStyle();
-        $("#luckysheet-formula-functionrange .luckysheet-formula-functionrange-highlight").remove();
+        document.querySelector("#luckysheet-formula-functionrange .luckysheet-formula-functionrange-highlight").remove();
     }
 
-    $("#luckysheet-sheet-area div.luckysheet-sheets-item").removeClass("luckysheet-sheets-item-active");
-    $t.addClass("luckysheet-sheets-item-active");
+    document.querySelector("#luckysheet-sheet-area div.luckysheet-sheets-item").classList.remove("luckysheet-sheets-item-active");
+    $t.classList.add("luckysheet-sheets-item-active");
     cleargridelement(e);
-    sheetmanage.changeSheet($t.data("index"));
+    sheetmanage.changeSheet($t.dataset.index);
 
-    $("#luckysheet-sheet-list, #luckysheet-rightclick-sheet-menu").hide();
+    document.querySelector("#luckysheet-sheet-list, #luckysheet-rightclick-sheet-menu").style.display = 'none';
 
-    if ($cur.hasClass("luckysheet-sheets-item-menu") || $cur.hasClass("fa-sort-desc") || e.which == "3") {
+    if ($cur.classList.contains("luckysheet-sheets-item-menu") || $cur.classList.contains("fa-sort-desc") || e.which == "3") {
         luckysheetcurrentSheetitem = $cur.closest(".luckysheet-sheets-item");
         showsheetconfigmenu();
     }
@@ -167,13 +169,14 @@ export function initialSheetBar(){
     const locale_sheetconfig = _locale.sheetconfig;
     isInitialSheetConfig = false
 
-    $("#luckysheet-sheet-area").on("mousedown", "div.luckysheet-sheets-item", function (e) {
+    document.getElementById("luckysheet-sheet-area").addEventListener("mousedown", function (e) {
+        let _target = e.target.closest("div.luckysheet-sheets-item");
+        if (!_target) return;
         if(isEditMode()){
-            // alert("非编辑模式下不允许该操作！");
             return;
         }
 
-        let $t = $(this), $cur = $(e.target), $item = $cur.closest(".luckysheet-sheets-item");
+        let $t = _target, $cur = e.target, $item = $cur.closest(".luckysheet-sheets-item");
 
         if (e.which == "3") {
             setTimeout(() => {
@@ -184,40 +187,44 @@ export function initialSheetBar(){
             }, 0);
         }
 
-        if ($item.hasClass("luckysheet-sheets-item-active") && $item.find(".luckysheet-sheets-item-name").attr("contenteditable") == "false") {
+        if ($item.classList.contains("luckysheet-sheets-item-active") && $item.querySelector(".luckysheet-sheets-item-name").getAttribute("contenteditable") == "false") {
             jfdbclicklagTimeout = setTimeout(function () {
                 Store.luckysheet_sheet_move_status = true;
                 Store.luckysheet_sheet_move_data = {};
                 Store.luckysheet_sheet_move_data.widthlist = [];
 
-                $("#luckysheet-sheet-area div.luckysheet-sheets-item:visible").each(function (i) {
+                let visibleItems = Array.from(document.querySelectorAll("#luckysheet-sheet-area div.luckysheet-sheets-item")).filter(el => el.offsetWidth > 0);
+                visibleItems.forEach(function(el, i) {
                     if (i == 0) {
-                        Store.luckysheet_sheet_move_data.widthlist.push(parseInt($(this).outerWidth()));
+                        Store.luckysheet_sheet_move_data.widthlist.push(parseInt(el.offsetWidth));
                     }
                     else {
-                        Store.luckysheet_sheet_move_data.widthlist.push(parseInt($(this).outerWidth()) + Store.luckysheet_sheet_move_data.widthlist[i - 1]);
+                        Store.luckysheet_sheet_move_data.widthlist.push(parseInt(el.offsetWidth) + Store.luckysheet_sheet_move_data.widthlist[i - 1]);
                     }
                 });
 
-                Store.luckysheet_sheet_move_data.curindex = $("#luckysheet-sheet-area div.luckysheet-sheets-item").index($item);
+                Store.luckysheet_sheet_move_data.curindex = Array.from($item.parentElement.children).indexOf($item);
                 let x = e.pageX;
-                Store.luckysheet_sheet_move_data.curleft = x - $item.offset().left;
+                Store.luckysheet_sheet_move_data.curleft = x - $item.getBoundingClientRect().left - window.pageXOffset;
                 Store.luckysheet_sheet_move_data.pageX = x;
                 Store.luckysheet_sheet_move_data.activeobject = $item;
                 Store.luckysheet_sheet_move_data.cursorobject = $cur;
-                let $itemclone = $item.clone().css("visibility", "hidden").attr("id", "luckysheet-sheets-item-clone");
-                $item.after($itemclone);
-                $item.css({ "position": "absolute", "opacity": 0.8, "cursor": "move", "transition": "initial", "z-index": 10 });
+                let $itemclone = $item.cloneNode(true);
+                $itemclone.style.visibility = "hidden";
+                $itemclone.setAttribute("id", "luckysheet-sheets-item-clone");
+                $item.insertAdjacentElement('afterend', $itemclone);
+                Object.assign($item.style, { "position": "absolute", "opacity": 0.8, "cursor": "move", "transition": "initial", "zIndex": 10 });
             }, 200);
         }
-    }).on("click", "div.luckysheet-sheets-item", function (e) {
-
+    });
+    document.getElementById("luckysheet-sheet-area").addEventListener("click", function (e) {
+        let _target = e.target.closest("div.luckysheet-sheets-item");
+        if (!_target) return;
         if(isEditMode()){
-            // alert("非编辑模式下不允许该操作！");
             return;
         }
 
-        let $t = $(this), $cur = $(e.target);
+        let $t = _target, $cur = e.target;
         luckysheetsheetrightclick($t, $cur, e);
     });
 
@@ -225,21 +232,35 @@ export function initialSheetBar(){
         if(Store.allowEdit===false || !luckysheetConfigsetting.sheetRightClickConfig.rename){
             return;
         }
-        $t.attr("contenteditable", "true").addClass("luckysheet-mousedown-cancel").data("oldtxt", $t.text());
+        $t.setAttribute("contenteditable", "true");
+        $t.classList.add("luckysheet-mousedown-cancel");
+        $t.dataset.oldtxt = $t.textContent;
 
         setTimeout(function () {
-            selectTextDom($t.get(0));
+            selectTextDom($t);
         }, 1);
     }
 
-    $("#luckysheet-sheet-area").on("dblclick", "span.luckysheet-sheets-item-name", function (e) {
-        luckysheetsheetnameeditor($(this));
+    document.getElementById("luckysheet-sheet-area").addEventListener("dblclick", function (e) {
+        let _target = e.target.closest("span.luckysheet-sheets-item-name");
+        if (!_target) return;
+        luckysheetsheetnameeditor(_target);
     });
 
     let compositionFlag = true;
-    $("#luckysheet-sheet-area").on("compositionstart", "span.luckysheet-sheets-item-name",  ()=> compositionFlag = false);
-    $("#luckysheet-sheet-area").on("compositionend", "span.luckysheet-sheets-item-name", ()=> compositionFlag = true);
-    $("#luckysheet-sheet-area").on("input", "span.luckysheet-sheets-item-name", function () {
+    document.getElementById("luckysheet-sheet-area").addEventListener("compositionstart", function (e) {
+        let _target = e.target.closest("span.luckysheet-sheets-item-name");
+        if (!_target) return;
+        compositionFlag = false;
+    });
+    document.getElementById("luckysheet-sheet-area").addEventListener("compositionend", function (e) {
+        let _target = e.target.closest("span.luckysheet-sheets-item-name");
+        if (!_target) return;
+        compositionFlag = true;
+    });
+    document.getElementById("luckysheet-sheet-area").addEventListener("input", function (e) {
+        let _target = e.target.closest("span.luckysheet-sheets-item-name");
+        if (!_target) return;
         if(Store.allowEdit===false){
             return;
         }
@@ -256,12 +277,12 @@ export function initialSheetBar(){
         setTimeout( ()=> {
             if (compositionFlag) {
 
-                if ($(this).text().length >= maxLength) {  /* 检查：值是否越界 */
+                if (_target.textContent.length >= maxLength) {
                     setTimeout(() => {
-                        $(this).text($(this).text().substring(0, maxLength));
+                        _target.textContent = _target.textContent.substring(0, maxLength);
 
                         let range = window.getSelection();
-                        range.selectAllChildren(this);
+                        range.selectAllChildren(_target);
                         range.collapseToEnd();
                     }, 0);
                  }
@@ -269,23 +290,27 @@ export function initialSheetBar(){
         }, 0);
     });
 
-    $("#luckysheet-sheet-area").on("blur", "span.luckysheet-sheets-item-name", function (e) {
+    document.getElementById("luckysheet-sheet-area").addEventListener("blur", function (e) {
+        let _target = e.target.closest("span.luckysheet-sheets-item-name");
+        if (!_target) return;
         if(Store.allowEdit===false){
             return;
         }
 
-        let $t = $(this);
-        let txt = $t.text(), oldtxt = $t.data("oldtxt");
+        let $t = _target;
+        let txt = $t.textContent, oldtxt = $t.dataset.oldtxt;
 
-        if(0 === $(this).text().length){
+        if(0 === _target.textContent.length){
             tooltip.info("", locale_sheetconfig.sheetNamecannotIsEmptyError);
-            $t.text(oldtxt).attr("contenteditable", "false");
+            $t.textContent = oldtxt;
+            $t.setAttribute("contenteditable", "false");
             return;
         }
 
         if(txt.length>31 || txt.charAt(0)=="'" || txt.charAt(txt.length-1)=="'" || /[：\:\\\/？\?\*\[\]]+/.test(txt)){
             tooltip.info("", locale_sheetconfig.sheetNameSpecCharError);
-            $t.text(oldtxt).attr("contenteditable", "false");
+            $t.textContent = oldtxt;
+            $t.setAttribute("contenteditable", "false");
             return;
         }
 
@@ -298,7 +323,8 @@ export function initialSheetBar(){
                 else{
                     tooltip.info("", locale_sheetconfig.tipNameRepeat);
                 }
-                $t.text(oldtxt).attr("contenteditable", "false");
+                $t.textContent = oldtxt;
+                $t.setAttribute("contenteditable", "false");
                 return;
             }
         }
@@ -307,7 +333,8 @@ export function initialSheetBar(){
 
         Store.luckysheetfile[index].name = txt;
 
-        $t.attr("contenteditable", "false").removeClass("luckysheet-mousedown-cancel");
+        $t.setAttribute("contenteditable", "false");
+        $t.classList.remove("luckysheet-mousedown-cancel");
 
         if (Store.clearjfundo) {
             let redo = {};
@@ -320,64 +347,69 @@ export function initialSheetBar(){
             Store.jfundo.length = 0;
             Store.jfredo.push(redo);
         }
-        // 钩子： sheetEditNameAfter
         method.createHookFunction('sheetEditNameAfter', {
             i: Store.luckysheetfile[index].index,
             oldName: oldtxt, newName: txt 
         });
-    });
+    }, true);
 
-    $("#luckysheet-sheet-area").on("keydown", "span.luckysheet-sheets-item-name", function (e) {
+    document.getElementById("luckysheet-sheet-area").addEventListener("keydown", function (e) {
+        let _target = e.target.closest("span.luckysheet-sheets-item-name");
+        if (!_target) return;
         if(Store.allowEdit===false){
             return;
         }
         let kcode = e.keyCode;
-        let $t = $(this);
+        let $t = _target;
         if (kcode == keycode.ENTER) {
             let index = getSheetIndex(Store.currentSheetIndex);
             oldSheetFileName = Store.luckysheetfile[index].name || oldSheetFileName;
-            Store.luckysheetfile[index].name = $t.text();
-            $t.attr("contenteditable", "false");
+            Store.luckysheetfile[index].name = $t.textContent;
+            $t.setAttribute("contenteditable", "false");
         }
     });
 
-    $("#luckysheetsheetconfigrename").click(function () {
-        var $name = luckysheetcurrentSheetitem.find("span.luckysheet-sheets-item-name")
+    document.getElementById("luckysheetsheetconfigrename").addEventListener("click", function () {
+        var $name = luckysheetcurrentSheetitem.querySelector("span.luckysheet-sheets-item-name")
         // 钩子 sheetEditNameBefore
-        if (!method.createHookFunction('sheetEditNameBefore', { i: luckysheetcurrentSheetitem.data('index') , name: $name.text() })){
+        if (!method.createHookFunction('sheetEditNameBefore', { i: luckysheetcurrentSheetitem.dataset.index , name: $name.textContent })){
             return;
         }
-        luckysheetsheetnameeditor(luckysheetcurrentSheetitem.find("span.luckysheet-sheets-item-name"));
+        luckysheetsheetnameeditor(luckysheetcurrentSheetitem.querySelector("span.luckysheet-sheets-item-name"));
         resetInputBoxStyle();
-        $("#luckysheet-sheet-list, #luckysheet-rightclick-sheet-menu").hide();
+        document.querySelector("#luckysheet-sheet-list, #luckysheet-rightclick-sheet-menu").style.display = 'none';
     });
 
-    $("#luckysheetsheetconfigshow").click(function () {
-        $("#luckysheet-sheets-m").click();
+    document.getElementById("luckysheetsheetconfigshow").addEventListener("click", function () {
+        document.getElementById("luckysheet-sheets-m").click();
         resetInputBoxStyle();
-        $("#luckysheet-rightclick-sheet-menu").hide();
+        document.getElementById("luckysheet-rightclick-sheet-menu").style.display = 'none';
     });
 
-    $("#luckysheetsheetconfigmoveleft").click(function () {
-        if (luckysheetcurrentSheetitem.prevAll(":visible").length > 0) {
-            luckysheetcurrentSheetitem.insertBefore(luckysheetcurrentSheetitem.prevAll(":visible").eq(0));
+    document.getElementById("luckysheetsheetconfigmoveleft").addEventListener("click", function () {
+        let _prev = luckysheetcurrentSheetitem.previousElementSibling;
+        while (_prev && _prev.offsetWidth === 0) { _prev = _prev.previousElementSibling; }
+        if (_prev) {
+            _prev.parentElement.insertBefore(luckysheetcurrentSheetitem, _prev);
             sheetmanage.reOrderAllSheet();
         }
         resetInputBoxStyle();
-        $("#luckysheet-sheet-list, #luckysheet-rightclick-sheet-menu").hide();
+        document.querySelector("#luckysheet-sheet-list, #luckysheet-rightclick-sheet-menu").style.display = 'none';
     });
 
-    $("#luckysheetsheetconfigmoveright").click(function () {
-        if (luckysheetcurrentSheetitem.nextAll(":visible").length > 0) {
-            luckysheetcurrentSheetitem.insertAfter(luckysheetcurrentSheetitem.nextAll(":visible").eq(0));
+    document.getElementById("luckysheetsheetconfigmoveright").addEventListener("click", function () {
+        let _next = luckysheetcurrentSheetitem.nextElementSibling;
+        while (_next && _next.offsetWidth === 0) { _next = _next.nextElementSibling; }
+        if (_next) {
+            _next.parentElement.insertBefore(luckysheetcurrentSheetitem, _next.nextElementSibling);
             sheetmanage.reOrderAllSheet();
         }
         resetInputBoxStyle();
-        $("#luckysheet-sheet-list, #luckysheet-rightclick-sheet-menu").hide();
+        document.querySelector("#luckysheet-sheet-list, #luckysheet-rightclick-sheet-menu").style.display = 'none';
     });
 
-    $("#luckysheetsheetconfigdelete").click(function (e) {
-        $("#luckysheet-sheet-list, #luckysheet-rightclick-sheet-menu").hide();
+    document.getElementById("luckysheetsheetconfigdelete").addEventListener("click", function (e) {
+        document.querySelector("#luckysheet-sheet-list, #luckysheet-rightclick-sheet-menu").style.display = 'none';
 
         if(sheetContainer.findVisible(".luckysheet-sheets-item").length <= 1){
             if(isEditMode()){
@@ -393,20 +425,20 @@ export function initialSheetBar(){
         let index = getSheetIndex(Store.currentSheetIndex);
 
         tooltip.confirm(locale_sheetconfig.confirmDelete+"【" + Store.luckysheetfile[index].name + "】？", "<span style='color:#9e9e9e;font-size:12px;'>"+locale_sheetconfig.redoDelete+"</span>", function () {
-            sheetmanage.deleteSheet(luckysheetcurrentSheetitem.data("index"));
+            sheetmanage.deleteSheet(luckysheetcurrentSheetitem.dataset.index);
         }, null);
 
         resetInputBoxStyle();
     });
 
-    $("#luckysheetsheetconfigcopy").click(function (e) {
-        sheetmanage.copySheet(luckysheetcurrentSheetitem.data("index"), e);
+    document.getElementById("luckysheetsheetconfigcopy").addEventListener("click", function (e) {
+        sheetmanage.copySheet(luckysheetcurrentSheetitem.dataset.index, e);
         resetInputBoxStyle();
-        $("#luckysheet-sheet-list, #luckysheet-rightclick-sheet-menu").hide();
+        document.querySelector("#luckysheet-sheet-list, #luckysheet-rightclick-sheet-menu").style.display = 'none';
     });
 
-    $("#luckysheetsheetconfighide").click(function () {
-        if ($("#luckysheet-sheet-area div.luckysheet-sheets-item:visible").length == 1) {
+    document.getElementById("luckysheetsheetconfighide").addEventListener("click", function () {
+        if (Array.from(document.querySelectorAll("#luckysheet-sheet-area div.luckysheet-sheets-item")).filter(el => el.offsetWidth > 0).length == 1) {
             if(isEditMode()){
                 alert(locale_sheetconfig.noHide);
             }
@@ -415,12 +447,12 @@ export function initialSheetBar(){
             }
             return;
         }
-        sheetmanage.setSheetHide(luckysheetcurrentSheetitem.data("index"));
+        sheetmanage.setSheetHide(luckysheetcurrentSheetitem.dataset.index);
         resetInputBoxStyle();
-        $("#luckysheet-sheet-list, #luckysheet-rightclick-sheet-menu").hide();
+        document.querySelector("#luckysheet-sheet-list, #luckysheet-rightclick-sheet-menu").style.display = 'none';
     });
 
-    $("#luckysheet-sheets-add").click(function (e) {
+    document.getElementById("luckysheet-sheets-add").addEventListener("click", function (e) {
         //保存正在编辑的单元格内容
         if (isInputBoxActive()) {
             formula.updatecell(Store.luckysheetCellUpdate[0], Store.luckysheetCellUpdate[1]);
@@ -432,14 +464,14 @@ export function initialSheetBar(){
     });
 
     let sheetscrollani = null, sheetscrollstart = 0, sheetscrollend = 0, sheetscrollstep = 150;
-    $("#luckysheet-sheets-leftscroll").click(function () {
+    document.getElementById("luckysheet-sheets-leftscroll").addEventListener("click", function () {
         sheetscrollstart = sheetContainer.getScrollLeft();
         sheetscrollend = sheetContainer.getScrollLeft() - sheetscrollstep;
 
         if (sheetscrollend <= 0) {
-            $("#luckysheet-sheet-container .docs-sheet-fade-left").hide();
+            document.querySelector("#luckysheet-sheet-container .docs-sheet-fade-left").style.display = 'none';
         }
-        $("#luckysheet-sheet-container .docs-sheet-fade-right").show();
+        document.querySelector("#luckysheet-sheet-container .docs-sheet-fade-right").style.display = '';
 
         clearInterval(sheetscrollani);
         sheetscrollani = setInterval(function () {
@@ -451,14 +483,14 @@ export function initialSheetBar(){
         }, 1);
     });
 
-    $("#luckysheet-sheets-rightscroll").click(function () {
+    document.getElementById("luckysheet-sheets-rightscroll").addEventListener("click", function () {
         sheetscrollstart = sheetContainer.getScrollLeft();
         sheetscrollend = sheetContainer.getScrollLeft() + sheetscrollstep;
 
         if (sheetscrollstart > 0) {
-            $("#luckysheet-sheet-container .docs-sheet-fade-right").hide();
+            document.querySelector("#luckysheet-sheet-container .docs-sheet-fade-right").style.display = 'none';
         }
-        $("#luckysheet-sheet-container .docs-sheet-fade-left").show();
+        document.querySelector("#luckysheet-sheet-container .docs-sheet-fade-left").style.display = '';
 
         clearInterval(sheetscrollani);
         sheetscrollani = setInterval(function () {
@@ -471,13 +503,13 @@ export function initialSheetBar(){
     });
 
     let initialOpenSheet = true;
-    $("#luckysheet-sheets-m").click(function (e) {
+    document.getElementById("luckysheet-sheets-m").addEventListener("click", function (e) {
         //保存正在编辑的单元格内容
         if (isInputBoxActive()) {
             formula.updatecell(Store.luckysheetCellUpdate[0], Store.luckysheetCellUpdate[1]);
         }
 
-        $("#luckysheet-sheet-list").html("");
+        document.getElementById("luckysheet-sheet-list").innerHTML = "";
 
         let item = "";
         for (let i = 0; i < Store.luckysheetfile.length; i++) {
@@ -491,7 +523,7 @@ export function initialSheetBar(){
                 style += "color:#BBBBBB;";
             }
 
-            if (f["color"] != null && f["color"].length > 0) {
+            if (f["color"] != null && f["color"] !== null) {
                 style += "border-right:4px solid " + f["color"] + ";";
             }
 
@@ -499,15 +531,17 @@ export function initialSheetBar(){
         }
 
         if (initialOpenSheet) {
-            $("#" + Store.container).append(replaceHtml(sheetselectlistHTML, { "item": item }));
-            $("#luckysheet-sheet-list").on("click", ".luckysheet-cols-menuitem", function (e) {
+            document.getElementById(Store.container).insertAdjacentHTML('beforeend', replaceHtml(sheetselectlistHTML, { "item": item }));
+            document.getElementById("luckysheet-sheet-list").addEventListener("click", function (e) {
+                let _target = e.target.closest(".luckysheet-cols-menuitem");
+                if (!_target) return;
                 if(isEditMode()){
                     return;
                 }
 
-                let $item = $(this), index = $item.data("index");
+                let $item = _target, index = $item.dataset.index;
 
-                if ($item.data("index") != Store.currentSheetIndex) {
+                if ($item.dataset.index != Store.currentSheetIndex) {
                     sheetmanage.setSheetShow(index);
                     sheetmanage.locationSheet();
                 }
@@ -516,14 +550,14 @@ export function initialSheetBar(){
             initialOpenSheet = false;
         }
         else {
-            $("#luckysheet-sheet-list").html(item);
+            document.getElementById("luckysheet-sheet-list").innerHTML = item;
         }
 
-        let $t = $("#luckysheet-sheet-list");
+        let $t = document.getElementById("luckysheet-sheet-list");
 
-        let left = $(this).offset().left - $('#' + Store.container).offset().left;
-        let bottom = $(this).height() + $('#luckysheet-sta-content').height() + 12;
-        $t.css({left: left + 'px', bottom: bottom + 'px'}).show();
+        let left = this.getBoundingClientRect().left - document.getElementById(Store.container).getBoundingClientRect().left;
+        let bottom = this.offsetHeight + document.getElementById("luckysheet-sta-content").offsetHeight + 12;
+        Object.assign($t.style, {left: left + 'px', bottom: bottom + 'px'}); $t.style.display = '';
         resetInputBoxStyle();
     });
 

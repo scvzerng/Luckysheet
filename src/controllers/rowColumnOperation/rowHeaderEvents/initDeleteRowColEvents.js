@@ -9,15 +9,15 @@ import rightClickMenu from '../../../ui/rightClickMenu.js';
 
 export function initDeleteRowColEvents() {
   
-    // $("#luckysheet-addBottomRows").click(function (event) {
-    // $("#luckysheetColsRowsHandleAdd_sub .luckysheet-cols-menuitem:nth-child(2)").click(function (event) {
+    // document.getElementById("luckysheet-addBottomRows").addEventListener("click", function (event) {
+    // document.querySelector("#luckysheetColsRowsHandleAdd_sub .luckysheet-cols-menuitem:nth-child(2)").addEventListener("click", function (event) {
   
     //      // Click input element, don't comfirm
     //      if(event.target.nodeName === 'INPUT'){
     //         return;
     //     }
   
-    //     rightClickMenu.hide();
+    //     rightClickMenu.style.display = 'none';
     //     luckysheetContainerFocus();
   
     //     const _locale = locale();
@@ -35,7 +35,7 @@ export function initDeleteRowColEvents() {
     //         return;
     //     }
   
-    //     let $t = $(this), value = $t.find("input").val();
+    //     let $t = this, value = $t.querySelector("input").value;
     //     if (!isRealNum(value)) {
     //         if(isEditMode()){
     //             alert(locale_info.tipInputNumber);
@@ -63,17 +63,17 @@ export function initDeleteRowColEvents() {
     //     let st_index = Store.luckysheet_select_save[0].row[1];
     //     luckysheetextendtable('row', st_index, value, "rightbottom");
   
-    //     $("#luckysheetColsRowsHandleAdd_sub").hide();
+    //     document.getElementById("luckysheetColsRowsHandleAdd_sub").style.display = 'none';
   
     // });
-    // $("#luckysheet-addRightCols").click(function (event) {
-    // $("#luckysheetColsRowsHandleAdd_sub .luckysheet-cols-menuitem:nth-child(4)").click(function (event) {
+    // document.getElementById("luckysheet-addRightCols").addEventListener("click", function (event) {
+    // document.querySelector("#luckysheetColsRowsHandleAdd_sub .luckysheet-cols-menuitem:nth-child(4)").addEventListener("click", function (event) {
   
     //     // Click input element, don't comfirm
     //     if(event.target.nodeName === 'INPUT'){
     //         return;
     //     }
-    //     rightClickMenu.hide();
+    //     rightClickMenu.style.display = 'none';
     //     luckysheetContainerFocus();
   
     //     const _locale = locale();
@@ -91,7 +91,7 @@ export function initDeleteRowColEvents() {
     //         return;
     //     }
   
-    //     let $t = $(this), value = $t.find("input").val();
+    //     let $t = this, value = $t.querySelector("input").value;
     //     if (!isRealNum(value)) {
     //         if(isEditMode()){
     //             alert(locale_info.tipInputNumber);
@@ -119,13 +119,13 @@ export function initDeleteRowColEvents() {
     //     let st_index = Store.luckysheet_select_save[0].column[1];
     //     luckysheetextendtable('column', st_index, value, "rightbottom");
   
-    //     $("#luckysheetColsRowsHandleAdd_sub").hide();
+    //     document.getElementById("luckysheetColsRowsHandleAdd_sub").style.display = 'none';
   
     // });
   
     //删除选中行列
-    $("#luckysheet-del-selected, #luckysheet-del-selected_t").click(function (event) {
-      rightClickMenu.hide();
+    document.querySelector("#luckysheet-del-selected, #luckysheet-del-selected_t").addEventListener("click", function (event) {
+      rightClickMenu.style.display = 'none';
       luckysheetContainerFocus();
       const locale_drag = locale().drag;
       if (Store.luckysheet_select_save.length > 1) {
@@ -151,8 +151,8 @@ export function initDeleteRowColEvents() {
       }
       luckysheetdeletetable(Store.luckysheetRightHeadClickIs, st_index, ed_index);
     });
-    $("#luckysheet-delRows").click(function (event) {
-      rightClickMenu.hide();
+    document.getElementById("luckysheet-delRows").addEventListener("click", function (event) {
+      rightClickMenu.style.display = 'none';
       luckysheetContainerFocus();
       const locale_drag = locale().drag;
       if (Store.luckysheet_select_save.length > 1) {
@@ -178,8 +178,8 @@ export function initDeleteRowColEvents() {
       }
       luckysheetdeletetable('row', st_index, ed_index);
     });
-    $("#luckysheet-delCols").click(function (event) {
-      rightClickMenu.hide();
+    document.getElementById("luckysheet-delCols").addEventListener("click", function (event) {
+      rightClickMenu.style.display = 'none';
       luckysheetContainerFocus();
       const locale_drag = locale().drag;
       if (Store.luckysheet_select_save.length > 1) {

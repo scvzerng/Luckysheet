@@ -78,33 +78,33 @@ const formulaBar = {
 
             let $copy = $to,
                 $editer = $input;
-            let value1 = $editer.html(),
-                value1txt = $editer.text();
+            let value1 = $editer.innerHTML,
+                value1txt = $editer.textContent;
             let xssDeal = this.xssDeal;
             setTimeout(function() {
-                let value = $editer.text(),
+                let value = $editer.textContent,
                     valuetxt = value;
                 value = xssDeal(value);
-                if (value.length > 0 && value.substr(0, 1) == "=" && (kcode != 229 || value.length == 1)) {
+                if (value !== null && value.substr(0, 1) == "=" && (kcode != 229 || value.length == 1)) {
                     value = _this.functionHTMLGenerate(value);
                     value1 = _this.functionHTMLGenerate(value1txt);
 
                     if (window.getSelection) {
                         // all browsers, except IE before version 9
                         let currSelection = window.getSelection();
-                        if ($(currSelection.anchorNode).is("div")) {
-                            let editorlen = richTextEditor.find("span").length;
+                        if (currSelection.anchorNode.matches("div")) {
+                            let editorlen = richTextEditor.querySelector("span").length;
                             _this.functionRangeIndex = [
                                 editorlen - 1,
-                                richTextEditor.find("span")
-                                    .eq(editorlen - 1)
-                                    .text().length,
+                                richTextEditor.querySelector("span")
+                                    [editorlen - 1]
+                                    .textContent.length,
                             ];
                         } else {
+                            let _an = currSelection.anchorNode;
+                            let _p = _an && _an.nodeType === Node.TEXT_NODE ? _an.parentElement : _an;
                             _this.functionRangeIndex = [
-                                $(currSelection.anchorNode)
-                                    .parent()
-                                    .index(),
+                                _p && _p.parentElement ? Array.from(_p.parentElement.children).indexOf(_p) : -1,
                                 currSelection.anchorOffset,
                             ];
                         }
@@ -114,7 +114,7 @@ const formulaBar = {
                         _this.functionRangeIndex = textRange;
                     }
 
-                    $editer.html(value);
+                    $editer.innerHTML = value;
                     _this.functionRange($editer, value, value1);
                     _this.canceFunctionrangeSelected();
 
@@ -123,7 +123,7 @@ const formulaBar = {
                         _this.createRangeHightlight();
                     }
 
-                    $copy.html(value);
+                    $copy.innerHTML = value;
                     _this.rangestart = false;
                     _this.rangedrag_column_start = false;
                     _this.rangedrag_row_start = false;
@@ -131,38 +131,38 @@ const formulaBar = {
                     _this.rangeHightlightselected($editer, kcode);
                 } else if (value1txt.substr(0, 1) != "=") {
                     //&& value1.indexOf("span")>-1
-                    // $editer.html(value1);
+                    // $editer.innerHTML = value1;
 
                     // let w = window.getSelection();
                     // if(w!=null && w.type!="None"){
                     //     let range = w.getRangeAt(0);
                     //     let c = range.startContainer;
 
-                    //     if(c.id=="luckysheet-rich-text-editor" || $(c).closest("#luckysheet-rich-text-editor")){
-                    //         $functionbox.html(value);
+                    //     if(c.id=="luckysheet-rich-text-editor" || c.closest("#luckysheet-rich-text-editor")){
+                    //         $functionbox.innerHTML = value;
                     //     }
-                    //     else if(c.id=="luckysheet-functionbox-cell" || $(c).closest("#luckysheet-functionbox-cell")){
+                    //     else if(c.id=="luckysheet-functionbox-cell" || c.closest("#luckysheet-functionbox-cell")){
                     //         if(value1.indexOf("span")>-1){
 
                     //         }
                     //         else{
-                    //             $editer.html(value);
+                    //             $editer.innerHTML = value;
                     //         }
                     //     }
 
                     // }
                     // console.trace();
-                    // console.log(value, $copy.attr("id"));
+                    // console.log(value, $copy.getAttribute("id"));
 
-                    if ($copy.attr("id") == "luckysheet-rich-text-editor") {
-                        if ($copy.html().substr(0, 5) == "<span") {
+                    if ($copy.getAttribute("id") == "luckysheet-rich-text-editor") {
+                        if ($copy.innerHTML.substr(0, 5) == "<span") {
                         } else {
                             value = _this.ltGtSignDeal(value);
-                            $copy.html(value);
+                            $copy.innerHTML = value;
                         }
                     } else {
                         value = _this.ltGtSignDeal(value);
-                        $copy.html(value);
+                        $copy.innerHTML = value;
                     }
                 }
             }, 1);

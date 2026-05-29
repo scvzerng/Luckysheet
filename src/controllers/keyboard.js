@@ -108,7 +108,7 @@ function formulaMoveEvent(dir, ctrlKey, shiftKey, event){
         }
         else if(formula.israngeseleciton()){
             let anchor = window.getSelection().anchorNode;
-            if(anchor.parentElement && anchor.parentElement.nextElementSibling && (anchor.parentElement.nextElementSibling.textContent == null || anchor.parentElement.nextElementSibling.textContent == "")){
+            if(anchor && anchor.parentElement && anchor.parentElement.nextElementSibling && (anchor.parentElement.nextElementSibling.textContent == null || anchor.parentElement.nextElementSibling.textContent == "")){
                 let vText = inputBoxIndex.getText();
                 let range = formula.getcellrange(vText);
 

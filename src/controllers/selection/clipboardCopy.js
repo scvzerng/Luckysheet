@@ -15,13 +15,13 @@ const clipboardCopyModule = {
     // Store.luckysheet_copy_save = {};
 
     if (!clipboardData) {
-      let textarea = $("#luckysheet-copy-content").css("visibility", "hidden");
-      textarea.val(cpdata);
+      let textarea = document.getElementById("luckysheet-copy-content").style.visibility = "hidden";
+      textarea.value = cpdata;
       textarea.focus();
       textarea.select();
       // 等50毫秒，keyPress事件发生了再去处理数据
       setTimeout(function () {
-        textarea.blur().css("visibility", "visible");
+        textarea.blur().style.visibility = "visible";
       }, 10);
     } else {
       clipboardData.setData("Text", cpdata);
@@ -130,7 +130,7 @@ const clipboardCopyModule = {
     //copy范围数据拼接成table 赋给剪贴板
     let _this = this;
     let borderInfoCompute;
-    if (Store.config["borderInfo"] && Store.config["borderInfo"].length > 0) {
+    if (Store.config["borderInfo"] && Store.config["borderInfo"] !== null) {
       //边框
       borderInfoCompute = getBorderInfoCompute();
     }
@@ -203,8 +203,8 @@ const clipboardCopyModule = {
     cpdata = '<table data-type="luckysheet_copy_action_table">' + `<colgroup>${colgroup}</colgroup>` + cpdata + "</table>";
     Store.iscopyself = true;
     if (!clipboardData) {
-      let textarea = $("#luckysheet-copy-content");
-      textarea.html(cpdata);
+      let textarea = document.getElementById("luckysheet-copy-content");
+      textarea.innerHTML = cpdata;
       textarea.focus();
       textarea.select();
       document.execCommand("selectAll");
@@ -212,7 +212,7 @@ const clipboardCopyModule = {
 
       // 等50毫秒，keyPress事件发生了再去处理数据
       setTimeout(function () {
-        $("#luckysheet-copy-content").blur();
+        document.getElementById("luckysheet-copy-content").blur();
       }, 10);
 
       // var oInput = document.createElement('input');
@@ -239,8 +239,8 @@ const clipboardCopyModule = {
     let cpdata = txt;
     Store.iscopyself = true;
     if (!clipboardData) {
-      let textarea = $("#luckysheet-copy-content");
-      textarea.text(cpdata);
+      let textarea = document.getElementById("luckysheet-copy-content");
+      textarea.textContent = cpdata;
       textarea.focus();
       textarea.select();
       document.execCommand("selectAll");

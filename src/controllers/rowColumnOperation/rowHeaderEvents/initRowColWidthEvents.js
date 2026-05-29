@@ -11,17 +11,17 @@ import rightClickMenu from '../../../ui/rightClickMenu.js';
 export function initRowColWidthEvents() {
   
     //行高列宽设置
-    // $("#luckysheet-rows-cols-changesize").click(function(){
-    $("#luckysheet-column-row-width-selected").click(function (event) {
+    // document.getElementById("luckysheet-rows-cols-changesize").addEventListener("click", function(){
+    document.getElementById("luckysheet-column-row-width-selected").addEventListener("click", function (event) {
       // Click input element, don't comfirm
       if (event.target.nodeName === "INPUT") {
         return;
       }
-      rightClickMenu.hide();
+      rightClickMenu.style.display = 'none';
       luckysheetContainerFocus();
   
-      // let size = parseInt($(this).siblings("input[type='number']").val().trim());
-      let size = parseInt($(this).closest(".luckysheet-cols-menuitem").find("input[type='number']").val().trim());
+      // let size = parseInt(this.siblings("input[type='number']").value.trim());
+      let size = parseInt(this.closest(".luckysheet-cols-menuitem").querySelector("input[type='number']").value.trim());
       const locale_info = locale().info;
   
       /* 对异常情况进行判断：NaN */
