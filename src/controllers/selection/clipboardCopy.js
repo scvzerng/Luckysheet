@@ -15,14 +15,17 @@ const clipboardCopyModule = {
     // Store.luckysheet_copy_save = {};
 
     if (!clipboardData) {
-      let textarea = document.getElementById("luckysheet-copy-content").style.visibility = "hidden";
-      textarea.value = cpdata;
-      textarea.focus();
-      textarea.select();
-      // 等50毫秒，keyPress事件发生了再去处理数据
-      setTimeout(function () {
-        textarea.blur().style.visibility = "visible";
-      }, 10);
+      const _textarea = document.getElementById("luckysheet-copy-content");
+      if (_textarea) {
+        _textarea.style.visibility = "hidden";
+        _textarea.value = cpdata;
+        _textarea.focus();
+        _textarea.select();
+        setTimeout(function () {
+          _textarea.blur();
+          _textarea.style.visibility = "visible";
+        }, 10);
+      }
     } else {
       clipboardData.setData("Text", cpdata);
       return false; //否则设不生效

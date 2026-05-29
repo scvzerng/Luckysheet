@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿import { rowLocation, colLocation, mouseposition } from '../global/location';
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿import { rowLocation, colLocation, mouseposition } from '../global/location';
 import editor from '../global/editor';
 import { luckysheetRangeLast } from '../global/cursorPos';
 import { luckysheetrefreshgrid } from '../global/refresh';
@@ -86,17 +86,20 @@ const luckysheetPostil = {
 
             setluckysheet_scroll_status(true);
 
-            if(_target.closest(".luckysheet-postil-show").classList.contains("luckysheet-postil-show-active")){
+            if(_target.closest(".luckysheet-postil-show")?.classList.contains("luckysheet-postil-show-active")){
                 event.stopPropagation();
                 return;
             }
 
             _this.removeActivePs();
 
-            _target.closest(".luckysheet-postil-show").classList.add("luckysheet-postil-show-active");
-            _target.closest(".luckysheet-postil-show").querySelector(".luckysheet-postil-dialog-resize").style.display = '';
-            _target.closest(".luckysheet-postil-show").querySelector(".arrowCanvas").style.zIndex = 200;
-            _target.closest(".luckysheet-postil-show").querySelector(".luckysheet-postil-show-main").style.zIndex = 200;
+            const _psShow1 = _target.closest(".luckysheet-postil-show");
+            _psShow1?.classList.add("luckysheet-postil-show-active");
+            if (_psShow1) {
+                const _resize1 = _psShow1.querySelector(".luckysheet-postil-dialog-resize"); if (_resize1) _resize1.style.display = '';
+                const _arrow1 = _psShow1.querySelector(".arrowCanvas"); if (_arrow1) _arrow1.style.zIndex = 200;
+                const _main1 = _psShow1.querySelector(".luckysheet-postil-show-main"); if (_main1) _main1.style.zIndex = 200;
+            }
 
             event.stopPropagation();
         });
@@ -127,17 +130,20 @@ const luckysheetPostil = {
 
             setluckysheet_scroll_status(true);
 
-            if(_target.closest(".luckysheet-postil-show").classList.contains("luckysheet-postil-show-active")){
+            if(_target.closest(".luckysheet-postil-show")?.classList.contains("luckysheet-postil-show-active")){
                 event.stopPropagation();
                 return;
             }
 
             _this.removeActivePs();
 
-            _target.closest(".luckysheet-postil-show").classList.add("luckysheet-postil-show-active");
-            _target.closest(".luckysheet-postil-show").querySelector(".luckysheet-postil-dialog-resize").style.display = '';
-            _target.closest(".luckysheet-postil-show").querySelector(".arrowCanvas").style.zIndex = 200;
-            _target.closest(".luckysheet-postil-show").querySelector(".luckysheet-postil-show-main").style.zIndex = 200;
+            const _psShow2 = _target.closest(".luckysheet-postil-show");
+            _psShow2?.classList.add("luckysheet-postil-show-active");
+            if (_psShow2) {
+                const _resize2 = _psShow2.querySelector(".luckysheet-postil-dialog-resize"); if (_resize2) _resize2.style.display = '';
+                const _arrow2 = _psShow2.querySelector(".arrowCanvas"); if (_arrow2) _arrow2.style.zIndex = 200;
+                const _main2 = _psShow2.querySelector(".luckysheet-postil-show-main"); if (_main2) _main2.style.zIndex = 200;
+            }
 
             event.stopPropagation();
         });
@@ -478,7 +484,7 @@ const luckysheetPostil = {
 
         _this.drawArrow(ctx, size[4], size[5], size[6], size[7]);
 
-        document.querySelector("#luckysheet-postil-show_"+ r +"_"+ c +" .formulaInputFocus").focus();
+        document.querySelector("#luckysheet-postil-show_"+ r +"_"+ c +" .formulaInputFocus")?.focus();
 
         _this.init();
 
@@ -579,7 +585,7 @@ const luckysheetPostil = {
             _this.drawArrow(ctx, size[4], size[5], size[6], size[7]);
         }
 
-        document.querySelector("#luckysheet-postil-show_"+ r +"_"+ c +" .formulaInputFocus").focus();
+        document.querySelector("#luckysheet-postil-show_"+ r +"_"+ c +" .formulaInputFocus")?.focus();
         luckysheetRangeLast(document.querySelector("#luckysheet-postil-show_"+ r +"_"+ c +" .formulaInputFocus"));
 
         _this.init();

@@ -163,7 +163,7 @@ const alternateformat = {
             let rangeValue = this.closest("#luckysheet-alternateformat-rangeDialog").querySelector("input").value.trim();
             document.querySelector("#luckysheet-modal-dialog-slider-alternateformat #luckysheet-alternateformat-range input").value = rangeValue;
 
-            this.closest("#luckysheet-alternateformat-rangeDialog").style.display = 'none';
+            const _rd1 = this.closest("#luckysheet-alternateformat-rangeDialog"); if (_rd1) _rd1.style.display = 'none';
             const _elAFShow1 = document.getElementById("luckysheet-modal-dialog-slider-alternateformat"); if (_elAFShow1) _elAFShow1.style.display = '';
             luckysheetsizeauto();
 
@@ -171,13 +171,13 @@ const alternateformat = {
         });
         offNS("AFrDCl");
         onNS(document, "click.AFrDCl", "#luckysheet-alternateformat-rangeDialog-close", function(){
-            this.closest("#luckysheet-alternateformat-rangeDialog").style.display = 'none';
+            const _rd2 = this.closest("#luckysheet-alternateformat-rangeDialog"); if (_rd2) _rd2.style.display = 'none';
             const _elAFShow2 = document.getElementById("luckysheet-modal-dialog-slider-alternateformat"); if (_elAFShow2) _elAFShow2.style.display = '';
             luckysheetsizeauto();
         });
         offNS("AFrDTitle");
         onNS(document, "click.AFrDTitle", "#luckysheet-alternateformat-rangeDialog .luckysheet-modal-dialog-title-close", function(){
-            this.closest("#luckysheet-alternateformat-rangeDialog").style.display = 'none';
+            const _rd3 = this.closest("#luckysheet-alternateformat-rangeDialog"); if (_rd3) _rd3.style.display = 'none';
             const _elAFShow3 = document.getElementById("luckysheet-modal-dialog-slider-alternateformat"); if (_elAFShow3) _elAFShow3.style.display = '';
             luckysheetsizeauto();
         });
@@ -286,7 +286,7 @@ const alternateformat = {
             const _locale = locale()
             const alternatingColors =_locale.alternatingColors;
             hideModalMask();
-            $parent.style.display = 'none';
+            if ($parent) $parent.style.display = 'none';
 
             //获取currenColor colorType source
             let currenColor = $parent.querySelector(".currenColor span").getAttribute("title");
@@ -304,50 +304,42 @@ const alternateformat = {
             //赋给颜色
             if(source == "0"){
                 if(colorType == "fc"){
-                    document.querySelector("#luckysheet-alternateformat-modelToning .header .toningShow").style.color = currenColor;
-                    document.querySelector("#luckysheet-alternateformat-modelToning .header .toningShow").dataset.fc = currenColor;
-                    document.querySelector("#luckysheet-alternateformat-modelToning .header .luckysheet-icon-text-color").closest(".luckysheet-color-menu-button-indicator").style.borderBottomColor = currenColor;
+                    const _hdrShow = document.querySelector("#luckysheet-alternateformat-modelToning .header .toningShow"); if (_hdrShow) { _hdrShow.style.color = currenColor; _hdrShow.dataset.fc = currenColor; }
+                    const _hdrInd = document.querySelector("#luckysheet-alternateformat-modelToning .header .luckysheet-icon-text-color")?.closest(".luckysheet-color-menu-button-indicator"); if (_hdrInd) _hdrInd.style.borderBottomColor = currenColor;
                 }
                 if(colorType == "bc"){
-                    document.querySelector("#luckysheet-alternateformat-modelToning .header .toningShow").style.backgroundColor = currenColor;
-                    document.querySelector("#luckysheet-alternateformat-modelToning .header .toningShow").dataset.bc = currenColor;
-                    document.querySelector("#luckysheet-alternateformat-modelToning .header .luckysheet-icon-cell-color").closest(".luckysheet-color-menu-button-indicator").style.borderBottomColor = currenColor;
+                    const _hdrShow2 = document.querySelector("#luckysheet-alternateformat-modelToning .header .toningShow"); if (_hdrShow2) { _hdrShow2.style.backgroundColor = currenColor; _hdrShow2.dataset.bc = currenColor; }
+                    const _hdrInd2 = document.querySelector("#luckysheet-alternateformat-modelToning .header .luckysheet-icon-cell-color")?.closest(".luckysheet-color-menu-button-indicator"); if (_hdrInd2) _hdrInd2.style.borderBottomColor = currenColor;
                 }
             }
             else if(source == "1"){
                 if(colorType == "fc"){
-                    document.querySelector("#luckysheet-alternateformat-modelToning .ctOne .toningShow").style.color = currenColor;
-                    document.querySelector("#luckysheet-alternateformat-modelToning .ctOne .toningShow").dataset.fc = currenColor;
-                    document.querySelector("#luckysheet-alternateformat-modelToning .ctOne .luckysheet-icon-text-color").closest(".luckysheet-color-menu-button-indicator").style.borderBottomColor = currenColor;
+                    const _oneShow = document.querySelector("#luckysheet-alternateformat-modelToning .ctOne .toningShow"); if (_oneShow) { _oneShow.style.color = currenColor; _oneShow.dataset.fc = currenColor; }
+                    const _oneInd = document.querySelector("#luckysheet-alternateformat-modelToning .ctOne .luckysheet-icon-text-color")?.closest(".luckysheet-color-menu-button-indicator"); if (_oneInd) _oneInd.style.borderBottomColor = currenColor;
                 }
                 if(colorType == "bc"){
-                    document.querySelector("#luckysheet-alternateformat-modelToning .ctOne .toningShow").style.backgroundColor = currenColor;
-                    document.querySelector("#luckysheet-alternateformat-modelToning .ctOne .toningShow").dataset.bc = currenColor;
-                    document.querySelector("#luckysheet-alternateformat-modelToning .ctOne .luckysheet-icon-cell-color").closest(".luckysheet-color-menu-button-indicator").style.borderBottomColor = currenColor;
+                    const _oneShow2 = document.querySelector("#luckysheet-alternateformat-modelToning .ctOne .toningShow"); if (_oneShow2) { _oneShow2.style.backgroundColor = currenColor; _oneShow2.dataset.bc = currenColor; }
+                    const _oneInd2 = document.querySelector("#luckysheet-alternateformat-modelToning .ctOne .luckysheet-icon-cell-color")?.closest(".luckysheet-color-menu-button-indicator"); if (_oneInd2) _oneInd2.style.borderBottomColor = currenColor;
                 }
             }
             else if(source == "2"){
                 if(colorType == "fc"){
-                    document.querySelector("#luckysheet-alternateformat-modelToning .ctTwo .toningShow").style.color = currenColor;
-                    document.querySelector("#luckysheet-alternateformat-modelToning .ctTwo .toningShow").dataset.fc = currenColor;
-                    document.querySelector("#luckysheet-alternateformat-modelToning .ctTwo .luckysheet-icon-text-color").closest(".luckysheet-color-menu-button-indicator").style.borderBottomColor = currenColor;
+                    const _twoShow = document.querySelector("#luckysheet-alternateformat-modelToning .ctTwo .toningShow"); if (_twoShow) { _twoShow.style.color = currenColor; _twoShow.dataset.fc = currenColor; }
+                    const _twoInd = document.querySelector("#luckysheet-alternateformat-modelToning .ctTwo .luckysheet-icon-text-color")?.closest(".luckysheet-color-menu-button-indicator"); if (_twoInd) _twoInd.style.borderBottomColor = currenColor;
                 }
                 if(colorType == "bc"){
-                    document.querySelector("#luckysheet-alternateformat-modelToning .ctTwo .toningShow").style.backgroundColor = currenColor;
-                    document.querySelector("#luckysheet-alternateformat-modelToning .ctTwo .toningShow").dataset.bc = currenColor;
-                    document.querySelector("#luckysheet-alternateformat-modelToning .ctTwo .luckysheet-icon-cell-color").closest(".luckysheet-color-menu-button-indicator").style.borderBottomColor = currenColor;
+                    const _twoShow2 = document.querySelector("#luckysheet-alternateformat-modelToning .ctTwo .toningShow"); if (_twoShow2) { _twoShow2.style.backgroundColor = currenColor; _twoShow2.dataset.bc = currenColor; }
+                    const _twoInd2 = document.querySelector("#luckysheet-alternateformat-modelToning .ctTwo .luckysheet-icon-cell-color")?.closest(".luckysheet-color-menu-button-indicator"); if (_twoInd2) _twoInd2.style.borderBottomColor = currenColor;
                 }
             }
             else if(source == "3"){
                 if(colorType == "fc"){
-                    document.querySelector("#luckysheet-alternateformat-modelToning .footer .toningShow").style.color = currenColor;
-                    document.querySelector("#luckysheet-alternateformat-modelToning .footer .toningShow").dataset.fc = currenColor;
-                    document.querySelector("#luckysheet-alternateformat-modelToning .footer .luckysheet-icon-text-color").closest(".luckysheet-color-menu-button-indicator").style.borderBottomColor = currenColor;
+                    const _footShow = document.querySelector("#luckysheet-alternateformat-modelToning .footer .toningShow"); if (_footShow) { _footShow.style.color = currenColor; _footShow.dataset.fc = currenColor; }
+                    const _footInd = document.querySelector("#luckysheet-alternateformat-modelToning .footer .luckysheet-icon-text-color")?.closest(".luckysheet-color-menu-button-indicator"); if (_footInd) _footInd.style.borderBottomColor = currenColor;
                 }
                 if(colorType == "bc"){
-                    document.querySelector("#luckysheet-alternateformat-modelToning .footer .toningShow").style.backgroundColor = currenColor;
-                    document.querySelector("#luckysheet-alternateformat-modelToning .footer .toningShow").dataset.bc = currenColor;
-                    document.querySelector("#luckysheet-alternateformat-modelToning .footer .luckysheet-icon-cell-color").closest(".luckysheet-color-menu-button-indicator").style.borderBottomColor = currenColor;
+                    const _footShow2 = document.querySelector("#luckysheet-alternateformat-modelToning .footer .toningShow"); if (_footShow2) { _footShow2.style.backgroundColor = currenColor; _footShow2.dataset.bc = currenColor; }
+                    const _footInd2 = document.querySelector("#luckysheet-alternateformat-modelToning .footer .luckysheet-icon-cell-color")?.closest(".luckysheet-color-menu-button-indicator"); if (_footInd2) _footInd2.style.borderBottomColor = currenColor;
                 }
             }
             
@@ -520,16 +512,16 @@ const alternateformat = {
         let _this = this;
 
         //模板 foucs
-        document.querySelector("#luckysheet-modal-dialog-slider-alternateformat .modelbox").classList.remove("on");
+        document.querySelector("#luckysheet-modal-dialog-slider-alternateformat .modelbox")?.classList.remove("on");
 
         let index = _this.modelfocusIndex;
         let len = _this.FixedModelColor.length;
         
         if(index < len){
-            document.querySelector("#luckysheet-alternateformat-modelList .modelbox")[index].classList.add("on");
+            const _modelList = document.querySelector("#luckysheet-alternateformat-modelList .modelbox"); if (_modelList) _modelList[index].classList.add("on");
         }
         else{
-            document.querySelector("#luckysheet-alternateformat-modelCustom .modelbox")[index - len].classList.add("on");
+            const _modelCustom = document.querySelector("#luckysheet-alternateformat-modelCustom .modelbox"); if (_modelCustom) _modelCustom[index - len].classList.add("on");
         }
 
         //编辑 对应颜色改变
@@ -539,28 +531,24 @@ const alternateformat = {
         let format = this.getFormatByIndex();
 
         //页眉
-        Object.assign(document.querySelector("#luckysheet-alternateformat-modelToning .header .toningShow").style, {"color": format["head"].fc, "background-color": format["head"].bc});
-        Object.assign(document.querySelector("#luckysheet-alternateformat-modelToning .header .toningShow").dataset, {fc: format["head"].fc, bc: format["head"].bc});
-        document.querySelector("#luckysheet-alternateformat-modelToning .header .luckysheet-icon-text-color").closest(".luckysheet-color-menu-button-indicator").style.borderBottomColor = format["head"].fc;
-        document.querySelector("#luckysheet-alternateformat-modelToning .header .luckysheet-icon-cell-color").closest(".luckysheet-color-menu-button-indicator").style.borderBottomColor = format["head"].bc;
+        const _hdrShow = document.querySelector("#luckysheet-alternateformat-modelToning .header .toningShow"); if (_hdrShow) { Object.assign(_hdrShow.style, {"color": format["head"].fc, "background-color": format["head"].bc}); Object.assign(_hdrShow.dataset, {fc: format["head"].fc, bc: format["head"].bc}); }
+        const _hdrFcInd = document.querySelector("#luckysheet-alternateformat-modelToning .header .luckysheet-icon-text-color")?.closest(".luckysheet-color-menu-button-indicator"); if (_hdrFcInd) _hdrFcInd.style.borderBottomColor = format["head"].fc;
+        const _hdrBcInd = document.querySelector("#luckysheet-alternateformat-modelToning .header .luckysheet-icon-cell-color")?.closest(".luckysheet-color-menu-button-indicator"); if (_hdrBcInd) _hdrBcInd.style.borderBottomColor = format["head"].bc;
 
         //颜色1
-        Object.assign(document.querySelector("#luckysheet-alternateformat-modelToning .ctOne .toningShow").style, {"color": format["one"].fc, "background-color": format["one"].bc});
-        Object.assign(document.querySelector("#luckysheet-alternateformat-modelToning .ctOne .toningShow").dataset, {fc: format["one"].fc, bc: format["one"].bc});
-        document.querySelector("#luckysheet-alternateformat-modelToning .ctOne .luckysheet-icon-text-color").closest(".luckysheet-color-menu-button-indicator").style.borderBottomColor = format["one"].fc;
-        document.querySelector("#luckysheet-alternateformat-modelToning .ctOne .luckysheet-icon-cell-color").closest(".luckysheet-color-menu-button-indicator").style.borderBottomColor = format["one"].bc;
+        const _oneShow = document.querySelector("#luckysheet-alternateformat-modelToning .ctOne .toningShow"); if (_oneShow) { Object.assign(_oneShow.style, {"color": format["one"].fc, "background-color": format["one"].bc}); Object.assign(_oneShow.dataset, {fc: format["one"].fc, bc: format["one"].bc}); }
+        const _oneFcInd = document.querySelector("#luckysheet-alternateformat-modelToning .ctOne .luckysheet-icon-text-color")?.closest(".luckysheet-color-menu-button-indicator"); if (_oneFcInd) _oneFcInd.style.borderBottomColor = format["one"].fc;
+        const _oneBcInd = document.querySelector("#luckysheet-alternateformat-modelToning .ctOne .luckysheet-icon-cell-color")?.closest(".luckysheet-color-menu-button-indicator"); if (_oneBcInd) _oneBcInd.style.borderBottomColor = format["one"].bc;
 
         //颜色2
-        Object.assign(document.querySelector("#luckysheet-alternateformat-modelToning .ctTwo .toningShow").style, {"color": format["two"].fc, "background-color": format["two"].bc});
-        Object.assign(document.querySelector("#luckysheet-alternateformat-modelToning .ctTwo .toningShow").dataset, {fc: format["two"].fc, bc: format["two"].bc});
-        document.querySelector("#luckysheet-alternateformat-modelToning .ctTwo .luckysheet-icon-text-color").closest(".luckysheet-color-menu-button-indicator").style.borderBottomColor = format["two"].fc;
-        document.querySelector("#luckysheet-alternateformat-modelToning .ctTwo .luckysheet-icon-cell-color").closest(".luckysheet-color-menu-button-indicator").style.borderBottomColor = format["two"].bc;
+        const _twoShow = document.querySelector("#luckysheet-alternateformat-modelToning .ctTwo .toningShow"); if (_twoShow) { Object.assign(_twoShow.style, {"color": format["two"].fc, "background-color": format["two"].bc}); Object.assign(_twoShow.dataset, {fc: format["two"].fc, bc: format["two"].bc}); }
+        const _twoFcInd = document.querySelector("#luckysheet-alternateformat-modelToning .ctTwo .luckysheet-icon-text-color")?.closest(".luckysheet-color-menu-button-indicator"); if (_twoFcInd) _twoFcInd.style.borderBottomColor = format["two"].fc;
+        const _twoBcInd = document.querySelector("#luckysheet-alternateformat-modelToning .ctTwo .luckysheet-icon-cell-color")?.closest(".luckysheet-color-menu-button-indicator"); if (_twoBcInd) _twoBcInd.style.borderBottomColor = format["two"].bc;
 
         //页脚
-        Object.assign(document.querySelector("#luckysheet-alternateformat-modelToning .footer .toningShow").style, {"color": format["foot"].fc, "background-color": format["foot"].bc});
-        Object.assign(document.querySelector("#luckysheet-alternateformat-modelToning .footer .toningShow").dataset, {fc: format["foot"].fc, bc: format["foot"].bc});
-        document.querySelector("#luckysheet-alternateformat-modelToning .footer .luckysheet-icon-text-color").closest(".luckysheet-color-menu-button-indicator").style.borderBottomColor = format["foot"].fc;
-        document.querySelector("#luckysheet-alternateformat-modelToning .footer .luckysheet-icon-cell-color").closest(".luckysheet-color-menu-button-indicator").style.borderBottomColor = format["foot"].bc;
+        const _footShow = document.querySelector("#luckysheet-alternateformat-modelToning .footer .toningShow"); if (_footShow) { Object.assign(_footShow.style, {"color": format["foot"].fc, "background-color": format["foot"].bc}); Object.assign(_footShow.dataset, {fc: format["foot"].fc, bc: format["foot"].bc}); }
+        const _footFcInd = document.querySelector("#luckysheet-alternateformat-modelToning .footer .luckysheet-icon-text-color")?.closest(".luckysheet-color-menu-button-indicator"); if (_footFcInd) _footFcInd.style.borderBottomColor = format["foot"].fc;
+        const _footBcInd = document.querySelector("#luckysheet-alternateformat-modelToning .footer .luckysheet-icon-cell-color")?.closest(".luckysheet-color-menu-button-indicator"); if (_footBcInd) _footBcInd.style.borderBottomColor = format["foot"].bc;
     },
     addCustomModel: function(format){
         let file = getCurrentFile();
@@ -598,15 +586,19 @@ const alternateformat = {
             "style": "z-index:100003" 
         }));
         let _dialog = document.getElementById("luckysheet-alternateformat-colorSelect-dialog");
-        _dialog.querySelector(".luckysheet-modal-dialog-content").style.minWidth = '300px';
+        const _dlgContent = _dialog?.querySelector(".luckysheet-modal-dialog-content"); if (_dlgContent) _dlgContent.style.minWidth = '300px';
         let myh = _dialog.offsetHeight,
             myw = _dialog.offsetWidth;
         let winw = document.documentElement.clientWidth, winh = document.documentElement.clientHeight;
         let scrollLeft = document.documentElement.scrollLeft, scrollTop = document.documentElement.scrollTop;
-        Object.assign(document.getElementById("luckysheet-alternateformat-colorSelect-dialog").style, {
-            "left": (winw + scrollLeft - myw) / 2, 
-            "top": (winh + scrollTop - myh) / 3 
-        }); document.getElementById("luckysheet-alternateformat-colorSelect-dialog").style.display = '';
+        const _csDlg = document.getElementById("luckysheet-alternateformat-colorSelect-dialog");
+        if (_csDlg) {
+            Object.assign(_csDlg.style, {
+                "left": (winw + scrollLeft - myw) / 2,
+                "top": (winh + scrollTop - myh) / 3
+            });
+            _csDlg.style.display = '';
+        }
         
         //初始化选择颜色插件
         createColorPicker(document.getElementById("luckysheet-alternateformat-colorSelect-dialog").querySelector(".colorshowbox"), {
@@ -639,7 +631,7 @@ const alternateformat = {
                     color = "#000";
                 }
 
-                document.querySelector("#luckysheet-alternateformat-colorSelect-dialog .currenColor span").style.backgroundColor = color.setAttribute("title", color);
+                const _span = document.querySelector("#luckysheet-alternateformat-colorSelect-dialog .currenColor span"); if (_span) { _span.setAttribute("title", color); _span.style.backgroundColor = color; }
             },
             change: function(color){
                 if (color != null) {
@@ -649,7 +641,7 @@ const alternateformat = {
                     color = "#000";
                 }
 
-                document.querySelector("#luckysheet-alternateformat-colorSelect-dialog .currenColor span").style.backgroundColor = color.setAttribute("title", color);
+                const _span2 = document.querySelector("#luckysheet-alternateformat-colorSelect-dialog .currenColor span"); if (_span2) { _span2.setAttribute("title", color); _span2.style.backgroundColor = color; }
             }
         });
     },
@@ -670,15 +662,19 @@ const alternateformat = {
             "style": "z-index:100003" 
         }));
         let _dialog2 = document.getElementById("luckysheet-alternateformat-rangeDialog");
-        _dialog2.querySelector(".luckysheet-modal-dialog-content").style.minWidth = '300px';
+        const _dlg2Content = _dialog2?.querySelector(".luckysheet-modal-dialog-content"); if (_dlg2Content) _dlg2Content.style.minWidth = '300px';
         let myh = _dialog2.offsetHeight,
             myw = _dialog2.offsetWidth;
         let winw = document.documentElement.clientWidth, winh = document.documentElement.clientHeight;
         let scrollLeft = document.documentElement.scrollLeft, scrollTop = document.documentElement.scrollTop;
-        Object.assign(document.getElementById("luckysheet-alternateformat-rangeDialog").style, {
-            "left": (winw + scrollLeft - myw) / 2, 
-            "top": (winh + scrollTop - myh) / 3 
-        }); document.getElementById("luckysheet-alternateformat-rangeDialog").style.display = '';
+        const _rdDlg = document.getElementById("luckysheet-alternateformat-rangeDialog");
+        if (_rdDlg) {
+            Object.assign(_rdDlg.style, {
+                "left": (winw + scrollLeft - myw) / 2,
+                "top": (winh + scrollTop - myh) / 3
+            });
+            _rdDlg.style.display = '';
+        }
     },
     rangeIsExists: function(range, index){
         let _this = this;

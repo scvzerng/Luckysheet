@@ -12,7 +12,7 @@ function initialCopyFormatOperation() {
     //右键功能键
     //复制为json格式字符串，首行为标题
     document.getElementById("luckysheet-copy-json-head").addEventListener("click", function (event) {
-        document.querySelector("body .luckysheet-cols-menu").style.display = 'none';
+        const _colsMenu = document.querySelector("body .luckysheet-cols-menu"); if (_colsMenu) _colsMenu.style.display = 'none';
         luckysheetContainerFocus();
 
         if(Store.luckysheet_select_save.length > 1){
@@ -85,7 +85,7 @@ function initialCopyFormatOperation() {
 
     //复制为json格式字符串，无标题，采用ABCD作为标题
     document.getElementById("luckysheet-copy-json-nohead").addEventListener("click", function (event) {
-        document.querySelector("body .luckysheet-cols-menu").style.display = 'none';
+        const _colsMenu = document.querySelector("body .luckysheet-cols-menu"); if (_colsMenu) _colsMenu.style.display = 'none';
         luckysheetContainerFocus();
 
 
@@ -146,7 +146,7 @@ function initialCopyFormatOperation() {
 
     //复制为一维数组
     document.getElementById("luckysheet-copy-array1").addEventListener("click", function (event) {
-        document.querySelector("body .luckysheet-cols-menu").style.display = 'none';
+        const _colsMenu = document.querySelector("body .luckysheet-cols-menu"); if (_colsMenu) _colsMenu.style.display = 'none';
         luckysheetContainerFocus();
 
         if(Store.luckysheet_select_save.length > 1){
@@ -203,7 +203,7 @@ function initialCopyFormatOperation() {
 
     //复制为二维数组
     document.getElementById("luckysheet-copy-array2").addEventListener("click", function (event) {
-        document.querySelector("body .luckysheet-cols-menu").style.display = 'none';
+        const _colsMenu = document.querySelector("body .luckysheet-cols-menu"); if (_colsMenu) _colsMenu.style.display = 'none';
         luckysheetContainerFocus();
 
 
@@ -269,7 +269,7 @@ function initialCopyFormatOperation() {
             return;
         }
 
-        document.querySelector("body .luckysheet-cols-menu").style.display = 'none';
+        const _colsMenu = document.querySelector("body .luckysheet-cols-menu"); if (_colsMenu) _colsMenu.style.display = 'none';
 
         if(Store.luckysheet_select_save.length > 1){
             if(isEditMode()){
@@ -286,9 +286,9 @@ function initialCopyFormatOperation() {
             let has_PartMC = false;
 
             for(let s = 0; s < Store.luckysheet_select_save.length; s++){
-                let r1 = Store.luckysheet_select_save[s].row[0], 
+                let r1 = Store.luckysheet_select_save[s].row[0],
                     r2 = Store.luckysheet_select_save[s].row[1];
-                let c1 = Store.luckysheet_select_save[s].column[0], 
+                let c1 = Store.luckysheet_select_save[s].column[0],
                     c2 = Store.luckysheet_select_save[s].column[1];
 
                 has_PartMC = hasPartMC(Store.config, r1, r2, c1, c2);
@@ -303,9 +303,9 @@ function initialCopyFormatOperation() {
                     alert(locale_drag.noPartMerge);
                 }
                 else{
-                    tooltip.info(locale_drag.noPartMerge, ""); 
+                    tooltip.info(locale_drag.noPartMerge, "");
                 }
-                return;    
+                return;
             }
         }
 
@@ -325,7 +325,7 @@ function initialCopyFormatOperation() {
 
         if (row == "" && col == "") {
             selection.copybyformat(event, JSON.stringify(arr));
-            document.querySelector("body .luckysheet-cols-menu").style.display = 'none';
+            const _colsMenu2 = document.querySelector("body .luckysheet-cols-menu"); if (_colsMenu2) _colsMenu2.style.display = 'none';
             return;
         }
 
@@ -376,7 +376,7 @@ function initialCopyFormatOperation() {
                 a.push(arr[i++]);
                 if (i >= arrlen) {
                     selection.copybyformat(event, JSON.stringify(ret));
-                    document.querySelector("body .luckysheet-cols-menu").style.display = 'none';
+                    const _colsMenu3 = document.querySelector("body .luckysheet-cols-menu"); if (_colsMenu3) _colsMenu3.style.display = 'none';
                     return;
                 }
             }
@@ -388,7 +388,7 @@ function initialCopyFormatOperation() {
 
     //复制为对角线
     document.getElementById("luckysheet-copy-diagonal").addEventListener("click", function (event) {
-        document.querySelector("body .luckysheet-cols-menu").style.display = 'none';
+        const _colsMenu = document.querySelector("body .luckysheet-cols-menu"); if (_colsMenu) _colsMenu.style.display = 'none';
         luckysheetContainerFocus();
 
         if(Store.luckysheet_select_save.length > 1){
@@ -448,7 +448,7 @@ function initialCopyFormatOperation() {
 
     //复制为反对角线
     document.getElementById("luckysheet-copy-antidiagonal").addEventListener("click", function (event) {
-        document.querySelector("body .luckysheet-cols-menu").style.display = 'none';
+        const _colsMenu = document.querySelector("body .luckysheet-cols-menu"); if (_colsMenu) _colsMenu.style.display = 'none';
         luckysheetContainerFocus();
 
 
@@ -515,7 +515,7 @@ function initialCopyFormatOperation() {
             return;
         }
         
-        document.querySelector("body .luckysheet-cols-menu").style.display = 'none';
+        const _colsMenu = document.querySelector("body .luckysheet-cols-menu"); if (_colsMenu) _colsMenu.style.display = 'none';
         luckysheetContainerFocus();
 
         if(Store.luckysheet_select_save.length > 1){
@@ -533,9 +533,9 @@ function initialCopyFormatOperation() {
             let has_PartMC = false;
 
             for(let s = 0; s < Store.luckysheet_select_save.length; s++){
-                let r1 = Store.luckysheet_select_save[s].row[0], 
+                let r1 = Store.luckysheet_select_save[s].row[0],
                     r2 = Store.luckysheet_select_save[s].row[1];
-                let c1 = Store.luckysheet_select_save[s].column[0], 
+                let c1 = Store.luckysheet_select_save[s].column[0],
                     c2 = Store.luckysheet_select_save[s].column[1];
 
                 has_PartMC = hasPartMC(Store.config, r1, r2, c1, c2);
@@ -550,9 +550,9 @@ function initialCopyFormatOperation() {
                     alert(locale_drag.noPartMerge);
                 }
                 else{
-                    tooltip.info(locale_drag.noPartMerge, ""); 
+                    tooltip.info(locale_drag.noPartMerge, "");
                 }
-                return;    
+                return;
             }
         }
 
@@ -562,7 +562,7 @@ function initialCopyFormatOperation() {
             return;
         }
 
-        let clen = getdata[0].length, 
+        let clen = getdata[0].length,
             offset = parseInt(document.getElementById("luckysheet-copy-diagonaloffset-value").value);
 
         if(offset.toString() == "NaN"){
@@ -601,7 +601,7 @@ function initialCopyFormatOperation() {
 
     //复制为布尔值
     document.getElementById("luckysheet-copy-boolvalue").addEventListener("click", function (event) {
-        document.querySelector("body .luckysheet-cols-menu").style.display = 'none';
+        const _colsMenu = document.querySelector("body .luckysheet-cols-menu"); if (_colsMenu) _colsMenu.style.display = 'none';
         luckysheetContainerFocus();
 
 
