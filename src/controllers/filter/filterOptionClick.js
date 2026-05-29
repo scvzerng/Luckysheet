@@ -13,8 +13,8 @@ export function filterOptionClick() {
         let $t = $(e.currentTarget), 
             toffset = $t.offset(), 
             $menu = $("#luckysheet-filter-menu"), 
-            winH = $(window).height(), 
-            winW = $(window).width();
+            winH = document.documentElement.clientHeight,
+            winW = document.documentElement.clientWidth;
 
         let st_r = $t.data("str"), 
             ed_r = $t.data("edr"), 

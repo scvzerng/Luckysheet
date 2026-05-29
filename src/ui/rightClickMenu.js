@@ -11,7 +11,7 @@ class RightClickMenu {
     hide() { this.el.hide(); return this; }
     show() { this.el.show(); return this; }
     showAt(x, y) {
-        let winH = $(window).height(), winW = $(window).width();
+        let winH = document.documentElement.clientHeight, winW = document.documentElement.clientWidth;
         let menuW = this.el.width(), menuH = this.el.height();
         let top = y, left = x;
         if (x + menuW > winW) { left = x - menuW; }

@@ -42,7 +42,7 @@ export function luckysheetupdateCell(row_index1, col_index1, d, cover, isnotfocu
         $("#luckysheet-dropCell-icon").remove();
     }
 
-    let winH = $(window).height(), winW = $(window).width();
+    let winH = document.documentElement.clientHeight, winW = document.documentElement.clientWidth;
     let container_offset = $("#" + Store.container).offset();
     let scroll = getScrollPosition();
     let scrollLeft = scroll.scrollLeft;
@@ -257,7 +257,7 @@ export function setCenterInputPosition(row_index, col_index, d){
     let size = getColumnAndRowSize(row_index, col_index, d);
     let row = size.row, row_pre = size.row_pre, col = size.col, col_pre = size.col_pre;
 
-    let winH = $(window).height(), winW = $(window).width();
+    let winH = document.documentElement.clientHeight, winW = document.documentElement.clientWidth;
     let container_offset = $("#" + Store.container).offset();
     let scroll = getScrollPosition();
     let scrollLeft = scroll.scrollLeft;

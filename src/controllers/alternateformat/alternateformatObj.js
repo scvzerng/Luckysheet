@@ -589,7 +589,7 @@ const alternateformat = {
                 .end(), 
             myh = $t.outerHeight(), 
             myw = $t.outerWidth();
-        let winw = $(window).width(), winh = $(window).height();
+        let winw = document.documentElement.clientWidth, winh = document.documentElement.clientHeight;
         let scrollLeft = $(document).scrollLeft(), scrollTop = $(document).scrollTop();
         $("#luckysheet-alternateformat-colorSelect-dialog").css({ 
             "left": (winw + scrollLeft - myw) / 2, 
@@ -663,7 +663,7 @@ const alternateformat = {
                 .end(), 
             myh = $t.outerHeight(), 
             myw = $t.outerWidth();
-        let winw = $(window).width(), winh = $(window).height();
+        let winw = document.documentElement.clientWidth, winh = document.documentElement.clientHeight;
         let scrollLeft = $(document).scrollLeft(), scrollTop = $(document).scrollTop();
         $("#luckysheet-alternateformat-rangeDialog").css({ 
             "left": (winw + scrollLeft - myw) / 2, 

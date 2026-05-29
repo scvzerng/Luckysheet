@@ -23,8 +23,8 @@ function openSelfModel(id, isshowMask = true) {
             .end(),
         myh = $t.outerHeight(),
         myw = $t.outerWidth();
-    let winw = $(window).width(),
-        winh = $(window).height();
+    let winw = document.documentElement.clientWidth,
+        winh = document.documentElement.clientHeight;
     let scrollLeft = $(document).scrollLeft(),
         scrollTop = $(document).scrollTop();
     $t.css({

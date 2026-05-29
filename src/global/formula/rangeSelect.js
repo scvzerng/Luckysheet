@@ -782,8 +782,8 @@ const rangeSelect = {
             let x = mouse[0] + scrollLeft;
             let y = mouse[1] + scrollTop;
 
-            let winH = $(window).height() + scrollTop - sheetBarHeight - statisticBarHeight,
-                winW = $(window).width() + scrollLeft;
+            let winH = document.documentElement.clientHeight + scrollTop - sheetBarHeight - statisticBarHeight,
+                winW = document.documentElement.clientWidth + scrollLeft;
 
             let row_index_original = luckysheet_cell_selected_move_index[0],
                 col_index_original = luckysheet_cell_selected_move_index[1];

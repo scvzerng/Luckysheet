@@ -381,7 +381,7 @@ const ifFormulaGenerator = {
         let $t = formulaDialogs.ifFormulaDialog.setContentCss({"min-width": 590}),
             myh = $t.outerHeight(),
             myw = $t.outerWidth();
-        let winw = $(window).width(), winh = $(window).height();
+        let winw = document.documentElement.clientWidth, winh = document.documentElement.clientHeight;
         let scrollLeft = $(document).scrollLeft(), scrollTop = $(document).scrollTop();
         formulaDialogs.ifFormulaDialog.showAt({ "left": (winw + scrollLeft - myw) / 2, "top": (winh + scrollTop - myh) / 3 });
     },
@@ -447,7 +447,7 @@ const ifFormulaGenerator = {
         let $t = formulaDialogs.ifFormulaSingleRange.el,
             myh = $t.outerHeight(),
             myw = $t.outerWidth();
-        let winw = $(window).width(), winh = $(window).height();
+        let winw = document.documentElement.clientWidth, winh = document.documentElement.clientHeight;
         let scrollLeft = $(document).scrollLeft(), scrollTop = $(document).scrollTop();
         formulaDialogs.ifFormulaSingleRange.showAt({ "left": (winw + scrollLeft - myw) / 2, "top": (winh + scrollTop - myh) / 3 });
     },
@@ -472,7 +472,7 @@ const ifFormulaGenerator = {
         let $t = formulaDialogs.ifFormulaMultiRange.el,
             myh = $t.outerHeight(),
             myw = $t.outerWidth();
-        let winw = $(window).width(), winh = $(window).height();
+        let winw = document.documentElement.clientWidth, winh = document.documentElement.clientHeight;
         let scrollLeft = $(document).scrollLeft(), scrollTop = $(document).scrollTop();
         formulaDialogs.ifFormulaMultiRange.showAt({ "left": (winw + scrollLeft - myw) / 2, "top": (winh + scrollTop - myh) / 3 });
     },
@@ -561,7 +561,7 @@ const ifFormulaGenerator = {
         let $t = formulaDialogs.ifFormulaInfo.setContentCss({"min-width": 300}),
             myh = $t.outerHeight(),
             myw = $t.outerWidth();
-        let winw = $(window).width(), winh = $(window).height();
+        let winw = document.documentElement.clientWidth, winh = document.documentElement.clientHeight;
         let scrollLeft = $(document).scrollLeft(), scrollTop = $(document).scrollTop();
         formulaDialogs.ifFormulaInfo.showAt({ "left": (winw + scrollLeft - myw) / 2, "top": (winh + scrollTop - myh) / 3 });
     }

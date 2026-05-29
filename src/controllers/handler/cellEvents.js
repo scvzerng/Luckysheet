@@ -28,7 +28,7 @@ import cellMain from '../../ui/cellMain.js';
 import canvasContext from '../../ui/canvasContext.js';
 
 export default function cellEvents() {
-    $(window).resize(function() {
+    window.addEventListener('resize', function() {
         let luckysheetDocument = document.getElementById(Store.container);
         if (luckysheetDocument) {
             luckysheetsizeauto();

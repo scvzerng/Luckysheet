@@ -116,7 +116,7 @@ export default function documentMousemove() {
             let y = event.pageY;
             let movepx = y - formula.functionResizeData.y;
             let mpx = formula.functionResizeData.calculatebarHeight + movepx;
-            let winh = Math.round($(window).height() / 2);
+            let winh = Math.round(document.documentElement.clientHeight / 2);
 
             if (mpx <= 28) {
                 if (mpx <= 20) {
@@ -302,8 +302,8 @@ export default function documentMousemove() {
                 scrollLeft = $(document).scrollLeft();
             let y = event.pageY + scrollTop,
                 x = event.pageX + scrollLeft;
-            let winH = $(window).height(),
-                winW = $(window).width();
+            let winH = document.documentElement.clientHeight,
+                winW = document.documentElement.clientWidth;
             let myh = Store.luckysheet_model_move_obj.height(),
                 myw = Store.luckysheet_model_move_obj.width();
             let top = y - Store.luckysheet_model_xy[1],

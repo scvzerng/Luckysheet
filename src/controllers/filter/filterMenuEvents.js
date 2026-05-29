@@ -5,7 +5,7 @@ export function filterMenuEvents() {
     $(".luckysheet-cols-menu .luckysheet-cols-submenu").hover(
         function () {
             let $t = $(this), attrid = $t.attr("id"), $attr = $("#" + attrid + "_sub"), $con = $t.parent();
-            let winW = $(window).width(), winH = $(window).height();
+            let winW = document.documentElement.clientWidth, winH = document.documentElement.clientHeight;
             let menuW = $con.width(), attrH = $attr.height() + 25, attrW = $attr.width() + 5;
             let offset = $t.offset();
             let top = offset.top, left = offset.left + menuW;
@@ -107,7 +107,7 @@ export function filterMenuEvents() {
         let $t = $(this), toffset = $t.offset(), $menu = $("#luckysheet-filter-submenu");
         $menu.hide();
 
-        let winH = $(window).height(), winW = $(window).width();
+        let winH = document.documentElement.clientHeight, winW = document.documentElement.clientWidth;
         let menuW = $menu.width(), menuH = $menu.height();
         let top = toffset.top, left = toffset.left, mheight = winH - toffset.top - 20;
 

@@ -2,8 +2,8 @@ import Store from '../../store';
 import richTextEditor from '../../ui/richTextEditor.js';
 
 function showrightclickmenu($menu, x, y) {
-    let winH = $(window).height(),
-        winW = $(window).width();
+    let winH = document.documentElement.clientHeight,
+        winW = document.documentElement.clientWidth;
     let menuW = $menu.width(),
         menuH = $menu.height();
     let top = y,
@@ -49,8 +49,8 @@ function luckysheetContainerFocus() {
 }
 
 function mouseclickposition($menu, x, y, p) {
-    let winH = $(window).height(),
-        winW = $(window).width();
+    let winH = document.documentElement.clientHeight,
+        winW = document.documentElement.clientWidth;
     let menuW = $menu.width(),
         menuH = $menu.height();
     let top = y,

@@ -74,8 +74,8 @@ const uiModule = {
       }
       let left = $(this).offset().left;
       let top = $(this).offset().top + 25;
-      let winH = $(window).height(),
-        winW = $(window).width();
+      let winH = document.documentElement.clientHeight,
+        winW = document.documentElement.clientWidth;
       let menuW = $("#luckysheet-dropCell-typeList").width(),
         menuH = $("#luckysheet-dropCell-typeList").height();
       if (left + menuW > winW) {

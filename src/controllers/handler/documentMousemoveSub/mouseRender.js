@@ -417,8 +417,8 @@ import formulaDialogs from '../../../ui/formulaDialogs.js';
                     let x = mouse[0] + scrollLeft;
                     let y = mouse[1] + scrollTop;
 
-                    let winH = $(window).height() + scrollTop - Store.sheetBarHeight - Store.statisticBarHeight,
-                        winW = $(window).width() + scrollLeft;
+                    let winH = document.documentElement.clientHeight + scrollTop - Store.sheetBarHeight - Store.statisticBarHeight,
+                        winW = document.documentElement.clientWidth + scrollLeft;
 
                     let row_location = rowLocation(y),
                         row = row_location[1],
@@ -486,8 +486,8 @@ import formulaDialogs from '../../../ui/formulaDialogs.js';
                     let x = mouse[0] + scrollLeft;
                     let y = mouse[1] + scrollTop;
 
-                    let winH = $(window).height() + scrollTop - Store.sheetBarHeight - Store.statisticBarHeight,
-                        winW = $(window).width() + scrollLeft;
+                    let winH = document.documentElement.clientHeight + scrollTop - Store.sheetBarHeight - Store.statisticBarHeight,
+                        winW = document.documentElement.clientWidth + scrollLeft;
 
                     let row_location = rowLocation(y),
                         row = row_location[1],
@@ -577,7 +577,7 @@ import formulaDialogs from '../../../ui/formulaDialogs.js';
                     let mouse = mouseposition(pageX, pageY);
                     let scrollLeft = colHeader.getScrollLeft();
                     let x = mouse[0] + scrollLeft;
-                    let winW = $(window).width();
+                    let winW = document.documentElement.clientWidth;
 
                     let row_index = getMaxRowIndex(),
                         row = Store.visibledatarow[row_index],
@@ -595,7 +595,7 @@ import formulaDialogs from '../../../ui/formulaDialogs.js';
                     let mouse = mouseposition(pageX, pageY);
                     let scrollTop = rowHeader.getScrollTop();
                     let y = mouse[1] + scrollTop;
-                    let winH = $(window).height();
+                    let winH = document.documentElement.clientHeight;
 
                     let row_location = rowLocation(y),
                         row = row_location[1],

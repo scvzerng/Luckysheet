@@ -90,8 +90,8 @@ const dialogModule = {
     let $t = formulaDialogs.singleRange.el.find(".luckysheet-modal-dialog-content").css("min-width", 300).end(),
       myh = $t.outerHeight(),
       myw = $t.outerWidth();
-    let winw = $(window).width(),
-      winh = $(window).height();
+    let winw = document.documentElement.clientWidth,
+      winh = document.documentElement.clientHeight;
     let scrollLeft = $(document).scrollLeft(),
       scrollTop = $(document).scrollTop();
     formulaDialogs.singleRange.showAt({
@@ -116,8 +116,8 @@ const dialogModule = {
     let $t = formulaDialogs.multiRange.el.find(".luckysheet-modal-dialog-content").css("min-width", 300).end(),
       myh = $t.outerHeight(),
       myw = $t.outerWidth();
-    let winw = $(window).width(),
-      winh = $(window).height();
+    let winw = document.documentElement.clientWidth,
+      winh = document.documentElement.clientHeight;
     let scrollLeft = $(document).scrollLeft(),
       scrollTop = $(document).scrollTop();
     formulaDialogs.multiRange.showAt({
@@ -143,8 +143,8 @@ const dialogModule = {
     let $t = conditionformatDialog.main.find(".luckysheet-modal-dialog-content").css("min-width", 300).end(),
       myh = $t.outerHeight(),
       myw = $t.outerWidth();
-    let winw = $(window).width(),
-      winh = $(window).height();
+    let winw = document.documentElement.clientWidth,
+      winh = document.documentElement.clientHeight;
     let scrollLeft = $(document).scrollLeft(),
       scrollTop = $(document).scrollTop();
     conditionformatDialog.main.el.css({
@@ -227,8 +227,8 @@ const dialogModule = {
     let $t = $("#luckysheet-CFicons-dialog").find(".luckysheet-modal-dialog-content").css("min-width", 400).end(),
       myh = $t.outerHeight(),
       myw = $t.outerWidth();
-    let winw = $(window).width(),
-      winh = $(window).height();
+    let winw = document.documentElement.clientWidth,
+      winh = document.documentElement.clientHeight;
     let scrollLeft = $(document).scrollLeft(),
       scrollTop = $(document).scrollTop();
     $("#luckysheet-CFicons-dialog").css({
@@ -285,8 +285,8 @@ const dialogModule = {
     let $t = conditionformatDialog.adminRule.find(".luckysheet-modal-dialog-content").css("min-width", 400).end(),
       myh = $t.outerHeight(),
       myw = $t.outerWidth();
-    let winw = $(window).width(),
-      winh = $(window).height();
+    let winw = document.documentElement.clientWidth,
+      winh = document.documentElement.clientHeight;
     let scrollLeft = $(document).scrollLeft(),
       scrollTop = $(document).scrollTop();
     conditionformatDialog.adminRule.el.css({
@@ -322,8 +322,8 @@ const dialogModule = {
     let $t = $("#luckysheet-newConditionRule-dialog").find(".luckysheet-modal-dialog-content").css("min-width", 400).end(),
       myh = $t.outerHeight(),
       myw = $t.outerWidth();
-    let winw = $(window).width(),
-      winh = $(window).height();
+    let winw = document.documentElement.clientWidth,
+      winh = document.documentElement.clientHeight;
     let scrollLeft = $(document).scrollLeft(),
       scrollTop = $(document).scrollTop();
     $("#luckysheet-newConditionRule-dialog").css({
@@ -397,8 +397,8 @@ const dialogModule = {
     let $t = $("#luckysheet-editorConditionRule-dialog").find(".luckysheet-modal-dialog-content").css("min-width", 400).end(),
       myh = $t.outerHeight(),
       myw = $t.outerWidth();
-    let winw = $(window).width(),
-      winh = $(window).height();
+    let winw = document.documentElement.clientWidth,
+      winh = document.documentElement.clientHeight;
     let scrollLeft = $(document).scrollLeft(),
       scrollTop = $(document).scrollTop();
     $("#luckysheet-editorConditionRule-dialog").css({
@@ -531,8 +531,8 @@ const dialogModule = {
     let $t = $("#luckysheet-conditionformat-info-dialog").find(".luckysheet-modal-dialog-content").css("min-width", 300).end(),
       myh = $t.outerHeight(),
       myw = $t.outerWidth();
-    let winw = $(window).width(),
-      winh = $(window).height();
+    let winw = document.documentElement.clientWidth,
+      winh = document.documentElement.clientHeight;
     let scrollLeft = $(document).scrollLeft(),
       scrollTop = $(document).scrollTop();
     $("#luckysheet-conditionformat-info-dialog").css({

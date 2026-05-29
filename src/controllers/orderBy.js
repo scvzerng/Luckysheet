@@ -246,7 +246,7 @@ export function orderByInitial(){
         $("#luckysheet-sort-dialog .luckysheet-modal-dialog-title-text").html(locale_sort.sortRangeTitle+"<span>" + chatatABC(c1) + (r1 + 1) + "</span>"+ locale_sort.sortRangeTitleTo +"<span>" + chatatABC(c2) + (r2 + 1) + "</span>");
 
         let $t = $("#luckysheet-sort-dialog"), myh = $t.outerHeight(), myw = $t.outerWidth();
-        let winw = $(window).width(), winh = $(window).height();
+        let winw = document.documentElement.clientWidth, winh = document.documentElement.clientHeight;
         let scrollLeft = $(document).scrollLeft(), scrollTop = $(document).scrollTop();
 
         $("#luckysheet-sort-dialog-tablec").css("max-height", (winh - myh) / 2);

@@ -309,7 +309,7 @@ export default function documentMouseup() {
             let mouse = mouseposition(event.pageX, event.pageY);
             let scrollTop = rowHeader.getScrollTop();
             let y = mouse[1] + scrollTop;
-            let winH = $(window).height();
+            let winH = document.documentElement.clientHeight;
 
             let row_location = rowLocation(y),
                 row = row_location[1],
@@ -401,7 +401,7 @@ export default function documentMouseup() {
             let mouse = mouseposition(event.pageX, event.pageY);
             let scrollLeft = colHeader.getScrollLeft();
             let x = mouse[0] + scrollLeft;
-            let winW = $(window).width();
+            let winW = document.documentElement.clientWidth;
 
             let row_index = getMaxRowIndex(),
                 row = Store.visibledatarow[row_index],
@@ -519,8 +519,8 @@ export default function documentMouseup() {
             let x = mouse[0] + scrollLeft;
             let y = mouse[1] + scrollTop;
 
-            let winH = $(window).height() + scrollTop - Store.sheetBarHeight - Store.statisticBarHeight,
-                winW = $(window).width() + scrollLeft;
+            let winH = document.documentElement.clientHeight + scrollTop - Store.sheetBarHeight - Store.statisticBarHeight,
+                winW = document.documentElement.clientWidth + scrollLeft;
 
             let row_index = rowLocation(y)[2];
             let col_index = colLocation(x)[2];
@@ -785,8 +785,8 @@ export default function documentMouseup() {
             let x = mouse[0] + scrollLeft - 5;
             let y = mouse[1] + scrollTop - 5;
 
-            let winH = $(window).height() + scrollTop - Store.sheetBarHeight - Store.statisticBarHeight,
-                winW = $(window).width() + scrollLeft;
+            let winH = document.documentElement.clientHeight + scrollTop - Store.sheetBarHeight - Store.statisticBarHeight,
+                winW = document.documentElement.clientWidth + scrollLeft;
 
             let row_location = rowLocation(y),
                 row = row_location[1],

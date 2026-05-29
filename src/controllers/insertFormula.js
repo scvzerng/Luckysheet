@@ -164,7 +164,7 @@ const insertFormula = {
             let $t = formulaDialogs.searchParmSelect.el,
                 myh = $t.outerHeight(),
                 myw = $t.outerWidth();
-            let winw = $(window).width(), winh = $(window).height();
+            let winw = document.documentElement.clientWidth, winh = document.documentElement.clientHeight;
             let scrollLeft = $(document).scrollLeft(), scrollTop = $(document).scrollTop();
             formulaDialogs.searchParmSelect.showAt({ "left": (winw + scrollLeft - myw) / 2, "top": (winh + scrollTop - myh) / 3 });
             
@@ -207,7 +207,7 @@ const insertFormula = {
         let $t = searchFormula.find(".luckysheet-modal-dialog-content").css("min-width", 300).end(),
             myh = $t.outerHeight(), 
             myw = $t.outerWidth();
-        let winw = $(window).width(), winh = $(window).height();
+        let winw = document.documentElement.clientWidth, winh = document.documentElement.clientHeight;
         let scrollLeft = $(document).scrollLeft(), scrollTop = $(document).scrollTop();
         searchFormula.setCss({ "left": (winw + scrollLeft - myw) / 2, "top": (winh + scrollTop - myh) / 3, "user-select": "none" }).show();
         
@@ -294,7 +294,7 @@ const insertFormula = {
         let $t = formulaDialogs.searchParm.el,
             myh = $t.outerHeight(),
             myw = $t.outerWidth();
-        let winw = $(window).width(), winh = $(window).height();
+        let winw = document.documentElement.clientWidth, winh = document.documentElement.clientHeight;
         let scrollLeft = $(document).scrollLeft(), scrollTop = $(document).scrollTop();
         formulaDialogs.searchParm.showAt({ "left": (winw + scrollLeft - myw) / 2, "top": (winh + scrollTop - myh) / 3 });
         

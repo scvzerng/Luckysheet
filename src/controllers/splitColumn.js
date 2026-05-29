@@ -69,7 +69,7 @@ const luckysheetSplitColumn = {
         let $t = $("#luckysheet-splitColumn-dialog").find(".luckysheet-modal-dialog-content").css("min-width", 400).end(), 
             myh = $t.outerHeight(), 
             myw = $t.outerWidth();
-        let winw = $(window).width(), winh = $(window).height();
+        let winw = document.documentElement.clientWidth, winh = document.documentElement.clientHeight;
         let scrollLeft = $(document).scrollLeft(), scrollTop = $(document).scrollTop();
         $("#luckysheet-splitColumn-dialog").css({ "left": (winw + scrollLeft - myw) / 2, "top": (winh + scrollTop - myh) / 3 }).show();
 

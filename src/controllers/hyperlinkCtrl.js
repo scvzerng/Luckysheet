@@ -89,8 +89,8 @@ const hyperlinkCtrl = {
         let $t = $("#luckysheet-insertLink-dialog").find(".luckysheet-modal-dialog-content").css("min-width", 350).end(), 
             myh = $t.outerHeight(), 
             myw = $t.outerWidth();
-        let winw = $(window).width(), 
-            winh = $(window).height();
+        let winw = document.documentElement.clientWidth,
+            winh = document.documentElement.clientHeight;
         let scrollLeft = $(document).scrollLeft(), 
             scrollTop = $(document).scrollTop();
         $("#luckysheet-insertLink-dialog").css({ 

@@ -80,7 +80,7 @@ export function createSelectionSetDiv(index) {
 
 export function getWindowSize() {
     return {
-        winW: $(window).width(),
-        winH: $(window).height()
+        winW: document.documentElement.clientWidth,
+        winH: document.documentElement.clientHeight
     };
 }

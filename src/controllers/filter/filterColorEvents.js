@@ -130,7 +130,7 @@ export function filterColorEvents() {
             $("body").append('<div id="luckysheet-filter-orderby-color-submenu" class="luckysheet-cols-menu luckysheet-mousedown-cancel">'+content+'</div>');
             let $t = $("#luckysheet-filter-orderby-color-submenu").end();
             let $con = $(this).parent();
-            let winW = $(window).width(), winH = $(window).height();
+            let winW = document.documentElement.clientWidth, winH = document.documentElement.clientHeight;
             let menuW = $con.width(), 
                 myh = $t.height() + 25, 
                 myw = $t.width() + 5;

@@ -175,7 +175,7 @@ export default function luckysheetsizeauto(isRefreshCanvas=true) {
                 $$('#luckysheet-icon-morebtn-div').style.left = containerLeft + 'px';
             }
 
-            let right = $(window).width() - $("#luckysheet-icon-morebtn").offset().left - $("#luckysheet-icon-morebtn").width()+ $("body").scrollLeft();
+            let right = document.documentElement.clientWidth - $("#luckysheet-icon-morebtn").offset().left - $("#luckysheet-icon-morebtn").width()+ $("body").scrollLeft();
 
 
             // $("#luckysheet-icon-morebtn-div").toggle().css("right", right < 0 ? 0 : right);
