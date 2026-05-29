@@ -209,7 +209,7 @@ export default function luckysheetsizeauto(isRefreshCanvas=true) {
                 </div>
                 `
 
-                this.querySelector(".luckysheet-toolbar-button-inner-box").innerHTML = toolMoreHTML;
+                const _el = this.querySelector(".luckysheet-toolbar-button-inner-box"); if (_el) _el.innerHTML = toolMoreHTML;
             }
 
         });

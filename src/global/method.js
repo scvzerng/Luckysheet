@@ -363,7 +363,7 @@ const method = {
         sheetmanage.changeSheet(Store.luckysheetfile[0].index);
     },
     destroy:function(){
-        document.getElementById(Store.container).innerHTML = '';
+        const _el = document.getElementById(Store.container); if (_el) _el.innerHTML = '';
         document.querySelector("body > .luckysheet-cols-menu").remove();
 
         document.querySelector("#luckysheet-modal-dialog-mask, #luckysheetTextSizeTest, #luckysheet-icon-morebtn-div").remove();

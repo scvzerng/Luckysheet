@@ -55,7 +55,7 @@ export function initMoreFormat(_this) {
               luckysheetContainerFocus();
               let itemvalue = this.getAttribute("itemvalue");
               let itemname = this.getAttribute("itemname");
-              document.getElementById("luckysheet-icon-fmt-other").querySelector(".luckysheet-toolbar-menu-button-caption").innerHTML = " " + itemname + " ";
+              const _el = document.getElementById("luckysheet-icon-fmt-other")?.querySelector(".luckysheet-toolbar-menu-button-caption"); if (_el) _el.innerHTML = " " + itemname + " ";
               if (itemvalue == "fmtOtherSelf") {
                 return;
               }

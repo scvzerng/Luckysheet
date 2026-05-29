@@ -61,7 +61,7 @@ const formatStatusModule = {
         }
       }
       _this.focus($menuButton, itemvalue);
-      document.getElementById("luckysheet-icon-font-family").querySelector(".luckysheet-toolbar-menu-button-caption").innerHTML = " " + itemname + " ";
+      const _el = document.getElementById("luckysheet-icon-font-family")?.querySelector(".luckysheet-toolbar-menu-button-caption"); if (_el) _el.innerHTML = " " + itemname + " ";
     } else if (attr == "fs") {
       let $menuButton = document.getElementById("luckysheet-icon-font-size-menuButton");
       let itemvalue = foucsStatus,
@@ -152,7 +152,7 @@ const formatStatusModule = {
       const _locale = locale();
       const locale_defaultFmt = _locale.defaultFmt;
       if (!foucsStatus) {
-        $menuButton.querySelector(".luckysheet-toolbar-menu-button-caption").innerHTML = " " + locale_defaultFmt[0].text + " ";
+        const _el = $menuButton?.querySelector(".luckysheet-toolbar-menu-button-caption"); if (_el) _el.innerHTML = " " + locale_defaultFmt[0].text + " ";
         return;
       }
       const {
@@ -160,10 +160,10 @@ const formatStatusModule = {
       } = foucsStatus;
       const format = locale_defaultFmt.find(f => f.value === fa);
       if (format) {
-        $menuButton.querySelector(".luckysheet-toolbar-menu-button-caption").innerHTML = " " + format.text + " ";
+        const _el = $menuButton?.querySelector(".luckysheet-toolbar-menu-button-caption"); if (_el) _el.innerHTML = " " + format.text + " ";
       } else {
         const otherFormat = locale_defaultFmt.find(f => f.value === "fmtOtherSelf");
-        $menuButton.querySelector(".luckysheet-toolbar-menu-button-caption").innerHTML = " " + otherFormat.text + " ";
+        const _el = $menuButton?.querySelector(".luckysheet-toolbar-menu-button-caption"); if (_el) _el.innerHTML = " " + otherFormat.text + " ";
       }
     }
   },

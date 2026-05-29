@@ -24,8 +24,8 @@ const alternateformat = {
     getModelBox: function(hasRowHeader, hasRowFooter){
         let _this = this;
 
-        document.querySelector("#luckysheet-modal-dialog-slider-alternateformat #luckysheet-alternateformat-modelList").innerHTML = '';
-        document.querySelector("#luckysheet-modal-dialog-slider-alternateformat #luckysheet-alternateformat-modelCustom").innerHTML = '';
+        const _el1 = document.querySelector("#luckysheet-modal-dialog-slider-alternateformat #luckysheet-alternateformat-modelList"); if (_el1) _el1.innerHTML = '';
+        const _el2 = document.querySelector("#luckysheet-modal-dialog-slider-alternateformat #luckysheet-alternateformat-modelCustom"); if (_el2) _el2.innerHTML = '';
 
         //格式样式 模板
         let modelListHtml = '';

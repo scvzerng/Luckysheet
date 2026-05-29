@@ -191,7 +191,7 @@ const tooltip = {
         let htmldiv = '<div id="luckysheetpopover" class="luckysheetpopover"><div class="luckysheetpopover-content">'+locale_paint.start+'</div><div class="luckysheetpopover-btn">'+ btntxt +'</div></div>';
         document.getElementById("luckysheetpopover").remove();
         document.body.insertAdjacentHTML('beforeend', htmldiv);
-        document.querySelector("#luckysheetpopover .luckysheetpopover-content").innerHTML = content;
+        const _el = document.querySelector("#luckysheetpopover .luckysheetpopover-content"); if (_el) _el.innerHTML = content;
 
         let w = document.getElementById("luckysheetpopover").offsetWidth,
             h = document.getElementById("luckysheetpopover").offsetHeight;

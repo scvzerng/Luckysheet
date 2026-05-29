@@ -70,5 +70,5 @@ export function countfunc() {
         ret += "<span>"+locale_formula.min+":" +  min + "</span>";
     }
 
-    document.getElementById("luckysheet-sta-content").innerHTML = ret;
+    const _el = document.getElementById("luckysheet-sta-content"); if (_el) _el.innerHTML = ret;
 }

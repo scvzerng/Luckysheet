@@ -980,7 +980,7 @@ const imageCtrl = {
         imageDialog.active.hide();
         imageDialog.cropping.hide();
         imageDialog.slider.hide();
-        document.querySelector("#luckysheet-image-showBoxs .img-list").innerHTML = '';
+        const _el = document.querySelector("#luckysheet-image-showBoxs .img-list"); if (_el) _el.innerHTML = '';
 
         if(_this.images == null){
             return;

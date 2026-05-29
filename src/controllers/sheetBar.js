@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿import sheetmanage from './sheetmanage';
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿import sheetmanage from './sheetmanage';
 import { sheetselectlistitemHTML, sheetselectlistHTML, keycode } from './constant';
 import {
     replaceHtml,
@@ -550,7 +550,7 @@ export function initialSheetBar(){
             initialOpenSheet = false;
         }
         else {
-            document.getElementById("luckysheet-sheet-list").innerHTML = item;
+            const _el = document.getElementById("luckysheet-sheet-list"); if (_el) _el.innerHTML = item;
         }
 
         let $t = document.getElementById("luckysheet-sheet-list");

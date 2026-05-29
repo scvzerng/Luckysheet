@@ -206,8 +206,8 @@ const functionSearch = {
             let _locale = locale();
             let locale_formulaMore = _locale.formulaMore;
 
-            formulaDialogs.formulaHelp.querySelector(".luckysheet-arguments-help-function-name").innerHTML = $func.n;
-            formulaDialogs.formulaHelp.querySelector(".luckysheet-arguments-help-parameter-content").innerHTML = $func.d;
+            const _elFnName = formulaDialogs.formulaHelp.querySelector(".luckysheet-arguments-help-function-name"); if (_elFnName) _elFnName.innerHTML = $func.n;
+            const _elParamContent = formulaDialogs.formulaHelp.querySelector(".luckysheet-arguments-help-parameter-content"); if (_elParamContent) _elParamContent.innerHTML = $func.d;
 
             let helpformula =
                 '<span class="luckysheet-arguments-help-function-name">${name}</span> <span class="luckysheet-arguments-paren">(</span> <span class="luckysheet-arguments-parameter-holder"> ${param} </span> <span class="luckysheet-arguments-paren">)</span>';
@@ -257,9 +257,9 @@ const functionSearch = {
             fht = fht.substr(0, fht.length - 2);
             ahf = ahf.substr(0, ahf.length - 2);
 
-            formulaDialogs.formulaHelp.querySelector(".luckysheet-formula-help-title .luckysheet-arguments-parameter-holder").innerHTML = fht;
-            formulaDialogs.formulaHelp.querySelector(".luckysheet-formula-help-formula .luckysheet-arguments-parameter-holder").innerHTML = ahf;
-            formulaDialogs.formulaHelp.querySelector(".luckysheet-formula-help-content-param").innerHTML = fhcp;
+            const _el1 = formulaDialogs.formulaHelp.querySelector(".luckysheet-formula-help-title .luckysheet-arguments-parameter-holder"); if (_el1) _el1.innerHTML = fht;
+            const _el2 = formulaDialogs.formulaHelp.querySelector(".luckysheet-formula-help-formula .luckysheet-arguments-parameter-holder"); if (_el2) _el2.innerHTML = ahf;
+            const _el3 = formulaDialogs.formulaHelp.querySelector(".luckysheet-formula-help-content-param"); if (_el3) _el3.innerHTML = fhcp;
 
             if (paramIndex == null) {
                 formulaDialogs.formulaHelp.querySelector(".luckysheet-formula-help-title-formula .luckysheet-arguments-help-function-name").style.fontWeight = "bold";

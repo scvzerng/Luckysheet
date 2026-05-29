@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿import { rowLocation, colLocation, mouseposition } from '../global/location';
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿import { rowLocation, colLocation, mouseposition } from '../global/location';
 import editor from '../global/editor';
 import { luckysheetRangeLast } from '../global/cursorPos';
 import { luckysheetrefreshgrid } from '../global/refresh';
@@ -314,7 +314,7 @@ const luckysheetPostil = {
     buildAllPs: function(data){
         let _this = this;
 
-        cellMain.querySelector("#luckysheet-postil-showBoxs").innerHTML = '';
+        const _el = cellMain.querySelector("#luckysheet-postil-showBoxs"); if (_el) _el.innerHTML = '';
 
         for(let r = 0; r < data.length; r++){
             for(let c = 0; c < data[0].length; c++){
@@ -729,7 +729,7 @@ const luckysheetPostil = {
         let rc = [];
         if(allPs !== null){
             if(isAllShow){ //全部显示，操作为隐藏所有批注
-                cellMain.querySelector("#luckysheet-postil-showBoxs").innerHTML = '';
+                const _el = cellMain.querySelector("#luckysheet-postil-showBoxs"); if (_el) _el.innerHTML = '';
 
                 for(let i = 0; i < allPs.length; i++){
                     let rowIndex = allPs[i].split("_")[0];

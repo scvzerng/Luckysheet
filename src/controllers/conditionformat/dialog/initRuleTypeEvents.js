@@ -8,7 +8,7 @@ export function initRuleTypeEvents(_this) {
       onNS(document, "click.CFnewEditorRuleItem", ".luckysheet-newEditorRule-dialog .ruleTypeItem", function () {
         this.classList.add("on"); Array.from(this.parentElement.children).filter(s => s !== this).forEach(s => s.classList.remove("on"));
         let index = Array.from(this.parentElement.children).indexOf(this);
-        this.closest(".luckysheet-newEditorRule-dialog").querySelector(".ruleExplainBox").innerHTML = _this.getRuleExplain(index);
+        const _el = this.closest(".luckysheet-newEditorRule-dialog")?.querySelector(".ruleExplainBox"); if (_el) _el.innerHTML = _this.getRuleExplain(index);
         _this.colorSelectInit();
       });
       offNS("CFnewEditorRuleType1");
