@@ -1,3 +1,4 @@
+import { onNS, offNS } from '../../../utils/migrationHelpers.js';
 import { getSheetIndex } from '../../../methods/get';
 import { parseConditionRange } from '../rangeParser.js';
 import locale from '../../../locale/locale';
@@ -8,8 +9,8 @@ import conditionformatDialog from '../../../ui/conditionformatDialog.js';
 
 export function initEditRuleEvents(_this) {
       const conditionformat_Text = locale().conditionformat;
-      // 编辑规则
-      $(document).off("click.CFeditorConditionRule").on("click.CFeditorConditionRule", "#editorConditionRule", function () {
+      offNS("CFeditorConditionRule");
+      onNS(document, "click.CFeditorConditionRule", "#editorConditionRule", function () {
         let sheetIndex = conditionformatDialog.adminRule.find(".chooseSheet option:selected").val();
         let itemIndex = conditionformatDialog.adminRule.find(".ruleList .listBox .item.on").attr("data-item");
         let rule = {
@@ -20,7 +21,8 @@ export function initEditRuleEvents(_this) {
         _this.editorRule = rule;
         _this.editorConditionRuleDialog();
       });
-      $(document).off("click.CFeditorConditionRuleConfirm").on("click.CFeditorConditionRuleConfirm", "#luckysheet-editorConditionRule-dialog-confirm", function () {
+      offNS("CFeditorConditionRuleConfirm");
+      onNS(document, "click.CFeditorConditionRuleConfirm", "#luckysheet-editorConditionRule-dialog-confirm", function () {
         let index = $("#luckysheet-editorConditionRule-dialog .ruleTypeItem.on").index();
         let type1 = $("#luckysheet-editorConditionRule-dialog #type1 option:selected").val();
         let type2 = $("#luckysheet-editorConditionRule-dialog ." + type1 + "Box #type2 option:selected").val();
@@ -227,7 +229,8 @@ export function initEditRuleEvents(_this) {
         $("#luckysheet-editorConditionRule-dialog").hide();
         _this.administerRuleDialog();
       });
-      $(document).off("click.CFeditorConditionRuleClose").on("click.CFeditorConditionRuleClose", "#luckysheet-editorConditionRule-dialog-close", function () {
+      offNS("CFeditorConditionRuleClose");
+      onNS(document, "click.CFeditorConditionRuleClose", "#luckysheet-editorConditionRule-dialog-close", function () {
         //编辑规则隐藏，管理规则显�?
         $("#luckysheet-editorConditionRule-dialog").hide();
         conditionformatDialog.adminRule.show();

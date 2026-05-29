@@ -1,3 +1,4 @@
+import { onNS, offNS } from '../../utils/migrationHelpers.js';
 import luckysheetConfigsetting from "../luckysheetConfigsetting";
 import luckysheetFreezen from "../freezen";
 import luckysheetDropCell from "../dropCell";
@@ -47,7 +48,7 @@ import cellMain from '../../ui/cellMain.js';
 
 export default function documentMouseup() {
     //表格mouseup
-    $(document).on("mouseup.luckysheetEvent", function(event) {
+    onNS(document, "mouseup.luckysheetEvent", null, function(event) {
         if (luckysheetConfigsetting && luckysheetConfigsetting.hook && luckysheetConfigsetting.hook.sheetMouseup) {
             let mouse = mouseposition(event.pageX, event.pageY);
             let scroll = getScrollPosition();

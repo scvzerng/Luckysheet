@@ -1,4 +1,5 @@
-﻿﻿import {  luckysheetlodingHTML } from '../controllers/constant';
+﻿﻿import { onNS, offNS } from '../utils/migrationHelpers.js';
+import {  luckysheetlodingHTML } from '../controllers/constant';
 import sheetmanage from '../controllers/sheetmanage';
 import luckysheetformula from './formula';
 import imageCtrl from '../controllers/imageCtrl';
@@ -371,7 +372,7 @@ const method = {
         $(".luckysheet-modal-dialog-slider").remove();
 
         //document event release
-        $(document).off(".luckysheetEvent");
+        offNS("luckysheetEvent");
         
         //参数重置
         luckysheetFreezen.initialHorizontal = true;

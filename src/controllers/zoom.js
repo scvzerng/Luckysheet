@@ -1,4 +1,5 @@
-﻿import Store from '../store';
+import { onNS, offNS } from '../utils/migrationHelpers.js';
+import Store from '../store';
 import sheetmanage from './sheetmanage';
 import {changeSheetContainerSize} from './resize';
 import { jfrefreshgrid_rhcw } from '../global/refresh';
@@ -143,7 +144,8 @@ export function zoomInitial(){
     $("#luckysheet-zoom-cursor").mousedown(function(e){
         let curentX = e.pageX,cursorLeft = parseFloat($("#luckysheet-zoom-cursor").css("left"));
         $("#luckysheet-zoom-cursor").css("transition","none");
-        $(document).off("mousemove.zoomCursor").on("mousemove.zoomCursor",function(event){
+        offNS("zoomCursor");
+        onNS(document, "mousemove.zoomCursor", null, function(event){
             let moveX = event.pageX;
             let offsetX = moveX - curentX;
             // console.log(moveX, curentX, offsetX);
@@ -169,8 +171,9 @@ export function zoomInitial(){
             $("#luckysheet-zoom-cursor").css("left", pos-4);
         });
 
-        $(document).off("mouseup.zoomCursor").on("mouseup.zoomCursor",function(event){
-            $(document).off(".zoomCursor");
+        offNS("zoomCursor");
+        onNS(document, "mouseup.zoomCursor", null, function(event){
+            offNS("zoomCursor");
             $("#luckysheet-zoom-cursor").css("transition","all 0.3s");
         });
 

@@ -1,3 +1,4 @@
+import { onNS, offNS } from '../utils/migrationHelpers.js';
 import { replaceHtml } from '../utils/util';
 import { showModalMask, hideModalMask, getScrollPosition } from '../utils/domUtils.js';
 import { getSheetIndex } from '../methods/get';
@@ -106,7 +107,7 @@ const luckysheetLocationCell = {
             myh = $t.outerHeight(), 
             myw = $t.outerWidth();
         let winw = document.documentElement.clientWidth, winh = document.documentElement.clientHeight;
-        let scrollLeft = $(document).scrollLeft(), scrollTop = $(document).scrollTop();
+        let scrollLeft = document.documentElement.scrollLeft, scrollTop = document.documentElement.scrollTop;
         $("#luckysheet-locationCell-dialog").css({ "left": (winw + scrollLeft - myw) / 2, "top": (winh + scrollTop - myh) / 3 }).show();
     },
     init: function(){
@@ -114,15 +115,16 @@ const luckysheetLocationCell = {
 
         const locale_location = locale().findAndReplace;
 
-        $(document).on("click", "#luckysheet-locationCell-dialog .listItem input:radio", function(e){
+        document.addEventListener("click", function(e) { const t = e.target.closest("#luckysheet-locationCell-dialog .listItem input:radio"); if (t && document.contains(t)) {
             $("#luckysheet-locationCell-dialog .listItem input:checkbox").prop("disabled", true);
             $("#luckysheet-locationCell-dialog .listItem .subbox label").css("color", "#666");
 
-            $(this).siblings(".subbox").find("input:checkbox").removeAttr("disabled");
-            $(this).siblings(".subbox").find("label").css("color", "#000");
-        });
+            $(t).siblings(".subbox").find("input:checkbox").removeAttr("disabled");
+            $(t).siblings(".subbox").find("label").css("color", "#000");
+        } });
 
-        $(document).off("click.locationCellConfirm").on("click.locationCellConfirm", "#luckysheet-locationCell-dialog #luckysheet-locationCell-dialog-confirm", function(){
+        offNS("locationCellConfirm");
+        onNS(document, "click.locationCellConfirm", "#luckysheet-locationCell-dialog #luckysheet-locationCell-dialog-confirm", function(){
             hideModalMask();
             $("#luckysheet-locationCell-dialog").hide();
 

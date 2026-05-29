@@ -1,3 +1,4 @@
+import { onNS, offNS } from '../utils/migrationHelpers.js';
 import { rowLocation, colLocation, mouseposition } from '../global/location';
 import { selectHightlightShow } from './select';
 import menuButton from './menuButton';
@@ -174,7 +175,7 @@ export default function mobileinit(){
 
         event.stopPropagation();
     })
-    $(document).on("touchend", function(event){
+    document.addEventListener("touchend", function(event){
         if(luckysheet_touchmove_status){
             let vy_x = Math.abs(luckysheet_touchmove_startPos.vy_x), friction_x = ((vy_x >> 31) * 2 + 1) * 0.25;
 
@@ -223,12 +224,11 @@ export default function mobileinit(){
     })
 
     //滑动选择选区
-    $(document).on("touchstart", ".luckysheet-cs-touchhandle", function(event){
+    document.addEventListener("touchstart", function(event) { const t = event.target.closest(".luckysheet-cs-touchhandle"); if (t && document.contains(t)) {
         luckysheet_touchhandle_status = true;
         luckysheet_touchmove_status = false;
-        // console.log(1111111111);
         event.stopPropagation();
-    })  
+    } });  
 
     //禁止微信下拉拖出微信背景
     document.addEventListener("touchmove", function(event){

@@ -1,6 +1,8 @@
+import { onNS, offNS } from '../../utils/migrationHelpers.js';
 
 export function filterCheckboxEvents() {
-    $(document).off("click.filterCheckbox1").on("click.filterCheckbox1", "#luckysheet-filter-byvalue-select .textBox",function(){
+    offNS("filterCheckbox1");
+    onNS(document, "click.filterCheckbox1", "#luckysheet-filter-byvalue-select .textBox",function(){
         if($(this).attr("data-check") == "true"){
             $(this).attr("data-check", "false");
             $(this).find("input[type='checkbox']").removeAttr("checked");
@@ -10,7 +12,8 @@ export function filterCheckboxEvents() {
             $(this).find("input[type='checkbox']").prop("checked", true);
         }
     })
-    $(document).off("click.filterCheckbox2").on("click.filterCheckbox2", "#luckysheet-filter-byvalue-select .year",function(){
+    offNS("filterCheckbox2");
+    onNS(document, "click.filterCheckbox2", "#luckysheet-filter-byvalue-select .year",function(){
         if($(this).attr("data-check") == "true"){
             $(this).attr("data-check", "false");
             $(this).parents(".yearBox").find(".month").attr("data-check", "false");
@@ -24,7 +27,8 @@ export function filterCheckboxEvents() {
             $(this).parents(".yearBox").find("input[type='checkbox']").prop("checked", true);
         }
     })
-    $(document).off("click.filterCheckbox3").on("click.filterCheckbox3", "#luckysheet-filter-byvalue-select .month",function(){
+    offNS("filterCheckbox3");
+    onNS(document, "click.filterCheckbox3", "#luckysheet-filter-byvalue-select .month",function(){
         //月份 对应的 天
         if($(this).attr("data-check") == "true"){
             $(this).attr("data-check", "false");
@@ -56,7 +60,8 @@ export function filterCheckboxEvents() {
             $(this).parents(".yearBox").find(".year input[type='checkbox']").removeAttr("checked");
         }
     })
-    $(document).off("click.filterCheckbox4").on("click.filterCheckbox4", "#luckysheet-filter-byvalue-select .day",function(){
+    offNS("filterCheckbox4");
+    onNS(document, "click.filterCheckbox4", "#luckysheet-filter-byvalue-select .day",function(){
         if($(this).attr("data-check") == "true"){
             $(this).attr("data-check", "false");
             $(this).find("input[type='checkbox']").removeAttr("checked");
@@ -106,7 +111,8 @@ export function filterCheckboxEvents() {
     })
 
     //日期 三级下拉显示
-    $(document).off("click.filterYearDropdown").on("click.filterYearDropdown", "#luckysheet-filter-byvalue-select .yearBox .fa-caret-right",function(event){
+    offNS("filterYearDropdown");
+    onNS(document, "click.filterYearDropdown", "#luckysheet-filter-byvalue-select .yearBox .fa-caret-right",function(event){
         let $p = $(this).parents(".luckysheet-mousedown-cancel");
         if($p.hasClass("year")){
             $(this).parents(".yearBox").find(".monthList").slideToggle();

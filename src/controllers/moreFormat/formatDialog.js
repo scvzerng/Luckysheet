@@ -1,3 +1,4 @@
+import { onNS, offNS } from '../../utils/migrationHelpers.js';
 import { replaceHtml } from '../../utils/util';
 import { showModalMask, hideModalMask } from '../../utils/domUtils.js';
 import { modelHTML } from '../constant';
@@ -359,7 +360,7 @@ const luckysheetMoreFormat = {
             myh = $t.outerHeight(), 
             myw = $t.outerWidth();
         let winw = document.documentElement.clientWidth, winh = document.documentElement.clientHeight;
-        let scrollLeft = $(document).scrollLeft(), scrollTop = $(document).scrollTop();
+        let scrollLeft = document.documentElement.scrollLeft, scrollTop = document.documentElement.scrollTop;
         $("#luckysheet-moreFormat-dialog").css({ "left": (winw + scrollLeft - myw) / 2, "top": (winh + scrollTop - myh) / 3 }).show();
         
         $("#luckysheet-moreFormat-dialog .listbox .listItem").eq(0).addClass("on");
@@ -368,12 +369,13 @@ const luckysheetMoreFormat = {
         let _this = this;
 
         //选择格式
-        $(document).on("click", "#luckysheet-moreFormat-dialog .listbox .listItem", function(){
-            $(this).addClass("on").siblings().removeClass("on");
-        });
+        document.addEventListener("click", function(e) { const t = e.target.closest("#luckysheet-moreFormat-dialog .listbox .listItem"); if (t && document.contains(t)) {
+            $(t).addClass("on").siblings().removeClass("on");
+        } });
 
         //确定
-        $(document).off("click.moreFormatConfirm").on("click.moreFormatConfirm", "#luckysheet-moreFormat-dialog #luckysheet-moreFormat-dialog-confirm", function(){
+        offNS("moreFormatConfirm");
+        onNS(document, "click.moreFormatConfirm", "#luckysheet-moreFormat-dialog #luckysheet-moreFormat-dialog-confirm", function(){
             $("#luckysheet-moreFormat-dialog").hide();
             hideModalMask();
 

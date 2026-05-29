@@ -1,3 +1,4 @@
+import { onNS, offNS } from '../../utils/migrationHelpers.js';
 import {  isRealNull } from '../../global/validate';
 import Store from '../../store';
 import menuButton from '../menuButton';
@@ -152,18 +153,17 @@ export function filterColorEvents() {
         }
     );
 
-    $(document).on("mouseover mouseleave", "#luckysheet-filter-orderby-color-submenu", function(e){
-        if (e.type === "mouseover") {
-            clearTimeout(submenuhide);
-        } 
-        else {
-            $(this).hide();
-        }
-    });
-    $(document).on("click", "#luckysheet-filter-orderby-color-submenu .item label", function(){
-        $(this).siblings("input[type='checkbox']").click();
-    });
-    $(document).off("click.orderbyColorConfirm").on("click.orderbyColorConfirm", "#luckysheet-filter-orderby-color-submenu #luckysheet-filter-orderby-color-confirm", function(){
+    document.addEventListener("mouseover", function(e) { const t = e.target.closest("#luckysheet-filter-orderby-color-submenu"); if (t && document.contains(t)) {
+        clearTimeout(submenuhide);
+    } });
+    document.addEventListener("mouseleave", function(e) { const t = e.target.closest("#luckysheet-filter-orderby-color-submenu"); if (t && document.contains(t)) {
+        $(t).hide();
+    } });
+    document.addEventListener("click", function(e) { const t = e.target.closest("#luckysheet-filter-orderby-color-submenu .item label"); if (t && document.contains(t)) {
+        $(t).siblings("input[type='checkbox']").click();
+    } });
+    offNS("orderbyColorConfirm");
+    onNS(document, "click.orderbyColorConfirm", "#luckysheet-filter-orderby-color-submenu #luckysheet-filter-orderby-color-confirm", function(){
         let bg_colorMap = {};
         let fc_colorMap = {};
 

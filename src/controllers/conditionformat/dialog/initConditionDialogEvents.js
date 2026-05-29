@@ -1,3 +1,4 @@
+import { onNS, offNS } from '../../../utils/migrationHelpers.js';
 import { parseConditionRange } from '../rangeParser.js';
 import { getSheetIndex } from '../../../methods/get';
 import { getCurrentFile } from '../../../utils/storeAccess.js';
@@ -10,7 +11,8 @@ import conditionformatDialog from '../../../ui/conditionformatDialog.js';
 export function initConditionDialogEvents(_this) {
       const conditionformat_Text = locale().conditionformat;
       // 删除规则
-      $(document).off("click.CFdeleteConditionRule").on("click.CFdeleteConditionRule", "#deleteConditionRule", function () {
+      offNS("CFdeleteConditionRule");
+      onNS(document, "click.CFdeleteConditionRule", "#deleteConditionRule", function () {
         let sheetIndex = conditionformatDialog.adminRule.find(".chooseSheet option:selected").val();
         let itemIndex = conditionformatDialog.adminRule.find(".ruleList .listBox .item.on").attr("data-item");
         _this.fileClone[getSheetIndex(sheetIndex)]["luckysheet_conditionformat_save"].splice(itemIndex, 1);
@@ -18,7 +20,8 @@ export function initConditionDialogEvents(_this) {
       });
   
       // 规则子菜单弹出层 点击确定修改样式
-      $(document).off("click.CFdefault").on("click.CFdefault", "#luckysheet-conditionformat-dialog-confirm", function () {
+      offNS("CFdefault");
+      onNS(document, "click.CFdefault", "#luckysheet-conditionformat-dialog-confirm", function () {
         //条件名称
         let conditionName = conditionformatDialog.main.find(".box").attr("data-itemvalue");
   
@@ -129,7 +132,8 @@ export function initConditionDialogEvents(_this) {
       });
   
       // 图标集弹出层 选择
-      $(document).off("click.CFicons").on("click.CFicons", "#luckysheet-CFicons-dialog .item", function () {
+      offNS("CFicons");
+      onNS(document, "click.CFicons", "#luckysheet-CFicons-dialog .item", function () {
         hideModalMask();
         $("#luckysheet-CFicons-dialog").hide();
         if (Store.luckysheet_select_save.length > 0) {

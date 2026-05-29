@@ -1,10 +1,12 @@
+import { onNS, offNS } from '../../../utils/migrationHelpers.js';
 import { selectionCopyShow } from '../../select';
 import { showModalMask } from '../../../utils/domUtils.js';
 import formulaDialogs from '../../../ui/formulaDialogs.js';
 import conditionformatDialog from '../../../ui/conditionformatDialog.js';
 
 export function initRangeAndCloseEvents(_this) {
-      $(document).off("click.CFrangeFaTable").on("click.CFrangeFaTable", ".range .fa-table", function () {
+      offNS("CFrangeFaTable");
+      onNS(document, "click.CFrangeFaTable", ".range .fa-table", function () {
         let id = $(this).parents(".luckysheet-modal-dialog").attr("id");
         $("#" + id).hide();
         let source;
@@ -38,7 +40,8 @@ export function initRangeAndCloseEvents(_this) {
         _this.singleRangeDialog(source, v);
         selectionCopyShow(_this.getRangeByTxt(v));
       });
-      $(document).off("click.CFsingleRangeConfirm").on("click.CFsingleRangeConfirm", "#luckysheet-singleRange-dialog-confirm", function () {
+      offNS("CFsingleRangeConfirm");
+      onNS(document, "click.CFsingleRangeConfirm", "#luckysheet-singleRange-dialog-confirm", function () {
         showModalMask();
         formulaDialogs.singleRange.hide();
         let source = $(this).attr("data-source");
@@ -71,7 +74,8 @@ export function initRangeAndCloseEvents(_this) {
         let range = [];
         selectionCopyShow(range);
       });
-      $(document).off("click.CFsingleRangeClose").on("click.CFsingleRangeClose", "#luckysheet-singleRange-dialog-close", function () {
+      offNS("CFsingleRangeClose");
+      onNS(document, "click.CFsingleRangeClose", "#luckysheet-singleRange-dialog-close", function () {
         showModalMask();
         formulaDialogs.singleRange.hide();
         let source = formulaDialogs.singleRange.find("#luckysheet-singleRange-dialog-confirm").attr("data-source");
@@ -86,7 +90,8 @@ export function initRangeAndCloseEvents(_this) {
         selectionCopyShow(range);
       });
 
-      $(document).off("click.CFmodalDialogTitleClose").on("click.CFmodalDialogTitleClose", ".luckysheet-modal-dialog-title-close", function () {
+      offNS("CFmodalDialogTitleClose");
+      onNS(document, "click.CFmodalDialogTitleClose", ".luckysheet-modal-dialog-title-close", function () {
         let id = $(this).parents(".luckysheet-modal-dialog").attr("id");
 
         if (id == "luckysheet-newConditionRule-dialog") {
@@ -126,7 +131,8 @@ export function initRangeAndCloseEvents(_this) {
         }
       });
 
-      $(document).off("click.CFinfoDialogClose").on("click.CFinfoDialogClose", "#luckysheet-conditionformat-info-dialog-close", function () {
+      offNS("CFinfoDialogClose");
+      onNS(document, "click.CFinfoDialogClose", "#luckysheet-conditionformat-info-dialog-close", function () {
         $(this).parents("#luckysheet-conditionformat-info-dialog").hide();
       });
 }

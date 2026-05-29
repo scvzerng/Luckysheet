@@ -1,3 +1,4 @@
+import { onNS, offNS } from '../../../utils/migrationHelpers.js';
 import tooltip from '../../../global/tooltip';
 import { isEditMode } from '../../../global/validate';
 import locale from '../../../locale/locale';
@@ -293,7 +294,8 @@ export function initConditionformat(_this) {
           });
   
           //突出显示单元格规则子菜单点击事件
-          $(document).off("click.CFhighlightCellRule").on("click.CFhighlightCellRule", "#luckysheet-icon-highlightCellRule-menuButton .luckysheet-cols-menuitem", function () {
+          offNS("CFhighlightCellRule");
+          onNS(document, "click.CFhighlightCellRule", "#luckysheet-icon-highlightCellRule-menuButton .luckysheet-cols-menuitem", function () {
             $menuButton.hide();
             $("#luckysheet-icon-highlightCellRule-menuButton").hide();
             luckysheetContainerFocus();
@@ -406,7 +408,8 @@ export function initConditionformat(_this) {
           });
   
           //项目选取规则子菜单点击事�?
-          $(document).off("click.CFprojectSelectRule").on("click.CFprojectSelectRule", "#luckysheet-icon-projectSelectRule-menuButton .luckysheet-cols-menuitem", function () {
+          offNS("CFprojectSelectRule");
+          onNS(document, "click.CFprojectSelectRule", "#luckysheet-icon-projectSelectRule-menuButton .luckysheet-cols-menuitem", function () {
             $menuButton.hide();
             $("#luckysheet-icon-projectSelectRule-menuButton").hide();
             luckysheetContainerFocus();
@@ -505,7 +508,8 @@ export function initConditionformat(_this) {
           });
   
           //数据条子菜单点击事件
-          $(document).off("click.CFdataBar").on("click.CFdataBar", "#luckysheet-icon-dataBar-menuButton .luckysheet-cols-menuitem", function () {
+          offNS("CFdataBar");
+          onNS(document, "click.CFdataBar", "#luckysheet-icon-dataBar-menuButton .luckysheet-cols-menuitem", function () {
             $menuButton.hide();
             $("#luckysheet-icon-dataBar-menuButton").hide();
             luckysheetContainerFocus();
@@ -519,7 +523,8 @@ export function initConditionformat(_this) {
           });
   
           //色阶子菜单点击事�?
-          $(document).off("click.CFcolorGradation").on("click.CFcolorGradation", "#luckysheet-icon-colorGradation-menuButton .luckysheet-cols-menuitem", function () {
+          offNS("CFcolorGradation");
+          onNS(document, "click.CFcolorGradation", "#luckysheet-icon-colorGradation-menuButton .luckysheet-cols-menuitem", function () {
             $menuButton.hide();
             $("#luckysheet-icon-colorGradation-menuButton").hide();
             luckysheetContainerFocus();
@@ -533,7 +538,8 @@ export function initConditionformat(_this) {
           });
   
           //清除规则子菜单点击事�?
-          $(document).off("click.CFdeleteRule").on("click.CFdeleteRule", "#luckysheet-icon-deleteRule-menuButton .luckysheet-cols-menuitem", function () {
+          offNS("CFdeleteRule");
+          onNS(document, "click.CFdeleteRule", "#luckysheet-icon-deleteRule-menuButton .luckysheet-cols-menuitem", function () {
             $menuButton.hide();
             $("#luckysheet-icon-deleteRule-menuButton").hide();
             luckysheetContainerFocus();

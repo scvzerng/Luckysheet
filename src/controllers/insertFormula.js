@@ -165,7 +165,7 @@ const insertFormula = {
                 myh = $t.outerHeight(),
                 myw = $t.outerWidth();
             let winw = document.documentElement.clientWidth, winh = document.documentElement.clientHeight;
-            let scrollLeft = $(document).scrollLeft(), scrollTop = $(document).scrollTop();
+            let scrollLeft = document.documentElement.scrollLeft, scrollTop = document.documentElement.scrollTop;
             formulaDialogs.searchParmSelect.showAt({ "left": (winw + scrollLeft - myw) / 2, "top": (winh + scrollTop - myh) / 3 });
             
             //参数选区虚线框
@@ -208,7 +208,7 @@ const insertFormula = {
             myh = $t.outerHeight(), 
             myw = $t.outerWidth();
         let winw = document.documentElement.clientWidth, winh = document.documentElement.clientHeight;
-        let scrollLeft = $(document).scrollLeft(), scrollTop = $(document).scrollTop();
+        let scrollLeft = document.documentElement.scrollLeft, scrollTop = document.documentElement.scrollTop;
         searchFormula.setCss({ "left": (winw + scrollLeft - myw) / 2, "top": (winh + scrollTop - myh) / 3, "user-select": "none" }).show();
         
         _this.formulaListByType("0"); //默认公式列表为类型0
@@ -295,7 +295,7 @@ const insertFormula = {
             myh = $t.outerHeight(),
             myw = $t.outerWidth();
         let winw = document.documentElement.clientWidth, winh = document.documentElement.clientHeight;
-        let scrollLeft = $(document).scrollLeft(), scrollTop = $(document).scrollTop();
+        let scrollLeft = document.documentElement.scrollLeft, scrollTop = document.documentElement.scrollTop;
         formulaDialogs.searchParm.showAt({ "left": (winw + scrollLeft - myw) / 2, "top": (winh + scrollTop - myh) / 3 });
         
         //参数栏第一个参数聚焦，显示选取虚线框

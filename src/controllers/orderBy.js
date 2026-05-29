@@ -247,7 +247,7 @@ export function orderByInitial(){
 
         let $t = $("#luckysheet-sort-dialog"), myh = $t.outerHeight(), myw = $t.outerWidth();
         let winw = document.documentElement.clientWidth, winh = document.documentElement.clientHeight;
-        let scrollLeft = $(document).scrollLeft(), scrollTop = $(document).scrollTop();
+        let scrollLeft = document.documentElement.scrollLeft, scrollTop = document.documentElement.scrollTop;
 
         $("#luckysheet-sort-dialog-tablec").css("max-height", (winh - myh) / 2);
         $("#luckysheet-sort-dialog").css({ "left": (winw + scrollLeft - myw) / 2, "top": (winh + scrollTop - myh) / 2 }).show();

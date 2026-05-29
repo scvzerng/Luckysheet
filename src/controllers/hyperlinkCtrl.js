@@ -1,3 +1,4 @@
+import { onNS, offNS } from '../utils/migrationHelpers.js';
 import { replaceHtml } from '../utils/util';
 import { showModalMask, hideModalMask, getScrollPosition } from '../utils/domUtils.js';
 import { getcellvalue } from '../global/getdata';
@@ -91,8 +92,8 @@ const hyperlinkCtrl = {
             myw = $t.outerWidth();
         let winw = document.documentElement.clientWidth,
             winh = document.documentElement.clientHeight;
-        let scrollLeft = $(document).scrollLeft(), 
-            scrollTop = $(document).scrollTop();
+        let scrollLeft = document.documentElement.scrollLeft, 
+            scrollTop = document.documentElement.scrollTop;
         $("#luckysheet-insertLink-dialog").css({ 
             "left": (winw + scrollLeft - myw) / 2, 
             "top": (winh + scrollTop - myh) / 3 
@@ -107,7 +108,8 @@ const hyperlinkCtrl = {
         const hyperlinkText = _locale.insertLink;
 
         //链接类型
-        $(document).off("change.linkType").on("change.linkType", "#luckysheet-insertLink-dialog-linkType", function(e){
+        offNS("linkType");
+        onNS(document, "change.linkType", "#luckysheet-insertLink-dialog-linkType", function(e){
             let value = this.value;
 
             $("#luckysheet-insertLink-dialog .show-box").hide();
@@ -115,7 +117,8 @@ const hyperlinkCtrl = {
         })
 
         //确认按钮
-        $(document).off("click.confirm").on("click.confirm", "#luckysheet-insertLink-dialog-confirm", function(e){
+        offNS("confirm");
+        onNS(document, "click.confirm", "#luckysheet-insertLink-dialog-confirm", function(e){
             let last = getLastSelection();
             let rowIndex = last.row_focus || last.row[0];
             let colIndex = last.column_focus || last.column[0];

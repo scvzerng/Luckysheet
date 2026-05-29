@@ -1,3 +1,4 @@
+import { onNS, offNS } from '../../utils/migrationHelpers.js';
 import luckysheetConfigsetting from "../luckysheetConfigsetting";
 import luckysheetFreezen from "../freezen";
 import luckysheetPostil from "../postil";
@@ -38,7 +39,7 @@ import canvasContext from '../../ui/canvasContext.js';
 
 export default function documentMousemove() {
     //表格mousemove
-    $(document).on("mousemove.luckysheetEvent", function(event) {
+    onNS(document, "mousemove.luckysheetEvent", null, function(event) {
         luckysheetPostil.overshow(event); //有批注显示
         hyperlinkCtrl.overshow(event); //链接提示显示
 
@@ -298,8 +299,8 @@ export default function documentMousemove() {
                 ).index($("#luckysheet-sheets-item-clone"));
             }
         } else if (Store.luckysheet_model_move_state) {
-            let scrollTop = $(document).scrollTop(),
-                scrollLeft = $(document).scrollLeft();
+            let scrollTop = document.documentElement.scrollTop,
+                scrollLeft = document.documentElement.scrollLeft;
             let y = event.pageY + scrollTop,
                 x = event.pageX + scrollLeft;
             let winH = document.documentElement.clientHeight,

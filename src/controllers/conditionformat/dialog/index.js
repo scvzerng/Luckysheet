@@ -92,8 +92,8 @@ const dialogModule = {
       myw = $t.outerWidth();
     let winw = document.documentElement.clientWidth,
       winh = document.documentElement.clientHeight;
-    let scrollLeft = $(document).scrollLeft(),
-      scrollTop = $(document).scrollTop();
+    let scrollLeft = document.documentElement.scrollLeft,
+      scrollTop = document.documentElement.scrollTop;
     formulaDialogs.singleRange.showAt({
       "left": (winw + scrollLeft - myw) / 2,
       "top": (winh + scrollTop - myh) / 3
@@ -118,8 +118,8 @@ const dialogModule = {
       myw = $t.outerWidth();
     let winw = document.documentElement.clientWidth,
       winh = document.documentElement.clientHeight;
-    let scrollLeft = $(document).scrollLeft(),
-      scrollTop = $(document).scrollTop();
+    let scrollLeft = document.documentElement.scrollLeft,
+      scrollTop = document.documentElement.scrollTop;
     formulaDialogs.multiRange.showAt({
       "left": (winw + scrollLeft - myw) / 2,
       "top": (winh + scrollTop - myh) / 3
@@ -145,8 +145,8 @@ const dialogModule = {
       myw = $t.outerWidth();
     let winw = document.documentElement.clientWidth,
       winh = document.documentElement.clientHeight;
-    let scrollLeft = $(document).scrollLeft(),
-      scrollTop = $(document).scrollTop();
+    let scrollLeft = document.documentElement.scrollLeft,
+      scrollTop = document.documentElement.scrollTop;
     conditionformatDialog.main.el.css({
       "left": (winw + scrollLeft - myw) / 2,
       "top": (winh + scrollTop - myh) / 3
@@ -229,8 +229,8 @@ const dialogModule = {
       myw = $t.outerWidth();
     let winw = document.documentElement.clientWidth,
       winh = document.documentElement.clientHeight;
-    let scrollLeft = $(document).scrollLeft(),
-      scrollTop = $(document).scrollTop();
+    let scrollLeft = document.documentElement.scrollLeft,
+      scrollTop = document.documentElement.scrollTop;
     $("#luckysheet-CFicons-dialog").css({
       "left": (winw + scrollLeft - myw) / 2,
       "top": (winh + scrollTop - myh) / 3
@@ -287,8 +287,8 @@ const dialogModule = {
       myw = $t.outerWidth();
     let winw = document.documentElement.clientWidth,
       winh = document.documentElement.clientHeight;
-    let scrollLeft = $(document).scrollLeft(),
-      scrollTop = $(document).scrollTop();
+    let scrollLeft = document.documentElement.scrollLeft,
+      scrollTop = document.documentElement.scrollTop;
     conditionformatDialog.adminRule.el.css({
       "left": (winw + scrollLeft - myw) / 2,
       "top": (winh + scrollTop - myh) / 3
@@ -324,8 +324,8 @@ const dialogModule = {
       myw = $t.outerWidth();
     let winw = document.documentElement.clientWidth,
       winh = document.documentElement.clientHeight;
-    let scrollLeft = $(document).scrollLeft(),
-      scrollTop = $(document).scrollTop();
+    let scrollLeft = document.documentElement.scrollLeft,
+      scrollTop = document.documentElement.scrollTop;
     $("#luckysheet-newConditionRule-dialog").css({
       "left": (winw + scrollLeft - myw) / 2,
       "top": (winh + scrollTop - myh) / 3
@@ -399,8 +399,8 @@ const dialogModule = {
       myw = $t.outerWidth();
     let winw = document.documentElement.clientWidth,
       winh = document.documentElement.clientHeight;
-    let scrollLeft = $(document).scrollLeft(),
-      scrollTop = $(document).scrollTop();
+    let scrollLeft = document.documentElement.scrollLeft,
+      scrollTop = document.documentElement.scrollTop;
     $("#luckysheet-editorConditionRule-dialog").css({
       "left": (winw + scrollLeft - myw) / 2,
       "top": (winh + scrollTop - myh) / 3
@@ -533,8 +533,8 @@ const dialogModule = {
       myw = $t.outerWidth();
     let winw = document.documentElement.clientWidth,
       winh = document.documentElement.clientHeight;
-    let scrollLeft = $(document).scrollLeft(),
-      scrollTop = $(document).scrollTop();
+    let scrollLeft = document.documentElement.scrollLeft,
+      scrollTop = document.documentElement.scrollTop;
     $("#luckysheet-conditionformat-info-dialog").css({
       "left": (winw + scrollLeft - myw) / 2,
       "top": (winh + scrollTop - myh) / 3

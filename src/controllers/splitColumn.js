@@ -1,3 +1,4 @@
+import { onNS, offNS } from '../utils/migrationHelpers.js';
 import { replaceHtml } from '../utils/util';
 import { showModalMask, hideModalMask } from '../utils/domUtils.js';
 import { modelHTML } from './constant';
@@ -70,7 +71,7 @@ const luckysheetSplitColumn = {
             myh = $t.outerHeight(), 
             myw = $t.outerWidth();
         let winw = document.documentElement.clientWidth, winh = document.documentElement.clientHeight;
-        let scrollLeft = $(document).scrollLeft(), scrollTop = $(document).scrollTop();
+        let scrollLeft = document.documentElement.scrollLeft, scrollTop = document.documentElement.scrollTop;
         $("#luckysheet-splitColumn-dialog").css({ "left": (winw + scrollLeft - myw) / 2, "top": (winh + scrollTop - myh) / 3 }).show();
 
         let dataArr = _this.getDataArr();
@@ -82,12 +83,14 @@ const luckysheetSplitColumn = {
         const locale_splitText = _locale.splitText;
 
         //数据预览
-        $(document).off("change.SPCinpcheckbox").on("change.SPCcheckbox", "#luckysheet-splitColumn-dialog .box input[type='checkbox']", function(){
+        offNS("SPCcheckbox");
+        onNS(document, "change.SPCcheckbox", "#luckysheet-splitColumn-dialog .box input[type='checkbox']", function(){
             let regStr = _this.getRegStr();
             let dataArr = _this.getDataArr(regStr);
             _this.dataPreview(dataArr);
         });
-        $(document).off("keyup.SPCinptext").on("keyup.SPCinptext", "#luckysheet-splitColumn-dialog .box input[type='text']", function(){
+        offNS("SPCinptext");
+        onNS(document, "keyup.SPCinptext", "#luckysheet-splitColumn-dialog .box input[type='text']", function(){
             if($(this).siblings("input[type='checkbox']").is(":checked")){
                 let regStr = _this.getRegStr();
                 let dataArr = _this.getDataArr(regStr);
@@ -96,7 +99,8 @@ const luckysheetSplitColumn = {
         })
 
         //确定按钮
-        $(document).off("click.SPCconfirm").on("click.SPCconfirm", "#luckysheet-splitColumn-dialog #luckysheet-splitColumn-dialog-confirm", function(){
+        offNS("SPCconfirm");
+        onNS(document, "click.SPCconfirm", "#luckysheet-splitColumn-dialog #luckysheet-splitColumn-dialog-confirm", function(){
             hideModalMask();
             $("#luckysheet-splitColumn-dialog").hide();
 

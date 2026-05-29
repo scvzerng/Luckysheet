@@ -1,3 +1,4 @@
+import { onNS, offNS } from '../../../utils/migrationHelpers.js';
 import { getSheetIndex } from '../../../methods/get';
 import { getFileBySheetIndex } from '../../../utils/storeAccess.js';
 import Store from '../../../store';
@@ -10,14 +11,17 @@ import formulaDialogs from '../../../ui/formulaDialogs.js';
 import conditionformatDialog from '../../../ui/conditionformatDialog.js';
 
 export function initAdminRuleEvents(_this) {
-      $(document).off("change.CFchooseSheet").on("change.CFchooseSheet", "#luckysheet-administerRule-dialog .chooseSheet", function () {
+      offNS("CFchooseSheet");
+      onNS(document, "change.CFchooseSheet", "#luckysheet-administerRule-dialog .chooseSheet", function () {
         let index = conditionformatDialog.adminRule.find(".chooseSheet option:selected").val();
         _this.getConditionRuleList(index);
       });
-      $(document).off("click.CFadministerRuleItem").on("click.CFadministerRuleItem", "#luckysheet-administerRule-dialog .ruleList .listBox .item", function () {
+      offNS("CFadministerRuleItem");
+      onNS(document, "click.CFadministerRuleItem", "#luckysheet-administerRule-dialog .ruleList .listBox .item", function () {
         $(this).addClass("on").siblings().removeClass("on");
       });
-      $(document).off("click.CFadministerRuleConfirm").on("click.CFadministerRuleConfirm", "#luckysheet-administerRule-dialog-confirm", function () {
+      offNS("CFadministerRuleConfirm");
+      onNS(document, "click.CFadministerRuleConfirm", "#luckysheet-administerRule-dialog-confirm", function () {
         let fileH = $.extend(true, [], Store.luckysheetfile);
         let historyRules = _this.getHistoryRules(fileH);
 
@@ -34,12 +38,14 @@ export function initAdminRuleEvents(_this) {
         hideModalMask();
         conditionformatDialog.adminRule.hide();
       });
-      $(document).off("click.CFadministerRuleClose").on("click.CFadministerRuleClose", "#luckysheet-administerRule-dialog-close", function () {
+      offNS("CFadministerRuleClose");
+      onNS(document, "click.CFadministerRuleClose", "#luckysheet-administerRule-dialog-close", function () {
         hideModalMask();
         conditionformatDialog.adminRule.hide();
         _this.fileClone = [];
       });
-      $(document).off("click.CFadministerRuleFa").on("click.CFadministerRuleFa", "#luckysheet-administerRule-dialog .item .fa-table", function () {
+      offNS("CFadministerRuleFa");
+      onNS(document, "click.CFadministerRuleFa", "#luckysheet-administerRule-dialog .item .fa-table", function () {
         conditionformatDialog.adminRule.hide();
         let sheetIndex = conditionformatDialog.adminRule.find(".chooseSheet select option:selected").val();
         if (sheetIndex != Store.currentSheetIndex) {
@@ -78,7 +84,8 @@ export function initAdminRuleEvents(_this) {
         }
         selectionCopyShow(_this.selectRange);
       });
-      $(document).off("click.CFmultiRangeConfirm").on("click.CFmultiRangeConfirm", "#luckysheet-multiRange-dialog-confirm", function () {
+      offNS("CFmultiRangeConfirm");
+      onNS(document, "click.CFmultiRangeConfirm", "#luckysheet-multiRange-dialog-confirm", function () {
         formulaDialogs.multiRange.hide();
         let dataItem = $(this).attr("data-item");
         let v = formulaDialogs.multiRange.find("input").val();
@@ -90,7 +97,8 @@ export function initAdminRuleEvents(_this) {
         let range = [];
         selectionCopyShow(range);
       });
-      $(document).off("click.CFmultiRangeClose").on("click.CFmultiRangeClose", "#luckysheet-multiRange-dialog-close", function () {
+      offNS("CFmultiRangeClose");
+      onNS(document, "click.CFmultiRangeClose", "#luckysheet-multiRange-dialog-close", function () {
         formulaDialogs.multiRange.hide();
         showModalMask();
         conditionformatDialog.adminRule.show();

@@ -25,7 +25,7 @@ const tooltip = {
             myh = $t.outerHeight(), 
             myw = $t.outerWidth();
         let winw = document.documentElement.clientWidth, winh = document.documentElement.clientHeight;
-        let scrollLeft = $(document).scrollLeft(), scrollTop = $(document).scrollTop();
+        let scrollLeft = document.documentElement.scrollLeft, scrollTop = document.documentElement.scrollTop;
         $("#luckysheet-info").css({ "left": (winw + scrollLeft - myw) / 2, "top": (winh + scrollTop - myh) / 3 }).show();
     },
     confirm: function (title, content, func1, func2, name1, name2) {
@@ -54,7 +54,7 @@ const tooltip = {
             myh = $t.outerHeight(), 
             myw = $t.outerWidth();
         let winw = document.documentElement.clientWidth, winh = document.documentElement.clientHeight;
-        let scrollLeft = $(document).scrollLeft(), scrollTop = $(document).scrollTop();
+        let scrollLeft = document.documentElement.scrollLeft, scrollTop = document.documentElement.scrollTop;
         $("#luckysheet-confirm").css({ "left": (winw + scrollLeft - myw) / 2, "top": (winh + scrollTop - myh) / 3 }).show();
         $t.find(".luckysheet-model-conform-btn").click(function () {
             if (typeof func1 == 'function') {
@@ -89,7 +89,7 @@ const tooltip = {
             myh = $t.outerHeight(), 
             myw = $t.outerWidth();
         let winw = document.documentElement.clientWidth, winh = document.documentElement.clientHeight;
-        let scrollLeft = $(document).scrollLeft(), scrollTop = $(document).scrollTop();
+        let scrollLeft = document.documentElement.scrollLeft, scrollTop = document.documentElement.scrollTop;
         $("#luckysheet-confirm").css({ "left": (winw + scrollLeft - myw) / 2, "top": (winh + scrollTop - myh) / 3 }).show();
         $t.find(".luckysheet-model-conform-btn").click(function () {
             let $a = $("<a></a>").attr("href", imgurl).attr("download", "luckysheet.png").appendTo("body");

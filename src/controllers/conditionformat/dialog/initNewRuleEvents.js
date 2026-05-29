@@ -1,3 +1,4 @@
+import { onNS, offNS } from '../../../utils/migrationHelpers.js';
 import { parseConditionRange } from '../rangeParser.js';
 import tooltip from '../../../global/tooltip';
 import { isEditMode } from '../../../global/validate';
@@ -14,7 +15,8 @@ import conditionformatDialog from '../../../ui/conditionformatDialog.js';
 export function initNewRuleEvents(_this) {
       const conditionformat_Text = locale().conditionformat;
       // 新建规则
-      $(document).off("click.CFnewConditionRule").on("click.CFnewConditionRule", "#newConditionRule", function () {
+      offNS("CFnewConditionRule");
+      onNS(document, "click.CFnewConditionRule", "#newConditionRule", function () {
         let sheetIndex = conditionformatDialog.adminRule.find(".chooseSheet option:selected").val();
         if (Store.luckysheet_select_save.length == 0) {
           if (isEditMode()) {
@@ -26,7 +28,8 @@ export function initNewRuleEvents(_this) {
         }
         _this.newConditionRuleDialog(1);
       });
-      $(document).off("click.CFnewConditionRuleConfirm").on("click.CFnewConditionRuleConfirm", "#luckysheet-newConditionRule-dialog-confirm", function () {
+      offNS("CFnewConditionRuleConfirm");
+      onNS(document, "click.CFnewConditionRuleConfirm", "#luckysheet-newConditionRule-dialog-confirm", function () {
         let index = $("#luckysheet-newConditionRule-dialog .ruleTypeItem.on").index();
         let type1 = $("#luckysheet-newConditionRule-dialog #type1 option:selected").val();
         let type2 = $("#luckysheet-newConditionRule-dialog ." + type1 + "Box #type2 option:selected").val();
@@ -251,7 +254,8 @@ export function initNewRuleEvents(_this) {
           _this.administerRuleDialog();
         }
       });
-      $(document).off("click.CFnewConditionRuleClose").on("click.CFnewConditionRuleClose", "#luckysheet-newConditionRule-dialog-close", function () {
+      offNS("CFnewConditionRuleClose");
+      onNS(document, "click.CFnewConditionRuleClose", "#luckysheet-newConditionRule-dialog-close", function () {
         //新建规则的入�?
         let source = $(this).attr("data-source");
         if (source == 0) {

@@ -25,8 +25,8 @@ function openSelfModel(id, isshowMask = true) {
         myw = $t.outerWidth();
     let winw = document.documentElement.clientWidth,
         winh = document.documentElement.clientHeight;
-    let scrollLeft = $(document).scrollLeft(),
-        scrollTop = $(document).scrollTop();
+    let scrollLeft = document.documentElement.scrollLeft,
+        scrollTop = document.documentElement.scrollTop;
     $t.css({
         left: (winw + scrollLeft - myw) / 2,
         top: (winh + scrollTop - myh) / 3,

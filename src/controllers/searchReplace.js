@@ -1,3 +1,4 @@
+import { onNS, offNS } from '../utils/migrationHelpers.js';
 import { replaceHtml, chatatABC } from "../utils/util";
 import { hideModalMask, getScrollPosition } from "../utils/domUtils.js";
 import { getCurrentFile, getLastSelection, getFocusCell } from "../utils/storeAccess.js";
@@ -102,8 +103,8 @@ const luckysheetSearchReplace = {
             myw = $t.outerWidth();
         let winw = document.documentElement.clientWidth,
             winh = document.documentElement.clientHeight;
-        let scrollLeft = $(document).scrollLeft(),
-            scrollTop = $(document).scrollTop();
+        let scrollLeft = document.documentElement.scrollLeft,
+            scrollTop = document.documentElement.scrollTop;
         $("#luckysheet-search-replace")
             .css({ left: (winw + scrollLeft - myw) / 2, top: (winh + scrollTop - myh) / 3 })
             .show();
@@ -130,9 +131,8 @@ const luckysheetSearchReplace = {
         let _this = this;
 
         //查找替换 切换
-        $(document)
-            .off("click.SRtabBoxspan")
-            .on("click.SRtabBoxspan", "#luckysheet-search-replace .tabBox span", function() {
+        offNS("SRtabBoxspan");
+        onNS(document, "click.SRtabBoxspan", "#luckysheet-search-replace .tabBox span", function() {
                 $(this)
                     .addClass("on")
                     .siblings()
@@ -155,29 +155,25 @@ const luckysheetSearchReplace = {
             });
 
         //查找下一个
-        $(document)
-            .off("keyup.SRsearchInput")
-            .on("keyup.SRsearchInput", "#luckysheet-search-replace #searchInput input", function(event) {
+        offNS("SRsearchInput");
+        onNS(document, "keyup.SRsearchInput", "#luckysheet-search-replace #searchInput input", function(event) {
                 let kcode = event.keyCode;
                 if (kcode == keycode.ENTER) {
                     _this.searchNext();
                 }
             });
-        $(document)
-            .off("click.SRsearchNextBtn")
-            .on("click.SRsearchNextBtn", "#luckysheet-search-replace #searchNextBtn", function() {
+        offNS("SRsearchNextBtn");
+        onNS(document, "click.SRsearchNextBtn", "#luckysheet-search-replace #searchNextBtn", function() {
                 _this.searchNext();
             });
 
         //查找全部
-        $(document)
-            .off("click.SRsearchAllBtn")
-            .on("click.SRsearchAllBtn", "#luckysheet-search-replace #searchAllBtn", function() {
+        offNS("SRsearchAllBtn");
+        onNS(document, "click.SRsearchAllBtn", "#luckysheet-search-replace #searchAllBtn", function() {
                 _this.searchAll();
             });
-        $(document)
-            .off("click.SRsearchAllboxItem")
-            .on("click.SRsearchAllboxItem", "#luckysheet-search-replace #searchAllbox .boxItem", function() {
+        offNS("SRsearchAllboxItem");
+        onNS(document, "click.SRsearchAllboxItem", "#luckysheet-search-replace #searchAllbox .boxItem", function() {
                 $(this)
                     .addClass("on")
                     .siblings()
@@ -220,16 +216,14 @@ const luckysheetSearchReplace = {
             });
 
         //替换
-        $(document)
-            .off("click.SRreplaceBtn")
-            .on("click.SRreplaceBtn", "#luckysheet-search-replace #replaceBtn", function() {
+        offNS("SRreplaceBtn");
+        onNS(document, "click.SRreplaceBtn", "#luckysheet-search-replace #replaceBtn", function() {
                 _this.replace();
             });
 
         //全部替换
-        $(document)
-            .off("click.SRreplaceAllBtn")
-            .on("click.SRreplaceAllBtn", "#luckysheet-search-replace #replaceAllBtn", function() {
+        offNS("SRreplaceAllBtn");
+        onNS(document, "click.SRreplaceAllBtn", "#luckysheet-search-replace #replaceAllBtn", function() {
                 _this.replaceAll();
             });
     },

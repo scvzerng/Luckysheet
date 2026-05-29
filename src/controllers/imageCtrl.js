@@ -1,3 +1,4 @@
+import { onNS, offNS } from '../utils/migrationHelpers.js';
 import { mouseposition } from '../global/location';
 import luckysheetsizeauto from './resize';
 import { modelHTML } from './constant';
@@ -262,7 +263,7 @@ const imageCtrl = {
             myh = $t.outerHeight(), 
             myw = $t.outerWidth();
         let winw = document.documentElement.clientWidth, winh = document.documentElement.clientHeight;
-        let scrollLeft = $(document).scrollLeft(), scrollTop = $(document).scrollTop();
+        let scrollLeft = document.documentElement.scrollLeft, scrollTop = document.documentElement.scrollTop;
         $("#luckysheet-imageCtrl-colorSelect-dialog").css({ 
             "left": (winw + scrollLeft - myw) / 2, 
             "top": (winh + scrollTop - myh) / 3 
@@ -344,7 +345,8 @@ const imageCtrl = {
         })
 
         //边框选择颜色 确定 
-        $(document).off("click.selectColorConfirm").on("click.selectColorConfirm", "#luckysheet-imageCtrl-colorSelect-dialog-confirm", function(){
+        offNS("selectColorConfirm");
+        onNS(document, "click.selectColorConfirm", "#luckysheet-imageCtrl-colorSelect-dialog-confirm", function(){
             let $parent = $(this).parents("#luckysheet-imageCtrl-colorSelect-dialog");
             hideModalMask();
             $parent.hide();

@@ -1,3 +1,4 @@
+import { onNS, offNS } from '../../utils/migrationHelpers.js';
 import { rowLocationByIndex, colLocationByIndex } from "../../global/location";
 import { countfunc } from "../../global/count";
 import { getObjType, replaceHtml } from "../../utils/util";
@@ -100,7 +101,8 @@ const uiModule = {
     });
 
     //点击数据填充类型
-    $(document).off("click.dCtypeList").on("click.dCtypeList", "#luckysheet-dropCell-typeList .luckysheet-cols-menuitem", function () {
+    offNS("dCtypeList");
+    onNS(document, "click.dCtypeList", "#luckysheet-dropCell-typeList .luckysheet-cols-menuitem", function () {
       $("#luckysheet-dropCell-typeList .fa-check").remove();
       $(this).find("span").append('<i class="fa fa-check luckysheet-mousedown-cancel"></i>');
       let type = $(this).attr("data-type");

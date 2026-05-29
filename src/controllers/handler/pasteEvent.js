@@ -1,3 +1,4 @@
+import { onNS, offNS } from '../../utils/migrationHelpers.js';
 import imageCtrl from "../imageCtrl";
 import menuButton from "../menuButton";
 import {
@@ -30,7 +31,7 @@ import richTextEditor from '../../ui/richTextEditor.js';
 
 export default function pasteEvent() {
     //粘贴事件处理
-    $(document).on("paste.luckysheetEvent", function(e) {
+    onNS(document, "paste.luckysheetEvent", null, function(e) {
         if (isEditMode()) {
             //此模式下禁用粘贴
             return;

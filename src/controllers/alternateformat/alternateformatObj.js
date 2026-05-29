@@ -1,3 +1,4 @@
+import { onNS, offNS } from '../../utils/migrationHelpers.js';
 import Store from '../../store';
 import locale from '../../locale/locale';
 import formula from '../../global/formula';
@@ -133,27 +134,32 @@ const alternateformat = {
         });
 
         //应用范围
-        $(document).off("focus.AFrangeInput").on("focus.AFrangeInput", "#luckysheet-alternateformat-range input", function(){
+        offNS("AFrangeInput");
+        onNS(document, "focus.AFrangeInput", "#luckysheet-alternateformat-range input", function(){
             _this.rangefocus = true;
         });
-        $(document).off("blur.AFrangeInput").on("blur.AFrangeInput", "#luckysheet-alternateformat-range input", function(){
+        offNS("AFrangeInput");
+        onNS(document, "blur.AFrangeInput", "#luckysheet-alternateformat-range input", function(){
             _this.rangefocus = false;
         });
 
-        $(document).off("keydown.AFrangeInput").on("keydown.AFrangeInput", "#luckysheet-alternateformat-range input", function(e){
+        offNS("AFrangeInput");
+        onNS(document, "keydown.AFrangeInput", "#luckysheet-alternateformat-range input", function(e){
             let rangeValue = $(this).val().trim();
             if(e.keyCode == 13){
                 _this.update();
             }
         });
-        $(document).off("click.AFrangeIcon").on("click.AFrangeIcon", "#luckysheet-alternateformat-range .fa-table", function(){
+        offNS("AFrangeIcon");
+        onNS(document, "click.AFrangeIcon", "#luckysheet-alternateformat-range .fa-table", function(){
             $("#luckysheet-modal-dialog-slider-alternateformat").hide();
             luckysheetsizeauto();
 
             let rangeValue = $(this).parents("#luckysheet-alternateformat-range").find("input").val().trim();
             _this.rangeDialog(rangeValue);
         });
-        $(document).off("click.AFrDCf").on("click.AFrDCf", "#luckysheet-alternateformat-rangeDialog-confirm", function(){
+        offNS("AFrDCf");
+        onNS(document, "click.AFrDCf", "#luckysheet-alternateformat-rangeDialog-confirm", function(){
             let rangeValue = $(this).parents("#luckysheet-alternateformat-rangeDialog").find("input").val().trim();
             $("#luckysheet-modal-dialog-slider-alternateformat #luckysheet-alternateformat-range input").val(rangeValue);
 
@@ -163,19 +169,22 @@ const alternateformat = {
 
             _this.update();
         });
-        $(document).off("click.AFrDCl").on("click.AFrDCl", "#luckysheet-alternateformat-rangeDialog-close", function(){
+        offNS("AFrDCl");
+        onNS(document, "click.AFrDCl", "#luckysheet-alternateformat-rangeDialog-close", function(){
             $(this).parents("#luckysheet-alternateformat-rangeDialog").hide();
             $("#luckysheet-modal-dialog-slider-alternateformat").show();
             luckysheetsizeauto();
         });
-        $(document).off("click.AFrDTitle").on("click.AFrDTitle", "#luckysheet-alternateformat-rangeDialog .luckysheet-modal-dialog-title-close", function(){
+        offNS("AFrDTitle");
+        onNS(document, "click.AFrDTitle", "#luckysheet-alternateformat-rangeDialog .luckysheet-modal-dialog-title-close", function(){
             $(this).parents("#luckysheet-alternateformat-rangeDialog").hide();
             $("#luckysheet-modal-dialog-slider-alternateformat").show();
             luckysheetsizeauto();
         });
 
         //页眉、页脚选中
-        $(document).off("change.AFrowHeader").on("change.AFrowHeader", "#luckysheet-alternateformat-rowHeader", function(){
+        offNS("AFrowHeader");
+        onNS(document, "change.AFrowHeader", "#luckysheet-alternateformat-rowHeader", function(){
             let hasRowHeader;
             if($(this).is(":checked")){
                 hasRowHeader = true;
@@ -196,7 +205,8 @@ const alternateformat = {
             _this.modelboxOn();
             _this.update();
         });
-        $(document).off("change.AFrowFooter").on("change.AFrowFooter", "#luckysheet-alternateformat-rowFooter", function(){
+        offNS("AFrowFooter");
+        onNS(document, "change.AFrowFooter", "#luckysheet-alternateformat-rowFooter", function(){
             let hasRowHeader;
             if($("#luckysheet-alternateformat-rowHeader").is(":checked")){
                 hasRowHeader = true;
@@ -219,7 +229,8 @@ const alternateformat = {
         });
 
         //点击样式模板
-        $(document).off("click.AFmodelbox").on("click.AFmodelbox", "#luckysheet-modal-dialog-slider-alternateformat .modelbox", function(){
+        offNS("AFmodelbox");
+        onNS(document, "click.AFmodelbox", "#luckysheet-modal-dialog-slider-alternateformat .modelbox", function(){
             let index = $(this).index();
             let $id = $(this).parents(".cf").attr("id");
 
@@ -236,7 +247,8 @@ const alternateformat = {
         });
 
         //点击选择文本/单元格颜色
-        $(document).off("click.AFselectColor").on("click.AFselectColor", "#luckysheet-modal-dialog-slider-alternateformat .luckysheet-color-menu-button-indicator", function(){
+        offNS("AFselectColor");
+        onNS(document, "click.AFselectColor", "#luckysheet-modal-dialog-slider-alternateformat .luckysheet-color-menu-button-indicator", function(){
             let $parent = $(this).closest(".toningbox");
 
             let colorType, currenColor;
@@ -268,7 +280,8 @@ const alternateformat = {
         });
 
         //选择颜色 确定 添加自定义模板
-        $(document).off("click.AFselectColorConfirm").on("click.AFselectColorConfirm", "#luckysheet-alternateformat-colorSelect-dialog-confirm", function(){
+        offNS("AFselectColorConfirm");
+        onNS(document, "click.AFselectColorConfirm", "#luckysheet-alternateformat-colorSelect-dialog-confirm", function(){
             let $parent = $(this).parents("#luckysheet-alternateformat-colorSelect-dialog");
             const _locale = locale()
             const alternatingColors =_locale.alternatingColors;
@@ -417,7 +430,8 @@ const alternateformat = {
         });
         
         //点击 移除交替颜色 按钮
-        $(document).off("click.AFremove").on("click.AFremove", "#luckysheet-alternateformat-remove", function(){
+        offNS("AFremove");
+        onNS(document, "click.AFremove", "#luckysheet-alternateformat-remove", function(){
             let dataIndex = $(this).data("index");
 
             let file = getCurrentFile();
@@ -590,8 +604,8 @@ const alternateformat = {
             myh = $t.outerHeight(), 
             myw = $t.outerWidth();
         let winw = document.documentElement.clientWidth, winh = document.documentElement.clientHeight;
-        let scrollLeft = $(document).scrollLeft(), scrollTop = $(document).scrollTop();
-        $("#luckysheet-alternateformat-colorSelect-dialog").css({ 
+        let scrollLeft = document.documentElement.scrollLeft, scrollTop = document.documentElement.scrollTop;
+        $("#luckysheet-alternateformat-colorSelect-dialog").css({
             "left": (winw + scrollLeft - myw) / 2, 
             "top": (winh + scrollTop - myh) / 3 
         }).show();
@@ -664,8 +678,8 @@ const alternateformat = {
             myh = $t.outerHeight(), 
             myw = $t.outerWidth();
         let winw = document.documentElement.clientWidth, winh = document.documentElement.clientHeight;
-        let scrollLeft = $(document).scrollLeft(), scrollTop = $(document).scrollTop();
-        $("#luckysheet-alternateformat-rangeDialog").css({ 
+        let scrollLeft = document.documentElement.scrollLeft, scrollTop = document.documentElement.scrollTop;
+        $("#luckysheet-alternateformat-rangeDialog").css({
             "left": (winw + scrollLeft - myw) / 2, 
             "top": (winh + scrollTop - myh) / 3 
         }).show();

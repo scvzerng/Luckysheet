@@ -1,3 +1,4 @@
+import { onNS, offNS } from '../../utils/migrationHelpers.js';
 import luckysheetPostil from "../postil";
 import { luckysheetMoveHighlightCell } from "../sheetMove";
 import {
@@ -44,29 +45,25 @@ export default function globalEvents() {
         }
     };
 
-    $(document)
-        .on(
-            "visibilitychange.luckysheetEvent webkitvisibilitychange.luckysheetEvent msvisibilitychange.luckysheetEvent",
-            copychange,
-        )
-        .on("mouseleave.luckysheetEvent", function() {
-            Store.iscopyself = false;
-        })
-        .on("mousedown.luckysheetEvent", function(event) {
-            //有批注在编辑时
-            luckysheetPostil.removeActivePs();
+    onNS(document, "visibilitychange.luckysheetEvent", null, copychange);
+    onNS(document, "webkitvisibilitychange.luckysheetEvent", null, copychange);
+    onNS(document, "msvisibilitychange.luckysheetEvent", null, copychange);
+    onNS(document, "mouseleave.luckysheetEvent", null, function() {
+        Store.iscopyself = false;
+    });
+    onNS(document, "mousedown.luckysheetEvent", null, function(event) {
+        luckysheetPostil.removeActivePs();
 
-            hideMenuByCancel(event);
+        hideMenuByCancel(event);
 
-            //点击功能栏时 如果是单元格编辑模式 则退出编辑模式
-            if (
-                $(event.target).closest("#luckysheet-wa-editor").length > 0 &&
-                isInputBoxActive()
-            ) {
-                formula.updatecell(Store.luckysheetCellUpdate[0], Store.luckysheetCellUpdate[1]);
-                luckysheetMoveHighlightCell("down", 0, "rangeOfSelect");
-            }
-        });
+        if (
+            $(event.target).closest("#luckysheet-wa-editor").length > 0 &&
+            isInputBoxActive()
+        ) {
+            formula.updatecell(Store.luckysheetCellUpdate[0], Store.luckysheetCellUpdate[1]);
+            luckysheetMoveHighlightCell("down", 0, "rangeOfSelect");
+        }
+    });
 
     //表格左上角点击 全选表格
     $("#luckysheet-left-top").click(function(event) {
@@ -110,7 +107,7 @@ export default function globalEvents() {
     });
 
     //模态框拖动
-    $(document).on("mousedown.luckysheetEvent", "div.luckysheet-modal-dialog", function(e) {
+    onNS(document, "mousedown.luckysheetEvent", "div.luckysheet-modal-dialog", function(e) {
         if (!$(e.target).is(".luckysheet-modal-dialog")) {
             return;
         }
@@ -123,10 +120,7 @@ export default function globalEvents() {
     });
 
     //模态框关闭
-    $(document).on(
-        "click.luckysheetEvent",
-        ".luckysheet-modal-dialog-title-close, .luckysheet-model-close-btn",
-        function(e) {
+    onNS(document, "click.luckysheetEvent", ".luckysheet-modal-dialog-title-close, .luckysheet-model-close-btn", function(e) {
             //选择文本颜色和单元格颜色弹出框取消
             if ($("#textcolorselect").is(":visible") || $("#cellcolorselect").is(":visible")) {
                 conditionformatDialog.main.show();
