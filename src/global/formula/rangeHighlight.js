@@ -93,14 +93,14 @@ const rangeHighlight = {
                     txt = spans[spans.length - 2].textContent.trim();
                     return ahr;
                 } else {
-                    return anchor.querySelector("span").last();
+                    return anchor.querySelector("span");
                 }
             } else if (
-                anchor.parentElement === richTextEditor.el ||
-                anchor.parentElement === functionBox.el ||
+                anchor.parentElement && (anchor.parentElement === richTextEditor.el ||
+                anchor.parentElement === functionBox.el) ||
                 anchorOffset == 0
             ) {
-                if (anchorOffset == 0) {
+                if (anchorOffset == 0 && anchor.parentElement) {
                     anchor = anchor.parentElement;
                 }
 

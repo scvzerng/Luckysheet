@@ -107,11 +107,11 @@ const rangeSelect = {
                     return true;
                 }
             } else if (
-                anchor.parentElement === richTextEditor.el ||
-                anchor.parentElement === functionBox.el ||
+                anchor.parentElement && (anchor.parentElement === richTextEditor.el ||
+                anchor.parentElement === functionBox.el) ||
                 anchorOffset == 0
             ) {
-                if (anchorOffset == 0) {
+                if (anchorOffset == 0 && anchor.parentElement) {
                     anchor = anchor.parentElement;
                 }
 
