@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿import { rowLocation, colLocation, mouseposition } from '../global/location';
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿import { rowLocation, colLocation, mouseposition } from '../global/location';
 import editor from '../global/editor';
 import { luckysheetRangeLast } from '../global/cursorPos';
 import { luckysheetrefreshgrid } from '../global/refresh';
@@ -145,7 +145,7 @@ const luckysheetPostil = {
     overshow: function(event){
         let _this = this;
 
-        document.getElementById("luckysheet-postil-overshow").remove();
+        document.getElementById("luckysheet-postil-overshow")?.remove();
 
         if(event.target.closest(cellMain.el) === null){
             return;
@@ -329,7 +329,7 @@ const luckysheetPostil = {
     },
     buildPs: function(r, c, postil){
         if(document.querySelector("#luckysheet-postil-show_"+ r +"_"+ c) !== null){
-            document.querySelector("#luckysheet-postil-show_"+ r +"_"+ c).remove();
+            document.querySelector("#luckysheet-postil-show_"+ r +"_"+ c)?.remove();
         }
 
         if(postil == null){
@@ -591,7 +591,7 @@ const luckysheetPostil = {
         }
 
         if(document.querySelector("#luckysheet-postil-show_"+ r +"_"+ c) !== null){
-            document.querySelector("#luckysheet-postil-show_"+ r +"_"+ c).remove();
+            document.querySelector("#luckysheet-postil-show_"+ r +"_"+ c)?.remove();
         }
 
         let d = editor.deepCopyFlowData(Store.flowdata);
@@ -619,7 +619,7 @@ const luckysheetPostil = {
         if(isshow){
             d[r][c].ps.isshow = false;
 
-            document.querySelector("#luckysheet-postil-show_"+ r +"_"+ c).remove();
+            document.querySelector("#luckysheet-postil-show_"+ r +"_"+ c)?.remove();
         }
         else{
             d[r][c].ps.isshow = true;
@@ -851,7 +851,7 @@ const luckysheetPostil = {
             // Hook function
             if(!method.createHookFunction('commentUpdateBefore',r,c,value)){
                 if (!Store.flowdata[r][c].ps.isshow) {
-                    document.getElementById(id).remove();
+                    document.getElementById(id)?.remove();
                 }
                 return;
             }
@@ -872,7 +872,7 @@ const luckysheetPostil = {
             this.ref(d, rc);
 
             if(!d[r][c].ps.isshow){
-                document.getElementById(id).remove();
+                document.getElementById(id)?.remove();
             }
             // Hook function
             setTimeout(() => {

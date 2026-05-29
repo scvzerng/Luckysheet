@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿import sheetmanage from './sheetmanage';
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿import sheetmanage from './sheetmanage';
 import { sheetselectlistitemHTML, sheetselectlistHTML, keycode } from './constant';
 import {
     replaceHtml,
@@ -147,7 +147,7 @@ let luckysheetsheetrightclick = function ($t, $cur, e) {
         }
 
         resetInputBoxStyle();
-        document.querySelector("#luckysheet-formula-functionrange .luckysheet-formula-functionrange-highlight").remove();
+        document.querySelector("#luckysheet-formula-functionrange .luckysheet-formula-functionrange-highlight")?.remove();
     }
 
     document.querySelector("#luckysheet-sheet-area div.luckysheet-sheets-item").classList.remove("luckysheet-sheets-item-active");

@@ -123,7 +123,7 @@ const alternateformat = {
     init: function(){
         let _this = this;
 
-        document.getElementById("luckysheet-modal-dialog-slider-alternateformat").remove();
+        document.getElementById("luckysheet-modal-dialog-slider-alternateformat")?.remove();
         document.body.insertAdjacentHTML('beforeend', luckysheetAlternateformatHtml());
         luckysheetsizeauto();
 
@@ -574,7 +574,7 @@ const alternateformat = {
     },
     colorSelectDialog: function(currenColor, colorType, source){
         showModalMask();
-        document.getElementById("luckysheet-alternateformat-colorSelect-dialog").remove();
+        document.getElementById("luckysheet-alternateformat-colorSelect-dialog")?.remove();
 
         const _locale = locale()
         const alternatingColors =_locale.alternatingColors;
@@ -655,7 +655,7 @@ const alternateformat = {
     },
     rangeDialog: function(value){
         hideModalMask();
-        document.getElementById("luckysheet-alternateformat-rangeDialog").remove();
+        document.getElementById("luckysheet-alternateformat-rangeDialog")?.remove();
 
         const _locale = locale()
         const alternatingColors =_locale.alternatingColors;

@@ -140,8 +140,8 @@ const sheetCRUDModule = {
       return;
     }
     _this.setSheetHide(index, true);
-    document.getElementById("luckysheet-sheets-item" + index).remove();
-    document.getElementById("luckysheet-datavisual-selection-set-" + index).remove();
+    document.getElementById("luckysheet-sheets-item" + index)?.remove();
+    document.getElementById("luckysheet-datavisual-selection-set-" + index)?.remove();
     let removedsheet = Store.luckysheetfile.splice(arrIndex, 1);
     _this.reOrderAllSheet();
     if (Store.clearjfundo) {

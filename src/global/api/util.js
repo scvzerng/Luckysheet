@@ -42,7 +42,7 @@ export function getTxtByRange(range=Store.luckysheet_select_save){
 
 export function pagerInit (config) {
     const {prevPage, nextPage, total} = locale().button;
-    document.getElementById("luckysheet-bottom-pager").remove()
+    document.getElementById("luckysheet-bottom-pager")?.remove()
     document.getElementById("luckysheet-sheet-content").after('<div id="luckysheet-bottom-pager" style="font-size: 14px; margin-left: 10px; display: inline-block;"></div>')
     document.getElementById("luckysheet-bottom-pager").sPage({
         page: config.pageIndex, //当前页码，必填

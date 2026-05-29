@@ -118,7 +118,7 @@ function getModelBox(hasRowHeader, hasRowFooter) {
 function init() {
         let _this = this;
 
-        document.getElementById("luckysheet-modal-dialog-slider-alternateformat").remove();
+        document.getElementById("luckysheet-modal-dialog-slider-alternateformat")?.remove();
         document.body.insertAdjacentHTML('beforeend', luckysheetAlternateformatHtml());
         luckysheetsizeauto();
 
@@ -580,7 +580,7 @@ function addCustomModel(format) {
 
 function colorSelectDialog(currenColor, colorType, source) {
         showModalMask();
-        document.getElementById("luckysheet-alternateformat-colorSelect-dialog").remove();
+        document.getElementById("luckysheet-alternateformat-colorSelect-dialog")?.remove();
 
         const _locale = locale()
         const alternatingColors =_locale.alternatingColors;
@@ -662,7 +662,7 @@ function colorSelectDialog(currenColor, colorType, source) {
 
 function rangeDialog(value) {
         hideModalMask();
-        document.getElementById("luckysheet-alternateformat-rangeDialog").remove();
+        document.getElementById("luckysheet-alternateformat-rangeDialog")?.remove();
 
         const _locale = locale()
         const alternatingColors =_locale.alternatingColors;

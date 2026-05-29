@@ -119,7 +119,7 @@ export default function luckysheetsizeauto(isRefreshCanvas=true) {
         _container.appendChild(el);
     });
 
-    document.getElementById("luckysheet-icon-morebtn").remove();
+    document.getElementById("luckysheet-icon-morebtn")?.remove();
 
     // 所有按钮宽度与元素定位
     const toobarWidths = Store.toobarObject.toobarWidths;

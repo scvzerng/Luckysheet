@@ -46,7 +46,7 @@ function jfrefreshgrid_rhcw(rowheight, colwidth, isRefreshCanvas=true){
 
     //改变单元格行高，选区下拉icon隐藏
     if(document.getElementById("luckysheet-dropCell-icon").offsetWidth > 0){
-        document.getElementById("luckysheet-dropCell-icon").remove();
+        document.getElementById("luckysheet-dropCell-icon")?.remove();
     }
 
     //有冻结状态时，同步行高、列宽

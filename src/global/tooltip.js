@@ -8,7 +8,7 @@ import clipboard from 'clipboard-polyfill';
 const tooltip = {
     info: function (title, content) {
         showModalMask();
-        document.getElementById("luckysheet-info").remove();
+        document.getElementById("luckysheet-info")?.remove();
 
         let _locale = locale();
         let locale_button = _locale.button;
@@ -31,7 +31,7 @@ const tooltip = {
     },
     confirm: function (title, content, func1, func2, name1, name2) {
         showModalMask();
-        document.getElementById("luckysheet-confirm").remove();
+        document.getElementById("luckysheet-confirm")?.remove();
 
         const _locale = locale();
         const locale_button = _locale.button;
@@ -78,7 +78,7 @@ const tooltip = {
         const _locale = locale();
         const locale_screenshot = _locale.screenshot;
         showModalMask();
-        document.getElementById("luckysheet-confirm").remove();
+        document.getElementById("luckysheet-confirm")?.remove();
         document.body.insertAdjacentHTML('beforeend', replaceHtml(modelHTML, {
             "id": "luckysheet-confirm",
             "addclass": "",
@@ -189,7 +189,7 @@ const tooltip = {
         }
 
         let htmldiv = '<div id="luckysheetpopover" class="luckysheetpopover"><div class="luckysheetpopover-content">'+locale_paint.start+'</div><div class="luckysheetpopover-btn">'+ btntxt +'</div></div>';
-        document.getElementById("luckysheetpopover").remove();
+        document.getElementById("luckysheetpopover")?.remove();
         document.body.insertAdjacentHTML('beforeend', htmldiv);
         const _el = document.querySelector("#luckysheetpopover .luckysheetpopover-content"); if (_el) _el.innerHTML = content;
 

@@ -15,7 +15,7 @@ const paintFormatModule = {
     Store.luckysheet_copy_save = {};
     _this.luckysheetPaintModelOn = false;
     document.getElementById("luckysheetpopover").fadeOut(200, function () {
-      document.getElementById("luckysheetpopover").remove();
+      document.getElementById("luckysheetpopover")?.remove();
     });
   },
   luckysheetPaintModelOn: false,

@@ -331,7 +331,7 @@ const method = {
             Store.flowdata = [];
             editor.webWorkerFlowDataCache(Store.flowdata);//worker存数据
 
-            document.querySelector("#"+ Store.container +" .luckysheet-datavisual-selection-set").remove();
+            document.querySelector("#"+ Store.container +" .luckysheet-datavisual-selection-set")?.remove();
 
             countShow.row.style.display = 'none';
             countShow.column.style.display = 'none';
@@ -364,12 +364,12 @@ const method = {
     },
     destroy:function(){
         const _el = document.getElementById(Store.container); if (_el) _el.innerHTML = '';
-        document.querySelector("body > .luckysheet-cols-menu").remove();
+        document.querySelector("body > .luckysheet-cols-menu")?.remove();
 
-        document.querySelector("#luckysheet-modal-dialog-mask, #luckysheetTextSizeTest, #luckysheet-icon-morebtn-div").remove();
+        document.querySelector("#luckysheet-modal-dialog-mask, #luckysheetTextSizeTest, #luckysheet-icon-morebtn-div")?.remove();
         inputBox.removeParent();
         formulaDialogs.formulaHelp.remove();
-        document.querySelector(".luckysheet-modal-dialog-slider").remove();
+        document.querySelector(".luckysheet-modal-dialog-slider")?.remove();
 
         //document event release
         offNS("luckysheetEvent");

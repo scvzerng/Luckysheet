@@ -365,7 +365,7 @@ export function setSheetColor(color, options = {}) {
     let oldcolor = file.color;
     file.color = color;
 
-    document.getElementById("luckysheet-sheets-item" + file.index).querySelector(".luckysheet-sheets-item-color").remove();
+    document.getElementById("luckysheet-sheets-item" + file.index)?.querySelector(".luckysheet-sheets-item-color")?.remove();
     document.getElementById("luckysheet-sheets-item" + file.index).insertAdjacentHTML('beforeend', '<div class="luckysheet-sheets-item-color" style=" position: absolute; width: 100%; height: 3px; bottom: 0px; left: 0px; background-color: ' + color + ';"></div>');
 
 
