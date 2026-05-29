@@ -194,11 +194,11 @@ export function datagridgrowth(data, addr, addc, iscallback) {
     }
 
     let dataClen = 0;
-    if (data === null) {
+    if (data === null || data === undefined) {
         data = [];
         dataClen = 0;
     }
-    else {
+    else if (data.length > 0 && data[0]) {
         dataClen = data[0].length;
     }
 
