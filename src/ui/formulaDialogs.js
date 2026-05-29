@@ -7,7 +7,7 @@ class FormulaDialog {
     }
 
     get el() {
-        if (!this._el) this._el = $(this._selector);
+        if (!this._el || this._el.length === 0) this._el = $(this._selector);
         return this._el;
     }
 
@@ -21,6 +21,8 @@ class FormulaDialog {
         return this;
     }
     getLength() { return this.el.length; }
+    setCss(props) { this.el.css(props); return this; }
+    find(selector) { return this.el.find(selector); }
 }
 
 const formulaDialogs = {

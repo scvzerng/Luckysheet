@@ -4,7 +4,7 @@ class InputBox {
     constructor() { this._el = null; }
 
     get el() {
-        if (!this._el) this._el = $("#luckysheet-input-box");
+        if (!this._el || this._el.length === 0) this._el = $("#luckysheet-input-box");
         return this._el;
     }
 
@@ -20,7 +20,11 @@ class InputBox {
     hide() { this.el.hide(); return this; }
     resetStyle() { this.el.removeAttr("style"); return this; }
     click() { this.el.click(); return this; }
-    removeParent() { this.el.parent().remove(); return this; }
+    removeParent() { this.el.parent().remove(); this._el = null; return this; }
+
+    find(selector) { return this.el.find(selector); }
+    getNativeElement() { return this.el.get(0); }
+    getSelector() { return '#luckysheet-input-box'; }
 }
 
 export default new InputBox();

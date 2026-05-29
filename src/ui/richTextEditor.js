@@ -4,7 +4,7 @@ class RichTextEditor {
     constructor() { this._el = null; }
 
     get el() {
-        if (!this._el) this._el = $("#luckysheet-rich-text-editor");
+        if (!this._el || this._el.length === 0) this._el = $("#luckysheet-rich-text-editor");
         return this._el;
     }
 

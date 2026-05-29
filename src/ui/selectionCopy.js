@@ -2,7 +2,7 @@ import $ from '../jquery-bridge.js';
 
 class SelectionCopy {
     constructor() { this._el = null; }
-    get el() { if (!this._el) this._el = $("#luckysheet-selection-copy"); return this._el; }
+    get el() { if (!this._el || this._el.length === 0) this._el = $("#luckysheet-selection-copy"); return this._el; }
 
     setCss(props) { this.el.css(props); return this; }
     show() { this.el.show(); return this; }

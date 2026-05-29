@@ -4,7 +4,7 @@ class RightClickMenu {
     constructor() { this._el = null; }
 
     get el() {
-        if (!this._el) this._el = $("#luckysheet-rightclick-menu");
+        if (!this._el || this._el.length === 0) this._el = $("#luckysheet-rightclick-menu");
         return this._el;
     }
 
@@ -20,6 +20,8 @@ class RightClickMenu {
         this.el.css({ top: top, left: left }).show();
         return this;
     }
+    find(selector) { return this.el.find(selector); }
+    findText(selector, text) { this.el.find(selector).text(text); return this; }
 }
 
 export default new RightClickMenu();

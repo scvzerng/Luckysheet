@@ -5,7 +5,7 @@ class ResizeHandle {
         this._selector = selector;
         this._el = null;
     }
-    get el() { if (!this._el) this._el = $(this._selector); return this._el; }
+    get el() { if (!this._el || this._el.length === 0) this._el = $(this._selector); return this._el; }
 
     setCss(props) { this.el.css(props); return this; }
     hide() { this.el.hide(); return this; }
@@ -13,6 +13,7 @@ class ResizeHandle {
     addClass(cls) { this.el.addClass(cls); return this; }
     removeClass(cls) { this.el.removeClass(cls); return this; }
     onMousedown(callback) { this.el.mousedown(callback); return this; }
+    onDblclick(callback) { this.el.dblclick(callback); return this; }
 }
 
 const resizeHandles = {

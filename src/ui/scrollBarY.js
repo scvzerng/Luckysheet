@@ -4,7 +4,7 @@ class ScrollBarY {
     constructor() { this._el = null; }
 
     get el() {
-        if (!this._el) this._el = $("#luckysheet-scrollbar-y");
+        if (!this._el || this._el.length === 0) this._el = $("#luckysheet-scrollbar-y");
         return this._el;
     }
 

@@ -163,10 +163,12 @@ export function luckysheetupdateCell(row_index1, col_index1, d, cover, isnotfocu
         }
         
         let style = menuButton.getStyleByCell(d, row_index, col_index);
-        style = inputBox.el.get(0).style.cssText + style;
+        let nativeEl = inputBox.el.get(0);
+        if (!nativeEl) return;
+        style = nativeEl.style.cssText + style;
 
         inputBox.setStyleCssText(style);
-        if(inputBox.el.get(0).style.backgroundColor == "rgba(0, 0, 0, 0)"){
+        if(nativeEl.style.backgroundColor == "rgba(0, 0, 0, 0)"){
             inputBox.setStyleBackground("rgb(255,255,255)");
         }
     }

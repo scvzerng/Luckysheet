@@ -2,7 +2,7 @@ import $ from '../jquery-bridge.js';
 
 class FormulaRangeSelect {
     constructor() { this._el = null; }
-    get el() { if (!this._el) this._el = $("#luckysheet-formula-functionrange-select"); return this._el; }
+    get el() { if (!this._el || this._el.length === 0) this._el = $("#luckysheet-formula-functionrange-select"); return this._el; }
 
     hide() { this.el.hide(); return this; }
     showAt(props) { this.el.css(props).show(); return this; }

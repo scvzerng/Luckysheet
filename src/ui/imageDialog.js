@@ -6,7 +6,7 @@ class ImageDialog {
         this._el = null;
     }
 
-    get el() { if (!this._el) this._el = $(this._selector); return this._el; }
+    get el() { if (!this._el || this._el.length === 0) this._el = $(this._selector); return this._el; }
 
     isVisible() { return this.el.is(":visible"); }
     show() { this.el.show(); return this; }
