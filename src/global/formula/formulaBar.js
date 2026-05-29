@@ -92,12 +92,12 @@ const formulaBar = {
                     if (window.getSelection) {
                         // all browsers, except IE before version 9
                         let currSelection = window.getSelection();
-                        if (currSelection.anchorNode.matches("div")) {
-                            let editorlen = richTextEditor.querySelector("span").length;
+                        if (currSelection.anchorNode && currSelection.anchorNode.matches("div")) {
+                            let editorSpans = richTextEditor.el.querySelectorAll("span");
+                            let editorlen = editorSpans.length;
                             _this.functionRangeIndex = [
                                 editorlen - 1,
-                                richTextEditor.querySelector("span")
-                                    [editorlen - 1]
+                                editorSpans[editorlen - 1]
                                     .textContent.length,
                             ];
                         } else {
