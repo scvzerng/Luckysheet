@@ -22,7 +22,8 @@ const luckysheetSplitColumn = {
         const locale_button = _locale.button;
 
         showModalMask();
-        $("#luckysheet-splitColumn-dialog").remove();
+        let _elSplitCol = document.getElementById("luckysheet-splitColumn-dialog");
+        if (_elSplitCol) _elSplitCol.remove();
 
         let content = '<div class="box">' +
                         '<div class="boxTitle">'+locale_splitText.splitDelimiters+'</div>' +
@@ -67,12 +68,15 @@ const luckysheetSplitColumn = {
             "botton": '<button id="luckysheet-splitColumn-dialog-confirm" class="btn btn-primary">'+ locale_button.confirm +'</button><button class="btn btn-default luckysheet-model-close-btn">'+ locale_button.cancel +'</button>', 
             "style": "z-index:100003" 
         }));
-        let $t = $("#luckysheet-splitColumn-dialog").find(".luckysheet-modal-dialog-content").css("min-width", 400).end(), 
-            myh = $t.outerHeight(), 
-            myw = $t.outerWidth();
+        let _elDialog = document.getElementById("luckysheet-splitColumn-dialog");
+        let _elDialogContent = _elDialog.querySelector(".luckysheet-modal-dialog-content");
+        _elDialogContent.style.minWidth = "400px";
+        let myh = _elDialog.offsetHeight,
+            myw = _elDialog.offsetWidth;
         let winw = document.documentElement.clientWidth, winh = document.documentElement.clientHeight;
         let scrollLeft = document.documentElement.scrollLeft, scrollTop = document.documentElement.scrollTop;
-        $("#luckysheet-splitColumn-dialog").css({ "left": (winw + scrollLeft - myw) / 2, "top": (winh + scrollTop - myh) / 3 }).show();
+        Object.assign(_elDialog.style, { "left": (winw + scrollLeft - myw) / 2 + "px", "top": (winh + scrollTop - myh) / 3 + "px" });
+        _elDialog.style.display = '';
 
         let dataArr = _this.getDataArr();
         _this.dataPreview(dataArr);
@@ -91,7 +95,7 @@ const luckysheetSplitColumn = {
         });
         offNS("SPCinptext");
         onNS(document, "keyup.SPCinptext", "#luckysheet-splitColumn-dialog .box input[type='text']", function(){
-            if($(this).siblings("input[type='checkbox']").is(":checked")){
+            if(this.previousElementSibling && this.previousElementSibling.matches("input[type='checkbox']") && this.previousElementSibling.checked){
                 let regStr = _this.getRegStr();
                 let dataArr = _this.getDataArr(regStr);
                 _this.dataPreview(dataArr);
@@ -157,7 +161,8 @@ const luckysheetSplitColumn = {
         selectHightlightShow();
     },
     dataPreview: function(dataArr){
-        $("#luckysheet-splitColumn-dialog #splitColumnData").empty();
+        let _elSplitData = document.querySelector("#luckysheet-splitColumn-dialog #splitColumnData");
+        _elSplitData.innerHTML = '';
 
         let trHtml = '';
 
@@ -173,13 +178,13 @@ const luckysheetSplitColumn = {
 
         let tableHtml = '<table>' + trHtml + '</table>';
 
-        $("#luckysheet-splitColumn-dialog #splitColumnData").append(tableHtml);
+        _elSplitData.insertAdjacentHTML('beforeend', tableHtml);
     },
     getRegStr: function(){
         let regStr = '', mark = 0;
 
-        $("#luckysheet-splitColumn-dialog .box input[type='checkbox']:checked").each(function(i, e){
-            let $id = $(e).attr("id");
+        document.querySelectorAll("#luckysheet-splitColumn-dialog .box input[type='checkbox']:checked").forEach(function(e){
+            let $id = e.id;
 
             if($id == "splitColumn_type_01"){ //Tab键
                 regStr += "\\t";
@@ -210,7 +215,7 @@ const luckysheetSplitColumn = {
                 mark++;
             }
             else if($id == "splitColumn_type_05"){ //其它
-                let txt = $(e).siblings("input[type='text']").val().trim();
+                let txt = e.parentElement.querySelector("input[type='text']").value.trim();
 
                 if(txt != ""){
                     if(mark > 0){

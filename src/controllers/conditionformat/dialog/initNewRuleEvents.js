@@ -17,7 +17,7 @@ export function initNewRuleEvents(_this) {
       // 新建规则
       offNS("CFnewConditionRule");
       onNS(document, "click.CFnewConditionRule", "#newConditionRule", function () {
-        let sheetIndex = conditionformatDialog.adminRule.find(".chooseSheet option:selected").val();
+        let sheetIndex = conditionformatDialog.adminRule.find(".chooseSheet option:checked")?.value;
         if (Store.luckysheet_select_save.length == 0) {
           if (isEditMode()) {
             alert(conditionformat_Text.pleaseSelectRange);
@@ -30,9 +30,10 @@ export function initNewRuleEvents(_this) {
       });
       offNS("CFnewConditionRuleConfirm");
       onNS(document, "click.CFnewConditionRuleConfirm", "#luckysheet-newConditionRule-dialog-confirm", function () {
-        let index = $("#luckysheet-newConditionRule-dialog .ruleTypeItem.on").index();
-        let type1 = $("#luckysheet-newConditionRule-dialog #type1 option:selected").val();
-        let type2 = $("#luckysheet-newConditionRule-dialog ." + type1 + "Box #type2 option:selected").val();
+        let _newDlg = document.getElementById("luckysheet-newConditionRule-dialog");
+        let index = Array.from(_newDlg.querySelector(".ruleTypeItem.on")?.parentElement?.children || []).indexOf(_newDlg.querySelector(".ruleTypeItem.on"));
+        let type1 = _newDlg.querySelector("#type1")?.value;
+        let type2 = _newDlg.querySelector("." + type1 + "Box #type2")?.value;
         let format, rule;
         if (index == 0) {
           if (type1 == "dataBar") {
@@ -69,9 +70,10 @@ export function initNewRuleEvents(_this) {
             };
           } else if (type1 == "icons") {
             //图标�?
-            let len = $(this).parents("#luckysheet-newConditionRule-dialog").find(".iconsBox .model").attr("data-len");
-            let leftMin = $(this).parents("#luckysheet-newConditionRule-dialog").find(".iconsBox .model").attr("data-leftmin");
-            let top = $(this).parents("#luckysheet-newConditionRule-dialog").find(".iconsBox .model").attr("data-top");
+            let _newIconsModel = _newDlg.querySelector(".iconsBox .model");
+            let len = _newIconsModel?.getAttribute("data-len");
+            let leftMin = _newIconsModel?.getAttribute("data-leftmin");
+            let top = _newIconsModel?.getAttribute("data-top");
             format = {
               "len": len,
               "leftMin": leftMin,
@@ -92,8 +94,8 @@ export function initNewRuleEvents(_this) {
               //单元格�?
               conditionName = type2;
               if (type2 == "betweenness") {
-                let v1 = $("#luckysheet-newConditionRule-dialog #conditionVal input").val().trim();
-                let v2 = $("#luckysheet-newConditionRule-dialog #conditionVal2 input").val().trim();
+                let v1 = _newDlg.querySelector("#conditionVal input")?.value?.trim();
+                let v2 = _newDlg.querySelector("#conditionVal2 input")?.value?.trim();
   
                 let result1 = parseConditionRange(v1, _this, conditionformat_Text);
                 if (result1 == null) {
@@ -114,7 +116,7 @@ export function initNewRuleEvents(_this) {
                 conditionValue.push(...result2.conditionValue);
               } else {
                 //条件�?
-                let v = $("#luckysheet-newConditionRule-dialog #conditionVal input").val().trim();
+                let v = _newDlg.querySelector("#conditionVal input")?.value?.trim();
   
                 let result = parseConditionRange(v, _this, conditionformat_Text);
                 if (result == null) {
@@ -128,7 +130,7 @@ export function initNewRuleEvents(_this) {
               conditionName = "textContains";
   
               //条件�?
-              let v = $("#luckysheet-newConditionRule-dialog #conditionVal input").val().trim();
+              let v = _newDlg.querySelector("#conditionVal input")?.value?.trim();
   
               let result = parseConditionRange(v, _this, conditionformat_Text, { allowNonNumeric: true });
               if (result == null) {
@@ -141,7 +143,7 @@ export function initNewRuleEvents(_this) {
               conditionName = "occurrenceDate";
   
               //条件�?
-              let v = $("#luckysheet-newConditionRule-dialog #daterange-btn").val();
+              let v = _newDlg.querySelector("#daterange-btn")?.value;
               if (v == "" || v == null) {
                 _this.infoDialog(conditionformat_Text.pleaseSelectADate, "");
                 return;
@@ -152,13 +154,13 @@ export function initNewRuleEvents(_this) {
             //排名靠前靠后
             //条件名称
             if (type1 == "top") {
-              if ($("#luckysheet-newConditionRule-dialog #isPercent").is(":checked")) {
+              if (_newDlg.querySelector("#isPercent")?.checked) {
                 conditionName = "top10%";
               } else {
                 conditionName = "top10";
               }
             } else if (type1 == "last") {
-              if ($("#luckysheet-newConditionRule-dialog #isPercent").is(":checked")) {
+              if (_newDlg.querySelector("#isPercent")?.checked) {
                 conditionName = "last10%";
               } else {
                 conditionName = "last10";
@@ -166,7 +168,7 @@ export function initNewRuleEvents(_this) {
             }
   
             //条件�?
-            let v = $("#luckysheet-newConditionRule-dialog #conditionVal input").val().trim();
+            let v = _newDlg.querySelector("#conditionVal input")?.value?.trim();
             if (parseInt(v) != v || parseInt(v) < 1 || parseInt(v) > 1000) {
               _this.infoDialog(conditionformat_Text.pleaseEnterInteger, "");
               return;
@@ -190,7 +192,7 @@ export function initNewRuleEvents(_this) {
             conditionName = "formula";
   
             //条件�?
-            let v = $("#luckysheet-newConditionRule-dialog #formulaConditionVal input").val().trim();
+            let v = _newDlg.querySelector("#formulaConditionVal input")?.value?.trim();
             if (v == "") {
               _this.infoDialog("Condition value cannot be empty!", "");
               return;
@@ -200,13 +202,13 @@ export function initNewRuleEvents(_this) {
   
           //格式颜色
           let textcolor;
-          if ($("#luckysheet-newConditionRule-dialog #checkTextColor").is(":checked")) {
+          if (_newDlg.querySelector("#checkTextColor")?.checked) {
             textcolor = getPicker(document.querySelector("#luckysheet-newConditionRule-dialog #textcolorshow"))?.get('hex') || "#000";
           } else {
             textcolor = null;
           }
           let cellcolor;
-          if ($("#luckysheet-newConditionRule-dialog #checkCellColor").is(":checked")) {
+          if (_newDlg.querySelector("#checkCellColor")?.checked) {
             cellcolor = getPicker(document.querySelector("#luckysheet-newConditionRule-dialog #cellcolorshow"))?.get('hex') || "#000";
           } else {
             cellcolor = null;
@@ -227,7 +229,7 @@ export function initNewRuleEvents(_this) {
         const _elNewRule1 = document.getElementById("luckysheet-newConditionRule-dialog"); if (_elNewRule1) _elNewRule1.style.display = 'none';
   
         //新建规则的入�?
-        let source = $(this).attr("data-source");
+        let source = this.getAttribute("data-source");
         if (source == 0) {
           hideModalMask();
   
@@ -257,7 +259,7 @@ export function initNewRuleEvents(_this) {
       offNS("CFnewConditionRuleClose");
       onNS(document, "click.CFnewConditionRuleClose", "#luckysheet-newConditionRule-dialog-close", function () {
         //新建规则的入�?
-        let source = $(this).attr("data-source");
+        let source = this.getAttribute("data-source");
         if (source == 0) {
           hideModalMask();
         }

@@ -177,10 +177,10 @@ function update(modelfocusIndex, rangefocus) {
         const _locale = locale()
         const alternatingColors =_locale.alternatingColors;
         //获取标识
-        let dataIndex = $("#luckysheet-alternateformat-remove").data("index");
+        let dataIndex = document.getElementById("luckysheet-alternateformat-remove").dataset.index;
         
         //应用范围
-        let rangeValue = $("#luckysheet-modal-dialog-slider-alternateformat #luckysheet-alternateformat-range input").val().trim();
+        let rangeValue = document.querySelector("#luckysheet-modal-dialog-slider-alternateformat #luckysheet-alternateformat-range input").value.trim();
         
         if(!formula.iscelldata(rangeValue)){
             if(isEditMode()){
@@ -209,7 +209,7 @@ function update(modelfocusIndex, rangefocus) {
 
         //页眉、页脚
         let hasRowHeader;
-        if($("#luckysheet-modal-dialog-slider-alternateformat #luckysheet-alternateformat-rowHeader").is(":checked")){
+        if(document.querySelector("#luckysheet-modal-dialog-slider-alternateformat #luckysheet-alternateformat-rowHeader").checked){
             hasRowHeader = true;
         }
         else{
@@ -217,7 +217,7 @@ function update(modelfocusIndex, rangefocus) {
         }
 
         let hasRowFooter;
-        if($("#luckysheet-modal-dialog-slider-alternateformat #luckysheet-alternateformat-rowFooter").is(":checked")){
+        if(document.querySelector("#luckysheet-modal-dialog-slider-alternateformat #luckysheet-alternateformat-rowFooter").checked){
             hasRowFooter = true;
         }
         else{

@@ -6,7 +6,6 @@ import Store from "../../store";
 import locale from "../../locale/locale";
 import cellMain from '../../ui/cellMain.js';
 
-//选区下拉
 const uiModule = {
   iconHtml: '<div id="luckysheet-dropCell-icon" style="position: absolute;padding: 2px;background-color: #f1f1f1;z-index: 990;cursor: pointer;">' + '<div id="icon_dropCell"></div>' + '</div>',
   typeListHtml: '<div id="luckysheet-dropCell-typeList" class="luckysheet-cols-menu luckysheet-rightgclick-menu luckysheet-mousedown-cancel">' + '<div class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" data-type="0">' + '<div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel" style="padding: 3px 2px;">' + '<span style="margin-right:5px;width:13px;display:inline-block;" class="icon luckysheet-mousedown-cancel"></span>${copyCell}' + '</div>' + '</div>' + '<div class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" data-type="1">' + '<div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel" style="padding: 3px 2px;">' + '<span style="margin-right:5px;width:13px;display:inline-block;" class="icon luckysheet-mousedown-cancel"></span>${sequence}' + '</div>' + '</div>' + '<div class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" data-type="2">' + '<div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel" style="padding: 3px 2px;">' + '<span style="margin-right:5px;width:13px;display:inline-block;" class="icon luckysheet-mousedown-cancel"></span>${onlyFormat}' + '</div>' + '</div>' + '<div class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" data-type="3">' + '<div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel" style="padding: 3px 2px;">' + '<span style="margin-right:5px;width:13px;display:inline-block;" class="icon luckysheet-mousedown-cancel"></span>${noFormat}' + '</div>' + '</div>' + '<div class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" data-type="4">' + '<div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel" style="padding: 3px 2px;">' + '<span style="margin-right:5px;width:13px;display:inline-block;" class="icon luckysheet-mousedown-cancel"></span>${day}' + '</div>' + '</div>' + '<div class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" data-type="5">' + '<div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel" style="padding: 3px 2px;">' + '<span style="margin-right:5px;width:13px;display:inline-block;" class="icon luckysheet-mousedown-cancel"></span>${workDay}' + '</div>' + '</div>' + '<div class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" data-type="6">' + '<div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel" style="padding: 3px 2px;">' + '<span style="margin-right:5px;width:13px;display:inline-block;" class="icon luckysheet-mousedown-cancel"></span>${month}' + '</div>' + '</div>' + '<div class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" data-type="7">' + '<div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel" style="padding: 3px 2px;">' + '<span style="margin-right:5px;width:13px;display:inline-block;" class="icon luckysheet-mousedown-cancel"></span>${year}' + '</div>' + '</div>' + '<div class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" data-type="8">' + '<div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel" style="padding: 3px 2px;">' + '<span style="margin-right:5px;width:13px;display:inline-block;" class="icon luckysheet-mousedown-cancel"></span>${chineseNumber}' + '</div>' + '</div>' + '</div>',
@@ -28,20 +27,26 @@ const uiModule = {
       row_pre = rowLocationByIndex(row_index)[0];
     let col = colLocationByIndex(col_index)[1],
       col_pre = colLocationByIndex(col_index)[0];
-    $("#luckysheet-dropCell-icon").remove();
+    let _elDropCellIcon = document.getElementById("luckysheet-dropCell-icon");
+    if (_elDropCellIcon) _elDropCellIcon.remove();
     cellMain.append(_this.iconHtml);
-    $("#luckysheet-dropCell-icon").css({
-      "left": col,
-      "top": row
-    });
+    _elDropCellIcon = document.getElementById("luckysheet-dropCell-icon");
+    if (_elDropCellIcon) {
+      Object.assign(_elDropCellIcon.style, {
+        "left": col + "px",
+        "top": row + "px"
+      });
+    }
 
-    //点击icon
-    $("#luckysheet-dropCell-icon").mouseover(function () {
-      $(this).css("background-color", "#ffe8e8");
-    }).mouseleave(function () {
-      $(this).css("background-color", "#f1f1f1");
-    }).mousedown(function (event) {
-      $("#luckysheet-dropCell-typeList").remove();
+    _elDropCellIcon.addEventListener("mouseover", function () {
+      this.style.backgroundColor = "#ffe8e8";
+    });
+    _elDropCellIcon.addEventListener("mouseleave", function () {
+      this.style.backgroundColor = "#f1f1f1";
+    });
+    _elDropCellIcon.addEventListener("mousedown", function (event) {
+      let _elDropTypeList = document.getElementById("luckysheet-dropCell-typeList");
+      if (_elDropTypeList) _elDropTypeList.remove();
       const _locale = locale();
       const locale_dropCell = _locale.dropCell;
       document.body.insertAdjacentHTML('beforeend', replaceHtml(_this.typeListHtml, {
@@ -73,12 +78,14 @@ const uiModule = {
       if (!typeItemHide[3]) {
         document.querySelectorAll("#luckysheet-dropCell-typeList .luckysheet-cols-menuitem[data-type=8]").forEach(el => el.style.display = 'none');
       }
-      let left = $(this).offset().left;
-      let top = $(this).offset().top + 25;
+      let rect = this.getBoundingClientRect();
+      let left = rect.left + window.pageXOffset;
+      let top = rect.top + window.pageYOffset + 25;
       let winH = document.documentElement.clientHeight,
         winW = document.documentElement.clientWidth;
-      let menuW = $("#luckysheet-dropCell-typeList").width(),
-        menuH = $("#luckysheet-dropCell-typeList").height();
+      _elDropTypeList = document.getElementById("luckysheet-dropCell-typeList");
+      let menuW = _elDropTypeList ? _elDropTypeList.offsetWidth : 0,
+        menuH = _elDropTypeList ? _elDropTypeList.offsetHeight : 0;
       if (left + menuW > winW) {
         left = left - menuW;
       }
@@ -88,31 +95,45 @@ const uiModule = {
       if (top < 0) {
         top = 0;
       }
-      $("#luckysheet-dropCell-typeList").css({
-        "left": left,
-        "top": top
-      }).show();
-      $("#luckysheet-dropCell-icon").mouseleave(function () {
-        $(this).css("backgroundColor", "#ffe8e8");
-      });
+      if (_elDropTypeList) {
+        Object.assign(_elDropTypeList.style, {
+          "left": left + "px",
+          "top": top + "px"
+        });
+        _elDropTypeList.style.display = '';
+      }
+      let _elIcon2 = document.getElementById("luckysheet-dropCell-icon");
+      if (_elIcon2) {
+        _elIcon2.addEventListener("mouseleave", function () {
+          this.style.backgroundColor = "#ffe8e8";
+        });
+      }
       let type = _this.applyType;
-      $("#luckysheet-dropCell-typeList .luckysheet-cols-menuitem[data-type=" + type + "]").find("span").append('<i class="fa fa-check luckysheet-mousedown-cancel"></i>');
+      let _elActiveType = document.querySelector("#luckysheet-dropCell-typeList .luckysheet-cols-menuitem[data-type='" + type + "'] span");
+      if (_elActiveType) {
+        _elActiveType.insertAdjacentHTML('beforeend', '<i class="fa fa-check luckysheet-mousedown-cancel"></i>');
+      }
       event.stopPropagation();
     });
 
-    //点击数据填充类型
     offNS("dCtypeList");
     onNS(document, "click.dCtypeList", "#luckysheet-dropCell-typeList .luckysheet-cols-menuitem", function () {
-      $("#luckysheet-dropCell-typeList .fa-check").remove();
-      $(this).find("span").append('<i class="fa fa-check luckysheet-mousedown-cancel"></i>');
-      let type = $(this).attr("data-type");
+      let _elFaCheck = document.querySelector("#luckysheet-dropCell-typeList .fa-check");
+      if (_elFaCheck) _elFaCheck.remove();
+      let _span = this.querySelector("span");
+      if (_span) _span.insertAdjacentHTML('beforeend', '<i class="fa fa-check luckysheet-mousedown-cancel"></i>');
+      let type = this.getAttribute("data-type");
       _this.applyType = type;
       _this.update();
-      const _elDropTypeList = document.getElementById("luckysheet-dropCell-typeList"); if (_elDropTypeList) _elDropTypeList.style.display = 'none';
-      $("#luckysheet-dropCell-icon").css("backgroundColor", "#f1f1f1");
-      $("#luckysheet-dropCell-icon").mouseleave(function () {
-        $(this).css("backgroundColor", "#f1f1f1");
-      });
+      let _elDropTypeList2 = document.getElementById("luckysheet-dropCell-typeList");
+      if (_elDropTypeList2) _elDropTypeList2.style.display = 'none';
+      let _elIcon3 = document.getElementById("luckysheet-dropCell-icon");
+      if (_elIcon3) _elIcon3.style.backgroundColor = "#f1f1f1";
+      if (_elIcon3) {
+        _elIcon3.addEventListener("mouseleave", function () {
+          this.style.backgroundColor = "#f1f1f1";
+        });
+      }
       countfunc();
     });
   },

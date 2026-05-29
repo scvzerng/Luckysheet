@@ -59,11 +59,14 @@ const freezeCoreModule = {
                 </div>
             </div>
         `;
-    $("#luckysheet-freezen-btn-horizontal").html(freezeHTML);
-    $("#luckysheet-freezen-btn-vertical").html('<i class="fa fa-indent"></i> ' + locale_freezen.freezenColumn);
+    let _freezenBtnH = document.getElementById("luckysheet-freezen-btn-horizontal");
+    if (_freezenBtnH) _freezenBtnH.innerHTML = freezeHTML;
+    let _freezenBtnV = document.getElementById("luckysheet-freezen-btn-vertical");
+    if (_freezenBtnV) _freezenBtnV.innerHTML = '<i class="fa fa-indent"></i> ' + locale_freezen.freezenColumn;
     _this.freezenverticaldata = null;
-    let isvertical = $("#luckysheet-freezebar-vertical").is(":visible");
-    $("#luckysheet-freezebar-vertical").hide();
+    let _freezebarVertical = document.getElementById("luckysheet-freezebar-vertical");
+    let isvertical = _freezebarVertical && _freezebarVertical.offsetWidth > 0;
+    if (_freezebarVertical) _freezebarVertical.style.display = 'none';
     if (sheetIndex == null) {
       sheetIndex = Store.currentSheetIndex;
     }
@@ -78,29 +81,33 @@ const freezeCoreModule = {
     if (_this.initialVertical) {
       _this.initialVertical = false;
       gridWindow.append(_this.freezenVerticalHTML);
-      $("#luckysheet-freezebar-vertical").find(".luckysheet-freezebar-vertical-drop").hover(function () {
-        $(this).parent().addClass("luckysheet-freezebar-hover");
-      }, function () {
-        $(this).parent().removeClass("luckysheet-freezebar-hover");
+      let _freezebarVDrop = document.getElementById("luckysheet-freezebar-vertical").querySelector(".luckysheet-freezebar-vertical-drop");
+      _freezebarVDrop.addEventListener("mouseenter", function () {
+        this.parentElement.classList.add("luckysheet-freezebar-hover");
       });
-      $("#luckysheet-freezebar-vertical").find(".luckysheet-freezebar-vertical-drop").mousedown(function () {
+      _freezebarVDrop.addEventListener("mouseleave", function () {
+        this.parentElement.classList.remove("luckysheet-freezebar-hover");
+      });
+      _freezebarVDrop.addEventListener("mousedown", function () {
         _this.verticalmovestate = true;
-        _this.verticalmoveposition = $(this).position().left;
+        _this.verticalmoveposition = this.offsetLeft;
         _this.windowWidth = gridWindow.getWidth();
-        $(this).parent().addClass("luckysheet-freezebar-active");
-        $("#luckysheet-freezebar-vertical").find(".luckysheet-freezebar-vertical-handle").css("cursor", "-webkit-grabbing");
+        this.parentElement.classList.add("luckysheet-freezebar-active");
+        document.getElementById("luckysheet-freezebar-vertical").querySelector(".luckysheet-freezebar-vertical-handle").style.cursor = "-webkit-grabbing";
       });
       let gridheight = gridWindow.getHeight();
-      $("#luckysheet-freezebar-vertical").find(".luckysheet-freezebar-vertical-handle").css({
-        "height": gridheight - 10,
-        "width": "4px",
-        "cursor": "-webkit-grab",
-        "top": "0px"
-      }).end().find(".luckysheet-freezebar-vertical-drop").css({
-        "height": gridheight - 10,
-        "width": "4px",
-        "top": "0px",
-        "cursor": "-webkit-grab"
+      let _freezebarVHandle = document.getElementById("luckysheet-freezebar-vertical").querySelector(".luckysheet-freezebar-vertical-handle");
+      Object.assign(_freezebarVHandle.style, {
+        height: gridheight - 10 + "px",
+        width: "4px",
+        cursor: "-webkit-grab",
+        top: "0px"
+      });
+      Object.assign(_freezebarVDrop.style, {
+        height: gridheight - 10 + "px",
+        width: "4px",
+        top: "0px",
+        cursor: "-webkit-grab"
       });
     }
     if (freezenverticaldata == null) {
@@ -141,12 +148,16 @@ const freezeCoreModule = {
                 </div>
             </div>
         `;
-    $("#luckysheet-freezen-btn-horizontal").html(freezeHTML);
-    $("#luckysheet-freezebar-vertical").show().find(".luckysheet-freezebar-vertical-handle").css({
-      "left": left
-    }).end().find(".luckysheet-freezebar-vertical-drop").css({
-      "left": left
-    });
+    let _freezenBtnH2 = document.getElementById("luckysheet-freezen-btn-horizontal");
+    if (_freezenBtnH2) _freezenBtnH2.innerHTML = freezeHTML;
+    let _freezebarV = document.getElementById("luckysheet-freezebar-vertical");
+    if (_freezebarV) {
+      _freezebarV.style.display = '';
+      let _vHandle = _freezebarV.querySelector(".luckysheet-freezebar-vertical-handle");
+      if (_vHandle) _vHandle.style.left = left + "px";
+      let _vDrop = _freezebarV.querySelector(".luckysheet-freezebar-vertical-drop");
+      if (_vDrop) _vDrop.style.left = left + "px";
+    }
   },
   saveFreezen: function (freezenhorizontaldata, top, freezenverticaldata, left) {
     let currentSheet = getCurrentFile();
@@ -287,10 +298,12 @@ const freezeCoreModule = {
                 </div>
             </div>
         `;
-    $("#luckysheet-freezen-btn-horizontal").html(freezeHTML);
+    let _freezenBtnH3 = document.getElementById("luckysheet-freezen-btn-horizontal");
+    if (_freezenBtnH3) _freezenBtnH3.innerHTML = freezeHTML;
     _this.freezenhorizontaldata = null;
-    let ishorizontal = $("#luckysheet-freezebar-horizontal").is(":visible");
-    $("#luckysheet-freezebar-horizontal").hide();
+    let _freezebarHorizontal = document.getElementById("luckysheet-freezebar-horizontal");
+    let ishorizontal = _freezebarHorizontal && _freezebarHorizontal.offsetWidth > 0;
+    if (_freezebarHorizontal) _freezebarHorizontal.style.display = 'none';
     if (sheetIndex == null) {
       sheetIndex = Store.currentSheetIndex;
     }
@@ -305,29 +318,33 @@ const freezeCoreModule = {
     if (_this.initialHorizontal) {
       _this.initialHorizontal = false;
       gridWindow.append(_this.freezenHorizontalHTML);
-      $("#luckysheet-freezebar-horizontal").find(".luckysheet-freezebar-horizontal-drop").hover(function () {
-        $(this).parent().addClass("luckysheet-freezebar-hover");
-      }, function () {
-        $(this).parent().removeClass("luckysheet-freezebar-hover");
+      let _freezebarHDrop = document.getElementById("luckysheet-freezebar-horizontal").querySelector(".luckysheet-freezebar-horizontal-drop");
+      _freezebarHDrop.addEventListener("mouseenter", function () {
+        this.parentElement.classList.add("luckysheet-freezebar-hover");
       });
-      $("#luckysheet-freezebar-horizontal").find(".luckysheet-freezebar-horizontal-drop").mousedown(function () {
+      _freezebarHDrop.addEventListener("mouseleave", function () {
+        this.parentElement.classList.remove("luckysheet-freezebar-hover");
+      });
+      _freezebarHDrop.addEventListener("mousedown", function () {
         _this.horizontalmovestate = true;
-        _this.horizontalmoveposition = $(this).position().top;
+        _this.horizontalmoveposition = this.offsetTop;
         _this.windowHeight = gridWindow.getHeight();
-        $(this).parent().addClass("luckysheet-freezebar-active");
-        $("#luckysheet-freezebar-horizontal").find(".luckysheet-freezebar-horizontal-handle").css("cursor", "-webkit-grabbing");
+        this.parentElement.classList.add("luckysheet-freezebar-active");
+        document.getElementById("luckysheet-freezebar-horizontal").querySelector(".luckysheet-freezebar-horizontal-handle").style.cursor = "-webkit-grabbing";
       });
       let gridwidth = gridWindow.getWidth();
-      $("#luckysheet-freezebar-horizontal").find(".luckysheet-freezebar-horizontal-handle").css({
-        "width": gridwidth - 10,
-        "height": "4px",
-        "cursor": "-webkit-grab",
-        "left": "0px"
-      }).end().find(".luckysheet-freezebar-horizontal-drop").css({
-        "width": gridwidth - 10,
-        "height": "4px",
-        "left": "0px",
-        "cursor": "-webkit-grab"
+      let _freezebarHHandle = document.getElementById("luckysheet-freezebar-horizontal").querySelector(".luckysheet-freezebar-horizontal-handle");
+      Object.assign(_freezebarHHandle.style, {
+        width: gridwidth - 10 + "px",
+        height: "4px",
+        cursor: "-webkit-grab",
+        left: "0px"
+      });
+      Object.assign(_freezebarHDrop.style, {
+        width: gridwidth - 10 + "px",
+        height: "4px",
+        left: "0px",
+        cursor: "-webkit-grab"
       });
     }
     if (freezenhorizontaldata == null) {
@@ -377,12 +394,16 @@ const freezeCoreModule = {
                 </div>
             </div>
         `;
-    $("#luckysheet-freezen-btn-horizontal").html(freezeHTML);
-    $("#luckysheet-freezebar-horizontal").show().find(".luckysheet-freezebar-horizontal-handle").css({
-      "top": top
-    }).end().find(".luckysheet-freezebar-horizontal-drop").css({
-      "top": top
-    });
+    let _freezenBtnH4 = document.getElementById("luckysheet-freezen-btn-horizontal");
+    if (_freezenBtnH4) _freezenBtnH4.innerHTML = freezeHTML;
+    let _freezebarH = document.getElementById("luckysheet-freezebar-horizontal");
+    if (_freezebarH) {
+      _freezebarH.style.display = '';
+      let _hHandle = _freezebarH.querySelector(".luckysheet-freezebar-horizontal-handle");
+      if (_hHandle) _hHandle.style.top = top + "px";
+      let _hDrop = _freezebarH.querySelector(".luckysheet-freezebar-horizontal-drop");
+      if (_hDrop) _hDrop.style.top = top + "px";
+    }
   }
 };
 export default freezeCoreModule;

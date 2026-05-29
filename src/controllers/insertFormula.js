@@ -1,6 +1,4 @@
 import { luckysheet_getcelldata } from '../function/func';
-// import functionlist from '../function/functionlist';
-// import Store.luckysheet_function from '../function/Store.luckysheet_function';
 import formula from '../global/formula';
 import { isRealNum, isRealNull } from '../global/validate';
 import { modelHTML } from './constant';
@@ -15,7 +13,6 @@ import functionBox from '../ui/functionBox.js';
 import formulaRangeSelect from '../ui/formulaRangeSelect.js';
 import searchFormula from '../ui/searchFormula.js';
 
-//插入函数
 const insertFormula = {
     init: function(){
         let _this = this;
@@ -23,57 +20,71 @@ const insertFormula = {
         let locale_formulaMore = _locale.formulaMore;
         let locale_button = _locale.button;
 
-        searchFormula.el.off("keyup.fxSFLI").on("keyup.fxSFLI", "#searchFormulaListInput", function(){
-            searchFormula.find("#formulaTypeList").empty();
-            let txt = $(this).val().toUpperCase();
+        searchFormula.el.addEventListener("keyup", function(e){
+            if(!e.target.matches || !e.target.matches("#searchFormulaListInput")) return;
+            let _elTypeList = searchFormula.el.querySelector("#formulaTypeList");
+            if (_elTypeList) _elTypeList.innerHTML = '';
+            let txt = e.target.value.toUpperCase();
             let functionlist = Store.functionlist;
 
             if(txt == ""){
-                //若没有查找内容则根据类别筛选
-                _this.formulaListByType(searchFormula.find("#formulaTypeSelect option:selected").val());
+                let _elTypeSelect = searchFormula.el.querySelector("#formulaTypeSelect option:checked");
+                _this.formulaListByType(_elTypeSelect ? _elTypeSelect.value : "0");
             }
             else{
                 for(let i = 0; i < functionlist.length; i++){
                     if(/^[a-zA-Z]+$/.test(txt)){
                         if(functionlist[i].n.indexOf(txt) != "-1"){
-                            $('<div class="listBox" name="'+ functionlist[i].n +'"><span>'+ functionlist[i].n +'</span><span>'+ functionlist[i].a +'</span></div>').appendTo(searchFormula.find("#formulaTypeList"));
+                            let _elTypeList2 = searchFormula.el.querySelector("#formulaTypeList");
+                            if (_elTypeList2) _elTypeList2.insertAdjacentHTML('beforeend', '<div class="listBox" name="'+ functionlist[i].n +'"><span>'+ functionlist[i].n +'</span><span>'+ functionlist[i].a +'</span></div>');
                         }
                     }
                     else if(functionlist[i].a.indexOf(txt) != "-1"){
-                        $('<div class="listBox" name="'+ functionlist[i].n +'"><span>'+ functionlist[i].n +'</span><span>'+ functionlist[i].a +'</span></div>').appendTo(searchFormula.find("#formulaTypeList"));
+                        let _elTypeList3 = searchFormula.el.querySelector("#formulaTypeList");
+                        if (_elTypeList3) _elTypeList3.insertAdjacentHTML('beforeend', '<div class="listBox" name="'+ functionlist[i].n +'"><span>'+ functionlist[i].n +'</span><span>'+ functionlist[i].a +'</span></div>');
                     }
                 }
             }
             
-            searchFormula.find("#formulaTypeList .listBox:first-child").addClass("on"); //默认公式列表第一个为选中状态
+            let _elFirstBox = searchFormula.el.querySelector("#formulaTypeList .listBox:first-child");
+            if (_elFirstBox) _elFirstBox.classList.add("on");
         });
 
-        searchFormula.el.off("change.fxFormulaTS").on("change.fxFormulaTS", "#formulaTypeSelect", function(){
-            let type = searchFormula.find("#formulaTypeSelect option:selected").val();
-            _this.formulaListByType(type);
+        searchFormula.el.addEventListener("change", function(e){
+            if(!e.target.matches || !e.target.matches("#formulaTypeSelect")) return;
+            let _elTypeSelect2 = e.target.querySelector("option:checked");
+            _this.formulaListByType(_elTypeSelect2 ? _elTypeSelect2.value : "0");
         });
 
-        searchFormula.el.off("click.fxListbox").on("click.fxListbox", "#formulaTypeList .listBox", function(){
-            $(this).addClass("on").siblings().removeClass("on");
+        searchFormula.el.addEventListener("click", function(e){
+            let listBox = e.target.closest ? e.target.closest("#formulaTypeList .listBox") : null;
+            if(listBox){
+                listBox.classList.add("on");
+                Array.from(listBox.parentElement.children).filter(s => s !== listBox).forEach(function(el) { el.classList.remove("on"); });
+            }
         });
 
-        //选择公式后弹出参数栏弹框
-        searchFormula.el.off("click.fxFormulaCf").on("click.fxFormulaCf", function(){
-            let formula = searchFormula.find(".listBox.on").attr("name");
-            let formulaTxt = '<span dir="auto" class="luckysheet-formula-text-color">=</span><span dir="auto" class="luckysheet-formula-text-color">'+ formula.toUpperCase() +'</span><span dir="auto" class="luckysheet-formula-text-color">(</span><span dir="auto" class="luckysheet-formula-text-color">)</span>';
-            
-            richTextEditor.setHtml(formulaTxt);
-            functionBox.setHtml(richTextEditor.getHtml());
+        searchFormula.el.addEventListener("click", function(e){
+            if(e.target.closest && e.target.closest("#luckysheet-search-formula-confirm")){
+                let _elOnBox = searchFormula.el.querySelector(".listBox.on");
+                let formulaName = _elOnBox ? _elOnBox.getAttribute("name") : "";
+                let formulaTxt = '<span dir="auto" class="luckysheet-formula-text-color">=</span><span dir="auto" class="luckysheet-formula-text-color">'+ formulaName.toUpperCase() +'</span><span dir="auto" class="luckysheet-formula-text-color">(</span><span dir="auto" class="luckysheet-formula-text-color">)</span>';
+                
+                richTextEditor.setHtml(formulaTxt);
+                functionBox.setHtml(richTextEditor.getHtml());
 
-            _this.formulaParmDialog(formula);
+                _this.formulaParmDialog(formulaName);
+            }
         });
 
-        //公式参数框
-        formulaDialogs.searchParm.el.off("focus.fxParamInput").on("focus.fxParamInput", ".parmBox input", function(){
-            let parmIndex = $(this).parents(".parmBox").index();
+        formulaDialogs.searchParm.el.addEventListener("focus", function(e){
+            if(!e.target.matches || !e.target.matches(".parmBox input")) return;
+            let parmBox = e.target.closest(".parmBox");
+            let parmIndex = Array.from(parmBox.parentElement.children).indexOf(parmBox);
             formula.data_parm_index = parmIndex;
 
-            let formulatxt = formulaDialogs.searchParm.find(".luckysheet-modal-dialog-title-text").text();
+            let _elTitleText = formulaDialogs.searchParm.el.querySelector(".luckysheet-modal-dialog-title-text");
+            let formulatxt = _elTitleText ? _elTitleText.textContent : "";
             let parmLen = Store.luckysheet_function[formulatxt].p.length;
 
             let parmDetail, parmRepeat;
@@ -86,60 +97,63 @@ const insertFormula = {
                 parmRepeat = Store.luckysheet_function[formulatxt].p[parmIndex].repeat;
             }
 
-            //参数选区显示，参数值显示
-            _this.parmTxtShow($(this).val());
-            
-            //计算结果
+            _this.parmTxtShow(e.target.value);
             _this.functionStrCompute();
-            
-            //参数名称和释义切换
-            formulaDialogs.searchParm.find(".parmDetailsBox").empty();
 
-            let parmName = $(this).parents(".parmBox").find(".name").text();
-            $('<span>'+ parmName +':</span><span>'+ parmDetail +'</span>').appendTo(formulaDialogs.searchParm.find(".parmDetailsBox"));
+            let _elDetailsBox = formulaDialogs.searchParm.el.querySelector(".parmDetailsBox");
+            if (_elDetailsBox) _elDetailsBox.innerHTML = '';
+
+            let _elName = parmBox.querySelector(".name");
+            let parmName = _elName ? _elName.textContent : "";
+            if (_elDetailsBox) _elDetailsBox.insertAdjacentHTML('beforeend', '<span>'+ parmName +':</span><span>'+ parmDetail +'</span>');
 
             if(parmRepeat == "y"){
-                let parmCount = formulaDialogs.searchParm.find(".parmBox").length;
+                let _elParmBoxes = formulaDialogs.searchParm.el.querySelectorAll(".parmBox");
+                let parmCount = _elParmBoxes.length;
 
                 if(parmCount < 5 && parmIndex == (parmCount - 1)){
-                    $('<div class="parmBox"><div class="name">'+ locale_formulaMore.valueTitle +''+ (parmCount + 1) +'</div><div class="txt"><input class="formulaInputFocus" /><i class="fa fa-table" aria-hidden="true" title="'+locale_formulaMore.tipSelectDataRange+'"></i></div><div class="val">=</div></div>').appendTo(formulaDialogs.searchParm.find(".parmListBox"));
+                    let _elParmListBox = formulaDialogs.searchParm.el.querySelector(".parmListBox");
+                    if (_elParmListBox) _elParmListBox.insertAdjacentHTML('beforeend', '<div class="parmBox"><div class="name">'+ locale_formulaMore.valueTitle +''+ (parmCount + 1) +'</div><div class="txt"><input class="formulaInputFocus" /><i class="fa fa-table" aria-hidden="true" title="'+locale_formulaMore.tipSelectDataRange+'"></i></div><div class="val">=</div></div>');
                 }
             }
-        });
+        }, true);
 
-        formulaDialogs.searchParm.el.off("blur.fxParamInput").on("blur.fxParamInput", ".parmBox input", function(){
-            let txt = $(this).val();
+        formulaDialogs.searchParm.el.addEventListener("blur", function(e){
+            if(!e.target.matches || !e.target.matches(".parmBox input")) return;
+            let txt = e.target.value;
 
             if(formula.getfunctionParam(txt).fn == null && !formula.iscelldata(txt)){
                 if(!isRealNum(txt) && txt != "" && txt.length <= 2 && txt.indexOf('"') != 0 && txt.lastIndexOf('"') != 0){
                     txt = '"' + txt + '"';
-                    $(this).val(txt);
+                    e.target.value = txt;
 
                     _this.parmTxtShow(txt);
                     _this.functionStrCompute();
                 }
             }
-        });
-        
-        formulaDialogs.searchParm.el.off("keyup.fxParamInput").on("keyup.fxParamInput", ".parmBox input", function(){
-            //参数选区显示，参数值显示
-            _this.parmTxtShow($(this).val());
+        }, true);
 
-            //计算结果
+        formulaDialogs.searchParm.el.addEventListener("keyup", function(e){
+            if(!e.target.matches || !e.target.matches(".parmBox input")) return;
+            _this.parmTxtShow(e.target.value);
             _this.functionStrCompute();
         });
 
-        //点击图标选取数据范围
-        formulaDialogs.searchParm.el.off("click.fxParamI").on("click.fxParamI", ".parmBox i", function(){
-            formula.data_parm_index = $(this).parents(".parmBox").index();
-            
-            //选取范围弹出框
+        formulaDialogs.searchParm.el.addEventListener("click", function(e){
+            if(!e.target.closest || !e.target.closest(".parmBox i")) return;
+            let parmBox = e.target.closest(".parmBox");
+            let parmIndex = Array.from(parmBox.parentElement.children).indexOf(parmBox);
+            formula.data_parm_index = parmIndex;
+
             formulaDialogs.searchParm.hide();
             hideModalMask();
 
             formulaDialogs.searchParmSelect.remove();
-            
-            if($(this).parents(".parmBox").find(".txt input").val() == ""){
+
+            let _elInput = parmBox.querySelector(".txt input");
+            let inputVal = _elInput ? _elInput.value : "";
+
+            if(inputVal == ""){
                 document.body.insertAdjacentHTML('beforeend', replaceHtml(modelHTML, { 
                     "id": "luckysheet-search-formula-parm-select", 
                     "addclass": "luckysheet-search-formula-parm-select", 
@@ -154,36 +168,42 @@ const insertFormula = {
                     "id": "luckysheet-search-formula-parm-select", 
                     "addclass": "luckysheet-search-formula-parm-select", 
                     "title": locale_formulaMore.tipSelectDataRange, 
-                    "content": "<input id='luckysheet-search-formula-parm-select-input' class='luckysheet-datavisual-range-container' style='font-size: 14px;padding:5px;max-width:none;' spellcheck='false' aria-label='"+ locale_formulaMore.tipDataRangeTile +"' readonly='true' value='"+ $(this).parents(".parmBox").find(".txt input").val() +"'>", 
+                    "content": "<input id='luckysheet-search-formula-parm-select-input' class='luckysheet-datavisual-range-container' style='font-size: 14px;padding:5px;max-width:none;' spellcheck='false' aria-label='"+ locale_formulaMore.tipDataRangeTile +"' readonly='true' value='"+ inputVal +"'>", 
                     "botton": '<button id="luckysheet-search-formula-parm-select-confirm" class="btn btn-primary">'+locale_button.confirm+'</button>', 
                     "style": "z-index:100003" 
                 }));
             }
 
             formulaDialogs.searchParmSelect.setContentCss({"min-width": 300});
-            let $t = formulaDialogs.searchParmSelect.el,
-                myh = $t.outerHeight(),
-                myw = $t.outerWidth();
+            let _elSelect = formulaDialogs.searchParmSelect.el;
+            let myh = _elSelect.offsetHeight,
+                myw = _elSelect.offsetWidth;
             let winw = document.documentElement.clientWidth, winh = document.documentElement.clientHeight;
             let scrollLeft = document.documentElement.scrollLeft, scrollTop = document.documentElement.scrollTop;
             formulaDialogs.searchParmSelect.showAt({ "left": (winw + scrollLeft - myw) / 2, "top": (winh + scrollTop - myh) / 3 });
             
-            //参数选区虚线框
-            _this.parmTxtShow($(this).parents(".parmBox").find(".txt input").val());
+            _this.parmTxtShow(inputVal);
         });
 
-        //点击确定
-        formulaDialogs.searchParm.el.off("click.fxParamCf").on("click.fxParamCf", function(){
-            functionBox.confirmClick();
+        formulaDialogs.searchParm.el.addEventListener("click", function(e){
+            if(e.target.closest && e.target.closest("#luckysheet-search-formula-parm-confirm")){
+                functionBox.confirmClick();
+            }
         });
 
-        //选取范围后传回参数栏弹框
-        formulaDialogs.searchParmSelect.el.off("click.fxParamSelectCf").on("click.fxParamSelectCf", function(){
-            let parmIndex = formulaDialogs.searchParmSelect.find("#luckysheet-search-formula-parm-select-input").attr("data_parm_index");
+        formulaDialogs.searchParmSelect.el.addEventListener("click", function(e){
+            if(e.target.closest && e.target.closest("#luckysheet-search-formula-parm-select-confirm")){
+                let _elSelectInput = formulaDialogs.searchParmSelect.el.querySelector("#luckysheet-search-formula-parm-select-input");
+                let parmIndex = _elSelectInput ? _elSelectInput.getAttribute("data_parm_index") : null;
 
-            formulaDialogs.searchParmSelect.hide();
-            formulaDialogs.searchParm.show();
-            formulaDialogs.searchParm.find(".parmBox").eq(parmIndex).find(".txt input").focus();
+                formulaDialogs.searchParmSelect.hide();
+                formulaDialogs.searchParm.show();
+                let _elParmBoxes = formulaDialogs.searchParm.el.querySelectorAll(".parmBox");
+                if (parmIndex != null && _elParmBoxes[parmIndex]) {
+                    let _elInput2 = _elParmBoxes[parmIndex].querySelector(".txt input");
+                    if (_elInput2) _elInput2.focus();
+                }
+            }
         });
     },
     formulaListDialog: function(){
@@ -204,29 +224,35 @@ const insertFormula = {
             "botton": '<button id="luckysheet-search-formula-confirm" class="btn btn-primary">'+locale_button.confirm+'</button><button class="btn btn-default luckysheet-model-close-btn">'+locale_button.cancel+'</button>', 
             "style": "z-index:100003" 
         }));
-        let $t = searchFormula.find(".luckysheet-modal-dialog-content").css("min-width", 300).end(),
-            myh = $t.outerHeight(), 
-            myw = $t.outerWidth();
+        let _elContent = searchFormula.el.querySelector(".luckysheet-modal-dialog-content");
+        if (_elContent) _elContent.style.minWidth = "300px";
+        let _elDialog = searchFormula.el;
+        let myh = _elDialog.offsetHeight, 
+            myw = _elDialog.offsetWidth;
         let winw = document.documentElement.clientWidth, winh = document.documentElement.clientHeight;
         let scrollLeft = document.documentElement.scrollLeft, scrollTop = document.documentElement.scrollTop;
-        searchFormula.setCss({ "left": (winw + scrollLeft - myw) / 2, "top": (winh + scrollTop - myh) / 3, "user-select": "none" }).show();
+        searchFormula.setCss({ "left": (winw + scrollLeft - myw) / 2, "top": (winh + scrollTop - myh) / 3, "user-select": "none" });
+        searchFormula.show();
         
-        _this.formulaListByType("0"); //默认公式列表为类型0
-        $("#searchFormulaListInput").focus();
+        _this.formulaListByType("0");
+        let _elSearchInput = document.getElementById("searchFormulaListInput");
+        if (_elSearchInput) _elSearchInput.focus();
     },
     formulaListByType: function(type){
-        searchFormula.find("#formulaTypeList").empty();
+        let _elTypeList = searchFormula.el.querySelector("#formulaTypeList");
+        if (_elTypeList) _elTypeList.innerHTML = '';
         let functionlist = Store.functionlist;
                     
         for(let i = 0; i < functionlist.length; i++){
             if((type == "-1" && functionlist[i].t > 14) || functionlist[i].t == type){
-                $('<div class="listBox" name="'+ functionlist[i].n +'"><span>'+ functionlist[i].n +'</span><span>'+ functionlist[i].a +'</span></div>').appendTo(searchFormula.find("#formulaTypeList"));
+                if (_elTypeList) _elTypeList.insertAdjacentHTML('beforeend', '<div class="listBox" name="'+ functionlist[i].n +'"><span>'+ functionlist[i].n +'</span><span>'+ functionlist[i].a +'</span></div>');
             }
         }
 
-        searchFormula.find("#formulaTypeList .listBox:first-child").addClass("on"); //默认公式列表第一个为选中状态
+        let _elFirstBox = searchFormula.el.querySelector("#formulaTypeList .listBox:first-child");
+        if (_elFirstBox) _elFirstBox.classList.add("on");
     },
-    formulaParmDialog: function(formulaTxt, parm){ //参数弹出框
+    formulaParmDialog: function(formulaTxt, parm){
         let parm_title = '',
             parm_content = '',
             parm_list_content = '';
@@ -242,7 +268,6 @@ const insertFormula = {
 
                 for(let j = 0; j < functionlist[i].p.length; j++){
                     if(parm == null){
-                        //无参数
                         parm_list_content += '<div class="parmBox">'+
                                                 '<div class="name">'+ functionlist[i].p[j].name +'</div>'+
                                                 '<div class="txt">'+
@@ -253,7 +278,6 @@ const insertFormula = {
                                              '</div>';
                     }
                     else{
-                        //有参数
                         if(parm[j] == null){
                             parm[j] = "";
                         }
@@ -291,25 +315,26 @@ const insertFormula = {
             "style": "z-index:100003" 
         }));
         formulaDialogs.searchParm.setContentCss({"min-width": 300});
-        let $t = formulaDialogs.searchParm.el,
-            myh = $t.outerHeight(),
-            myw = $t.outerWidth();
+        let _elParmDialog = formulaDialogs.searchParm.el;
+        let myh = _elParmDialog.offsetHeight,
+            myw = _elParmDialog.offsetWidth;
         let winw = document.documentElement.clientWidth, winh = document.documentElement.clientHeight;
         let scrollLeft = document.documentElement.scrollLeft, scrollTop = document.documentElement.scrollTop;
         formulaDialogs.searchParm.showAt({ "left": (winw + scrollLeft - myw) / 2, "top": (winh + scrollTop - myh) / 3 });
         
-        //参数栏第一个参数聚焦，显示选取虚线框
-        formulaDialogs.searchParm.find(".parmBox:eq(0) input").focus();
+        let _elFirstInput = formulaDialogs.searchParm.el.querySelector(".parmBox input");
+        if (_elFirstInput) _elFirstInput.focus();
 
-        //遍历参数，有参数显示值，无显示空
-        formulaDialogs.searchParm.find(".parmBox").each(function(index,e){
-            let parmtxt = $(e).find(".txt input").val();
+        let _elParmBoxes = formulaDialogs.searchParm.el.querySelectorAll(".parmBox");
+        _elParmBoxes.forEach(function(e, index){
+            let _elTxtInput = e.querySelector(".txt input");
+            let parmtxt = _elTxtInput ? _elTxtInput.value : "";
             
-            if(formula.getfunctionParam(parmtxt).fn == null){ //参数不是公式
-                if(formula.iscelldata(parmtxt)){ //参数是选区
+            if(formula.getfunctionParam(parmtxt).fn == null){
+                if(formula.iscelldata(parmtxt)){
                     let txtdata = luckysheet_getcelldata(parmtxt).data;
 
-                    if(getObjType(txtdata) == "array"){ //参数为多个单元格选区
+                    if(getObjType(txtdata) == "array"){
                         let txtArr = [];
                         
                         for(let i = 0; i < txtdata.length; i++){
@@ -325,28 +350,33 @@ const insertFormula = {
                             }
                         }
 
-                        formulaDialogs.searchParm.find(".parmBox").eq(index).find(".val").text(" = {"+ txtArr.join(",") +"}");
+                        let _elVal = e.querySelector(".val");
+                        if (_elVal) _elVal.textContent = " = {"+ txtArr.join(",") +"}";
                     }
                     else{
-                        formulaDialogs.searchParm.find(".parmBox").eq(index).find(".val").text(" = {"+ txtdata.v +"}");
+                        let _elVal2 = e.querySelector(".val");
+                        if (_elVal2) _elVal2.textContent = " = {"+ txtdata.v +"}";
                     }
                 }
                 else{
-                    formulaDialogs.searchParm.find(".parmBox").eq(index).find(".val").text(" = {"+ parmtxt +"}");
+                    let _elVal3 = e.querySelector(".val");
+                    if (_elVal3) _elVal3.textContent = " = {"+ parmtxt +"}";
                 }
             }
             else{
-                formulaDialogs.searchParm.find(".parmBox").eq(index).find(".val").text(" = {"+ (new Function("return " + formula.functionParserExe("=" + parmtxt).trim()))() +"}");
+                let _elVal4 = e.querySelector(".val");
+                if (_elVal4) _elVal4.textContent = " = {"+ (new Function("return " + formula.functionParserExe("=" + parmtxt).trim()))() +"}";
             }
-        })
+        });
 
-        $("#luckysheet-formula-functionrange .luckysheet-formula-functionrange-highlight").remove();                        
+        let _elHighlights = document.querySelectorAll("#luckysheet-formula-functionrange .luckysheet-formula-functionrange-highlight");
+        _elHighlights.forEach(function(el) { el.remove(); });
         formula.data_parm_index = 0;
         formula.rangestart = true;
     },
     parmTxtShow: function(parmtxt){
-        if(formula.getfunctionParam(parmtxt).fn == null){ //参数不是公式
-            if(formula.iscelldata(parmtxt)){ //参数是选区
+        if(formula.getfunctionParam(parmtxt).fn == null){
+            if(formula.iscelldata(parmtxt)){
                 let cellrange = formula.getcellrange(parmtxt);
                 let r1 = cellrange.row[0], 
                     r2 = cellrange.row[1], 
@@ -368,7 +398,7 @@ const insertFormula = {
                 luckysheet_count_show(col_pre, row_pre, col - col_pre - 1, row - row_pre - 1, cellrange.row, cellrange.column);
 
                 let txtdata = luckysheet_getcelldata(parmtxt).data;
-                if(getObjType(txtdata) == "array"){ //参数为多个单元格选区
+                if(getObjType(txtdata) == "array"){
                     let txtArr = [];
                     
                     for(let i = 0; i < txtdata.length; i++){
@@ -384,20 +414,25 @@ const insertFormula = {
                         }
                     }
 
-                    formulaDialogs.searchParm.find(".parmBox").eq(formula.data_parm_index).find(".val").text(" = {"+ txtArr.join(",") +"}");
+                    let _elParmBoxes2 = formulaDialogs.searchParm.el.querySelectorAll(".parmBox");
+                    let _elVal5 = _elParmBoxes2[formula.data_parm_index] ? _elParmBoxes2[formula.data_parm_index].querySelector(".val") : null;
+                    if (_elVal5) _elVal5.textContent = " = {"+ txtArr.join(",") +"}";
                 }
                 else{
-                    formulaDialogs.searchParm.find(".parmBox").eq(formula.data_parm_index).find(".val").text(" = {"+ txtdata.v +"}");
+                    let _elParmBoxes3 = formulaDialogs.searchParm.el.querySelectorAll(".parmBox");
+                    let _elVal6 = _elParmBoxes3[formula.data_parm_index] ? _elParmBoxes3[formula.data_parm_index].querySelector(".val") : null;
+                    if (_elVal6) _elVal6.textContent = " = {"+ txtdata.v +"}";
                 }
             }
             else if(getObjType(txtdata) != "object"){
-                formulaDialogs.searchParm.find(".parmBox").eq(formula.data_parm_index).find(".val").text(" = {"+ parmtxt +"}");
+                let _elParmBoxes4 = formulaDialogs.searchParm.el.querySelectorAll(".parmBox");
+                let _elVal7 = _elParmBoxes4[formula.data_parm_index] ? _elParmBoxes4[formula.data_parm_index].querySelector(".val") : null;
+                if (_elVal7) _elVal7.textContent = " = {"+ parmtxt +"}";
 
                 formulaRangeSelect.hide();
             }
         }
         else{   
-            //参数是公式
             let txt;
             for(let k = 0; k < formula.getfunctionParam(parmtxt).param.length; k++){
                 if(formula.iscelldata(formula.getfunctionParam(parmtxt).param[k])){
@@ -426,7 +461,9 @@ const insertFormula = {
 
             luckysheet_count_show(col_pre, row_pre, col - col_pre - 1, row - row_pre - 1, cellrange.row, cellrange.column);
 
-            formulaDialogs.searchParm.find(".parmBox").eq(formula.data_parm_index).find(".val").text(" = {"+ (new Function("return " + formula.functionParserExe("=" + parmtxt).trim()))() +"}");
+            let _elParmBoxes5 = formulaDialogs.searchParm.el.querySelectorAll(".parmBox");
+            let _elVal8 = _elParmBoxes5[formula.data_parm_index] ? _elParmBoxes5[formula.data_parm_index].querySelector(".val") : null;
+            if (_elVal8) _elVal8.textContent = " = {"+ (new Function("return " + formula.functionParserExe("=" + parmtxt).trim()))() +"}";
         }
     },
     functionStrCompute: function(){
@@ -434,11 +471,14 @@ const insertFormula = {
         let parmValArr = [];
         let lvi = -1;
 
-        let formulatxt = formulaDialogs.searchParm.find(".luckysheet-modal-dialog-title-text").text();
+        let _elTitleText2 = formulaDialogs.searchParm.el.querySelector(".luckysheet-modal-dialog-title-text");
+        let formulatxt = _elTitleText2 ? _elTitleText2.textContent : "";
         let p = Store.luckysheet_function[formulatxt].p;
 
-        formulaDialogs.searchParm.find(".parmBox").each(function(i, e){
-            let parmtxt = $(e).find(".txt input").val();
+        let _elParmBoxes6 = formulaDialogs.searchParm.el.querySelectorAll(".parmBox");
+        _elParmBoxes6.forEach(function(e, i){
+            let _elTxtInput2 = e.querySelector(".txt input");
+            let parmtxt = _elTxtInput2 ? _elTxtInput2.value : "";
 
             let parmRequire;
             if(i < p.length){
@@ -457,20 +497,21 @@ const insertFormula = {
             }
         });
 
-        //单元格显示
         let functionHtmlTxt;
         if(lvi == -1){
-            functionHtmlTxt = "=" + formulaDialogs.searchParm.find(".luckysheet-modal-dialog-title-text").text() + "()";
+            functionHtmlTxt = "=" + formulatxt + "()";
         }
         else if(lvi == 0){
-            functionHtmlTxt = "=" + formulaDialogs.searchParm.find(".luckysheet-modal-dialog-title-text").text() + "(" + formulaDialogs.searchParm.find(".parmBox").eq(0).find(".txt input").val() + ")";
+            let _elFirstInput2 = _elParmBoxes6[0] ? _elParmBoxes6[0].querySelector(".txt input") : null;
+            functionHtmlTxt = "=" + formulatxt + "(" + (_elFirstInput2 ? _elFirstInput2.value : "") + ")";
         }
         else{
             for(let j = 0; j <= lvi; j++){
-                parmValArr.push(formulaDialogs.searchParm.find(".parmBox").eq(j).find(".txt input").val());
+                let _elTxtInput3 = _elParmBoxes6[j] ? _elParmBoxes6[j].querySelector(".txt input") : null;
+                parmValArr.push(_elTxtInput3 ? _elTxtInput3.value : "");
             }
 
-            functionHtmlTxt = "=" + formulaDialogs.searchParm.find(".luckysheet-modal-dialog-title-text").text() + "(" + parmValArr.join(",") + ")";
+            functionHtmlTxt = "=" + formulatxt + "(" + parmValArr.join(",") + ")";
         }
 
         let function_str = formula.functionHTMLGenerate(functionHtmlTxt);
@@ -489,7 +530,8 @@ const insertFormula = {
                 result = formula.error.n;
             }
 
-            formulaDialogs.searchParm.find(".result span").text(result);
+            let _elResultSpan = formulaDialogs.searchParm.el.querySelector(".result span");
+            if (_elResultSpan) _elResultSpan.textContent = result;
         }
     }
 }

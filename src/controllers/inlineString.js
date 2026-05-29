@@ -9,6 +9,15 @@ import functionBox from '../ui/functionBox.js';
 export const inlineStyleAffectAttribute = {"bl":1, "it":1 , "ff":1, "cl":1, "un":1,"fs":1,"fc":1};
 export const inlineStyleAffectCssName = {"font-weight":1, "font-style":1 , "font-family":1, "text-decoration":1, "border-bottom":1,"font-size":1,"color":1};
 
+function closestTo(el, target) {
+    let current = el;
+    while (current) {
+        if (current === target) return current;
+        current = current.parentElement;
+    }
+    return null;
+}
+
 export function isInlineStringCell(cell){
     let isIs = cell && cell.ct!=null && cell.ct.t=="inlineStr" && cell.ct.s!=null && cell.ct.s.length>0;
     return isIs; 
@@ -20,7 +29,6 @@ export function isInlineStringCT(ct){
 }
 
 export function updateInlineStringFormat(cell, attr, value, $input){
-    // let s = Store.inlineStringEditCache;
     var  w = window.getSelection(); 
     var range;
     if(w.type=="None"){
@@ -29,39 +37,27 @@ export function updateInlineStringFormat(cell, attr, value, $input){
     else{
         range = w.getRangeAt(0);
     } 
-    
-
-    // if(isInlineStringCell(cell)){
-    //     if(Store.inlineStringEditCache==null){
-    //         Store.inlineStringEditCache = JSON.parse(JSON.stringify(cell.ct.s));
-    //     }
-    // }
-    // else{
-    //     Store.inlineStringEditCache = [{
-    //         v:cell.v
-    //     }];
-    // }
 
     let cac = range.commonAncestorContainer;
-    let $textEditor;
+    let textEditor;
     if(richTextEditor.getNativeElement()===cac){
-        $textEditor = $(cac);
+        textEditor = cac;
     }
     else{
-        $textEditor = $(cac).closest(richTextEditor.el);
+        textEditor = closestTo(cac, richTextEditor.el);
     }
-    let $functionbox = $(cac).closest(functionBox.el);
+    let functionboxEl = closestTo(cac, functionBox.el);
 
-    if($textEditor.length==0 && $functionbox.length==0 && Store.inlineStringEditRange!=null){
+    if(textEditor==null && functionboxEl==null && Store.inlineStringEditRange!=null){
         range = Store.inlineStringEditRange;
         cac = range.commonAncestorContainer;
         if(richTextEditor.getNativeElement()===cac){
-            $textEditor = $(cac);
+            textEditor = cac;
         }
         else{
-            $textEditor = $(cac).closest(richTextEditor.el);
+            textEditor = closestTo(cac, richTextEditor.el);
         }
-        $functionbox = $(cac).closest(functionBox.el);
+        functionboxEl = closestTo(cac, functionBox.el);
     }
 
     if(range.collapsed===true){
@@ -71,13 +67,13 @@ export function updateInlineStringFormat(cell, attr, value, $input){
     let endContainer = range.endContainer, startContainer = range.startContainer;
     let endOffset = range.endOffset, startOffset = range.startOffset;
 
-    if($textEditor.length>0){
+    if(textEditor!=null){
         if(startContainer===endContainer){
             let span = startContainer.parentNode, spanIndex, inherit=false;
             
             let content = span.innerText;
 
-            let fullContent = $textEditor.html();
+            let fullContent = textEditor.innerHTML;
             if(fullContent.substr(0,5) != "<span"){
                 inherit = true;
             }
@@ -92,7 +88,7 @@ export function updateInlineStringFormat(cell, attr, value, $input){
             if(left!=""){
                 let cssText = span.style.cssText;
                 if(inherit){
-                    let box = $(span).closest(inputBox.el).get(0);
+                    let box = closestTo(span, inputBox.el);
                     if(box!=null){
                         cssText = extendCssText(box.style.cssText, cssText);
                     }
@@ -101,19 +97,10 @@ export function updateInlineStringFormat(cell, attr, value, $input){
             }
 
             if(mid!=""){
-                // let styleObj = {};
-                // styleObj[attr] = value;
-                // let s = getFontStyleByCell(styleObj, undefined, undefined, false);
-                // let ukey = textTrim(s.substr(0, s.indexOf(':')));
-                // let uvalue = textTrim(s.substr(s.indexOf(':')+1));
-                // uvalue = uvalue.substr(0, uvalue.length-1);
-                // let cssText = span.style.cssText;
-                // cssText = removeClassWidthCss(cssText, attr);
-
                 let cssText = getCssText(span.style.cssText, attr, value);
 
                 if(inherit){
-                    let box = $(span).closest(inputBox.el).get(0);
+                    let box = closestTo(span, inputBox.el);
                     if(box!=null){
                         cssText = extendCssText(box.style.cssText, cssText);
                     }
@@ -125,7 +112,7 @@ export function updateInlineStringFormat(cell, attr, value, $input){
             if(right!=""){
                 let cssText = span.style.cssText;
                 if(inherit){
-                    let box = $(span).closest(inputBox.el).get(0);
+                    let box = closestTo(span, inputBox.el);
                     if(box!=null){
                         cssText = extendCssText(box.style.cssText, cssText);
                     }
@@ -134,14 +121,15 @@ export function updateInlineStringFormat(cell, attr, value, $input){
             }
 
             if(startContainer.parentNode.tagName=="SPAN"){
-                spanIndex = $textEditor.find("span").index(span);
-                $(span).replaceWith(cont);
+                let spans = textEditor.querySelectorAll("span");
+                spanIndex = Array.from(spans).indexOf(span);
+                span.outerHTML = cont;
             }
             else{
                 spanIndex = 0;
-                $(span).html(cont);
+                span.innerHTML = cont;
             }
-            
+
 
             let seletedNodeIndex = 0;
             if(s1==s2){
@@ -151,15 +139,17 @@ export function updateInlineStringFormat(cell, attr, value, $input){
                 seletedNodeIndex  = spanIndex+1;
             }
 
-            selectTextContent($textEditor.find("span").get(seletedNodeIndex));
+            selectTextContent(textEditor.querySelectorAll("span")[seletedNodeIndex]);
         }
         else{
             if(startContainer.parentNode.tagName=="SPAN" && endContainer.parentNode.tagName=="SPAN"){
                 let startSpan = startContainer.parentNode, startSpanIndex;
                 let endSpan = endContainer.parentNode, endSpanIndex;
 
-                startSpanIndex = $textEditor.find("span").index(startSpan);
-                endSpanIndex = $textEditor.find("span").index(endSpan);
+                let spans = textEditor.querySelectorAll("span");
+                let spansArr = Array.from(spans);
+                startSpanIndex = spansArr.indexOf(startSpan);
+                endSpanIndex = spansArr.indexOf(endSpan);
 
                 let startContent = startSpan.innerHTML, endContent = endSpan.innerHTML;
                 let sleft="" , sright="", eleft="" , eright="";
@@ -170,11 +160,9 @@ export function updateInlineStringFormat(cell, attr, value, $input){
 
                 eleft = endContent.substring(0, s3);
                 eright = endContent.substring(s3, s4);
-                let spans = $textEditor.find("span");
-                let replaceSpans = spans.slice(startSpanIndex, endSpanIndex+1);
                 let cont = "";
                 for(let i=0;i<startSpanIndex;i++){
-                    let span = spans.get(i), content = span.innerHTML;
+                    let span = spans[i], content = span.innerHTML;
                     cont += "<span style='"+ span.style.cssText +"'>" + content + "</span>";
                 }
                 if(sleft!=""){
@@ -188,7 +176,7 @@ export function updateInlineStringFormat(cell, attr, value, $input){
 
                 if(startSpanIndex<endSpanIndex){
                     for(let i=startSpanIndex+1;i<endSpanIndex;i++){
-                        let span = spans.get(i), content = span.innerHTML;
+                        let span = spans[i], content = span.innerHTML;
                         let cssText = getCssText(span.style.cssText, attr, value);
                         cont += "<span style='"+ cssText +"'>" + content + "</span>";
                     }
@@ -204,14 +192,11 @@ export function updateInlineStringFormat(cell, attr, value, $input){
                 }
 
                 for(let i=endSpanIndex+1;i<spans.length;i++){
-                    let span = spans.get(i), content = span.innerHTML;
+                    let span = spans[i], content = span.innerHTML;
                     cont += "<span style='"+ span.style.cssText +"'>" + content + "</span>";
                 }
 
-                $textEditor.html(cont);
-
-                // console.log(replaceSpans, cont);
-                // replaceSpans.replaceWith(cont);
+                textEditor.innerHTML = cont;
 
                 let startSeletedNodeIndex, endSeletedNodeIndex;
                 if(s1==s2){
@@ -223,13 +208,13 @@ export function updateInlineStringFormat(cell, attr, value, $input){
                     endSeletedNodeIndex = endSpanIndex+1;
                 }
 
-                spans = $textEditor.find("span");
+                spans = textEditor.querySelectorAll("span");
 
-                selectTextContentCross(spans.get(startSeletedNodeIndex), spans.get(endSeletedNodeIndex));
+                selectTextContentCross(spans[startSeletedNodeIndex], spans[endSeletedNodeIndex]);
             }
         }
     }
-    else if($functionbox.length>0){
+    else if(functionboxEl!=null){
 
     }
 }
@@ -242,41 +227,33 @@ export function enterKeyControll(cell){
     }
     var range = w.getRangeAt(0);
     let cac = range.commonAncestorContainer;
-    let $textEditor;
+    let textEditor;
     if(richTextEditor.getNativeElement()===cac){
-        $textEditor = $(cac);
+        textEditor = cac;
     }
     else{
-        $textEditor = $(cac).closest(richTextEditor.el);
+        textEditor = closestTo(cac, richTextEditor.el);
     }
-    let $functionbox = $(cac).closest(functionBox.el);
-
-    // if(range.collapsed===true){
-    //     return;
-    // }
+    let functionboxEl = closestTo(cac, functionBox.el);
 
     let endContainer = range.endContainer, startContainer = range.startContainer;
     let endOffset = range.endOffset, startOffset = range.startOffset;
     
-    if($textEditor.length>0){
+    if(textEditor!=null){
         let startSpan = startContainer.parentNode;
         if(richTextEditor.getNativeElement()===startContainer){
-            startSpan = $(startContainer).find("span");
-            if(startSpan.length==0){
-                // 在末尾换行操作会导致数据丢失(覆盖)
+            let startSpanList = startContainer.querySelectorAll("span");
+            if(startSpanList.length==0){
                 startContainer.innerHTML = `<span>${startContainer.innerText}</span>`;
-                startSpan = $(startContainer).find("span");
+                startSpanList = startContainer.querySelectorAll("span");
             }
-            startSpan = startSpan.get(startSpan.length-1);
+            startSpan = startSpanList[startSpanList.length-1];
             startOffset = startSpan.innerHTML.length;
         }
-        // let startSpanIndex = $textEditor.find("span").index(startSpan);
         if(range.collapsed===false){
             range.deleteContents();
         }
 
-        // 如果拷贝的内容为：pc&web ，那么innerHTML得到的值为：pc&amp;web ，执行换行操作存在问题
-        // let startContent = startSpan.innerHTML; 
         let startContent = startSpan.innerText;
         let sleft="" , sright="";
         let s1=0, s2=startOffset;
@@ -287,8 +264,9 @@ export function enterKeyControll(cell){
         
         let spanIndex,cont;
         if(startContainer.parentNode.tagName=="SPAN"){
-            let textSpan = $textEditor.find("span");
-            spanIndex = textSpan.index(startSpan);
+            let textSpan = textEditor.querySelectorAll("span");
+            let textSpanArr = Array.from(textSpan);
+            spanIndex = textSpanArr.indexOf(startSpan);
             if((spanIndex==textSpan.length-1) && sright==""){
                 let txt = textSpan[spanIndex].innerHTML;
                 if(txt.substr(txt.length-1, 1)=="\n"){
@@ -303,12 +281,9 @@ export function enterKeyControll(cell){
                 cont = "<span style='"+ startSpan.style.cssText +"'>" + sleft + "\n" + sright + "</span>";
             }
             
-            $(startSpan).replaceWith(cont);
+            startSpan.outerHTML = cont;
         }
         else{
-            // 这里不能取整个单元格的样式，因为如果设置了部分样式的话就会出问题
-            // let cssText = getFontStyleByCell(cell);
-            
             let cssText = startSpan.style.cssText;
 
             if(sright==""){
@@ -319,22 +294,22 @@ export function enterKeyControll(cell){
             }
             
             if(richTextEditor.getNativeElement()===startContainer){
-                $(startSpan).replaceWith(cont);
-                let textSpan = $textEditor.find("span");
+                startSpan.outerHTML = cont;
+                let textSpan = textEditor.querySelectorAll("span");
                 spanIndex = textSpan.length-1;
-                startOffset = textSpan.get(spanIndex).innerHTML.length-1;
+                startOffset = textSpan[spanIndex].innerHTML.length-1;
             }
             else{
-                $(startSpan).html(cont);
+                startSpan.innerHTML = cont;
                 spanIndex = 0;
             }
             
         }
 
-        selectTextContentCollapse($textEditor.find("span").get(spanIndex), startOffset+1);
+        selectTextContentCollapse(textEditor.querySelectorAll("span")[spanIndex], startOffset+1);
 
     }
-    else if($functionbox.length>0){
+    else if(functionboxEl!=null){
 
     }
 }
@@ -356,11 +331,10 @@ export function updateInlineStringFormatOutside(cell, key, value){
 export function convertSpanToShareString($dom){
     let styles = [], preStyleList, preStyleListString=null;
     for(let i=0;i<$dom.length;i++){
-        let span = $dom.get(i);
+        let span = $dom[i];
         let styleList = convertCssToStyleList(span.style.cssText);
 
         let curStyleListString = JSON.stringify(styleList);
-        // let v = span.innerHTML;
         let v = span.innerText;
         v = v.replace(/\n/g, "\r\n");
 
@@ -389,13 +363,13 @@ export function convertCssToStyleList(cssText){
     const locale_fontarray = _locale.fontarray;
     const locale_fontjson = _locale.fontjson;
     let styleList = {    
-        "ff":locale_fontarray[0], //font family
-        "fc":"#000000",//font color
-        "fs":10,//font size
-        "cl":0,//strike
-        "un":0,//underline
-        "bl":0,//blod
-        "it":0,//italic
+        "ff":locale_fontarray[0],
+        "fc":"#000000",
+        "fs":10,
+        "cl":0,
+        "un":0,
+        "bl":0,
+        "it":0,
     };
     cssTextArray.forEach(s => {
         s = s.toLowerCase();
@@ -567,7 +541,6 @@ function getCssText(cssText, attr, value){
     let ukey = textTrim(s.substr(0, s.indexOf(':')));
     let uvalue = textTrim(s.substr(s.indexOf(':')+1));
     uvalue = uvalue.substr(0, uvalue.length-1);
-    // let cssText = span.style.cssText;
     cssText = removeClassWidthCss(cssText, attr);
 
     cssText = upsetClassWithCss(cssText, ukey, uvalue);
@@ -586,7 +559,6 @@ function extendCssText(origin, cover, isLimit=true){
         so = so.toLowerCase();
         let okey = textTrim(so.substr(0, so.indexOf(':')));
 
-        /* 不设置文字的大小，解决设置删除线等后字体变大的问题 */
         if(okey == "font-size"){
             continue;
         }
@@ -638,8 +610,3 @@ function extendCssText(origin, cover, isLimit=true){
 
     return newCss;
 }
-
-
-
-
-

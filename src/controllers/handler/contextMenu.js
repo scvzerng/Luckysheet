@@ -19,10 +19,10 @@ import {
 import rightClickMenu from "../../ui/rightClickMenu.js";
 
 export default function contextMenu() {
-    $(".luckysheet-grid-container").on("contextmenu", function(e) {
+    document.querySelector(".luckysheet-grid-container").addEventListener("contextmenu", function(e) {
         e.preventDefault();
     });
-    rightClickMenu.el.on("contextmenu", function(e) {
+    rightClickMenu.el.addEventListener("contextmenu", function(e) {
         e.preventDefault();
     });
 }

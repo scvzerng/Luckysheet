@@ -38,12 +38,14 @@ export function luckysheetupdateCell(row_index1, col_index1, d, cover, isnotfocu
         row_index = size.row_index, 
         col_index = size.col_index;
 
-    if($("#luckysheet-dropCell-icon").is(":visible")){
-        $("#luckysheet-dropCell-icon").remove();
+    let _elDropCellIcon = document.getElementById("luckysheet-dropCell-icon");
+    if(_elDropCellIcon && _elDropCellIcon.offsetWidth > 0){
+        _elDropCellIcon.remove();
     }
 
     let winH = document.documentElement.clientHeight, winW = document.documentElement.clientWidth;
-    let container_offset = $("#" + Store.container).offset();
+    let _elContainer = document.getElementById(Store.container);
+    let container_offset = _elContainer ? {top: _elContainer.getBoundingClientRect().top + window.pageYOffset, left: _elContainer.getBoundingClientRect().left + window.pageXOffset} : {top: 0, left: 0};
     let scroll = getScrollPosition();
     let scrollLeft = scroll.scrollLeft;
     let scrollTop = scroll.scrollTop;
@@ -165,7 +167,7 @@ export function luckysheetupdateCell(row_index1, col_index1, d, cover, isnotfocu
         }
         
         let style = menuButton.getStyleByCell(d, row_index, col_index);
-        let nativeEl = inputBox.el.get(0);
+        let nativeEl = inputBox.el;
         if (!nativeEl) return;
         style = nativeEl.style.cssText + style;
 
@@ -258,7 +260,8 @@ export function setCenterInputPosition(row_index, col_index, d){
     let row = size.row, row_pre = size.row_pre, col = size.col, col_pre = size.col_pre;
 
     let winH = document.documentElement.clientHeight, winW = document.documentElement.clientWidth;
-    let container_offset = $("#" + Store.container).offset();
+    let _elContainer2 = document.getElementById(Store.container);
+    let container_offset = _elContainer2 ? {top: _elContainer2.getBoundingClientRect().top + window.pageYOffset, left: _elContainer2.getBoundingClientRect().left + window.pageXOffset} : {top: 0, left: 0};
     let scroll = getScrollPosition();
     let scrollLeft = scroll.scrollLeft;
     let scrollTop = scroll.scrollTop;

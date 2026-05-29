@@ -87,9 +87,11 @@ const dialogModule = {
                         <button id="luckysheet-singleRange-dialog-close" class="btn btn-default" data-source="${source}">${conditionformat_Text.cancel}</button>`,
       "style": "z-index:100003"
     }));
-    let $t = formulaDialogs.singleRange.el.find(".luckysheet-modal-dialog-content").css("min-width", 300).end(),
-      myh = $t.outerHeight(),
-      myw = $t.outerWidth();
+    let _srEl = formulaDialogs.singleRange.el;
+    let _srContent = _srEl.querySelector ? _srEl.querySelector(".luckysheet-modal-dialog-content") : null;
+    if (_srContent) _srContent.style.minWidth = '300px';
+    let myh = _srEl.offsetHeight || 0,
+      myw = _srEl.offsetWidth || 0;
     let winw = document.documentElement.clientWidth,
       winh = document.documentElement.clientHeight;
     let scrollLeft = document.documentElement.scrollLeft,
@@ -113,9 +115,11 @@ const dialogModule = {
                         <button id="luckysheet-multiRange-dialog-close" class="btn btn-default">${conditionformat_Text.cancel}</button>`,
       "style": "z-index:100003"
     }));
-    let $t = formulaDialogs.multiRange.el.find(".luckysheet-modal-dialog-content").css("min-width", 300).end(),
-      myh = $t.outerHeight(),
-      myw = $t.outerWidth();
+    let _mrEl = formulaDialogs.multiRange.el;
+    let _mrContent = _mrEl.querySelector ? _mrEl.querySelector(".luckysheet-modal-dialog-content") : null;
+    if (_mrContent) _mrContent.style.minWidth = '300px';
+    let myh = _mrEl.offsetHeight || 0,
+      myw = _mrEl.offsetWidth || 0;
     let winw = document.documentElement.clientWidth,
       winh = document.documentElement.clientHeight;
     let scrollLeft = document.documentElement.scrollLeft,
@@ -140,17 +144,20 @@ const dialogModule = {
                         <button class="btn btn-default luckysheet-model-close-btn">${conditionformat_Text.cancel}</button>`,
       "style": "z-index:9999"
     }));
-    let $t = conditionformatDialog.main.find(".luckysheet-modal-dialog-content").css("min-width", 300).end(),
-      myh = $t.outerHeight(),
-      myw = $t.outerWidth();
+    let _cfEl = conditionformatDialog.main.el;
+    let _cfContent = _cfEl.querySelector ? _cfEl.querySelector(".luckysheet-modal-dialog-content") : null;
+    if (_cfContent) _cfContent.style.minWidth = '300px';
+    let myh = _cfEl.offsetHeight || 0,
+      myw = _cfEl.offsetWidth || 0;
     let winw = document.documentElement.clientWidth,
       winh = document.documentElement.clientHeight;
     let scrollLeft = document.documentElement.scrollLeft,
       scrollTop = document.documentElement.scrollTop;
-    conditionformatDialog.main.el.css({
-      "left": (winw + scrollLeft - myw) / 2,
-      "top": (winh + scrollTop - myh) / 3
-    }).show();
+    Object.assign(_cfEl.style, {
+      "left": (winw + scrollLeft - myw) / 2 + 'px',
+      "top": (winh + scrollTop - myh) / 3 + 'px'
+    });
+    _cfEl.style.display = '';
     _this.init();
     _this.colorSelectInit();
     if (title == locale().conditionformat.conditionformat_occurrenceDate) {
@@ -159,7 +166,8 @@ const dialogModule = {
   },
   CFiconsDialog: function () {
     showModalMask();
-    $("#luckysheet-CFicons-dialog").remove();
+    let _cfIconsEl = document.getElementById("luckysheet-CFicons-dialog");
+    if (_cfIconsEl) _cfIconsEl.remove();
     const conditionformat_Text = locale().conditionformat;
     let content = `<div class="box">
                             <div style="margin-bottom: 10px;">${conditionformat_Text.pleaseSelectIcon}</div>
@@ -224,17 +232,20 @@ const dialogModule = {
       "botton": `<button class="btn btn-default luckysheet-model-close-btn">${conditionformat_Text.close}</button>`,
       "style": "z-index:100003"
     }));
-    let $t = $("#luckysheet-CFicons-dialog").find(".luckysheet-modal-dialog-content").css("min-width", 400).end(),
-      myh = $t.outerHeight(),
-      myw = $t.outerWidth();
+    let _cfIconsEl2 = document.getElementById("luckysheet-CFicons-dialog");
+    let _cfIconsContent = _cfIconsEl2?.querySelector(".luckysheet-modal-dialog-content");
+    if (_cfIconsContent) _cfIconsContent.style.minWidth = '400px';
+    let myh = _cfIconsEl2?.offsetHeight || 0,
+      myw = _cfIconsEl2?.offsetWidth || 0;
     let winw = document.documentElement.clientWidth,
       winh = document.documentElement.clientHeight;
     let scrollLeft = document.documentElement.scrollLeft,
       scrollTop = document.documentElement.scrollTop;
-    $("#luckysheet-CFicons-dialog").css({
-      "left": (winw + scrollLeft - myw) / 2,
-      "top": (winh + scrollTop - myh) / 3
-    }).show();
+    Object.assign(_cfIconsEl2.style, {
+      "left": (winw + scrollLeft - myw) / 2 + 'px',
+      "top": (winh + scrollTop - myh) / 3 + 'px'
+    });
+    _cfIconsEl2.style.display = '';
   },
   administerRuleDialog: function () {
     showModalMask();
@@ -282,20 +293,23 @@ const dialogModule = {
                         <button id="luckysheet-administerRule-dialog-close" class="btn btn-default">${conditionformat_Text.close}</button>`,
       "style": "z-index:100003"
     }));
-    let $t = conditionformatDialog.adminRule.find(".luckysheet-modal-dialog-content").css("min-width", 400).end(),
-      myh = $t.outerHeight(),
-      myw = $t.outerWidth();
+    let _adminEl = conditionformatDialog.adminRule.el;
+    let _adminContent = _adminEl.querySelector ? _adminEl.querySelector(".luckysheet-modal-dialog-content") : null;
+    if (_adminContent) _adminContent.style.minWidth = '400px';
+    let myh = _adminEl.offsetHeight || 0,
+      myw = _adminEl.offsetWidth || 0;
     let winw = document.documentElement.clientWidth,
       winh = document.documentElement.clientHeight;
     let scrollLeft = document.documentElement.scrollLeft,
       scrollTop = document.documentElement.scrollTop;
-    conditionformatDialog.adminRule.el.css({
-      "left": (winw + scrollLeft - myw) / 2,
-      "top": (winh + scrollTop - myh) / 3
-    }).show();
+    Object.assign(_adminEl.style, {
+      "left": (winw + scrollLeft - myw) / 2 + 'px',
+      "top": (winh + scrollTop - myh) / 3 + 'px'
+    });
+    _adminEl.style.display = '';
 
     //当前工作表的规则列表
-    let index = conditionformatDialog.adminRule.find(".chooseSheet option:selected").val();
+    let index = conditionformatDialog.adminRule.find(".chooseSheet option:checked")?.value;
     this.getConditionRuleList(index);
   },
   newConditionRuleDialog: function (source) {
@@ -319,20 +333,27 @@ const dialogModule = {
                         <button id="luckysheet-newConditionRule-dialog-close" class="btn btn-default" data-source="${source}">${conditionformat_Text.cancel}</button>`,
       "style": "z-index:100003"
     }));
-    let $t = $("#luckysheet-newConditionRule-dialog").find(".luckysheet-modal-dialog-content").css("min-width", 400).end(),
-      myh = $t.outerHeight(),
-      myw = $t.outerWidth();
+    let _newRuleEl = document.getElementById("luckysheet-newConditionRule-dialog");
+    let _newRuleContent = _newRuleEl?.querySelector(".luckysheet-modal-dialog-content");
+    if (_newRuleContent) _newRuleContent.style.minWidth = '400px';
+    let myh = _newRuleEl?.offsetHeight || 0,
+      myw = _newRuleEl?.offsetWidth || 0;
     let winw = document.documentElement.clientWidth,
       winh = document.documentElement.clientHeight;
     let scrollLeft = document.documentElement.scrollLeft,
       scrollTop = document.documentElement.scrollTop;
-    $("#luckysheet-newConditionRule-dialog").css({
-      "left": (winw + scrollLeft - myw) / 2,
-      "top": (winh + scrollTop - myh) / 3
-    }).show();
+    Object.assign(_newRuleEl.style, {
+      "left": (winw + scrollLeft - myw) / 2 + 'px',
+      "top": (winh + scrollTop - myh) / 3 + 'px'
+    });
+    _newRuleEl.style.display = '';
 
     //index的规则类型focus
-    $("#luckysheet-newConditionRule-dialog .ruleTypeBox .ruleTypeItem:eq(0)").addClass("on").siblings().removeClass("on");
+    let _firstRuleItem = _newRuleEl.querySelector(".ruleTypeBox .ruleTypeItem");
+    if (_firstRuleItem) {
+      _firstRuleItem.classList.add("on");
+      Array.from(_firstRuleItem.parentElement.children).filter(s => s !== _firstRuleItem).forEach(s => s.classList.remove("on"));
+    }
     _this.colorSelectInit();
   },
   editorConditionRuleDialog: function () {
@@ -394,27 +415,38 @@ const dialogModule = {
                         <button id="luckysheet-editorConditionRule-dialog-close" class="btn btn-default">${conditionformat_Text.cancel}</button>`,
       "style": "z-index:100003"
     }));
-    let $t = $("#luckysheet-editorConditionRule-dialog").find(".luckysheet-modal-dialog-content").css("min-width", 400).end(),
-      myh = $t.outerHeight(),
-      myw = $t.outerWidth();
+    let _editRuleEl = document.getElementById("luckysheet-editorConditionRule-dialog");
+    let _editRuleContent = _editRuleEl?.querySelector(".luckysheet-modal-dialog-content");
+    if (_editRuleContent) _editRuleContent.style.minWidth = '400px';
+    let myh = _editRuleEl?.offsetHeight || 0,
+      myw = _editRuleEl?.offsetWidth || 0;
     let winw = document.documentElement.clientWidth,
       winh = document.documentElement.clientHeight;
     let scrollLeft = document.documentElement.scrollLeft,
       scrollTop = document.documentElement.scrollTop;
-    $("#luckysheet-editorConditionRule-dialog").css({
-      "left": (winw + scrollLeft - myw) / 2,
-      "top": (winh + scrollTop - myh) / 3
-    }).show();
+    Object.assign(_editRuleEl.style, {
+      "left": (winw + scrollLeft - myw) / 2 + 'px',
+      "top": (winh + scrollTop - myh) / 3 + 'px'
+    });
+    _editRuleEl.style.display = '';
     _this.colorSelectInit();
 
     //规则类型focus
-    $("#luckysheet-editorConditionRule-dialog .ruleTypeBox .ruleTypeItem:eq(" + index + ")").addClass("on").siblings().removeClass("on");
+    let _ruleItems = _editRuleEl.querySelectorAll(".ruleTypeBox .ruleTypeItem");
+    if (_ruleItems[index]) {
+      _ruleItems[index].classList.add("on");
+      Array.from(_ruleItems[index].parentElement.children).filter(s => s !== _ruleItems[index]).forEach(s => s.classList.remove("on"));
+    }
 
     //type1
-    $("#luckysheet-editorConditionRule-dialog #type1").val(type1);
+    let _editType1 = _editRuleEl.querySelector("#type1");
+    if (_editType1) _editType1.value = type1;
     if (type1 == "dataBar" || type1 == "colorGradation" || type1 == "icons" || type1 == "number" || type1 == "text" || type1 == "date") {
       document.querySelectorAll("#luckysheet-editorConditionRule-dialog ." + type1 + "Box").forEach(el => el.style.display = '');
-      $("#luckysheet-editorConditionRule-dialog ." + type1 + "Box").siblings().hide();
+      let _type1Box = _editRuleEl.querySelector("." + type1 + "Box");
+      if (_type1Box) {
+        Array.from(_type1Box.parentElement.children).filter(s => s !== _type1Box).forEach(s => s.style.display = 'none');
+      }
     }
     if (type1 == "date") {
       _this.daterangeInit("luckysheet-editorConditionRule-dialog");
@@ -424,20 +456,20 @@ const dialogModule = {
     if (ruleType == "dataBar" || ruleType == "colorGradation" || ruleType == "icons") {
       if (type1 == "dataBar") {
         if (ruleFormat.length == 2) {
-          $("#luckysheet-editorConditionRule-dialog .dataBarBox #type2").val("gradient");
+          let _dbType2 = _editRuleEl.querySelector(".dataBarBox #type2"); if (_dbType2) _dbType2.value = "gradient";
         } else if (ruleFormat.length == 1) {
-          $("#luckysheet-editorConditionRule-dialog .dataBarBox #type2").val("solid");
+          let _dbType2b = _editRuleEl.querySelector(".dataBarBox #type2"); if (_dbType2b) _dbType2b.value = "solid";
         }
         getPicker(document.querySelector("#luckysheet-editorConditionRule-dialog .dataBarBox .luckysheet-conditionformat-config-color"))?.set(ruleFormat[0]);
       } else if (type1 == "colorGradation") {
         if (ruleFormat.length == 3) {
-          $("#luckysheet-editorConditionRule-dialog .colorGradationBox #type2").val("threeColor");
+          let _cgType2 = _editRuleEl.querySelector(".colorGradationBox #type2"); if (_cgType2) _cgType2.value = "threeColor";
           document.querySelectorAll("#luckysheet-editorConditionRule-dialog .colorGradationBox .midVal").forEach(el => el.style.display = '');
           getPicker(document.querySelector("#luckysheet-editorConditionRule-dialog .colorGradationBox .maxVal .luckysheet-conditionformat-config-color"))?.set(ruleFormat[0]);
           getPicker(document.querySelector("#luckysheet-editorConditionRule-dialog .colorGradationBox .midVal .luckysheet-conditionformat-config-color"))?.set(ruleFormat[1]);
           getPicker(document.querySelector("#luckysheet-editorConditionRule-dialog .colorGradationBox .minVal .luckysheet-conditionformat-config-color"))?.set(ruleFormat[2]);
         } else if (ruleFormat.length == 2) {
-          $("#luckysheet-editorConditionRule-dialog .colorGradationBox #type2").val("twoColor");
+          let _cgType2b = _editRuleEl.querySelector(".colorGradationBox #type2"); if (_cgType2b) _cgType2b.value = "twoColor";
           document.querySelectorAll("#luckysheet-editorConditionRule-dialog .colorGradationBox .midVal").forEach(el => el.style.display = 'none');
           getPicker(document.querySelector("#luckysheet-editorConditionRule-dialog .colorGradationBox .maxVal .luckysheet-conditionformat-config-color"))?.set(ruleFormat[0]);
           getPicker(document.querySelector("#luckysheet-editorConditionRule-dialog .colorGradationBox .minVal .luckysheet-conditionformat-config-color"))?.set(ruleFormat[1]);
@@ -446,20 +478,25 @@ const dialogModule = {
         let len = ruleFormat["len"];
         let l = ruleFormat["leftMin"];
         let t = ruleFormat["top"];
-        $("#luckysheet-editorConditionRule-dialog .iconsBox li").each(function (i, e) {
-          if ($(e).find("div").attr("data-len") == len && $(e).find("div").attr("data-leftmin") == l && $(e).find("div").attr("data-top") == t) {
-            $("#luckysheet-editorConditionRule-dialog .iconsBox .showbox .model").css("background-position", $(e).find("div").css("background-position"));
-            $("#luckysheet-editorConditionRule-dialog .iconsBox .showbox .model").attr("data-len", $(e).find("div").attr("data-len"));
-            $("#luckysheet-editorConditionRule-dialog .iconsBox .showbox .model").attr("data-leftmin", $(e).find("div").attr("data-leftmin"));
-            $("#luckysheet-editorConditionRule-dialog .iconsBox .showbox .model").attr("data-top", $(e).find("div").attr("data-leftmin"));
-            $("#luckysheet-editorConditionRule-dialog .iconsBox .showbox .model").attr("title", $(e).find("div").attr("title"));
+        let _iconLis = _editRuleEl.querySelectorAll(".iconsBox li");
+        _iconLis.forEach(function (liEl) {
+          let _div = liEl.querySelector("div");
+          if (_div?.getAttribute("data-len") == len && _div?.getAttribute("data-leftmin") == l && _div?.getAttribute("data-top") == t) {
+            let _model = _editRuleEl.querySelector(".iconsBox .showbox .model");
+            if (_model) {
+              _model.style.backgroundPosition = getComputedStyle(_div).backgroundPosition;
+              _model.setAttribute("data-len", _div.getAttribute("data-len"));
+              _model.setAttribute("data-leftmin", _div.getAttribute("data-leftmin"));
+              _model.setAttribute("data-top", _div.getAttribute("data-leftmin"));
+              _model.setAttribute("title", _div.getAttribute("title"));
+            }
             return true;
           }
         });
       }
     } else {
       if (type1 == "number") {
-        $("#luckysheet-editorConditionRule-dialog .numberBox #type2").val(conditionName);
+        let _numType2 = _editRuleEl.querySelector(".numberBox #type2"); if (_numType2) _numType2.value = conditionName;
         let val1;
         if (rule.conditionRange[0] != null) {
           val1 = getRangetxt(Store.currentSheetIndex, {
@@ -469,7 +506,7 @@ const dialogModule = {
         } else {
           val1 = rule.conditionValue[0];
         }
-        $("#luckysheet-editorConditionRule-dialog .numberBox #conditionVal input").val(val1);
+        let _condValInput = _editRuleEl.querySelector(".numberBox #conditionVal input"); if (_condValInput) _condValInput.value = val1;
         if (conditionName == "betweenness") {
           document.querySelectorAll("#luckysheet-editorConditionRule-dialog .numberBox .txt").forEach(el => el.style.display = '');
           document.querySelectorAll("#luckysheet-editorConditionRule-dialog .numberBox #conditionVal2").forEach(el => el.style.display = '');
@@ -482,7 +519,7 @@ const dialogModule = {
           } else {
             val2 = rule.conditionValue[1];
           }
-          $("#luckysheet-editorConditionRule-dialog .numberBox #conditionVal2 input").val(val2);
+          let _condVal2Input = _editRuleEl.querySelector(".numberBox #conditionVal2 input"); if (_condVal2Input) _condVal2Input.value = val2;
         } else {
           document.querySelectorAll("#luckysheet-editorConditionRule-dialog .numberBox .txt").forEach(el => el.style.display = 'none');
           document.querySelectorAll("#luckysheet-editorConditionRule-dialog .numberBox #conditionVal2").forEach(el => el.style.display = 'none');
@@ -497,20 +534,20 @@ const dialogModule = {
         } else {
           val1 = rule.conditionValue[0];
         }
-        $("#luckysheet-editorConditionRule-dialog .textBox #conditionVal input").val(val1);
+        let _textCondInput = _editRuleEl.querySelector(".textBox #conditionVal input"); if (_textCondInput) _textCondInput.value = val1;
       } else if (type1 == "date") {
         _this.daterangeInit("luckysheet-editorConditionRule-dialog");
         let val1 = rule.conditionValue[0];
-        $("#luckysheet-editorConditionRule-dialog .dateBox #daterange-btn").val(val1);
+        let _dateBtn = _editRuleEl.querySelector(".dateBox #daterange-btn"); if (_dateBtn) _dateBtn.value = val1;
       } else if (type1 == "top" || type1 == "last") {
         let val1 = rule.conditionValue[0];
         if (conditionName == "top10%" || conditionName == "last10%") {
-          $("#luckysheet-editorConditionRule-dialog #isPercent").attr("checked", "checked");
+            let _isPercent = _editRuleEl.querySelector("#isPercent"); if (_isPercent) _isPercent.setAttribute("checked", "checked");
         }
       } else {
         if (conditionName == "formula") {
           let val1 = rule.conditionValue[0];
-          $("#luckysheet-editorConditionRule-dialog #formulaConditionVal input").val(val1);
+          let _formulaInput = _editRuleEl.querySelector("#formulaConditionVal input"); if (_formulaInput) _formulaInput.value = val1;
         }
       }
       getPicker(document.querySelector("#luckysheet-editorConditionRule-dialog #textcolorshow"))?.set(ruleFormat.textColor);
@@ -519,7 +556,8 @@ const dialogModule = {
   },
   infoDialog: function (title, content) {
     showModalMask();
-    $("#luckysheet-conditionformat-info-dialog").remove();
+    let _infoEl = document.getElementById("luckysheet-conditionformat-info-dialog");
+    if (_infoEl) _infoEl.remove();
     document.body.insertAdjacentHTML('beforeend', replaceHtml(modelHTML, {
       "id": "luckysheet-conditionformat-info-dialog",
       "addclass": "",
@@ -528,17 +566,20 @@ const dialogModule = {
       "botton": `<button id="luckysheet-conditionformat-info-dialog-close" class="btn btn-default">${locale().conditionformat.close}</button>`,
       "style": "z-index:100003"
     }));
-    let $t = $("#luckysheet-conditionformat-info-dialog").find(".luckysheet-modal-dialog-content").css("min-width", 300).end(),
-      myh = $t.outerHeight(),
-      myw = $t.outerWidth();
+    let _infoEl2 = document.getElementById("luckysheet-conditionformat-info-dialog");
+    let _infoContent = _infoEl2?.querySelector(".luckysheet-modal-dialog-content");
+    if (_infoContent) _infoContent.style.minWidth = '300px';
+    let myh = _infoEl2?.offsetHeight || 0,
+      myw = _infoEl2?.offsetWidth || 0;
     let winw = document.documentElement.clientWidth,
       winh = document.documentElement.clientHeight;
     let scrollLeft = document.documentElement.scrollLeft,
       scrollTop = document.documentElement.scrollTop;
-    $("#luckysheet-conditionformat-info-dialog").css({
-      "left": (winw + scrollLeft - myw) / 2,
-      "top": (winh + scrollTop - myh) / 3
-    }).show();
+    Object.assign(_infoEl2.style, {
+      "left": (winw + scrollLeft - myw) / 2 + 'px',
+      "top": (winh + scrollTop - myh) / 3 + 'px'
+    });
+    _infoEl2.style.display = '';
   },
   getRuleExplain: function (index) {
     const conditionformat_Text = locale().conditionformat;
@@ -736,8 +777,9 @@ const dialogModule = {
     // const regexStartEndDate = /^(\d{4}-\d{2}-\d{2})( to (\d{4}-\d{2}-\d{2}))?$/; // 
 
     //日期选择插件
-    $('.ranges_1 ul').remove();
-    const daterangeBtn = $('#' + id).find("#daterange-btn");
+    let _rangesUl = document.querySelector('.ranges_1 ul');
+    if (_rangesUl) _rangesUl.remove();
+    const daterangeBtn = document.getElementById(id)?.querySelector("#daterange-btn");
     daterangeBtn.flatpickr({
       mode: "range",
       onChange: (data, label) => {
@@ -746,20 +788,20 @@ const dialogModule = {
         let format1 = [conditionformat_Text.yesterday, conditionformat_Text.today];
         let format2 = [conditionformat_Text.lastWeek, conditionformat_Text.thisWeek, conditionformat_Text.lastMonth, conditionformat_Text.thisMonth, conditionformat_Text.lastYear, conditionformat_Text.thisYear, conditionformat_Text.last7days, conditionformat_Text.last30days];
         if (label == conditionformat_Text.all) {
-          daterangeBtn.val('');
+          daterangeBtn.value = '';
         } else if (format1.indexOf(label) > -1) {
-          daterangeBtn.val(dayjs(start).format('YYYY/MM/DD'));
+          daterangeBtn.value = dayjs(start).format('YYYY/MM/DD');
         } else if (format2.indexOf(label) > -1) {
-          daterangeBtn.val(dayjs(start).format('YYYY/MM/DD') + '-' + dayjs(end).format('YYYY/MM/DD'));
+          daterangeBtn.value = dayjs(start).format('YYYY/MM/DD') + '-' + dayjs(end).format('YYYY/MM/DD');
         }
 
         // 匹配  "2023-05-17 to 2023-05-19"
         const isValidSingleFormat = regexSingleDate.test(label);
         const isValidStartEndFormat = regexStartEndDate.test(label);
         if (isValidSingleFormat) {
-          daterangeBtn.val(dayjs(start).format('YYYY/MM/DD'));
+          daterangeBtn.value = dayjs(start).format('YYYY/MM/DD');
         } else if (isValidStartEndFormat) {
-          daterangeBtn.val(dayjs(start).format('YYYY/MM/DD') + '-' + dayjs(end).format('YYYY/MM/DD'));
+          daterangeBtn.value = dayjs(start).format('YYYY/MM/DD') + '-' + dayjs(end).format('YYYY/MM/DD');
         }
       }
     });

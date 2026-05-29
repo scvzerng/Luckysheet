@@ -24,13 +24,11 @@ import functionBox from '../ui/functionBox.js';
 import cellMain from '../ui/cellMain.js';
 
 export function formulaBarInitial(){
-    //公式栏处理
-
     const _locale = locale();
     const locale_formula= _locale.formula;
 
-    functionBox.el.focus(function () {
-        if(isEditMode()){//此模式下禁用公式栏
+    functionBox.el.addEventListener("focus", function () {
+        if(isEditMode()){
             return;
         }
 
@@ -40,15 +38,12 @@ export function formulaBarInitial(){
             let _focus = getFocusCell();
             let row_index = _focus.row, col_index = _focus.col;
             
-            // let $input = $("#luckysheet-rich-text-editor"),value = $input.text();
-            // if(value) {
-            //     formula.updatecell(row_index, col_index);
-            // }
             luckysheetupdateCell(row_index, col_index, Store.flowdata, null, true);
             formula.rangeResizeTo = functionBox.el;
         }
-    }).keydown(function (event) {
-        if(isEditMode()){//此模式下禁用公式栏
+    });
+    functionBox.el.addEventListener("keydown", function (event) {
+        if(isEditMode()){
             return;
         }
 
@@ -56,73 +51,79 @@ export function formulaBarInitial(){
         let altKey = event.altKey;
         let shiftKey = event.shiftKey;
         let kcode = event.keyCode;
-        let $inputbox = inputBox.el;
+        let inputboxEl = inputBox.el;
 
-        if (kcode == keycode.ENTER && parseInt($inputbox.css("top")) > 0) {
+        if (kcode == keycode.ENTER && parseInt(inputboxEl.style.top) > 0) {
             if (formulaDialogs.formulaSearchC.isVisible() && formula.searchFunctionCell != null) {
-                formula.searchFunctionEnter(formulaDialogs.formulaSearchC.el.find(".luckysheet-formula-search-item-active"));
+                formula.searchFunctionEnter(formulaDialogs.formulaSearchC.el.querySelector(".luckysheet-formula-search-item-active"));
             }
             else {
                 formula.updatecell(Store.luckysheetCellUpdate[0], Store.luckysheetCellUpdate[1]);
                 Store.luckysheet_select_save = [{ "row": [Store.luckysheetCellUpdate[0], Store.luckysheetCellUpdate[0]], "column": [Store.luckysheetCellUpdate[1], Store.luckysheetCellUpdate[1]], "row_focus": Store.luckysheetCellUpdate[0], "column_focus": Store.luckysheetCellUpdate[1] }];
                 luckysheetMoveHighlightCell("down", 1, "rangeOfSelect");
-                //$("#luckysheet-functionbox-cell").blur();
                 richTextEditor.focus();
             }
             event.preventDefault();
         }
-        else if (kcode == keycode.ESC && parseInt($inputbox.css("top")) > 0) {
+        else if (kcode == keycode.ESC && parseInt(inputboxEl.style.top) > 0) {
             formula.dontupdate();
             luckysheetMoveHighlightCell("down", 0, "rangeOfSelect");
             richTextEditor.focus();
             event.preventDefault();
         }
-        else if (kcode == keycode.F4 && parseInt($inputbox.css("top")) > 0) {
+        else if (kcode == keycode.F4 && parseInt(inputboxEl.style.top) > 0) {
             formula.setfreezonFuc(event);
             event.preventDefault();
         }
-        else if (kcode == keycode.UP && parseInt($inputbox.css("top")) > 0) {
+        else if (kcode == keycode.UP && parseInt(inputboxEl.style.top) > 0) {
             if (formulaDialogs.formulaSearchC.isVisible()) {
-                let $up = formulaDialogs.formulaSearchC.el.find(".luckysheet-formula-search-item-active").prev();
-                if ($up.length == 0) {
-                    $up = formulaDialogs.formulaSearchC.el.find(".luckysheet-formula-search-item").last();
+                let activeItem = formulaDialogs.formulaSearchC.el.querySelector(".luckysheet-formula-search-item-active");
+                let prevItem = activeItem ? activeItem.previousElementSibling : null;
+                if (!prevItem) {
+                    let items = formulaDialogs.formulaSearchC.el.querySelectorAll(".luckysheet-formula-search-item");
+                    prevItem = items[items.length - 1];
                 }
-                formulaDialogs.formulaSearchC.el.find(".luckysheet-formula-search-item").removeClass("luckysheet-formula-search-item-active");
-                $up.addClass("luckysheet-formula-search-item-active");
+                formulaDialogs.formulaSearchC.el.querySelectorAll(".luckysheet-formula-search-item").forEach(function(el) {
+                    el.classList.remove("luckysheet-formula-search-item-active");
+                });
+                if (prevItem) prevItem.classList.add("luckysheet-formula-search-item-active");
                 event.preventDefault();
             }
         }
-        else if (kcode == keycode.DOWN && parseInt($inputbox.css("top")) > 0) {
+        else if (kcode == keycode.DOWN && parseInt(inputboxEl.style.top) > 0) {
             if (formulaDialogs.formulaSearchC.isVisible()) {
-                let $up = formulaDialogs.formulaSearchC.el.find(".luckysheet-formula-search-item-active").next();
-                if ($up.length == 0) {
-                    $up = formulaDialogs.formulaSearchC.el.find(".luckysheet-formula-search-item").first();
+                let activeItem = formulaDialogs.formulaSearchC.el.querySelector(".luckysheet-formula-search-item-active");
+                let nextItem = activeItem ? activeItem.nextElementSibling : null;
+                if (!nextItem) {
+                    nextItem = formulaDialogs.formulaSearchC.el.querySelector(".luckysheet-formula-search-item");
                 }
-                formulaDialogs.formulaSearchC.el.find(".luckysheet-formula-search-item").removeClass("luckysheet-formula-search-item-active");
-                $up.addClass("luckysheet-formula-search-item-active");
+                formulaDialogs.formulaSearchC.el.querySelectorAll(".luckysheet-formula-search-item").forEach(function(el) {
+                    el.classList.remove("luckysheet-formula-search-item-active");
+                });
+                if (nextItem) nextItem.classList.add("luckysheet-formula-search-item-active");
                 event.preventDefault();
             }
         }
-        else if (kcode == keycode.LEFT && parseInt($inputbox.css("top")) > 0) {
+        else if (kcode == keycode.LEFT && parseInt(inputboxEl.style.top) > 0) {
             formula.rangeHightlightselected(functionBox.el);
         }
-        else if (kcode == keycode.RIGHT && parseInt($inputbox.css("top")) > 0) {
+        else if (kcode == keycode.RIGHT && parseInt(inputboxEl.style.top) > 0) {
             formula.rangeHightlightselected(functionBox.el);
         }
         else if (!((kcode >= 112 && kcode <= 123) || kcode <= 46 || kcode == 144 || kcode == 108 || event.ctrlKey || event.altKey || (event.shiftKey && (kcode == 37 || kcode == 38 || kcode == 39 || kcode == 40))) || kcode == 8 || kcode == 32 || kcode == 46 || (event.ctrlKey && kcode == 86)) {
             formula.functionInputHanddler(richTextEditor.el, functionBox.el, kcode);
         }
-    }).click(function () {
-        if(isEditMode()){//此模式下禁用公式栏
+    });
+    functionBox.el.addEventListener("click", function () {
+        if(isEditMode()){
             return;
         }
 
         formula.rangeHightlightselected(functionBox.el);
     });
 
-    //公式栏 取消（X）按钮
     functionBox.onCancelClick(function () {
-        if (!$(this).hasClass("luckysheet-wa-calculate-active")) {
+        if (!functionBox.el.classList.contains("luckysheet-wa-calculate-active")) {
             return;
         }
         if(formulaDialogs.searchParm.isVisible()){
@@ -136,9 +137,8 @@ export function formulaBarInitial(){
         luckysheetMoveHighlightCell("down", 0, "rangeOfSelect");
     });
 
-    //公式栏 确认（）按钮
     functionBox.onConfirmClick(function () {
-        if (!$(this).hasClass("luckysheet-wa-calculate-active")) {
+        if (!functionBox.el.classList.contains("luckysheet-wa-calculate-active")) {
             return;
         }
         if(formulaDialogs.searchParm.isVisible()){
@@ -152,9 +152,7 @@ export function formulaBarInitial(){
         luckysheetMoveHighlightCell("down", 0, "rangeOfSelect");
     });
 
-    //公式栏 fx按钮
-    $("#luckysheet-wa-functionbox-fx").click(function () {
-        //点击函数查找弹出框
+    document.getElementById("luckysheet-wa-functionbox-fx").addEventListener("click", function () {
         if(Store.luckysheet_select_save.length == 0){
             if(isEditMode()){
                 alert(locale_formula.tipSelectCell);
@@ -175,19 +173,15 @@ export function formulaBarInitial(){
         
         let cell = Store.flowdata[row_index][col_index];
         if(cell != null && cell.f != null){
-            //单元格有计算
             let functionStr = formula.getfunctionParam(cell.f);
             if(functionStr.fn != null){
-                //有函数公式
                 insertFormula.formulaParmDialog(functionStr.fn, functionStr.param);
             }
             else{
-                //无函数公式
                 insertFormula.formulaListDialog();
             }
         }
         else{
-            //单元格无计算
             richTextEditor.setHtml('<span dir="auto" class="luckysheet-formula-text-color">=</span>');
             functionBox.setHtml(richTextEditor.getHtml());
             insertFormula.formulaListDialog();
@@ -196,20 +190,26 @@ export function formulaBarInitial(){
         insertFormula.init();
     });
 
-    //公式选区操作
-    $("#luckysheet-formula-functionrange").on("mousedown", ".luckysheet-copy", function (event) {
+    document.getElementById("luckysheet-formula-functionrange").addEventListener("mousedown", function (event) {
+        let target = event.target;
+        if (!target.classList.contains("luckysheet-copy")) return;
         formula.rangeMove = true;
         Store.luckysheet_scroll_status = true;
-        formula.rangeMoveObj = $(this).parent();
-        formula.rangeMoveIndex = $(this).parent().attr("rangeindex");
+        let parentEl = target.parentElement;
+        formula.rangeMoveObj = parentEl;
+        formula.rangeMoveIndex = parentEl.getAttribute("rangeindex");
         
         let mouse = mouseposition(event.pageX, event.pageY);
         let scroll = getScrollPosition();
         let x = mouse[0] + scroll.scrollLeft;
         let y = mouse[1] + scroll.scrollTop;
-        $("#luckysheet-formula-functionrange-highlight-" + formula.rangeMoveIndex).find(".luckysheet-selection-copy-hc").css("opacity", 0.13);
+        let _elHighlight = document.getElementById("luckysheet-formula-functionrange-highlight-" + formula.rangeMoveIndex);
+        if (_elHighlight) {
+            let _elCopyHc = _elHighlight.querySelector(".luckysheet-selection-copy-hc");
+            if (_elCopyHc) _elCopyHc.style.opacity = 0.13;
+        }
         
-        let type = $(this).data("type");
+        let type = target.dataset.type;
         if (type == "top") {
             y += 3;
         }
@@ -227,13 +227,16 @@ export function formulaBarInitial(){
         let col_index = colLocation(x)[2];
 
         formula.rangeMovexy = [row_index, col_index];
-        $("#luckysheet-sheettable").css("cursor", "move");
+        document.getElementById("luckysheet-sheettable").style.cursor = "move";
         event.stopPropagation();
     });
 
-    $("#luckysheet-formula-functionrange").on("mousedown", ".luckysheet-highlight", function (event) {
-        formula.rangeResize = $(this).data("type");//开始状态resize
-        formula.rangeResizeIndex = $(this).parent().attr("rangeindex");
+    document.getElementById("luckysheet-formula-functionrange").addEventListener("mousedown", function (event) {
+        let target = event.target;
+        if (!target.classList.contains("luckysheet-highlight")) return;
+        formula.rangeResize = target.dataset.type;
+        let parentEl = target.parentElement;
+        formula.rangeResizeIndex = parentEl.getAttribute("rangeindex");
         
         let mouse = mouseposition(event.pageX, event.pageY),
             scroll = getScrollPosition(),
@@ -241,8 +244,12 @@ export function formulaBarInitial(){
             scrollTop = scroll.scrollTop;
         let x = mouse[0] + scrollLeft;
         let y = mouse[1] + scrollTop;
-        formula.rangeResizeObj = $(this).parent();
-        $("#luckysheet-formula-functionrange-highlight-" + formula.rangeResizeIndex).find(".luckysheet-selection-copy-hc").css("opacity", 0.13);
+        formula.rangeResizeObj = parentEl;
+        let _elHighlight2 = document.getElementById("luckysheet-formula-functionrange-highlight-" + formula.rangeResizeIndex);
+        if (_elHighlight2) {
+            let _elCopyHc2 = _elHighlight2.querySelector(".luckysheet-selection-copy-hc");
+            if (_elCopyHc2) _elCopyHc2.style.opacity = 0.13;
+        }
         
         if (formula.rangeResize == "lt") {
             x += 3;
@@ -270,12 +277,12 @@ export function formulaBarInitial(){
             col_pre = col_location[0], 
             col_index = col_location[2];
 
-        let position = formula.rangeResizeObj.position();
+        let position = {top: parentEl.offsetTop, left: parentEl.offsetLeft};
         formula.rangeResizexy = [
             col_pre, 
             row_pre, 
-            formula.rangeResizeObj.width(), 
-            formula.rangeResizeObj.height(), 
+            parentEl.offsetWidth, 
+            parentEl.offsetHeight, 
             position.left + scrollLeft, 
             position.top + scrollTop, col, row
         ];

@@ -18,7 +18,8 @@ import cellMain from '../ui/cellMain.js';
 const luckysheetLocationCell = {
     createDialog: function(){
         showModalMask();
-        $("#luckysheet-locationCell-dialog").remove();
+        let _elLocCellDialog = document.getElementById("luckysheet-locationCell-dialog");
+        if (_elLocCellDialog) _elLocCellDialog.remove();
 
         const _locale = locale();
         const locale_location = _locale.findAndReplace;
@@ -103,24 +104,33 @@ const luckysheetLocationCell = {
             "botton": '<button id="luckysheet-locationCell-dialog-confirm" class="btn btn-primary">'+locale_button.confirm+'</button><button class="btn btn-default luckysheet-model-close-btn">'+locale_button.cancel+'</button>', 
             "style": "z-index:100003" 
         }));
-        let $t = $("#luckysheet-locationCell-dialog").find(".luckysheet-modal-dialog-content").css("min-width", 400).end(), 
-            myh = $t.outerHeight(), 
-            myw = $t.outerWidth();
+        let _elLocCellDialog2 = document.getElementById("luckysheet-locationCell-dialog");
+        let _elDialogContent = _elLocCellDialog2.querySelector(".luckysheet-modal-dialog-content");
+        _elDialogContent.style.minWidth = "400px";
+        let myh = _elLocCellDialog2.offsetHeight,
+            myw = _elLocCellDialog2.offsetWidth;
         let winw = document.documentElement.clientWidth, winh = document.documentElement.clientHeight;
         let scrollLeft = document.documentElement.scrollLeft, scrollTop = document.documentElement.scrollTop;
-        $("#luckysheet-locationCell-dialog").css({ "left": (winw + scrollLeft - myw) / 2, "top": (winh + scrollTop - myh) / 3 }).show();
+        Object.assign(_elLocCellDialog2.style, {
+            "left": ((winw + scrollLeft - myw) / 2) + "px",
+            "top": ((winh + scrollTop - myh) / 3) + "px"
+        });
+        _elLocCellDialog2.style.display = '';
     },
     init: function(){
         let _this = this;
 
         const locale_location = locale().findAndReplace;
 
-        document.addEventListener("click", function(e) { const t = e.target.closest("#luckysheet-locationCell-dialog .listItem input:radio"); if (t && document.contains(t)) {
-            $("#luckysheet-locationCell-dialog .listItem input:checkbox").prop("disabled", true);
-            $("#luckysheet-locationCell-dialog .listItem .subbox label").css("color", "#666");
+        document.addEventListener("click", function(e) { const t = e.target.closest("#luckysheet-locationCell-dialog .listItem input[type='radio']"); if (t && document.contains(t)) {
+            document.querySelectorAll("#luckysheet-locationCell-dialog .listItem input[type='checkbox']").forEach(function(el) { el.disabled = true; });
+            document.querySelectorAll("#luckysheet-locationCell-dialog .listItem .subbox label").forEach(function(el) { el.style.color = "#666"; });
 
-            $(t).siblings(".subbox").find("input:checkbox").removeAttr("disabled");
-            $(t).siblings(".subbox").find("label").css("color", "#000");
+            let subbox = t.parentElement.querySelector(".subbox");
+            if (subbox) {
+                subbox.querySelectorAll("input[type='checkbox']").forEach(function(el) { el.removeAttribute("disabled"); });
+                subbox.querySelectorAll("label").forEach(function(el) { el.style.color = "#000"; });
+            }
         } });
 
         offNS("locationCellConfirm");
@@ -128,36 +138,37 @@ const luckysheetLocationCell = {
             hideModalMask();
             const _elLocCell = document.getElementById("luckysheet-locationCell-dialog"); if (_elLocCell) _elLocCell.style.display = 'none';
 
-            let $radio = $("#luckysheet-locationCell-dialog .listItem input:radio:checked");
-            let id = $radio.attr("id");
+            let _elRadioChecked = document.querySelector("#luckysheet-locationCell-dialog .listItem input[type='radio']:checked");
+            let id = _elRadioChecked ? _elRadioChecked.id : null;
 
             if(id == "locationConstant" || id == "locationFormula"){
-                let $checkbox = $radio.siblings(".subbox").find("input:checkbox:checked");
+                let _elSubbox = _elRadioChecked.parentElement.querySelector(".subbox");
+                let _elCheckboxes = _elSubbox ? _elSubbox.querySelectorAll("input[type='checkbox']:checked") : [];
 
                 let value;
-                if($checkbox.length == 0){
+                if(_elCheckboxes.length == 0){
                     return;
                 }
-                else if($checkbox.length == 5){
+                else if(_elCheckboxes.length == 5){
                     value = "all";
                 }
                 else{
                     let arr = [];
                     
-                    for(let i = 0; i < $checkbox.length; i++){
-                        if($($checkbox[i]).hasClass("date")){
+                    for(let i = 0; i < _elCheckboxes.length; i++){
+                        if(_elCheckboxes[i].classList.contains("date")){
                             arr.push("d");
                         }
-                        else if($($checkbox[i]).hasClass("number")){
+                        else if(_elCheckboxes[i].classList.contains("number")){
                             arr.push("n");
                         }
-                        else if($($checkbox[i]).hasClass("string")){
+                        else if(_elCheckboxes[i].classList.contains("string")){
                             arr.push("s,g");
                         }
-                        else if($($checkbox[i]).hasClass("boolean")){
+                        else if(_elCheckboxes[i].classList.contains("boolean")){
                             arr.push("b");
                         }
-                        else if($($checkbox[i]).hasClass("error")){
+                        else if(_elCheckboxes[i].classList.contains("error")){
                             arr.push("e");
                         }
                     }

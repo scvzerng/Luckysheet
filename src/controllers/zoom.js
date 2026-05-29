@@ -30,10 +30,8 @@ export function zoomChange(ratio){
 
         let currentSheet = sheetmanage.getSheetByIndex();
 
-        //批注
         luckysheetPostil.buildAllPs(currentSheet.data);
 
-        //图片
         imageCtrl.images = currentSheet.images;
         imageCtrl.allImagesShow();
         imageCtrl.init();
@@ -59,32 +57,20 @@ export function zoomChange(ratio){
 }
 
 export function zoomRefreshView(){
-    // let $scrollLeft = $("#luckysheet-scrollbar-x"), $scrollTop = $("#luckysheet-scrollbar-y");
-    // let sl = $scrollLeft.scrollLeft(), st = $scrollTop.scrollTop();
-
-    // let wp = $scrollLeft.find("div").width(), hp = $scrollTop.find("div").height();
-
     jfrefreshgrid_rhcw(Store.flowdata.length, Store.flowdata[0].length);
     changeSheetContainerSize();
-
-    // let wc = $scrollLeft.find("div").width(), hc = $scrollTop.find("div").height();
-
-    // $scrollLeft.scrollLeft(sl+wc-wp);
-    // $scrollTop.scrollTop(st+hc-hp);
 }
 
 let currentWheelZoom = null;
 export function zoomInitial(){
 
-    // 缩放步长
-    const ZOOM_WHEEL_STEP = 0.02; // ctrl + 鼠标滚轮
-    const ZOOM_STEP = 0.1; // 点击以及 Ctrl + +-
+    const ZOOM_WHEEL_STEP = 0.02;
+    const ZOOM_STEP = 0.1;
     
-    // 缩放最大最小比例
     const MAX_ZOOM_RATIO = 4;
     const MIN_ZOOM_RATIO = .1;
     
-    $("#luckysheet-zoom-minus").click(function(){
+    document.getElementById("luckysheet-zoom-minus").addEventListener("click", function(){
         let currentRatio;
         if(Store.zoomRatio==null){
             currentRatio = Store.zoomRatio = 1;
@@ -103,12 +89,11 @@ export function zoomInitial(){
             currentRatio = MIN_ZOOM_RATIO;
         }
 
-        // Store.zoomRatio = currentRatio;
         zoomChange(currentRatio);
         zoomNumberDomBind(currentRatio);
     });
 
-    $("#luckysheet-zoom-plus").click(function(){
+    document.getElementById("luckysheet-zoom-plus").addEventListener("click", function(){
         let currentRatio;
         if(Store.zoomRatio==null){
             currentRatio = Store.zoomRatio = 1;
@@ -127,30 +112,26 @@ export function zoomInitial(){
             currentRatio = MAX_ZOOM_RATIO;
         }
 
-        // Store.zoomRatio = currentRatio;
         zoomChange(currentRatio);
         zoomNumberDomBind(currentRatio);
     });
 
-    $("#luckysheet-zoom-slider").mousedown(function(e){
-        let xoffset = $(this).offset().left, pageX = e.pageX;
+    document.getElementById("luckysheet-zoom-slider").addEventListener("mousedown", function(e){
+        let xoffset = this.getBoundingClientRect().left + window.pageXOffset, pageX = e.pageX;
 
         let currentRatio = positionToRatio(pageX-xoffset);
-        // Store.zoomRatio = currentRatio;
         zoomChange(currentRatio);
         zoomNumberDomBind(currentRatio);
     });
 
-    $("#luckysheet-zoom-cursor").mousedown(function(e){
-        let curentX = e.pageX,cursorLeft = parseFloat($("#luckysheet-zoom-cursor").css("left"));
-        $("#luckysheet-zoom-cursor").css("transition","none");
+    let _elZoomCursor = document.getElementById("luckysheet-zoom-cursor");
+    _elZoomCursor.addEventListener("mousedown", function(e){
+        let curentX = e.pageX, cursorLeft = parseFloat(_elZoomCursor.style.left);
+        _elZoomCursor.style.transition = "none";
         offNS("zoomCursor");
         onNS(document, "mousemove.zoomCursor", null, function(event){
             let moveX = event.pageX;
             let offsetX = moveX - curentX;
-            // console.log(moveX, curentX, offsetX);
-            // curentX = moveX;
-            // let left = parseFloat($("#luckysheet-zoom-cursor").css("left"));
             let pos = cursorLeft + offsetX; 
             let currentRatio = positionToRatio(pos);
 
@@ -164,26 +145,25 @@ export function zoomInitial(){
                 pos = 0;
             }
 
-            // Store.zoomRatio = currentRatio;
             zoomChange(currentRatio);
             let r = Math.round(currentRatio*100) + "%";
-            $("#luckysheet-zoom-ratioText").html(r);
-            $("#luckysheet-zoom-cursor").css("left", pos-4);
+            document.getElementById("luckysheet-zoom-ratioText").innerHTML = r;
+            _elZoomCursor.style.left = (pos-4) + "px";
         });
 
         offNS("zoomCursor");
         onNS(document, "mouseup.zoomCursor", null, function(event){
             offNS("zoomCursor");
-            $("#luckysheet-zoom-cursor").css("transition","all 0.3s");
+            _elZoomCursor.style.transition = "all 0.3s";
         });
 
         e.stopPropagation();
-    }).click(function(e){
+    });
+    _elZoomCursor.addEventListener("click", function(e){
         e.stopPropagation();
     });
 
-    $("#luckysheet-zoom-ratioText").click(function(){
-        // Store.zoomRatio = 1;
+    document.getElementById("luckysheet-zoom-ratioText").addEventListener("click", function(){
         zoomChange(1);
         zoomNumberDomBind(1);
     });
@@ -191,7 +171,6 @@ export function zoomInitial(){
     zoomNumberDomBind(Store.zoomRatio);
 
     currentWheelZoom = null;
-    // 拦截系统缩放快捷键 Ctrl + wheel
     document.addEventListener(
         'wheel',
         function (ev) {
@@ -215,7 +194,6 @@ export function zoomInitial(){
         { capture: true, passive: false }
     );
 
-    // 拦截系统缩放快捷键 Ctrl + +/- 0
     document.addEventListener(
         'keydown',
         function (ev) {
@@ -270,12 +248,11 @@ function zoomSlierDomBind(ratio){
     else if(ratio>1){
         domPos = Math.round((ratio - 1)*100 / 0.6)/10+50;
     }
-    $("#luckysheet-zoom-cursor").css("left", domPos-4);
+    document.getElementById("luckysheet-zoom-cursor").style.left = (domPos-4) + "px";
 }
 
 export function zoomNumberDomBind(ratio){
     let r = Math.round(ratio*100) + "%";
-    $("#luckysheet-zoom-ratioText").html(r);
+    document.getElementById("luckysheet-zoom-ratioText").innerHTML = r;
     zoomSlierDomBind(ratio);
 }
-

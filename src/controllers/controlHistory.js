@@ -222,10 +222,9 @@ const controlHistory = {
         else if (ctr.type == "datachangeAll_filter_clear") {
             createFilterOptions(ctr.filter_save);
 
-            $("#luckysheet-filter-options-sheet" + Store.currentSheetIndex + " .luckysheet-filter-options").each(function(i){
-                let $top = $(this);
+            document.querySelectorAll("#luckysheet-filter-options-sheet" + Store.currentSheetIndex + " .luckysheet-filter-options").forEach(function(el, i){
                 let item = ctr.optiongroups[i];
-                labelFilterOptionState($top, item.optionstate, item.rowhidden, item.caljs, false, item.st_r, item.ed_r, item.cindex, item.st_c, item.ed_c);
+                labelFilterOptionState(el, item.optionstate, item.rowhidden, item.caljs, false, item.st_r, item.ed_r, item.cindex, item.st_c, item.ed_c);
             });
 
 
@@ -244,14 +243,14 @@ const controlHistory = {
             [document.getElementById("luckysheet-filter-menu"), document.getElementById("luckysheet-filter-submenu")].forEach(el => { if (el) el.style.display = 'none'; });
         }
         else if (ctr.type == "datachangeAll_filter") {
-            let $top = $("#luckysheet-filter-options-sheet" + Store.currentSheetIndex + " .luckysheet-filter-options").eq(ctr["optionsindex"]);
-            let st_r = $top.data("str"),
-                ed_r = $top.data("edr"),
-                cindex = $top.data("cindex"),
-                st_c = $top.data("stc"),
-                ed_c = $top.data("edc");
+            let _elFilterOpts = document.querySelectorAll("#luckysheet-filter-options-sheet" + Store.currentSheetIndex + " .luckysheet-filter-options")[ctr["optionsindex"]];
+            let st_r = _elFilterOpts.dataset.str,
+                ed_r = _elFilterOpts.dataset.edr,
+                cindex = _elFilterOpts.dataset.cindex,
+                st_c = _elFilterOpts.dataset.stc,
+                ed_c = _elFilterOpts.dataset.edc;
 
-            labelFilterOptionState($top, json.hasKey(ctr.rowhidenPre), ctr.rowhidenPre, ctr.caljs, true, st_r, ed_r, cindex, st_c, ed_c);
+            labelFilterOptionState(_elFilterOpts, json.hasKey(ctr.rowhidenPre), ctr.rowhidenPre, ctr.caljs, true, st_r, ed_r, cindex, st_c, ed_c);
 
             //config
             Store.config = ctr.config;
@@ -268,7 +267,10 @@ const controlHistory = {
             [document.getElementById("luckysheet-filter-menu"), document.getElementById("luckysheet-filter-submenu")].forEach(el => { if (el) el.style.display = 'none'; });
         }
         else if (ctr.type == "filtershow") {
-            $('#luckysheet-filter-selected-sheet' + ctr.sheetIndex + ', #luckysheet-filter-options-sheet' + ctr.sheetIndex).remove();
+            let _elFilterSelected = document.getElementById("luckysheet-filter-selected-sheet" + ctr.sheetIndex);
+            if (_elFilterSelected) _elFilterSelected.remove();
+            let _elFilterOpts2 = document.getElementById("luckysheet-filter-options-sheet" + ctr.sheetIndex);
+            if (_elFilterOpts2) _elFilterOpts2.remove();
             
         }
         else if (ctr.type == "addSheet") {
@@ -298,17 +300,22 @@ const controlHistory = {
         }
         else if (ctr.type == "sheetName") {
             getFileBySheetIndex(ctr.sheetIndex).name = ctr.oldtxt;
-            $("#luckysheet-sheets-item" + ctr.sheetIndex).find(".luckysheet-sheets-item-name").html(ctr.oldtxt);
+            let _elSheetItem = document.getElementById("luckysheet-sheets-item" + ctr.sheetIndex);
+            if (_elSheetItem) {
+                let _elName = _elSheetItem.querySelector(".luckysheet-sheets-item-name");
+                if (_elName) _elName.innerHTML = ctr.oldtxt;
+            }
 
         }
         else if (ctr.type == "sheetColor") {
             getFileBySheetIndex(ctr.sheetIndex).color = ctr.oldcolor;
             
-            let luckysheetcurrentSheetitem = $("#luckysheet-sheets-item" + ctr.sheetIndex);
-            luckysheetcurrentSheetitem.find(".luckysheet-sheets-item-color").remove();
+            let luckysheetcurrentSheetitem = document.getElementById("luckysheet-sheets-item" + ctr.sheetIndex);
+            let _elColorDiv = luckysheetcurrentSheetitem.querySelector(".luckysheet-sheets-item-color");
+            if (_elColorDiv) _elColorDiv.remove();
 
             if(ctr.oldcolor != null){
-                luckysheetcurrentSheetitem.append('<div class="luckysheet-sheets-item-color" style=" position: absolute; width: 100%; height: 3px; bottom: 0px; left: 0px; background-color: ' + ctr.oldcolor + ';"></div>');
+                luckysheetcurrentSheetitem.insertAdjacentHTML('beforeend', '<div class="luckysheet-sheets-item-color" style=" position: absolute; width: 100%; height: 3px; bottom: 0px; left: 0px; background-color: ' + ctr.oldcolor + ';"></div>');
             }
 
         }
@@ -539,20 +546,28 @@ const controlHistory = {
             
 
             document.querySelectorAll("#luckysheet-filter-menu .luckysheet-filter-selected-input").forEach(el => { el.style.display = 'none'; el.querySelector("input") && (el.querySelector("input").value); });
-            $("#luckysheet-filter-selected span").data("type", "0").data("type", null).text("无");
+            let _elFilterSelectedSpan = document.querySelector("#luckysheet-filter-selected span");
+            if (_elFilterSelectedSpan) {
+                _elFilterSelectedSpan.dataset.type = "0";
+                _elFilterSelectedSpan.dataset.type = null;
+                _elFilterSelectedSpan.textContent = "无";
+            }
 
-            $('#luckysheet-filter-selected-sheet' + Store.currentSheetIndex + ', #luckysheet-filter-options-sheet' + Store.currentSheetIndex).remove();
+            let _elFilterSelected2 = document.getElementById("luckysheet-filter-selected-sheet" + Store.currentSheetIndex);
+            if (_elFilterSelected2) _elFilterSelected2.remove();
+            let _elFilterOpts3 = document.getElementById("luckysheet-filter-options-sheet" + Store.currentSheetIndex);
+            if (_elFilterOpts3) _elFilterOpts3.remove();
             [document.getElementById("luckysheet-filter-menu"), document.getElementById("luckysheet-filter-submenu")].forEach(el => { if (el) el.style.display = 'none'; });
         }
         else if (ctr.type == "datachangeAll_filter") {
-            let $top = $("#luckysheet-filter-options-sheet" + Store.currentSheetIndex + " .luckysheet-filter-options").eq(ctr["optionsindex"]);
-            let st_r = $top.data("str"), 
-                ed_r = $top.data("edr"), 
-                cindex = $top.data("cindex"), 
-                st_c = $top.data("stc"), 
-                ed_c = $top.data("edc");
+            let _elFilterOpts4 = document.querySelectorAll("#luckysheet-filter-options-sheet" + Store.currentSheetIndex + " .luckysheet-filter-options")[ctr["optionsindex"]];
+            let st_r = _elFilterOpts4.dataset.str, 
+                ed_r = _elFilterOpts4.dataset.edr, 
+                cindex = _elFilterOpts4.dataset.cindex, 
+                st_c = _elFilterOpts4.dataset.stc, 
+                ed_c = _elFilterOpts4.dataset.edc;
 
-            labelFilterOptionState($top, json.hasKey(ctr.rowhidden), ctr.rowhidden, ctr.caljs, true, st_r, ed_r, cindex, st_c, ed_c);
+            labelFilterOptionState(_elFilterOpts4, json.hasKey(ctr.rowhidden), ctr.rowhidden, ctr.caljs, true, st_r, ed_r, cindex, st_c, ed_c);
 
             //config
             Store.config = ctr.curconfig;
@@ -593,17 +608,22 @@ const controlHistory = {
         }
         else if (ctr.type == "sheetName") {
             getFileBySheetIndex(ctr.sheetIndex).name = ctr.txt;
-            $("#luckysheet-sheets-item" + ctr.sheetIndex).find(".luckysheet-sheets-item-name").html(ctr.txt);
+            let _elSheetItem2 = document.getElementById("luckysheet-sheets-item" + ctr.sheetIndex);
+            if (_elSheetItem2) {
+                let _elName2 = _elSheetItem2.querySelector(".luckysheet-sheets-item-name");
+                if (_elName2) _elName2.innerHTML = ctr.txt;
+            }
             
         }
         else if (ctr.type == "sheetColor") {
             getFileBySheetIndex(ctr.sheetIndex).color = ctr.color;
 
-            let luckysheetcurrentSheetitem = $("#luckysheet-sheets-item" + ctr.sheetIndex);
-            luckysheetcurrentSheetitem.find(".luckysheet-sheets-item-color").remove();
+            let luckysheetcurrentSheetitem2 = document.getElementById("luckysheet-sheets-item" + ctr.sheetIndex);
+            let _elColorDiv2 = luckysheetcurrentSheetitem2.querySelector(".luckysheet-sheets-item-color");
+            if (_elColorDiv2) _elColorDiv2.remove();
             
             if(ctr.color != null){
-                luckysheetcurrentSheetitem.append('<div class="luckysheet-sheets-item-color" style=" position: absolute; width: 100%; height: 3px; bottom: 0px; left: 0px; background-color: ' + ctr.color + ';"></div>');
+                luckysheetcurrentSheetitem2.insertAdjacentHTML('beforeend', '<div class="luckysheet-sheets-item-color" style=" position: absolute; width: 100%; height: 3px; bottom: 0px; left: 0px; background-color: ' + ctr.color + ';"></div>');
             }
             
         }

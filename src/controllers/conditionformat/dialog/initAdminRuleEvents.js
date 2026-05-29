@@ -13,12 +13,12 @@ import conditionformatDialog from '../../../ui/conditionformatDialog.js';
 export function initAdminRuleEvents(_this) {
       offNS("CFchooseSheet");
       onNS(document, "change.CFchooseSheet", "#luckysheet-administerRule-dialog .chooseSheet", function () {
-        let index = conditionformatDialog.adminRule.find(".chooseSheet option:selected").val();
+        let index = conditionformatDialog.adminRule.find(".chooseSheet option:checked")?.value;
         _this.getConditionRuleList(index);
       });
       offNS("CFadministerRuleItem");
       onNS(document, "click.CFadministerRuleItem", "#luckysheet-administerRule-dialog .ruleList .listBox .item", function () {
-        $(this).addClass("on").siblings().removeClass("on");
+        this.classList.add("on"); Array.from(this.parentElement.children).filter(s => s !== this).forEach(s => s.classList.remove("on"));
       });
       offNS("CFadministerRuleConfirm");
       onNS(document, "click.CFadministerRuleConfirm", "#luckysheet-administerRule-dialog-confirm", function () {
@@ -47,12 +47,12 @@ export function initAdminRuleEvents(_this) {
       offNS("CFadministerRuleFa");
       onNS(document, "click.CFadministerRuleFa", "#luckysheet-administerRule-dialog .item .fa-table", function () {
         conditionformatDialog.adminRule.hide();
-        let sheetIndex = conditionformatDialog.adminRule.find(".chooseSheet select option:selected").val();
+        let sheetIndex = conditionformatDialog.adminRule.find(".chooseSheet select option:checked")?.value;
         if (sheetIndex != Store.currentSheetIndex) {
           sheetmanage.changeSheetExec(sheetIndex);
         }
-        let txt = $(this).siblings("input").val().trim();
-        let dataItem = $(this).parents(".item").attr("data-item");
+        let txt = this.parentElement.querySelector("input")?.value?.trim() || "";
+        let dataItem = this.closest(".item")?.getAttribute("data-item");
         _this.multiRangeDialog(dataItem, txt);
         _this.selectRange = [];
         let range = _this.getRangeByTxt(txt);
@@ -87,10 +87,10 @@ export function initAdminRuleEvents(_this) {
       offNS("CFmultiRangeConfirm");
       onNS(document, "click.CFmultiRangeConfirm", "#luckysheet-multiRange-dialog-confirm", function () {
         formulaDialogs.multiRange.hide();
-        let dataItem = $(this).attr("data-item");
-        let v = formulaDialogs.multiRange.find("input").val();
-        conditionformatDialog.adminRule.find(".item[data-item=" + dataItem + "] input").val(v);
-        let sheetIndex = conditionformatDialog.adminRule.find(".chooseSheet option:selected").val();
+        let dataItem = this.getAttribute("data-item");
+        let v = formulaDialogs.multiRange.find("input")?.value;
+        let _itemInput = conditionformatDialog.adminRule.find(".item[data-item=" + dataItem + "] input"); if (_itemInput) _itemInput.value = v;
+        let sheetIndex = conditionformatDialog.adminRule.find(".chooseSheet option:checked")?.value;
         _this.fileClone[getSheetIndex(sheetIndex)]["luckysheet_conditionformat_save"][dataItem].cellrange = _this.getRangeByTxt(v);
         showModalMask();
         conditionformatDialog.adminRule.show();

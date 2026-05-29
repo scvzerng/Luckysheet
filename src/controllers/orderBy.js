@@ -24,22 +24,24 @@ import locale from '../locale/locale';
 
 export function orderByInitial(){
     const _locale = locale();
-    //菜单栏 排序按钮
-    $("#luckysheetorderbyasc, #luckysheetorderbyasc_t").mousedown(function (event) {
-        cleargridelement(event);
-        sortColumnSeletion(Store.orderbyindex, true);
-        selectHightlightShow();
+    document.querySelectorAll("#luckysheetorderbyasc, #luckysheetorderbyasc_t").forEach(function(el) {
+        el.addEventListener("mousedown", function (event) {
+            cleargridelement(event);
+            sortColumnSeletion(Store.orderbyindex, true);
+            selectHightlightShow();
+        });
     });
 
-    $("#luckysheetorderbydesc, #luckysheetorderbydesc_t").click(function (event) {
-        cleargridelement(event);
-        sortColumnSeletion(Store.orderbyindex, false);
-        selectHightlightShow();
-    }); 
+    document.querySelectorAll("#luckysheetorderbydesc, #luckysheetorderbydesc_t").forEach(function(el) {
+        el.addEventListener("click", function (event) {
+            cleargridelement(event);
+            sortColumnSeletion(Store.orderbyindex, false);
+            selectHightlightShow();
+        });
+    });
 
-    //排序事件
     let luckysheet_sort_initial = true;
-    $("#luckysheetorderby").click(function () {
+    document.getElementById("luckysheetorderby").addEventListener("click", function () {
 
         document.querySelectorAll("body .luckysheet-cols-menu").forEach(el => el.style.display = 'none');
         const locale_sort = _locale.sort;
@@ -64,13 +66,14 @@ export function orderByInitial(){
 
             document.body.insertAdjacentHTML('beforeend', replaceHtml(modelHTML, { "id": "luckysheet-sort-dialog", "addclass": "", "title": _locale.sort.sortTitle, "content": content, "botton": `<button id="luckysheet-sort-modal-confirm" class="btn btn-primary">${locale_sort.confirm}</button><button class="btn btn-default luckysheet-model-close-btn">${locale_sort.close}</button>`}));
 
-            $("#luckysheet-sort-dialog .luckysheet-sort-dialog-additem").click(function () {
+            document.querySelector("#luckysheet-sort-dialog .luckysheet-sort-dialog-additem").addEventListener("click", function () {
                 let last = Store.luckysheet_select_save[0];
                 let r1 = last["row"][0], r2 = last["row"][1];
                 let c1 = last["column"][0], c2 = last["column"][1];
 
-                let option = "", i = $("#luckysheet-sort-dialog table").data("itemcount") + 1;
-                let t = $("#luckysheet-sort-haveheader").is(':checked');
+                let _elSortTable = document.querySelector("#luckysheet-sort-dialog table");
+                let option = "", i = parseInt(_elSortTable.dataset.itemcount) + 1;
+                let t = document.getElementById("luckysheet-sort-haveheader").checked;
 
                 for (let c = c1; c <= c2; c++) {
                     if (t) {
@@ -87,9 +90,9 @@ export function orderByInitial(){
                     }
                 }
 
-                $("#luckysheet-sort-dialog table").append(`
+                _elSortTable.insertAdjacentHTML('beforeend', `
                     <tr class="luckysheet-sort-dialog-tr">
-                        <td><span class="luckysheet-sort-item-close" onclick="$(this).parent().parent().remove();"><i class="fa fa-times"
+                        <td><span class="luckysheet-sort-item-close" onclick="this.parentElement.parentElement.remove();"><i class="fa fa-times"
                                     aria-hidden="true"></i></span>${locale_sort.secondaryTitle} <select
                                 name="sort_${i}">${option}</select> </td>
                         <td>
@@ -100,15 +103,15 @@ export function orderByInitial(){
                         </td>
                     </tr>
                 `);
-                $("#luckysheet-sort-dialog table").data("itemcount", i);
+                _elSortTable.dataset.itemcount = i;
             });
 
-            $("#luckysheet-sort-haveheader").change(function () {
+            document.getElementById("luckysheet-sort-haveheader").addEventListener("change", function () {
                 let last = Store.luckysheet_select_save[0];
                 let r1 = last["row"][0], r2 = last["row"][1];
                 let c1 = last["column"][0], c2 = last["column"][1];
 
-                let t = $(this).is(':checked');
+                let t = this.checked;
                 let option = "";
 
                 for (let c = c1; c <= c2; c++) {
@@ -126,13 +129,12 @@ export function orderByInitial(){
                     }
                 }
 
-                $("#luckysheet-sort-dialog tr select").each(function () {
-                    $(this).html(option);
+                document.querySelectorAll("#luckysheet-sort-dialog tr select").forEach(function(el) {
+                    el.innerHTML = option;
                 });
             });
 
-            //Custom sort
-            $("#luckysheet-sort-modal-confirm").click(function () {
+            document.getElementById("luckysheet-sort-modal-confirm").addEventListener("click", function () {
                 if(Store.luckysheet_select_save.length > 1){
                     if(isEditMode()){
                         alert(locale_sort.noRangeError);
@@ -150,8 +152,7 @@ export function orderByInitial(){
                 let r1 = last["row"][0], r2 = last["row"][1];
                 let c1 = last["column"][0], c2 = last["column"][1];
 
-                //Data has header row
-                let t = $("#luckysheet-sort-haveheader").is(':checked');
+                let t = document.getElementById("luckysheet-sort-haveheader").checked;
 
                 let str;
                 if(t){
@@ -161,7 +162,7 @@ export function orderByInitial(){
                     str = r1;
                 }
 
-                let hasMc = false; //Whether the sort selection has merged cells
+                let hasMc = false;
 
                 let data = [];
 
@@ -191,9 +192,12 @@ export function orderByInitial(){
                     return;
                 }
                 
-                $($("#luckysheet-sort-dialog table tr").toArray().reverse()).each(function () {
-                    let i = $(this).find("select").val(), 
-                        asc = $(this).find('input:radio:checked').val();
+                let sortRows = Array.from(document.querySelectorAll("#luckysheet-sort-dialog table tr")).reverse();
+                for (let row of sortRows) {
+                    let sel = row.querySelector("select");
+                    let radio = row.querySelector('input[type="radio"]:checked');
+                    if (!sel || !radio) continue;
+                    let i = sel.value, asc = radio.value;
                     
                     i -= c1;
                     
@@ -205,7 +209,7 @@ export function orderByInitial(){
                     }
 
                     data = orderbydata([].concat(data), i, asc);
-                });
+                }
 
                 for(let r = str; r <= r2; r++){
                     for(let c = c1; c <= c2; c++){
@@ -226,7 +230,8 @@ export function orderByInitial(){
 
                 jfrefreshgrid(d, [{ "row": [str, r2], "column": [c1, c2] }], allParam);
 
-                const _elSortDialog = document.getElementById("luckysheet-sort-dialog"); if (_elSortDialog) _elSortDialog.style.display = 'none';
+                let _elSortDialog = document.getElementById("luckysheet-sort-dialog");
+                if (_elSortDialog) _elSortDialog.style.display = 'none';
                 hideModalMask();
             });
         }
@@ -236,21 +241,33 @@ export function orderByInitial(){
             option += '<option value="' + c + '">' + chatatABC(c) + '</option>';
         }
 
-        $("#luckysheet-sort-dialog select").html(option);
+        document.querySelectorAll("#luckysheet-sort-dialog select").forEach(function(el) {
+            el.innerHTML = option;
+        });
 
-        $("#luckysheet-sort-dialog .luckysheet-sort-dialog-tr").remove();
+        document.querySelectorAll("#luckysheet-sort-dialog .luckysheet-sort-dialog-tr").forEach(function(el) {
+            el.remove();
+        });
 
-        $("#luckysheet-sort-haveheader").prop("checked", false);
-        $("#luckysheet-sort-dialog input:radio:first").prop("checked", "checked");
+        document.getElementById("luckysheet-sort-haveheader").checked = false;
+        let _elFirstRadio = document.querySelector("#luckysheet-sort-dialog input[type='radio']");
+        if (_elFirstRadio) _elFirstRadio.checked = true;
 
-        $("#luckysheet-sort-dialog .luckysheet-modal-dialog-title-text").html(locale_sort.sortRangeTitle+"<span>" + chatatABC(c1) + (r1 + 1) + "</span>"+ locale_sort.sortRangeTitleTo +"<span>" + chatatABC(c2) + (r2 + 1) + "</span>");
+        let _elTitleText = document.querySelector("#luckysheet-sort-dialog .luckysheet-modal-dialog-title-text");
+        if (_elTitleText) _elTitleText.innerHTML = locale_sort.sortRangeTitle+"<span>" + chatatABC(c1) + (r1 + 1) + "</span>"+ locale_sort.sortRangeTitleTo +"<span>" + chatatABC(c2) + (r2 + 1) + "</span>";
 
-        let $t = $("#luckysheet-sort-dialog"), myh = $t.outerHeight(), myw = $t.outerWidth();
+        let _elSortDialog2 = document.getElementById("luckysheet-sort-dialog");
+        let myh = _elSortDialog2.offsetHeight, myw = _elSortDialog2.offsetWidth;
         let winw = document.documentElement.clientWidth, winh = document.documentElement.clientHeight;
         let scrollLeft = document.documentElement.scrollLeft, scrollTop = document.documentElement.scrollTop;
 
-        $("#luckysheet-sort-dialog-tablec").css("max-height", (winh - myh) / 2);
-        $("#luckysheet-sort-dialog").css({ "left": (winw + scrollLeft - myw) / 2, "top": (winh + scrollTop - myh) / 2 }).show();
+        let _elTableC = document.getElementById("luckysheet-sort-dialog-tablec");
+        if (_elTableC) _elTableC.style.maxHeight = ((winh - myh) / 2) + "px";
+        Object.assign(_elSortDialog2.style, {
+            "left": ((winw + scrollLeft - myw) / 2) + "px",
+            "top": ((winh + scrollTop - myh) / 2) + "px"
+        });
+        _elSortDialog2.style.display = '';
         showModalMask();
 
         if (r1 < r2) {
@@ -269,7 +286,9 @@ export function orderByInitial(){
                 }
 
                 if (hastitle) {
-                    $("#luckysheet-sort-haveheader").prop("checked", true).change();
+                    let _elHaveHeader = document.getElementById("luckysheet-sort-haveheader");
+                    _elHaveHeader.checked = true;
+                    _elHaveHeader.dispatchEvent(new Event("change"));
                 }
             }, 10);
         }

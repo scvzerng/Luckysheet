@@ -11,32 +11,54 @@ import Store from "../../store";
 import imageCtrl from "../imageCtrl";
 import cellSelectedFocus from '../../ui/cellSelectedFocus.js';
 import countShow from '../../ui/countShow.js';
+
+function getCellSelectedEl(s) {
+    let els = document.querySelectorAll("#luckysheet-cell-selected-boxs .luckysheet-cell-selected");
+    return els[s] || null;
+}
+
+function showCellSelected(s, cssObj) {
+    let el = getCellSelectedEl(s);
+    if (el) {
+        el.style.display = '';
+        if (cssObj) Object.assign(el.style, cssObj);
+    }
+}
+
+function hideCellSelected(s) {
+    let el = getCellSelectedEl(s);
+    if (el) el.style.display = 'none';
+}
+
+function showCellSelectedProp(s, prop, val) {
+    let el = getCellSelectedEl(s);
+    if (el) {
+        el.style.display = '';
+        el.style[prop] = val;
+    }
+}
+
 const scrollAdaptModule = {
   scrollAdapt: function () {
     let _this = this;
 
-    //有冻结时 选区框 滚动适应
     if (Store.luckysheet_select_save != null && Store.luckysheet_select_save.length > 0) {
       _this.scrollAdaptOfselect();
     }
 
-    //有冻结时 图片 滚动适应
-    if ($(".luckysheet-modal-dialog-image").length > 0 && imageCtrl.images != undefined) {
+    if (document.querySelectorAll(".luckysheet-modal-dialog-image").length > 0 && imageCtrl.images != undefined) {
       _this.scrollAdaptOfImage();
     }
 
-    //有冻结时 批注框 滚动适应
-    if ($("#luckysheet-postil-showBoxs .luckysheet-postil-show").length > 0) {
+    if (document.querySelectorAll("#luckysheet-postil-showBoxs .luckysheet-postil-show").length > 0) {
       _this.scrollAdaptOfpostil();
     }
 
-    //有冻结时 下拉选区图标 滚动适应
-    if ($("#luckysheet-dropCell-icon").length > 0) {
+    if (document.getElementById("luckysheet-dropCell-icon") != null) {
       _this.scrollAdaptOfdpicon();
     }
 
-    //有冻结时 筛选下拉按钮 滚动适应
-    if ($("#luckysheet-filter-options-sheet" + Store.currentSheetIndex + " .luckysheet-filter-options").length > 0) {
+    if (document.querySelectorAll("#luckysheet-filter-options-sheet" + Store.currentSheetIndex + " .luckysheet-filter-options").length > 0) {
       _this.scrollAdaptOffilteroptions();
     }
   },
@@ -48,8 +70,10 @@ const scrollAdaptModule = {
     if (countShow.column.isVisible()) {
       countShow.column.hide();
     }
-    $("#luckysheet-rows-h-selected").empty();
-    $("#luckysheet-cols-h-selected").empty();
+    let _elRowsH = document.getElementById("luckysheet-rows-h-selected");
+    if (_elRowsH) _elRowsH.innerHTML = '';
+    let _elColsH = document.getElementById("luckysheet-cols-h-selected");
+    if (_elColsH) _elColsH.innerHTML = '';
     let scroll = getScrollPosition();
     let scrollTop = scroll.scrollTop;
     let scrollLeft = scroll.scrollLeft;
@@ -70,36 +94,33 @@ const scrollAdaptModule = {
         let height_move = row - row_pre - 1;
         let rangeshow = true;
         if (r1 >= freezen_rowindex) {
-          //原选区在冻结区外
           if (top_move + height_move < freezenTop + offTop) {
             rangeshow = false;
           } else if (top_move < freezenTop + offTop) {
-            $("#luckysheet-cell-selected-boxs").find(".luckysheet-cell-selected").eq(s).show().css({
-              "top": freezenTop + offTop,
-              "height": height_move - (freezenTop + offTop - top_move)
+            showCellSelected(s, {
+              "top": freezenTop + offTop + "px",
+              "height": (height_move - (freezenTop + offTop - top_move)) + "px"
             });
           } else {
-            $("#luckysheet-cell-selected-boxs").find(".luckysheet-cell-selected").eq(s).show().css({
-              "top": top_move,
-              "height": height_move
+            showCellSelected(s, {
+              "top": top_move + "px",
+              "height": height_move + "px"
             });
           }
         } else if (r2 >= freezen_rowindex) {
-          //原选区有一部分在冻结区内
           if (top_move + height_move < freezenTop + offTop) {
-            $("#luckysheet-cell-selected-boxs").find(".luckysheet-cell-selected").eq(s).show().css({
-              "top": top_move + offTop,
-              "height": freezenTop - top_move
+            showCellSelected(s, {
+              "top": (top_move + offTop) + "px",
+              "height": (freezenTop - top_move) + "px"
             });
           } else {
-            $("#luckysheet-cell-selected-boxs").find(".luckysheet-cell-selected").eq(s).show().css({
-              "top": top_move + offTop,
-              "height": height_move - offTop
+            showCellSelected(s, {
+              "top": (top_move + offTop) + "px",
+              "height": (height_move - offTop) + "px"
             });
           }
         } else {
-          //原选区在冻结区内
-          $("#luckysheet-cell-selected-boxs").find(".luckysheet-cell-selected").eq(s).show().css("top", top_move + offTop);
+          showCellSelectedProp(s, "top", (top_move + offTop) + "px");
         }
         let c1 = obj.column[0],
           c2 = obj.column[1];
@@ -108,39 +129,36 @@ const scrollAdaptModule = {
         let left_move = col_pre;
         let width_move = col - col_pre - 1;
         if (c1 >= freezen_colindex) {
-          //原选区在冻结区外
           if (left_move + width_move < freezenLeft + offLeft) {
             rangeshow = false;
           } else if (left_move < freezenLeft + offLeft) {
-            $("#luckysheet-cell-selected-boxs").find(".luckysheet-cell-selected").eq(s).show().css({
-              "left": freezenLeft + offLeft,
-              "width": width_move - (freezenLeft + offLeft - left_move)
+            showCellSelected(s, {
+              "left": (freezenLeft + offLeft) + "px",
+              "width": (width_move - (freezenLeft + offLeft - left_move)) + "px"
             });
           } else {
-            $("#luckysheet-cell-selected-boxs").find(".luckysheet-cell-selected").eq(s).show().css({
-              "left": left_move,
-              "width": width_move
+            showCellSelected(s, {
+              "left": left_move + "px",
+              "width": width_move + "px"
             });
           }
         } else if (c2 >= freezen_colindex) {
-          //原选区有一部分在冻结区内
           if (left_move + width_move < freezenLeft + offLeft) {
-            $("#luckysheet-cell-selected-boxs").find(".luckysheet-cell-selected").eq(s).show().css({
-              "left": left_move + offLeft,
-              "width": freezenLeft - left_move
+            showCellSelected(s, {
+              "left": (left_move + offLeft) + "px",
+              "width": (freezenLeft - left_move) + "px"
             });
           } else {
-            $("#luckysheet-cell-selected-boxs").find(".luckysheet-cell-selected").eq(s).show().css({
-              "left": left_move + offLeft,
-              "width": width_move - offLeft
+            showCellSelected(s, {
+              "left": (left_move + offLeft) + "px",
+              "width": (width_move - offLeft) + "px"
             });
           }
         } else {
-          //原选区在冻结区内
-          $("#luckysheet-cell-selected-boxs").find(".luckysheet-cell-selected").eq(s).show().css("left", left_move + offLeft);
+          showCellSelectedProp(s, "left", (left_move + offLeft) + "px");
         }
         if (!rangeshow) {
-          $("#luckysheet-cell-selected-boxs").find(".luckysheet-cell-selected").eq(s).hide();
+          hideCellSelected(s);
         }
         if (s == Store.luckysheet_select_save.length - 1) {
           let rf = obj.row_focus == null ? r1 : obj.row_focus;
@@ -237,36 +255,33 @@ const scrollAdaptModule = {
         let top_move = row_pre;
         let height_move = row - row_pre - 1;
         if (r1 >= freezen_rowindex) {
-          //原选区在冻结区外
           if (top_move + height_move < freezenTop + offTop) {
-            $("#luckysheet-cell-selected-boxs").find(".luckysheet-cell-selected").eq(s).hide();
+            hideCellSelected(s);
           } else if (top_move < freezenTop + offTop) {
-            $("#luckysheet-cell-selected-boxs").find(".luckysheet-cell-selected").eq(s).show().css({
-              "top": freezenTop + offTop,
-              "height": height_move - (freezenTop + offTop - top_move)
+            showCellSelected(s, {
+              "top": (freezenTop + offTop) + "px",
+              "height": (height_move - (freezenTop + offTop - top_move)) + "px"
             });
           } else {
-            $("#luckysheet-cell-selected-boxs").find(".luckysheet-cell-selected").eq(s).show().css({
-              "top": top_move,
-              "height": height_move
+            showCellSelected(s, {
+              "top": top_move + "px",
+              "height": height_move + "px"
             });
           }
         } else if (r2 >= freezen_rowindex) {
-          //原选区有一部分在冻结区内
           if (top_move + height_move < freezenTop + offTop) {
-            $("#luckysheet-cell-selected-boxs").find(".luckysheet-cell-selected").eq(s).show().css({
-              "top": top_move + offTop,
-              "height": freezenTop - top_move
+            showCellSelected(s, {
+              "top": (top_move + offTop) + "px",
+              "height": (freezenTop - top_move) + "px"
             });
           } else {
-            $("#luckysheet-cell-selected-boxs").find(".luckysheet-cell-selected").eq(s).show().css({
-              "top": top_move + offTop,
-              "height": height_move - offTop
+            showCellSelected(s, {
+              "top": (top_move + offTop) + "px",
+              "height": (height_move - offTop) + "px"
             });
           }
         } else {
-          //原选区在冻结区内
-          $("#luckysheet-cell-selected-boxs").find(".luckysheet-cell-selected").eq(s).show().css("top", top_move + offTop);
+          showCellSelectedProp(s, "top", (top_move + offTop) + "px");
         }
         if (s == Store.luckysheet_select_save.length - 1) {
           let rf = obj.row_focus == null ? r1 : obj.row_focus;
@@ -324,36 +339,33 @@ const scrollAdaptModule = {
         let left_move = col_pre;
         let width_move = col - col_pre - 1;
         if (c1 >= freezen_colindex) {
-          //原选区在冻结区外
           if (left_move + width_move < freezenLeft + offLeft) {
-            $("#luckysheet-cell-selected-boxs").find(".luckysheet-cell-selected").eq(s).hide();
+            hideCellSelected(s);
           } else if (left_move < freezenLeft + offLeft) {
-            $("#luckysheet-cell-selected-boxs").find(".luckysheet-cell-selected").eq(s).show().css({
-              "left": freezenLeft + offLeft,
-              "width": width_move - (freezenLeft + offLeft - left_move)
+            showCellSelected(s, {
+              "left": (freezenLeft + offLeft) + "px",
+              "width": (width_move - (freezenLeft + offLeft - left_move)) + "px"
             });
           } else {
-            $("#luckysheet-cell-selected-boxs").find(".luckysheet-cell-selected").eq(s).show().css({
-              "left": left_move,
-              "width": width_move
+            showCellSelected(s, {
+              "left": left_move + "px",
+              "width": width_move + "px"
             });
           }
         } else if (c2 >= freezen_colindex) {
-          //原选区有一部分在冻结区内
           if (left_move + width_move < freezenLeft + offLeft) {
-            $("#luckysheet-cell-selected-boxs").find(".luckysheet-cell-selected").eq(s).show().css({
-              "left": left_move + offLeft,
-              "width": freezenLeft - left_move
+            showCellSelected(s, {
+              "left": (left_move + offLeft) + "px",
+              "width": (freezenLeft - left_move) + "px"
             });
           } else {
-            $("#luckysheet-cell-selected-boxs").find(".luckysheet-cell-selected").eq(s).show().css({
-              "left": left_move + offLeft,
-              "width": width_move - offLeft
+            showCellSelected(s, {
+              "left": (left_move + offLeft) + "px",
+              "width": (width_move - offLeft) + "px"
             });
           }
         } else {
-          //原选区在冻结区内
-          $("#luckysheet-cell-selected-boxs").find(".luckysheet-cell-selected").eq(s).show().css("left", left_move + offLeft);
+          showCellSelectedProp(s, "left", (left_move + offLeft) + "px");
         }
         if (s == Store.luckysheet_select_save.length - 1) {
           let rf = obj.row_focus == null ? obj.row[0] : obj.row_focus;
@@ -413,52 +425,41 @@ const scrollAdaptModule = {
     let zoomRatio = Store.zoomRatio;
     Object.keys(images).forEach(function (i) {
       let image = images[i];
-      let dialogImage = $("#" + i);
-      let x = dialogImage.position();
-      let width = dialogImage.width();
-      let height = dialogImage.height();
+      let dialogImage = document.getElementById(i);
+      if (!dialogImage) return;
+      let x = {top: dialogImage.offsetTop, left: dialogImage.offsetLeft};
+      let width = dialogImage.offsetWidth;
+      let height = dialogImage.offsetHeight;
       let defaultTop = image.default.top * zoomRatio;
       let defaultLeft = image.default.left * zoomRatio;
       let isHidden = false;
 
-      //行冻结
       if (defaultTop >= freezenTop) {
-        //原图片在冻结区外
         if (x.top < freezenTop) {
-          //在界面上的位置已经进入冻结区里面了
-          dialogImage.css("visibility", "hidden");
+          dialogImage.style.visibility = "hidden";
           isHidden = true;
         } else {
-          dialogImage.css({
-            "visibility": "visible"
-          });
+          dialogImage.style.visibility = "visible";
         }
       } else {
-        //原图片在冻结区内
-        dialogImage.css({
-          "top": defaultTop + scrollTop,
-          "height": height,
+        Object.assign(dialogImage.style, {
+          "top": (defaultTop + scrollTop) + "px",
+          "height": height + "px",
           "visibility": "visible"
         });
       }
 
-      //列冻结
       if (!isHidden) {
         if (defaultLeft >= freezenLeft) {
-          //原图片在冻结区外
           if (x.left < freezenLeft) {
-            //在界面上的位置已经进入冻结区里面了
-            dialogImage.css("visibility", "hidden");
+            dialogImage.style.visibility = "hidden";
           } else {
-            dialogImage.css({
-              "visibility": "visible"
-            });
+            dialogImage.style.visibility = "visible";
           }
         } else {
-          //原图片在冻结区内
-          dialogImage.css({
-            "left": defaultLeft + scrollLeft,
-            "width": width,
+          Object.assign(dialogImage.style, {
+            "left": (defaultLeft + scrollLeft) + "px",
+            "width": width + "px",
             "visibility": "visible"
           });
         }
@@ -475,8 +476,8 @@ const scrollAdaptModule = {
       let freezenLeft = _this.freezenverticaldata[0];
       let offTop = scrollTop - _this.freezenhorizontaldata[2];
       let offLeft = scrollLeft - _this.freezenverticaldata[2];
-      $("#luckysheet-postil-showBoxs .luckysheet-postil-show").each(function (i, e) {
-        let id = $(e).attr("id");
+      document.querySelectorAll("#luckysheet-postil-showBoxs .luckysheet-postil-show").forEach(function (e) {
+        let id = e.id;
         let r = id.split("luckysheet-postil-show_")[1].split("_")[0];
         let c = id.split("luckysheet-postil-show_")[1].split("_")[1];
         let postil = Store.flowdata[r][c].ps;
@@ -503,80 +504,90 @@ const scrollAdaptModule = {
         let size = luckysheetPostil.getArrowCanvasSize(postil_left, postil_top, toX, toY);
         let show = true;
         let show2 = true;
+        let _elMain = e.querySelector(".luckysheet-postil-show-main");
+        let _elArrow = e.querySelector(".arrowCanvas");
+        let _elFormulaInput = e.querySelector(".formulaInputFocus");
         if (r >= _this.freezenhorizontaldata[1]) {
           if (postil_top + postil_height < freezenTop) {
-            $(e).show().find(".luckysheet-postil-show-main").css("top", postil_top + offTop);
-            $(e).show().find(".arrowCanvas").css("top", size[1] + offTop);
+            e.style.display = '';
+            if (_elMain) _elMain.style.top = (postil_top + offTop) + "px";
+            if (_elArrow) _elArrow.style.top = (size[1] + offTop) + "px";
           } else {
             if (postil_top < freezenTop + offTop) {
               if (postil_top + postil_height <= freezenTop + offTop) {
                 show = false;
               } else {
-                $(e).show().find(".luckysheet-postil-show-main").css({
-                  "top": freezenTop + offTop,
-                  "height": postil_height - (freezenTop + offTop - postil_top)
+                e.style.display = '';
+                if (_elMain) Object.assign(_elMain.style, {
+                  "top": (freezenTop + offTop) + "px",
+                  "height": (postil_height - (freezenTop + offTop - postil_top)) + "px"
                 });
-                $(e).show().find(".formulaInputFocus").css("margin-top", -(freezenTop + offTop - postil_top));
-                $(e).show().find(".arrowCanvas").hide();
+                if (_elFormulaInput) _elFormulaInput.style.marginTop = -(freezenTop + offTop - postil_top) + "px";
+                if (_elArrow) _elArrow.style.display = 'none';
                 show2 = false;
               }
             } else {
-              $(e).show().find(".luckysheet-postil-show-main").css({
-                "top": postil_top,
-                "height": postil_height
+              e.style.display = '';
+              if (_elMain) Object.assign(_elMain.style, {
+                "top": postil_top + "px",
+                "height": postil_height + "px"
               });
-              $(e).show().find(".formulaInputFocus").css("margin-top", 0);
-              $(e).show().find(".arrowCanvas").css("top", size[1]);
-              // luckysheetPostil.buildPs(r, c, postil);
+              if (_elFormulaInput) _elFormulaInput.style.marginTop = "0px";
+              if (_elArrow) _elArrow.style.top = size[1] + "px";
             }
           }
         } else {
-          $(e).show().find(".luckysheet-postil-show-main").css("top", postil_top + offTop);
-          $(e).show().find(".arrowCanvas").css("top", size[1] + offTop);
+          e.style.display = '';
+          if (_elMain) _elMain.style.top = (postil_top + offTop) + "px";
+          if (_elArrow) _elArrow.style.top = (size[1] + offTop) + "px";
         }
         if (c >= _this.freezenverticaldata[1]) {
           if (postil_left + postil_width < freezenLeft) {
-            $(e).show().find(".luckysheet-postil-show-main").css("left", postil_left + offLeft);
-            $(e).show().find(".arrowCanvas").css("left", size[0] + offLeft);
+            e.style.display = '';
+            if (_elMain) _elMain.style.left = (postil_left + offLeft) + "px";
+            if (_elArrow) _elArrow.style.left = (size[0] + offLeft) + "px";
           } else {
             if (postil_left < freezenLeft + offLeft) {
               if (postil_left + postil_width <= freezenLeft + offLeft) {
                 show = false;
               } else {
-                $(e).show().find(".luckysheet-postil-show-main").css({
-                  "left": freezenLeft + offLeft,
-                  "width": postil_width - (freezenLeft + offLeft - postil_left)
+                e.style.display = '';
+                if (_elMain) Object.assign(_elMain.style, {
+                  "left": (freezenLeft + offLeft) + "px",
+                  "width": (postil_width - (freezenLeft + offLeft - postil_left)) + "px"
                 });
-                $(e).show().find(".formulaInputFocus").css("margin-left", -(freezenLeft + offLeft - postil_left));
-                $(e).show().find(".arrowCanvas").hide();
+                if (_elFormulaInput) _elFormulaInput.style.marginLeft = -(freezenLeft + offLeft - postil_left) + "px";
+                if (_elArrow) _elArrow.style.display = 'none';
                 show2 = false;
               }
             } else {
-              $(e).show().find(".luckysheet-postil-show-main").css({
-                "left": postil_left,
-                "width": postil_width
+              e.style.display = '';
+              if (_elMain) Object.assign(_elMain.style, {
+                "left": postil_left + "px",
+                "width": postil_width + "px"
               });
-              $(e).show().find(".formulaInputFocus").css("margin-left", 0);
-              $(e).show().find(".arrowCanvas").css("left", size[0]);
-              // luckysheetPostil.buildPs(r, c, postil);
+              if (_elFormulaInput) _elFormulaInput.style.marginLeft = "0px";
+              if (_elArrow) _elArrow.style.left = size[0] + "px";
             }
           }
         } else {
-          $(e).show().find(".luckysheet-postil-show-main").css("left", postil_left + offLeft);
-          $(e).show().find(".arrowCanvas").css("left", size[0] + offLeft);
+          e.style.display = '';
+          if (_elMain) _elMain.style.left = (postil_left + offLeft) + "px";
+          if (_elArrow) _elArrow.style.left = (size[0] + offLeft) + "px";
         }
         if (!show) {
-          $(e).hide();
+          e.style.display = 'none';
         }
         if (show && show2) {
-          $(e).show().find(".arrowCanvas").show();
+          e.style.display = '';
+          if (_elArrow) _elArrow.style.display = '';
         }
       });
     } else if (_this.freezenhorizontaldata != null) {
       let freezenTop = _this.freezenhorizontaldata[0];
       let offTop = scrollTop - _this.freezenhorizontaldata[2];
-      $("#luckysheet-postil-showBoxs .luckysheet-postil-show").each(function (i, e) {
-        let id = $(e).attr("id");
+      document.querySelectorAll("#luckysheet-postil-showBoxs .luckysheet-postil-show").forEach(function (e) {
+        let id = e.id;
         let r = id.split("luckysheet-postil-show_")[1].split("_")[0];
         let c = id.split("luckysheet-postil-show_")[1].split("_")[1];
         let postil = Store.flowdata[r][c].ps;
@@ -601,36 +612,42 @@ const scrollAdaptModule = {
           postil_top = 2;
         }
         let size = luckysheetPostil.getArrowCanvasSize(postil_left, postil_top, toX, toY);
+        let _elMain = e.querySelector(".luckysheet-postil-show-main");
+        let _elArrow = e.querySelector(".arrowCanvas");
+        let _elFormulaInput = e.querySelector(".formulaInputFocus");
         if (r >= _this.freezenhorizontaldata[1]) {
           if (postil_top + postil_height < freezenTop) {
-            $(e).show().find(".luckysheet-postil-show-main").css("top", postil_top + offTop);
-            $(e).show().find(".arrowCanvas").css("top", size[1] + offTop);
+            e.style.display = '';
+            if (_elMain) _elMain.style.top = (postil_top + offTop) + "px";
+            if (_elArrow) _elArrow.style.top = (size[1] + offTop) + "px";
           } else {
             if (postil_top < freezenTop + offTop) {
               if (postil_top + postil_height <= freezenTop + offTop) {
-                $(e).hide();
+                e.style.display = 'none';
               } else {
-                $(e).show().find(".luckysheet-postil-show-main").css({
-                  "top": freezenTop + offTop,
-                  "height": postil_height - (freezenTop + offTop - postil_top)
+                e.style.display = '';
+                if (_elMain) Object.assign(_elMain.style, {
+                  "top": (freezenTop + offTop) + "px",
+                  "height": (postil_height - (freezenTop + offTop - postil_top)) + "px"
                 });
-                $(e).show().find(".formulaInputFocus").css("margin-top", -(freezenTop + offTop - postil_top));
-                $(e).show().find(".arrowCanvas").hide();
+                if (_elFormulaInput) _elFormulaInput.style.marginTop = -(freezenTop + offTop - postil_top) + "px";
+                if (_elArrow) _elArrow.style.display = 'none';
               }
             } else {
               luckysheetPostil.buildPs(r, c, postil);
             }
           }
         } else {
-          $(e).show().find(".luckysheet-postil-show-main").css("top", postil_top + offTop);
-          $(e).show().find(".arrowCanvas").css("top", size[1] + offTop);
+          e.style.display = '';
+          if (_elMain) _elMain.style.top = (postil_top + offTop) + "px";
+          if (_elArrow) _elArrow.style.top = (size[1] + offTop) + "px";
         }
       });
     } else if (_this.freezenverticaldata != null) {
       let freezenLeft = _this.freezenverticaldata[0];
       let offLeft = scrollLeft - _this.freezenverticaldata[2];
-      $("#luckysheet-postil-showBoxs .luckysheet-postil-show").each(function (i, e) {
-        let id = $(e).attr("id");
+      document.querySelectorAll("#luckysheet-postil-showBoxs .luckysheet-postil-show").forEach(function (e) {
+        let id = e.id;
         let r = id.split("luckysheet-postil-show_")[1].split("_")[0];
         let c = id.split("luckysheet-postil-show_")[1].split("_")[1];
         let postil = Store.flowdata[r][c].ps;
@@ -655,34 +672,40 @@ const scrollAdaptModule = {
           postil_top = 2;
         }
         let size = luckysheetPostil.getArrowCanvasSize(postil_left, postil_top, toX, toY);
+        let _elMain = e.querySelector(".luckysheet-postil-show-main");
+        let _elArrow = e.querySelector(".arrowCanvas");
+        let _elFormulaInput = e.querySelector(".formulaInputFocus");
         if (c >= _this.freezenverticaldata[1]) {
           if (postil_left + postil_width < freezenLeft) {
-            $(e).show().find(".luckysheet-postil-show-main").css("left", postil_left + offLeft);
-            $(e).show().find(".arrowCanvas").css("left", size[0] + offLeft);
+            e.style.display = '';
+            if (_elMain) _elMain.style.left = (postil_left + offLeft) + "px";
+            if (_elArrow) _elArrow.style.left = (size[0] + offLeft) + "px";
           } else {
             if (postil_left < freezenLeft + offLeft) {
               if (postil_left + postil_width <= freezenLeft + offLeft) {
-                $(e).hide();
+                e.style.display = 'none';
               } else {
-                $(e).show().find(".luckysheet-postil-show-main").css({
-                  "left": freezenLeft + offLeft,
-                  "width": postil_width - (freezenLeft + offLeft - postil_left)
+                e.style.display = '';
+                if (_elMain) Object.assign(_elMain.style, {
+                  "left": (freezenLeft + offLeft) + "px",
+                  "width": (postil_width - (freezenLeft + offLeft - postil_left)) + "px"
                 });
-                $(e).show().find(".formulaInputFocus").css("margin-left", -(freezenLeft + offLeft - postil_left));
-                $(e).show().find(".arrowCanvas").hide();
+                if (_elFormulaInput) _elFormulaInput.style.marginLeft = -(freezenLeft + offLeft - postil_left) + "px";
+                if (_elArrow) _elArrow.style.display = 'none';
               }
             } else {
               luckysheetPostil.buildPs(r, c, postil);
             }
           }
         } else {
-          $(e).show().find(".luckysheet-postil-show-main").css("left", postil_left + offLeft);
-          $(e).show().find(".arrowCanvas").css("left", size[0] + offLeft);
+          e.style.display = '';
+          if (_elMain) _elMain.style.left = (postil_left + offLeft) + "px";
+          if (_elArrow) _elArrow.style.left = (size[0] + offLeft) + "px";
         }
       });
     } else {
-      $("#luckysheet-postil-showBoxs .luckysheet-postil-show").each(function (i, e) {
-        let id = $(e).attr("id");
+      document.querySelectorAll("#luckysheet-postil-showBoxs .luckysheet-postil-show").forEach(function (e) {
+        let id = e.id;
         let r = id.split("luckysheet-postil-show_")[1].split("_")[0];
         let c = id.split("luckysheet-postil-show_")[1].split("_")[1];
         let postil = Store.flowdata[r][c].ps;
@@ -704,6 +727,8 @@ const scrollAdaptModule = {
       row_index = copy_r;
       col_index = copy_c;
     }
+    let _elDropCellIcon = document.getElementById("luckysheet-dropCell-icon");
+    if (!_elDropCellIcon) return;
     if (_this.freezenhorizontaldata != null && _this.freezenverticaldata != null) {
       let scroll = getScrollPosition();
       let freezen_rowindex = _this.freezenhorizontaldata[1];
@@ -712,30 +737,33 @@ const scrollAdaptModule = {
       let offsetColumn = luckysheet_searcharray(_this.freezenverticaldata[3], scroll.scrollLeft - _this.freezenverticaldata[2]);
       if (row_index >= freezen_rowindex && col_index >= freezen_colindex) {
         if (row_index < freezen_rowindex + offsetRow - 1 || col_index < freezen_colindex + offsetColumn - 1) {
-          $("#luckysheet-dropCell-icon").hide();
+          _elDropCellIcon.style.display = 'none';
         } else {
-          $("#luckysheet-dropCell-icon").show();
+          _elDropCellIcon.style.display = '';
         }
       } else if (row_index >= freezen_rowindex) {
         if (row_index < freezen_rowindex + offsetRow - 1) {
-          $("#luckysheet-dropCell-icon").hide();
+          _elDropCellIcon.style.display = 'none';
         } else {
           let col = colLocationByIndex(col_index + offsetColumn)[1];
-          $("#luckysheet-dropCell-icon").show().css("left", col);
+          _elDropCellIcon.style.display = '';
+          _elDropCellIcon.style.left = col + "px";
         }
       } else if (col_index >= freezen_colindex) {
         if (col_index < freezen_colindex + offsetColumn - 1) {
-          $("#luckysheet-dropCell-icon").hide();
+          _elDropCellIcon.style.display = 'none';
         } else {
           let row = rowLocationByIndex(row_index + offsetRow)[1];
-          $("#luckysheet-dropCell-icon").show().css("top", row);
+          _elDropCellIcon.style.display = '';
+          _elDropCellIcon.style.top = row + "px";
         }
       } else {
         let row = rowLocationByIndex(row_index + offsetRow)[1],
           col = colLocationByIndex(col_index + offsetColumn)[1];
-        $("#luckysheet-dropCell-icon").show().css({
-          "left": col,
-          "top": row
+        _elDropCellIcon.style.display = '';
+        Object.assign(_elDropCellIcon.style, {
+          "left": col + "px",
+          "top": row + "px"
         });
       }
     } else if (_this.freezenhorizontaldata != null) {
@@ -743,33 +771,36 @@ const scrollAdaptModule = {
       let offsetRow = luckysheet_searcharray(_this.freezenhorizontaldata[3], getScrollPosition().scrollTop - _this.freezenhorizontaldata[2]);
       if (row_index >= freezen_rowindex) {
         if (row_index < freezen_rowindex + offsetRow - 1) {
-          $("#luckysheet-dropCell-icon").hide();
+          _elDropCellIcon.style.display = 'none';
         } else {
-          $("#luckysheet-dropCell-icon").show();
+          _elDropCellIcon.style.display = '';
         }
       } else {
         let row = rowLocationByIndex(row_index + offsetRow)[1];
-        $("#luckysheet-dropCell-icon").show().css("top", row);
+        _elDropCellIcon.style.display = '';
+        _elDropCellIcon.style.top = row + "px";
       }
     } else if (_this.freezenverticaldata != null) {
       let freezen_colindex = _this.freezenverticaldata[1];
       let offsetColumn = luckysheet_searcharray(_this.freezenverticaldata[3], getScrollPosition().scrollLeft - _this.freezenverticaldata[2]);
       if (col_index >= freezen_colindex) {
         if (col_index < freezen_colindex + offsetColumn - 1) {
-          $("#luckysheet-dropCell-icon").hide();
+          _elDropCellIcon.style.display = 'none';
         } else {
-          $("#luckysheet-dropCell-icon").show();
+          _elDropCellIcon.style.display = '';
         }
       } else {
         let col = colLocationByIndex(col_index + offsetColumn)[1];
-        $("#luckysheet-dropCell-icon").show().css("left", col);
+        _elDropCellIcon.style.display = '';
+        _elDropCellIcon.style.left = col + "px";
       }
     } else {
       let row = rowLocationByIndex(row_index)[1],
         col = colLocationByIndex(col_index)[1];
-      $("#luckysheet-dropCell-icon").show().css({
-        "left": col,
-        "top": row
+      _elDropCellIcon.style.display = '';
+      Object.assign(_elDropCellIcon.style, {
+        "left": col + "px",
+        "top": row + "px"
       });
     }
   },
@@ -781,71 +812,77 @@ const scrollAdaptModule = {
       let freezen_top = _this.freezenhorizontaldata[0] + scroll.scrollTop;
       let freezen_colindex = _this.freezenverticaldata[1];
       let offsetColumn = luckysheet_searcharray(_this.freezenverticaldata[3], scroll.scrollLeft - _this.freezenverticaldata[2]);
-      $("#luckysheet-filter-options-sheet" + Store.currentSheetIndex + " .luckysheet-filter-options").each(function (i, e) {
-        let row_index = $(e).data("str");
+      document.querySelectorAll("#luckysheet-filter-options-sheet" + Store.currentSheetIndex + " .luckysheet-filter-options").forEach(function (e) {
+        let row_index = e.dataset.str;
         let top = row_index - 1 == -1 ? 0 : Store.visibledatarow[row_index - 1];
-        let col_index = $(e).data("cindex");
+        let col_index = e.dataset.cindex;
         if (row_index >= freezen_rowindex && col_index >= freezen_colindex) {
           if (top < freezen_top || col_index < freezen_colindex + offsetColumn) {
-            $(e).hide();
+            e.style.display = 'none';
           } else {
-            $(e).show();
+            e.style.display = '';
           }
         } else if (row_index >= freezen_rowindex) {
           if (top < freezen_top) {
-            $(e).hide();
+            e.style.display = 'none';
           } else {
             let left = Store.visibledatacolumn[col_index + offsetColumn] - 20;
-            $(e).show().css("left", left);
+            e.style.display = '';
+            e.style.left = left + "px";
           }
         } else if (col_index >= freezen_colindex) {
           if (col_index < freezen_colindex + offsetColumn) {
-            $(e).hide();
+            e.style.display = 'none';
           } else {
-            $(e).show().css("top", top + scroll.scrollTop);
+            e.style.display = '';
+            e.style.top = (top + scroll.scrollTop) + "px";
           }
         } else {
           let left = Store.visibledatacolumn[col_index + offsetColumn] - 20;
-          $(e).show().css({
-            "left": left,
-            "top": top + scroll.scrollTop
+          e.style.display = '';
+          Object.assign(e.style, {
+            "left": left + "px",
+            "top": (top + scroll.scrollTop) + "px"
           });
         }
       });
     } else if (_this.freezenhorizontaldata != null) {
       let freezen_rowindex = _this.freezenhorizontaldata[1];
       let freezen_top = _this.freezenhorizontaldata[0] + getScrollPosition().scrollTop;
-      $("#luckysheet-filter-options-sheet" + Store.currentSheetIndex + " .luckysheet-filter-options").each(function (i, e) {
-        let row_index = $(e).data("str");
+      document.querySelectorAll("#luckysheet-filter-options-sheet" + Store.currentSheetIndex + " .luckysheet-filter-options").forEach(function (e) {
+        let row_index = e.dataset.str;
         let top = row_index - 1 == -1 ? 0 : Store.visibledatarow[row_index - 1];
         if (row_index >= freezen_rowindex) {
           if (top < freezen_top) {
-            $(e).hide();
+            e.style.display = 'none';
           } else {
-            $(e).show();
+            e.style.display = '';
           }
         } else {
-          $(e).show().css("top", top + getScrollPosition().scrollTop);
+          e.style.display = '';
+          e.style.top = (top + getScrollPosition().scrollTop) + "px";
         }
       });
     } else if (_this.freezenverticaldata != null) {
       let freezen_colindex = _this.freezenverticaldata[1];
       let offsetColumn = luckysheet_searcharray(_this.freezenverticaldata[3], getScrollPosition().scrollLeft - _this.freezenverticaldata[2]);
-      $("#luckysheet-filter-options-sheet" + Store.currentSheetIndex + " .luckysheet-filter-options").each(function (i, e) {
-        let col_index = $(e).data("cindex");
+      document.querySelectorAll("#luckysheet-filter-options-sheet" + Store.currentSheetIndex + " .luckysheet-filter-options").forEach(function (e) {
+        let col_index = e.dataset.cindex;
         if (col_index >= freezen_colindex) {
           if (col_index < freezen_colindex + offsetColumn) {
-            $(e).hide();
+            e.style.display = 'none';
           } else {
-            $(e).show();
+            e.style.display = '';
           }
         } else {
           let left = Store.visibledatacolumn[col_index + offsetColumn] - 20;
-          $(e).show().css("left", left);
+          e.style.display = '';
+          e.style.left = left + "px";
         }
       });
     } else {
-      $("#luckysheet-filter-options-sheet" + Store.currentSheetIndex).empty();
+      let _elFilterOpts = document.getElementById("luckysheet-filter-options-sheet" + Store.currentSheetIndex);
+      if (_elFilterOpts) _elFilterOpts.innerHTML = '';
       createFilterOptions(getCurrentFile().filter_select);
     }
   }

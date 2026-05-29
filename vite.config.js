@@ -9,7 +9,7 @@ export default defineConfig(({ command }) => {
     plugins: [
       !isDev && inject({
         include: ['**/*.js', '**/*.ts'],
-        exclude: ['**/*.css', '**/*.min.js', '**/src/index.js'],
+        exclude: ['**/*.css', '**/*.min.js', '**/src/index.js', '**/src/jquery-bridge.js', '**/src/jquery-init.js', '**/src/controllers/keyboard.js'],
         $: 'jquery',
         jQuery: 'jquery',
         'window.jQuery': 'jquery',

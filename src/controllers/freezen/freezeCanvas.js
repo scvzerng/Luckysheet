@@ -45,24 +45,25 @@ const freezeCanvasModule = {
     }
   },
   createCanvas: function (id, width, height, left, top) {
-    let c = $("<canvas/>").appendTo(gridWindow.el).attr({
-      "id": id,
-      "width": Math.ceil(width * Store.devicePixelRatio),
-      "height": Math.ceil(height * Store.devicePixelRatio)
-    }).css({
+    let c = document.createElement("canvas");
+    c.id = id;
+    c.width = Math.ceil(width * Store.devicePixelRatio);
+    c.height = Math.ceil(height * Store.devicePixelRatio);
+    Object.assign(c.style, {
       "user-select": "none",
       "postion": "absolute",
-      "left": left,
-      "top": top,
-      "width": width,
-      "height": height,
-      "z-index": 10,
+      "left": left + "px",
+      "top": top + "px",
+      "width": width + "px",
+      "height": height + "px",
+      "z-index": "10",
       "pointer-events": "none"
     });
+    gridWindow.el.appendChild(c);
   },
   removeAssistCanvas: function () {
     gridWindow.removeCanvasExcept(canvasContext.el);
-    $("#luckysheet-cell-selected").css("z-index", 15);
+    const _elCellSelected = document.getElementById("luckysheet-cell-selected"); if (_elCellSelected) _elCellSelected.style.zIndex = 15;
   }
 };
 export default freezeCanvasModule;

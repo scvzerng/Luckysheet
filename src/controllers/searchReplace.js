@@ -23,7 +23,8 @@ import cellMain from '../ui/cellMain.js';
 const luckysheetSearchReplace = {
     createDialog: function(source) {
         hideModalMask();
-        $("#luckysheet-search-replace").remove();
+        const _srEl = document.getElementById("luckysheet-search-replace");
+        if (_srEl) _srEl.remove();
 
         const _locale = locale();
         const locale_findAndReplace = _locale.findAndReplace;
@@ -95,33 +96,36 @@ const luckysheetSearchReplace = {
                 close: locale_button.close,
             }),
         );
-        let $t = $("#luckysheet-search-replace")
-                .find(".luckysheet-modal-dialog-content")
-                .css("min-width", 500)
-                .end(),
-            myh = $t.outerHeight(),
-            myw = $t.outerWidth();
+        let _srEl2 = document.getElementById("luckysheet-search-replace");
+        let _srContent = _srEl2?.querySelector(".luckysheet-modal-dialog-content");
+        if (_srContent) _srContent.style.minWidth = '500px';
+        let myh = _srEl2?.offsetHeight || 0,
+            myw = _srEl2?.offsetWidth || 0;
         let winw = document.documentElement.clientWidth,
             winh = document.documentElement.clientHeight;
         let scrollLeft = document.documentElement.scrollLeft,
             scrollTop = document.documentElement.scrollTop;
-        $("#luckysheet-search-replace")
-            .css({ left: (winw + scrollLeft - myw) / 2, top: (winh + scrollTop - myh) / 3 })
-            .show();
+        let _srEl3 = document.getElementById("luckysheet-search-replace");
+        if (_srEl3) {
+          Object.assign(_srEl3.style, { left: (winw + scrollLeft - myw) / 2 + 'px', top: (winh + scrollTop - myh) / 3 + 'px' });
+          _srEl3.style.display = '';
+        }
 
         if (source == "0") {
-            $("#luckysheet-search-replace #searchTab")
-                .addClass("on")
-                .siblings()
-                .removeClass("on");
+            let _searchTab = document.querySelector("#luckysheet-search-replace #searchTab");
+            if (_searchTab) {
+              _searchTab.classList.add("on");
+              Array.from(_searchTab.parentElement.children).filter(s => s !== _searchTab).forEach(s => s.classList.remove("on"));
+            }
             const _elRepIn1 = document.querySelector("#luckysheet-search-replace #replaceInput"); if (_elRepIn1) _elRepIn1.style.display = 'none';
             const _elRepAll1 = document.querySelector("#luckysheet-search-replace #replaceAllBtn"); if (_elRepAll1) _elRepAll1.style.display = 'none';
             const _elRepBtn1 = document.querySelector("#luckysheet-search-replace #replaceBtn"); if (_elRepBtn1) _elRepBtn1.style.display = 'none';
         } else if (source == "1") {
-            $("#luckysheet-search-replace #replaceTab")
-                .addClass("on")
-                .siblings()
-                .removeClass("on");
+            let _replaceTab = document.querySelector("#luckysheet-search-replace #replaceTab");
+            if (_replaceTab) {
+              _replaceTab.classList.add("on");
+              Array.from(_replaceTab.parentElement.children).filter(s => s !== _replaceTab).forEach(s => s.classList.remove("on"));
+            }
             const _elRepIn2 = document.querySelector("#luckysheet-search-replace #replaceInput"); if (_elRepIn2) _elRepIn2.style.display = '';
             const _elRepAll2 = document.querySelector("#luckysheet-search-replace #replaceAllBtn"); if (_elRepAll2) _elRepAll2.style.display = '';
             const _elRepBtn2 = document.querySelector("#luckysheet-search-replace #replaceBtn"); if (_elRepBtn2) _elRepBtn2.style.display = '';
@@ -133,24 +137,22 @@ const luckysheetSearchReplace = {
         //查找替换 切换
         offNS("SRtabBoxspan");
         onNS(document, "click.SRtabBoxspan", "#luckysheet-search-replace .tabBox span", function() {
-                $(this)
-                    .addClass("on")
-                    .siblings()
-                    .removeClass("on");
+                this.classList.add("on");
+                Array.from(this.parentElement.children).filter(s => s !== this).forEach(s => s.classList.remove("on"));
 
-                let $id = $(this).attr("id");
+                let $id = this.getAttribute("id");
                 if ($id == "searchTab") {
                     const _elRepIn3 = document.querySelector("#luckysheet-search-replace #replaceInput"); if (_elRepIn3) _elRepIn3.style.display = 'none';
                     const _elRepAll3 = document.querySelector("#luckysheet-search-replace #replaceAllBtn"); if (_elRepAll3) _elRepAll3.style.display = 'none';
                     const _elRepBtn3 = document.querySelector("#luckysheet-search-replace #replaceBtn"); if (_elRepBtn3) _elRepBtn3.style.display = 'none';
 
-                    $("#luckysheet-search-replace #searchInput input").focus();
+                    let _srSearchInput = document.querySelector("#luckysheet-search-replace #searchInput input"); if (_srSearchInput) _srSearchInput.focus();
                 } else if ($id == "replaceTab") {
                     const _elRepIn4 = document.querySelector("#luckysheet-search-replace #replaceInput"); if (_elRepIn4) _elRepIn4.style.display = '';
                     const _elRepAll4 = document.querySelector("#luckysheet-search-replace #replaceAllBtn"); if (_elRepAll4) _elRepAll4.style.display = '';
                     const _elRepBtn4 = document.querySelector("#luckysheet-search-replace #replaceBtn"); if (_elRepBtn4) _elRepBtn4.style.display = '';
 
-                    $("#luckysheet-search-replace #replaceInput input").focus();
+                    let _srReplaceInput = document.querySelector("#luckysheet-search-replace #replaceInput input"); if (_srReplaceInput) _srReplaceInput.focus();
                 }
             });
 
@@ -174,14 +176,12 @@ const luckysheetSearchReplace = {
             });
         offNS("SRsearchAllboxItem");
         onNS(document, "click.SRsearchAllboxItem", "#luckysheet-search-replace #searchAllbox .boxItem", function() {
-                $(this)
-                    .addClass("on")
-                    .siblings()
-                    .removeClass("on");
+                this.classList.add("on");
+                Array.from(this.parentElement.children).filter(s => s !== this).forEach(s => s.classList.remove("on"));
 
-                let r = $(this).attr("data-row");
-                let c = $(this).attr("data-col");
-                let sheetIndex = $(this).attr("data-sheetIndex");
+                let r = this.getAttribute("data-row");
+                let c = this.getAttribute("data-col");
+                let sheetIndex = this.getAttribute("data-sheetIndex");
 
                 if (sheetIndex != Store.currentSheetIndex) {
                     sheetmanage.changeSheetExec(sheetIndex);
@@ -230,7 +230,7 @@ const luckysheetSearchReplace = {
     searchNext: function() {
         let _this = this;
 
-        let searchText = $("#luckysheet-search-replace #searchInput input").val();
+        let searchText = document.querySelector("#luckysheet-search-replace #searchInput input")?.value;
         if (searchText == "" || searchText == null) {
             return;
         }
@@ -364,8 +364,9 @@ const luckysheetSearchReplace = {
             scrollBarY.setScrollTop(row_pre - 20);
         }
 
-        if ($("#searchAllbox").is(":visible")) {
-            $("#luckysheet-search-replace #searchAllbox .boxItem").removeClass("on");
+        let _searchAllbox = document.querySelector("#searchAllbox");
+        if (_searchAllbox && _searchAllbox.offsetWidth > 0) {
+            document.querySelectorAll("#luckysheet-search-replace #searchAllbox .boxItem").forEach(el => el.classList.remove("on"));
         }
     },
     searchAll: function() {
@@ -374,9 +375,10 @@ const luckysheetSearchReplace = {
         const _locale = locale();
         const locale_findAndReplace = _locale.findAndReplace;
 
-        $("#luckysheet-search-replace #searchAllbox").remove();
+        let _searchAllboxEl = document.querySelector("#luckysheet-search-replace #searchAllbox");
+        if (_searchAllboxEl) _searchAllboxEl.remove();
 
-        let searchText = $("#luckysheet-search-replace #searchInput input").val();
+        let searchText = document.querySelector("#luckysheet-search-replace #searchInput input")?.value;
         if (searchText == "" || searchText == null) {
             return;
         }
@@ -459,15 +461,18 @@ const luckysheetSearchReplace = {
             }
         }
 
-        $(
+        let _srEl4 = document.getElementById("luckysheet-search-replace");
+        if (_srEl4) {
+          _srEl4.insertAdjacentHTML('beforeend',
             `<div id="searchAllbox"><div class="boxTitle"><span>${locale_findAndReplace.searchTargetSheet}</span><span>${locale_findAndReplace.searchTargetCell}</span><span>${locale_findAndReplace.searchTargetValue}</span></div><div class="boxMain">${searchAllHtml}</div></div>`,
-        ).appendTo($("#luckysheet-search-replace"));
+          );
+        }
 
-        $("#luckysheet-search-replace #searchAllbox .boxItem")
-            .eq(0)
-            .addClass("on")
-            .siblings()
-            .removeClass("on");
+        let _firstBoxItem = document.querySelector("#luckysheet-search-replace #searchAllbox .boxItem");
+        if (_firstBoxItem) {
+          _firstBoxItem.classList.add("on");
+          Array.from(_firstBoxItem.parentElement.children).filter(s => s !== _firstBoxItem).forEach(s => s.classList.remove("on"));
+        }
 
         Store.luckysheet_select_save = [
             {
@@ -482,8 +487,11 @@ const luckysheetSearchReplace = {
         const arr = [];
         const obj = {};
 
-        const $container = $("#luckysheet-search-replace");
-        const isChecked = (inputId) => $container.find(`#${inputId} input[type='checkbox']`).is(":checked");
+        const _srContainer = document.getElementById("luckysheet-search-replace");
+        const isChecked = (inputId) => {
+          let _cb = _srContainer?.querySelector('#' + inputId + ' input[type=\'checkbox\']');
+          return _cb ? _cb.checked : false;
+        };
 
         //正则表达式匹配
         const regCheck = isChecked("regCheck");
@@ -558,7 +566,7 @@ const luckysheetSearchReplace = {
             return;
         }
 
-        let searchText = $("#luckysheet-search-replace #searchInput input").val();
+        let searchText = document.querySelector("#luckysheet-search-replace #searchInput input")?.value;
         if (searchText == "" || searchText == null) {
             if (isEditMode()) {
                 alert(locale_findAndReplace.searchInputTip);
@@ -628,23 +636,26 @@ const luckysheetSearchReplace = {
 
         //正则表达式匹配
         let regCheck = false;
-        if ($("#luckysheet-search-replace #regCheck input[type='checkbox']").is(":checked")) {
+        let _regCb = document.querySelector("#luckysheet-search-replace #regCheck input[type='checkbox']");
+        if (_regCb && _regCb.checked) {
             regCheck = true;
         }
 
         //整词匹配
         let wordCheck = false;
-        if ($("#luckysheet-search-replace #wordCheck input[type='checkbox']").is(":checked")) {
+        let _wordCb = document.querySelector("#luckysheet-search-replace #wordCheck input[type='checkbox']");
+        if (_wordCb && _wordCb.checked) {
             wordCheck = true;
         }
 
         //区分大小写匹配
         let caseCheck = false;
-        if ($("#luckysheet-search-replace #caseCheck input[type='checkbox']").is(":checked")) {
+        let _caseCb = document.querySelector("#luckysheet-search-replace #caseCheck input[type='checkbox']");
+        if (_caseCb && _caseCb.checked) {
             caseCheck = true;
         }
 
-        let replaceText = $("#luckysheet-search-replace #replaceInput input").val();
+        let replaceText = document.querySelector("#luckysheet-search-replace #replaceInput input")?.value;
 
         let d = editor.deepCopyFlowData(Store.flowdata);
 
@@ -676,7 +687,7 @@ const luckysheetSearchReplace = {
 
         Store.luckysheet_select_save = [{ row: [r, r], column: [c, c] }];
 
-        if ($("#luckysheet-search-replace #searchAllbox").is(":visible")) {
+        if (document.querySelector("#luckysheet-search-replace #searchAllbox")?.offsetWidth > 0) {
             const _elSearchBox1 = document.querySelector("#luckysheet-search-replace #searchAllbox"); if (_elSearchBox1) _elSearchBox1.style.display = 'none';
         }
 
@@ -717,7 +728,7 @@ const luckysheetSearchReplace = {
             return;
         }
 
-        let searchText = $("#luckysheet-search-replace #searchInput input").val();
+        let searchText = document.querySelector("#luckysheet-search-replace #searchInput input")?.value;
         if (searchText == "" || searchText == null) {
             if (isEditMode()) {
                 alert(locale_findAndReplace.searchInputTip);
@@ -759,23 +770,26 @@ const luckysheetSearchReplace = {
 
         //正则表达式匹配
         let regCheck = false;
-        if ($("#luckysheet-search-replace #regCheck input[type='checkbox']").is(":checked")) {
+        let _regCb2 = document.querySelector("#luckysheet-search-replace #regCheck input[type='checkbox']");
+        if (_regCb2 && _regCb2.checked) {
             regCheck = true;
         }
 
         //整词匹配
         let wordCheck = false;
-        if ($("#luckysheet-search-replace #wordCheck input[type='checkbox']").is(":checked")) {
+        let _wordCb2 = document.querySelector("#luckysheet-search-replace #wordCheck input[type='checkbox']");
+        if (_wordCb2 && _wordCb2.checked) {
             wordCheck = true;
         }
 
         //区分大小写匹配
         let caseCheck = false;
-        if ($("#luckysheet-search-replace #caseCheck input[type='checkbox']").is(":checked")) {
+        let _caseCb2 = document.querySelector("#luckysheet-search-replace #caseCheck input[type='checkbox']");
+        if (_caseCb2 && _caseCb2.checked) {
             caseCheck = true;
         }
 
-        let replaceText = $("#luckysheet-search-replace #replaceInput input").val();
+        let replaceText = document.querySelector("#luckysheet-search-replace #replaceInput input")?.value;
 
         let d = editor.deepCopyFlowData(Store.flowdata);
         let replaceCount = 0;
@@ -814,7 +828,7 @@ const luckysheetSearchReplace = {
             }
         }
 
-        if ($("#luckysheet-search-replace #searchAllbox").is(":visible")) {
+        if (document.querySelector("#luckysheet-search-replace #searchAllbox")?.offsetWidth > 0) {
             const _elSearchBox2 = document.querySelector("#luckysheet-search-replace #searchAllbox"); if (_elSearchBox2) _elSearchBox2.style.display = 'none';
         }
 

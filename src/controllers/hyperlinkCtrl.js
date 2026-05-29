@@ -35,7 +35,8 @@ const hyperlinkCtrl = {
         const buttonText = _locale.button;
 
         showModalMask();
-        $("#luckysheet-insertLink-dialog").remove();
+        let _elLinkDialog = document.getElementById("luckysheet-insertLink-dialog");
+        if (_elLinkDialog) _elLinkDialog.remove();
 
         let sheetListOption = '';
         Store.luckysheetfile.forEach(item => {
@@ -87,17 +88,20 @@ const hyperlinkCtrl = {
                         <button class="btn btn-default luckysheet-model-close-btn">${buttonText.cancel}</button>`, 
             "style": "z-index:100003" 
         }));
-        let $t = $("#luckysheet-insertLink-dialog").find(".luckysheet-modal-dialog-content").css("min-width", 350).end(), 
-            myh = $t.outerHeight(), 
-            myw = $t.outerWidth();
+        let _elInsertLinkDialog = document.getElementById("luckysheet-insertLink-dialog");
+        let _elDialogContent = _elInsertLinkDialog.querySelector(".luckysheet-modal-dialog-content");
+        _elDialogContent.style.minWidth = "350px";
+        let myh = _elInsertLinkDialog.offsetHeight,
+            myw = _elInsertLinkDialog.offsetWidth;
         let winw = document.documentElement.clientWidth,
             winh = document.documentElement.clientHeight;
         let scrollLeft = document.documentElement.scrollLeft, 
             scrollTop = document.documentElement.scrollTop;
-        $("#luckysheet-insertLink-dialog").css({ 
-            "left": (winw + scrollLeft - myw) / 2, 
-            "top": (winh + scrollTop - myh) / 3 
-        }).show();
+        Object.assign(_elInsertLinkDialog.style, {
+            "left": ((winw + scrollLeft - myw) / 2) + "px",
+            "top": ((winh + scrollTop - myh) / 3) + "px"
+        });
+        _elInsertLinkDialog.style.display = '';
 
         _this.dataAllocation();
     },
@@ -124,13 +128,13 @@ const hyperlinkCtrl = {
             let colIndex = last.column_focus || last.column[0];
 
             //文本
-            let linkText = $("#luckysheet-insertLink-dialog-linkText").val();
+            let linkText = document.getElementById("luckysheet-insertLink-dialog-linkText").value;
 
-            let linkType = $("#luckysheet-insertLink-dialog-linkType").val();
-            let linkAddress = $("#luckysheet-insertLink-dialog-linkAddress").val();
-            let linkSheet = $("#luckysheet-insertLink-dialog-linkSheet").val();
-            let linkCell = $("#luckysheet-insertLink-dialog-linkCell").val();
-            let linkTooltip = $("#luckysheet-insertLink-dialog-linkTooltip").val();
+            let linkType = document.getElementById("luckysheet-insertLink-dialog-linkType").value;
+            let linkAddress = document.getElementById("luckysheet-insertLink-dialog-linkAddress").value;
+            let linkSheet = document.getElementById("luckysheet-insertLink-dialog-linkSheet").value;
+            let linkCell = document.getElementById("luckysheet-insertLink-dialog-linkCell").value;
+            let linkTooltip = document.getElementById("luckysheet-insertLink-dialog-linkTooltip").value;
 
             if(linkType == 'external'){
                 if(!/^http[s]?:\/\//.test(linkAddress)){
@@ -203,11 +207,10 @@ const hyperlinkCtrl = {
 
         //文本
         let text = getcellvalue(rowIndex, colIndex, null, 'm');
-        $("#luckysheet-insertLink-dialog-linkText").val(text);
+        document.getElementById("luckysheet-insertLink-dialog-linkText").value = text;
 
-        //链接类型
         let linkType = item.linkType || 'external';
-        $("#luckysheet-insertLink-dialog-linkType").val(linkType);
+        document.getElementById("luckysheet-insertLink-dialog-linkType").value = linkType;
 
         document.querySelectorAll("#luckysheet-insertLink-dialog .show-box").forEach(el => el.style.display = 'none');
         const _elShowBox2 = document.querySelector("#luckysheet-insertLink-dialog .show-box-" + linkType); if (_elShowBox2) _elShowBox2.style.display = '';
@@ -216,21 +219,20 @@ const hyperlinkCtrl = {
         let linkAddress = item.linkAddress || '';
 
         if(linkType == 'external'){
-            $("#luckysheet-insertLink-dialog-linkAddress").val(linkAddress);
+            document.getElementById("luckysheet-insertLink-dialog-linkAddress").value = linkAddress;
         }
         else{
             if(formula.iscelldata(linkAddress)){
                 let sheettxt = linkAddress.split("!")[0];
                 let rangetxt = linkAddress.split("!")[1];
 
-                $("#luckysheet-insertLink-dialog-linkSheet").val(sheettxt);
-                $("#luckysheet-insertLink-dialog-linkCell").val(rangetxt);
+                document.getElementById("luckysheet-insertLink-dialog-linkSheet").value = sheettxt;
+                document.getElementById("luckysheet-insertLink-dialog-linkCell").value = rangetxt;
             }
         }
 
-        //提示
         let linkTooltip = item.linkTooltip || '';
-        $("#luckysheet-insertLink-dialog-linkTooltip").val(linkTooltip);
+        document.getElementById("luckysheet-insertLink-dialog-linkTooltip").value = linkTooltip;
     },
     cellFocus: function(r, c){
         let _this = this;
@@ -253,8 +255,11 @@ const hyperlinkCtrl = {
             }];
 
             if(sheetIndex != Store.currentSheetIndex){
-                $("#luckysheet-sheet-area div.luckysheet-sheets-item").removeClass("luckysheet-sheets-item-active");
-                $("#luckysheet-sheets-item" + sheetIndex).addClass("luckysheet-sheets-item-active");
+                document.querySelectorAll("#luckysheet-sheet-area div.luckysheet-sheets-item").forEach(function(el) {
+                    el.classList.remove("luckysheet-sheets-item-active");
+                });
+                let _elSheetItem = document.getElementById("luckysheet-sheets-item" + sheetIndex);
+                if (_elSheetItem) _elSheetItem.classList.add("luckysheet-sheets-item-active");
 
                 sheetmanage.changeSheet(sheetIndex);
             }
@@ -272,9 +277,10 @@ const hyperlinkCtrl = {
     overshow: function(event){
         let _this = this;
 
-        $("#luckysheet-hyperlink-overshow").remove();
+        let _elOvershow = document.getElementById("luckysheet-hyperlink-overshow");
+        if (_elOvershow) _elOvershow.remove();
 
-        if($(event.target).closest(cellMain.el).length == 0){
+        if(!cellMain.el.contains(event.target)){
             return;
         }
 

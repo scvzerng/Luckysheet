@@ -162,16 +162,13 @@ import formulaDialogs from '../../../ui/formulaDialogs.js';
                     selectHightlightShow();
                     luckysheetFreezen.scrollFreezen();
 
-                    // selectHelpboxFill();
-
-                    //交替颜色选择范围
-                    if ($("#luckysheet-alternateformat-rangeDialog").is(":visible")) {
-                        $("#luckysheet-alternateformat-rangeDialog input").val(
-                            getRangetxt(
+                    let _elAlternateformatRangeDialog = document.getElementById("luckysheet-alternateformat-rangeDialog");
+                    if (_elAlternateformatRangeDialog && _elAlternateformatRangeDialog.offsetWidth > 0) {
+                        let _elRangeInput = _elAlternateformatRangeDialog.querySelector("input");
+                        if (_elRangeInput) _elRangeInput.value = getRangetxt(
                                 Store.currentSheetIndex,
                                 getLastSelection(),
-                            ),
-                        );
+                            );
                     }
 
                 } else if (conditionformat.selectStatus) {
@@ -276,7 +273,8 @@ import formulaDialogs from '../../../ui/formulaDialogs.js';
                     selectionCopyShow(conditionformat.selectRange);
 
                     let range = conditionformat.getTxtByRange(conditionformat.selectRange);
-                    formulaDialogs.multiRange.find("input").val(range);
+                    let _elMultiRangeInput = formulaDialogs.multiRange.el.querySelector("input");
+                    if (_elMultiRangeInput) _elMultiRangeInput.value = range;
                 } else if (formula.rangestart) {
                     formula.rangedrag({ pageX, pageY });
                 } else if (formula.rangedrag_row_start) {
@@ -458,13 +456,16 @@ import formulaDialogs from '../../../ui/formulaDialogs.js';
                     row_pre = row_s - 1 == -1 ? 0 : Store.visibledatarow[row_s - 1];
                     row = Store.visibledatarow[row_e];
 
-                    $("#luckysheet-cell-selected-move").css({
-                        left: col_pre,
-                        width: col - col_pre - 2,
-                        top: row_pre,
-                        height: row - row_pre - 2,
-                        display: "block",
-                    });
+                    let _elCellSelectedMove = document.getElementById("luckysheet-cell-selected-move");
+                    if (_elCellSelectedMove) {
+                        Object.assign(_elCellSelectedMove.style, {
+                            left: col_pre + "px",
+                            width: (col - col_pre - 2) + "px",
+                            top: row_pre + "px",
+                            height: (row - row_pre - 2) + "px",
+                            display: "block",
+                        });
+                    }
                 } else if (Store.luckysheet_cell_selected_extend) {
                     let mouse = mouseposition(pageX, pageY);
                     let scroll = getScrollPosition();
@@ -554,13 +555,16 @@ import formulaDialogs from '../../../ui/formulaDialogs.js';
                         }
                     }
 
-                    $("#luckysheet-cell-selected-extend").css({
-                        left: left,
-                        width: width,
-                        top: top,
-                        height: height,
-                        display: "block",
-                    });
+                    let _elCellSelectedExtend = document.getElementById("luckysheet-cell-selected-extend");
+                    if (_elCellSelectedExtend) {
+                        Object.assign(_elCellSelectedExtend.style, {
+                            left: left + "px",
+                            width: width + "px",
+                            top: top + "px",
+                            height: height + "px",
+                            display: "block",
+                        });
+                    }
                 } else if (Store.luckysheet_cols_change_size) {
                     let mouse = mouseposition(pageX, pageY);
                     let scrollLeft = colHeader.getScrollLeft();
@@ -684,7 +688,6 @@ import formulaDialogs from '../../../ui/formulaDialogs.js';
                         let minLeft = Store.rowHeaderWidth;
 
                         if (resize == "lt") {
-                            //左上
                             left = resizeXY[4] - resizeXY[6] + leftchange;
 
                             if (left < minLeft) {
@@ -716,7 +719,6 @@ import formulaDialogs from '../../../ui/formulaDialogs.js';
                                 left = resizeXY[4] - resizeXY[6] + resizeXY[2] - width;
                             }
                         } else if (resize == "lm") {
-                            //左中
                             left = resizeXY[4] - resizeXY[6] + leftchange;
 
                             if (left < minLeft) {
@@ -732,7 +734,6 @@ import formulaDialogs from '../../../ui/formulaDialogs.js';
                             top = resizeXY[5] - resizeXY[7];
                             height = resizeXY[3];
                         } else if (resize == "lb") {
-                            //左下
                             left = resizeXY[4] - resizeXY[6] + leftchange;
 
                             if (left < minLeft) {
@@ -763,7 +764,6 @@ import formulaDialogs from '../../../ui/formulaDialogs.js';
                                 left = resizeXY[4] - resizeXY[6] + resizeXY[2] - width;
                             }
                         } else if (resize == "rt") {
-                            //右上
                             left = resizeXY[4] - resizeXY[6];
 
                             width = resizeXY[2] + leftchange;
@@ -793,7 +793,6 @@ import formulaDialogs from '../../../ui/formulaDialogs.js';
                                 width = Math.round(height * (resizeXY[2] / resizeXY[3]));
                             }
                         } else if (resize == "rm") {
-                            //右中
                             left = resizeXY[4] - resizeXY[6];
 
                             width = resizeXY[2] + leftchange;
@@ -809,7 +808,6 @@ import formulaDialogs from '../../../ui/formulaDialogs.js';
                             top = resizeXY[5] - resizeXY[7];
                             height = resizeXY[3];
                         } else if (resize == "rb") {
-                            //右下
                             left = resizeXY[4] - resizeXY[6];
 
                             width = resizeXY[2] + leftchange;
@@ -837,7 +835,6 @@ import formulaDialogs from '../../../ui/formulaDialogs.js';
                                 width = Math.round(height * (resizeXY[2] / resizeXY[3]));
                             }
                         } else if (resize == "mt") {
-                            //中上
                             left = resizeXY[4] - resizeXY[6];
                             width = resizeXY[2];
 
@@ -853,7 +850,6 @@ import formulaDialogs from '../../../ui/formulaDialogs.js';
 
                             height = resizeXY[5] - resizeXY[7] + resizeXY[3] - top;
                         } else if (resize == "mb") {
-                            //中下
                             left = resizeXY[4] - resizeXY[6];
                             width = resizeXY[2];
 
@@ -871,7 +867,6 @@ import formulaDialogs from '../../../ui/formulaDialogs.js';
                         }
                     } else {
                         if (resize == "lt") {
-                            //左上
                             left = x;
                             width = resizeXY[2] - leftchange;
 
@@ -900,7 +895,6 @@ import formulaDialogs from '../../../ui/formulaDialogs.js';
                                 left = resizeXY[2] + resizeXY[0] - width;
                             }
                         } else if (resize == "lm") {
-                            //左中
                             left = x;
                             width = resizeXY[2] - leftchange;
 
@@ -912,7 +906,6 @@ import formulaDialogs from '../../../ui/formulaDialogs.js';
                                 width = resizeXY[2] + resizeXY[0];
                             }
                         } else if (resize == "lb") {
-                            //左下
                             left = x;
                             width = resizeXY[2] - leftchange;
 
@@ -938,7 +931,6 @@ import formulaDialogs from '../../../ui/formulaDialogs.js';
                                 left = resizeXY[2] + resizeXY[0] - width;
                             }
                         } else if (resize == "rt") {
-                            //右上
                             width = resizeXY[2] + leftchange;
 
                             if (width < 1) {
@@ -962,7 +954,6 @@ import formulaDialogs from '../../../ui/formulaDialogs.js';
                                 width = Math.round(height * (resizeXY[2] / resizeXY[3]));
                             }
                         } else if (resize == "rm") {
-                            //右中
                             width = resizeXY[2] + leftchange;
 
                             if (width < 1) {
@@ -971,7 +962,6 @@ import formulaDialogs from '../../../ui/formulaDialogs.js';
                                 width = imageCtrl.currentWinW - resizeXY[4] - 22 - 36;
                             }
                         } else if (resize == "rb") {
-                            //右下
                             width = resizeXY[2] + leftchange;
 
                             if (width < 1) {
@@ -992,7 +982,6 @@ import formulaDialogs from '../../../ui/formulaDialogs.js';
                                 width = Math.round(height * (resizeXY[2] / resizeXY[3]));
                             }
                         } else if (resize == "mt") {
-                            //中上
                             top = y;
                             height = resizeXY[3] - topchange;
 
@@ -1004,7 +993,6 @@ import formulaDialogs from '../../../ui/formulaDialogs.js';
                                 height = resizeXY[3] + resizeXY[1];
                             }
                         } else if (resize == "mb") {
-                            //中下
                             height = resizeXY[3] + topchange;
 
                             if (height < 1) {
@@ -1029,10 +1017,13 @@ import formulaDialogs from '../../../ui/formulaDialogs.js';
                     let offsetLeft = Math.round(imgItem.crop.offsetLeft * scaleX);
                     let offsetTop = Math.round(imgItem.crop.offsetTop * scaleY);
 
-                    imageDialog.active.el.find(".luckysheet-modal-dialog-content").css({
-                        "background-size": defaultWidth + "px " + defaultHeight + "px",
-                        "background-position": -offsetLeft + "px " + -offsetTop + "px",
-                    });
+                    let _elDialogContent = imageDialog.active.el.querySelector(".luckysheet-modal-dialog-content");
+                    if (_elDialogContent) {
+                        Object.assign(_elDialogContent.style, {
+                            "background-size": defaultWidth + "px " + defaultHeight + "px",
+                            "background-position": -offsetLeft + "px " + -offsetTop + "px",
+                        });
+                    }
                 }
                 //image cropChange
                 else if (imageCtrl.cropChange) {
@@ -1055,7 +1046,6 @@ import formulaDialogs from '../../../ui/formulaDialogs.js';
                     let width, height, offsetLeft, offsetTop;
 
                     if (cropChange == "lt") {
-                        //左上
                         offsetLeft = imgItem.crop.offsetLeft + leftchange;
 
                         if (offsetLeft < 0) {
@@ -1080,7 +1070,6 @@ import formulaDialogs from '../../../ui/formulaDialogs.js';
 
                         height = imgItem.crop.height + imgItem.crop.offsetTop - offsetTop;
                     } else if (cropChange == "lm") {
-                        //左中
                         offsetLeft = imgItem.crop.offsetLeft + leftchange;
 
                         if (offsetLeft < 0) {
@@ -1096,7 +1085,6 @@ import formulaDialogs from '../../../ui/formulaDialogs.js';
                         offsetTop = imgItem.crop.offsetTop;
                         height = imgItem.crop.height;
                     } else if (cropChange == "lb") {
-                        //左下
                         offsetLeft = imgItem.crop.offsetLeft + leftchange;
 
                         if (offsetLeft < 0) {
@@ -1121,7 +1109,6 @@ import formulaDialogs from '../../../ui/formulaDialogs.js';
                             height = imgItem.default.height - offsetTop;
                         }
                     } else if (cropChange == "rt") {
-                        //右上
                         offsetLeft = imgItem.crop.offsetLeft;
 
                         width = imgItem.crop.width + leftchange;
@@ -1146,7 +1133,6 @@ import formulaDialogs from '../../../ui/formulaDialogs.js';
 
                         height = imgItem.crop.height + imgItem.crop.offsetTop - offsetTop;
                     } else if (cropChange == "rm") {
-                        //右中
                         offsetLeft = imgItem.crop.offsetLeft;
 
                         width = imgItem.crop.width + leftchange;
@@ -1162,7 +1148,6 @@ import formulaDialogs from '../../../ui/formulaDialogs.js';
                         offsetTop = imgItem.crop.offsetTop;
                         height = imgItem.crop.height;
                     } else if (cropChange == "rb") {
-                        //右下
                         offsetLeft = imgItem.crop.offsetLeft;
 
                         width = imgItem.crop.width + leftchange;
@@ -1187,7 +1172,6 @@ import formulaDialogs from '../../../ui/formulaDialogs.js';
                             height = imgItem.default.height - offsetTop;
                         }
                     } else if (cropChange == "mt") {
-                        //中上
                         offsetLeft = imgItem.crop.offsetLeft;
                         width = imgItem.crop.width;
 
@@ -1203,7 +1187,6 @@ import formulaDialogs from '../../../ui/formulaDialogs.js';
 
                         height = imgItem.crop.height + imgItem.crop.offsetTop - offsetTop;
                     } else if (cropChange == "mb") {
-                        //中下
                         offsetLeft = imgItem.crop.offsetLeft;
                         width = imgItem.crop.width;
 
@@ -1238,19 +1221,25 @@ import formulaDialogs from '../../../ui/formulaDialogs.js';
                     let imageUrlHandle = Store.toJsonOptions && Store.toJsonOptions["imageUrlHandle"];
                     let imgSrc = typeof imageUrlHandle === "function" ? imageUrlHandle(imgItem.src) : imgItem.src;
 
-                    imageDialog.cropping.el.find(".cropping-mask").css({
-                        width: imgItem.default.width,
-                        height: imgItem.default.height,
-                        "background-image": "url(" + imgSrc + ")",
-                        left: -offsetLeft,
-                        top: -offsetTop,
-                    });
+                    let _elCroppingMask = imageDialog.cropping.el.querySelector(".cropping-mask");
+                    if (_elCroppingMask) {
+                        Object.assign(_elCroppingMask.style, {
+                            width: imgItem.default.width + "px",
+                            height: imgItem.default.height + "px",
+                            "background-image": "url(" + imgSrc + ")",
+                            left: -offsetLeft + "px",
+                            top: -offsetTop + "px",
+                        });
+                    }
 
-                    imageDialog.cropping.el.find(".cropping-content").css({
-                        "background-image": "url(" + imgSrc + ")",
-                        "background-size": imgItem.default.width + "px " + imgItem.default.height + "px",
-                        "background-position": -offsetLeft + "px " + -offsetTop + "px",
-                    });
+                    let _elCroppingContent = imageDialog.cropping.el.querySelector(".cropping-content");
+                    if (_elCroppingContent) {
+                        Object.assign(_elCroppingContent.style, {
+                            "background-image": "url(" + imgSrc + ")",
+                            "background-size": imgItem.default.width + "px " + imgItem.default.height + "px",
+                            "background-position": -offsetLeft + "px " + -offsetTop + "px",
+                        });
+                    }
 
                     imageCtrl.cropChangeObj = {
                         width: width,
@@ -1264,8 +1253,8 @@ import formulaDialogs from '../../../ui/formulaDialogs.js';
                     let x = mouse[0] + scroll.scrollLeft;
                     let y = mouse[1] + scroll.scrollTop;
 
-                    let myh = luckysheetPostil.currentObj.outerHeight(),
-                        myw = luckysheetPostil.currentObj.outerWidth();
+                    let myh = luckysheetPostil.currentObj.offsetHeight,
+                        myw = luckysheetPostil.currentObj.offsetWidth;
 
                     let top = y - luckysheetPostil.moveXY[1],
                         left = x - luckysheetPostil.moveXY[0];
@@ -1286,7 +1275,7 @@ import formulaDialogs from '../../../ui/formulaDialogs.js';
                         left = luckysheetPostil.currentWinW - myw - 22 - 36;
                     }
 
-                    luckysheetPostil.currentObj.css({ left: left, top: top });
+                    Object.assign(luckysheetPostil.currentObj.style, { left: left + "px", top: top + "px" });
                 } else if (luckysheetPostil.resize) {
                     let mouse = mouseposition(pageX, pageY);
                     let scroll = getScrollPosition();
@@ -1355,7 +1344,7 @@ import formulaDialogs from '../../../ui/formulaDialogs.js';
                         }
                     }
 
-                    luckysheetPostil.currentObj.css({ width: width, height: height, left: left, top: top });
+                    Object.assign(luckysheetPostil.currentObj.style, { width: width + "px", height: height + "px", left: left + "px", top: top + "px" });
                 } else if (formula.rangeResize) {
                     formula.rangeResizeDraging(
                         { pageX, pageY },

@@ -14,25 +14,29 @@ import cellSelectedFocus from '../ui/cellSelectedFocus.js';
 import cellMain from '../ui/cellMain.js';
 import countShow from '../ui/countShow.js';
 
-//公式函数 选区实体框
 function seletedHighlistByindex(id, r1, r2, c1, c2) {
     let row = Store.visibledatarow[r2],
         row_pre = r1 - 1 == -1 ? 0 : Store.visibledatarow[r1 - 1];
     let col = Store.visibledatacolumn[c2],
         col_pre = c1 - 1 == -1 ? 0 : Store.visibledatacolumn[c1 - 1];
 
-    $('#' + id).css({
-        "left": col_pre,
-        "width": col - col_pre - 1,
-        "top": row_pre,
-        "height": row - row_pre - 1
-    });
+    let _el = document.getElementById(id);
+    if (_el) {
+        Object.assign(_el.style, {
+            "left": col_pre + "px",
+            "width": (col - col_pre - 1) + "px",
+            "top": row_pre + "px",
+            "height": (row - row_pre - 1) + "px"
+        });
+    }
 }
 
-//Set selection highlight
 function selectHightlightShow(isRestore = false) {
     const _elSelBoxs2 = document.getElementById("luckysheet-cell-selected-boxs"); if (_elSelBoxs2) _elSelBoxs2.style.display = '';
-    $("#luckysheet-cell-selected-boxs #luckysheet-cell-selected").siblings(".luckysheet-cell-selected").remove();
+    let _elCellSelected = document.querySelector("#luckysheet-cell-selected-boxs #luckysheet-cell-selected");
+    if (_elCellSelected) {
+        Array.from(_elCellSelected.parentElement.children).filter(s => s !== _elCellSelected && s.classList.contains("luckysheet-cell-selected")).forEach(el => el.remove());
+    }
 
     if (Store.luckysheet_select_save.length > 0) {
         for (let i = 0; i < Store.luckysheet_select_save.length; i++) {
@@ -92,66 +96,66 @@ function selectHightlightShow(isRestore = false) {
             Store.luckysheet_select_save[i]["height_move"] = row - row_pre - 1;
 
             if (i == 0) {
-                if (Store.luckysheet_select_save.length == 1) {
-                    if (browser.mobilecheck()) {//移动端
-                        $("#luckysheet-cell-selected-boxs #luckysheet-cell-selected").css({
-                            "left": Store.luckysheet_select_save[i]["left_move"],
-                            "width": Store.luckysheet_select_save[i]["width_move"],
-                            "top": Store.luckysheet_select_save[i]["top_move"],
-                            "height": Store.luckysheet_select_save[i]["height_move"],
-                            "display": "block",
-                            "border": "1px solid #0188fb"
-                        })
-                            .find(".luckysheet-cs-draghandle")
-                            .css("display", "block")
-                            .end()
-                            .find(".luckysheet-cs-fillhandle")
-                            .css("display", "none")
-                            .end()
-                            .find(".luckysheet-cs-touchhandle")
-                            .css("display", "block");
+                _elCellSelected = document.querySelector("#luckysheet-cell-selected-boxs #luckysheet-cell-selected");
+                if (_elCellSelected) {
+                    if (Store.luckysheet_select_save.length == 1) {
+                        if (browser.mobilecheck()) {
+                            Object.assign(_elCellSelected.style, {
+                                "left": Store.luckysheet_select_save[i]["left_move"] + "px",
+                                "width": Store.luckysheet_select_save[i]["width_move"] + "px",
+                                "top": Store.luckysheet_select_save[i]["top_move"] + "px",
+                                "height": Store.luckysheet_select_save[i]["height_move"] + "px",
+                                "display": "block",
+                                "border": "1px solid #0188fb"
+                            });
+                            let _elDraghandle = _elCellSelected.querySelector(".luckysheet-cs-draghandle");
+                            if (_elDraghandle) _elDraghandle.style.display = "block";
+                            let _elFillhandle = _elCellSelected.querySelector(".luckysheet-cs-fillhandle");
+                            if (_elFillhandle) _elFillhandle.style.display = "none";
+                            let _elTouchhandle = _elCellSelected.querySelector(".luckysheet-cs-touchhandle");
+                            if (_elTouchhandle) _elTouchhandle.style.display = "block";
+                        }
+                        else {
+                            Object.assign(_elCellSelected.style, {
+                                "left": Store.luckysheet_select_save[i]["left_move"] + "px",
+                                "width": Store.luckysheet_select_save[i]["width_move"] + "px",
+                                "top": Store.luckysheet_select_save[i]["top_move"] + "px",
+                                "height": Store.luckysheet_select_save[i]["height_move"] + "px",
+                                "display": "block",
+                                "border": "1px solid #0188fb"
+                            });
+                            let _elDraghandle = _elCellSelected.querySelector(".luckysheet-cs-draghandle");
+                            if (_elDraghandle) _elDraghandle.style.display = "block";
+                            let _elFillhandle = _elCellSelected.querySelector(".luckysheet-cs-fillhandle");
+                            if (_elFillhandle) _elFillhandle.style.display = "block";
+                            let _elTouchhandle = _elCellSelected.querySelector(".luckysheet-cs-touchhandle");
+                            if (_elTouchhandle) _elTouchhandle.style.display = "none";
+                        }
                     }
                     else {
-                        $("#luckysheet-cell-selected-boxs #luckysheet-cell-selected").css({
-                            "left": Store.luckysheet_select_save[i]["left_move"],
-                            "width": Store.luckysheet_select_save[i]["width_move"],
-                            "top": Store.luckysheet_select_save[i]["top_move"],
-                            "height": Store.luckysheet_select_save[i]["height_move"],
+                        Object.assign(_elCellSelected.style, {
+                            "left": Store.luckysheet_select_save[i]["left_move"] + "px",
+                            "width": Store.luckysheet_select_save[i]["width_move"] + "px",
+                            "top": Store.luckysheet_select_save[i]["top_move"] + "px",
+                            "height": Store.luckysheet_select_save[i]["height_move"] + "px",
                             "display": "block",
-                            "border": "1px solid #0188fb"
-                        })
-                            .find(".luckysheet-cs-draghandle")
-                            .css("display", "block")
-                            .end()
-                            .find(".luckysheet-cs-fillhandle")
-                            .css("display", "block")
-                            .end()
-                            .find(".luckysheet-cs-touchhandle")
-                            .css("display", "none");
+                            "border": "1px solid rgba(1, 136, 251, 0.15)"
+                        });
+                        let _elDraghandle = _elCellSelected.querySelector(".luckysheet-cs-draghandle");
+                        if (_elDraghandle) _elDraghandle.style.display = "none";
+                        let _elFillhandle = _elCellSelected.querySelector(".luckysheet-cs-fillhandle");
+                        if (_elFillhandle) _elFillhandle.style.display = "none";
                     }
-                }
-                else {
-                    $("#luckysheet-cell-selected-boxs #luckysheet-cell-selected").css({
-                        "left": Store.luckysheet_select_save[i]["left_move"],
-                        "width": Store.luckysheet_select_save[i]["width_move"],
-                        "top": Store.luckysheet_select_save[i]["top_move"],
-                        "height": Store.luckysheet_select_save[i]["height_move"],
-                        "display": "block",
-                        "border": "1px solid rgba(1, 136, 251, 0.15)"
-                    })
-                        .find(".luckysheet-cs-draghandle")
-                        .css("display", "none")
-                        .end()
-                        .find(".luckysheet-cs-fillhandle")
-                        .css("display", "none");
                 }
             }
             else {
-                $("#luckysheet-cell-selected-boxs").append('<div class="luckysheet-cell-selected" style="left: ' + Store.luckysheet_select_save[i]["left_move"] + 'px; width: ' + Store.luckysheet_select_save[i]["width_move"] + 'px; top: ' + Store.luckysheet_select_save[i]["top_move"] + 'px; height: ' + Store.luckysheet_select_save[i]["height_move"] + 'px; border: 1px solid rgba(1, 136, 251, 0.15); display: block;"></div>');
+                let _elSelBoxs = document.getElementById("luckysheet-cell-selected-boxs");
+                if (_elSelBoxs) {
+                    _elSelBoxs.insertAdjacentHTML('beforeend', '<div class="luckysheet-cell-selected" style="left: ' + Store.luckysheet_select_save[i]["left_move"] + 'px; width: ' + Store.luckysheet_select_save[i]["width_move"] + 'px; top: ' + Store.luckysheet_select_save[i]["top_move"] + 'px; height: ' + Store.luckysheet_select_save[i]["height_move"] + 'px; border: 1px solid rgba(1, 136, 251, 0.15); display: block;"></div>');
+                }
             }
 
             if (i == Store.luckysheet_select_save.length - 1) {
-                //focus 取选区数组最后一个
                 cellSelectedFocus.setCss({
                     "left": Store.luckysheet_select_save[i]["left"],
                     "width": Store.luckysheet_select_save[i]["width"],
@@ -159,7 +163,6 @@ function selectHightlightShow(isRestore = false) {
                     "height": Store.luckysheet_select_save[i]["height"],
                     "display": "block"
                 });
-                //行列数
                 luckysheet_count_show(
                     Store.luckysheet_select_save[i]["left_move"],
                     Store.luckysheet_select_save[i]["top_move"],
@@ -168,28 +171,22 @@ function selectHightlightShow(isRestore = false) {
                     [r1, r2],
                     [c1, c2]
                 );
-                //左上角选择区域框
                 formula.fucntionboxshow(rf, cf);
             }
         }
 
-        //行列标题栏
         selectTitlesShow(Store.luckysheet_select_save, isRestore);
 
-        //左上角范围显示
         selectHelpboxFill();
 
-        //动态数组显示
         if (Store.luckysheet_select_save.length == 1 && Store.luckysheet_select_save[0].row[0] == Store.luckysheet_select_save[0].row[1] && Store.luckysheet_select_save[0].column[0] == Store.luckysheet_select_save[0].column[1]) {
             dynamicArrayHightShow(Store.luckysheet_select_save[0].row[0], Store.luckysheet_select_save[0].column[0]);
         }
     
-        /* 刷新当前状态栏 */
         refreshMenuButtonFocus();
     }
 
     getCurrentFile().luckysheet_select_save = Store.luckysheet_select_save;
-            // Hook function, change the range selection box, selectHightlightShowillbe triggered multiple times when mousemove is moused, and thhistoricalvalue is used here to throttle
         const luckysheet_select_save_previous = JSON.stringify(Store.luckysheet_select_save);
 
         if(Store.luckysheet_select_save_previous == null |Store.luckysheet_select_save_previous !== luckysheet_select_save_previous){
@@ -199,7 +196,6 @@ function selectHightlightShow(isRestore = false) {
         Store.luckysheet_select_save_previous = luckysheet_select_save_previous;
 }
 
-//选区标题栏
 function selectTitlesShow(rangeArr, isRestore = false) {
     let s = structuredClone(rangeArr);
 
@@ -207,43 +203,34 @@ function selectTitlesShow(rangeArr, isRestore = false) {
     for (let i = 0; i < s.length; i++) {
         let r1 = s[i]["row"][0], r2 = s[i]["row"][1], c1 = s[i]["column"][0], c2 = s[i]["column"][1];
 
-        // if(isRestore){
-        //     let margeset = menuButton.mergeborer(Store.flowdata, r1, c1);
-        //     if(!!margeset){
-        //         r1 = margeset.row[2];
-        //         r2 = margeset.row[3];
-
-        //         c1 = margeset.column[2];
-        //         c2 = margeset.column[3];
-        //     }
-        // }
-
-        //行、列标题栏
         rowTitleMap = selectTitlesMap(rowTitleMap, r1, r2);
         columnTitleMap = selectTitlesMap(columnTitleMap, c1, c2);
     }
 
-    //行标题
-    $("#luckysheet-rows-h-selected").empty();
+    let _elRowsH = document.getElementById("luckysheet-rows-h-selected");
+    if (_elRowsH) _elRowsH.innerHTML = '';
 
     let rowTitleRange = selectTitlesRange(rowTitleMap);
     for (let i = 0; i < rowTitleRange.length; i++) {
         let r1 = rowTitleRange[i][0], r2 = rowTitleRange[i][rowTitleRange[i].length - 1];
         let row = rowLocationByIndex(r2)[1], row_pre = rowLocationByIndex(r1)[0];
 
-        $("#luckysheet-rows-h-selected").append('<div class="luckysheet-rows-h-selected" style="top: ' + row_pre + 'px; height: ' + (row - row_pre - 1) + 'px; display: block; background-color: rgba(76, 76, 76, 0.1);"></div>');
+        if (_elRowsH) {
+            _elRowsH.insertAdjacentHTML('beforeend', '<div class="luckysheet-rows-h-selected" style="top: ' + row_pre + 'px; height: ' + (row - row_pre - 1) + 'px; display: block; background-color: rgba(76, 76, 76, 0.1);"></div>');
+        }
     }
 
-    //列标题
-    $("#luckysheet-cols-h-selected").empty();
+    let _elColsH = document.getElementById("luckysheet-cols-h-selected");
+    if (_elColsH) _elColsH.innerHTML = '';
 
     let columnTitleRange = selectTitlesRange(columnTitleMap);
     for (let j = 0; j < columnTitleRange.length; j++) {
         let c1 = columnTitleRange[j][0], c2 = columnTitleRange[j][columnTitleRange[j].length - 1];
         let col = colLocationByIndex(c2)[1], col_pre = colLocationByIndex(c1)[0];
 
-        $("#luckysheet-cols-h-selected").append('<div class="luckysheet-cols-h-selected" style="left: ' + col_pre + 'px; width: ' + (col - col_pre - 1) + 'px; display: block; background-color: rgba(76, 76, 76, 0.1);"></div>');
-
+        if (_elColsH) {
+            _elColsH.insertAdjacentHTML('beforeend', '<div class="luckysheet-cols-h-selected" style="left: ' + col_pre + 'px; width: ' + (col - col_pre - 1) + 'px; display: block; background-color: rgba(76, 76, 76, 0.1);"></div>');
+        }
     }
 }
 function selectTitlesMap(rangeMap, range1, range2) {
@@ -312,7 +299,6 @@ function selectTitlesRange(map) {
     return rangeArr;
 }
 
-//选区是否重叠
 function selectIsOverlap(range) {
     if (range == null) {
         range = Store.luckysheet_select_save;
@@ -343,7 +329,6 @@ function selectIsOverlap(range) {
 
     return overlap;
 }
-//复制选区虚线框
 function selectionCopyShow(range) {
     selectionCopy.empty();
 
@@ -374,7 +359,6 @@ function selectionCopyShow(range) {
     }
 }
 
-//选区行列数显示
 function luckysheet_count_show(left, top, width, height, rowseleted, columnseleted) {
     let rowl = rowseleted[1] - rowseleted[0] + 1,
         coll = columnseleted[1] - columnseleted[0] + 1;
@@ -433,14 +417,16 @@ function selectHelpboxFill() {
     let range = getLastSelection();
     let _focus = getFocusCell();
     let rf = _focus.row, cf = _focus.col;
+    let _elHelpboxCell = document.getElementById("luckysheet-helpbox-cell");
+    if (!_elHelpboxCell) return;
     if (Store.config["merge"] != null && (rf + "_" + cf) in Store.config["merge"]) {
-        $("#luckysheet-helpbox-cell").text(getRangetxt(Store.currentSheetIndex, {
+        _elHelpboxCell.textContent = getRangetxt(Store.currentSheetIndex, {
             column: [cf, cf],
             row: [rf, rf],
-        }));
+        });
     }
     else {
-        $("#luckysheet-helpbox-cell").text(getRangetxt(Store.currentSheetIndex, range));
+        _elHelpboxCell.textContent = getRangetxt(Store.currentSheetIndex, range);
     }
 
 }

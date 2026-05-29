@@ -280,7 +280,8 @@ const luckysheetMoreFormat = {
         ]
 
         showModalMask();
-        $("#luckysheet-moreFormat-dialog").remove();
+        let _elMoreFmtDialog = document.getElementById("luckysheet-moreFormat-dialog");
+        if (_elMoreFmtDialog) _elMoreFmtDialog.remove();
 
         let title = "", content = '';
 
@@ -356,21 +357,29 @@ const luckysheetMoreFormat = {
             "botton": '<button id="luckysheet-moreFormat-dialog-confirm" class="btn btn-primary">'+ locale_button.confirm +'</button><button class="btn btn-default luckysheet-model-close-btn">'+ locale_button.cancel +'</button>', 
             "style": "z-index:100003" 
         }));
-        let $t = $("#luckysheet-moreFormat-dialog").find(".luckysheet-modal-dialog-content").css("min-width", 400).end(), 
-            myh = $t.outerHeight(), 
-            myw = $t.outerWidth();
+        let _elMoreFmtDialog2 = document.getElementById("luckysheet-moreFormat-dialog");
+        let _elDialogContent = _elMoreFmtDialog2.querySelector(".luckysheet-modal-dialog-content");
+        _elDialogContent.style.minWidth = "400px";
+        let myh = _elMoreFmtDialog2.offsetHeight,
+            myw = _elMoreFmtDialog2.offsetWidth;
         let winw = document.documentElement.clientWidth, winh = document.documentElement.clientHeight;
         let scrollLeft = document.documentElement.scrollLeft, scrollTop = document.documentElement.scrollTop;
-        $("#luckysheet-moreFormat-dialog").css({ "left": (winw + scrollLeft - myw) / 2, "top": (winh + scrollTop - myh) / 3 }).show();
+        Object.assign(_elMoreFmtDialog2.style, {
+            "left": ((winw + scrollLeft - myw) / 2) + "px",
+            "top": ((winh + scrollTop - myh) / 3) + "px"
+        });
+        _elMoreFmtDialog2.style.display = '';
         
-        $("#luckysheet-moreFormat-dialog .listbox .listItem").eq(0).addClass("on");
+        let _elFirstItem = document.querySelector("#luckysheet-moreFormat-dialog .listbox .listItem");
+        if (_elFirstItem) _elFirstItem.classList.add("on");
     },
     init: function(){
         let _this = this;
 
         //选择格式
         document.addEventListener("click", function(e) { const t = e.target.closest("#luckysheet-moreFormat-dialog .listbox .listItem"); if (t && document.contains(t)) {
-            $(t).addClass("on").siblings().removeClass("on");
+            t.classList.add("on");
+            Array.from(t.parentElement.children).filter(s => s !== t).forEach(function(el) { el.classList.remove("on"); });
         } });
 
         //确定
@@ -381,15 +390,17 @@ const luckysheetMoreFormat = {
 
             let d = editor.deepCopyFlowData(Store.flowdata);
 
-            let value = $("#luckysheet-moreFormat-dialog .listbox .listItem.on .value").text();
-            let id = $(this).parents("#luckysheet-moreFormat-dialog").find(".box").attr("id");
+            let _elValueEl = document.querySelector("#luckysheet-moreFormat-dialog .listbox .listItem.on .value");
+            let value = _elValueEl ? _elValueEl.textContent : "";
+            let _elBox = document.querySelector("#luckysheet-moreFormat-dialog .box");
+            let id = _elBox ? _elBox.id : "";
 
             if(id == "morecurrency"){ //货币
                 if(value.indexOf("?") != -1){
                     return;
                 }
 
-                let decimal = parseInt($("#luckysheet-moreFormat-dialog .decimal input").val().trim());
+                let decimal = parseInt(document.querySelector("#luckysheet-moreFormat-dialog .decimal input").value.trim());
 
                 if(decimal.toString() == "NaN" || decimal < 0 || decimal > 9){
                     if(isEditMode()){
@@ -415,7 +426,8 @@ const luckysheetMoreFormat = {
                     str = "#";
                 }
 
-                let pos = $("#luckysheet-moreFormat-dialog .listbox .listItem.on input:hidden").val();
+                let _elHiddenInput = document.querySelector("#luckysheet-moreFormat-dialog .listbox .listItem.on input[type='hidden']");
+                let pos = _elHiddenInput ? _elHiddenInput.value : "";
 
                 if(pos == "before"){
                     str = '"' + value + '" ' + str;

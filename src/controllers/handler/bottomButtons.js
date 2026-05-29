@@ -26,20 +26,17 @@ import scrollBarY from '../../ui/scrollBarY.js';
 import rightClickMenu from '../../ui/rightClickMenu.js';
 
 export default function bottomButtons() {
-    $("#luckysheet-bottom-add-row, #luckysheet-bottom-add-row-input, #luckysheet-bottom-return-top").on(
-        "mousedown dblclick mouseup",
-        function(e) {
-            e.stopPropagation();
-        },
-    );
+    document.querySelectorAll("#luckysheet-bottom-add-row, #luckysheet-bottom-add-row-input, #luckysheet-bottom-return-top").forEach(function(el) {
+        el.addEventListener("mousedown", function(e) { e.stopPropagation(); });
+        el.addEventListener("dblclick", function(e) { e.stopPropagation(); });
+        el.addEventListener("mouseup", function(e) { e.stopPropagation(); });
+    });
 
-    //底部添加行按钮
-    $("#luckysheet-bottom-add-row").on("click", function(e) {
+    document.getElementById("luckysheet-bottom-add-row").addEventListener("click", function(e) {
         rightClickMenu.hide();
         luckysheetContainerFocus();
 
-        let $t = $(this),
-            value = $("#luckysheet-bottom-add-row-input").val();
+        let value = document.getElementById("luckysheet-bottom-add-row-input").value;
 
         if (value == "") {
             value = luckysheetConfigsetting.addRowCount || 100;
@@ -67,7 +64,7 @@ export default function bottomButtons() {
         luckysheetextendtable("row", Store.flowdata.length - 1, value);
     });
 
-    $("#luckysheet-bottom-return-top").on("click", function(e) {
+    document.getElementById("luckysheet-bottom-return-top").addEventListener("click", function(e) {
         scrollBarY.setScrollTop(0);
     });
 }
