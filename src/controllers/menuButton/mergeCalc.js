@@ -45,9 +45,9 @@ const mergeCalcModule = {
     let mergelist = [];
     let cfg = null;
     if (sheetIndex != null) {
-      cfg = $.extend(true, {}, _this.getSheetConfig());
+      cfg = structuredClone(_this.getSheetConfig());
     } else {
-      cfg = $.extend(true, {}, Store.config);
+      cfg = structuredClone(Store.config);
     }
     if (cfg != null && cfg["merge"] != null) {
       for (let key in cfg["merge"]) {

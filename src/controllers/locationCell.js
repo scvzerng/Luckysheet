@@ -171,7 +171,7 @@ const luckysheetLocationCell = {
                     range = [{"row": [0, Store.flowdata.length - 1], "column": [0, Store.flowdata[0].length - 1]}];
                 }
                 else{
-                    range = $.extend(true, [], Store.luckysheet_select_save);
+                    range = structuredClone(Store.luckysheet_select_save);
                 }
 
                 _this.apply(range, id, value);
@@ -187,7 +187,7 @@ const luckysheetLocationCell = {
                     return;                            
                 }
 
-                let range = $.extend(true, [], Store.luckysheet_select_save);
+                let range = structuredClone(Store.luckysheet_select_save);
 
                 _this.apply(range, "locationStepRow");
             }
@@ -202,7 +202,7 @@ const luckysheetLocationCell = {
                     return;                            
                 }
 
-                let range = $.extend(true, [], Store.luckysheet_select_save);
+                let range = structuredClone(Store.luckysheet_select_save);
 
                 _this.apply(range, "locationStepColumn");
             }
@@ -213,7 +213,7 @@ const luckysheetLocationCell = {
                     range = [{"row": [0, Store.flowdata.length - 1], "column": [0, Store.flowdata[0].length - 1]}];
                 }
                 else{
-                    range = $.extend(true, [], Store.luckysheet_select_save);
+                    range = structuredClone(Store.luckysheet_select_save);
                 }
 
                 _this.apply(range, id);

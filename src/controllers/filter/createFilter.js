@@ -53,15 +53,15 @@ function createFilter() {
         Store.luckysheet_select_save = [{ "row": [curR, curR], "column": [st_c, ed_c] }];
         selectHightlightShow();
 
-        Store.luckysheet_shiftpositon = $.extend(true, {}, last);
+        Store.luckysheet_shiftpositon = structuredClone(last);
         luckysheetMoveEndCell("down", "range");
     }
     else if (last["row"][1] - last["row"][0] < 2) {
-        Store.luckysheet_shiftpositon = $.extend(true, {}, last);
+        Store.luckysheet_shiftpositon = structuredClone(last);
         luckysheetMoveEndCell("down", "range");
     }
 
-    Store.luckysheet_filter_save = $.extend(true, {}, Store.luckysheet_select_save[0]);
+    Store.luckysheet_filter_save = structuredClone(Store.luckysheet_select_save[0]);
 
     createFilterOptions(Store.luckysheet_filter_save);
 

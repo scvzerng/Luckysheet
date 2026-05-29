@@ -12,7 +12,7 @@ const sheetCacheModule = {
     if (type == "sha") {
       Store.luckysheetfile.push(value);
     } else if (type == "shc") {
-      let copyjson = $.extend(true, {}, Store.luckysheetfile[_this.getSheetIndex(value.copyindex)]);
+      let copyjson = structuredClone(Store.luckysheetfile[_this.getSheetIndex(value.copyindex)]);
       copyjson.index = index;
       Store.luckysheetfile.push(copyjson);
     } else if (type == "shd") {

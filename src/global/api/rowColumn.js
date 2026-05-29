@@ -164,7 +164,7 @@ export function hideRowOrColumn(type, startIndex, endIndex, options = {}) {
 
     let file = Store.luckysheetfile[order];
     let cfgKey = type === 'row' ? 'rowhidden': 'colhidden';
-    let cfg = $.extend(true, {}, file.config);
+    let cfg = structuredClone(file.config);
     if(cfg[cfgKey] == null) {
         cfg[cfgKey] = {};
     }
@@ -178,7 +178,7 @@ export function hideRowOrColumn(type, startIndex, endIndex, options = {}) {
         let redo = {};
         redo["type"] = type === 'row' ? 'showHidRows' : 'showHidCols';
         redo["sheetIndex"] = file.index;
-        redo["config"] = $.extend(true, {}, file.config);
+        redo["config"] = structuredClone(file.config);
         redo["curconfig"] = cfg;
 
         Store.jfundo.length  = 0;
@@ -212,7 +212,7 @@ export function showRowOrColumn(type, startIndex, endIndex, options = {}) {
 
     let file = Store.luckysheetfile[order];
     let cfgKey = type === 'row' ? 'rowhidden': 'colhidden';
-    let cfg = $.extend(true, {}, file.config);
+    let cfg = structuredClone(file.config);
     if(cfg[cfgKey] == null) {
         return;
     }
@@ -226,7 +226,7 @@ export function showRowOrColumn(type, startIndex, endIndex, options = {}) {
         let redo = {};
         redo["type"] = type === 'row' ? 'showHidRows' : 'showHidCols';
         redo["sheetIndex"] = file.index;
-        redo["config"] = $.extend(true, {}, file.config);
+        redo["config"] = structuredClone(file.config);
         redo["curconfig"] = cfg;
 
         Store.jfundo.length  = 0;

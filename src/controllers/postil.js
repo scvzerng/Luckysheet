@@ -848,7 +848,7 @@ const luckysheetPostil = {
                 return;
             }
 
-            const previousCell = $.extend(true,{},Store.flowdata[r][c]);
+            const previousCell = structuredClone(Store.flowdata[r][c]);
 
             $("#" + id).removeClass("luckysheet-postil-show-active");
             $("#" + id).find(".luckysheet-postil-dialog-resize").hide();

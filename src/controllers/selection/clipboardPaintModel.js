@@ -1,3 +1,4 @@
+import { deepMerge } from '../../utils/migrationHelpers.js';
 import {  selectHightlightShow } from "../select";
 import conditionformat from "../conditionformat";
 import editor from "../../global/editor";
@@ -16,7 +17,7 @@ const clipboardPaintModelModule = {
   pasteHandlerOfPaintModel: function (copyRange) {
     const _locale = locale();
     const locale_paste = _locale.paste;
-    let cfg = $.extend(true, {}, Store.config);
+    let cfg = structuredClone(Store.config);
     if (cfg["merge"] == null) {
       cfg["merge"] = {};
     }
@@ -29,7 +30,7 @@ const clipboardPaintModelModule = {
       c_r2 = copyRange["copyRange"][0].row[1],
       c_c1 = copyRange["copyRange"][0].column[0],
       c_c2 = copyRange["copyRange"][0].column[1];
-    let copyData = $.extend(true, [], getdatabyselection({
+    let copyData = structuredClone(getdatabyselection({
       row: [c_r1, c_r2],
       column: [c_c1, c_c2]
     }, copySheetIndex));
@@ -152,9 +153,9 @@ const clipboardPaintModelModule = {
                   v: x[c]
                 };
               }
-              x[c] = $.extend(true, x[c], value);
+              x[c] = deepMerge(x[c], value);
               if (x[c].ct && x[c].ct.t === "inlineStr") {
-                x[c].ct.s.forEach(item => item = $.extend(true, item, value));
+                x[c].ct.s.forEach(item => item = deepMerge(item, value));
               }
               if (copyHasMC && "mc" in x[c]) {
                 if (x[c]["mc"].rs != null) {
@@ -192,9 +193,9 @@ const clipboardPaintModelModule = {
 
     //复制范围 是否有 条件格式
     let cdformat = null;
-    let ruleArr = $.extend(true, [], getFileBySheetIndex(copySheetIndex)["luckysheet_conditionformat_save"]);
+    let ruleArr = structuredClone(getFileBySheetIndex(copySheetIndex)["luckysheet_conditionformat_save"]);
     if (ruleArr != null && ruleArr.length > 0) {
-      cdformat = $.extend(true, [], getCurrentFile()["luckysheet_conditionformat_save"]);
+      cdformat = structuredClone(getCurrentFile()["luckysheet_conditionformat_save"]);
       for (let i = 0; i < ruleArr.length; i++) {
         let cdformat_cellrange = ruleArr[i].cellrange;
         let emptyRange = [];

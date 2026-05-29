@@ -137,7 +137,7 @@ export function getRangeHtml(options = {}) {
     }
 
     //复制范围内包含部分合并单元格，提示
-    let cfg = $.extend(true, {}, file.config);
+    let cfg = structuredClone(file.config);
     if (cfg["merge"] != null) {
         let has_PartMC = false;
 
@@ -160,7 +160,7 @@ export function getRangeHtml(options = {}) {
     }
 
     //多重选区 有条件格式时 提示
-    let cdformat = $.extend(true, [], file.luckysheet_conditionformat_save);
+    let cdformat = structuredClone(file.luckysheet_conditionformat_save);
     if (range.length > 1 && cdformat.length > 0) {
         let hasCF = false;
         let cf_compute = conditionformat.getComputeMap(file.index);
@@ -401,7 +401,7 @@ export function getRangeArray(dimensional, options = {}) {
         c2 = range.column[1];
 
     //复制范围内包含部分合并单元格，提示
-    let cfg = $.extend(true, {}, file.config);
+    let cfg = structuredClone(file.config);
     if(cfg["merge"] != null){
         let has_PartMC = hasPartMC(cfg, r1, r2, c1, c2);
 

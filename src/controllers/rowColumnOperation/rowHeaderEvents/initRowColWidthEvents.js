@@ -29,7 +29,7 @@ export function initRowColWidthEvents() {
         tooltip.info(locale_info.tipInputNumber, "");
         return;
       }
-      let cfg = $.extend(true, {}, Store.config);
+      let cfg = structuredClone(Store.config);
       let type;
       let images = null;
       if (Store.luckysheetRightHeadClickIs == "row") {
@@ -81,10 +81,10 @@ export function initRowColWidthEvents() {
           type: "resize",
           ctrlType: type,
           sheetIndex: Store.currentSheetIndex,
-          config: $.extend(true, {}, Store.config),
-          curconfig: $.extend(true, {}, cfg),
-          images: $.extend(true, {}, imageCtrl.images),
-          curImages: $.extend(true, {}, images)
+          config: structuredClone(Store.config),
+          curconfig: structuredClone(cfg),
+          images: structuredClone(imageCtrl.images),
+          curImages: structuredClone(images)
         });
       }
   

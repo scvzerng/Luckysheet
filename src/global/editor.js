@@ -25,7 +25,7 @@ const editor = {
                 flowData = Store.flowdata;
             }
 
-            return $.extend(true, [], flowData);
+            return structuredClone(flowData);
         }
     },
     webWorkerFlowDataCache:function(flowData){
@@ -49,7 +49,7 @@ const editor = {
             };
         }
         catch(e){
-            _this.deepCopyFlowDataCache = $.extend(true, [], flowData);
+            _this.deepCopyFlowDataCache = structuredClone(flowData);
         }
     },
 
@@ -95,7 +95,7 @@ const editor = {
     },
     clearRangeByindex: function (st_r, ed_r, st_c, ed_c, sheetIndex) {
         let index = getSheetIndex(sheetIndex);
-        let d = $.extend(true, [], Store.luckysheetfile[index]["data"]);
+        let d = structuredClone(Store.luckysheetfile[index]["data"]);
         
         for (let r = st_r; r <= ed_r; r++) {
             let x = [].concat(d[r]);

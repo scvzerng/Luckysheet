@@ -14,7 +14,7 @@ export function getDataByType5(_this, data, len, direction, dataType) {
           }
           let newLen = Math.round(len * 1.5);
           for (let i = 1; i <= newLen; i++) {
-            let d = $.extend(true, {}, data[0]);
+            let d = structuredClone(data[0]);
             let day = dayjs(d["m"]).add(i, "days").day();
             if (day == 0 || day == 6) {
               continue;
@@ -36,7 +36,7 @@ export function getDataByType5(_this, data, len, direction, dataType) {
             let step = dayjs(data[1]["m"]).diff(dayjs(data[0]["m"]), "months");
             for (let i = 1; i <= len; i++) {
               let index = (i - 1) % data.length;
-              let d = $.extend(true, {}, data[index]);
+              let d = structuredClone(data[index]);
               let day = dayjs(data[data.length - 1]).add(step * i, "months").day(),
                 date;
               if (day == 0) {
@@ -64,7 +64,7 @@ export function getDataByType5(_this, data, len, direction, dataType) {
               let step; //以数组第一个为对比
               for (let i = 1; i <= len; i++) {
                 let index = (i - 1) % data.length;
-                let d = $.extend(true, {}, data[index]);
+                let d = structuredClone(data[index]);
                 let num = Math.ceil(i / data.length);
                 if (index == 0) {
                   step = dayjs(d["m"]).add(step_month * num, "months").diff(dayjs(d["m"]), "days");
@@ -94,7 +94,7 @@ export function getDataByType5(_this, data, len, direction, dataType) {
               let step; //以数组第一个为对比
               for (let i = 1; i <= len; i++) {
                 let index = (i - 1) % data.length;
-                let d = $.extend(true, {}, data[index]);
+                let d = structuredClone(data[index]);
                 let num = Math.ceil(i / data.length);
                 if (index == 0) {
                   step = dayjs(d["m"]).add(step_day * num, "days").diff(dayjs(d["m"]), "days");
@@ -124,7 +124,7 @@ export function getDataByType5(_this, data, len, direction, dataType) {
             let step = dayjs(data[1]["m"]).diff(dayjs(data[0]["m"]), "months");
             for (let i = 1; i <= len; i++) {
               let index = (i - 1) % data.length;
-              let d = $.extend(true, {}, data[index]);
+              let d = structuredClone(data[index]);
               let day = dayjs(data[data.length - 1]["m"]).add(step * i, "months").day(),
                 date;
               if (day == 0) {
@@ -152,7 +152,7 @@ export function getDataByType5(_this, data, len, direction, dataType) {
               let step; //以数组第一个为对比
               for (let i = 1; i <= len; i++) {
                 let index = (i - 1) % data.length;
-                let d = $.extend(true, {}, data[index]);
+                let d = structuredClone(data[index]);
                 let num = Math.ceil(i / data.length);
                 if (index == 0) {
                   step = dayjs(d["m"]).add(step_month * num, "months").diff(dayjs(d["m"]), "days");
@@ -182,7 +182,7 @@ export function getDataByType5(_this, data, len, direction, dataType) {
               let step; //以数组第一个为对比
               for (let i = 1; i <= len; i++) {
                 let index = (i - 1) % data.length;
-                let d = $.extend(true, {}, data[index]);
+                let d = structuredClone(data[index]);
                 let num = Math.ceil(i / data.length);
                 if (index == 0) {
                   step = dayjs(d["m"]).add(step_day * num, "days").diff(dayjs(d["m"]), "days");

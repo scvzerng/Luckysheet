@@ -327,7 +327,7 @@ export default function documentMouseup() {
                 size = winH - 200 - Store.luckysheet_rows_change_size_start[0] + scrollTop;
             }
 
-            let cfg = $.extend(true, {}, Store.config);
+            let cfg = structuredClone(Store.config);
             if (cfg["rowlen"] == null) {
                 cfg["rowlen"] = {};
             }
@@ -371,10 +371,10 @@ export default function documentMouseup() {
                     type: "resize",
                     ctrlType: "resizeR",
                     sheetIndex: Store.currentSheetIndex,
-                    config: $.extend(true, {}, Store.config),
-                    curconfig: $.extend(true, {}, cfg),
-                    images: $.extend(true, {}, imageCtrl.images),
-                    curImages: $.extend(true, {}, images),
+                    config: structuredClone(Store.config),
+                    curconfig: structuredClone(cfg),
+                    images: structuredClone(imageCtrl.images),
+                    curImages: structuredClone(images),
                 });
             }
 
@@ -432,7 +432,7 @@ export default function documentMouseup() {
                 size = winW - 100 - Store.luckysheet_cols_change_size_start[0] + scrollLeft;
             }
 
-            let cfg = $.extend(true, {}, Store.config);
+            let cfg = structuredClone(Store.config);
             if (cfg["columnlen"] == null) {
                 cfg["columnlen"] = {};
             }
@@ -476,10 +476,10 @@ export default function documentMouseup() {
                     type: "resize",
                     ctrlType: "resizeC",
                     sheetIndex: Store.currentSheetIndex,
-                    config: $.extend(true, {}, Store.config),
-                    curconfig: $.extend(true, {}, cfg),
-                    images: $.extend(true, {}, imageCtrl.images),
-                    curImages: $.extend(true, {}, images),
+                    config: structuredClone(Store.config),
+                    curconfig: structuredClone(cfg),
+                    images: structuredClone(imageCtrl.images),
+                    curImages: structuredClone(images),
                 });
             }
 
@@ -538,7 +538,7 @@ export default function documentMouseup() {
 
             let data = getdatabyselection(last);
 
-            let cfg = $.extend(true, {}, Store.config);
+            let cfg = structuredClone(Store.config);
             if (cfg["merge"] == null) {
                 cfg["merge"] = {};
             }
@@ -687,7 +687,7 @@ export default function documentMouseup() {
                     }
 
                     if (getObjType(value) == "object" && "mc" in value) {
-                        let mc = $.extend(true, {}, value["mc"]);
+                        let mc = structuredClone(value["mc"]);
                         if ("rs" in value["mc"]) {
                             offsetMC[mc.r + "_" + mc.c] = [r + row_s, c + col_s];
 
@@ -710,11 +710,7 @@ export default function documentMouseup() {
             }
 
             //条件格式
-            let cdformat = $.extend(
-                true,
-                [],
-                getCurrentFile()["luckysheet_conditionformat_save"],
-            );
+            let cdformat = structuredClone(getCurrentFile()["luckysheet_conditionformat_save"]);
             if (cdformat != null && cdformat.length > 0) {
                 for (let i = 0; i < cdformat.length; i++) {
                     let cdformat_cellrange = cdformat[i].cellrange;
@@ -829,8 +825,8 @@ export default function documentMouseup() {
 
             //复制范围
             luckysheetDropCell.copyRange = {
-                row: $.extend(true, [], last["row"]),
-                column: $.extend(true, [], last["column"]),
+                row: structuredClone(last["row"]),
+                column: structuredClone(last["column"]),
             };
             //applyType
             let typeItemHide = luckysheetDropCell.typeItemHide();

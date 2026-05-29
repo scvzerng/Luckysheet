@@ -32,7 +32,7 @@ export function initBorder(_this) {
         if (style == null || style == "") {
           style = "1";
         }
-        let cfg = $.extend(true, {}, Store.config);
+        let cfg = structuredClone(Store.config);
         if (cfg["borderInfo"] == null) {
           cfg["borderInfo"] = [];
         }
@@ -41,15 +41,15 @@ export function initBorder(_this) {
           borderType: type,
           color: color,
           style: style,
-          range: $.extend(true, [], Store.luckysheet_select_save)
+          range: structuredClone(Store.luckysheet_select_save)
         };
         cfg["borderInfo"].push(borderInfo);
         if (Store.clearjfundo) {
           Store.jfundo.length = 0;
           let redo = [];
           redo["type"] = "borderChange";
-          redo["config"] = $.extend(true, {}, Store.config);
-          redo["curconfig"] = $.extend(true, {}, cfg);
+          redo["config"] = structuredClone(Store.config);
+          redo["curconfig"] = structuredClone(cfg);
           redo["sheetIndex"] = Store.currentSheetIndex;
           Store.jfredo.push(redo);
         }
@@ -256,7 +256,7 @@ export function initBorder(_this) {
             if (style == null || style == "") {
               style = "1";
             }
-            let cfg = $.extend(true, {}, Store.config);
+            let cfg = structuredClone(Store.config);
             if (cfg["borderInfo"] == null) {
               cfg["borderInfo"] = [];
             }
@@ -265,15 +265,15 @@ export function initBorder(_this) {
               borderType: itemvalue,
               color: color,
               style: style,
-              range: $.extend(true, [], Store.luckysheet_select_save)
+              range: structuredClone(Store.luckysheet_select_save)
             };
             cfg["borderInfo"].push(borderInfo);
             if (Store.clearjfundo) {
               Store.jfundo.length = 0;
               let redo = [];
               redo["type"] = "borderChange";
-              redo["config"] = $.extend(true, {}, Store.config);
-              redo["curconfig"] = $.extend(true, {}, cfg);
+              redo["config"] = structuredClone(Store.config);
+              redo["curconfig"] = structuredClone(cfg);
               redo["sheetIndex"] = Store.currentSheetIndex;
               Store.jfredo.push(redo);
             }

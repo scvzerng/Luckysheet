@@ -11,7 +11,7 @@ function setcellvalue(r, c, d, v) {
         d = Store.flowdata;
     }
     // 若采用深拷贝，初始化时的单元格属性丢失
-    // let cell = $.extend(true, {}, d[r][c]);
+    // let cell = structuredClone(d[r][c]);
     let cell = d[r][c];
 
     let vupdate;

@@ -215,7 +215,7 @@ export function orderByInitial(){
 
                 let allParam = {};
                 if(Store.config["rowlen"] != null){
-                    let cfg = $.extend(true, {}, Store.config);
+                    let cfg = structuredClone(Store.config);
                     cfg = rowlenByRange(d, str, r2, cfg);
 
                     allParam = {

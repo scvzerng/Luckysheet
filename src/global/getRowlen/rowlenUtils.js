@@ -6,7 +6,7 @@ import { isRowHidden, isColHidden } from '../../utils/util';
 import canvasContext from '../../ui/canvasContext.js';
 
 function rowlenByRange(d, r1, r2, cfg) {
-    let cfg_clone = $.extend(true, {}, cfg);
+    let cfg_clone = structuredClone(cfg);
     if(cfg_clone["rowlen"] == null){
         cfg_clone["rowlen"] = {};
     }

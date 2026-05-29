@@ -1,3 +1,4 @@
+import { deepMerge } from '../../utils/migrationHelpers.js';
 import formula from "../../global/formula";
 import {  jfrefreshgrid_rhcw } from "../../global/refresh";
 import rhchInit from "../../global/rhchInit";
@@ -63,8 +64,8 @@ const sheetParamRestoreModule = {
     file["visibledatacolumn"] = Store.visibledatacolumn;
     file["ch_width"] = Store.ch_width;
     file["rh_height"] = Store.rh_height;
-    file["luckysheet_select_save"] = $.extend(true, [], Store.luckysheet_select_save);
-    file["luckysheet_selection_range"] = $.extend(true, [], Store.luckysheet_selection_range);
+    file["luckysheet_select_save"] = structuredClone(Store.luckysheet_select_save);
+    file["luckysheet_selection_range"] = structuredClone(Store.luckysheet_selection_range);
     if (scrollBarX.getScrollWidth() > scrollBarX.getOffsetWidth()) {
       file["scrollLeft"] = scrollBarX.getScrollLeft();
     }
@@ -78,7 +79,7 @@ const sheetParamRestoreModule = {
     _this.storeSheetParam();
     let index = _this.getSheetIndex(Store.currentSheetIndex);
     Store.luckysheetfile[index]["data"] = Store.flowdata;
-    Store.luckysheetfile[index]["config"] = $.extend(true, {}, Store.config);
+    Store.luckysheetfile[index]["config"] = structuredClone(Store.config);
   },
   setSheetParam: function (isload = true) {
     let index = this.getSheetIndex(Store.currentSheetIndex);
@@ -187,7 +188,7 @@ const sheetParamRestoreModule = {
         item = JSON.parse(item);
       }
       labelFilterOptionState($top, item.optionstate, item.rowhidden, item.caljs, false, item.st_r, item.ed_r, item.cindex, item.st_c, item.ed_c);
-      rowhidden = $.extend(true, rowhidden, item.rowhidden);
+      rowhidden = deepMerge(rowhidden, item.rowhidden);
     });
     if (file.config == null) {
       file.config = {};

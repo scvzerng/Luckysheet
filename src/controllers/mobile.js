@@ -92,7 +92,7 @@ export default function mobileinit(){
                 col_pre = col_location[0], 
                 col_index = col_location[2];
 
-            let last = $.extend(true, {}, getLastSelection());
+            let last = structuredClone(getLastSelection());
 
             let top = 0, height = 0, rowseleted = [];
             if (last.top > row_pre) {

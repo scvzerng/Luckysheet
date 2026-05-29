@@ -33,7 +33,7 @@ export function initHideShowEvents() {
   
       // 隐藏�?
       if (Store.luckysheetRightHeadClickIs == "row") {
-        let cfg = $.extend(true, {}, Store.config);
+        let cfg = structuredClone(Store.config);
         if (cfg["rowhidden"] == null) {
           cfg["rowhidden"] = {};
         }
@@ -50,7 +50,7 @@ export function initHideShowEvents() {
           let redo = {};
           redo["type"] = "showHidRows";
           redo["sheetIndex"] = Store.currentSheetIndex;
-          redo["config"] = $.extend(true, {}, Store.config);
+          redo["config"] = structuredClone(Store.config);
           redo["curconfig"] = cfg;
           Store.jfundo.length = 0;
           Store.jfredo.push(redo);
@@ -65,7 +65,7 @@ export function initHideShowEvents() {
       }
       // 隐藏列
       else if (Store.luckysheetRightHeadClickIs == "column") {
-        let cfg = $.extend(true, {}, Store.config);
+        let cfg = structuredClone(Store.config);
         if (cfg["colhidden"] == null) {
           cfg["colhidden"] = {};
         }
@@ -82,7 +82,7 @@ export function initHideShowEvents() {
           let redo = {};
           redo["type"] = "showHidCols";
           redo["sheetIndex"] = Store.currentSheetIndex;
-          redo["config"] = $.extend(true, {}, Store.config);
+          redo["config"] = structuredClone(Store.config);
           redo["curconfig"] = cfg;
           Store.jfundo.length = 0;
           Store.jfredo.push(redo);
@@ -121,7 +121,7 @@ export function initHideShowEvents() {
   
       // 取消隐藏�?
       if (Store.luckysheetRightHeadClickIs == "row") {
-        let cfg = $.extend(true, {}, Store.config);
+        let cfg = structuredClone(Store.config);
         if (cfg["rowhidden"] == null) {
           return;
         }
@@ -138,7 +138,7 @@ export function initHideShowEvents() {
           let redo = {};
           redo["type"] = "showHidRows";
           redo["sheetIndex"] = Store.currentSheetIndex;
-          redo["config"] = $.extend(true, {}, Store.config);
+          redo["config"] = structuredClone(Store.config);
           redo["curconfig"] = cfg;
           Store.jfundo.length = 0;
           Store.jfredo.push(redo);
@@ -151,7 +151,7 @@ export function initHideShowEvents() {
         let _dataSize3 = getDataSize();
         jfrefreshgrid_rhcw(_dataSize3.rowCount, _dataSize3.colCount);
       } else if (Store.luckysheetRightHeadClickIs == "column") {
-        let cfg = $.extend(true, {}, Store.config);
+        let cfg = structuredClone(Store.config);
         if (cfg["colhidden"] == null) {
           return;
         }
@@ -168,7 +168,7 @@ export function initHideShowEvents() {
           let redo = {};
           redo["type"] = "showHidCols";
           redo["sheetIndex"] = Store.currentSheetIndex;
-          redo["config"] = $.extend(true, {}, Store.config);
+          redo["config"] = structuredClone(Store.config);
           redo["curconfig"] = cfg;
           Store.jfundo.length = 0;
           Store.jfredo.push(redo);

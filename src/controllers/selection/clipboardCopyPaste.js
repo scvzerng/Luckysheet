@@ -17,7 +17,7 @@ const clipboardCopyPasteModule = {
   pasteHandlerOfCopyPaste: function (copyRange) {
     const _locale = locale();
     const locale_paste = _locale.paste;
-    let cfg = $.extend(true, {}, Store.config);
+    let cfg = structuredClone(Store.config);
     if (cfg["merge"] == null) {
       cfg["merge"] = {};
     }
@@ -60,7 +60,7 @@ const clipboardCopyPasteModule = {
         });
       });
     }
-    let copyData = $.extend(true, [], arr);
+    let copyData = structuredClone(arr);
 
     //多重选择选择区域 单元格如果有函数 则只取值 不取函数
     if (copyRange["copyRange"].length > 1) {
@@ -175,7 +175,7 @@ const clipboardCopyPasteModule = {
             }
             let value = null;
             if (copyData[h - mth] != null && copyData[h - mth][c - mtc] != null) {
-              value = $.extend(true, {}, copyData[h - mth][c - mtc]);
+              value = structuredClone(copyData[h - mth][c - mtc]);
             }
             if (value != null && value.f != null) {
               let func = value.f;
@@ -198,7 +198,7 @@ const clipboardCopyPasteModule = {
                 value.m = update(value.ct["fa"], funcV[1]);
               }
             }
-            x[c] = $.extend(true, {}, value);
+            x[c] = structuredClone(value);
             if (value != null && copyHasMC && "mc" in x[c]) {
               if (x[c]["mc"].rs != null) {
                 x[c]["mc"].r = h;
@@ -225,9 +225,9 @@ const clipboardCopyPasteModule = {
     if (copyRange["copyRange"].length == 1) {
       let c_file = getFileBySheetIndex(copySheetIndex);
       let a_file = getCurrentFile();
-      let ruleArr_cf = $.extend(true, [], c_file["luckysheet_conditionformat_save"]);
+      let ruleArr_cf = structuredClone(c_file["luckysheet_conditionformat_save"]);
       if (ruleArr_cf != null && ruleArr_cf.length > 0) {
-        cdformat = $.extend(true, [], a_file["luckysheet_conditionformat_save"]);
+        cdformat = structuredClone(a_file["luckysheet_conditionformat_save"]);
         for (let i = 0; i < ruleArr_cf.length; i++) {
           let cf_range = ruleArr_cf[i].cellrange;
           let emptyRange = [];

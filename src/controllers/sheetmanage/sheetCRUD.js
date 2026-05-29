@@ -59,7 +59,7 @@ const sheetCRUDModule = {
       Store.jfundo.length = 0;
       let redo = {};
       redo["type"] = "addSheet";
-      redo["sheetconfig"] = $.extend(true, {}, sheetconfig);
+      redo["sheetconfig"] = structuredClone(sheetconfig);
       redo["index"] = index;
       redo["currentSheetIndex"] = Store.currentSheetIndex;
       Store.jfredo.push(redo);
@@ -77,7 +77,7 @@ const sheetCRUDModule = {
     let order = Store.luckysheetfile.length;
     let index = _this.generateRandomSheetIndex();
     let copyarrindex = _this.getSheetIndex(copyindex);
-    let copyjson = $.extend(true, {}, Store.luckysheetfile[copyarrindex]);
+    let copyjson = structuredClone(Store.luckysheetfile[copyarrindex]);
     copyjson.order = order;
     copyjson.index = index;
     copyjson.name = _this.generateCopySheetName(Store.luckysheetfile, copyjson.name);

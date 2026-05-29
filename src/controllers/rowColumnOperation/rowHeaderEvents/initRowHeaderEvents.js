@@ -222,7 +222,7 @@ export function initRowHeaderEvents() {
       if (Store.luckysheet_rows_selected_status) {
         if (event.shiftKey) {
           //按住shift点击行索引选取范围
-          let last = $.extend(true, {}, getLastSelection()); //选区最后一个
+          let last = structuredClone(getLastSelection()); //选区最后一个
   
           let top = 0,
             height = 0,
@@ -379,7 +379,7 @@ export function initRowHeaderEvents() {
         Store.luckysheet_cols_menu_status = true;
   
         //行高默认�?
-        let cfg = $.extend(true, {}, Store.config);
+        let cfg = structuredClone(Store.config);
         if (cfg["rowlen"] == null) {
           cfg["rowlen"] = {};
         }

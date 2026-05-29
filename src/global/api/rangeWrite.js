@@ -138,7 +138,7 @@ export function setRangeValue(data, options = {}) {
     if(file == null){
         return tooltip.info("The order parameter is invalid.", "");
     }
-    let sheetData = $.extend(true, [], file.data);
+    let sheetData = structuredClone(file.data);
 
     for (let i = 0; i < rowCount; i++) {
         for (let j = 0; j < columnCount; j++) {
@@ -148,7 +148,7 @@ export function setRangeValue(data, options = {}) {
         }
     }
 
-    let fileData = $.extend(true, [], file.data);
+    let fileData = structuredClone(file.data);
     file.data.length = 0;
     file.data.push(...sheetData);
 
@@ -255,7 +255,7 @@ export function setSingleRangeFormat(attr, value, options = {}) {
         result.push(setSingleRangeFormat(attr, value, { range: range[i], order: order }));
     }
 
-    let fileData = $.extend(true, [], file.data);
+    let fileData = structuredClone(file.data);
     if(result.some(i => i === 'error')) {
         file.data.length = 0;
         file.data.push(...fileData);

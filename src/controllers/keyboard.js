@@ -412,7 +412,7 @@ export function keyboardInitial(){
             if (ctrlKey || event.metaKey) {
                 if (shiftKey) {
                     if (!luckysheet_shiftkeydown) {
-                        Store.luckysheet_shiftpositon = $.extend(true, {}, getLastSelection());
+                        Store.luckysheet_shiftpositon = structuredClone(getLastSelection());
                         Store.luckysheet_shiftkeydown = true;
                     }
 
@@ -756,7 +756,7 @@ export function keyboardInitial(){
                 }
 
                 if (!luckysheet_shiftkeydown) {
-                    Store.luckysheet_shiftpositon = $.extend(true, {}, getLastSelection());
+                    Store.luckysheet_shiftpositon = structuredClone(getLastSelection());
                     Store.luckysheet_shiftkeydown = true;
                 }
 

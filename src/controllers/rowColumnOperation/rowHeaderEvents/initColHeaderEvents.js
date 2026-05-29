@@ -213,7 +213,7 @@ export function initColHeaderEvents() {
       if (Store.luckysheet_cols_selected_status) {
         if (event.shiftKey) {
           //按住shift点击列索引选取范围
-          let last = $.extend(true, {}, getLastSelection()); //选区最后一个
+          let last = structuredClone(getLastSelection()); //选区最后一个
   
           let left = 0,
             width = 0,
@@ -393,7 +393,7 @@ export function initColHeaderEvents() {
         Store.luckysheet_cols_menu_status = true;
   
         //列宽默认�?
-        let cfg = $.extend(true, {}, Store.config);
+        let cfg = structuredClone(Store.config);
         if (cfg["columnlen"] == null) {
           cfg["columnlen"] = {};
         }

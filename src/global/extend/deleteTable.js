@@ -21,7 +21,7 @@ function luckysheetdeletetable(type, st, ed, sheetIndex) {
   sheetIndex = sheetIndex || Store.currentSheetIndex;
   let curOrder = getSheetIndex(sheetIndex);
   let file = Store.luckysheetfile[curOrder];
-  let d = $.extend(true, [], file.data);
+  let d = structuredClone(file.data);
   if (st < 0) {
     st = 0;
   }
@@ -47,7 +47,7 @@ function luckysheetdeletetable(type, st, ed, sheetIndex) {
     return;
   }
   let slen = ed - st + 1;
-  let cfg = $.extend(true, {}, file.config);
+  let cfg = structuredClone(file.config);
 
   //合并单元格配置变动
   if (cfg["merge"] == null) {
@@ -151,7 +151,7 @@ function luckysheetdeletetable(type, st, ed, sheetIndex) {
   let newCalcChain = [];
   if (calcChain != null && calcChain.length > 0) {
     for (let i = 0; i < calcChain.length; i++) {
-      let calc = $.extend(true, {}, calcChain[i]);
+      let calc = structuredClone(calcChain[i]);
       let calc_r = calc.r,
         calc_c = calc.c,
         calc_i = calc.index,
@@ -232,7 +232,7 @@ function luckysheetdeletetable(type, st, ed, sheetIndex) {
             if (newFilterObj.filter == null) {
               newFilterObj.filter = {};
             }
-            newFilterObj.filter[k] = $.extend(true, {}, filter[k]);
+            newFilterObj.filter[k] = structuredClone(filter[k]);
             newFilterObj.filter[k].rowhidden = f_rowhidden_new;
             newFilterObj.filter[k].str = f_r1;
             newFilterObj.filter[k].edr = f_r2;
@@ -274,14 +274,14 @@ function luckysheetdeletetable(type, st, ed, sheetIndex) {
             if (newFilterObj.filter == null) {
               newFilterObj.filter = {};
             }
-            newFilterObj.filter[f_cindex - f_c1] = $.extend(true, {}, filter[k]);
+            newFilterObj.filter[f_cindex - f_c1] = structuredClone(filter[k]);
             newFilterObj.filter[f_cindex - f_c1].edc = f_c2;
           } else if (f_cindex > ed) {
             f_cindex -= slen;
             if (newFilterObj.filter == null) {
               newFilterObj.filter = {};
             }
-            newFilterObj.filter[f_cindex - f_c1] = $.extend(true, {}, filter[k]);
+            newFilterObj.filter[f_cindex - f_c1] = structuredClone(filter[k]);
             newFilterObj.filter[f_cindex - f_c1].cindex = f_cindex;
             newFilterObj.filter[f_cindex - f_c1].stc = f_c1;
             newFilterObj.filter[f_cindex - f_c1].edc = f_c2;
@@ -361,7 +361,7 @@ function luckysheetdeletetable(type, st, ed, sheetIndex) {
         }
       }
       if (cf_new_range.length > 0) {
-        let cf = $.extend(true, {}, CFarr[i]);
+        let cf = structuredClone(CFarr[i]);
         cf.cellrange = cf_new_range;
         newCFarr.push(cf);
       }
@@ -379,7 +379,7 @@ function luckysheetdeletetable(type, st, ed, sheetIndex) {
         AFc2 = AFarr[i].cellrange.column[1];
       if (type == "row") {
         if (!(AFr1 >= st && AFr2 <= ed)) {
-          let af = $.extend(true, {}, AFarr[i]);
+          let af = structuredClone(AFarr[i]);
           if (AFr1 > ed) {
             AFr1 -= slen;
             AFr2 -= slen;
@@ -403,7 +403,7 @@ function luckysheetdeletetable(type, st, ed, sheetIndex) {
         }
       } else if (type == "column") {
         if (!(AFc1 >= st && AFc2 <= ed)) {
-          let af = $.extend(true, {}, AFarr[i]);
+          let af = structuredClone(AFarr[i]);
           if (AFc1 > ed) {
             AFc1 -= slen;
             AFc2 -= slen;

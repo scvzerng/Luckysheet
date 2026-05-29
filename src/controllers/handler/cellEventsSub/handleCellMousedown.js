@@ -643,11 +643,7 @@ export function handleCellMousedown(event) {
               if (Store.luckysheet_select_status) {
                   if (event.shiftKey) {
                       //按住shift点击，选择范围
-                      let last = $.extend(
-                          true,
-                          {},
-                          getLastSelection(),
-                      ); //选区最后一个
+                      let last = structuredClone(getLastSelection()); //选区最后一个
   
                       let top = 0,
                           height = 0,

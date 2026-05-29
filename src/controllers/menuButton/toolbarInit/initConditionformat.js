@@ -281,12 +281,12 @@ export function initConditionformat(_this) {
                     otherfile["data"] = sheetmanage.buildGridData(otherfile);
                   }
                   setluckysheetfile(file);
-                  conditionformat.fileClone = $.extend(true, [], file);
+                  conditionformat.fileClone = structuredClone(file);
                   conditionformat.administerRuleDialog();
                   conditionformat.init();
                 });
               } else {
-                conditionformat.fileClone = $.extend(true, [], file);
+                conditionformat.fileClone = structuredClone(file);
                 conditionformat.administerRuleDialog();
                 conditionformat.init();
               }
@@ -516,7 +516,7 @@ export function initConditionformat(_this) {
             let $t = $(this),
               itemvalue = $t.attr("itemvalue");
             if (Store.luckysheet_select_save.length > 0) {
-              let cellrange = $.extend(true, [], Store.luckysheet_select_save);
+              let cellrange = structuredClone(Store.luckysheet_select_save);
               let format = conditionformat.dataBarList[itemvalue]["format"];
               conditionformat.updateItem("dataBar", cellrange, format);
             }
@@ -531,7 +531,7 @@ export function initConditionformat(_this) {
             let $t = $(this),
               itemvalue = $t.attr("itemvalue");
             if (Store.luckysheet_select_save.length > 0) {
-              let cellrange = $.extend(true, [], Store.luckysheet_select_save);
+              let cellrange = structuredClone(Store.luckysheet_select_save);
               let format = conditionformat.colorGradationList[itemvalue]["format"];
               conditionformat.updateItem("colorGradation", cellrange, format);
             }

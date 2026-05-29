@@ -20,7 +20,7 @@ export function setRowHeight(rowInfo, options = {}) {
         return tooltip.info("The order parameter is invalid.", "");
     }
 
-    let cfg = $.extend(true, {}, file.config);
+    let cfg = structuredClone(file.config);
     if(cfg['rowlen'] == null){
         cfg['rowlen'] = {};
     }
@@ -69,7 +69,7 @@ export function setColumnWidth(columnInfo, options = {}) {
         return tooltip.info("The order parameter is invalid.", "");
     }
 
-    let cfg = $.extend(true, {}, file.config);
+    let cfg = structuredClone(file.config);
     if(cfg['columnlen'] == null){
         cfg['columnlen'] = {};
     }
@@ -118,7 +118,7 @@ export function getRowHeight(rowInfo, options = {}) {
         return tooltip.info("The order parameter is invalid.", "");
     }
 
-    let cfg = $.extend(true, {}, file.config);
+    let cfg = structuredClone(file.config);
     let rowlen = cfg["rowlen"] || {};
 
     let rowlenObj = {};
@@ -155,7 +155,7 @@ export function getColumnWidth(columnInfo, options = {}) {
         return tooltip.info("The order parameter is invalid.", "");
     }
 
-    let cfg = $.extend(true, {}, file.config);
+    let cfg = structuredClone(file.config);
     let columnlen = cfg["columnlen"] || {};
 
     let columnlenObj = {};

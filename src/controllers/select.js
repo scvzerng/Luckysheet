@@ -201,7 +201,7 @@ function selectHightlightShow(isRestore = false) {
 
 //选区标题栏
 function selectTitlesShow(rangeArr, isRestore = false) {
-    let s = $.extend(true, [], rangeArr);
+    let s = structuredClone(rangeArr);
 
     let rowTitleMap = {}, columnTitleMap = {};
     for (let i = 0; i < s.length; i++) {
@@ -247,7 +247,7 @@ function selectTitlesShow(rangeArr, isRestore = false) {
     }
 }
 function selectTitlesMap(rangeMap, range1, range2) {
-    let map = $.extend(true, {}, rangeMap);
+    let map = structuredClone(rangeMap);
 
     for (let i = range1; i <= range2; i++) {
         if (i in map) {

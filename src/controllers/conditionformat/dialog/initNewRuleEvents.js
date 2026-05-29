@@ -47,7 +47,7 @@ export function initNewRuleEvents(_this) {
             }
             rule = {
               "type": "dataBar",
-              "cellrange": $.extend(true, [], Store.luckysheet_select_save),
+              "cellrange": structuredClone(Store.luckysheet_select_save),
               "format": format
             };
           } else if (type1 == "colorGradation") {
@@ -64,7 +64,7 @@ export function initNewRuleEvents(_this) {
             }
             rule = {
               "type": "colorGradation",
-              "cellrange": $.extend(true, [], Store.luckysheet_select_save),
+              "cellrange": structuredClone(Store.luckysheet_select_save),
               "format": format
             };
           } else if (type1 == "icons") {
@@ -79,7 +79,7 @@ export function initNewRuleEvents(_this) {
             };
             rule = {
               "type": "icons",
-              "cellrange": $.extend(true, [], Store.luckysheet_select_save),
+              "cellrange": structuredClone(Store.luckysheet_select_save),
               "format": format
             };
           }
@@ -217,7 +217,7 @@ export function initNewRuleEvents(_this) {
           };
           rule = {
             "type": "default",
-            "cellrange": $.extend(true, [], Store.luckysheet_select_save),
+            "cellrange": structuredClone(Store.luckysheet_select_save),
             "format": format,
             "conditionName": conditionName,
             "conditionRange": conditionRange,
@@ -232,14 +232,14 @@ export function initNewRuleEvents(_this) {
           hideModalMask();
   
           //保存之前的规�?
-          let fileH = $.extend(true, [], Store.luckysheetfile);
+          let fileH = structuredClone(Store.luckysheetfile);
           let historyRules = _this.getHistoryRules(fileH);
   
           //保存当前的规�?
           let ruleArr = getCurrentFile()["luckysheet_conditionformat_save"] == undefined ? [] : getCurrentFile()["luckysheet_conditionformat_save"];
           ruleArr.push(rule);
           getCurrentFile()["luckysheet_conditionformat_save"] = ruleArr;
-          let fileC = $.extend(true, [], Store.luckysheetfile);
+          let fileC = structuredClone(Store.luckysheetfile);
           let currentRules = _this.getCurrentRules(fileC);
   
           //刷新一次表�?

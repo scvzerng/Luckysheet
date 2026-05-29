@@ -131,7 +131,7 @@ const controlHistory = {
             else if(ctr.ctrlType == "resizeC"){
             }
 
-            let images = $.extend(true, {}, ctr.images);
+            let images = structuredClone(ctr.images);
             getFileBySheetIndex(ctr.sheetIndex).images = images;
             imageCtrl.images = images;
             imageCtrl.allImagesShow();
@@ -145,12 +145,12 @@ const controlHistory = {
             jfrefreshgridall(ctr.data[0].length, ctr.data.length, ctr.data, ctr.config, ctr.range, "dele", ctr.ctrlValue);
         }
         else if (ctr.type == "dele") {
-            let ctrlValue1 = $.extend(true, {}, ctr.ctrlValue);
+            let ctrlValue1 = structuredClone(ctr.ctrlValue);
             ctrlValue1.restore = true;
             jfrefreshgridall(ctr.data[0].length, ctr.data.length, ctr.data, ctr.config, ctr.range, "extend", ctrlValue1);
         }
         else if (ctr.type == "addRC") { //增加行列撤销操作
-            let ctrlValue = $.extend(true, {}, ctr.ctrlValue);
+            let ctrlValue = structuredClone(ctr.ctrlValue);
             if(ctrlValue.direction == "rightbottom"){
                 ctrlValue.index = ctrlValue.index + 1;
             }
@@ -169,7 +169,7 @@ const controlHistory = {
             );
         }
         else if (ctr.type == "delRC") { //删除行列撤销操作
-            let ctrlValue = $.extend(true, {}, ctr.ctrlValue);
+            let ctrlValue = structuredClone(ctr.ctrlValue);
             ctrlValue.restore = true;
             ctrlValue.direction = "lefttop";
 
@@ -342,7 +342,7 @@ const controlHistory = {
 
             let file = getFileBySheetIndex(ctr["sheetIndex"]);
 
-            file["luckysheet_alternateformat_save"] = $.extend(true, [], historyRules);
+            file["luckysheet_alternateformat_save"] = structuredClone(historyRules);
 
             setTimeout(function () {
                 luckysheetrefreshgrid();
@@ -377,7 +377,7 @@ const controlHistory = {
             }
         }
         else if (ctr.type == "imageCtrl"){
-            imageCtrl.images = $.extend(true, {}, ctr.images);
+            imageCtrl.images = structuredClone(ctr.images);
             imageCtrl.allImagesShow();
             imageCtrl.ref();
         }
@@ -390,7 +390,7 @@ const controlHistory = {
         cleargridelement(e);
         if (ctr.range) {
             //使用深复制
-            Store.luckysheet_select_save = $.extend(true, [],ctr.range);
+            Store.luckysheet_select_save = structuredClone(ctr.range);
             selectHightlightShow();
         }
         Store.clearjfundo = true;
@@ -448,7 +448,7 @@ const controlHistory = {
             else if(ctr.ctrlType == "resizeC"){
             }
 
-            let images = $.extend(true, {}, ctr.curImages);
+            let images = structuredClone(ctr.curImages);
             getFileBySheetIndex(ctr.sheetIndex).images = images;
             imageCtrl.images = images;
             imageCtrl.allImagesShow();
@@ -462,7 +462,7 @@ const controlHistory = {
             jfrefreshgridall(ctr.curdata[0].length, ctr.curdata.length, ctr.curdata, ctr.curconfig, ctr.currange, ctr.ctrlType, ctr.ctrlValue);
         }
         else if (ctr.type == "dele") {
-            let ctrlValue1 = $.extend(true, {}, ctr.ctrlValue);
+            let ctrlValue1 = structuredClone(ctr.ctrlValue);
             ctrlValue1.restore = true;
             jfrefreshgridall(ctr.curdata[0].length, ctr.curdata.length, ctr.curdata, ctr.curconfig, ctr.currange, ctr.ctrlType, ctr.ctrlValue);
         }
@@ -637,7 +637,7 @@ const controlHistory = {
 
             let file = getFileBySheetIndex(ctr["sheetIndex"]);
 
-            file["luckysheet_alternateformat_save"] = $.extend(true, [], currentRules);
+            file["luckysheet_alternateformat_save"] = structuredClone(currentRules);
 
             setTimeout(function () {
                 luckysheetrefreshgrid();
@@ -668,7 +668,7 @@ const controlHistory = {
             }
         }
         else if (ctr.type == "imageCtrl"){
-            imageCtrl.images = $.extend(true, {}, ctr.curImages);
+            imageCtrl.images = structuredClone(ctr.curImages);
             imageCtrl.allImagesShow();
             imageCtrl.ref();
         }
@@ -680,7 +680,7 @@ const controlHistory = {
 
         if (ctr.range) {
             //使用深复制
-            Store.luckysheet_select_save = $.extend(true, [],ctr.range);
+            Store.luckysheet_select_save = structuredClone(ctr.range);
             selectHightlightShow();
         }
         Store.clearjfundo = true;

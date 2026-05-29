@@ -17,7 +17,7 @@ export function initDeleteCellEvents() {
     //     rightClickMenu.hide();
     //     luckysheetContainerFocus();
   
-    //     let cfg = $.extend(true, {}, Store.config);
+    //     let cfg = structuredClone(Store.config);
     //     if(cfg["rowhidden"] == null){
     //         cfg["rowhidden"] = {};
     //     }
@@ -36,7 +36,7 @@ export function initDeleteCellEvents() {
     //         let redo = {};
     //         redo["type"] = "showHidRows";
     //         redo["sheetIndex"] = Store.currentSheetIndex;
-    //         redo["config"] = $.extend(true, {}, Store.config);
+    //         redo["config"] = structuredClone(Store.config);
     //         redo["curconfig"] = cfg;
   
     //         Store.jfundo.length  = 0;
@@ -54,7 +54,7 @@ export function initDeleteCellEvents() {
     //     rightClickMenu.hide();
     //     luckysheetContainerFocus();
   
-    //     let cfg = $.extend(true, {}, Store.config);
+    //     let cfg = structuredClone(Store.config);
     //     if(cfg["rowhidden"] == null){
     //         return;
     //     }
@@ -73,7 +73,7 @@ export function initDeleteCellEvents() {
     //         let redo = {};
     //         redo["type"] = "showHidRows";
     //         redo["sheetIndex"] = Store.currentSheetIndex;
-    //         redo["config"] = $.extend(true, {}, Store.config);
+    //         redo["config"] = structuredClone(Store.config);
     //         redo["curconfig"] = cfg;
   
     //         Store.jfundo.length  = 0;
@@ -93,7 +93,7 @@ export function initDeleteCellEvents() {
     //     rightClickMenu.hide();
     //     luckysheetContainerFocus();
   
-    //     let cfg = $.extend(true, {}, Store.config);
+    //     let cfg = structuredClone(Store.config);
     //     if(cfg["colhidden"] == null){
     //         cfg["colhidden"] = {};
     //     }
@@ -112,7 +112,7 @@ export function initDeleteCellEvents() {
     //         let redo = {};
     //         redo["type"] = "showHidCols";
     //         redo["sheetIndex"] = Store.currentSheetIndex;
-    //         redo["config"] = $.extend(true, {}, Store.config);
+    //         redo["config"] = structuredClone(Store.config);
     //         redo["curconfig"] = cfg;
   
     //         Store.jfundo.length  = 0;
@@ -130,7 +130,7 @@ export function initDeleteCellEvents() {
     //     rightClickMenu.hide();
     //     luckysheetContainerFocus();
   
-    //     let cfg = $.extend(true, {}, Store.config);
+    //     let cfg = structuredClone(Store.config);
     //     if(cfg["colhidden"] == null){
     //         return;
     //     }
@@ -149,7 +149,7 @@ export function initDeleteCellEvents() {
     //         let redo = {};
     //         redo["type"] = "showHidCols";
     //         redo["sheetIndex"] = Store.currentSheetIndex;
-    //         redo["config"] = $.extend(true, {}, Store.config);
+    //         redo["config"] = structuredClone(Store.config);
     //         redo["curconfig"] = cfg;
   
     //         Store.jfundo.length  = 0;
@@ -232,7 +232,7 @@ export function initDeleteCellEvents() {
           return;
         }
         const file = getCurrentFile();
-        const hyperlink = file.hyperlink && $.extend(true, {}, file.hyperlink);
+        const hyperlink = file.hyperlink && structuredClone(file.hyperlink);
         let hyperlinkUpdated;
         for (let s = 0; s < Store.luckysheet_select_save.length; s++) {
           let r1 = Store.luckysheet_select_save[s].row[0],

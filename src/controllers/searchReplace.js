@@ -250,7 +250,7 @@ const luckysheetSearchReplace = {
                 },
             ];
         } else {
-            range = $.extend(true, [], Store.luckysheet_select_save);
+            range = structuredClone(Store.luckysheet_select_save);
         }
 
         let searchIndexArr = _this.getSearchIndexArr(searchText, range);
@@ -394,7 +394,7 @@ const luckysheetSearchReplace = {
         ];
         // }
         // else{
-        //     range = $.extend(true, [], Store.luckysheet_select_save);
+        //     range = structuredClone(Store.luckysheet_select_save);
         // }
 
         let searchIndexArr = _this.getSearchIndexArr(searchText, range);
@@ -583,7 +583,7 @@ const luckysheetSearchReplace = {
                 },
             ];
         } else {
-            range = $.extend(true, [], Store.luckysheet_select_save);
+            range = structuredClone(Store.luckysheet_select_save);
         }
 
         let searchIndexArr = _this.getSearchIndexArr(searchText, range);
@@ -742,7 +742,7 @@ const luckysheetSearchReplace = {
                 },
             ];
         } else {
-            range = $.extend(true, [], Store.luckysheet_select_save);
+            range = structuredClone(Store.luckysheet_select_save);
         }
 
         let searchIndexArr = _this.getSearchIndexArr(searchText, range);
@@ -820,7 +820,7 @@ const luckysheetSearchReplace = {
 
         jfrefreshgrid(d, range);
 
-        Store.luckysheet_select_save = $.extend(true, [], range);
+        Store.luckysheet_select_save = structuredClone(range);
         selectHightlightShow();
 
         let succeedInfo = replaceHtml(locale_findAndReplace.successTip, {

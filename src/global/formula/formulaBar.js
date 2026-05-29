@@ -44,7 +44,7 @@ const formulaBar = {
             let value = "";
             // && d[r][c].v != null
             if (d[r] != null && d[r][c] != null) {
-                let cell = $.extend(true, {}, d[r][c]);
+                let cell = structuredClone(d[r][c]);
                 /**
                  * fix #1010
                  */

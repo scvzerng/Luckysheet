@@ -22,15 +22,15 @@ export function initAdminRuleEvents(_this) {
       });
       offNS("CFadministerRuleConfirm");
       onNS(document, "click.CFadministerRuleConfirm", "#luckysheet-administerRule-dialog-confirm", function () {
-        let fileH = $.extend(true, [], Store.luckysheetfile);
+        let fileH = structuredClone(Store.luckysheetfile);
         let historyRules = _this.getHistoryRules(fileH);
 
-        let fileClone = $.extend(true, [], _this.fileClone);
+        let fileClone = structuredClone(_this.fileClone);
         for (let c = 0; c < fileClone.length; c++) {
           let sheetIndex = fileClone[c]["index"];
           getFileBySheetIndex(sheetIndex)["luckysheet_conditionformat_save"] = fileClone[getSheetIndex(sheetIndex)]["luckysheet_conditionformat_save"];
         }
-        let fileC = $.extend(true, [], Store.luckysheetfile);
+        let fileC = structuredClone(Store.luckysheetfile);
         let currentRules = _this.getCurrentRules(fileC);
 
         _this.ref(historyRules, currentRules);

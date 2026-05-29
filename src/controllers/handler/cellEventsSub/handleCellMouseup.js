@@ -107,7 +107,7 @@ export function handleCellMouseup(event) {
                       }
   
                       //列宽默认值
-                      let cfg = $.extend(true, {}, Store.config);
+                      let cfg = structuredClone(Store.config);
                       if (cfg["columnlen"] == null) {
                           cfg["columnlen"] = {};
                       }
@@ -220,7 +220,7 @@ export function handleCellMouseup(event) {
                       }
   
                       //行高默认值
-                      let cfg = $.extend(true, {}, Store.config);
+                      let cfg = structuredClone(Store.config);
                       if (cfg["rowlen"] == null) {
                           cfg["rowlen"] = {};
                       }

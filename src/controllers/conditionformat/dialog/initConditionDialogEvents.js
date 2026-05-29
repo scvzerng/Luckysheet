@@ -102,13 +102,13 @@ export function initConditionDialogEvents(_this) {
         }
   
         //保存之前的规�?
-        let fileH = $.extend(true, [], Store.luckysheetfile);
+        let fileH = structuredClone(Store.luckysheetfile);
         let historyRules = _this.getHistoryRules(fileH);
   
         //保存当前的规�?
         let rule = {
           "type": "default",
-          "cellrange": $.extend(true, [], Store.luckysheet_select_save),
+          "cellrange": structuredClone(Store.luckysheet_select_save),
           "format": {
             "textColor": textcolor,
             "cellColor": cellcolor
@@ -120,7 +120,7 @@ export function initConditionDialogEvents(_this) {
         let ruleArr = getCurrentFile()["luckysheet_conditionformat_save"] == undefined ? [] : getCurrentFile()["luckysheet_conditionformat_save"];
         ruleArr.push(rule);
         getCurrentFile()["luckysheet_conditionformat_save"] = ruleArr;
-        let fileC = $.extend(true, [], Store.luckysheetfile);
+        let fileC = structuredClone(Store.luckysheetfile);
         let currentRules = _this.getCurrentRules(fileC);
   
         //刷新一次表�?
@@ -137,7 +137,7 @@ export function initConditionDialogEvents(_this) {
         hideModalMask();
         $("#luckysheet-CFicons-dialog").hide();
         if (Store.luckysheet_select_save.length > 0) {
-          let cellrange = $.extend(true, [], Store.luckysheet_select_save);
+          let cellrange = structuredClone(Store.luckysheet_select_save);
           let format = {
             "len": $(this).attr("data-len"),
             "leftMin": $(this).attr("data-leftMin"),

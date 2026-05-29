@@ -53,7 +53,7 @@ function orderbydatafiler(str, stc, edr, edc, index, asc) {
 
     let allParam = {};
     if(Store.config["rowlen"] != null){
-        let cfg = $.extend(true, {}, Store.config);
+        let cfg = structuredClone(Store.config);
         cfg = rowlenByRange(d, str, edr, cfg);
 
         allParam = {

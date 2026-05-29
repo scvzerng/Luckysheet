@@ -662,7 +662,7 @@ const imageCtrl = {
             _this.images = {};
         }
 
-        let imgItem = $.extend(true, {}, _this.imgItem);
+        let imgItem = structuredClone(_this.imgItem);
         imgItem.src = img.src;
         imgItem.originWidth = img.originWidth;
         imgItem.originHeight = img.originHeight;
@@ -902,7 +902,7 @@ const imageCtrl = {
     copyImgItem: function(e) {
         let _this = this;
 
-        _this.copyImgItemObj = $.extend(true, {}, _this.images[_this.currentImgId]);
+        _this.copyImgItemObj = structuredClone(_this.images[_this.currentImgId]);
 
         let clipboardData = e.originalEvent && e.originalEvent.clipboardData;
 
@@ -937,7 +937,7 @@ const imageCtrl = {
         let left = colIndex == 0 ? 0 : Store.visibledatacolumn[colIndex - 1];
         let top = rowIndex == 0 ? 0 : Store.visibledatarow[rowIndex - 1];
 
-        let img = $.extend(true, {}, _this.copyImgItemObj);
+        let img = structuredClone(_this.copyImgItemObj);
         
         img.default.left = left - img.crop.offsetLeft;
         img.default.top = top - img.crop.offsetTop;
@@ -977,7 +977,7 @@ const imageCtrl = {
     },
     moveChangeSize: function(rc, index, size) {
         let _this = this;
-        let images = $.extend(true, {}, _this.images);
+        let images = structuredClone(_this.images);
 
         if(rc == "row"){
             let row = Store.visibledatarow[index], 
@@ -1108,12 +1108,12 @@ const imageCtrl = {
             Store.jfredo.push({
                 "type": "imageCtrl",
                 "sheetIndex": Store.currentSheetIndex,
-                "images": file.images == null ? null : $.extend(true, {}, file.images),
+                "images": file.images == null ? null : structuredClone(file.images),
                 "curImages": images
             });
         }
 
-        file.images = $.extend(true, {}, images);
+        file.images = structuredClone(images);
     },
 }
 

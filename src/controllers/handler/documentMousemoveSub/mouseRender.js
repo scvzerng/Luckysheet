@@ -75,11 +75,7 @@ import formulaDialogs from '../../../ui/formulaDialogs.js';
                         col_pre = col_location[0],
                         col_index = col_location[2];
 
-                    let last = $.extend(
-                        true,
-                        {},
-                        getLastSelection(),
-                    );
+                    let last = structuredClone(getLastSelection());
 
                     let top = 0,
                         height = 0,
@@ -302,11 +298,7 @@ import formulaDialogs from '../../../ui/formulaDialogs.js';
                         col = Store.visibledatacolumn[col_index],
                         col_pre = 0;
 
-                    let last = $.extend(
-                        true,
-                        {},
-                        getLastSelection(),
-                    );
+                    let last = structuredClone(getLastSelection());
 
                     let top = 0,
                         height = 0,
@@ -362,11 +354,7 @@ import formulaDialogs from '../../../ui/formulaDialogs.js';
                         col_pre = col_location[0],
                         col_index = col_location[2];
 
-                    let last = $.extend(
-                        true,
-                        {},
-                        getLastSelection(),
-                    );
+                    let last = structuredClone(getLastSelection());
 
                     let left = 0,
                         width = 0,

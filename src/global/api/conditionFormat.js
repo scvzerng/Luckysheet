@@ -178,7 +178,7 @@ export function setRangeConditionalFormatDefault(conditionName, conditionValue, 
     };
 
     //保存之前的规则
-    let fileH = $.extend(true, [], Store.luckysheetfile);
+    let fileH = structuredClone(Store.luckysheetfile);
     let historyRules = conditionformat.getHistoryRules(fileH);
 
     //保存当前的规则
@@ -186,7 +186,7 @@ export function setRangeConditionalFormatDefault(conditionName, conditionValue, 
     ruleArr.push(rule);
     file["luckysheet_conditionformat_save"] = ruleArr;
 
-    let fileC = $.extend(true, [], Store.luckysheetfile);
+    let fileC = structuredClone(Store.luckysheetfile);
     let currentRules = conditionformat.getCurrentRules(fileC);
 
     //刷新一次表格
@@ -434,7 +434,7 @@ export function setRangeConditionalFormat(type, options = {}) {
     };
 
     //保存之前的规则
-    let fileH = $.extend(true, [], Store.luckysheetfile);
+    let fileH = structuredClone(Store.luckysheetfile);
     let historyRules = conditionformat.getHistoryRules(fileH);
 
     //保存当前的规则
@@ -442,7 +442,7 @@ export function setRangeConditionalFormat(type, options = {}) {
     ruleArr.push(rule);
     file["luckysheet_conditionformat_save"] = ruleArr;
 
-    let fileC = $.extend(true, [], Store.luckysheetfile);
+    let fileC = structuredClone(Store.luckysheetfile);
     let currentRules = conditionformat.getCurrentRules(fileC);
 
     //刷新一次表格
@@ -471,7 +471,7 @@ export function deleteRangeConditionalFormat(itemIndex, options = {}) {
         return tooltip.info('The order parameter is invalid.', '');
     }
 
-    let cdformat = $.extend(true, [], file.luckysheet_conditionformat_save);
+    let cdformat = structuredClone(file.luckysheet_conditionformat_save);
 
     if(cdformat.length == 0){
         return tooltip.info('This worksheet has no conditional format to delete', '');
@@ -483,13 +483,13 @@ export function deleteRangeConditionalFormat(itemIndex, options = {}) {
     let cdformatItem = cdformat.splice(itemIndex, 1);
 
     //保存之前的规则
-    let fileH = $.extend(true, [], Store.luckysheetfile);
+    let fileH = structuredClone(Store.luckysheetfile);
     let historyRules = conditionformat.getHistoryRules(fileH);
 
     //保存当前的规则
     file["luckysheet_conditionformat_save"] = cdformat;
 
-    let fileC = $.extend(true, [], Store.luckysheetfile);
+    let fileC = structuredClone(Store.luckysheetfile);
     let currentRules = conditionformat.getCurrentRules(fileC);
 
     //刷新一次表格

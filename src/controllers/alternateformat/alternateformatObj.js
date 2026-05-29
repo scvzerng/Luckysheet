@@ -373,13 +373,13 @@ const alternateformat = {
 
             let format, file;
             if(index < len){
-                format = $.extend(true, {}, _this.getFormatByIndex());
+                format = structuredClone(_this.getFormatByIndex());
             }
             else{
                 file = getCurrentFile();
                 let modelCustom = file["luckysheet_alternateformat_save_modelCustom"];
 
-                format = $.extend(true, {}, modelCustom[index - len]);
+                format = structuredClone(modelCustom[index - len]);
             }
 
             if(source == "0"){
@@ -439,7 +439,7 @@ const alternateformat = {
             let ruleArr = file["luckysheet_alternateformat_save"];
 
             //保存之前的规则
-            let historyRules = $.extend(true, [], ruleArr);
+            let historyRules = structuredClone(ruleArr);
 
             //保存当前的规则
             if(ruleArr.length > 1){
@@ -449,7 +449,7 @@ const alternateformat = {
                 ruleArr = [];
             }
 
-            let currentRules = $.extend(true, [], ruleArr);
+            let currentRules = structuredClone(ruleArr);
             
             //刷新一次表格
             _this.ref(historyRules, currentRules);
@@ -464,10 +464,10 @@ const alternateformat = {
     perfect: function(){
         let _this = this;
 
-        let range = $.extend(true, {}, Store.luckysheet_select_save[0]);
+        let range = structuredClone(Store.luckysheet_select_save[0]);
         let existsIndex = _this.rangeIsExists(range)[1];
         
-        let obj = $.extend(true, {}, getCurrentFile()["luckysheet_alternateformat_save"][existsIndex]);
+        let obj = structuredClone(getCurrentFile()["luckysheet_alternateformat_save"][existsIndex]);
         
         //应用范围
         let cellrange = obj["cellrange"];
@@ -691,7 +691,7 @@ const alternateformat = {
         let existsIndex = null;
 
         //获取已有交替颜色所有应用范围
-        let AFarr = $.extend(true, [], getCurrentFile()["luckysheet_alternateformat_save"]);
+        let AFarr = structuredClone(getCurrentFile()["luckysheet_alternateformat_save"]);
 
         if(index != undefined && index != null){
             if(AFarr.length > 1){
@@ -818,7 +818,7 @@ const alternateformat = {
         }
 
         //保存之前的规则
-        let historyRules = $.extend(true, [], ruleArr);
+        let historyRules = structuredClone(ruleArr);
         
         //保存当前的规则
         let obj = {
@@ -833,7 +833,7 @@ const alternateformat = {
 
         ruleArr.push(obj);
 
-        let currentRules = $.extend(true, [], ruleArr);
+        let currentRules = structuredClone(ruleArr);
         
         //刷新一次表格
         _this.ref(historyRules, currentRules);
@@ -901,7 +901,7 @@ const alternateformat = {
         }
         
         //保存之前的规则
-        let historyRules = $.extend(true, [], ruleArr);
+        let historyRules = structuredClone(ruleArr);
         
         //保存当前的规则
         let obj = {
@@ -916,7 +916,7 @@ const alternateformat = {
         
         ruleArr[dataIndex] = obj;
 
-        let currentRules = $.extend(true, [], ruleArr);
+        let currentRules = structuredClone(ruleArr);
         
         //刷新一次表格
         _this.ref(historyRules, currentRules);

@@ -56,15 +56,15 @@ function jfrefreshgrid(data, range, allParam, isRunExecFunction = true, isRefres
 
         let curConfig;
         if(cfg == null){
-            curConfig = $.extend(true, {}, Store.config);
+            curConfig = structuredClone(Store.config);
         }
         else{
-            curConfig = $.extend(true, {}, cfg);
+            curConfig = structuredClone(cfg);
         }
 
         let curCdformat;
         if(cdformat == null){
-            curCdformat = $.extend(true, [], file["luckysheet_conditionformat_save"]);
+            curCdformat = structuredClone(file["luckysheet_conditionformat_save"]);
         }
         else{
             curCdformat = cdformat;
@@ -72,7 +72,7 @@ function jfrefreshgrid(data, range, allParam, isRunExecFunction = true, isRefres
 
         let curDynamicArray;
         if(dynamicArray == null){
-            curDynamicArray = $.extend(true, [], file["dynamicArray"]);
+            curDynamicArray = structuredClone(file["dynamicArray"]);
         }
         else{
             curDynamicArray = dynamicArray;
@@ -83,16 +83,16 @@ function jfrefreshgrid(data, range, allParam, isRunExecFunction = true, isRefres
             "data": Store.flowdata, 
             "curdata": data,
             "sheetIndex": Store.currentSheetIndex, 
-            "config": $.extend(true, {}, Store.config), 
+            "config": structuredClone(Store.config), 
             "curConfig": curConfig,
-            "calc": $.extend(true, [], file.calcChain),
+            "calc": structuredClone(file.calcChain),
             "curCalc": calc,
-            "cdformat":  $.extend(true, [], file["luckysheet_conditionformat_save"]),
+            "cdformat":  structuredClone(file["luckysheet_conditionformat_save"]),
             "curCdformat": curCdformat,
             "RowlChange": RowlChange,
-            "dynamicArray": $.extend(true, [], file["dynamicArray"]),
+            "dynamicArray": structuredClone(file["dynamicArray"]),
             "curDynamicArray": curDynamicArray,
-            "hyperlink": hyperlink && $.extend(true, {}, file.hyperlink),
+            "hyperlink": hyperlink && structuredClone(file.hyperlink),
             "curHyperlink": hyperlink,
             "range": range,
             "dataRange": [...file.luckysheet_select_save]// 保留操作时的选区
@@ -164,10 +164,10 @@ function jfrefreshgridall(colwidth, rowheight, data, cfg, range, ctrlType, ctrlV
     clearRefreshCanvasTimeOut();
     if (ctrlType == "cellRowChange") {
         redo["type"] = "cellRowChange";
-        redo["config"] = $.extend(true, {}, Store.config);
-        redo["curconfig"] = $.extend(true, {}, cfg);
+        redo["config"] = structuredClone(Store.config);
+        redo["curconfig"] = structuredClone(cfg);
 
-        redo["range"] = $.extend(true, [], Store.luckysheet_select_save);
+        redo["range"] = structuredClone(Store.luckysheet_select_save);
         redo["currange"] = range;
 
         redo["ctrlType"] = ctrlType;
@@ -182,10 +182,10 @@ function jfrefreshgridall(colwidth, rowheight, data, cfg, range, ctrlType, ctrlV
     }
     else if (ctrlType == "resizeC") {
         redo["type"] = "resize";
-        redo["config"] = $.extend(true, {}, Store.config);
-        redo["curconfig"] = $.extend(true, {}, cfg);
+        redo["config"] = structuredClone(Store.config);
+        redo["curconfig"] = structuredClone(cfg);
 
-        redo["range"] = $.extend(true, [], Store.luckysheet_select_save);
+        redo["range"] = structuredClone(Store.luckysheet_select_save);
         redo["currange"] = range;
 
         redo["ctrlType"] = ctrlType;
@@ -200,10 +200,10 @@ function jfrefreshgridall(colwidth, rowheight, data, cfg, range, ctrlType, ctrlV
     }
     else if (ctrlType.indexOf("extend")>-1) {
         redo["type"] = "extend";
-        redo["config"] = $.extend(true, {}, Store.config);
-        redo["curconfig"] = $.extend(true, {}, cfg);
+        redo["config"] = structuredClone(Store.config);
+        redo["curconfig"] = structuredClone(cfg);
 
-        redo["range"] = $.extend(true, [], Store.luckysheet_select_save);
+        redo["range"] = structuredClone(Store.luckysheet_select_save);
         redo["currange"] = range;
 
         redo["ctrlType"] = ctrlType;
@@ -212,10 +212,10 @@ function jfrefreshgridall(colwidth, rowheight, data, cfg, range, ctrlType, ctrlV
     }
     else if (ctrlType.indexOf("dele")>-1) {
         redo["type"] = "dele";
-        redo["config"] = $.extend(true, {}, Store.config);
-        redo["curconfig"] = $.extend(true, {}, cfg);
+        redo["config"] = structuredClone(Store.config);
+        redo["curconfig"] = structuredClone(cfg);
 
-        redo["range"] = $.extend(true, [], Store.luckysheet_select_save);
+        redo["range"] = structuredClone(Store.luckysheet_select_save);
         redo["currange"] = range;
 
         redo["ctrlType"] = ctrlType;
@@ -225,7 +225,7 @@ function jfrefreshgridall(colwidth, rowheight, data, cfg, range, ctrlType, ctrlV
     else {
         redo["type"] = "datachangeAll";
 
-        redo["range"] = $.extend(true, [], Store.luckysheet_select_save);
+        redo["range"] = structuredClone(Store.luckysheet_select_save);
         redo["currange"] = range;
 
         redo["ctrlType"] = ctrlType;
@@ -240,7 +240,7 @@ function jfrefreshgridall(colwidth, rowheight, data, cfg, range, ctrlType, ctrlV
         redo["data"] = Store.flowdata;
         redo["curdata"] = data;
         redo["sheetIndex"] = Store.currentSheetIndex;
-        redo["cdformat"] = $.extend(true, [], getCurrentFile()["luckysheet_conditionformat_save"]);
+        redo["cdformat"] = structuredClone(getCurrentFile()["luckysheet_conditionformat_save"]);
         redo["curCdformat"] = cdformat;
 
         Store.jfredo.push(redo);
@@ -265,7 +265,7 @@ function jfrefreshgridall(colwidth, rowheight, data, cfg, range, ctrlType, ctrlV
     }
 
     //选区
-    Store.luckysheet_select_save = $.extend(true, [], range);
+    Store.luckysheet_select_save = structuredClone(range);
     if(Store.luckysheet_select_save.length > 0){
         //有选区时，刷新一下选区
         selectHightlightShow();
@@ -304,7 +304,7 @@ function jfrefreshrange(data, range, cdformat) {
             "curdata": data,
             "range": range, 
             "sheetIndex": Store.currentSheetIndex,
-            "cdformat":  $.extend(true, [],  getCurrentFile()["luckysheet_conditionformat_save"]),
+            "cdformat":  structuredClone(getCurrentFile()["luckysheet_conditionformat_save"]),
             "curCdformat": cdformat 
         });
     }

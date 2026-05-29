@@ -1,4 +1,4 @@
-import { onNS, offNS } from '../../utils/migrationHelpers.js';
+import { deepMerge, onNS, offNS } from '../../utils/migrationHelpers.js';
 import {  isRealNull } from '../../global/validate';
 import Store from '../../store';
 import menuButton from '../menuButton';
@@ -301,12 +301,12 @@ export function filterColorEvents() {
 
         let optionstate = Object.keys(rowhidden).length > 0;
 
-        let rowhiddenall = $.extend(true, rowhiddenother, rowhidden), 
+        let rowhiddenall = deepMerge(rowhiddenother, rowhidden), 
             rowhidenPre = json.parseJsonParm($top.data("rowhidden"));
 
         labelFilterOptionState($top, optionstate, rowhidden, caljs, true, st_r, ed_r, cindex, st_c, ed_c);
 
-        let cfg = $.extend(true, {}, Store.config);
+        let cfg = structuredClone(Store.config);
         cfg["rowhidden"] = rowhiddenall;
 
         //保存撤销
@@ -315,14 +315,14 @@ export function filterColorEvents() {
             redo["type"] = "datachangeAll_filter";
             redo["sheetIndex"] = Store.currentSheetIndex;
 
-            redo["config"] = $.extend(true, {}, Store.config);
+            redo["config"] = structuredClone(Store.config);
             redo["curconfig"] = cfg;
 
             redo["optionstate"] = optionstate;
             redo["optionsindex"] = cindex - st_c;
 
-            redo["rowhidden"] = $.extend(true, {}, rowhidden);
-            redo["rowhidenPre"] = $.extend(true, {}, rowhidenPre);
+            redo["rowhidden"] = structuredClone(rowhidden);
+            redo["rowhidenPre"] = structuredClone(rowhidenPre);
 
             if (caljs != null) {
                 redo["caljs"] = caljs;

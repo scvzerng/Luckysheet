@@ -293,7 +293,7 @@ export function getWorkbookName(options = {}) {
 }
 
 export function undo(options = {}) {
-    let ctr = $.extend(true, {}, Store.jfredo[Store.jfredo.length - 1]);
+    let ctr = structuredClone(Store.jfredo[Store.jfredo.length - 1]);
 
     controlHistory.redo(new Event('custom'));
     luckysheetactiveCell();
@@ -312,7 +312,7 @@ export function undo(options = {}) {
 }
 
 export function redo(options = {}) {
-    let ctr = $.extend(true, {}, Store.jfundo[Store.jfundo.length - 1]);
+    let ctr = structuredClone(Store.jfundo[Store.jfundo.length - 1]);
 
     controlHistory.undo(new Event('custom'));
     luckysheetactiveCell();
@@ -331,7 +331,7 @@ export function redo(options = {}) {
 }
 
 export function getAllSheets() {
-    let data = $.extend(true, [], Store.luckysheetfile);
+    let data = structuredClone(Store.luckysheetfile);
 
     data.forEach((item, index, arr) => {
         if(item.data != null && item.data.length > 0){
@@ -376,10 +376,10 @@ export function getSheetData(options = {}) {
         return tooltip.info("The order parameter is invalid.", "");
     }
 
-    let data = $.extend(true, [], file.data);
+    let data = structuredClone(file.data);
 
     if(data == null || data.length == 0){
-        data = $.extend(true, [], sheetmanage.buildGridData(file));
+        data = structuredClone(sheetmanage.buildGridData(file));
     }
 
     return data;
@@ -396,7 +396,7 @@ export function getConfig(options = {}) {
         return tooltip.info("The order parameter is invalid.", "");
     }
 
-    let config = $.extend(true, {}, file.config);
+    let config = structuredClone(file.config);
 
     return config;
 }

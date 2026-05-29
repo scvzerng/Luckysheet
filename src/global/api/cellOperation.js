@@ -82,7 +82,7 @@ export function setCellValue(row, column, value, options = {}) {
 
     let data = file.data;
     if(isRefresh) {
-      data = $.extend(true, [], file.data);
+      data = structuredClone(file.data);
     }
     if(data.length == 0){
         data = sheetmanage.buildGridData(file);
@@ -213,7 +213,7 @@ export function clearCell(row, column, options = {}) {
         success
     } = {...options}
 
-    let targetSheetData = $.extend(true, [], Store.luckysheetfile[order].data);
+    let targetSheetData = structuredClone(Store.luckysheetfile[order].data);
     let cell = targetSheetData[row][column];
 
     if(getObjType(cell) == "object"){
@@ -300,13 +300,13 @@ export function setCellFormat(row, column, attr, value, options = {}) {
         return tooltip.info("The order parameter is invalid.", "");
     }
 
-    let targetSheetData = $.extend(true, [], file.data);
+    let targetSheetData = structuredClone(file.data);
     if(targetSheetData.length == 0){
         targetSheetData = sheetmanage.buildGridData(file);
     }
 
     let cellData = targetSheetData[row][column] || {};
-    let cfg = $.extend(true, {}, file.config);
+    let cfg = structuredClone(file.config);
 
     // 特殊格式
     if (attr == 'ct' && (!value || !value.hasOwnProperty('fa') || !value.hasOwnProperty('t'))) {

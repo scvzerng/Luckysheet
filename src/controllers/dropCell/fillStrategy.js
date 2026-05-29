@@ -7,7 +7,7 @@ const fillStrategyModule = {
     let applyData = [];
     for (let i = 1; i <= len; i++) {
       let index = (i - 1) % data.length;
-      let d = $.extend(true, {}, data[index]);
+      let d = structuredClone(data[index]);
       applyData.push(d);
     }
     return applyData;
@@ -23,7 +23,7 @@ const fillStrategyModule = {
       //等比数列
       for (let i = 1; i <= len; i++) {
         let index = (i - 1) % data.length;
-        let d = $.extend(true, {}, data[index]);
+        let d = structuredClone(data[index]);
         let num;
         if (direction == "down" || direction == "right") {
           num = Number(data[data.length - 1]["v"]) * Math.pow(Number(data[1]["v"]) / Number(data[0]["v"]), i);
@@ -39,7 +39,7 @@ const fillStrategyModule = {
       let xArr = _this.getXArr(data.length);
       for (let i = 1; i <= len; i++) {
         let index = (i - 1) % data.length;
-        let d = $.extend(true, {}, data[index]);
+        let d = structuredClone(data[index]);
         let y;
         if (direction == "down" || direction == "right") {
           y = _this.forecast(data.length + i, dataNumArr, xArr);
@@ -59,7 +59,7 @@ const fillStrategyModule = {
     let reg = /0|([1-9]+[0-9]*)/g;
     for (let i = 1; i <= len; i++) {
       let index = (i - 1) % data.length;
-      let d = $.extend(true, {}, data[index]);
+      let d = structuredClone(data[index]);
       let last = data[data.length - 1]["m"];
       let match = last.match(reg);
       let lastTxt = match[match.length - 1];
@@ -76,7 +76,7 @@ const fillStrategyModule = {
     let applyData = [];
     for (let i = 1; i <= len; i++) {
       let index = (i - 1) % data.length;
-      let d = $.extend(true, {}, data[index]);
+      let d = structuredClone(data[index]);
       delete d["f"];
       delete d["m"];
       delete d["v"];
@@ -87,7 +87,7 @@ const fillStrategyModule = {
   FillWithoutFormat: function (dataArr) {
     let applyData = [];
     for (let i = 0; i < dataArr.length; i++) {
-      let d = $.extend(true, {}, dataArr[i]);
+      let d = structuredClone(dataArr[i]);
       let obj;
       if (d["f"] == null) {
         obj = {
@@ -109,7 +109,7 @@ const fillStrategyModule = {
     let applyData = [];
     for (let i = 1; i <= len; i++) {
       let index = (i - 1) % data.length;
-      let d = $.extend(true, {}, data[index]);
+      let d = structuredClone(data[index]);
       let date = update("yyyy-MM-dd", d["v"]);
       date = dayjs(date).add(step * i, "days").format("YYYY-MM-DD");
       d["v"] = genarate(date)[2];
@@ -122,7 +122,7 @@ const fillStrategyModule = {
     let applyData = [];
     for (let i = 1; i <= len; i++) {
       let index = (i - 1) % data.length;
-      let d = $.extend(true, {}, data[index]);
+      let d = structuredClone(data[index]);
       let date = update("yyyy-MM-dd", d["v"]);
       date = dayjs(date).add(step * i, "months").format("YYYY-MM-DD");
       d["v"] = genarate(date)[2];
@@ -135,7 +135,7 @@ const fillStrategyModule = {
     let applyData = [];
     for (let i = 1; i <= len; i++) {
       let index = (i - 1) % data.length;
-      let d = $.extend(true, {}, data[index]);
+      let d = structuredClone(data[index]);
       let date = update("yyyy-MM-dd", d["v"]);
       date = dayjs(date).add(step * i, "years").format("YYYY-MM-DD");
       d["v"] = genarate(date)[2];
@@ -149,7 +149,7 @@ const fillStrategyModule = {
     let applyData = [];
     for (let i = 1; i <= len; i++) {
       let index = (i - 1) % data.length;
-      let d = $.extend(true, {}, data[index]);
+      let d = structuredClone(data[index]);
       let num;
       if (data[data.length - 1]["m"] == "日") {
         num = 7 + step * i;
@@ -191,7 +191,7 @@ const fillStrategyModule = {
     let applyData = [];
     for (let i = 1; i <= len; i++) {
       let index = (i - 1) % data.length;
-      let d = $.extend(true, {}, data[index]);
+      let d = structuredClone(data[index]);
       let num;
       if (data[data.length - 1]["m"] == "周日") {
         num = 7 + step * i;
@@ -235,7 +235,7 @@ const fillStrategyModule = {
     let applyData = [];
     for (let i = 1; i <= len; i++) {
       let index = (i - 1) % data.length;
-      let d = $.extend(true, {}, data[index]);
+      let d = structuredClone(data[index]);
       let num;
       if (data[data.length - 1]["m"] == "星期日") {
         num = 7 + step * i;
@@ -279,7 +279,7 @@ const fillStrategyModule = {
     let applyData = [];
     for (let i = 1; i <= len; i++) {
       let index = (i - 1) % data.length;
-      let d = $.extend(true, {}, data[index]);
+      let d = structuredClone(data[index]);
       let num = _this.ChineseToNumber(data[data.length - 1]["m"]) + step * i,
         txt;
       if (num <= 0) {

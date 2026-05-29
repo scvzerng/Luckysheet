@@ -17,7 +17,7 @@ const clipboardCutPasteModule = {
     }
     const _locale = locale();
     const locale_paste = _locale.paste;
-    let cfg = $.extend(true, {}, Store.config);
+    let cfg = structuredClone(Store.config);
     if (cfg["merge"] == null) {
       cfg["merge"] = {};
     }
@@ -30,7 +30,7 @@ const clipboardCutPasteModule = {
       c_r2 = copyRange["copyRange"][0].row[1],
       c_c1 = copyRange["copyRange"][0].column[0],
       c_c2 = copyRange["copyRange"][0].column[1];
-    let copyData = $.extend(true, [], getdatabyselection({
+    let copyData = structuredClone(getdatabyselection({
       row: [c_r1, c_r2],
       column: [c_c1, c_c2]
     }, copySheetIndex));
@@ -160,7 +160,7 @@ const clipboardCutPasteModule = {
         if (copyData[h - minh] != null && copyData[h - minh][c - minc] != null) {
           value = copyData[h - minh][c - minc];
         }
-        x[c] = $.extend(true, {}, value);
+        x[c] = structuredClone(value);
         if (value != null && copyHasMC && "mc" in x[c]) {
           if (x[c]["mc"].rs != null) {
             x[c]["mc"].r = h;
@@ -195,10 +195,10 @@ const clipboardCutPasteModule = {
     if (Store.currentSheetIndex != copySheetIndex) {
       //跨表操作
       let copyFile = getFileBySheetIndex(copySheetIndex);
-      let sourceData = $.extend(true, [], copyFile["data"]);
-      let sourceConfig = $.extend(true, {}, copyFile["config"]);
-      let sourceCurData = $.extend(true, [], sourceData);
-      let sourceCurConfig = $.extend(true, {}, sourceConfig);
+      let sourceData = structuredClone(copyFile["data"]);
+      let sourceConfig = structuredClone(copyFile["config"]);
+      let sourceCurData = structuredClone(sourceData);
+      let sourceCurConfig = structuredClone(sourceConfig);
       if (sourceCurConfig["merge"] == null) {
         sourceCurConfig["merge"] = {};
       }
@@ -249,8 +249,8 @@ const clipboardCutPasteModule = {
       }
 
       //条件格式
-      let source_cdformat = $.extend(true, [], copyFile["luckysheet_conditionformat_save"]);
-      let source_curCdformat = $.extend(true, [], source_cdformat);
+      let source_cdformat = structuredClone(copyFile["luckysheet_conditionformat_save"]);
+      let source_curCdformat = structuredClone(source_cdformat);
       let ruleArr = [];
       if (source_curCdformat != null && source_curCdformat.length > 0) {
         for (let i = 0; i < source_curCdformat.length; i++) {
@@ -279,14 +279,14 @@ const clipboardCutPasteModule = {
           }
           source_curCdformat[i].cellrange = emptyRange;
           if (emptyRange2.length > 0) {
-            let ruleObj = $.extend(true, {}, source_curCdformat[i]);
+            let ruleObj = structuredClone(source_curCdformat[i]);
             ruleObj.cellrange = emptyRange2;
             ruleArr.push(ruleObj);
           }
         }
       }
-      let target_cdformat = $.extend(true, [], getCurrentFile()["luckysheet_conditionformat_save"]);
-      let target_curCdformat = $.extend(true, [], target_cdformat);
+      let target_cdformat = structuredClone(getCurrentFile()["luckysheet_conditionformat_save"]);
+      let target_curCdformat = structuredClone(target_cdformat);
       if (ruleArr.length > 0) {
         target_curCdformat = target_curCdformat.concat(ruleArr);
       }
@@ -307,7 +307,7 @@ const clipboardCutPasteModule = {
         sheetIndex: Store.currentSheetIndex,
         data: Store.flowdata,
         curData: d,
-        config: $.extend(true, {}, Store.config),
+        config: structuredClone(Store.config),
         curConfig: cfg,
         cdformat: target_cdformat,
         curCdformat: target_curCdformat,
@@ -318,8 +318,8 @@ const clipboardCutPasteModule = {
       };
     } else {
       //条件格式
-      let cdformat = $.extend(true, [], getCurrentFile()["luckysheet_conditionformat_save"]);
-      let curCdformat = $.extend(true, [], cdformat);
+      let cdformat = structuredClone(getCurrentFile()["luckysheet_conditionformat_save"]);
+      let curCdformat = structuredClone(cdformat);
       if (curCdformat != null && curCdformat.length > 0) {
         for (let i = 0; i < curCdformat.length; i++) {
           let cellrange = curCdformat[i].cellrange;
@@ -343,7 +343,7 @@ const clipboardCutPasteModule = {
         sheetIndex: Store.currentSheetIndex,
         data: Store.flowdata,
         curData: d,
-        config: $.extend(true, {}, Store.config),
+        config: structuredClone(Store.config),
         curConfig: cfg,
         cdformat: cdformat,
         curCdformat: curCdformat,
@@ -356,7 +356,7 @@ const clipboardCutPasteModule = {
         sheetIndex: Store.currentSheetIndex,
         data: Store.flowdata,
         curData: d,
-        config: $.extend(true, {}, Store.config),
+        config: structuredClone(Store.config),
         curConfig: cfg,
         cdformat: cdformat,
         curCdformat: curCdformat,

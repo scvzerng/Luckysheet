@@ -180,7 +180,7 @@ const ruleManagerModule = {
     let index = getSheetIndex(Store.currentSheetIndex);
 
     //保存之前的规则
-    let fileH = $.extend(true, [], Store.luckysheetfile);
+    let fileH = structuredClone(Store.luckysheetfile);
     let historyRules = _this.getHistoryRules(fileH);
 
     //保存当前的规则
@@ -197,7 +197,7 @@ const ruleManagerModule = {
       ruleArr.push(rule);
     }
     Store.luckysheetfile[index]["luckysheet_conditionformat_save"] = ruleArr;
-    let fileC = $.extend(true, [], Store.luckysheetfile);
+    let fileC = structuredClone(Store.luckysheetfile);
     let currentRules = _this.getCurrentRules(fileC);
 
     //刷新一次表格

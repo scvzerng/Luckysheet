@@ -119,7 +119,7 @@ const cellRange = {
         //获取二维数组：qksheet格式[[{v,m,ct}] ==> [1],
 
         getRangeArrayTwo: function(range) {
-            let data = $.extend(true, [], range);
+            let data = structuredClone(range);
 
             if (data.length == 1) {
                 //一行

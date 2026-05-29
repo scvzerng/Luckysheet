@@ -1,4 +1,4 @@
-﻿﻿import { onNS, offNS } from '../utils/migrationHelpers.js';
+﻿﻿import { onNS, offNS, deepMerge } from '../utils/migrationHelpers.js';
 import {  luckysheetlodingHTML } from '../controllers/constant';
 import sheetmanage from '../controllers/sheetmanage';
 import luckysheetformula from './formula';
@@ -282,7 +282,7 @@ const method = {
         gridWindow.append(luckysheetlodingHTML());
 
         let arg = {"gridKey" : luckysheetConfigsetting.gridKey, "index": index};
-        param = $.extend(true, param, arg);
+        param = deepMerge(param, arg);
         let file = getFileBySheetIndex(index);
 
         $.post(url, param, function (d) {
@@ -378,28 +378,28 @@ const method = {
         luckysheetFreezen.initialHorizontal = true;
         luckysheetFreezen.initialVertical = true;
 
-        let defaultStore = $.extend(true, {}, defaultConfig.defaultStore);
+        let defaultStore = structuredClone(defaultConfig.defaultStore);
         for(let key in defaultStore){
             if(key in Store){
                 Store[key] = defaultStore[key];
             }
         }
 
-        let defaultFormula = $.extend(true, {}, defaultConfig.defaultFormula);
+        let defaultFormula = structuredClone(defaultConfig.defaultFormula);
         for(let key in defaultFormula){
             if(key in luckysheetformula){
                 luckysheetformula[key] = defaultFormula[key];
             }
         }
 
-        let defaultSheet = $.extend(true, {}, defaultConfig.defaultSheet);
+        let defaultSheet = structuredClone(defaultConfig.defaultSheet);
         for(let key in defaultSheet){
             if(key in sheetmanage){
                 sheetmanage[key] = defaultSheet[key];
             }
         }
 
-        let defaultImage = $.extend(true, {}, defaultConfig.defaultImage);
+        let defaultImage = structuredClone(defaultConfig.defaultImage);
         for(let key in defaultImage){
             if(key in imageCtrl){
                 imageCtrl[key] = defaultImage[key];

@@ -62,7 +62,7 @@ export function setRangeFilter(type, options = {}) {
         };
     }
     else if(type == 'close'){
-        let luckysheet_filter_save = $.extend(true, {}, file.filter_select);
+        let luckysheet_filter_save = structuredClone(file.filter_select);
 
         file.filter_select = null;
 
@@ -91,11 +91,11 @@ export function setRangeMerge(type, options = {}) {
     } = {...options}
 
     let file = Store.luckysheetfile[order],
-        cfg = $.extend(true, {}, file.config),
-        data = $.extend(true, [], file.data);
+        cfg = structuredClone(file.config),
+        data = structuredClone(file.data);
 
     if(data.length == 0){
-        data = $.extend(true, [], sheetmanage.buildGridData(file));
+        data = structuredClone(sheetmanage.buildGridData(file));
     }
 
     if(getObjType(range) == 'string'){
@@ -199,7 +199,7 @@ export function setRangeMerge(type, options = {}) {
                         let cell = data[r][c];
 
                         if(cell != null && (!isRealNull(cell.v) || cell.f != null) && !isfirst){
-                            fv = $.extend(true, {}, cell);
+                            fv = structuredClone(cell);
                             isfirst = true;
                         }
 
@@ -220,7 +220,7 @@ export function setRangeMerge(type, options = {}) {
                         let cell = data[r][c];
 
                         if(cell != null && (!isRealNull(cell.v) || cell.f != null) && !isfirst){
-                            fv = $.extend(true, {}, cell);
+                            fv = structuredClone(cell);
                             isfirst = true;
                         }
 
@@ -241,7 +241,7 @@ export function setRangeMerge(type, options = {}) {
                         let cell = data[r][c];
 
                         if(cell != null && (!isRealNull(cell.v) || cell.f != null) && !isfirst){
-                            fv = $.extend(true, {}, cell);
+                            fv = structuredClone(cell);
                             isfirst = true;
                         }
 
@@ -262,10 +262,10 @@ export function setRangeMerge(type, options = {}) {
                 Store.jfredo.push({
                     "type": "mergeChange",
                     "sheetIndex": file.index,
-                    "data": $.extend(true, [], file.data),
+                    "data": structuredClone(file.data),
                     "curData": data,
                     "range": range,
-                    "config": $.extend(true, {}, file.config),
+                    "config": structuredClone(file.config),
                     "curConfig": cfg
                 });
             }
@@ -295,11 +295,11 @@ export function cancelRangeMerge(options = {}) {
     } = {...options}
 
     let file = Store.luckysheetfile[order],
-        cfg = $.extend(true, {}, file.config),
-        data = $.extend(true, [], file.data);
+        cfg = structuredClone(file.config),
+        data = structuredClone(file.data);
 
     if(data.length == 0){
-        data = $.extend(true, [], sheetmanage.buildGridData(file));
+        data = structuredClone(sheetmanage.buildGridData(file));
     }
 
     if(getObjType(range) == 'string'){
@@ -374,7 +374,7 @@ export function cancelRangeMerge(options = {}) {
                         delete cell.mc;
                         delete cfg["merge"][mc_r + "_" + mc_c];
 
-                        fv[mc_r + "_" + mc_c] = $.extend(true, {}, cell);
+                        fv[mc_r + "_" + mc_c] = structuredClone(cell);
                     }
                     else{
                         // let cell_clone = fv[mc_r + "_" + mc_c];
@@ -398,10 +398,10 @@ export function cancelRangeMerge(options = {}) {
             Store.jfredo.push({
                 "type": "mergeChange",
                 "sheetIndex": file.index,
-                "data": $.extend(true, [], file.data),
+                "data": structuredClone(file.data),
                 "curData": data,
                 "range": range,
-                "config": $.extend(true, {}, file.config),
+                "config": structuredClone(file.config),
                 "curConfig": cfg
             });
         }
@@ -431,11 +431,11 @@ export function setRangeSort(type, options = {}) {
     } = {...options}
 
     let file = Store.luckysheetfile[order],
-        cfg = $.extend(true, {}, file.config),
-        fileData = $.extend(true, [], file.data);
+        cfg = structuredClone(file.config),
+        fileData = structuredClone(file.data);
 
     if(fileData.length == 0){
-        fileData = $.extend(true, [], sheetmanage.buildGridData(file));
+        fileData = structuredClone(sheetmanage.buildGridData(file));
     }
 
     if(range instanceof Array && range.length > 1){
@@ -516,11 +516,11 @@ export function setRangeSortMulti(hasTitle, sort, options = {}) {
     } = {...options}
 
     let file = Store.luckysheetfile[order],
-        cfg = $.extend(true, {}, file.config),
-        fileData = $.extend(true, [], file.data);
+        cfg = structuredClone(file.config),
+        fileData = structuredClone(file.data);
 
     if(fileData.length == 0){
-        fileData = $.extend(true, [], sheetmanage.buildGridData(file));
+        fileData = structuredClone(sheetmanage.buildGridData(file));
     }
 
     if(range instanceof Array && range.length > 1){
@@ -638,7 +638,7 @@ export function clearRange(options = {}) {
         return tooltip.info("The order parameter is invalid.", "");
     }
 
-    let cfg = $.extend(true, {}, file.config);
+    let cfg = structuredClone(file.config);
     let has_PartMC = false;
 
     for(let s = 0; s < range.length; s++){
@@ -658,10 +658,10 @@ export function clearRange(options = {}) {
         return tooltip.info('Cannot perform this operation on partially merged cells', '');
     }
 
-    let d = $.extend(true, [], file.data);
+    let d = structuredClone(file.data);
 
     if(d.length == 0){
-        d = $.extend(true, [], sheetmanage.buildGridData(file));
+        d = structuredClone(sheetmanage.buildGridData(file));
     }
 
     for(let s = 0; s < range.length; s++){

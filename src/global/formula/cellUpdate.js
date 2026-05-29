@@ -150,7 +150,7 @@ const cellUpdate = {
                     if (getObjType(value) == "string" && value.slice(0, 1) == "=" && value.length > 1) {
                         let v = _this.execfunction(value, r, c, undefined, true);
                         isRunExecFunction = false;
-                        curv = $.extend(true, {}, d[r][c]);
+                        curv = structuredClone(d[r][c]);
                         curv.v = v[1];
                         curv.f = v[2];
 
@@ -171,7 +171,7 @@ const cellUpdate = {
                             isRunExecFunction = false;
                             // get v/m/ct
 
-                            curv = $.extend(true, {}, d[r][c]);
+                            curv = structuredClone(d[r][c]);
                             curv.v = v[1];
                             curv.f = v[2];
 
@@ -204,7 +204,7 @@ const cellUpdate = {
                         _this.execFunctionGroup(r, c, value);
                         isRunExecFunction = false;
 
-                        curv = $.extend(true, {}, d[r][c]);
+                        curv = structuredClone(d[r][c]);
                         // let gd = _this.execFunctionGlobalData[r+"_"+c+"_"+Store.currentSheetIndex];
                         // if(gd!=null){
                         //     curv.v = gd.v;
@@ -278,7 +278,7 @@ const cellUpdate = {
             _this.cancelNormalSelected();
 
             let RowlChange = false;
-            let cfg = $.extend(true, {}, getCurrentFile()["config"]);
+            let cfg = structuredClone(getCurrentFile()["config"]);
             if (cfg["rowlen"] == null) {
                 cfg["rowlen"] = {};
             }
@@ -347,7 +347,7 @@ const cellUpdate = {
             let dynamicArray = null;
             if (dynamicArrayItem) {
                 // let file = getCurrentFile();
-                dynamicArray = $.extend(true, [], this.insertUpdateDynamicArray(dynamicArrayItem));
+                dynamicArray = structuredClone(this.insertUpdateDynamicArray(dynamicArrayItem));
                 // dynamicArray.push(dynamicArrayItem);
             }
 

@@ -433,7 +433,7 @@ export function menuToolBarWidth() {
 
     for (let s in toolbarConfig){
         if (Object.prototype.hasOwnProperty.call(toolbarConfig, s)) {
-            toobarElements.push($.extend(true,{},toolbarConfig[s]));
+            toobarElements.push(structuredClone(toolbarConfig[s]));
         }
     }
 

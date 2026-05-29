@@ -17,7 +17,7 @@ import Store from "../../store";
 
 function luckysheetextendData(rowlen, newData) {
   let d = editor.deepCopyFlowData(Store.flowdata);
-  let cfg = $.extend(true, {}, Store.config);
+  let cfg = structuredClone(Store.config);
   if (cfg["merge"] == null) {
     cfg["merge"] = {};
   }
@@ -30,7 +30,7 @@ function luckysheetextendData(rowlen, newData) {
       v = newData[i].v;
     setcellvalue(r, c, d, v);
     if (v != null && v.mc != null && v.mc.rs != null) {
-      cfg["merge"][v.mc.r + "_" + v.mc.c] = $.extend(true, {}, v.mc);
+      cfg["merge"][v.mc.r + "_" + v.mc.c] = structuredClone(v.mc);
     }
   }
 

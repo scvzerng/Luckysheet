@@ -1,3 +1,4 @@
+import { deepMerge } from '../../utils/migrationHelpers.js';
 import {  isRealNull } from '../../global/validate';
 import Store from '../../store';
 import cleargridelement from '../../global/cleargridelement';
@@ -18,11 +19,11 @@ export function filterActions() {
         redo["type"] = "datachangeAll_filter_clear";
         redo["sheetIndex"] = Store.currentSheetIndex;
 
-        redo["config"] = $.extend(true, {}, Store.config);
+        redo["config"] = structuredClone(Store.config);
         Store.config["rowhidden"] = {};
-        redo["curconfig"] = $.extend(true, {}, Store.config);
+        redo["curconfig"] = structuredClone(Store.config);
 
-        redo["filter_save"] = $.extend(true, {}, Store.luckysheet_filter_save);
+        redo["filter_save"] = structuredClone(Store.luckysheet_filter_save);
 
         let optiongroups = [];
         $("#luckysheet-filter-options-sheet" + Store.currentSheetIndex + " .luckysheet-filter-options").each(function () {
@@ -497,12 +498,12 @@ export function filterActions() {
 
         let optionstate = $("#luckysheet-filter-byvalue-select .ListBox input[type='checkbox']:visible:checked").length < $("#luckysheet-filter-byvalue-select .ListBox input[type='checkbox']:visible").length || $("#luckysheet-filter-byvalue-input").val().length > 0 || ($("#luckysheet-filter-bycondition").next().is(":visible") && $("#luckysheet-filter-byvalue").next().is(":hidden") && $("#luckysheet-filter-selected span").data("value") != "null");
 
-        let rowhiddenall = $.extend(true, rowhiddenother, rowhidden), 
+        let rowhiddenall = deepMerge(rowhiddenother, rowhidden), 
             rowhidenPre = json.parseJsonParm($top.data("rowhidden"));
 
         labelFilterOptionState($top, optionstate, rowhidden, caljs, true, st_r, ed_r, cindex, st_c, ed_c);
 
-        let cfg = $.extend(true, {}, Store.config);
+        let cfg = structuredClone(Store.config);
         cfg["rowhidden"] = rowhiddenall;
 
         //保存撤销
@@ -511,14 +512,14 @@ export function filterActions() {
             redo["type"] = "datachangeAll_filter";
             redo["sheetIndex"] = Store.currentSheetIndex;
 
-            redo["config"] = $.extend(true, {}, Store.config);
+            redo["config"] = structuredClone(Store.config);
             redo["curconfig"] = cfg;
 
             redo["optionstate"] = optionstate;
             redo["optionsindex"] = cindex - st_c;
 
-            redo["rowhidden"] = $.extend(true, {}, rowhidden);
-            redo["rowhidenPre"] = $.extend(true, {}, rowhidenPre);
+            redo["rowhidden"] = structuredClone(rowhidden);
+            redo["rowhidenPre"] = structuredClone(rowhidenPre);
 
             if (caljs != null) {
                 redo["caljs"] = caljs;

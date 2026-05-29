@@ -187,7 +187,7 @@ const formatUpdateModule = {
         }
       }
     }
-    let cfg = $.extend(true, {}, Store.config);
+    let cfg = structuredClone(Store.config);
     if (cfg["rowlen"] == null) {
       cfg["rowlen"] = {};
     }
@@ -215,7 +215,7 @@ const formatUpdateModule = {
     if (!checkIsAllowEdit()) {
       return;
     }
-    let cfg = $.extend(true, {}, Store.config);
+    let cfg = structuredClone(Store.config);
     if (cfg["merge"] == null) {
       cfg["merge"] = {};
     }
@@ -239,7 +239,7 @@ const formatUpdateModule = {
               if ("rs" in cell.mc) {
                 delete cell.mc;
                 delete cfg["merge"][mc_r + "_" + mc_c];
-                fv[mc_r + "_" + mc_c] = $.extend(true, {}, cell);
+                fv[mc_r + "_" + mc_c] = structuredClone(cell);
               } else {
                 // let cell_clone = fv[mc_r + "_" + mc_c];
                 let cell_clone = JSON.parse(JSON.stringify(fv[mc_r + "_" + mc_c]));
@@ -293,7 +293,7 @@ const formatUpdateModule = {
                 if ("rs" in cell.mc) {
                   delete cell.mc;
                   delete cfg["merge"][mc_r + "_" + mc_c];
-                  fv[mc_r + "_" + mc_c] = $.extend(true, {}, cell);
+                  fv[mc_r + "_" + mc_c] = structuredClone(cell);
                 } else {
                   // let cell_clone = fv[mc_r + "_" + mc_c];
                   let cell_clone = JSON.parse(JSON.stringify(fv[mc_r + "_" + mc_c]));
@@ -324,7 +324,7 @@ const formatUpdateModule = {
               for (let c = c1; c <= c2; c++) {
                 let cell = d[r][c];
                 if (cell != null && (isInlineStringCT(cell.ct) || !isRealNull(cell.v) || cell.f != null) && !isfirst) {
-                  fv = $.extend(true, {}, cell);
+                  fv = structuredClone(cell);
                   isfirst = true;
                 }
                 d[r][c] = {
@@ -355,7 +355,7 @@ const formatUpdateModule = {
               for (let r = r1; r <= r2; r++) {
                 let cell = d[r][c];
                 if (cell != null && (!isRealNull(cell.v) || cell.f != null) && !isfirst) {
-                  fv = $.extend(true, {}, cell);
+                  fv = structuredClone(cell);
                   isfirst = true;
                 }
                 d[r][c] = {
@@ -386,7 +386,7 @@ const formatUpdateModule = {
               for (let c = c1; c <= c2; c++) {
                 let cell = d[r][c];
                 if (cell != null && (!isRealNull(cell.v) || cell.f != null) && !isfirst) {
-                  fv = $.extend(true, {}, cell);
+                  fv = structuredClone(cell);
                   isfirst = true;
                 }
                 d[r][c] = {
@@ -430,8 +430,8 @@ const formatUpdateModule = {
         sheetIndex: Store.currentSheetIndex,
         data: Store.flowdata,
         curData: d,
-        range: $.extend(true, [], Store.luckysheet_select_save),
-        config: $.extend(true, {}, Store.config),
+        range: structuredClone(Store.luckysheet_select_save),
+        config: structuredClone(Store.config),
         curConfig: cfg,
         calc: file.calcChain,
         curCalc: calc,

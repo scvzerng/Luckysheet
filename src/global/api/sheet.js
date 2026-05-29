@@ -1,3 +1,4 @@
+import { deepMerge } from '../../utils/migrationHelpers.js';
 import imageCtrl from "../../controllers/imageCtrl";
 import { sheetHTML } from "../../controllers/constant";
 import sheetmanage from "../../controllers/sheetmanage";
@@ -68,7 +69,7 @@ export function setSheetAdd(options = {}) {
         "column": Store.defaultcolumnNum,
         "config": {},
     };
-    sheetconfig = $.extend(true, sheetconfig, sheetObject);
+    sheetconfig = deepMerge(sheetconfig, sheetObject);
 
     sheetconfig.index = index;
     sheetconfig.name = sheetname;
@@ -110,7 +111,7 @@ export function setSheetAdd(options = {}) {
         Store.jfundo.length  = 0;
         let redo = {};
         redo["type"] = "addSheet";
-        redo["sheetconfig"] = $.extend(true, {}, sheetconfig);
+        redo["sheetconfig"] = structuredClone(sheetconfig);
         redo["index"] = index;
         redo["currentSheetIndex"] = Store.currentSheetIndex;
         Store.jfredo.push(redo);
@@ -175,7 +176,7 @@ export function setSheetCopy(options = {}) {
     let copyindex = file.index;
     let index = sheetmanage.generateRandomSheetIndex();
 
-    let copyjson = $.extend(true, {}, file);
+    let copyjson = structuredClone(file);
     copyjson.order = Store.luckysheetfile.length;
     copyjson.index = index;
     copyjson.name = sheetmanage.generateCopySheetName(Store.luckysheetfile, copyjson.name);

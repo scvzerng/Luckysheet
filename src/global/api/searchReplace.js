@@ -85,14 +85,14 @@ export function replace(content, replaceContent, options = {}) {
     if(file == null){
         return tooltip.info("The order parameter is invalid.", "");
     }
-    let sheetData = $.extend(true, [], file.data);
+    let sheetData = structuredClone(file.data);
 
     matchCells.forEach(cell => {
         cell.m = replaceContent;
         setCellValue(cell.row, cell.column, replaceContent, {order: order, isRefresh: false});
     })
 
-    let fileData = $.extend(true, [], file.data);
+    let fileData = structuredClone(file.data);
     file.data.length = 0;
     file.data.push(...sheetData);
 

@@ -171,7 +171,7 @@ export function insertImage(src, options = {}){
                 height = max;
             }
 
-            let imgItem = $.extend(true, {}, imageCtrl.imgItem);
+            let imgItem = structuredClone(imageCtrl.imgItem);
             imgItem.src = img.src;
             imgItem.originWidth = img.originWidth;
             imgItem.originHeight = img.originHeight;

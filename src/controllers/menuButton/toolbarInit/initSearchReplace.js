@@ -103,7 +103,7 @@ export function initSearchReplace(_this) {
                   column: [0, Store.flowdata[0].length - 1]
                 }];
               } else {
-                range = $.extend(true, [], Store.luckysheet_select_save);
+                range = structuredClone(Store.luckysheet_select_save);
               }
               if (itemvalue == "locationFormula") {
                 //公式
@@ -134,7 +134,7 @@ export function initSearchReplace(_this) {
                 }
                 return;
               }
-              let range = $.extend(true, [], Store.luckysheet_select_save);
+              let range = structuredClone(Store.luckysheet_select_save);
               luckysheetLocationCell.apply(range, "locationStepRow");
             } else if (itemvalue == "locationStepColumn") {
               //间隔�?
@@ -146,7 +146,7 @@ export function initSearchReplace(_this) {
                 }
                 return;
               }
-              let range = $.extend(true, [], Store.luckysheet_select_save);
+              let range = structuredClone(Store.luckysheet_select_save);
               luckysheetLocationCell.apply(range, "locationStepColumn");
             }
           });

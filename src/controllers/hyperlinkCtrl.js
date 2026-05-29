@@ -161,8 +161,8 @@ const hyperlinkCtrl = {
                 linkTooltip: linkTooltip,
             }
 
-            let historyHyperlink = $.extend(true, {}, _this.hyperlink);
-            let currentHyperlink = $.extend(true, {}, _this.hyperlink);
+            let historyHyperlink = structuredClone(_this.hyperlink);
+            let currentHyperlink = structuredClone(_this.hyperlink);
 
             currentHyperlink[rowIndex + "_" + colIndex] = item;
 

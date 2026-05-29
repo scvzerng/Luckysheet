@@ -32,9 +32,9 @@ function luckysheetextendtable(type, index, value, direction, sheetIndex) {
   sheetIndex = sheetIndex ?? Store.currentSheetIndex;
   let curOrder = getSheetIndex(sheetIndex);
   let file = Store.luckysheetfile[curOrder];
-  let d = $.extend(true, [], file.data);
+  let d = structuredClone(file.data);
   value = Math.floor(value);
-  let cfg = $.extend(true, {}, file.config);
+  let cfg = structuredClone(file.config);
 
   //合并单元格配置变动
   if (cfg["merge"] == null) {
@@ -187,7 +187,7 @@ function luckysheetextendtable(type, index, value, direction, sheetIndex) {
   let newCalcChain = [];
   if (calcChain != null && calcChain.length > 0) {
     for (let i = 0; i < calcChain.length; i++) {
-      let calc = $.extend(true, {}, calcChain[i]);
+      let calc = structuredClone(calcChain[i]);
       let calc_r = calc.r,
         calc_c = calc.c,
         calc_i = calc.index,
@@ -279,7 +279,7 @@ function luckysheetextendtable(type, index, value, direction, sheetIndex) {
               f_rowhidden_new[n + value] = 0;
             }
           }
-          newFilterObj.filter[k] = $.extend(true, {}, filter[k]);
+          newFilterObj.filter[k] = structuredClone(filter[k]);
           newFilterObj.filter[k].rowhidden = f_rowhidden_new;
           newFilterObj.filter[k].str = f_r1;
           newFilterObj.filter[k].edr = f_r2;
@@ -312,7 +312,7 @@ function luckysheetextendtable(type, index, value, direction, sheetIndex) {
           } else if (f_cindex > index) {
             f_cindex += value;
           }
-          newFilterObj.filter[f_cindex - f_c1] = $.extend(true, {}, filter[k]);
+          newFilterObj.filter[f_cindex - f_c1] = structuredClone(filter[k]);
           newFilterObj.filter[f_cindex - f_c1].cindex = f_cindex;
           newFilterObj.filter[f_cindex - f_c1].stc = f_c1;
           newFilterObj.filter[f_cindex - f_c1].edc = f_c2;
@@ -390,7 +390,7 @@ function luckysheetextendtable(type, index, value, direction, sheetIndex) {
           column: [CFc1, CFc2]
         });
       }
-      let cf = $.extend(true, {}, CFarr[i]);
+      let cf = structuredClone(CFarr[i]);
       cf.cellrange = cf_new_range;
       newCFarr.push(cf);
     }
@@ -405,7 +405,7 @@ function luckysheetextendtable(type, index, value, direction, sheetIndex) {
         AFr2 = AFarr[i].cellrange.row[1],
         AFc1 = AFarr[i].cellrange.column[0],
         AFc2 = AFarr[i].cellrange.column[1];
-      let af = $.extend(true, {}, AFarr[i]);
+      let af = structuredClone(AFarr[i]);
       if (type == "row") {
         if (AFr1 < index) {
           if (AFr2 == index && direction == "lefttop") {

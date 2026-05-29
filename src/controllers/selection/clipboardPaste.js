@@ -67,7 +67,7 @@ const clipboardPasteModule = {
       if (data.length == 0) {
         return;
       }
-      let cfg = $.extend(true, {}, Store.config);
+      let cfg = structuredClone(Store.config);
       if (cfg["merge"] == null) {
         cfg["merge"] = {};
       }
@@ -128,7 +128,7 @@ const clipboardPasteModule = {
           if (data[h - minh] != null && data[h - minh][c - minc] != null) {
             value = data[h - minh][c - minc];
           }
-          x[c] = $.extend(true, {}, value);
+          x[c] = structuredClone(value);
           if (value != null && "mc" in x[c]) {
             if (x[c]["mc"].rs != null) {
               x[c]["mc"].r = h;

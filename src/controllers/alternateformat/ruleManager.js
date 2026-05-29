@@ -28,7 +28,7 @@ function rangeIsExists(range, index) {
         let existsIndex = null;
 
         //获取已有交替颜色所有应用范围
-        let AFarr = $.extend(true, [], getCurrentFile()["luckysheet_alternateformat_save"]);
+        let AFarr = structuredClone(getCurrentFile()["luckysheet_alternateformat_save"]);
 
         if(index != undefined && index != null){
             if(AFarr.length > 1){
@@ -149,7 +149,7 @@ function newRule(cellrange, modelfocusIndex) {
         }
 
         //保存之前的规则
-        let historyRules = $.extend(true, [], ruleArr);
+        let historyRules = structuredClone(ruleArr);
         
         //保存当前的规则
         let obj = {
@@ -164,7 +164,7 @@ function newRule(cellrange, modelfocusIndex) {
 
         ruleArr.push(obj);
 
-        let currentRules = $.extend(true, [], ruleArr);
+        let currentRules = structuredClone(ruleArr);
         
         //刷新一次表格
         _this.ref(historyRules, currentRules);
@@ -234,7 +234,7 @@ function update(modelfocusIndex, rangefocus) {
         }
         
         //保存之前的规则
-        let historyRules = $.extend(true, [], ruleArr);
+        let historyRules = structuredClone(ruleArr);
         
         //保存当前的规则
         let obj = {
@@ -249,7 +249,7 @@ function update(modelfocusIndex, rangefocus) {
         
         ruleArr[dataIndex] = obj;
 
-        let currentRules = $.extend(true, [], ruleArr);
+        let currentRules = structuredClone(ruleArr);
         
         //刷新一次表格
         _this.ref(historyRules, currentRules);

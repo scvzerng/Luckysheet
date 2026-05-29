@@ -33,7 +33,7 @@ const coreModule = {
     }
     let d = editor.deepCopyFlowData(Store.flowdata);
     let file = getCurrentFile();
-    let cfg = $.extend(true, {}, Store.config);
+    let cfg = structuredClone(Store.config);
     let borderInfoCompute = getBorderInfoCompute();
     let direction = _this.direction;
     let type = _this.applyType;
@@ -281,7 +281,7 @@ const coreModule = {
     }
 
     //条件格式
-    let cdformat = $.extend(true, [], file["luckysheet_conditionformat_save"]);
+    let cdformat = structuredClone(file["luckysheet_conditionformat_save"]);
     if (cdformat != null && cdformat.length > 0) {
       for (let i = 0; i < cdformat.length; i++) {
         let cdformat_cellrange = cdformat[i].cellrange;

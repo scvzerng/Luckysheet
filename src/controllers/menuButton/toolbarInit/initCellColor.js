@@ -97,7 +97,7 @@ export function initCellColor(_this) {
               }
               return;
             }
-            let range = $.extend(true, {}, Store.luckysheet_select_save[0]);
+            let range = structuredClone(Store.luckysheet_select_save[0]);
             let isExists = alternateformat.rangeIsExists(range)[0];
             if (!isExists) {
               alternateformat.modelfocusIndex = 0;
