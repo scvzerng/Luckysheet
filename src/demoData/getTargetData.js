@@ -5428,19 +5428,13 @@ export function askAIData(data, salesTargetData) {
 }
 
 function getAjax(url, data = {}, success, error) {
-    $.ajax({
-        url,
-        data,
-        beforeSend: function (request) {
-            request.setRequestHeader("Authorization", `Bearer ${remoteT1}.${remoteT2}`)
-        },
-        success(res) {
-            success?.(res)
-        },
-        error(err) {
-            error?.(err)
-        }
-    })
+    fetch(url + '?' + new URLSearchParams(data).toString(), {
+        headers: { "Authorization": `Bearer ${remoteT1}.${remoteT2}` }
+    }).then(function(response) { return response.json(); }).then(function(res) {
+        success?.(res);
+    }).catch(function(err) {
+        error?.(err);
+    });
 }
 
 

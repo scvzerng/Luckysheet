@@ -155,7 +155,11 @@ luckysheet.create = function (setting) {
         sheetmanage.initialjfFile(menu, title);
         initialWorkBook();
     } else {
-        $.post(loadurl, { gridKey: extendsetting.gridKey }, function (d) {
+        fetch(loadurl, {
+            method: 'POST',
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: new URLSearchParams({ gridKey: extendsetting.gridKey }).toString()
+        }).then(function(response) { return response.text(); }).then(function (d) {
             let data = new Function("return " + d)();
             Store.luckysheetfile = data;
 

@@ -411,7 +411,7 @@ const scrollAdaptModule = {
     let freezenTop = _this.freezenhorizontaldata != null ? _this.freezenhorizontaldata[0] - _this.freezenhorizontaldata[2] : -1;
     let freezenLeft = _this.freezenverticaldata != null ? _this.freezenverticaldata[0] - _this.freezenverticaldata[2] : -1;
     let zoomRatio = Store.zoomRatio;
-    $.each(images, function (i) {
+    Object.keys(images).forEach(function (i) {
       let image = images[i];
       let dialogImage = $("#" + i);
       let x = dialogImage.position();

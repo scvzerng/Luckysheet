@@ -240,30 +240,26 @@ const method = {
         let dataType = 'application/json;charset=UTF-8';
         let token = sessionStorage.getItem('x-auth-token');
 
-        $.ajax({
+        fetch(url, {
             method: 'POST',
-            url: url,
-            headers: { "x-auth-token": token },
-            data: JSON.stringify(param),
-            contentType: dataType,
-            success: function(d) {
-                //d可能为json字符串
-                if(typeof d == "string"){
-                    d = JSON.parse(d);
-                }
+            headers: { "Content-Type": "application/json;charset=UTF-8", "x-auth-token": token },
+            body: JSON.stringify(param)
+        }).then(function(response) { return response.text(); }).then(function(d) {
+            if(typeof d == "string"){
+                try { d = JSON.parse(d); } catch(e) {}
+            }
 
-                let dataset = d.data;
-                
-                let newData = dataset.celldata;
-                luckysheetextendData(dataset["row"], newData);
+            let dataset = d.data;
+            
+            let newData = dataset.celldata;
+            luckysheetextendData(dataset["row"], newData);
 
-                setTimeout(function(){
-                    Store.loadingObj.close()
-                }, 500);
+            setTimeout(function(){
+                Store.loadingObj.close()
+            }, 500);
 
-                if(func && typeof(func)=="function"){ 
-                    func(dataset);
-                }
+            if(func && typeof(func)=="function"){ 
+                func(dataset);
             }
         })
     },
@@ -285,7 +281,11 @@ const method = {
         param = deepMerge(param, arg);
         let file = getFileBySheetIndex(index);
 
-        $.post(url, param, function (d) {
+        fetch(url, {
+            method: 'POST',
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: new URLSearchParams(param).toString()
+        }).then(function(response) { return response.text(); }).then(function(d) {
             let dataset = new Function("return " + d)();
             file.celldata = dataset[index.toString()];
             let data = sheetmanage.buildGridData(file);

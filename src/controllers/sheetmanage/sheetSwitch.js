@@ -104,10 +104,14 @@ const sheetSwitchModule = {
       } else {
         gridWindow.append(luckysheetlodingHTML());
         let sheetindex = _this.checkLoadSheetIndex(file);
-        $.post(loadSheetUrl, {
-          gridKey: luckysheetConfigsetting.gridKey,
-          index: sheetindex.join(",")
-        }, function (d) {
+        fetch(loadSheetUrl, {
+          method: 'POST',
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: new URLSearchParams({
+            gridKey: luckysheetConfigsetting.gridKey,
+            index: sheetindex.join(",")
+          }).toString()
+        }).then(function(response) { return response.text(); }).then(function (d) {
           let dataset = new Function("return " + d)();
           file.celldata = dataset[index.toString()];
           let data = _this.buildGridData(file);

@@ -169,10 +169,14 @@ const sheetInitModule = {
             execF();
             return;
           }
-          $.post(loadSheetUrl, {
-            gridKey: luckysheetConfigsetting.gridKey,
-            index: sheetindex.join(",")
-          }, function (d) {
+          fetch(loadSheetUrl, {
+            method: 'POST',
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: new URLSearchParams({
+              gridKey: luckysheetConfigsetting.gridKey,
+              index: sheetindex.join(",")
+            }).toString()
+          }).then(function(response) { return response.text(); }).then(function (d) {
             let dataset = new Function("return " + d)();
             for (let item in dataset) {
               if (item == file["index"]) {

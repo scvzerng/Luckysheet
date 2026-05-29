@@ -415,12 +415,16 @@ const localeCnFunctions = {
       if (price != 0 && price != 1 && price != 2) {
         return formula.error.v;
       }
-      $.post("/dataqk/tu/api/getstockinfo", {
-        "stockCode": stockcode,
-        "date": date,
-        "price": price,
-        type: "0"
-      }, function (data) {
+      fetch("/dataqk/tu/api/getstockinfo", {
+        method: 'POST',
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams({
+          "stockCode": stockcode,
+          "date": date,
+          "price": price,
+          type: "0"
+        }).toString()
+      }).then(function(response) { return response.text(); }).then(function (data) {
         var d = editor.deepCopyFlowData(Store.flowdata);
         var v = numFormat(data);
         if (v == null) {
@@ -503,12 +507,16 @@ const localeCnFunctions = {
       if (price != 0 && price != 1 && price != 2) {
         return formula.error.v;
       }
-      $.post("/dataqk/tu/api/getstockinfo", {
-        "stockCode": stockcode,
-        "date": date,
-        "price": price,
-        type: "1"
-      }, function (data) {
+      fetch("/dataqk/tu/api/getstockinfo", {
+        method: 'POST',
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams({
+          "stockCode": stockcode,
+          "date": date,
+          "price": price,
+          type: "1"
+        }).toString()
+      }).then(function(response) { return response.text(); }).then(function (data) {
         var d = editor.deepCopyFlowData(Store.flowdata);
         formula.execFunctionGroup(cell_r, cell_c, data);
         d[cell_r][cell_c] = {
@@ -587,12 +595,16 @@ const localeCnFunctions = {
       if (price != 0 && price != 1 && price != 2) {
         return formula.error.v;
       }
-      $.post("/dataqk/tu/api/getstockinfo", {
-        "stockCode": stockcode,
-        "date": date,
-        "price": price,
-        type: "2"
-      }, function (data) {
+      fetch("/dataqk/tu/api/getstockinfo", {
+        method: 'POST',
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams({
+          "stockCode": stockcode,
+          "date": date,
+          "price": price,
+          type: "2"
+        }).toString()
+      }).then(function(response) { return response.text(); }).then(function (data) {
         var d = editor.deepCopyFlowData(Store.flowdata);
         formula.execFunctionGroup(cell_r, cell_c, data);
         d[cell_r][cell_c] = {
@@ -671,12 +683,16 @@ const localeCnFunctions = {
       if (price != 0 && price != 1 && price != 2) {
         return formula.error.v;
       }
-      $.post("/dataqk/tu/api/getstockinfo", {
-        "stockCode": stockcode,
-        "date": date,
-        "price": price,
-        type: "3"
-      }, function (data) {
+      fetch("/dataqk/tu/api/getstockinfo", {
+        method: 'POST',
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams({
+          "stockCode": stockcode,
+          "date": date,
+          "price": price,
+          type: "3"
+        }).toString()
+      }).then(function(response) { return response.text(); }).then(function (data) {
         var d = editor.deepCopyFlowData(Store.flowdata);
         formula.execFunctionGroup(cell_r, cell_c, data);
         d[cell_r][cell_c] = {
@@ -755,12 +771,16 @@ const localeCnFunctions = {
       if (price != 0 && price != 1 && price != 2) {
         return formula.error.v;
       }
-      $.post("/dataqk/tu/api/getstockinfo", {
-        "stockCode": stockcode,
-        "date": date,
-        "price": price,
-        type: "4"
-      }, function (data) {
+      fetch("/dataqk/tu/api/getstockinfo", {
+        method: 'POST',
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams({
+          "stockCode": stockcode,
+          "date": date,
+          "price": price,
+          type: "4"
+        }).toString()
+      }).then(function(response) { return response.text(); }).then(function (data) {
         var d = editor.deepCopyFlowData(Store.flowdata);
         formula.execFunctionGroup(cell_r, cell_c, data);
         d[cell_r][cell_c] = {
@@ -839,12 +859,16 @@ const localeCnFunctions = {
       if (price != 0 && price != 1 && price != 2) {
         return formula.error.v;
       }
-      $.post("/dataqk/tu/api/getstockinfo", {
-        "stockCode": stockcode,
-        "date": date,
-        "price": price,
-        type: "5"
-      }, function (data) {
+      fetch("/dataqk/tu/api/getstockinfo", {
+        method: 'POST',
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams({
+          "stockCode": stockcode,
+          "date": date,
+          "price": price,
+          type: "5"
+        }).toString()
+      }).then(function(response) { return response.text(); }).then(function (data) {
         var d = editor.deepCopyFlowData(Store.flowdata);
         formula.execFunctionGroup(cell_r, cell_c, data);
         d[cell_r][cell_c] = {

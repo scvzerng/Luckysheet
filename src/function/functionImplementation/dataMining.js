@@ -46,10 +46,14 @@ const dataMiningFunctions = {
       if (datetype != 0 && datetype != 1 && datetype != 2) {
         return formula.error.v;
       }
-      $.post("/dataqk/tu/api/cutword", {
-        "text": text,
-        "type": datetype
-      }, function (data) {
+      fetch("/dataqk/tu/api/cutword", {
+        method: 'POST',
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams({
+          "text": text,
+          "type": datetype
+        }).toString()
+      }).then(function(response) { return response.text(); }).then(function (data) {
         var d = [].concat(Store.flowdata);
         formula.execFunctionGroup(cell_r, cell_c, data);
         d[cell_r][cell_c] = {
@@ -123,11 +127,15 @@ const dataMiningFunctions = {
       if (set != 0 && set != 1 && set != 2) {
         return formula.error.v;
       }
-      $.post("/dataqk/tu/api/tfidf", {
-        "text": text,
-        "count": count,
-        "set": set
-      }, function (data) {
+      fetch("/dataqk/tu/api/tfidf", {
+        method: 'POST',
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams({
+          "text": text,
+          "count": count,
+          "set": set
+        }).toString()
+      }).then(function(response) { return response.text(); }).then(function (data) {
         var d = editor.deepCopyFlowData(Store.flowdata);
         formula.execFunctionGroup(cell_r, cell_c, data);
         d[cell_r][cell_c] = {
@@ -201,11 +209,15 @@ const dataMiningFunctions = {
       if (set != 0 && set != 1 && set != 2) {
         return formula.error.v;
       }
-      $.post("/dataqk/tu/api/tfidf", {
-        "text": text,
-        "count": count,
-        "set": set
-      }, function (data) {
+      fetch("/dataqk/tu/api/tfidf", {
+        method: 'POST',
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams({
+          "text": text,
+          "count": count,
+          "set": set
+        }).toString()
+      }).then(function(response) { return response.text(); }).then(function (data) {
         var d = editor.deepCopyFlowData(Store.flowdata);
         formula.execFunctionGroup(cell_r, cell_c, data);
         d[cell_r][cell_c] = {

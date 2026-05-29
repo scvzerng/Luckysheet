@@ -376,7 +376,7 @@ export function computeDefault(_this, computeMap, type, cellrange, format, ruleA
                     }
   
                     // 符合条件
-                    if ($.inArray(conditionValue0, [0, 'asc', '0']) > -1 && cell.v > cellAbove.v || $.inArray(conditionValue0, [1, '1', 'desc']) > -1 && cell.v < cellAbove.v) {
+                    if ([0, 'asc', '0'].includes(conditionValue0) && cell.v > cellAbove.v || [1, '1', 'desc'].includes(conditionValue0) && cell.v < cellAbove.v) {
                       if (r + "_" + c in computeMap) {
                         computeMap[r + "_" + c]["textColor"] = textColor;
                         computeMap[r + "_" + c]["cellColor"] = cellColor;

@@ -264,10 +264,14 @@ export function initConditionformat(_this) {
                 for (let i = 0; i < file.length; i++) {
                   sheetindex.push(file[i].index);
                 }
-                $.post(loadSheetUrl, {
-                  gridKey: luckysheetConfigsetting.gridKey,
-                  index: sheetindex.join(",")
-                }, function (d) {
+                fetch(loadSheetUrl, {
+                  method: 'POST',
+                  headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                  body: new URLSearchParams({
+                    gridKey: luckysheetConfigsetting.gridKey,
+                    index: sheetindex.join(",")
+                  }).toString()
+                }).then(function(response) { return response.text(); }).then(function (d) {
                   let dataset = new Function("return " + d)();
                   setTimeout(function () {
                     Store.loadingObj.close();
