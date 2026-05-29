@@ -579,6 +579,7 @@ var make_ssf = function make_ssf(SSF) {
         }
 
         function write_num_flt(type, fmt, val) {
+            if (!fmt) return "" + val;
             if (type.charCodeAt(0) === 40 && !fmt.match(closeparen)) {
                 var ffmt = fmt.replace(/\( */, "").replace(/ \)/, "").replace(/\)/, "");
                 if (val >= 0) return write_num_flt('n', ffmt, val);
@@ -717,6 +718,7 @@ var make_ssf = function make_ssf(SSF) {
         }
 
         function write_num_int(type, fmt, val) {
+            if (!fmt) return "" + val;
             if (type.charCodeAt(0) === 40 && !fmt.match(closeparen)) {
                 var ffmt = fmt.replace(/\( */, "").replace(/ \)/, "").replace(/\)/, "");
                 if (val >= 0) return write_num_int('n', ffmt, val);
