@@ -2,13 +2,13 @@ class FunctionBox {
     constructor() { this._el = null; }
     get el() { if (!this._el || !document.body.contains(this._el)) this._el = document.getElementById("luckysheet-functionbox-cell"); return this._el; }
 
-    getHtml() { return this.el.innerHTML; }
-    setHtml(value) { this.el.innerHTML = value; return this; }
-    focus() { this.el.focus(); return this; }
-    blur() { this.el.blur(); return this; }
-    isVisible() { return this.el.offsetWidth > 0; }
-    getNativeElement() { return this.el; }
-    find(selector) { return this.el.querySelector(selector); }
+    getHtml() { if (!this.el) return ''; return this.el.innerHTML; }
+    setHtml(value) { if (!this.el) return this; this.el.innerHTML = value; return this; }
+    focus() { if (!this.el) return this; this.el.focus(); return this; }
+    blur() { if (!this.el) return this; this.el.blur(); return this; }
+    isVisible() { if (!this.el) return false; return this.el.offsetWidth > 0; }
+    getNativeElement() { if (!this.el) return null; return this.el; }
+    find(selector) { if (!this.el) return null; return this.el.querySelector(selector); }
     confirmClick() { document.getElementById("luckysheet-wa-functionbox-confirm").click(); return this; }
     cancelClick() { document.getElementById("luckysheet-wa-functionbox-cancel").click(); return this; }
     setActive() {

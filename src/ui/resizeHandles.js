@@ -5,13 +5,13 @@ class ResizeHandle {
     }
     get el() { if (!this._el || !document.body.contains(this._el)) this._el = document.querySelector(this._selector); return this._el; }
 
-    setCss(props) { for (const [k, v] of Object.entries(props)) this.el.style[k] = typeof v === 'number' ? v + 'px' : v; return this; }
-    hide() { this.el.style.display = 'none'; return this; }
-    show() { this.el.style.display = ''; return this; }
-    addClass(cls) { this.el.classList.add(cls); return this; }
-    removeClass(cls) { this.el.classList.remove(cls); return this; }
-    onMousedown(callback) { this.el.addEventListener("mousedown", callback); return this; }
-    onDblclick(callback) { this.el.addEventListener("dblclick", callback); return this; }
+    setCss(props) { if (!this.el) return this; for (const [k, v] of Object.entries(props)) this.el.style[k] = typeof v === 'number' ? v + 'px' : v; return this; }
+    hide() { if (!this.el) return this; this.el.style.display = 'none'; return this; }
+    show() { if (!this.el) return this; this.el.style.display = ''; return this; }
+    addClass(cls) { if (!this.el) return this; this.el.classList.add(cls); return this; }
+    removeClass(cls) { if (!this.el) return this; this.el.classList.remove(cls); return this; }
+    onMousedown(callback) { if (!this.el) return this; this.el.addEventListener("mousedown", callback); return this; }
+    onDblclick(callback) { if (!this.el) return this; this.el.addEventListener("dblclick", callback); return this; }
 }
 
 const resizeHandles = {

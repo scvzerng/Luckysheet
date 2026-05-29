@@ -7,30 +7,34 @@ class CanvasContext {
     }
 
     getContext() {
+        if (!this.el) return null;
         if (!this._ctx) {
             this._ctx = this.el.getContext("2d");
         }
         return this._ctx;
     }
 
-    getHeight() { return this.el.getBoundingClientRect().height; }
+    getHeight() { if (!this.el) return 0; return this.el.getBoundingClientRect().height; }
     exists() { return this.el !== null && document.body.contains(this.el); }
     invalidate() { this._ctx = null; }
 
     setAttr(attrs) {
+        if (!this.el) return this;
         for (const [key, val] of Object.entries(attrs)) this.el.setAttribute(key, val);
         return this;
     }
     setCss(props) {
+        if (!this.el) return this;
         for (const [k, v] of Object.entries(props)) this.el.style[k] = typeof v === 'number' ? v + 'px' : v;
         return this;
     }
     setAttrAndCss(attrs, cssProps) {
+        if (!this.el) return this;
         for (const [key, val] of Object.entries(attrs)) this.el.setAttribute(key, val);
         for (const [k, v] of Object.entries(cssProps)) this.el.style[k] = typeof v === 'number' ? v + 'px' : v;
         return this;
     }
-    getNativeElement() { return this.el; }
+    getNativeElement() { if (!this.el) return null; return this.el; }
 
     setCanvasSize(width, height, cssWidth, cssHeight) {
         document.querySelectorAll("#luckysheetTableContent, #luckysheetTableContentF").forEach(el => {
@@ -44,6 +48,7 @@ class CanvasContext {
     }
 
     initContext(attrs, cssProps) {
+        if (!this.el) return null;
         for (const [key, val] of Object.entries(attrs)) this.el.setAttribute(key, val);
         for (const [k, v] of Object.entries(cssProps)) this.el.style[k] = typeof v === 'number' ? v + 'px' : v;
         this._ctx = this.el.getContext("2d");

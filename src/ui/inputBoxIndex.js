@@ -6,14 +6,15 @@ class InputBoxIndex {
         return this._el;
     }
 
-    hide() { this.el.style.display = 'none'; return this; }
-    show() { this.el.style.display = ''; return this; }
-    setCss(props) { for (const [k, v] of Object.entries(props)) this.el.style[k] = typeof v === 'number' ? v + 'px' : v; return this; }
-    setHtml(value) { this.el.innerHTML = value; return this; }
-    getText() { return this.el.textContent; }
-    find(selector) { return this.el.querySelector(selector); }
-    setCellRef(text) { this.el.innerHTML = text; return this; }
+    hide() { if (!this.el) return this; this.el.style.display = 'none'; return this; }
+    show() { if (!this.el) return this; this.el.style.display = ''; return this; }
+    setCss(props) { if (!this.el) return this; for (const [k, v] of Object.entries(props)) this.el.style[k] = typeof v === 'number' ? v + 'px' : v; return this; }
+    setHtml(value) { if (!this.el) return this; this.el.innerHTML = value; return this; }
+    getText() { if (!this.el) return ''; return this.el.textContent; }
+    find(selector) { if (!this.el) return null; return this.el.querySelector(selector); }
+    setCellRef(text) { if (!this.el) return this; this.el.innerHTML = text; return this; }
     setSheetPrefix(sheetName) {
+        if (!this.el) return this;
         const sheettxt = this.el.querySelector(".luckysheet-input-box-index-sheettxt");
         if (sheettxt) sheettxt.remove();
         this.el.insertAdjacentHTML('afterbegin', sheetName);

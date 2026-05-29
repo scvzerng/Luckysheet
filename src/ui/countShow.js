@@ -5,13 +5,14 @@ class CountShow {
     }
     get el() { if (!this._el || !document.body.contains(this._el)) this._el = document.querySelector(this._selector); return this._el; }
 
-    hide() { this.el.style.display = 'none'; return this; }
+    hide() { if (!this.el) return this; this.el.style.display = 'none'; return this; }
     showAt(props, content) {
+        if (!this.el) return this;
         for (const [k, v] of Object.entries(props)) this.el.style[k] = typeof v === 'number' ? v + 'px' : v;
         this.el.innerHTML = content;
         return this;
     }
-    isVisible() { return this.el.offsetWidth > 0; }
+    isVisible() { if (!this.el) return false; return this.el.offsetWidth > 0; }
 }
 
 const countShow = {

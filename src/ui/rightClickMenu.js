@@ -6,9 +6,10 @@ class RightClickMenu {
         return this._el;
     }
 
-    hide() { this.el.style.display = 'none'; return this; }
-    show() { this.el.style.display = ''; return this; }
+    hide() { if (!this.el) return this; this.el.style.display = 'none'; return this; }
+    show() { if (!this.el) return this; this.el.style.display = ''; return this; }
     showAt(x, y) {
+        if (!this.el) return this;
         let winH = document.documentElement.clientHeight, winW = document.documentElement.clientWidth;
         let menuW = this.el.getBoundingClientRect().width, menuH = this.el.getBoundingClientRect().height;
         let top = y, left = x;
@@ -20,8 +21,8 @@ class RightClickMenu {
         this.el.style.display = '';
         return this;
     }
-    find(selector) { return this.el.querySelector(selector); }
-    findText(selector, text) { const el = this.el.querySelector(selector); if (el) el.textContent = text; return this; }
+    find(selector) { if (!this.el) return null; return this.el.querySelector(selector); }
+    findText(selector, text) { if (!this.el) return this; const el = this.el.querySelector(selector); if (el) el.textContent = text; return this; }
 }
 
 export default new RightClickMenu();
