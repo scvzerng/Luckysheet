@@ -31,15 +31,18 @@ const sheetInitModule = {
     }));
     file.luckysheet_select_save = select_save;
     this.sheetParamRestore(file, data);
-    let r2 = Store.luckysheet_select_save[0].row[1],
+    let r2 = 0, c2 = 0;
+    if (Store.luckysheet_select_save && Store.luckysheet_select_save.length > 0 && Store.luckysheet_select_save[0].row) {
+      r2 = Store.luckysheet_select_save[0].row[1];
       c2 = Store.luckysheet_select_save[0].column[1];
-    if (Store.luckysheet_select_save.length > 1) {
-      for (let i = 0; i < Store.luckysheet_select_save.length; i++) {
-        if (Store.luckysheet_select_save[i].row[1] > r2) {
-          r2 = Store.luckysheet_select_save[i].row[1];
-        }
-        if (Store.luckysheet_select_save[i].column[1] > c2) {
-          c2 = Store.luckysheet_select_save[i].column[1];
+      if (Store.luckysheet_select_save.length > 1) {
+        for (let i = 0; i < Store.luckysheet_select_save.length; i++) {
+          if (Store.luckysheet_select_save[i].row && Store.luckysheet_select_save[i].row[1] > r2) {
+            r2 = Store.luckysheet_select_save[i].row[1];
+          }
+          if (Store.luckysheet_select_save[i].column && Store.luckysheet_select_save[i].column[1] > c2) {
+            c2 = Store.luckysheet_select_save[i].column[1];
+          }
         }
       }
     }
@@ -50,7 +53,7 @@ const sheetInitModule = {
     if (r2 > rowheight - 1) {
       rowheight = r2 + 1;
     }
-    let colwidth = data[0].length;
+    let colwidth = data.length > 0 && data[0] ? data[0].length : 0;
     if (c2 > colwidth - 1) {
       colwidth = c2 + 1;
     }
