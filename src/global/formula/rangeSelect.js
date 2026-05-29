@@ -52,12 +52,12 @@ const rangeSelect = {
             let anchorOffset = currSelection.anchorOffset;
 
             if (anchor.parent().is("span") && anchorOffset != 0) {
-                let txt = $.trim(anchor.text()),
+                let txt = anchor.text().trim(),
                     lasttxt = "";
 
                 if (txt.length == 0 && anchor.parent().prev().length > 0) {
                     let ahr = anchor.parent().prev();
-                    txt = $.trim(ahr.text());
+                    txt = ahr.text().trim();
                     lasttxt = txt.substr(txt.length - 1, 1);
                     _this.rangeSetValueTo = ahr;
                 } else {
@@ -77,19 +77,18 @@ const rangeSelect = {
                     return true;
                 }
             } else if (anchor.is(richTextEditor.el) || anchor.is(functionBox.el)) {
-                let txt = $.trim(
-                        anchor
+                let txt = anchor
                             .find("span")
                             .last()
-                            .text(),
-                    ),
+                            .text()
+                            .trim(),
                     lasttxt;
 
                 _this.rangeSetValueTo = anchor.find("span").last();
 
                 if (txt.length == 0 && anchor.find("span").length > 1) {
                     let ahr = anchor.find("span");
-                    txt = $.trim(ahr.eq(ahr.length - 2).text());
+                    txt = ahr.eq(ahr.length - 2).text().trim();
                     _this.rangeSetValueTo = ahr;
                 }
 
@@ -116,7 +115,7 @@ const rangeSelect = {
                 }
 
                 if (anchor.prev().length > 0) {
-                    let txt = $.trim(anchor.prev().text());
+                    let txt = anchor.prev().text().trim();
                     let lasttxt = txt.substr(txt.length - 1, 1);
 
                     _this.rangeSetValueTo = anchor.prev();
@@ -267,7 +266,7 @@ const rangeSelect = {
                     functionBox.setHtml(richTextEditor.getHtml());
 
                     if (isVal) {
-                        let fp = $.trim(_this.functionParserExe(richTextEditor.getText()));
+                        let fp = _this.functionParserExe(richTextEditor.getText()).trim();
                         let result = new Function("return " + fp)();
                         formulaDialogs.searchParm.find(".result span").text(result);
                     }

@@ -77,12 +77,12 @@ const rangeHighlight = {
             let anchorOffset = currSelection.anchorOffset;
 
             if (anchor.parent().is("span") && anchorOffset != 0) {
-                let txt = $.trim(anchor.text()),
+                let txt = anchor.text().trim(),
                     lasttxt = "";
 
                 if (txt.length == 0 && anchor.parent().prev().length > 0) {
                     let ahr = anchor.parent().prev();
-                    txt = $.trim(ahr.text());
+                    txt = ahr.text().trim();
                     lasttxt = txt.substr(txt.length - 1, 1);
                     return ahr;
                 } else {
@@ -90,16 +90,15 @@ const rangeHighlight = {
                     return anchor.parent();
                 }
             } else if (anchor.is(richTextEditor.el) || anchor.is(functionBox.el)) {
-                let txt = $.trim(
-                    anchor
+                let txt = anchor
                         .find("span")
                         .last()
-                        .text(),
-                );
+                        .text()
+                        .trim();
 
                 if (txt.length == 0 && anchor.find("span").length > 1) {
                     let ahr = anchor.find("span");
-                    txt = $.trim(ahr.eq(ahr.length - 2).text());
+                    txt = ahr.eq(ahr.length - 2).text().trim();
                     return ahr;
                 } else {
                     return anchor.find("span").last();
@@ -114,7 +113,7 @@ const rangeHighlight = {
                 }
 
                 if (anchor.prev().length > 0) {
-                    let txt = $.trim(anchor.prev().text());
+                    let txt = anchor.prev().text().trim();
                     let lasttxt = txt.substr(txt.length - 1, 1);
                     return anchor.prev();
                 }

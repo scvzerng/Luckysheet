@@ -195,7 +195,7 @@ const functionSearch = {
             let _this = this;
             let functionlist = Store.functionlist;
 
-            let $func = functionlist[_this.functionlistPosition[$.trim(funcname).toUpperCase()]];
+            let $func = functionlist[_this.functionlistPosition[(funcname || '').trim().toUpperCase()]];
             if ($func == null) {
                 return;
             }
@@ -349,7 +349,7 @@ const functionSearch = {
 
                     if (
                         $cur.is(".luckysheet-formula-text-func") ||
-                        $.trim($cur.text()).toUpperCase() in _this.functionlistPosition
+                        $cur.text().trim().toUpperCase() in _this.functionlistPosition
                     ) {
                         funcName = $cur.text();
                         paramindex = null;

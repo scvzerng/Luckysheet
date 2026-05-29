@@ -23,7 +23,7 @@ import locale from "../../locale/locale";
 export default function freezeButtons() {
     //冻结行列
     $("#luckysheet-freezen-btn-horizontal").click(function() {
-        if ($.trim($(this).text()) == locale().freezen.freezenCancel) {
+        if ($(this).text().trim() == locale().freezen.freezenCancel) {
             luckysheetFreezen.saveFrozen("freezenCancel");
 
             if (luckysheetFreezen.freezenverticaldata != null) {

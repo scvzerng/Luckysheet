@@ -186,7 +186,7 @@ const formulaParser = {
 
                 if (i == funcstack.length - 1) {
                     //function_str += str;
-                    if (_this.iscelldata($.trim(str))) {
+                    if (_this.iscelldata(str.trim())) {
                         function_str +=
                             '<span class="luckysheet-formula-functionrange-cell" rangeindex="' +
                             _this.functionHTMLIndex +
@@ -201,7 +201,7 @@ const formulaParser = {
                     } else if (str.indexOf("</span>") == -1 && str.length > 0) {
                         let regx = /{.*?}/;
 
-                        if (regx.test($.trim(str))) {
+                        if (regx.test(str.trim())) {
                             let arraytxt = regx.exec(str)[0];
                             let arraystart = str.search(regx);
                             let alltxt = "";
@@ -334,7 +334,7 @@ const formulaParser = {
                         (s_pre == "(" || s_pre == null || s_pre == "," || s_pre == " " || s_pre in _this.operatorjson)
                     ) {
                         if (matchConfig.dquote == 0) {
-                            str += $.trim(s);
+                            str += s.trim();
                         } else {
                             str += s;
                         }
@@ -344,7 +344,7 @@ const formulaParser = {
                     }
                 } else {
                     if (matchConfig.dquote == 0) {
-                        str += $.trim(s);
+                        str += s.trim();
                     } else {
                         str += s;
                     }
@@ -519,7 +519,7 @@ const formulaParser = {
                             let funcArray = str.split(":");
                             function_str +=
                                 "luckysheet_getSpecialReference(true,'" +
-                                $.trim(funcArray[0]).replace(/'/g, "\\'") +
+                                funcArray[0].trim().replace(/'/g, "\\'") +
                                 "', luckysheet_function." +
                                 funcArray[1] +
                                 ".f(#lucky#";
@@ -620,10 +620,10 @@ const formulaParser = {
 
                     if (s + s_next in _this.operatorjson) {
                         if (bracket.length == 0) {
-                            if ($.trim(str).length > 0) {
-                                cal2.unshift(_this.functionParser($.trim(str), cellRangeFunction));
-                            } else if ($.trim(function_str).length > 0) {
-                                cal2.unshift($.trim(function_str));
+                            if (str.trim().length > 0) {
+                                cal2.unshift(_this.functionParser(str.trim(), cellRangeFunction));
+                            } else if (function_str.trim().length > 0) {
+                                cal2.unshift(function_str.trim());
                             }
 
                             if (cal1[0] in _this.operatorjson) {
@@ -646,10 +646,10 @@ const formulaParser = {
                         i++;
                     } else {
                         if (bracket.length == 0) {
-                            if ($.trim(str).length > 0) {
-                                cal2.unshift(_this.functionParser($.trim(str), cellRangeFunction));
-                            } else if ($.trim(function_str).length > 0) {
-                                cal2.unshift($.trim(function_str));
+                            if (str.trim().length > 0) {
+                                cal2.unshift(_this.functionParser(str.trim(), cellRangeFunction));
+                            } else if (function_str.trim().length > 0) {
+                                cal2.unshift(function_str.trim());
                             }
 
                             if (cal1[0] in _this.operatorjson) {
@@ -700,7 +700,7 @@ const formulaParser = {
 
                 if (i == funcstack.length - 1) {
                     let endstr = "";
-                    let str_nb = $.trim(str).replace(/'/g, "\\'");
+                    let str_nb = str.trim().replace(/'/g, "\\'");
                     if (_this.iscelldata(str_nb) && str_nb.substr(0, 1) != ":") {
                         endstr = "luckysheet_getcelldata('" + str_nb + "')";
                         if (typeof cellRangeFunction == "function") {
@@ -712,7 +712,7 @@ const formulaParser = {
                             endstr = "luckysheet_getSpecialReference(false," + function_str + ",'" + str_nb + "')";
                         }
                     } else {
-                        str = $.trim(str);
+                        str = str.trim();
 
                         let regx = /{.*?}/;
                         if (regx.test(str) && str.substr(0, 1) != '"' && str.substr(str.length - 1, 1) != '"') {

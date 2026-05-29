@@ -277,7 +277,7 @@ export function getWorkbookName(options = {}) {
 
     }
 
-    name = $.trim(element.val());
+    name = (element.val() || '').trim();
 
     let {
         success

@@ -76,7 +76,7 @@ const sheetDataUtilsModule = {
       let isnull = true;
       for (let c = 0; c < d[0].length; c++) {
         let value = getcellvalue(r, c);
-        if (value != null && $.trim(value).length > 0) {
+        if (value != null && String(value).trim().length > 0) {
           isnull = false;
           break;
         }

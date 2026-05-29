@@ -124,7 +124,7 @@ const dependency = {
                 }
 
                 if (i == funcstack.length - 1) {
-                    if (_this.iscelldata($.trim(str))) {
+                    if (_this.iscelldata(str.trim())) {
                         _this.isFunctionRangeSaveChange(str, r, c, index, dynamicArray_compute);
                         // if (r != null && c != null) {
 
@@ -282,7 +282,7 @@ const dependency = {
                             let funcArray = str.split(":");
                             function_str +=
                                 "luckysheet_getSpecialReference(true,'" +
-                                $.trim(funcArray[0]).replace(/'/g, "\\'") +
+                                funcArray[0].trim().replace(/'/g, "\\'") +
                                 "', luckysheet_function." +
                                 funcArray[1] +
                                 ".f(#lucky#";
@@ -388,10 +388,10 @@ const dependency = {
 
                     if (s + s_next in _this.operatorjson) {
                         if (bracket.length == 0) {
-                            if ($.trim(str).length > 0) {
+                            if (str.trim().length > 0) {
                                 cal2.unshift(
                                     _this.isFunctionRange(
-                                        $.trim(str),
+                                        str.trim(),
                                         r,
                                         c,
                                         index,
@@ -399,8 +399,8 @@ const dependency = {
                                         cellRangeFunction,
                                     ),
                                 );
-                            } else if ($.trim(function_str).length > 0) {
-                                cal2.unshift($.trim(function_str));
+                            } else if (function_str.trim().length > 0) {
+                                cal2.unshift(function_str.trim());
                             }
 
                             if (cal1[0] in _this.operatorjson) {
@@ -423,10 +423,10 @@ const dependency = {
                         i++;
                     } else {
                         if (bracket.length == 0) {
-                            if ($.trim(str).length > 0) {
+                            if (str.trim().length > 0) {
                                 cal2.unshift(
                                     _this.isFunctionRange(
-                                        $.trim(str),
+                                        str.trim(),
                                         r,
                                         c,
                                         index,
@@ -434,8 +434,8 @@ const dependency = {
                                         cellRangeFunction,
                                     ),
                                 );
-                            } else if ($.trim(function_str).length > 0) {
-                                cal2.unshift($.trim(function_str));
+                            } else if (function_str.trim().length > 0) {
+                                cal2.unshift(function_str.trim());
                             }
 
                             if (cal1[0] in _this.operatorjson) {
@@ -463,7 +463,7 @@ const dependency = {
                     }
                 } else {
                     if (matchConfig.dquote == 0 && matchConfig.squote == 0) {
-                        str += $.trim(s);
+                        str += s.trim();
                     } else {
                         str += s;
                     }
@@ -471,7 +471,7 @@ const dependency = {
 
                 if (i == funcstack.length - 1) {
                     let endstr = "";
-                    let str_nb = $.trim(str).replace(/'/g, "\\'");
+                    let str_nb = str.trim().replace(/'/g, "\\'");
                     if (_this.iscelldata(str_nb) && str_nb.substr(0, 1) != ":") {
                         // endstr = "luckysheet_getcelldata('" + $.trim(str) + "')";
                         endstr = "luckysheet_getcelldata('" + str_nb + "')";
@@ -482,7 +482,7 @@ const dependency = {
                             endstr = "luckysheet_getSpecialReference(false," + function_str + ",'" + str_nb + "')";
                         }
                     } else {
-                        str = $.trim(str);
+                        str = str.trim();
 
                         let regx = /{.*?}/;
                         if (regx.test(str) && str.substr(0, 1) != '"' && str.substr(str.length - 1, 1) != '"') {
@@ -536,7 +536,7 @@ const dependency = {
         isFunctionRangeSaveChange: function(str, r, c, index, dynamicArray_compute) {
             let _this = this;
             if (r != null && c != null) {
-                let range = _this.getcellrange($.trim(str), index);
+                let range = _this.getcellrange((str || '').trim(), index);
                 if (range == null) {
                     return;
                 }
@@ -611,7 +611,7 @@ const dependency = {
                     if (str instanceof Object && str.startCell != null) {
                         str = str.startCell;
                     }
-                    let str_nb = $.trim(str);
+                    let str_nb = (str || '').trim();
                     // console.log(function_str, tempFunc,str, this.iscelldata(str_nb),this.isFunctionRangeSave,r,c);
                     if (this.iscelldata(str_nb)) {
                         if (typeof cellRangeFunction == "function") {

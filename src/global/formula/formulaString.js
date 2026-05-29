@@ -138,18 +138,18 @@ const formulaString = {
                 }
 
                 if (i == funcstack.length - 1) {
-                    if (_this.iscelldata($.trim(str))) {
+                    if (_this.iscelldata(str.trim())) {
                         if (mode == "down") {
-                            function_str += _this.downparam($.trim(str), step);
+                            function_str += _this.downparam(str.trim(), step);
                         } else if (mode == "up") {
-                            function_str += _this.upparam($.trim(str), step);
+                            function_str += _this.upparam(str.trim(), step);
                         } else if (mode == "left") {
-                            function_str += _this.leftparam($.trim(str), step);
+                            function_str += _this.leftparam(str.trim(), step);
                         } else if (mode == "right") {
-                            function_str += _this.rightparam($.trim(str), step);
+                            function_str += _this.rightparam(str.trim(), step);
                         }
                     } else {
-                        function_str += $.trim(str);
+                        function_str += str.trim();
                     }
                 }
 
@@ -494,10 +494,10 @@ const formulaString = {
                 }
 
                 if (i == funcstack.length - 1) {
-                    if (!str.includes("!") && _this.iscelldata($.trim(str))) {
-                        function_str += _this.functionStrChange_range($.trim(str), type, rc, orient, stindex, step);
+                    if (!str.includes("!") && _this.iscelldata(str.trim())) {
+                        function_str += _this.functionStrChange_range(str.trim(), type, rc, orient, stindex, step);
                     } else {
-                        function_str += $.trim(str);
+                        function_str += str.trim();
                     }
                 }
 

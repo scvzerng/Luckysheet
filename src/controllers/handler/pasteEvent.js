@@ -196,7 +196,7 @@ export default function pasteEvent() {
                                 let $td = $(this);
                                 let cell = {};
                                 let txt = $td.text();
-                                if ($.trim(txt).length == 0) {
+                                if (txt.trim().length == 0) {
                                     cell.v = null;
                                     cell.m = "";
                                 } else {
@@ -236,7 +236,7 @@ export default function pasteEvent() {
                                 let ff = $td.css("font-family");
                                 let ffs = ff.split(",");
                                 for (let i = 0; i < ffs.length; i++) {
-                                    let fa = $.trim(ffs[i].toLowerCase());
+                                    let fa = ffs[i].toLowerCase().trim();
                                     fa = locale_fontjson[fa];
                                     if (fa == null) {
                                         cell.ff = 0;

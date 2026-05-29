@@ -336,7 +336,7 @@ const insertFormula = {
                 }
             }
             else{
-                formulaDialogs.searchParm.find(".parmBox").eq(index).find(".val").text(" = {"+ (new Function("return " + $.trim(formula.functionParserExe("=" + parmtxt)))()) +"}");
+                formulaDialogs.searchParm.find(".parmBox").eq(index).find(".val").text(" = {"+ (new Function("return " + formula.functionParserExe("=" + parmtxt).trim()))() +"}");
             }
         })
 
@@ -426,7 +426,7 @@ const insertFormula = {
 
             luckysheet_count_show(col_pre, row_pre, col - col_pre - 1, row - row_pre - 1, cellrange.row, cellrange.column);
 
-            formulaDialogs.searchParm.find(".parmBox").eq(formula.data_parm_index).find(".val").text(" = {"+ (new Function("return " + $.trim(formula.functionParserExe("=" + parmtxt)))()) +"}");
+            formulaDialogs.searchParm.find(".parmBox").eq(formula.data_parm_index).find(".val").text(" = {"+ (new Function("return " + formula.functionParserExe("=" + parmtxt).trim()))() +"}");
         }
     },
     functionStrCompute: function(){
@@ -478,7 +478,7 @@ const insertFormula = {
         functionBox.setHtml(richTextEditor.getHtml());
         
         if(isVal){
-            let fp = $.trim(formula.functionParserExe(richTextEditor.getText()));
+            let fp = formula.functionParserExe(richTextEditor.getText()).trim();
             
             let result = null;
 

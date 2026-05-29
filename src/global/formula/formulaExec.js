@@ -164,7 +164,7 @@ const formulaExec = {
 
                 if (isOffsetFunc) {
                     this.isFunctionRange(calc_funcStr, null, null, formulaCell.index, null, function(str_nb) {
-                        let range = _this.getcellrange($.trim(str_nb), formulaCell.index);
+                        let range = _this.getcellrange((str_nb || '').trim(), formulaCell.index);
                         if (range != null) {
                             formulaArray.push(range);
                         }
@@ -264,7 +264,7 @@ const formulaExec = {
                             continue;
                         }
 
-                        let range = _this.getcellrange($.trim(t), formulaCell.index);
+                        let range = _this.getcellrange((t || '').trim(), formulaCell.index);
 
                         if (range == null) {
                             continue;
@@ -743,7 +743,7 @@ const formulaExec = {
 
             Store.calculateSheetIndex = index;
 
-            let fp = $.trim(_this.functionParserExe(txt));
+            let fp = _this.functionParserExe(txt).trim();
             //console.log(fp)
             if (fp.substr(0, 20) == "luckysheet_function." || fp.substr(0, 22) == "luckysheet_compareWith") {
                 _this.functionHTMLIndex = 0;
