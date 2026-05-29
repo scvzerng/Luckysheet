@@ -48,13 +48,13 @@ export default function cellEvents() {
     cellMain.onCellDblclick(function(event) {
         handleCellDblclick(event);
     });
-    canvasContext.el.mousedown(function(event) {
+    canvasContext.el.addEventListener("mousedown", function(event) {
         handleCellMousedown(event);
     });
-    canvasContext.el.mouseup(function(event) {
+    canvasContext.el.addEventListener("mouseup", function(event) {
         handleCellMouseup(event);
     });
-    canvasContext.el.dblclick(function(event) {
+    canvasContext.el.addEventListener("dblclick", function(event) {
         handleCellDblclick(event);
     });
 }

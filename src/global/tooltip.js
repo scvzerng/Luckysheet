@@ -121,8 +121,10 @@ const tooltip = {
     hoverTipshowTimeOut: null,
     createHoverTip: function (obj, to) {
         let _this = this;
+        let objEl = typeof obj === 'string' ? document.querySelector(obj) : obj;
+        if (!objEl) return;
 
-        obj.addEventListener("mouseover", function (e) {
+        objEl.addEventListener("mouseover", function (e) {
             let _target = e.target.closest(to);
             if (!_target) return;
             if (_this.hoverTipshowState) {

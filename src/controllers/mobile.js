@@ -1,4 +1,3 @@
-import { onNS, offNS } from '../utils/migrationHelpers.js';
 import { rowLocation, colLocation, mouseposition } from '../global/location';
 import { selectHightlightShow } from './select';
 import menuButton from './menuButton';
@@ -10,36 +9,33 @@ import scrollBarX from '../ui/scrollBarX.js';
 import scrollBarY from '../ui/scrollBarY.js';
 import gridWindow from '../ui/gridWindow.js';
 
-//设备是移动端
 export default function mobileinit(){
-    //去除滚动条
     Store.cellMainSrollBarSize = 0;
 
-    //滑动滚动表格
     let luckysheet_touchmove_status = false,
         luckysheet_touchmove_startPos = {},
         luckysheet_touchhandle_status = false,
         _scrollTimer = null;
-    gridWindow.el.on("touchstart", function(event){
-        clearInterval(_scrollTimer);//clear timer
+    gridWindow.el.addEventListener("touchstart", function(event){
+        clearInterval(_scrollTimer);
         luckysheet_touchmove_status = true;
 
-        let touch = event.originalEvent.targetTouches[0];
+        let touch = event.targetTouches[0];
         luckysheet_touchmove_startPos = {
             x: touch.pageX,
             y: touch.pageY,
-            vy:0, //vy可以理解为滑动的力度
+            vy:0,
             moveType:"y",
         }
     })
-    gridWindow.el.on("touchmove", function(event){
-        if(event.originalEvent.targetTouches.length > 1 || (event.scale && event.scale !== 1)){
+    gridWindow.el.addEventListener("touchmove", function(event){
+        if(event.targetTouches.length > 1 || (event.scale && event.scale !== 1)){
             return;
         }
 
-        let touch = event.originalEvent.targetTouches[0];
+        let touch = event.targetTouches[0];
 
-        if(luckysheet_touchmove_status){//滚动
+        if(luckysheet_touchmove_status){
             let slideX = touch.pageX - luckysheet_touchmove_startPos.x;
             let slideY = touch.pageY - luckysheet_touchmove_startPos.y;
 
@@ -49,12 +45,8 @@ export default function mobileinit(){
             let scrollLeft = scrollBarX.getScrollLeft();
             let scrollTop = scrollBarY.getScrollTop();
 
-            // console.log("start",scrollTop, slideY,touch.pageY);
-
             scrollLeft -= slideX;
             scrollTop -= slideY;
-
-            // console.log(touch,touch.pageY, luckysheet_touchmove_startPos.y, slideY);
 
             if(scrollLeft < 0){
                 scrollLeft = 0;
@@ -74,10 +66,10 @@ export default function mobileinit(){
             luckysheet_touchmove_startPos.vy_x = slideX;
 
             luckysheet_touchmove_startPos.scrollLeft = scrollLeft;
-   
+
 
         }
-        else if(luckysheet_touchhandle_status){//选区
+        else if(luckysheet_touchhandle_status){
             let mouse = mouseposition(touch.pageX, touch.pageY);
             let scroll = getScrollPosition();
             let x = mouse[0] + scroll.scrollLeft;
@@ -181,9 +173,9 @@ export default function mobileinit(){
 
             let vy_y = Math.abs(luckysheet_touchmove_startPos.vy_y), friction_y = ((vy_y >> 31) * 2 + 1) * 0.25;
             if(vy_x>0 || vy_y>0){
-                _scrollTimer = setInterval(function () {//
-                    vy_x -= friction_x;//力度按 惯性的大小递减
-                    vy_y -= friction_y;//力度按 惯性的大小递减
+                _scrollTimer = setInterval(function () {
+                    vy_x -= friction_x;
+                    vy_y -= friction_y;
 
                     if(vy_x<=0){
                         vy_x = 0;
@@ -218,19 +210,16 @@ export default function mobileinit(){
 
         }
         luckysheet_touchmove_status = false;
-        // luckysheet_touchmove_startPos = {};
 
         luckysheet_touchhandle_status = false;
     })
 
-    //滑动选择选区
     document.addEventListener("touchstart", function(event) { const t = event.target.closest(".luckysheet-cs-touchhandle"); if (t && document.contains(t)) {
         luckysheet_touchhandle_status = true;
         luckysheet_touchmove_status = false;
         event.stopPropagation();
     } });  
 
-    //禁止微信下拉拖出微信背景
     document.addEventListener("touchmove", function(event){
         event.preventDefault();
     }, {
