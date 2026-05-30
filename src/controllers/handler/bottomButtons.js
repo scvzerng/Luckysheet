@@ -32,7 +32,8 @@ export default function bottomButtons() {
         el.addEventListener("mouseup", function(e) { e.stopPropagation(); });
     });
 
-    document.getElementById("luckysheet-bottom-add-row").addEventListener("click", function(e) {
+    const _addRow = document.getElementById("luckysheet-bottom-add-row");
+    if (_addRow) _addRow.addEventListener("click", function(e) {
         rightClickMenu.hide();
         luckysheetContainerFocus();
 
@@ -64,7 +65,8 @@ export default function bottomButtons() {
         luckysheetextendtable("row", Store.flowdata.length - 1, value);
     });
 
-    document.getElementById("luckysheet-bottom-return-top").addEventListener("click", function(e) {
+    const _returnTop = document.getElementById("luckysheet-bottom-return-top");
+    if (_returnTop) _returnTop.addEventListener("click", function(e) {
         scrollBarY.setScrollTop(0);
     });
 }

@@ -122,7 +122,7 @@ export function initColHeaderEvents() {
             last["left_move"] = left;
             last["width_move"] = width;
             formula.func_selectedrange = last;
-          } else if (event.ctrlKey && richTextEditor.querySelector("span").last().textContent != ",") {
+          } else if (event.ctrlKey && (() => { const _spans = richTextEditor.el.querySelectorAll("span"); return _spans.length > 0 && _spans[_spans.length - 1].textContent != ","; })()) {
             //按住ctrl 选择选区， 先处理上一个选区
             let vText = richTextEditor.getText() + ",";
             if (vText !== null && vText.substr(0, 1) == "=") {

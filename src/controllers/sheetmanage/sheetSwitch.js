@@ -143,7 +143,8 @@ const sheetSwitchModule = {
         });
       }
     }
-    cellMain.find(".luckysheet-datavisual-selection-set").hide();
+    const _visSet = cellMain.find(".luckysheet-datavisual-selection-set");
+    if (_visSet) _visSet.style.display = 'none';
     const _el147 = document.getElementById("luckysheet-datavisual-selection-set-" + index); if (_el147) _el147.style.display = '';
     luckysheetformula.hideButton();
     luckysheetFreezen.initialFreezen(index);

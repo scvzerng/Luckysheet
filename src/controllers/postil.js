@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿import { rowLocation, colLocation, mouseposition } from '../global/location';
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿import { rowLocation, colLocation, mouseposition } from '../global/location';
 import editor from '../global/editor';
 import { luckysheetRangeLast } from '../global/cursorPos';
 import { luckysheetrefreshgrid } from '../global/refresh';
@@ -320,7 +320,7 @@ const luckysheetPostil = {
     buildAllPs: function(data){
         let _this = this;
 
-        const _el = cellMain.querySelector("#luckysheet-postil-showBoxs"); if (_el) _el.innerHTML = '';
+        const _el = cellMain.find("#luckysheet-postil-showBoxs"); if (_el) _el.innerHTML = '';
 
         for(let r = 0; r < data.length; r++){
             for(let c = 0; c < data[0].length; c++){
@@ -408,7 +408,7 @@ const luckysheetPostil = {
                             '</div>' +
                         '</div>';
 
-            cellMain.querySelector("#luckysheet-postil-showBoxs").insertAdjacentHTML('beforeend', html);
+            cellMain.find("#luckysheet-postil-showBoxs").insertAdjacentHTML('beforeend', html);
 
             let ctx = document.querySelector("#luckysheet-postil-show_"+ r +"_"+ c +" .arrowCanvas").getContext("2d");
 
@@ -478,7 +478,7 @@ const luckysheetPostil = {
                         '</div>' +
                     '</div>';
 
-        cellMain.querySelector("#luckysheet-postil-showBoxs").insertAdjacentHTML('beforeend', html);
+        cellMain.find("#luckysheet-postil-showBoxs").insertAdjacentHTML('beforeend', html);
 
         let ctx = document.querySelector("#luckysheet-postil-show_"+ r +"_"+ c +" .arrowCanvas").getContext("2d");
 
@@ -578,7 +578,7 @@ const luckysheetPostil = {
                             '</div>' +
                         '</div>';
 
-            cellMain.querySelector("#luckysheet-postil-showBoxs").insertAdjacentHTML('beforeend', html);
+            cellMain.find("#luckysheet-postil-showBoxs").insertAdjacentHTML('beforeend', html);
 
             let ctx = document.querySelector("#luckysheet-postil-show_"+ r +"_"+ c +" .arrowCanvas").getContext("2d");
 
@@ -699,7 +699,7 @@ const luckysheetPostil = {
                             '</div>' +
                         '</div>';
 
-            cellMain.querySelector("#luckysheet-postil-showBoxs").insertAdjacentHTML('beforeend', html);
+            cellMain.find("#luckysheet-postil-showBoxs").insertAdjacentHTML('beforeend', html);
 
             let ctx = document.querySelector("#luckysheet-postil-show_"+ r +"_"+ c +" .arrowCanvas").getContext("2d");
 
@@ -735,7 +735,7 @@ const luckysheetPostil = {
         let rc = [];
         if(allPs !== null){
             if(isAllShow){ //全部显示，操作为隐藏所有批注
-                const _el = cellMain.querySelector("#luckysheet-postil-showBoxs"); if (_el) _el.innerHTML = '';
+                const _el = cellMain.find("#luckysheet-postil-showBoxs"); if (_el) _el.innerHTML = '';
 
                 for(let i = 0; i < allPs.length; i++){
                     let rowIndex = allPs[i].split("_")[0];
@@ -828,7 +828,7 @@ const luckysheetPostil = {
                                         '</div>' +
                                     '</div>';
 
-                        cellMain.querySelector("#luckysheet-postil-showBoxs").insertAdjacentHTML('beforeend', html);
+                        cellMain.find("#luckysheet-postil-showBoxs").insertAdjacentHTML('beforeend', html);
 
                         let ctx = document.querySelector("#luckysheet-postil-show_"+ rowIndex +"_"+ colIndex +" .arrowCanvas").getContext("2d");
 

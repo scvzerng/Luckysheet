@@ -119,7 +119,7 @@ export function initRowHeaderEvents() {
             last["top_move"] = top;
             last["height_move"] = height;
             formula.func_selectedrange = last;
-          } else if (event.ctrlKey && richTextEditor.querySelector("span").last().textContent != ",") {
+          } else if (event.ctrlKey && (() => { const _spans = richTextEditor.el.querySelectorAll("span"); return _spans.length > 0 && _spans[_spans.length - 1].textContent != ","; })()) {
             let vText = richTextEditor.getText() + ",";
             if (vText !== null && vText.substr(0, 1) == "=") {
               vText = formula.functionHTMLGenerate(vText);
