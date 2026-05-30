@@ -42,7 +42,7 @@ export function initColHeaderEvents() {
         col_index = col_location[2];
       Store.orderbyindex = col_index; //排序全局函数
   
-      rightClickMenu.style.display = 'none';
+      rightClickMenu.hide();
       [document.getElementById("luckysheet-sheet-list"), document.getElementById("luckysheet-rightclick-sheet-menu")].forEach(el => { if (el) el.style.display = 'none'; });
       [document.getElementById("luckysheet-filter-menu"), document.getElementById("luckysheet-filter-submenu")].forEach(el => { if (el) el.style.display = 'none'; });
   
@@ -122,7 +122,7 @@ export function initColHeaderEvents() {
             last["left_move"] = left;
             last["width_move"] = width;
             formula.func_selectedrange = last;
-          } else if (event.ctrlKey && (() => { const _spans = richTextEditor.el.querySelectorAll("span"); return _spans.length > 0 && _spans[_spans.length - 1].textContent != ","; })()) {
+          } else if (event.ctrlKey && (() => { const _spans = richTextEditor.el?.querySelectorAll("span"); return _spans && _spans.length > 0 && _spans[_spans.length - 1].textContent != ","; })()) {
             //按住ctrl 选择选区， 先处理上一个选区
             let vText = richTextEditor.getText() + ",";
             if (vText !== null && vText.substr(0, 1) == "=") {
@@ -202,7 +202,7 @@ export function initColHeaderEvents() {
             top: row_pre,
             height: row - row_pre - 1
           });
-          formulaDialogs.formulaHelp.style.display = 'none';
+          formulaDialogs.formulaHelp.hide();
           luckysheet_count_show(left, row_pre, width, row - row_pre - 1, [0, row_index], columnseleted);
           return;
         } else {
@@ -288,8 +288,8 @@ export function initColHeaderEvents() {
         countfunc();
       }, 101);
       if (Store.luckysheet_cols_menu_status) {
-        rightClickMenu.style.display = 'none';
-        resizeHandles.colHover.style.display = 'none';
+        rightClickMenu.hide();
+        resizeHandles.colHover.hide();
         const _elColsMenuBtn1 = document.getElementById("luckysheet-cols-menu-btn"); if (_elColsMenuBtn1) _elColsMenuBtn1.style.display = 'none';
         Store.luckysheet_cols_menu_status = false;
       }
@@ -297,7 +297,7 @@ export function initColHeaderEvents() {
     });
     colHeader.onMousemove(function (event) {
       if (Store.luckysheet_cols_selected_status || Store.luckysheet_select_status) {
-        resizeHandles.colHover.style.display = 'none';
+        resizeHandles.colHover.hide();
         const _elColsMenuBtn2 = document.getElementById("luckysheet-cols-menu-btn"); if (_elColsMenuBtn2) _elColsMenuBtn2.style.display = 'none';
         return;
       }
@@ -316,7 +316,7 @@ export function initColHeaderEvents() {
         display: "block"
       });
       const _colsMenuBtn1 = document.getElementById("luckysheet-cols-menu-btn"); if (_colsMenuBtn1) Object.assign(_colsMenuBtn1.style, {
-        left: col - 19,
+        left: col - 19 + "px",
         display: "block"
       });
       resizeHandles.colChangeSize.setCss({
@@ -328,7 +328,7 @@ export function initColHeaderEvents() {
         });
         const _elColsMenuBtn3 = document.getElementById("luckysheet-cols-menu-btn"); if (_elColsMenuBtn3) _elColsMenuBtn3.style.display = 'none';
       } else {
-        resizeHandles.changeSizeLine.style.display = 'none';
+        resizeHandles.changeSizeLine.hide();
         resizeHandles.colChangeSize.setCss({opacity: 0});
       }
     });
@@ -336,7 +336,7 @@ export function initColHeaderEvents() {
       if (Store.luckysheet_cols_menu_status || Store.luckysheet_cols_change_size) {
         return;
       }
-      resizeHandles.colHover.style.display = 'none';
+      resizeHandles.colHover.hide();
       const _elColsMenuBtn4 = document.getElementById("luckysheet-cols-menu-btn"); if (_elColsMenuBtn4) _elColsMenuBtn4.style.display = 'none';
       resizeHandles.colChangeSize.setCss({opacity: 0});
     });
@@ -355,8 +355,8 @@ export function initColHeaderEvents() {
         rightClickMenu.findText(".luckysheet-cols-rows-shift-size", locale().rightclick.width);
         rightClickMenu.findText(".luckysheet-cols-rows-shift-left", locale().rightclick.left);
         rightClickMenu.findText(".luckysheet-cols-rows-shift-right", locale().rightclick.right);
-        const _elAdd2 = document.getElementById("luckysheet-cols-rows-add"); if (_elAdd2) _elAdd2.style.display = '';
-        const _elData2 = document.getElementById("luckysheet-cols-rows-data"); if (_elData2) _elData2.style.display = '';
+        const _elAdd2 = document.getElementById("luckysheet-cols-rows-add"); if (_elAdd2) _elAdd2.style.display = 'block';
+        const _elData2 = document.getElementById("luckysheet-cols-rows-data"); if (_elData2) _elData2.style.display = 'block';
         const _elShift3 = document.getElementById("luckysheet-cols-rows-shift"); if (_elShift3) _elShift3.style.display = 'none';
         const _elHandleInCell2 = document.getElementById("luckysheet-cols-rows-handleincell"); if (_elHandleInCell2) _elHandleInCell2.style.display = 'none';
         const _sep21 = document.querySelector("#luckysheet-cols-rows-add .luckysheet-menuseparator"); if (_sep21) _sep21.style.display = "block";

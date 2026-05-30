@@ -4,8 +4,9 @@ import locale from "../../locale/locale";
 const menuUtilsModule = {
   rightclickmenu: null,
   submenuhide: {},
-  focus: function ($obj, value) {
-    if ($obj.attr("id") == "luckysheet-icon-font-family-menuButton") {
+  focus: function (obj, value) {
+    if (!obj) return;
+    if (obj.getAttribute("id") == "luckysheet-icon-font-family-menuButton") {
       if (isdatatypemulti(value)["num"]) {
         let _locale = locale();
         const locale_fontarray = _locale.fontarray;
@@ -15,11 +16,19 @@ const menuUtilsModule = {
         }
       }
     }
-    $obj.find(".luckysheet-cols-menuitem").find("span.icon").html("");
+    obj.querySelectorAll(".luckysheet-cols-menuitem span.icon").forEach(el => el.innerHTML = "");
     if (value == null) {
-      $obj.find(".luckysheet-cols-menuitem").eq(0).find("span.icon").html('<i class="fa fa-check luckysheet-mousedown-cancel"></i>');
+      const firstItem = obj.querySelector(".luckysheet-cols-menuitem");
+      if (firstItem) {
+        const iconSpan = firstItem.querySelector("span.icon");
+        if (iconSpan) iconSpan.innerHTML = '<i class="fa fa-check luckysheet-mousedown-cancel"></i>';
+      }
     } else {
-      $obj.find(".luckysheet-cols-menuitem[itemvalue='" + value + "']").find("span.icon").html('<i class="fa fa-check luckysheet-mousedown-cancel"></i>');
+      const matchedItem = obj.querySelector(".luckysheet-cols-menuitem[itemvalue='" + value + "']");
+      if (matchedItem) {
+        const iconSpan = matchedItem.querySelector("span.icon");
+        if (iconSpan) iconSpan.innerHTML = '<i class="fa fa-check luckysheet-mousedown-cancel"></i>';
+      }
     }
   },
   createButtonMenu: function (itemdata) {
@@ -31,7 +40,6 @@ const menuUtilsModule = {
         itemset += _this.split;
       } else {
         if (item.example == "more") {
-          // itemset += replaceHtml(_this.item, {"value": item.value, "name": item.text, "example": "►", "sub": "luckysheet-cols-submenu"});
           itemset += replaceHtml(_this.item, {
             value: item.value,
             name: item.text,

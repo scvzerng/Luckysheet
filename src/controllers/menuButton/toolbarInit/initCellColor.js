@@ -1,3 +1,4 @@
+import { hideMenuByCancel } from '../../../global/cursorPos';
 import editor from '../../../global/editor';
 import tooltip from '../../../global/tooltip';
 import { checkIsAllowEdit, isEditMode } from '../../../global/validate';
@@ -11,8 +12,12 @@ import { createColorPicker, getPicker, STANDARD_PALETTE } from '../../../compone
 import '../../../components/ColorPicker/colorPicker.css';
 
 export function initCellColor(_this) {
-      //背景颜色
-      document.getElementById("luckysheet-icon-cell-color")?.addEventListener("click", function () {
+      let cellColorEl = document.getElementById("luckysheet-icon-cell-color");
+      cellColorEl?.addEventListener("mousedown", function (e) {
+        hideMenuByCancel(e);
+        e.stopPropagation();
+      });
+      cellColorEl?.addEventListener("click", function () {
         let d = editor.deepCopyFlowData(Store.flowdata);
         let color = this.getAttribute("color");
         if (color == null) {
@@ -20,7 +25,12 @@ export function initCellColor(_this) {
         }
         _this.updateFormat(d, "bg", color);
       });
-      document.getElementById("luckysheet-icon-cell-color-menu")?.addEventListener("click", function () {
+      let cellColorMenuEl = document.getElementById("luckysheet-icon-cell-color-menu");
+      cellColorMenuEl?.addEventListener("mousedown", function (e) {
+        hideMenuByCancel(e);
+        e.stopPropagation();
+      });
+      cellColorMenuEl?.addEventListener("click", function () {
         let menuButtonId = this.getAttribute("id") + "-menuButton";
         let menuButton = document.getElementById(menuButtonId);
         if (menuButton == null) {
@@ -76,7 +86,7 @@ export function initCellColor(_this) {
             input.value = "#ffffff";
             document.getElementById("luckysheet-icon-cell-color")?.removeAttribute("color");
             getPicker(input)?.set("#ffffff");
-            const _elIndicator = document.querySelector("#luckysheet-icon-cell-color .luckysheet-color-menu-button-indicator"); if (_elIndicator) _elIndicator.style.borderBottomColor = "#ffffff";
+            const _elIndicator = document.querySelector("#luckysheet-icon-cell-color .luckysheet-color-menu-button-indicator"); if (_elIndicator) _elIndicator.style.borderColor = "#ffffff";
             const _elBar = document.querySelector("#luckysheet-icon-cell-color .text-color-bar"); if (_elBar) _elBar.style.backgroundColor = "#ffffff";
             let d = editor.deepCopyFlowData(Store.flowdata);
             _this.updateFormat(d, "bg", null);
@@ -112,11 +122,12 @@ export function initCellColor(_this) {
         }
         let userlen = this.offsetWidth;
         let tlen = menuButton.offsetWidth;
-        let menuleft = this.getBoundingClientRect().left + window.pageXOffset;
+        let btnRect = this.getBoundingClientRect();
+        let menuleft = btnRect.left + window.pageXOffset;
         if (checkMenuOverflow(tlen, userlen, menuleft)) {
           menuleft = menuleft - tlen + userlen;
         }
-        let offsetTop = this.getBoundingClientRect().top + window.pageYOffset + 26;
+        let offsetTop = btnRect.top + window.pageYOffset + 26;
         setTimeout(function () {
           let input = document.querySelector("#" + menuButtonId + " .luckysheet-color-selected");
           getPicker(input)?.set(input.value);

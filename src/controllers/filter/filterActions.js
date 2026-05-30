@@ -73,7 +73,7 @@ export function filterActions() {
     if (byvalueInput) {
         byvalueInput.addEventListener("input", function () {
             let v = this.value.toString();
-            document.querySelectorAll("#luckysheet-filter-byvalue-select .ListBox .luckysheet-mousedown-cancel").forEach(el => el.style.display = '');
+            document.querySelectorAll("#luckysheet-filter-byvalue-select .ListBox .luckysheet-mousedown-cancel").forEach(el => el.style.display = 'block');
 
             if(v != ""){
                 document.querySelectorAll("#luckysheet-filter-byvalue-select .ListBox input[type='checkbox']").forEach(function(e){

@@ -152,7 +152,7 @@ export function filterColorEvents() {
             if (t) {
                 t.style.top = top + 'px';
                 t.style.left = left + 'px';
-                t.style.display = '';
+                t.style.display = 'block';
             }
         });
         orderbyColor.addEventListener("mouseleave", function(){
@@ -160,13 +160,13 @@ export function filterColorEvents() {
         });
     }
 
-    document.addEventListener("mouseover", function(e) { const t = e.target.closest("#luckysheet-filter-orderby-color-submenu"); if (t && document.contains(t)) {
+    document.addEventListener("mouseover", function(e) { const t = e.target?.closest?.("#luckysheet-filter-orderby-color-submenu"); if (t && document.contains(t)) {
         clearTimeout(submenuhide);
     } });
-    document.addEventListener("mouseleave", function(e) { const t = e.target.closest("#luckysheet-filter-orderby-color-submenu"); if (t && document.contains(t)) {
+    document.addEventListener("mouseleave", function(e) { const t = e.target?.closest?.("#luckysheet-filter-orderby-color-submenu"); if (t && document.contains(t)) {
         t.style.display = 'none';
     } });
-    document.addEventListener("click", function(e) { const t = e.target.closest("#luckysheet-filter-orderby-color-submenu .item label"); if (t && document.contains(t)) {
+    document.addEventListener("click", function(e) { const t = e.target?.closest?.("#luckysheet-filter-orderby-color-submenu .item label"); if (t && document.contains(t)) {
         const sibling = t.parentElement.querySelector("input[type='checkbox']");
         if (sibling) sibling.click();
     } });

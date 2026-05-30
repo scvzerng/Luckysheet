@@ -69,10 +69,10 @@ export default function selectionDrag() {
         const _elCellSelectedMove = document.getElementById("luckysheet-cell-selected-move");
         if (_elCellSelectedMove) {
             Object.assign(_elCellSelectedMove.style, {
-                left: col_pre,
-                width: col - col_pre - 1,
-                top: row_pre,
-                height: row - row_pre - 1,
+                left: col_pre + "px",
+                width: col - col_pre - 1 + "px",
+                top: row_pre + "px",
+                height: row - row_pre - 1 + "px",
                 display: "block",
             });
         }
@@ -123,11 +123,11 @@ export default function selectionDrag() {
                 const _elCellSelectedExtend = document.getElementById("luckysheet-cell-selected-extend");
                 if (_elCellSelectedExtend) {
                     Object.assign(_elCellSelectedExtend.style, {
-                        left: col_pre,
-                        width: col - col_pre - 1,
-                        top: row_pre,
-                        height: row - row_pre - 1,
-                        display: "block",
+                        left: col_pre + "px",
+                    width: col - col_pre - 1 + "px",
+                    top: row_pre + "px",
+                    height: row - row_pre - 1 + "px",
+                    display: "block",
                     });
                 }
             }, 100);

@@ -104,5 +104,5 @@ export function zoomSetting(){
     rowHeader.setWidth((Store.rowHeaderWidth-1.5));
     colHeader.setHeight((Store.columnHeaderHeight-1.5));
     const _leftTop = document.getElementById("luckysheet-left-top");
-    if (_leftTop) Object.assign(_leftTop.style, {width:Store.rowHeaderWidth-1.5, height:Store.columnHeaderHeight-1.5});
+    if (_leftTop) Object.assign(_leftTop.style, {width:Store.rowHeaderWidth-1.5+"px", height:Store.columnHeaderHeight-1.5+"px"});
 }

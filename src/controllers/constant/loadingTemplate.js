@@ -4,7 +4,7 @@ import { createToolbarHtml } from "../toolbar";
 import { v4 as uuidv4 } from 'uuid';
 
 const luckysheetToolHTML =
-    '<div id="luckysheet-tooltip-up" class="jfk-tooltip" role="tooltip" aria-hidden="true" style="left: 505px; top: 410px;"><div class="jfk-tooltip-contentId">组合图表</div><div class="jfk-tooltip-arrow jfk-tooltip-arrowup" style="left: 35.5px;"><div class="jfk-tooltip-arrowimplbefore"></div><div class="jfk-tooltip-arrowimplafter"></div></div></div>';
+    '<div id="luckysheet-tooltip-up" class="jfk-tooltip" role="tooltip" aria-hidden="true"><div class="jfk-tooltip-contentId"></div><div class="jfk-tooltip-arrow jfk-tooltip-arrowup" style="left: 35.5px;"><div class="jfk-tooltip-arrowimplbefore"></div><div class="jfk-tooltip-arrowimplafter"></div></div></div>';
 
 // toolbar
 function menuToolBar() {
@@ -103,7 +103,7 @@ const luckysheetlodingHTML = function(target, coverConfig) {
 
     function show() {
         if (id) {
-            const _elLoadShow2 = document.getElementById(id); if (_elLoadShow2) _elLoadShow2.style.display = '';
+            const _elLoadShow2 = document.getElementById(id); if (_elLoadShow2) _elLoadShow2.style.display = 'block';
         }
     }
 

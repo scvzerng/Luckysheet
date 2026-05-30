@@ -122,7 +122,7 @@ function jfrefreshgrid_rhcw(rowheight, colwidth, isRefreshCanvas=true){
                 let left = Store.visibledatacolumn[cindex] - 20;
                 let top = str - 1 == -1 ? 0 : Store.visibledatarow[str - 1];
 
-                Object.assign(e.style, { "left": left, "top": top });
+                Object.assign(e.style, { "left": left + "px", "top": top + "px" });
             });
         }
     }
@@ -141,10 +141,10 @@ function jfrefreshgrid_rhcw(rowheight, colwidth, isRefreshCanvas=true){
             col_pre = c1 - 1 == -1 ? 0 : Store.visibledatacolumn[c1 - 1];
 
         const _filterSelected = document.getElementById("luckysheet-filter-selected-sheet" + Store.currentSheetIndex); if (_filterSelected) Object.assign(_filterSelected.style, {
-            "left": col_pre,
-            "width": col - col_pre - 1,
-            "top": row_pre,
-            "height": row - row_pre - 1
+            "left": col_pre + "px",
+            "width": col - col_pre - 1 + "px",
+            "top": row_pre + "px",
+            "height": row - row_pre - 1 + "px"
         });
     }
 

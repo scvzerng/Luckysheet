@@ -1,12 +1,13 @@
 const _nsHandlers = new Map();
 
 export function onNS(target, eventNs, selector, handler) {
+    if (!target) return;
     const dotIndex = eventNs.indexOf('.');
     const event = dotIndex === -1 ? eventNs : eventNs.substring(0, dotIndex);
     const namespace = dotIndex === -1 ? '' : eventNs.substring(dotIndex + 1);
     const delegateHandler = selector
         ? function(e) {
-            const t = e.target.closest(selector);
+            const t = e.target?.closest?.(selector);
             if (t && target.contains(t)) handler.call(t, e);
         }
         : handler;

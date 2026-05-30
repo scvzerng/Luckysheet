@@ -220,16 +220,16 @@ const imageCtrl = {
 
         //类型
         let type = imgItem.type;
-        const _typeRadio = imageDialog.slider.el.querySelector("#imgItemType" + type); if (_typeRadio) _typeRadio.checked = true;
+        const _typeRadio = imageDialog.slider.el?.querySelector("#imgItemType" + type); if (_typeRadio) _typeRadio.checked = true;
 
         let isFixedPos = imgItem.isFixedPos;
-        const _fixedPosCheck = imageDialog.slider.el.querySelector("#imgItemIsFixedPos"); if (_fixedPosCheck) _fixedPosCheck.checked = isFixedPos;
+        const _fixedPosCheck = imageDialog.slider.el?.querySelector("#imgItemIsFixedPos"); if (_fixedPosCheck) _fixedPosCheck.checked = isFixedPos;
 
         let border = imgItem.border;
-        const _borderWidthInput = imageDialog.slider.el.querySelector("#imgItemBorderWidth"); if (_borderWidthInput) _borderWidthInput.value = border.width;
-        const _borderRadiusInput = imageDialog.slider.el.querySelector("#imgItemBorderRadius"); if (_borderRadiusInput) _borderRadiusInput.value = border.radius;
-        const _borderStyleSelect = imageDialog.slider.el.querySelector("#imgItemBorderStyle"); if (_borderStyleSelect) _borderStyleSelect.value = border.style;
-        const _borderColorSpan = imageDialog.slider.el.querySelector("#imgItemBorderColor span");
+        const _borderWidthInput = imageDialog.slider.el?.querySelector("#imgItemBorderWidth"); if (_borderWidthInput) _borderWidthInput.value = border.width;
+        const _borderRadiusInput = imageDialog.slider.el?.querySelector("#imgItemBorderRadius"); if (_borderRadiusInput) _borderRadiusInput.value = border.radius;
+        const _borderStyleSelect = imageDialog.slider.el?.querySelector("#imgItemBorderStyle"); if (_borderStyleSelect) _borderStyleSelect.value = border.style;
+        const _borderColorSpan = imageDialog.slider.el?.querySelector("#imgItemBorderColor span");
         if (_borderColorSpan) {
             _borderColorSpan.style.backgroundColor = border.color;
             _borderColorSpan.title = border.color;
@@ -267,7 +267,7 @@ const imageCtrl = {
         let scrollLeft = document.documentElement.scrollLeft, scrollTop = document.documentElement.scrollTop;
         _colorDlg.style.left = (winw + scrollLeft - myw) / 2 + 'px';
         _colorDlg.style.top = (winh + scrollTop - myh) / 3 + 'px';
-        _colorDlg.style.display = '';
+        _colorDlg.style.display = 'block';
         
         //初始化选择颜色插件
         createColorPicker(_colorDlg.querySelector(".colorshowbox"), {
@@ -310,7 +310,7 @@ const imageCtrl = {
         let _this = this;
 
         //关闭
-        imageDialog.slider.el.querySelector(".luckysheet-model-close-btn")?.addEventListener("click", function () {
+        imageDialog.slider.el?.querySelector(".luckysheet-model-close-btn")?.addEventListener("click", function () {
             imageDialog.slider.hide();
             luckysheetsizeauto();
         });
@@ -360,7 +360,7 @@ const imageCtrl = {
             if (parentEl) parentEl.style.display = 'none';
 
             let currenColor = parentEl?.querySelector(".currenColor span")?.getAttribute("title");
-            const _borderSpan = imageDialog.slider.el.querySelector("#imgItemBorderColor span");
+            const _borderSpan = imageDialog.slider.el?.querySelector("#imgItemBorderColor span");
             if (_borderSpan && currenColor != null) {
                 _borderSpan.style.backgroundColor = currenColor;
                 _borderSpan.title = currenColor;
@@ -398,14 +398,14 @@ const imageCtrl = {
             });
             let imageUrlHandle = Store.toJsonOptions && Store.toJsonOptions['imageUrlHandle'];
             let imgUrl = typeof imageUrlHandle === 'function' ? imageUrlHandle(item.src) : item.src;
-            const _activeContent = imageDialog.active.el.querySelector(".luckysheet-modal-dialog-content");
+            const _activeContent = imageDialog.active.el?.querySelector(".luckysheet-modal-dialog-content");
             if (_activeContent) Object.assign(_activeContent.style, {
                 backgroundImage: "url(" + imgUrl + ")",
                 backgroundSize: item.default.width * Store.zoomRatio + "px " + item.default.height * Store.zoomRatio + "px",
                 backgroundPosition: -item.crop.offsetLeft * Store.zoomRatio + "px " + -item.crop.offsetTop * Store.zoomRatio + "px"
             })
 
-            const _activeBorder = imageDialog.active.el.querySelector(".luckysheet-modal-dialog-border");
+            const _activeBorder = imageDialog.active.el?.querySelector(".luckysheet-modal-dialog-border");
             if (_activeBorder) Object.assign(_activeBorder.style, {
                 borderWidth: item.border.width * Store.zoomRatio + 'px',
                 borderStyle: item.border.style,
@@ -559,7 +559,7 @@ const imageCtrl = {
                 break;
             case "border-width":
                 imgItem.border.width = value;
-                const _borderEl1 = imageDialog.active.el.querySelector(".luckysheet-modal-dialog-border");
+                const _borderEl1 = imageDialog.active.el?.querySelector(".luckysheet-modal-dialog-border");
                 if (_borderEl1) Object.assign(_borderEl1.style, {
                     borderWidth: value + 'px',
                     left: -value + 'px',
@@ -570,15 +570,15 @@ const imageCtrl = {
                 break;
             case "border-radius":
                 imgItem.border.radius = value;
-                const _borderEl2 = imageDialog.active.el.querySelector(".luckysheet-modal-dialog-border"); if (_borderEl2) _borderEl2.style.borderRadius = value + 'px';
+                const _borderEl2 = imageDialog.active.el?.querySelector(".luckysheet-modal-dialog-border"); if (_borderEl2) _borderEl2.style.borderRadius = value + 'px';
                 break;
             case "border-style":
                 imgItem.border.style = value;
-                const _borderEl3 = imageDialog.active.el.querySelector(".luckysheet-modal-dialog-border"); if (_borderEl3) _borderEl3.style.borderStyle = value;
+                const _borderEl3 = imageDialog.active.el?.querySelector(".luckysheet-modal-dialog-border"); if (_borderEl3) _borderEl3.style.borderStyle = value;
                 break;
             case "border-color":
                 imgItem.border.color = value;
-                const _borderEl4 = imageDialog.active.el.querySelector(".luckysheet-modal-dialog-border"); if (_borderEl4) _borderEl4.style.borderColor = value;
+                const _borderEl4 = imageDialog.active.el?.querySelector(".luckysheet-modal-dialog-border"); if (_borderEl4) _borderEl4.style.borderColor = value;
                 break;
         }
         
@@ -640,7 +640,7 @@ const imageCtrl = {
 
         const _elImgShow = document.getElementById(_this.currentImgId);
         if (_elImgShow) {
-            _elImgShow.style.display = '';
+            _elImgShow.style.display = 'block';
             _elImgShow.style.width = width + 'px';
             _elImgShow.style.height = height + 'px';
             _elImgShow.style.left = left + 'px';
@@ -790,7 +790,7 @@ const imageCtrl = {
         let imageUrlHandle = Store.toJsonOptions && Store.toJsonOptions['imageUrlHandle'];
         let imgSrc = typeof imageUrlHandle === 'function' ? imageUrlHandle(item.src) : item.src;
 
-        const _cropMask = imageDialog.cropping.el.querySelector(".cropping-mask");
+        const _cropMask = imageDialog.cropping.el?.querySelector(".cropping-mask");
         if (_cropMask) Object.assign(_cropMask.style, {
             width: item.default.width + 'px',
             height: item.default.height + 'px',
@@ -799,14 +799,14 @@ const imageCtrl = {
             top: -item.crop.offsetTop + 'px'
         })
 
-        const _cropContent = imageDialog.cropping.el.querySelector(".cropping-content");
+        const _cropContent = imageDialog.cropping.el?.querySelector(".cropping-content");
         if (_cropContent) Object.assign(_cropContent.style, {
             backgroundImage: "url(" + imgSrc + ")",
             backgroundSize: item.default.width + "px " + item.default.height + "px",
             backgroundPosition: -item.crop.offsetLeft + "px " + -item.crop.offsetTop + "px"
         })
 
-        const _cropBorder = imageDialog.cropping.el.querySelector(".luckysheet-modal-dialog-border");
+        const _cropBorder = imageDialog.cropping.el?.querySelector(".luckysheet-modal-dialog-border");
         if (_cropBorder) Object.assign(_cropBorder.style, {
             borderWidth: item.border.width + 'px',
             borderStyle: item.border.style,
@@ -843,7 +843,7 @@ const imageCtrl = {
         let imageUrlHandle = Store.toJsonOptions && Store.toJsonOptions['imageUrlHandle'];
         let imgSrc = typeof imageUrlHandle === 'function' ? imageUrlHandle(item.src) : item.src;
 
-        const _exitContent = imageDialog.active.el.querySelector(".luckysheet-modal-dialog-content");
+        const _exitContent = imageDialog.active.el?.querySelector(".luckysheet-modal-dialog-content");
         if (_exitContent) Object.assign(_exitContent.style, {
             backgroundImage: "url(" + imgSrc + ")",
             backgroundSize: item.default.width + "px " + item.default.height + "px",
@@ -894,7 +894,7 @@ const imageCtrl = {
         let imageUrlHandle = Store.toJsonOptions && Store.toJsonOptions['imageUrlHandle'];
         let imgSrc = typeof imageUrlHandle === 'function' ? imageUrlHandle(imgItem.src) : imgItem.src;
 
-        const _restoreContent = imageDialog.active.el.querySelector(".luckysheet-modal-dialog-content");
+        const _restoreContent = imageDialog.active.el?.querySelector(".luckysheet-modal-dialog-content");
         if (_restoreContent) Object.assign(_restoreContent.style, {
             backgroundImage: "url(" + imgSrc + ")",
             backgroundSize: imgItem.default.width + "px " + imgItem.default.height + "px",
@@ -940,7 +940,11 @@ const imageCtrl = {
             if (textarea) {
                 textarea.innerHTML = cpdata;
                 textarea.focus();
-                textarea.select();
+                const range3 = document.createRange();
+                range3.selectNodeContents(textarea);
+                const sel3 = window.getSelection();
+                sel3.removeAllRanges();
+                sel3.addRange(range3);
             }
             document.execCommand("selectAll");
             document.execCommand("Copy");

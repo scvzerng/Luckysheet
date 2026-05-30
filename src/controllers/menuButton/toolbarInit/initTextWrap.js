@@ -1,3 +1,4 @@
+import { hideMenuByCancel } from '../../../global/cursorPos';
 import editor from '../../../global/editor';
 import locale from '../../../locale/locale';
 import Store from '../../../store';
@@ -7,7 +8,12 @@ import { iconfontObjects } from '../../constant';
 
 export function initTextWrap(_this) {
       //文本换行
-      document.getElementById("luckysheet-icon-textwrap-menu")?.addEventListener("click", function () {
+      let textwrapMenuEl = document.getElementById("luckysheet-icon-textwrap-menu");
+      textwrapMenuEl?.addEventListener("mousedown", function (e) {
+        hideMenuByCancel(e);
+        e.stopPropagation();
+      });
+      textwrapMenuEl?.addEventListener("click", function () {
         let menuButtonId = this.getAttribute("id") + "-menuButton";
         let menuButton = document.getElementById(menuButtonId);
         if (menuButton == null) {

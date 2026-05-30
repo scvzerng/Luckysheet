@@ -152,7 +152,7 @@ const freezeCoreModule = {
     if (_freezenBtnH2) _freezenBtnH2.innerHTML = freezeHTML;
     let _freezebarV = document.getElementById("luckysheet-freezebar-vertical");
     if (_freezebarV) {
-      _freezebarV.style.display = '';
+      _freezebarV.style.display = 'block';
       let _vHandle = _freezebarV.querySelector(".luckysheet-freezebar-vertical-handle");
       if (_vHandle) _vHandle.style.left = left + "px";
       let _vDrop = _freezebarV.querySelector(".luckysheet-freezebar-vertical-drop");
@@ -398,7 +398,7 @@ const freezeCoreModule = {
     if (_freezenBtnH4) _freezenBtnH4.innerHTML = freezeHTML;
     let _freezebarH = document.getElementById("luckysheet-freezebar-horizontal");
     if (_freezebarH) {
-      _freezebarH.style.display = '';
+      _freezebarH.style.display = 'block';
       let _hHandle = _freezebarH.querySelector(".luckysheet-freezebar-horizontal-handle");
       if (_hHandle) _hHandle.style.top = top + "px";
       let _hDrop = _freezebarH.querySelector(".luckysheet-freezebar-horizontal-drop");

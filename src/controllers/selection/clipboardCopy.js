@@ -18,9 +18,13 @@ const clipboardCopyModule = {
       const _textarea = document.getElementById("luckysheet-copy-content");
       if (_textarea) {
         _textarea.style.visibility = "hidden";
-        _textarea.value = cpdata;
+        _textarea.textContent = cpdata;
         _textarea.focus();
-        _textarea.select();
+        const range = document.createRange();
+        range.selectNodeContents(_textarea);
+        const sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
         setTimeout(function () {
           _textarea.blur();
           _textarea.style.visibility = "visible";
@@ -209,7 +213,11 @@ const clipboardCopyModule = {
       let textarea = document.getElementById("luckysheet-copy-content");
       textarea.innerHTML = cpdata;
       textarea.focus();
-      textarea.select();
+      const range1 = document.createRange();
+      range1.selectNodeContents(textarea);
+      const sel1 = window.getSelection();
+      sel1.removeAllRanges();
+      sel1.addRange(range1);
       document.execCommand("selectAll");
       document.execCommand("Copy");
 
@@ -245,7 +253,11 @@ const clipboardCopyModule = {
       let textarea = document.getElementById("luckysheet-copy-content");
       textarea.textContent = cpdata;
       textarea.focus();
-      textarea.select();
+      const range2 = document.createRange();
+      range2.selectNodeContents(textarea);
+      const sel2 = window.getSelection();
+      sel2.removeAllRanges();
+      sel2.addRange(range2);
       document.execCommand("selectAll");
       document.execCommand("Copy");
       // 等50毫秒，keyPress事件发生了再去处理数据

@@ -117,7 +117,7 @@ function dynamicArrayHightShow(r, c) {
         let col = Store.visibledatacolumn[d_col_end], 
             col_pre = d_col - 1 == -1 ? 0 : Store.visibledatacolumn[d_col - 1];
 
-        const _elDynArr = document.getElementById("luckysheet-dynamicArray-hightShow"); if (_elDynArr) { Object.assign(_elDynArr.style, { left: col_pre, width: col - col_pre - 1, top: row_pre, height: row - row_pre - 1, display: "block" }); }
+        const _elDynArr = document.getElementById("luckysheet-dynamicArray-hightShow"); if (_elDynArr) { Object.assign(_elDynArr.style, { left: col_pre + "px", width: col - col_pre - 1 + "px", top: row_pre + "px", height: row - row_pre - 1 + "px", display: "block" }); }
     }
     else{
         const _elDynArr = document.getElementById("luckysheet-dynamicArray-hightShow"); if (_elDynArr) _elDynArr.style.display = 'none';

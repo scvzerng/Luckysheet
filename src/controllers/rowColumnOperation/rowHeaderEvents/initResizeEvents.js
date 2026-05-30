@@ -24,7 +24,7 @@ export function initResizeEvents() {
       if (imageDialog.active.isVisible() || imageDialog.cropping.isVisible()) {
         imageCtrl.cancelActiveImgItem();
       }
-      inputBox.style.display = 'none';
+      inputBox.hide();
       resizeHandles.rowChangeSize.setCss({
         opacity: 1
       });
@@ -49,8 +49,8 @@ export function initResizeEvents() {
       });
       rowHeader.setCursor("ns-resize");
       Store.luckysheet_rows_change_size_start = [row_pre, row_index];
-      rightClickMenu.style.display = 'none';
-      resizeHandles.rowHover.style.display = 'none';
+      rightClickMenu.hide();
+      resizeHandles.rowHover.hide();
       const _colsMenuBtn5 = document.getElementById("luckysheet-cols-menu-btn"); if (_colsMenuBtn5) _colsMenuBtn5.style.display = 'none';
       event.stopPropagation();
     });
@@ -64,7 +64,7 @@ export function initResizeEvents() {
       if (imageDialog.active.isVisible() || imageDialog.cropping.isVisible()) {
         imageCtrl.cancelActiveImgItem();
       }
-      inputBox.style.display = 'none';
+      inputBox.hide();
       resizeHandles.colChangeSize.setCss({
         opacity: 1
       });
@@ -93,8 +93,8 @@ export function initResizeEvents() {
       });
       colHeader.setCursor("ew-resize");
       Store.luckysheet_cols_change_size_start = [col_pre, col_index];
-      rightClickMenu.style.display = 'none';
-      resizeHandles.colHover.style.display = 'none';
+      rightClickMenu.hide();
+      resizeHandles.colHover.hide();
       document.getElementById("luckysheet-cols-menu-btn").style.display = 'none';
       Store.luckysheet_cols_dbclick_times = 0;
       event.stopPropagation();
@@ -111,14 +111,14 @@ export function initResizeEvents() {
       }
       let $menu = rightClickMenu.el;
       let offset = (() => { const _r = this.getBoundingClientRect(); return {top: _r.top + window.pageYOffset, left: _r.left + window.pageXOffset}; })();
-      const _elShift4 = document.getElementById("luckysheet-cols-rows-shift"); if (_elShift4) _elShift4.style.display = '';
+      const _elShift4 = document.getElementById("luckysheet-cols-rows-shift"); if (_elShift4) _elShift4.style.display = 'block';
       Store.luckysheetRightHeadClickIs = "column";
       rightClickMenu.findText(".luckysheet-cols-rows-shift-word", locale().rightclick.column);
       rightClickMenu.findText(".luckysheet-cols-rows-shift-left", locale().rightclick.left);
       rightClickMenu.findText(".luckysheet-cols-rows-shift-right", locale().rightclick.right);
-      const _elAdd3 = document.getElementById("luckysheet-cols-rows-add"); if (_elAdd3) _elAdd3.style.display = '';
+      const _elAdd3 = document.getElementById("luckysheet-cols-rows-add"); if (_elAdd3) _elAdd3.style.display = 'block';
       const _elData3 = document.getElementById("luckysheet-cols-rows-data"); if (_elData3) _elData3.style.display = 'none';
-      const _elShift5 = document.getElementById("luckysheet-cols-rows-shift"); if (_elShift5) _elShift5.style.display = '';
+      const _elShift5 = document.getElementById("luckysheet-cols-rows-shift"); if (_elShift5) _elShift5.style.display = 'block';
       const _elHandleInCell3 = document.getElementById("luckysheet-cols-rows-handleincell"); if (_elHandleInCell3) _elHandleInCell3.style.display = 'none';
       const _sep27 = document.querySelector("#luckysheet-cols-rows-add .luckysheet-menuseparator"); if (_sep27) _sep27.style.display = "block";
       const _sep28 = document.querySelector("#luckysheet-cols-rows-shift .luckysheet-menuseparator"); if (_sep28) _sep28.style.display = "block";

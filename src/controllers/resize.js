@@ -26,7 +26,7 @@ export default function luckysheetsizeauto(isRefreshCanvas=true) {
         const _infoDetail = document.getElementById("luckysheet_info_detail"); if (_infoDetail) _infoDetail.style.display = 'none';
     }
     else {
-        const _infoDetail2 = document.getElementById("luckysheet_info_detail"); if (_infoDetail2) _infoDetail2.style.display = '';
+        const _infoDetail2 = document.getElementById("luckysheet_info_detail"); if (_infoDetail2) _infoDetail2.style.display = 'block';
         Store.infobarHeight = document.querySelector('#luckysheet_info_detail')?.offsetHeight || 0;
     }
 
@@ -35,7 +35,7 @@ export default function luckysheetsizeauto(isRefreshCanvas=true) {
         Store.toolbarHeight = 0;
     }
     else {
-        const _waEditor2 = document.getElementById(Store.container)?.querySelector(".luckysheet-wa-editor"); if (_waEditor2) _waEditor2.style.display = '';
+        const _waEditor2 = document.getElementById(Store.container)?.querySelector(".luckysheet-wa-editor"); if (_waEditor2) _waEditor2.style.display = 'block';
         Store.toolbarHeight = document.querySelector('#' + Store.container +' .luckysheet-wa-editor')?.offsetHeight || 0;
     }
 
@@ -73,7 +73,7 @@ export default function luckysheetsizeauto(isRefreshCanvas=true) {
         Store.calculatebarHeight = formulaEle?.offsetHeight || 0;
     }
 
-    const _gridContainer = document.getElementById(Store.container)?.querySelector(".luckysheet-grid-container"); if (_gridContainer) _gridContainer.style.top = Store.toolbarHeight + Store.infobarHeight + Store.calculatebarHeight;
+    const _gridContainer = document.getElementById(Store.container)?.querySelector(".luckysheet-grid-container"); if (_gridContainer) _gridContainer.style.top = Store.toolbarHeight + Store.infobarHeight + Store.calculatebarHeight + "px";
 
     gridW = document.getElementById(Store.container)?.offsetWidth || 0;
 
@@ -145,12 +145,15 @@ export default function luckysheetsizeauto(isRefreshCanvas=true) {
     // 从起始位置开始，后面的元素统一挪到下方隐藏DIV中
     for (let index = moreButtonIndex; index < toobarElements.length; index++) {
         const element = toobarElements[index];
+        const moreBtnDiv = document.getElementById("luckysheet-icon-morebtn-div");
         if(element instanceof Array){
-            for(const ele of element){
-                document.getElementById("luckysheet-icon-morebtn-div")?.insertAdjacentHTML('beforeend', ele);
+            for(const sel of element){
+                const el = typeof sel === 'string' ? document.querySelector(sel) : sel;
+                if (el && moreBtnDiv) moreBtnDiv.appendChild(el);
             }
         }else{
-            document.getElementById("luckysheet-icon-morebtn-div")?.insertAdjacentHTML('beforeend', element);
+            const el = typeof element === 'string' ? document.querySelector(element) : element;
+            if (el && moreBtnDiv) moreBtnDiv.appendChild(el);
         }
 
     }
@@ -219,6 +222,7 @@ export default function luckysheetsizeauto(isRefreshCanvas=true) {
 
         // “更多”容器中，联动hover效果
         const splitLeft = document.querySelector("#luckysheet-icon-morebtn-div .luckysheet-toolbar-button-split-left");
+        if (splitLeft) {
         splitLeft.addEventListener("mouseenter", function() {
             const next = this.nextElementSibling;
             if (next && next.matches(".luckysheet-toolbar-button-split-right")) {
@@ -231,8 +235,10 @@ export default function luckysheetsizeauto(isRefreshCanvas=true) {
                 next.classList.remove("luckysheet-toolbar-button-split-right-hover");
             }
         });
+        }
 
         const splitRight = document.querySelector("#luckysheet-icon-morebtn-div .luckysheet-toolbar-button-split-right");
+        if (splitRight) {
         splitRight.addEventListener("mouseenter", function() {
             const prev = this.previousElementSibling;
             if (prev && prev.matches(".luckysheet-toolbar-button-split-left")) {
@@ -245,6 +251,7 @@ export default function luckysheetsizeauto(isRefreshCanvas=true) {
                 prev.classList.remove("luckysheet-toolbar-button-hover");
             }
         });
+        }
 
         // tooltip
         tooltip.createHoverTip("#luckysheet-icon-morebtn-div" ,".luckysheet-toolbar-menu-button, .luckysheet-toolbar-button, .luckysheet-toolbar-combo-button");
@@ -329,16 +336,16 @@ export function changeSheetContainerSize(gridW, gridH){
         Store.luckysheetTableContentHW[1]
     );
 
-    const _gridWinEl = document.getElementById(Store.container)?.querySelector(".luckysheet-grid-window"); if (_gridWinEl) _gridWinEl.style.bottom = Store.statisticBarHeight;
+    const _gridWinEl = document.getElementById(Store.container)?.querySelector(".luckysheet-grid-window"); if (_gridWinEl) _gridWinEl.style.bottom = Store.statisticBarHeight + "px";
     gridWindow.setCssBottom(Store.sheetBarHeight);
 
     let gridwidth = gridWindow.getWidth();
-    const _freezebarHH = document.getElementById("luckysheet-freezebar-horizontal")?.querySelector(".luckysheet-freezebar-horizontal-handle"); if (_freezebarHH) Object.assign(_freezebarHH.style, { "width": gridwidth - 10 });
-    const _freezebarHD = document.getElementById("luckysheet-freezebar-horizontal")?.querySelector(".luckysheet-freezebar-horizontal-drop"); if (_freezebarHD) Object.assign(_freezebarHD.style, { "width": gridwidth - 10 });
+    const _freezebarHH = document.getElementById("luckysheet-freezebar-horizontal")?.querySelector(".luckysheet-freezebar-horizontal-handle"); if (_freezebarHH) Object.assign(_freezebarHH.style, { "width": gridwidth - 10 + "px" });
+    const _freezebarHD = document.getElementById("luckysheet-freezebar-horizontal")?.querySelector(".luckysheet-freezebar-horizontal-drop"); if (_freezebarHD) Object.assign(_freezebarHD.style, { "width": gridwidth - 10 + "px" });
 
     let gridheight = gridWindow.getHeight();
-    const _freezebarVH = document.getElementById("luckysheet-freezebar-vertical")?.querySelector(".luckysheet-freezebar-vertical-handle"); if (_freezebarVH) Object.assign(_freezebarVH.style, { "height": gridheight - 10 });
-    const _freezebarVD = document.getElementById("luckysheet-freezebar-vertical")?.querySelector(".luckysheet-freezebar-vertical-drop"); if (_freezebarVD) Object.assign(_freezebarVD.style, { "height": gridheight - 10 });
+    const _freezebarVH = document.getElementById("luckysheet-freezebar-vertical")?.querySelector(".luckysheet-freezebar-vertical-handle"); if (_freezebarVH) Object.assign(_freezebarVH.style, { "height": gridheight - 10 + "px" });
+    const _freezebarVD = document.getElementById("luckysheet-freezebar-vertical")?.querySelector(".luckysheet-freezebar-vertical-drop"); if (_freezebarVD) Object.assign(_freezebarVD.style, { "height": gridheight - 10 + "px" });
 
     luckysheetFreezen.createAssistCanvas();
 }
@@ -474,7 +481,8 @@ export function menuToolBarWidth() {
             if(curr.ele instanceof Array){
                 const _el1 = document.querySelector(curr.ele[0]); toobarWidths.push(_el1?.getBoundingClientRect().left + window.pageXOffset || 0);
             }else{
-                toobarWidths.push(curr.ele?.getBoundingClientRect().left + window.pageXOffset || 0);
+                const _el = typeof curr.ele === 'string' ? document.querySelector(curr.ele) : curr.ele;
+                toobarWidths.push(_el?.getBoundingClientRect()?.left + window.pageXOffset || 0);
             }
         }else{
             if(curr.ele instanceof Array){
@@ -482,8 +490,9 @@ export function menuToolBarWidth() {
                 toobarWidths.push(_el2?.getBoundingClientRect().left + window.pageXOffset || 0);
                 toobarWidths.push((_el2?.getBoundingClientRect().left || 0) + window.pageXOffset + (_el2?.offsetWidth || 0) + 5);
             }else{
-                toobarWidths.push(curr.ele?.getBoundingClientRect().left + window.pageXOffset || 0);
-                toobarWidths.push((curr.ele?.getBoundingClientRect().left || 0) + window.pageXOffset + (curr.ele?.offsetWidth || 0) + 5);
+                const _el = typeof curr.ele === 'string' ? document.querySelector(curr.ele) : curr.ele;
+                toobarWidths.push(_el?.getBoundingClientRect()?.left + window.pageXOffset || 0);
+                toobarWidths.push((_el?.getBoundingClientRect()?.left || 0) + window.pageXOffset + (_el?.offsetWidth || 0) + 5);
             }
         }
 
@@ -562,7 +571,7 @@ function customSheetbarConfig() {
         Store.sheetBarHeight = 0;
     }
     else {
-        document.getElementById(Store.container).querySelector("#luckysheet-sheet-area").style.display = '';
+        document.getElementById(Store.container).querySelector("#luckysheet-sheet-area").style.display = 'block';
         Store.sheetBarHeight = 31;
     }
 }
@@ -630,7 +639,7 @@ function customStatisticBarConfig() {
         Store.statisticBarHeight = 0;
     }
     else {
-        document.getElementById(Store.container).querySelector(".luckysheet-stat-area").style.display = '';
+        document.getElementById(Store.container).querySelector(".luckysheet-stat-area").style.display = 'block';
         Store.statisticBarHeight = 23;
     }
 }

@@ -55,7 +55,7 @@ export function formulaBarInitial(){
 
         if (kcode == keycode.ENTER && parseInt(inputboxEl.style.top) > 0) {
             if (formulaDialogs.formulaSearchC.isVisible() && formula.searchFunctionCell != null) {
-                formula.searchFunctionEnter(formulaDialogs.formulaSearchC.el.querySelector(".luckysheet-formula-search-item-active"));
+                formula.searchFunctionEnter(formulaDialogs.formulaSearchC.el?.querySelector(".luckysheet-formula-search-item-active"));
             }
             else {
                 formula.updatecell(Store.luckysheetCellUpdate[0], Store.luckysheetCellUpdate[1]);
@@ -77,13 +77,13 @@ export function formulaBarInitial(){
         }
         else if (kcode == keycode.UP && parseInt(inputboxEl.style.top) > 0) {
             if (formulaDialogs.formulaSearchC.isVisible()) {
-                let activeItem = formulaDialogs.formulaSearchC.el.querySelector(".luckysheet-formula-search-item-active");
+                let activeItem = formulaDialogs.formulaSearchC.el?.querySelector(".luckysheet-formula-search-item-active");
                 let prevItem = activeItem ? activeItem.previousElementSibling : null;
                 if (!prevItem) {
-                    let items = formulaDialogs.formulaSearchC.el.querySelectorAll(".luckysheet-formula-search-item");
+                    let items = formulaDialogs.formulaSearchC.el?.querySelectorAll(".luckysheet-formula-search-item");
                     prevItem = items[items.length - 1];
                 }
-                formulaDialogs.formulaSearchC.el.querySelectorAll(".luckysheet-formula-search-item").forEach(function(el) {
+                formulaDialogs.formulaSearchC.el?.querySelectorAll(".luckysheet-formula-search-item").forEach(function(el) {
                     el.classList.remove("luckysheet-formula-search-item-active");
                 });
                 if (prevItem) prevItem.classList.add("luckysheet-formula-search-item-active");
@@ -92,12 +92,12 @@ export function formulaBarInitial(){
         }
         else if (kcode == keycode.DOWN && parseInt(inputboxEl.style.top) > 0) {
             if (formulaDialogs.formulaSearchC.isVisible()) {
-                let activeItem = formulaDialogs.formulaSearchC.el.querySelector(".luckysheet-formula-search-item-active");
+                let activeItem = formulaDialogs.formulaSearchC.el?.querySelector(".luckysheet-formula-search-item-active");
                 let nextItem = activeItem ? activeItem.nextElementSibling : null;
                 if (!nextItem) {
-                    nextItem = formulaDialogs.formulaSearchC.el.querySelector(".luckysheet-formula-search-item");
+                    nextItem = formulaDialogs.formulaSearchC.el?.querySelector(".luckysheet-formula-search-item");
                 }
-                formulaDialogs.formulaSearchC.el.querySelectorAll(".luckysheet-formula-search-item").forEach(function(el) {
+                formulaDialogs.formulaSearchC.el?.querySelectorAll(".luckysheet-formula-search-item").forEach(function(el) {
                     el.classList.remove("luckysheet-formula-search-item-active");
                 });
                 if (nextItem) nextItem.classList.add("luckysheet-formula-search-item-active");

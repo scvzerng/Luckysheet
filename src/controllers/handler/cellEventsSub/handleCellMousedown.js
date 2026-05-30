@@ -294,7 +294,7 @@ export function handleCellMousedown(event) {
                           formula.func_selectedrange = last;
                       } else if (
                           event.ctrlKey &&
-                          (() => { const _s = richTextEditor.el.querySelectorAll("span"); return _s.length ? _s[_s.length - 1].textContent : ""; })() != ","
+                          (() => { const _s = richTextEditor.el?.querySelectorAll("span"); return _s && _s.length ? _s[_s.length - 1].textContent : ""; })() != ","
                       ) {
                           //按住ctrl 选择选区时  先处理上一个选区
                           let vText = richTextEditor.getText();
@@ -385,7 +385,7 @@ export function handleCellMousedown(event) {
                               top: top,
                               height: height,
                           });
-                      formulaDialogs.formulaHelp.style.display = 'none';
+                      formulaDialogs.formulaHelp.hide();
                       luckysheet_count_show(left, top, width, height, rowseleted, columnseleted);
 
                       setTimeout(function() {
@@ -586,7 +586,7 @@ export function handleCellMousedown(event) {
                           top: row_pre,
                           height: row - row_pre - 1,
                       });
-                  formulaDialogs.formulaHelp.style.display = 'none';
+                  formulaDialogs.formulaHelp.hide();
 
                   let range = getRangetxt(
                       Store.currentSheetIndex,
@@ -622,7 +622,7 @@ export function handleCellMousedown(event) {
                           top: row_pre,
                           height: row - row_pre - 1,
                       });
-                  formulaDialogs.formulaHelp.style.display = 'none';
+                  formulaDialogs.formulaHelp.hide();
   
                   let range = getRangetxt(
                       Store.currentSheetIndex,
@@ -631,8 +631,8 @@ export function handleCellMousedown(event) {
                   );
                   let _ifMultiInput = formulaDialogs.ifFormulaMultiRange.querySelector("input"); if (_ifMultiInput) _ifMultiInput.value = range;
   
-                  countShow.row.style.display = 'none';
-                  countShow.column.style.display = 'none';
+                  countShow.row.hide();
+                  countShow.column.hide();
   
                   return;
               }
@@ -790,8 +790,8 @@ export function handleCellMousedown(event) {
                   const _faTable = document.querySelector("#luckysheet-alternateformat-range .fa-table"); if (_faTable) _faTable.click();
               }
   
-              countShow.row.style.display = 'none';
-              countShow.column.style.display = 'none';
+              countShow.row.hide();
+              countShow.column.hide();
   
               if (!isEditMode()) {
               }

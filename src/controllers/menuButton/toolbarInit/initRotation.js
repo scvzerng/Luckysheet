@@ -1,3 +1,4 @@
+import { hideMenuByCancel } from '../../../global/cursorPos';
 import editor from '../../../global/editor';
 import locale from '../../../locale/locale';
 import Store from '../../../store';
@@ -7,7 +8,12 @@ import { iconfontObjects } from '../../constant';
 
 export function initRotation(_this) {
       //文本旋转
-      document.getElementById("luckysheet-icon-rotation-menu")?.addEventListener("click", function () {
+      let rotationMenuEl = document.getElementById("luckysheet-icon-rotation-menu");
+      rotationMenuEl?.addEventListener("mousedown", function (e) {
+        hideMenuByCancel(e);
+        e.stopPropagation();
+      });
+      rotationMenuEl?.addEventListener("click", function () {
         let menuButtonId = this.getAttribute("id") + "-menuButton";
         let menuButton = document.getElementById(menuButtonId);
         if (menuButton == null) {

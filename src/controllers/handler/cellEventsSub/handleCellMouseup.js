@@ -25,8 +25,8 @@ export function handleCellMouseup(event) {
   
                   const cellRightClickConfig = luckysheetConfigsetting.cellRightClickConfig;
   
-                  const _colsRowsData = document.getElementById("luckysheet-cols-rows-data"); if (_colsRowsData) _colsRowsData.style.display = '';
-                  const _handleInCell = document.getElementById("luckysheet-cols-rows-handleincell"); if (_handleInCell) _handleInCell.style.display = '';
+                  const _colsRowsData = document.getElementById("luckysheet-cols-rows-data"); if (_colsRowsData) _colsRowsData.style.display = 'block';
+                  const _handleInCell = document.getElementById("luckysheet-cols-rows-handleincell"); if (_handleInCell) _handleInCell.style.display = 'block';
                   const _colsRowsAdd = document.getElementById("luckysheet-cols-rows-add"); if (_colsRowsAdd) _colsRowsAdd.style.display = 'none';
                   const _colsRowsShift = document.getElementById("luckysheet-cols-rows-shift"); if (_colsRowsShift) _colsRowsShift.style.display = 'none';
   
@@ -61,8 +61,8 @@ export function handleCellMouseup(event) {
                       rightClickMenu.findText(".luckysheet-cols-rows-shift-left", locale().rightclick.left);
                       rightClickMenu.findText(".luckysheet-cols-rows-shift-right", locale().rightclick.right);
   
-                      if (_colsRowsAdd) _colsRowsAdd.style.display = '';
-                      // document.getElementById("luckysheet-cols-rows-data").style.display = '';
+                      if (_colsRowsAdd) _colsRowsAdd.style.display = 'block';
+                      // document.getElementById("luckysheet-cols-rows-data").style.display = 'block';
                       if (_colsRowsShift) _colsRowsShift.style.display = 'none';
                       if (_handleInCell) _handleInCell.style.display = 'none';
                       Store.luckysheet_cols_menu_status = true;
@@ -170,12 +170,12 @@ export function handleCellMouseup(event) {
                       rightClickMenu.findText(".luckysheet-cols-rows-shift-size", locale().rightclick.height);
                       rightClickMenu.findText(".luckysheet-cols-rows-shift-left", locale().rightclick.top);
                       rightClickMenu.findText(".luckysheet-cols-rows-shift-right", locale().rightclick.bottom);
-                      if (_colsRowsAdd) _colsRowsAdd.style.display = '';
-                      // document.getElementById("luckysheet-cols-rows-data").style.display = '';
+                      if (_colsRowsAdd) _colsRowsAdd.style.display = 'block';
+                      // document.getElementById("luckysheet-cols-rows-data").style.display = 'block';
                       if (_colsRowsShift) _colsRowsShift.style.display = 'none';
                       if (_handleInCell) _handleInCell.style.display = 'none';
                       Store.luckysheet_cols_menu_status = true;
-  
+
                       const _sep7 = document.querySelector("#luckysheet-cols-rows-add .luckysheet-menuseparator"); if (_sep7) _sep7.style.display = "block";
 
                       const _tlAdd2 = document.getElementById("luckysheet-top-left-add-selected"); if (_tlAdd2) _tlAdd2.style.display = cellRightClickConfig.insertRow

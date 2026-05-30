@@ -12,7 +12,7 @@ export function bindNamespacedEvent(selector, event, namespace, handler, filter)
 
     let wrappedHandler = filter
         ? function(e) {
-            let target = e.target.closest(filter);
+            let target = e.target?.closest?.(filter);
             if (!target) return;
             handler.call(target, e);
         }

@@ -29,8 +29,8 @@ const ifFormulaGenerator = {
         }, true);
 
         formulaDialogs.ifFormulaDialog.el.addEventListener("click", function(e){
-            if(e.target.closest && e.target.closest(".singRange")){
-                let _elCompareValue = formulaDialogs.ifFormulaDialog.el.querySelector("#compareValue");
+            if(e.target?.closest?.(".singRange")){
+                let _elCompareValue = formulaDialogs.ifFormulaDialog.el?.querySelector("#compareValue");
                 let value = _elCompareValue ? _elCompareValue.value.trim() : "";
 
                 if(formula.iscelldata(value)){
@@ -50,9 +50,9 @@ const ifFormulaGenerator = {
                 showModalMask();
                 formulaDialogs.ifFormulaDialog.show();
 
-                let _elInput = formulaDialogs.ifFormulaSingleRange.el.querySelector("input");
+                let _elInput = formulaDialogs.ifFormulaSingleRange.el?.querySelector("input");
                 let value = _elInput ? _elInput.value.trim() : "";
-                let _elCompareValue2 = formulaDialogs.ifFormulaDialog.el.querySelector("#compareValue");
+                let _elCompareValue2 = formulaDialogs.ifFormulaDialog.el?.querySelector("#compareValue");
                 if (_elCompareValue2) _elCompareValue2.value = value;
 
                 _this.singleRangeFocus = false;
@@ -72,7 +72,7 @@ const ifFormulaGenerator = {
         });
 
         formulaDialogs.ifFormulaSingleRange.el.addEventListener("click", function(e){
-            if(e.target.closest && e.target.closest(".luckysheet-modal-dialog-title-close")){
+            if(e.target?.closest?.(".luckysheet-modal-dialog-title-close")){
                 formulaRangeSelect.hide();
 
                 showModalMask();
@@ -83,7 +83,7 @@ const ifFormulaGenerator = {
         });
 
         formulaDialogs.ifFormulaDialog.el.addEventListener("click", function(e){
-            if(e.target.closest && e.target.closest(".multiRange")){
+            if(e.target?.closest?.(".multiRange")){
                 _this.multiRangeDialog();
 
                 _this.singleRangeFocus = false;
@@ -100,7 +100,7 @@ const ifFormulaGenerator = {
                 showModalMask();
                 formulaDialogs.ifFormulaDialog.show();
 
-                let _elInput2 = formulaDialogs.ifFormulaMultiRange.el.querySelector("input");
+                let _elInput2 = formulaDialogs.ifFormulaMultiRange.el?.querySelector("input");
                 let value = _elInput2 ? _elInput2.value.trim() : "";
                 let cellrange = formula.getcellrange(value);
                 let str_r = cellrange["row"][0],
@@ -131,9 +131,9 @@ const ifFormulaGenerator = {
                 let largeNum = arr[0];
                 let smallNum = arr[arr.length - 1];
 
-                let _elSmallRange = formulaDialogs.ifFormulaDialog.el.querySelector("#smallRange");
+                let _elSmallRange = formulaDialogs.ifFormulaDialog.el?.querySelector("#smallRange");
                 if (_elSmallRange) _elSmallRange.value = smallNum;
-                let _elLargeRange = formulaDialogs.ifFormulaDialog.el.querySelector("#largeRange");
+                let _elLargeRange = formulaDialogs.ifFormulaDialog.el?.querySelector("#largeRange");
                 if (_elLargeRange) _elLargeRange.value = largeNum;
             }
         });
@@ -151,7 +151,7 @@ const ifFormulaGenerator = {
         });
 
         formulaDialogs.ifFormulaMultiRange.el.addEventListener("click", function(e){
-            if(e.target.closest && e.target.closest(".luckysheet-modal-dialog-title-close")){
+            if(e.target?.closest?.(".luckysheet-modal-dialog-title-close")){
                 countShow.row.hide();
                 countShow.column.hide();
 
@@ -166,29 +166,29 @@ const ifFormulaGenerator = {
                 let value = _elSelected ? _elSelected.value : "";
 
                 if(value == "2"){
-                    let _elMethodVal = formulaDialogs.ifFormulaDialog.el.querySelector("#DivisionMethodVal");
+                    let _elMethodVal = formulaDialogs.ifFormulaDialog.el?.querySelector("#DivisionMethodVal");
                     if (_elMethodVal) _elMethodVal.style.display = 'none';
                 }
                 else{
-                    let _elMethodVal2 = formulaDialogs.ifFormulaDialog.el.querySelector("#DivisionMethodVal");
-                    if (_elMethodVal2) _elMethodVal2.style.display = '';
+                    let _elMethodVal2 = formulaDialogs.ifFormulaDialog.el?.querySelector("#DivisionMethodVal");
+                    if (_elMethodVal2) _elMethodVal2.style.display = 'block';
                 }
 
-                let _elIfList = formulaDialogs.ifFormulaDialog.el.querySelector(".ifList");
+                let _elIfList = formulaDialogs.ifFormulaDialog.el?.querySelector(".ifList");
                 if (_elIfList) _elIfList.innerHTML = '';
             }
         });
 
         formulaDialogs.ifFormulaDialog.el.addEventListener("click", function(e){
             if(e.target.matches && e.target.matches("#createBtn")){
-                let _elCompareValue3 = formulaDialogs.ifFormulaDialog.el.querySelector("#compareValue");
+                let _elCompareValue3 = formulaDialogs.ifFormulaDialog.el?.querySelector("#compareValue");
                 let compareValue = _elCompareValue3 ? _elCompareValue3.value.trim() : "";
                 if(compareValue == ""){
                     _this.info(locale_formula.ifGenTipNotNullValue);
                     return;
                 }
 
-                let _elMethodSelected = formulaDialogs.ifFormulaDialog.el.querySelector("#DivisionMethod option:checked");
+                let _elMethodSelected = formulaDialogs.ifFormulaDialog.el?.querySelector("#DivisionMethod option:checked");
                 let method = _elMethodSelected ? _elMethodSelected.value : "";
                 if(method == "2"){
                     let itemHtml =  '<div class="item">'+
@@ -207,15 +207,15 @@ const ifFormulaGenerator = {
                                         '<input type="text" class="markText formulaInputFocus" value="">'+
                                         '<i class="fa fa-remove" aria-hidden="true"></i>'+
                                     '</div>';
-                    let _elIfList2 = formulaDialogs.ifFormulaDialog.el.querySelector(".ifList");
+                    let _elIfList2 = formulaDialogs.ifFormulaDialog.el?.querySelector(".ifList");
                     if (_elIfList2) _elIfList2.insertAdjacentHTML('beforeend', itemHtml);
                 }
                 else{
-                    let _elSmallRange2 = formulaDialogs.ifFormulaDialog.el.querySelector("#smallRange");
+                    let _elSmallRange2 = formulaDialogs.ifFormulaDialog.el?.querySelector("#smallRange");
                     let smallRange = _elSmallRange2 ? _elSmallRange2.value.trim() : "";
-                    let _elLargeRange2 = formulaDialogs.ifFormulaDialog.el.querySelector("#largeRange");
+                    let _elLargeRange2 = formulaDialogs.ifFormulaDialog.el?.querySelector("#largeRange");
                     let largeRange = _elLargeRange2 ? _elLargeRange2.value.trim() : "";
-                    let _elMethodVal3 = formulaDialogs.ifFormulaDialog.el.querySelector("#DivisionMethodVal");
+                    let _elMethodVal3 = formulaDialogs.ifFormulaDialog.el?.querySelector("#DivisionMethodVal");
                     let DivisionMethodVal = _elMethodVal3 ? _elMethodVal3.value.trim() : "";
 
                     if(smallRange == "" || largeRange == ""){
@@ -233,15 +233,15 @@ const ifFormulaGenerator = {
         });
 
         formulaDialogs.ifFormulaDialog.el.addEventListener("click", function(e){
-            if(e.target.closest && e.target.closest(".item .fa-remove")){
-                let _elItem = e.target.closest(".item");
+            if(e.target?.closest?.(".item .fa-remove")){
+                let _elItem = e.target?.closest?.(".item");
                 if (_elItem) _elItem.remove();
             }
         });
 
         formulaDialogs.ifFormulaDialog.el.addEventListener("click", function(e){
-            if(e.target.closest && e.target.closest("#luckysheet-ifFormulaGenerator-dialog-confirm")){
-                let items = formulaDialogs.ifFormulaDialog.el.querySelectorAll(".ifList .item");
+            if(e.target?.closest?.("#luckysheet-ifFormulaGenerator-dialog-confirm")){
+                let items = formulaDialogs.ifFormulaDialog.el?.querySelectorAll(".ifList .item");
                 let str = '';
 
                 Array.from(items).reverse().forEach(function(e, i){
@@ -324,12 +324,12 @@ const ifFormulaGenerator = {
         });
 
         formulaDialogs.ifFormulaInfo.el.addEventListener("click", function(e){
-            if(e.target.closest && e.target.closest(".luckysheet-model-close-btn")){
+            if(e.target?.closest?.(".luckysheet-model-close-btn")){
                 showModalMask();
             }
         });
         formulaDialogs.ifFormulaInfo.el.addEventListener("click", function(e){
-            if(e.target.closest && e.target.closest(".luckysheet-modal-dialog-title-close")){
+            if(e.target?.closest?.(".luckysheet-modal-dialog-title-close")){
                 showModalMask();
             }
         });
@@ -530,7 +530,7 @@ const ifFormulaGenerator = {
     getIfList: function(compareValue, smallRange, largeRange, method, methodVal){
         const locale_formula = locale().formula;
 
-        let _elIfList3 = formulaDialogs.ifFormulaDialog.el.querySelector(".ifList");
+        let _elIfList3 = formulaDialogs.ifFormulaDialog.el?.querySelector(".ifList");
         if (_elIfList3) _elIfList3.innerHTML = '';
 
         smallRange = parseInt(smallRange);
@@ -592,7 +592,7 @@ const ifFormulaGenerator = {
                                 '<input type="text" class="markText formulaInputFocus" value="'+ markText +'">'+
                                 '<i class="fa fa-remove" aria-hidden="true"></i>'+
                             '</div>';
-            let _elIfList4 = formulaDialogs.ifFormulaDialog.el.querySelector(".ifList");
+            let _elIfList4 = formulaDialogs.ifFormulaDialog.el?.querySelector(".ifList");
             if (_elIfList4) _elIfList4.insertAdjacentHTML('beforeend', itemHtml);
         }
     },

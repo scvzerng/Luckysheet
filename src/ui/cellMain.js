@@ -22,7 +22,7 @@ class CellMain {
     onClick(selector, callback) {
         if (!this.el) return this;
         this.el.addEventListener("click", function(e) {
-            const target = e.target.closest(selector);
+            const target = e.target?.closest?.(selector);
             if (target && this.el.contains(target)) callback.call(target, e);
         }.bind(this));
         return this;

@@ -50,20 +50,16 @@ function getCursortPosition(textDom){
 }
 
 function hideMenuByCancel(event){
-
-    // Right-click the menu in the title bar, and click on the elements whose class is luckysheet-cols-rows-shift-left and luckysheet-cols-rows-shift-right will trigger the hiding of the menu bar. It should be prohibited. Exclude these two elements. There may be more Other elements will also jump here for more testing
-
     if(event.target.classList && (event.target.classList.contains('luckysheet-cols-rows-shift-left') || event.target.classList.contains('luckysheet-cols-rows-shift-right'))){
         return;
     }
 
-    if (!event.target.classList.contains("luckysheet-mousedown-cancel") && !event.target.matches("[class*='sp-palette']") && !event.target.matches("[class*='sp-thumb']") && !event.target.matches("[class*='sp-']")) {
-        rightClickMenu.style.display = 'none';
-        resizeHandles.colHover.style.display = 'none';
+    if (!event.target?.closest?.(".luckysheet-mousedown-cancel") && !event.target?.matches?.("[class*='sp-palette']") && !event.target?.matches?.("[class*='sp-thumb']") && !event.target?.matches?.("[class*='sp-']")) {
+        rightClickMenu.hide();
+        resizeHandles.colHover.hide();
         const _elColsMenuBtn2 = document.getElementById("luckysheet-cols-menu-btn"); if (_elColsMenuBtn2) _elColsMenuBtn2.style.display = 'none';
         [document.getElementById("luckysheet-sheet-list"), document.getElementById("luckysheet-rightclick-sheet-menu"), document.getElementById("luckysheet-user-menu")].forEach(el => { if (el) el.style.display = 'none'; });
         document.querySelectorAll("body > .luckysheet-filter-menu, body > .luckysheet-filter-submenu, body > .luckysheet-cols-menu").forEach(el => el.style.display = 'none');
-        //document.querySelector("body > luckysheet-menuButton").style.display = 'none';
         Store.luckysheet_cols_menu_status = false;
     }
 }

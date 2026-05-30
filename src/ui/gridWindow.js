@@ -9,10 +9,16 @@ class GridWindow {
     onMousewheel(callback) { if (!this.el) return this; this.el.addEventListener("wheel", callback); return this; }
     setCss(props) { if (!this.el) return this; for (const [k, v] of Object.entries(props)) this.el.style[k] = typeof v === 'number' ? v + 'px' : v; return this; }
     find(selector) { if (!this.el) return null; return this.el.querySelector(selector); }
-    removeCanvasExcept(selector) {
+    removeCanvasExcept(selectorOrEl) {
         if (!this.el) return this;
         const canvases = this.el.querySelectorAll(":scope > canvas");
-        canvases.forEach(c => { if (!c.matches(selector)) c.remove(); });
+        canvases.forEach(c => {
+            if (typeof selectorOrEl === 'string') {
+                if (!c.matches(selectorOrEl)) c.remove();
+            } else {
+                if (c !== selectorOrEl) c.remove();
+            }
+        });
         return this;
     }
     setCssBottom(value) { if (!this.el) return this; this.el.style.bottom = typeof value === 'number' ? value + 'px' : value; return this; }

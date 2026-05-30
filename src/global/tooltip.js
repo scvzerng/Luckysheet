@@ -27,7 +27,7 @@ const tooltip = {
             myw = _infoDialog.offsetWidth;
         let winw = document.documentElement.clientWidth, winh = document.documentElement.clientHeight;
         let scrollLeft = document.documentElement.scrollLeft, scrollTop = document.documentElement.scrollTop;
-        const _elInfo = document.getElementById("luckysheet-info"); if (_elInfo) { _elInfo.style.left = (winw + scrollLeft - myw) / 2; _elInfo.style.top = (winh + scrollTop - myh) / 3; _elInfo.style.display = ''; }
+        const _elInfo = document.getElementById("luckysheet-info"); if (_elInfo) { _elInfo.style.left = (winw + scrollLeft - myw) / 2 + "px"; _elInfo.style.top = (winh + scrollTop - myh) / 3 + "px"; _elInfo.style.display = 'block'; }
     },
     confirm: function (title, content, func1, func2, name1, name2) {
         showModalMask();
@@ -57,7 +57,7 @@ const tooltip = {
             myw = _confirmDialog.offsetWidth;
         let winw = document.documentElement.clientWidth, winh = document.documentElement.clientHeight;
         let scrollLeft = document.documentElement.scrollLeft, scrollTop = document.documentElement.scrollTop;
-        const _elConfirm = document.getElementById("luckysheet-confirm"); if (_elConfirm) { _elConfirm.style.left = (winw + scrollLeft - myw) / 2; _elConfirm.style.top = (winh + scrollTop - myh) / 3; _elConfirm.style.display = ''; }
+        const _elConfirm = document.getElementById("luckysheet-confirm"); if (_elConfirm) { _elConfirm.style.left = (winw + scrollLeft - myw) / 2 + "px"; _elConfirm.style.top = (winh + scrollTop - myh) / 3 + "px"; _elConfirm.style.display = 'block'; }
         _confirmDialog.querySelector(".luckysheet-model-conform-btn").addEventListener("click", function () {
             if (typeof func1 == 'function') {
                 func1();
@@ -93,7 +93,7 @@ const tooltip = {
             myw = _screenshotDialog?.offsetWidth || 0;
         let winw = document.documentElement.clientWidth, winh = document.documentElement.clientHeight;
         let scrollLeft = document.documentElement.scrollLeft, scrollTop = document.documentElement.scrollTop;
-        const _elConfirm2 = document.getElementById("luckysheet-confirm"); if (_elConfirm2) { _elConfirm2.style.left = (winw + scrollLeft - myw) / 2; _elConfirm2.style.top = (winh + scrollTop - myh) / 3; _elConfirm2.style.display = ''; }
+        const _elConfirm2 = document.getElementById("luckysheet-confirm"); if (_elConfirm2) { _elConfirm2.style.left = (winw + scrollLeft - myw) / 2 + "px"; _elConfirm2.style.top = (winh + scrollTop - myh) / 3 + "px"; _elConfirm2.style.display = 'block'; }
         _screenshotDialog.querySelector(".luckysheet-model-conform-btn").addEventListener("click", function () {
             let $a = document.createElement("a");
             $a.setAttribute("href", imgurl);
@@ -125,7 +125,7 @@ const tooltip = {
         if (!objEl) return;
 
         objEl.addEventListener("mouseover", function (e) {
-            let _target = e.target.closest(to);
+            let _target = e.target?.closest?.(to);
             if (!_target) return;
             if (_this.hoverTipshowState) {
                 return;
@@ -154,27 +154,27 @@ const tooltip = {
                 $toolup.classList.remove("jfk-tooltip-hide");
                 $toolup.querySelector("div.jfk-tooltip-contentId").innerHTML = tips;
                 let toolwidth = $toolup.offsetWidth;
-                $toolup.querySelector("div.jfk-tooltip-arrow").style.left = (toolwidth / 2);
+                $toolup.querySelector("div.jfk-tooltip-arrow").style.left = (toolwidth / 2) + "px";
 
                 let toolleft = toffset.left + ($t.offsetWidth - toolwidth) / 2;
                 if(toolleft < 2){
                     toolleft = 2;
-                    $toolup.querySelector("div.jfk-tooltip-arrow").style.left = $t.offsetWidth / 2;
+                    $toolup.querySelector("div.jfk-tooltip-arrow").style.left = $t.offsetWidth / 2 + "px";
                 }
 
-                Object.assign($toolup.style, { "top": toffset.top + $t.offsetHeight + 1, "left": toolleft });
+                Object.assign($toolup.style, { "top": (toffset.top + $t.offsetHeight + 1) + "px", "left": toolleft + "px" });
             }, 300);
 
         });
         objEl.addEventListener("mouseout", function (e) {
-            let _target = e.target.closest(to);
+            let _target = e.target?.closest?.(to);
             if (!_target) return;
             _this.hoverTipshowState = false;
             clearTimeout(_this.hoverTipshowTimeOut);
             document.getElementById("luckysheet-tooltip-up")?.classList.add("jfk-tooltip-hide");
         });
         objEl.addEventListener("click", function (e) {
-            let _target = e.target.closest(to);
+            let _target = e.target?.closest?.(to);
             if (!_target) return;
             _this.hoverTipshowState = true;
             clearTimeout(_this.hoverTipshowTimeOut);
@@ -254,10 +254,10 @@ const tooltip = {
         }
 
         setTimeout(function(){
-            Object.assign(document.querySelector("#luckysheetpopover .luckysheetpopover-content").style, {"margin-left": -document.querySelector("#luckysheetpopover .luckysheetpopover-btn").offsetWidth/2});
+            Object.assign(document.querySelector("#luckysheetpopover .luckysheetpopover-content").style, {"margin-left": (-document.querySelector("#luckysheetpopover .luckysheetpopover-btn").offsetWidth/2) + "px"});
         }, 1);
         Object.assign(document.getElementById("luckysheetpopover").style, pcss);
-        document.getElementById("luckysheetpopover").style.display = '';
+        document.getElementById("luckysheetpopover").style.display = 'block';
         document.querySelector("#luckysheetpopover .luckysheetpopover-btn").addEventListener("click", function(){
             if(typeof(exitsFuc) == "function"){
                 exitsFuc();

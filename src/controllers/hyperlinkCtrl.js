@@ -101,7 +101,7 @@ const hyperlinkCtrl = {
             "left": ((winw + scrollLeft - myw) / 2) + "px",
             "top": ((winh + scrollTop - myh) / 3) + "px"
         });
-        if (_elInsertLinkDialog) _elInsertLinkDialog.style.display = '';
+        if (_elInsertLinkDialog) _elInsertLinkDialog.style.display = 'block';
 
         _this.dataAllocation();
     },
@@ -117,7 +117,7 @@ const hyperlinkCtrl = {
             let value = this.value;
 
             document.querySelectorAll("#luckysheet-insertLink-dialog .show-box").forEach(el => el.style.display = 'none');
-            const _elShowBox = document.querySelector("#luckysheet-insertLink-dialog .show-box-" + value); if (_elShowBox) _elShowBox.style.display = '';
+            const _elShowBox = document.querySelector("#luckysheet-insertLink-dialog .show-box-" + value); if (_elShowBox) _elShowBox.style.display = 'block';
         })
 
         //确认按钮
@@ -213,7 +213,7 @@ const hyperlinkCtrl = {
         const _elLinkType = document.getElementById("luckysheet-insertLink-dialog-linkType"); if (_elLinkType) _elLinkType.value = linkType;
 
         document.querySelectorAll("#luckysheet-insertLink-dialog .show-box").forEach(el => el.style.display = 'none');
-        const _elShowBox2 = document.querySelector("#luckysheet-insertLink-dialog .show-box-" + linkType); if (_elShowBox2) _elShowBox2.style.display = '';
+        const _elShowBox2 = document.querySelector("#luckysheet-insertLink-dialog .show-box-" + linkType); if (_elShowBox2) _elShowBox2.style.display = 'block';
 
         //链接地址
         let linkAddress = item.linkAddress || '';

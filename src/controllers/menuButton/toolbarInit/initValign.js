@@ -1,3 +1,4 @@
+import { hideMenuByCancel } from '../../../global/cursorPos';
 import editor from '../../../global/editor';
 import locale from '../../../locale/locale';
 import Store from '../../../store';
@@ -7,7 +8,12 @@ import { iconfontObjects } from '../../constant';
 
 export function initValign(_this) {
       //垂直对齐
-      document.getElementById("luckysheet-icon-valign")?.addEventListener("click", function () {
+      let valignEl = document.getElementById("luckysheet-icon-valign");
+      valignEl?.addEventListener("mousedown", function (e) {
+        hideMenuByCancel(e);
+        e.stopPropagation();
+      });
+      valignEl?.addEventListener("click", function () {
         let itemvalue = document.getElementById("luckysheet-icon-valign")?.getAttribute("type");
         if (itemvalue == null) {
           itemvalue = "bottom";
@@ -15,7 +21,12 @@ export function initValign(_this) {
         let d = editor.deepCopyFlowData(Store.flowdata);
         _this.updateFormat(d, "vt", itemvalue);
       });
-      document.getElementById("luckysheet-icon-valign-menu")?.addEventListener("click", function () {
+      let valignMenuEl = document.getElementById("luckysheet-icon-valign-menu");
+      valignMenuEl?.addEventListener("mousedown", function (e) {
+        hideMenuByCancel(e);
+        e.stopPropagation();
+      });
+      valignMenuEl?.addEventListener("click", function () {
         let menuButtonId = this.getAttribute("id") + "-menuButton";
         let menuButton = document.getElementById(menuButtonId);
         const _locale = locale();

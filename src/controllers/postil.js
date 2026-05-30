@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿import { rowLocation, colLocation, mouseposition } from '../global/location';
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿import { rowLocation, colLocation, mouseposition } from '../global/location';
 import editor from '../global/editor';
 import { luckysheetRangeLast } from '../global/cursorPos';
 import { luckysheetrefreshgrid } from '../global/refresh';
@@ -40,7 +40,7 @@ const luckysheetPostil = {
             _this.removeActivePs();
 
             _target.classList.add("luckysheet-postil-show-active");
-            const _resizeEl1 = _target.querySelector(".luckysheet-postil-dialog-resize"); if (_resizeEl1) _resizeEl1.style.display = '';
+            const _resizeEl1 = _target.querySelector(".luckysheet-postil-dialog-resize"); if (_resizeEl1) _resizeEl1.style.display = 'block';
             const _arrowEl1 = _target.querySelector(".arrowCanvas"); if (_arrowEl1) _arrowEl1.style.zIndex = 200;
             const _mainEl1 = _target.querySelector(".luckysheet-postil-show-main"); if (_mainEl1) _mainEl1.style.zIndex = 200;
 
@@ -96,7 +96,7 @@ const luckysheetPostil = {
             const _psShow1 = _target.closest(".luckysheet-postil-show");
             _psShow1?.classList.add("luckysheet-postil-show-active");
             if (_psShow1) {
-                const _resize1 = _psShow1.querySelector(".luckysheet-postil-dialog-resize"); if (_resize1) _resize1.style.display = '';
+                const _resize1 = _psShow1.querySelector(".luckysheet-postil-dialog-resize"); if (_resize1) _resize1.style.display = 'block';
                 const _arrow1 = _psShow1.querySelector(".arrowCanvas"); if (_arrow1) _arrow1.style.zIndex = 200;
                 const _main1 = _psShow1.querySelector(".luckysheet-postil-show-main"); if (_main1) _main1.style.zIndex = 200;
             }
@@ -140,7 +140,7 @@ const luckysheetPostil = {
             const _psShow2 = _target.closest(".luckysheet-postil-show");
             _psShow2?.classList.add("luckysheet-postil-show-active");
             if (_psShow2) {
-                const _resize2 = _psShow2.querySelector(".luckysheet-postil-dialog-resize"); if (_resize2) _resize2.style.display = '';
+                const _resize2 = _psShow2.querySelector(".luckysheet-postil-dialog-resize"); if (_resize2) _resize2.style.display = 'block';
                 const _arrow2 = _psShow2.querySelector(".arrowCanvas"); if (_arrow2) _arrow2.style.zIndex = 200;
                 const _main2 = _psShow2.querySelector(".luckysheet-postil-show-main"); if (_main2) _main2.style.zIndex = 200;
             }
@@ -507,9 +507,9 @@ const luckysheetPostil = {
         let _this = this;
 
         if(document.querySelector("#luckysheet-postil-show_"+ r +"_"+ c) !== null){
-            const _elPostil = document.getElementById("luckysheet-postil-show_"+ r +"_"+ c); if (_elPostil) _elPostil.style.display = '';
+            const _elPostil = document.getElementById("luckysheet-postil-show_"+ r +"_"+ c); if (_elPostil) _elPostil.style.display = 'block';
             document.querySelector("#luckysheet-postil-show_"+ r +"_"+ c)?.classList.add("luckysheet-postil-show-active");
-            const _resizeEl2 = document.querySelector("#luckysheet-postil-show_"+ r +"_"+ c +" .luckysheet-postil-dialog-resize"); if (_resizeEl2) _resizeEl2.style.display = '';
+            const _resizeEl2 = document.querySelector("#luckysheet-postil-show_"+ r +"_"+ c +" .luckysheet-postil-dialog-resize"); if (_resizeEl2) _resizeEl2.style.display = 'block';
         }
         else{
             let postil = Store.flowdata[r][c].ps;

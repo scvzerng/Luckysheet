@@ -387,7 +387,7 @@ const cellUpdate = {
 
             document.querySelectorAll("#luckysheet-formula-functionrange .luckysheet-formula-functionrange-highlight").forEach(el => el.remove());
             resetInputBoxStyle();
-            inputBoxIndex.style.display = 'none';
+            inputBoxIndex.hide();
             functionBox.unsetActive();
 
             _this.rangestart = false;
@@ -396,12 +396,12 @@ const cellUpdate = {
         },
 
         canceFunctionrangeSelected: function() {
-            formulaRangeSelect.style.display = 'none';
-            countShow.row.style.display = 'none';
-            countShow.column.style.display = 'none';
+            formulaRangeSelect.hide();
+            countShow.row.hide();
+            countShow.column.hide();
             // document.querySelector("#luckysheet-cols-h-selected, #luckysheet-rows-h-selected").style.display = 'none';
-            formulaDialogs.formulaSearchC.style.display = 'none';
-            formulaDialogs.formulaHelp.style.display = 'none';
+            formulaDialogs.formulaSearchC.hide();
+            formulaDialogs.formulaHelp.hide();
         }
 };
 

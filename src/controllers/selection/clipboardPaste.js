@@ -23,7 +23,14 @@ const clipboardPasteModule = {
     const _locale = locale();
     const local_drag = _locale.drag;
     let textarea = document.getElementById("luckysheet-copy-content");
-    if (textarea) { textarea.focus(); textarea.select(); }
+    if (textarea) {
+      textarea.focus();
+      const range = document.createRange();
+      range.selectNodeContents(textarea);
+      const sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+    }
 
     // 等50毫秒，keyPress事件发生了再去处理数据
     setTimeout(function () {

@@ -204,7 +204,7 @@ export function initDeleteCellEvents() {
   
     //清除单元格内�?
     document.getElementById("luckysheet-delete-text").addEventListener("click", function () {
-      rightClickMenu.style.display = 'none';
+      rightClickMenu.hide();
       luckysheetContainerFocus();
       if (Store.allowEdit === false) {
         return;

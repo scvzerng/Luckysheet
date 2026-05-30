@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿import sheetmanage from './sheetmanage';
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿import sheetmanage from './sheetmanage';
 import { sheetselectlistitemHTML, sheetselectlistHTML, keycode } from './constant';
 import {
     replaceHtml,
@@ -172,13 +172,13 @@ export function initialSheetBar(){
     isInitialSheetConfig = false
 
     document.getElementById("luckysheet-sheet-area")?.addEventListener("mousedown", function (e) {
-        let _target = e.target.closest("div.luckysheet-sheets-item");
+        let _target = e.target?.closest?.("div.luckysheet-sheets-item");
         if (!_target) return;
         if(isEditMode()){
             return;
         }
 
-        let $t = _target, $cur = e.target, $item = $cur.closest(".luckysheet-sheets-item");
+        let $t = _target, $cur = e.target, $item = $cur?.closest?.(".luckysheet-sheets-item");
 
         if (e.which == "3") {
             setTimeout(() => {
@@ -220,7 +220,7 @@ export function initialSheetBar(){
         }
     });
     document.getElementById("luckysheet-sheet-area").addEventListener("click", function (e) {
-        let _target = e.target.closest("div.luckysheet-sheets-item");
+        let _target = e.target?.closest?.("div.luckysheet-sheets-item");
         if (!_target) return;
         if(isEditMode()){
             return;
@@ -244,24 +244,24 @@ export function initialSheetBar(){
     }
 
     document.getElementById("luckysheet-sheet-area").addEventListener("dblclick", function (e) {
-        let _target = e.target.closest("span.luckysheet-sheets-item-name");
+        let _target = e.target?.closest?.("span.luckysheet-sheets-item-name");
         if (!_target) return;
         luckysheetsheetnameeditor(_target);
     });
 
     let compositionFlag = true;
     document.getElementById("luckysheet-sheet-area")?.addEventListener("compositionstart", function (e) {
-        let _target = e.target.closest("span.luckysheet-sheets-item-name");
+        let _target = e.target?.closest?.("span.luckysheet-sheets-item-name");
         if (!_target) return;
         compositionFlag = false;
     });
     document.getElementById("luckysheet-sheet-area")?.addEventListener("compositionend", function (e) {
-        let _target = e.target.closest("span.luckysheet-sheets-item-name");
+        let _target = e.target?.closest?.("span.luckysheet-sheets-item-name");
         if (!_target) return;
         compositionFlag = true;
     });
     document.getElementById("luckysheet-sheet-area").addEventListener("input", function (e) {
-        let _target = e.target.closest("span.luckysheet-sheets-item-name");
+        let _target = e.target?.closest?.("span.luckysheet-sheets-item-name");
         if (!_target) return;
         if(Store.allowEdit===false){
             return;
@@ -293,7 +293,7 @@ export function initialSheetBar(){
     });
 
     document.getElementById("luckysheet-sheet-area")?.addEventListener("blur", function (e) {
-        let _target = e.target.closest("span.luckysheet-sheets-item-name");
+        let _target = e.target?.closest?.("span.luckysheet-sheets-item-name");
         if (!_target) return;
         if(Store.allowEdit===false){
             return;
@@ -356,7 +356,7 @@ export function initialSheetBar(){
     }, true);
 
     document.getElementById("luckysheet-sheet-area").addEventListener("keydown", function (e) {
-        let _target = e.target.closest("span.luckysheet-sheets-item-name");
+        let _target = e.target?.closest?.("span.luckysheet-sheets-item-name");
         if (!_target) return;
         if(Store.allowEdit===false){
             return;
@@ -473,7 +473,7 @@ export function initialSheetBar(){
         if (sheetscrollend <= 0) {
             document.querySelector("#luckysheet-sheet-container .docs-sheet-fade-left").style.display = 'none';
         }
-        document.querySelector("#luckysheet-sheet-container .docs-sheet-fade-right").style.display = '';
+        document.querySelector("#luckysheet-sheet-container .docs-sheet-fade-right").style.display = 'block';
 
         clearInterval(sheetscrollani);
         sheetscrollani = setInterval(function () {
@@ -492,7 +492,7 @@ export function initialSheetBar(){
         if (sheetscrollstart > 0) {
             const _fadeRight2 = document.querySelector("#luckysheet-sheet-container .docs-sheet-fade-right"); if (_fadeRight2) _fadeRight2.style.display = 'none';
         }
-        const _fadeLeft2 = document.querySelector("#luckysheet-sheet-container .docs-sheet-fade-left"); if (_fadeLeft2) _fadeLeft2.style.display = '';
+        const _fadeLeft2 = document.querySelector("#luckysheet-sheet-container .docs-sheet-fade-left"); if (_fadeLeft2) _fadeLeft2.style.display = 'block';
 
         clearInterval(sheetscrollani);
         sheetscrollani = setInterval(function () {
@@ -535,7 +535,7 @@ export function initialSheetBar(){
         if (initialOpenSheet) {
             document.getElementById(Store.container)?.insertAdjacentHTML('beforeend', replaceHtml(sheetselectlistHTML, { "item": item }));
         document.getElementById("luckysheet-sheet-list")?.addEventListener("click", function (e) {
-                let _target = e.target.closest(".luckysheet-cols-menuitem");
+                let _target = e.target?.closest?.(".luckysheet-cols-menuitem");
                 if (!_target) return;
                 if(isEditMode()){
                     return;
@@ -559,7 +559,7 @@ export function initialSheetBar(){
 
         let left = this.getBoundingClientRect().left - (document.getElementById(Store.container)?.getBoundingClientRect()?.left || 0);
         let bottom = this.offsetHeight + (document.getElementById("luckysheet-sta-content")?.offsetHeight || 0) + 12;
-        Object.assign($t.style, {left: left + 'px', bottom: bottom + 'px'}); $t.style.display = '';
+        Object.assign($t.style, {left: left + 'px', bottom: bottom + 'px'}); $t.style.display = 'block';
         resetInputBoxStyle();
     });
 

@@ -115,14 +115,14 @@ const luckysheetLocationCell = {
             "left": ((winw + scrollLeft - myw) / 2) + "px",
             "top": ((winh + scrollTop - myh) / 3) + "px"
         });
-        _elLocCellDialog2.style.display = '';
+        _elLocCellDialog2.style.display = 'block';
     },
     init: function(){
         let _this = this;
 
         const locale_location = locale().findAndReplace;
 
-        document.addEventListener("click", function(e) { const t = e.target.closest("#luckysheet-locationCell-dialog .listItem input[type='radio']"); if (t && document.contains(t)) {
+        document.addEventListener("click", function(e) { const t = e.target?.closest?.("#luckysheet-locationCell-dialog .listItem input[type='radio']"); if (t && document.contains(t)) {
             document.querySelectorAll("#luckysheet-locationCell-dialog .listItem input[type='checkbox']").forEach(function(el) { el.disabled = true; });
             document.querySelectorAll("#luckysheet-locationCell-dialog .listItem .subbox label").forEach(function(el) { el.style.color = "#666"; });
 

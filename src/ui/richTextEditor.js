@@ -12,7 +12,15 @@ class RichTextEditor {
 
     focus() { if (!this.el) return this; this.el.focus(); return this; }
     blur() { if (!this.el) return this; this.el.blur(); return this; }
-    select() { if (!this.el) return this; this.el.select(); return this; }
+    select() {
+        if (!this.el) return this;
+        const range = document.createRange();
+        range.selectNodeContents(this.el);
+        const sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+        return this;
+    }
 
     setCss(props) { if (!this.el) return this; for (const [k, v] of Object.entries(props)) this.el.style[k] = typeof v === 'number' ? v + 'px' : v; return this; }
     find(selector) { if (!this.el) return null; return this.el.querySelector(selector); }

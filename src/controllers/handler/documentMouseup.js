@@ -260,7 +260,7 @@ export default function documentMouseup() {
                 const _psEl2 = document.getElementById(ps_id);
                 if (_psEl2) _psEl2.classList.add("luckysheet-postil-show-active");
                 const _resizeEl = _psEl2 ? _psEl2.querySelector(".luckysheet-postil-dialog-resize") : null;
-                if (_resizeEl) _resizeEl.style.display = '';
+                if (_resizeEl) _resizeEl.style.display = 'block';
             } else {
                 luckysheetPostil.editPs(ps_r, ps_c);
             }
@@ -305,7 +305,7 @@ export default function documentMouseup() {
                 const _psEl4 = document.getElementById(ps_id);
                 if (_psEl4) _psEl4.classList.add("luckysheet-postil-show-active");
                 const _resizeEl2 = _psEl4 ? _psEl4.querySelector(".luckysheet-postil-dialog-resize") : null;
-                if (_resizeEl2) _resizeEl2.style.display = '';
+                if (_resizeEl2) _resizeEl2.style.display = 'block';
             } else {
                 luckysheetPostil.editPs(ps_r, ps_c);
             }

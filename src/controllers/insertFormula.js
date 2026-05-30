@@ -22,31 +22,31 @@ const insertFormula = {
 
         searchFormula.el.addEventListener("keyup", function(e){
             if(!e.target.matches || !e.target.matches("#searchFormulaListInput")) return;
-            let _elTypeList = searchFormula.el.querySelector("#formulaTypeList");
+            let _elTypeList = searchFormula.el?.querySelector("#formulaTypeList");
             if (_elTypeList) _elTypeList.innerHTML = '';
             let txt = e.target.value.toUpperCase();
             let functionlist = Store.functionlist;
 
             if(txt == ""){
-                let _elTypeSelect = searchFormula.el.querySelector("#formulaTypeSelect option:checked");
+                let _elTypeSelect = searchFormula.el?.querySelector("#formulaTypeSelect option:checked");
                 _this.formulaListByType(_elTypeSelect ? _elTypeSelect.value : "0");
             }
             else{
                 for(let i = 0; i < functionlist.length; i++){
                     if(/^[a-zA-Z]+$/.test(txt)){
                         if(functionlist[i].n.indexOf(txt) != "-1"){
-                            let _elTypeList2 = searchFormula.el.querySelector("#formulaTypeList");
+                            let _elTypeList2 = searchFormula.el?.querySelector("#formulaTypeList");
                             if (_elTypeList2) _elTypeList2.insertAdjacentHTML('beforeend', '<div class="listBox" name="'+ functionlist[i].n +'"><span>'+ functionlist[i].n +'</span><span>'+ functionlist[i].a +'</span></div>');
                         }
                     }
                     else if(functionlist[i].a.indexOf(txt) != "-1"){
-                        let _elTypeList3 = searchFormula.el.querySelector("#formulaTypeList");
+                        let _elTypeList3 = searchFormula.el?.querySelector("#formulaTypeList");
                         if (_elTypeList3) _elTypeList3.insertAdjacentHTML('beforeend', '<div class="listBox" name="'+ functionlist[i].n +'"><span>'+ functionlist[i].n +'</span><span>'+ functionlist[i].a +'</span></div>');
                     }
                 }
             }
             
-            let _elFirstBox = searchFormula.el.querySelector("#formulaTypeList .listBox:first-child");
+            let _elFirstBox = searchFormula.el?.querySelector("#formulaTypeList .listBox:first-child");
             if (_elFirstBox) _elFirstBox.classList.add("on");
         });
 
@@ -57,7 +57,7 @@ const insertFormula = {
         });
 
         searchFormula.el.addEventListener("click", function(e){
-            let listBox = e.target.closest ? e.target.closest("#formulaTypeList .listBox") : null;
+            let listBox = e.target?.closest?.("#formulaTypeList .listBox");
             if(listBox){
                 listBox.classList.add("on");
                 Array.from(listBox.parentElement.children).filter(s => s !== listBox).forEach(function(el) { el.classList.remove("on"); });
@@ -65,8 +65,8 @@ const insertFormula = {
         });
 
         searchFormula.el.addEventListener("click", function(e){
-            if(e.target.closest && e.target.closest("#luckysheet-search-formula-confirm")){
-                let _elOnBox = searchFormula.el.querySelector(".listBox.on");
+            if(e.target?.closest?.("#luckysheet-search-formula-confirm")){
+                let _elOnBox = searchFormula.el?.querySelector(".listBox.on");
                 let formulaName = _elOnBox ? _elOnBox.getAttribute("name") : "";
                 let formulaTxt = '<span dir="auto" class="luckysheet-formula-text-color">=</span><span dir="auto" class="luckysheet-formula-text-color">'+ formulaName.toUpperCase() +'</span><span dir="auto" class="luckysheet-formula-text-color">(</span><span dir="auto" class="luckysheet-formula-text-color">)</span>';
                 
@@ -79,11 +79,11 @@ const insertFormula = {
 
         formulaDialogs.searchParm.el.addEventListener("focus", function(e){
             if(!e.target.matches || !e.target.matches(".parmBox input")) return;
-            let parmBox = e.target.closest(".parmBox");
+            let parmBox = e.target?.closest?.(".parmBox");
             let parmIndex = Array.from(parmBox.parentElement.children).indexOf(parmBox);
             formula.data_parm_index = parmIndex;
 
-            let _elTitleText = formulaDialogs.searchParm.el.querySelector(".luckysheet-modal-dialog-title-text");
+            let _elTitleText = formulaDialogs.searchParm.el?.querySelector(".luckysheet-modal-dialog-title-text");
             let formulatxt = _elTitleText ? _elTitleText.textContent : "";
             let parmLen = Store.luckysheet_function[formulatxt].p.length;
 
@@ -100,7 +100,7 @@ const insertFormula = {
             _this.parmTxtShow(e.target.value);
             _this.functionStrCompute();
 
-            let _elDetailsBox = formulaDialogs.searchParm.el.querySelector(".parmDetailsBox");
+            let _elDetailsBox = formulaDialogs.searchParm.el?.querySelector(".parmDetailsBox");
             if (_elDetailsBox) _elDetailsBox.innerHTML = '';
 
             let _elName = parmBox.querySelector(".name");
@@ -108,11 +108,11 @@ const insertFormula = {
             if (_elDetailsBox) _elDetailsBox.insertAdjacentHTML('beforeend', '<span>'+ parmName +':</span><span>'+ parmDetail +'</span>');
 
             if(parmRepeat == "y"){
-                let _elParmBoxes = formulaDialogs.searchParm.el.querySelectorAll(".parmBox");
-                let parmCount = _elParmBoxes.length;
+                let _elParmBoxes = formulaDialogs.searchParm.el?.querySelectorAll(".parmBox");
+                let parmCount = _elParmBoxes?.length;
 
                 if(parmCount < 5 && parmIndex == (parmCount - 1)){
-                    let _elParmListBox = formulaDialogs.searchParm.el.querySelector(".parmListBox");
+                    let _elParmListBox = formulaDialogs.searchParm.el?.querySelector(".parmListBox");
                     if (_elParmListBox) _elParmListBox.insertAdjacentHTML('beforeend', '<div class="parmBox"><div class="name">'+ locale_formulaMore.valueTitle +''+ (parmCount + 1) +'</div><div class="txt"><input class="formulaInputFocus" /><i class="fa fa-table" aria-hidden="true" title="'+locale_formulaMore.tipSelectDataRange+'"></i></div><div class="val">=</div></div>');
                 }
             }
@@ -140,8 +140,8 @@ const insertFormula = {
         });
 
         formulaDialogs.searchParm.el.addEventListener("click", function(e){
-            if(!e.target.closest || !e.target.closest(".parmBox i")) return;
-            let parmBox = e.target.closest(".parmBox");
+            if(!e.target?.closest?.(".parmBox i")) return;
+            let parmBox = e.target?.closest?.(".parmBox");
             let parmIndex = Array.from(parmBox.parentElement.children).indexOf(parmBox);
             formula.data_parm_index = parmIndex;
 
@@ -186,20 +186,20 @@ const insertFormula = {
         });
 
         formulaDialogs.searchParm.el.addEventListener("click", function(e){
-            if(e.target.closest && e.target.closest("#luckysheet-search-formula-parm-confirm")){
+            if(e.target?.closest?.("#luckysheet-search-formula-parm-confirm")){
                 functionBox.confirmClick();
             }
         });
 
         formulaDialogs.searchParmSelect.el.addEventListener("click", function(e){
-            if(e.target.closest && e.target.closest("#luckysheet-search-formula-parm-select-confirm")){
-                let _elSelectInput = formulaDialogs.searchParmSelect.el.querySelector("#luckysheet-search-formula-parm-select-input");
+            if(e.target?.closest?.("#luckysheet-search-formula-parm-select-confirm")){
+                let _elSelectInput = formulaDialogs.searchParmSelect.el?.querySelector("#luckysheet-search-formula-parm-select-input");
                 let parmIndex = _elSelectInput ? _elSelectInput.getAttribute("data_parm_index") : null;
 
                 formulaDialogs.searchParmSelect.hide();
                 formulaDialogs.searchParm.show();
-                let _elParmBoxes = formulaDialogs.searchParm.el.querySelectorAll(".parmBox");
-                if (parmIndex != null && _elParmBoxes[parmIndex]) {
+                let _elParmBoxes = formulaDialogs.searchParm.el?.querySelectorAll(".parmBox");
+                if (parmIndex != null && _elParmBoxes?.[parmIndex]) {
                     let _elInput2 = _elParmBoxes[parmIndex].querySelector(".txt input");
                     if (_elInput2) _elInput2.focus();
                 }
@@ -224,7 +224,7 @@ const insertFormula = {
             "botton": '<button id="luckysheet-search-formula-confirm" class="btn btn-primary">'+locale_button.confirm+'</button><button class="btn btn-default luckysheet-model-close-btn">'+locale_button.cancel+'</button>', 
             "style": "z-index:100003" 
         }));
-        let _elContent = searchFormula.el.querySelector(".luckysheet-modal-dialog-content");
+        let _elContent = searchFormula.el?.querySelector(".luckysheet-modal-dialog-content");
         if (_elContent) _elContent.style.minWidth = "300px";
         let _elDialog = searchFormula.el;
         let myh = _elDialog.offsetHeight, 
@@ -239,7 +239,7 @@ const insertFormula = {
         if (_elSearchInput) _elSearchInput.focus();
     },
     formulaListByType: function(type){
-        let _elTypeList = searchFormula.el.querySelector("#formulaTypeList");
+        let _elTypeList = searchFormula.el?.querySelector("#formulaTypeList");
         if (_elTypeList) _elTypeList.innerHTML = '';
         let functionlist = Store.functionlist;
                     
@@ -249,7 +249,7 @@ const insertFormula = {
             }
         }
 
-        let _elFirstBox = searchFormula.el.querySelector("#formulaTypeList .listBox:first-child");
+        let _elFirstBox = searchFormula.el?.querySelector("#formulaTypeList .listBox:first-child");
         if (_elFirstBox) _elFirstBox.classList.add("on");
     },
     formulaParmDialog: function(formulaTxt, parm){
@@ -322,11 +322,11 @@ const insertFormula = {
         let scrollLeft = document.documentElement.scrollLeft, scrollTop = document.documentElement.scrollTop;
         formulaDialogs.searchParm.showAt({ "left": (winw + scrollLeft - myw) / 2, "top": (winh + scrollTop - myh) / 3 });
         
-        let _elFirstInput = formulaDialogs.searchParm.el.querySelector(".parmBox input");
+        let _elFirstInput = formulaDialogs.searchParm.el?.querySelector(".parmBox input");
         if (_elFirstInput) _elFirstInput.focus();
 
-        let _elParmBoxes = formulaDialogs.searchParm.el.querySelectorAll(".parmBox");
-        _elParmBoxes.forEach(function(e, index){
+        let _elParmBoxes = formulaDialogs.searchParm.el?.querySelectorAll(".parmBox");
+        _elParmBoxes?.forEach(function(e, index){
             let _elTxtInput = e.querySelector(".txt input");
             let parmtxt = _elTxtInput ? _elTxtInput.value : "";
             
@@ -414,19 +414,19 @@ const insertFormula = {
                         }
                     }
 
-                    let _elParmBoxes2 = formulaDialogs.searchParm.el.querySelectorAll(".parmBox");
-                    let _elVal5 = _elParmBoxes2[formula.data_parm_index] ? _elParmBoxes2[formula.data_parm_index].querySelector(".val") : null;
+                    let _elParmBoxes2 = formulaDialogs.searchParm.el?.querySelectorAll(".parmBox");
+                    let _elVal5 = _elParmBoxes2?.[formula.data_parm_index] ? _elParmBoxes2[formula.data_parm_index].querySelector(".val") : null;
                     if (_elVal5) _elVal5.textContent = " = {"+ txtArr.join(",") +"}";
                 }
                 else{
-                    let _elParmBoxes3 = formulaDialogs.searchParm.el.querySelectorAll(".parmBox");
-                    let _elVal6 = _elParmBoxes3[formula.data_parm_index] ? _elParmBoxes3[formula.data_parm_index].querySelector(".val") : null;
+                    let _elParmBoxes3 = formulaDialogs.searchParm.el?.querySelectorAll(".parmBox");
+                    let _elVal6 = _elParmBoxes3?.[formula.data_parm_index] ? _elParmBoxes3[formula.data_parm_index].querySelector(".val") : null;
                     if (_elVal6) _elVal6.textContent = " = {"+ txtdata.v +"}";
                 }
             }
             else if(getObjType(txtdata) != "object"){
-                let _elParmBoxes4 = formulaDialogs.searchParm.el.querySelectorAll(".parmBox");
-                let _elVal7 = _elParmBoxes4[formula.data_parm_index] ? _elParmBoxes4[formula.data_parm_index].querySelector(".val") : null;
+                let _elParmBoxes4 = formulaDialogs.searchParm.el?.querySelectorAll(".parmBox");
+                let _elVal7 = _elParmBoxes4?.[formula.data_parm_index] ? _elParmBoxes4[formula.data_parm_index].querySelector(".val") : null;
                 if (_elVal7) _elVal7.textContent = " = {"+ parmtxt +"}";
 
                 formulaRangeSelect.hide();
@@ -461,8 +461,8 @@ const insertFormula = {
 
             luckysheet_count_show(col_pre, row_pre, col - col_pre - 1, row - row_pre - 1, cellrange.row, cellrange.column);
 
-            let _elParmBoxes5 = formulaDialogs.searchParm.el.querySelectorAll(".parmBox");
-            let _elVal8 = _elParmBoxes5[formula.data_parm_index] ? _elParmBoxes5[formula.data_parm_index].querySelector(".val") : null;
+            let _elParmBoxes5 = formulaDialogs.searchParm.el?.querySelectorAll(".parmBox");
+            let _elVal8 = _elParmBoxes5?.[formula.data_parm_index] ? _elParmBoxes5[formula.data_parm_index].querySelector(".val") : null;
             if (_elVal8) _elVal8.textContent = " = {"+ (new Function("return " + formula.functionParserExe("=" + parmtxt).trim()))() +"}";
         }
     },
@@ -471,12 +471,12 @@ const insertFormula = {
         let parmValArr = [];
         let lvi = -1;
 
-        let _elTitleText2 = formulaDialogs.searchParm.el.querySelector(".luckysheet-modal-dialog-title-text");
+        let _elTitleText2 = formulaDialogs.searchParm.el?.querySelector(".luckysheet-modal-dialog-title-text");
         let formulatxt = _elTitleText2 ? _elTitleText2.textContent : "";
         let p = Store.luckysheet_function[formulatxt].p;
 
-        let _elParmBoxes6 = formulaDialogs.searchParm.el.querySelectorAll(".parmBox");
-        _elParmBoxes6.forEach(function(e, i){
+        let _elParmBoxes6 = formulaDialogs.searchParm.el?.querySelectorAll(".parmBox");
+        _elParmBoxes6?.forEach(function(e, i){
             let _elTxtInput2 = e.querySelector(".txt input");
             let parmtxt = _elTxtInput2 ? _elTxtInput2.value : "";
 
@@ -530,7 +530,7 @@ const insertFormula = {
                 result = formula.error.n;
             }
 
-            let _elResultSpan = formulaDialogs.searchParm.el.querySelector(".result span");
+            let _elResultSpan = formulaDialogs.searchParm.el?.querySelector(".result span");
             if (_elResultSpan) _elResultSpan.textContent = result;
         }
     }

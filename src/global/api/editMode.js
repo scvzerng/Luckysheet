@@ -11,7 +11,7 @@ export function exitEditMode(options = {}){
 
 
         if (formulaDialogs.formulaSearchC.isVisible() && formula.searchFunctionCell != null) {
-            formula.searchFunctionEnter(formulaDialogs.formulaSearchC.el.querySelector(".luckysheet-formula-search-item-active"));
+            formula.searchFunctionEnter(formulaDialogs.formulaSearchC.el?.querySelector(".luckysheet-formula-search-item-active"));
         }
         else {
             formula.updatecell(Store.luckysheetCellUpdate[0], Store.luckysheetCellUpdate[1]);
@@ -24,10 +24,10 @@ export function exitEditMode(options = {}){
         }
 
         if(formulaDialogs.searchParm.isVisible()){
-            formulaDialogs.searchParm.style.display = 'none';
+            formulaDialogs.searchParm.hide();
         }
         if(formulaDialogs.searchParmSelect.isVisible()){
-            formulaDialogs.searchParmSelect.style.display = 'none';
+            formulaDialogs.searchParmSelect.hide();
         }
 
     }

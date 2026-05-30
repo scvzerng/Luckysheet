@@ -215,15 +215,15 @@ const sheetParamRestoreModule = {
   showSheet: function () {
     // changeSheetContainerSize();
     const _elCellFlow = document.getElementById("luckysheet-cell-flow_0"); if (_elCellFlow) Object.assign(_elCellFlow.style, {
-      width: Store.ch_width,
+      width: Store.ch_width + "px",
       top: "-1px"
     }); //width更新
     resizeHandles.sheetTable.setCss({
       width: Store.ch_width - 1,
       height: Store.rh_height
     });
-    const _elRowHeader = document.getElementById("luckysheetrowHeader_0"); if (_elRowHeader) _elRowHeader.style.height = Store.rh_height;
-    const _elColsHCells = document.getElementById("luckysheet-cols-h-cells_0"); if (_elColsHCells) _elColsHCells.style.width = Store.ch_width; //width更新
+    const _elRowHeader = document.getElementById("luckysheetrowHeader_0"); if (_elRowHeader) _elRowHeader.style.height = Store.rh_height + "px";
+    const _elColsHCells = document.getElementById("luckysheet-cols-h-cells_0"); if (_elColsHCells) _elColsHCells.style.width = Store.ch_width + "px"; //width更新
 
     scrollBarX.setInnerDivWidth(Store.ch_width);
     scrollBarY.setInnerDivHeight(Store.rh_height + Store.columnHeaderHeight - Store.cellMainSrollBarSize - 3);

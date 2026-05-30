@@ -1,3 +1,4 @@
+import { hideMenuByCancel } from '../../../global/cursorPos';
 import { frozenFirstColumn, frozenFirstRow } from '../../../global/api';
 import { luckysheetrefreshgrid } from '../../../global/refresh';
 import tooltip from '../../../global/tooltip';
@@ -14,7 +15,12 @@ import cellMain from '../../../ui/cellMain.js';
 
 export function initFreezen(_this) {
       //冻结行列
-      document.getElementById("luckysheet-icon-freezen-menu")?.addEventListener("click", function () {
+      let freezenMenuEl = document.getElementById("luckysheet-icon-freezen-menu");
+      freezenMenuEl?.addEventListener("mousedown", function (e) {
+        hideMenuByCancel(e);
+        e.stopPropagation();
+      });
+      freezenMenuEl?.addEventListener("click", function () {
         let menuButtonId = this.getAttribute("id") + "-menuButton";
         let menuButton = document.getElementById(menuButtonId);
         if (menuButton == null) {

@@ -1,3 +1,4 @@
+import { hideMenuByCancel } from '../../../global/cursorPos';
 import luckysheetformula from '../../../global/formula';
 import tooltip from '../../../global/tooltip';
 import { isEditMode } from '../../../global/validate';
@@ -14,11 +15,21 @@ import functionBox from '../../../ui/functionBox.js';
 
 export function initFunction(_this) {
       //公式
-      document.getElementById("luckysheet-icon-function")?.addEventListener("click", function () {
+      let functionEl = document.getElementById("luckysheet-icon-function");
+      functionEl?.addEventListener("mousedown", function (e) {
+        hideMenuByCancel(e);
+        e.stopPropagation();
+      });
+      functionEl?.addEventListener("click", function () {
         _this.autoSelectionFormula("SUM");
       });
 
-      document.getElementById("luckysheet-icon-function-menu")?.addEventListener("click", function () {
+      let functionMenuEl = document.getElementById("luckysheet-icon-function-menu");
+      functionMenuEl?.addEventListener("mousedown", function (e) {
+        hideMenuByCancel(e);
+        e.stopPropagation();
+      });
+      functionMenuEl?.addEventListener("click", function () {
         let menuButtonId = this.getAttribute("id") + "-menuButton";
         let menuButton = document.getElementById(menuButtonId);
         const _locale = locale();

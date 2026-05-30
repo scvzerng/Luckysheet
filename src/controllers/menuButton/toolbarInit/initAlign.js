@@ -1,3 +1,4 @@
+import { hideMenuByCancel } from '../../../global/cursorPos';
 import editor from '../../../global/editor';
 import locale from '../../../locale/locale';
 import Store from '../../../store';
@@ -7,7 +8,12 @@ import { iconfontObjects } from '../../constant';
 
 export function initAlign(_this) {
       //水平对齐
-      document.getElementById("luckysheet-icon-align")?.addEventListener("click", function () {
+      let alignEl = document.getElementById("luckysheet-icon-align");
+      alignEl?.addEventListener("mousedown", function (e) {
+        hideMenuByCancel(e);
+        e.stopPropagation();
+      });
+      alignEl?.addEventListener("click", function () {
         let itemvalue = document.getElementById("luckysheet-icon-align")?.getAttribute("type");
         if (itemvalue == null) {
           itemvalue = "left";
@@ -15,7 +21,12 @@ export function initAlign(_this) {
         let d = editor.deepCopyFlowData(Store.flowdata);
         _this.updateFormat(d, "ht", itemvalue);
       });
-      document.getElementById("luckysheet-icon-align-menu")?.addEventListener("click", function () {
+      let alignMenuEl = document.getElementById("luckysheet-icon-align-menu");
+      alignMenuEl?.addEventListener("mousedown", function (e) {
+        hideMenuByCancel(e);
+        e.stopPropagation();
+      });
+      alignMenuEl?.addEventListener("click", function () {
         let menuButtonId = this.getAttribute("id") + "-menuButton";
         let menuButton = document.getElementById(menuButtonId);
         if (menuButton == null) {

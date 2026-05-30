@@ -273,7 +273,7 @@ import formulaDialogs from '../../../ui/formulaDialogs.js';
                     selectionCopyShow(conditionformat.selectRange);
 
                     let range = conditionformat.getTxtByRange(conditionformat.selectRange);
-                    let _elMultiRangeInput = formulaDialogs.multiRange.el.querySelector("input");
+                    let _elMultiRangeInput = formulaDialogs.multiRange.el?.querySelector("input");
                     if (_elMultiRangeInput) _elMultiRangeInput.value = range;
                 } else if (formula.rangestart) {
                     formula.rangedrag({ pageX, pageY });
@@ -1017,7 +1017,7 @@ import formulaDialogs from '../../../ui/formulaDialogs.js';
                     let offsetLeft = Math.round(imgItem.crop.offsetLeft * scaleX);
                     let offsetTop = Math.round(imgItem.crop.offsetTop * scaleY);
 
-                    let _elDialogContent = imageDialog.active.el.querySelector(".luckysheet-modal-dialog-content");
+                    let _elDialogContent = imageDialog.active.el?.querySelector(".luckysheet-modal-dialog-content");
                     if (_elDialogContent) {
                         Object.assign(_elDialogContent.style, {
                             "background-size": defaultWidth + "px " + defaultHeight + "px",
@@ -1221,7 +1221,7 @@ import formulaDialogs from '../../../ui/formulaDialogs.js';
                     let imageUrlHandle = Store.toJsonOptions && Store.toJsonOptions["imageUrlHandle"];
                     let imgSrc = typeof imageUrlHandle === "function" ? imageUrlHandle(imgItem.src) : imgItem.src;
 
-                    let _elCroppingMask = imageDialog.cropping.el.querySelector(".cropping-mask");
+                    let _elCroppingMask = imageDialog.cropping.el?.querySelector(".cropping-mask");
                     if (_elCroppingMask) {
                         Object.assign(_elCroppingMask.style, {
                             width: imgItem.default.width + "px",
@@ -1232,7 +1232,7 @@ import formulaDialogs from '../../../ui/formulaDialogs.js';
                         });
                     }
 
-                    let _elCroppingContent = imageDialog.cropping.el.querySelector(".cropping-content");
+                    let _elCroppingContent = imageDialog.cropping.el?.querySelector(".cropping-content");
                     if (_elCroppingContent) {
                         Object.assign(_elCroppingContent.style, {
                             "background-image": "url(" + imgSrc + ")",

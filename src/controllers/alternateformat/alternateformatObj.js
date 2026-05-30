@@ -164,7 +164,7 @@ const alternateformat = {
             document.querySelector("#luckysheet-modal-dialog-slider-alternateformat #luckysheet-alternateformat-range input").value = rangeValue;
 
             const _rd1 = this.closest("#luckysheet-alternateformat-rangeDialog"); if (_rd1) _rd1.style.display = 'none';
-            const _elAFShow1 = document.getElementById("luckysheet-modal-dialog-slider-alternateformat"); if (_elAFShow1) _elAFShow1.style.display = '';
+            const _elAFShow1 = document.getElementById("luckysheet-modal-dialog-slider-alternateformat"); if (_elAFShow1) _elAFShow1.style.display = 'block';
             luckysheetsizeauto();
 
             _this.update();
@@ -172,13 +172,13 @@ const alternateformat = {
         offNS("AFrDCl");
         onNS(document, "click.AFrDCl", "#luckysheet-alternateformat-rangeDialog-close", function(){
             const _rd2 = this.closest("#luckysheet-alternateformat-rangeDialog"); if (_rd2) _rd2.style.display = 'none';
-            const _elAFShow2 = document.getElementById("luckysheet-modal-dialog-slider-alternateformat"); if (_elAFShow2) _elAFShow2.style.display = '';
+            const _elAFShow2 = document.getElementById("luckysheet-modal-dialog-slider-alternateformat"); if (_elAFShow2) _elAFShow2.style.display = 'block';
             luckysheetsizeauto();
         });
         offNS("AFrDTitle");
         onNS(document, "click.AFrDTitle", "#luckysheet-alternateformat-rangeDialog .luckysheet-modal-dialog-title-close", function(){
             const _rd3 = this.closest("#luckysheet-alternateformat-rangeDialog"); if (_rd3) _rd3.style.display = 'none';
-            const _elAFShow3 = document.getElementById("luckysheet-modal-dialog-slider-alternateformat"); if (_elAFShow3) _elAFShow3.style.display = '';
+            const _elAFShow3 = document.getElementById("luckysheet-modal-dialog-slider-alternateformat"); if (_elAFShow3) _elAFShow3.style.display = 'block';
             luckysheetsizeauto();
         });
 
@@ -490,7 +490,7 @@ const alternateformat = {
     checkboxChange: function(hasRowHeader, hasRowFooter){
         if(hasRowHeader){
             const _elRH = document.getElementById("luckysheet-alternateformat-rowHeader"); if (_elRH) _elRH.checked = true;
-            document.querySelectorAll("#luckysheet-alternateformat-modelToning .header").forEach(el => el.style.display = '');
+            document.querySelectorAll("#luckysheet-alternateformat-modelToning .header").forEach(el => el.style.display = 'block');
         }
         else{
             const _elRH2 = document.getElementById("luckysheet-alternateformat-rowHeader"); if (_elRH2) _elRH2.removeAttribute("checked");  
@@ -499,7 +499,7 @@ const alternateformat = {
 
         if(hasRowFooter){
             const _elRF = document.getElementById("luckysheet-alternateformat-rowFooter"); if (_elRF) _elRF.checked = true;
-            document.querySelectorAll("#luckysheet-alternateformat-modelToning .footer").forEach(el => el.style.display = '');
+            document.querySelectorAll("#luckysheet-alternateformat-modelToning .footer").forEach(el => el.style.display = 'block');
         }
         else{
             const _elRF2 = document.getElementById("luckysheet-alternateformat-rowFooter"); if (_elRF2) _elRF2.removeAttribute("checked"); 
@@ -594,10 +594,10 @@ const alternateformat = {
         const _csDlg = document.getElementById("luckysheet-alternateformat-colorSelect-dialog");
         if (_csDlg) {
             Object.assign(_csDlg.style, {
-                "left": (winw + scrollLeft - myw) / 2,
-                "top": (winh + scrollTop - myh) / 3
+                "left": (winw + scrollLeft - myw) / 2 + "px",
+                "top": (winh + scrollTop - myh) / 3 + "px"
             });
-            _csDlg.style.display = '';
+            _csDlg.style.display = 'block';
         }
         
         //初始化选择颜色插件
@@ -670,10 +670,10 @@ const alternateformat = {
         const _rdDlg = document.getElementById("luckysheet-alternateformat-rangeDialog");
         if (_rdDlg) {
             Object.assign(_rdDlg.style, {
-                "left": (winw + scrollLeft - myw) / 2,
-                "top": (winh + scrollTop - myh) / 3
+                "left": (winw + scrollLeft - myw) / 2 + "px",
+                "top": (winh + scrollTop - myh) / 3 + "px"
             });
-            _rdDlg.style.display = '';
+            _rdDlg.style.display = 'block';
         }
     },
     rangeIsExists: function(range, index){
@@ -686,7 +686,7 @@ const alternateformat = {
         let AFarr = structuredClone(getCurrentFile()["luckysheet_alternateformat_save"]);
 
         if(index != undefined && index != null){
-            if(AFarr.length > 1){
+            if(AFarr != null && AFarr.length > 1){
                 AFarr.splice(index, 1);
             }
             else{
@@ -694,7 +694,7 @@ const alternateformat = {
             }
         }
 
-        if(AFarr !== null){
+        if(AFarr != null){
             let arr = [];
             for(let i = 0; i < AFarr.length; i++){
                 let obj = {

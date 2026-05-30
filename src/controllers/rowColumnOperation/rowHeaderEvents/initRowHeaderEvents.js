@@ -40,7 +40,7 @@ export function initRowHeaderEvents() {
       let col_index = getMaxColIndex(),
         col = Store.visibledatacolumn[col_index],
         col_pre = 0;
-      rightClickMenu.style.display = 'none';
+      rightClickMenu.hide();
       [document.getElementById("luckysheet-sheet-list"), document.getElementById("luckysheet-rightclick-sheet-menu")].forEach(el => { if (el) el.style.display = 'none'; });
   
       //mousedown是右�?
@@ -119,7 +119,7 @@ export function initRowHeaderEvents() {
             last["top_move"] = top;
             last["height_move"] = height;
             formula.func_selectedrange = last;
-          } else if (event.ctrlKey && (() => { const _spans = richTextEditor.el.querySelectorAll("span"); return _spans.length > 0 && _spans[_spans.length - 1].textContent != ","; })()) {
+          } else if (event.ctrlKey && (() => { const _spans = richTextEditor.el?.querySelectorAll("span"); return _spans && _spans.length > 0 && _spans[_spans.length - 1].textContent != ","; })()) {
             let vText = richTextEditor.getText() + ",";
             if (vText !== null && vText.substr(0, 1) == "=") {
               vText = formula.functionHTMLGenerate(vText);
@@ -198,7 +198,7 @@ export function initRowHeaderEvents() {
             top: top,
             height: height
           });
-          formulaDialogs.formulaHelp.style.display = 'none';
+          formulaDialogs.formulaHelp.hide();
           luckysheet_count_show(col_pre, top, col - col_pre - 1, height, rowseleted, [0, col_index]);
           setTimeout(function () {
             let currSelection = window.getSelection();
@@ -298,7 +298,7 @@ export function initRowHeaderEvents() {
     });
     rowHeader.onMousemove(function (event) {
       if (Store.luckysheet_rows_selected_status || Store.luckysheet_rows_change_size || Store.luckysheet_select_status) {
-        resizeHandles.rowHover.style.display = 'none';
+        resizeHandles.rowHover.hide();
         return;
       }
       let mouse = mouseposition(event.pageX, event.pageY);
@@ -322,7 +322,7 @@ export function initRowHeaderEvents() {
       }
     });
     rowHeader.onMouseleave(function (event) {
-      resizeHandles.rowHover.style.display = 'none';
+      resizeHandles.rowHover.hide();
       resizeHandles.rowChangeSize.setCss({opacity: 0});
     });
     rowHeader.onMouseup(function (event) {
@@ -341,8 +341,8 @@ export function initRowHeaderEvents() {
         rightClickMenu.findText(".luckysheet-cols-rows-shift-size", locale().rightclick.height);
         rightClickMenu.findText(".luckysheet-cols-rows-shift-left", locale().rightclick.top);
         rightClickMenu.findText(".luckysheet-cols-rows-shift-right", locale().rightclick.bottom);
-        const _elAdd1 = document.getElementById("luckysheet-cols-rows-add"); if (_elAdd1) _elAdd1.style.display = '';
-        const _elData1 = document.getElementById("luckysheet-cols-rows-data"); if (_elData1) _elData1.style.display = '';
+        const _elAdd1 = document.getElementById("luckysheet-cols-rows-add"); if (_elAdd1) _elAdd1.style.display = 'block';
+        const _elData1 = document.getElementById("luckysheet-cols-rows-data"); if (_elData1) _elData1.style.display = 'block';
         const _elShift2 = document.getElementById("luckysheet-cols-rows-shift"); if (_elShift2) _elShift2.style.display = 'none';
         const _elHandleInCell1 = document.getElementById("luckysheet-cols-rows-handleincell"); if (_elHandleInCell1) _elHandleInCell1.style.display = 'none';
         const _sep15 = document.querySelector("#luckysheet-cols-rows-add .luckysheet-menuseparator"); if (_sep15) _sep15.style.display = "block";

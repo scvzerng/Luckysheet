@@ -368,7 +368,7 @@ const luckysheetMoreFormat = {
             "left": ((winw + scrollLeft - myw) / 2) + "px",
             "top": ((winh + scrollTop - myh) / 3) + "px"
         });
-        if (_elMoreFmtDialog2) _elMoreFmtDialog2.style.display = '';
+        if (_elMoreFmtDialog2) _elMoreFmtDialog2.style.display = 'block';
         
         let _elFirstItem = document.querySelector("#luckysheet-moreFormat-dialog .listbox .listItem");
         if (_elFirstItem) _elFirstItem.classList.add("on");
@@ -377,7 +377,7 @@ const luckysheetMoreFormat = {
         let _this = this;
 
         //选择格式
-        document.addEventListener("click", function(e) { const t = e.target.closest("#luckysheet-moreFormat-dialog .listbox .listItem"); if (t && document.contains(t)) {
+        document.addEventListener("click", function(e) { const t = e.target?.closest?.("#luckysheet-moreFormat-dialog .listbox .listItem"); if (t && document.contains(t)) {
             t.classList.add("on");
             Array.from(t.parentElement.children).filter(s => s !== t).forEach(function(el) { el.classList.remove("on"); });
         } });

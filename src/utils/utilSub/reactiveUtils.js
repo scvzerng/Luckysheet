@@ -27,10 +27,10 @@ function openSelfModel(id, isshowMask = true) {
     let scrollLeft = document.documentElement.scrollLeft,
         scrollTop = document.documentElement.scrollTop;
     Object.assign(_dialog.style, {
-        left: (winw + scrollLeft - myw) / 2,
-        top: (winh + scrollTop - myh) / 3,
+        left: (winw + scrollLeft - myw) / 2 + "px",
+        top: (winh + scrollTop - myh) / 3 + "px",
     });
-    _dialog.style.display = '';
+    _dialog.style.display = 'block';
 
     if (isshowMask) {
         showModalMask();

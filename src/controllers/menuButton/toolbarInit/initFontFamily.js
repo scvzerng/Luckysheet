@@ -38,8 +38,8 @@ export function initFontFamily(_this) {
           menuButton.style.width = "200px";
           _this.focus(menuButton);
           menuButton.addEventListener("click", function (e) {
-            if (e.target.closest(".luckysheet-cols-menuitem")) {
-              let item = e.target.closest(".luckysheet-cols-menuitem");
+            if (e.target?.closest?.(".luckysheet-cols-menuitem")) {
+              let item = e.target?.closest?.(".luckysheet-cols-menuitem");
               menuButton.style.display = "none";
               luckysheetContainerFocus();
               let itemvalue = item.getAttribute("itemvalue");

@@ -16,7 +16,7 @@ export default function cleargridelement(event) {
 
     cellSelectedFocus.hide();
     resizeHandles.rowHover.hide();
-    selectionCopy.el.find(".luckysheet-selection-copy").hide();
+    const _selCopyEl = selectionCopy.el?.querySelector(".luckysheet-selection-copy"); if (_selCopyEl) _selCopyEl.style.display = 'none';
     const _elColsMenuBtn = document.getElementById("luckysheet-cols-menu-btn"); if (_elColsMenuBtn) _elColsMenuBtn.style.display = 'none';
     countShow.row.hide();
     countShow.column.hide();

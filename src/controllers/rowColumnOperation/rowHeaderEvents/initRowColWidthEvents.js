@@ -17,7 +17,7 @@ export function initRowColWidthEvents() {
       if (event.target.nodeName === "INPUT") {
         return;
       }
-      rightClickMenu.style.display = 'none';
+      rightClickMenu.hide();
       luckysheetContainerFocus();
   
       // let size = parseInt(this.siblings("input[type='number']").value.trim());

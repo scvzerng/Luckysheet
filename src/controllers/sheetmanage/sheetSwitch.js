@@ -38,7 +38,7 @@ const sheetSwitchModule = {
     // 钩子函数
     method.createHookFunction("sheetActivate", index, isNewSheet);
     [document.getElementById("luckysheet-filter-selected-sheet" + Store.currentSheetIndex), document.getElementById("luckysheet-filter-options-sheet" + Store.currentSheetIndex)].forEach(el => { if (el) el.style.display = 'none'; });
-    [document.getElementById("luckysheet-filter-selected-sheet" + index), document.getElementById("luckysheet-filter-options-sheet" + index)].forEach(el => { if (el) el.style.display = ''; });
+    [document.getElementById("luckysheet-filter-selected-sheet" + index), document.getElementById("luckysheet-filter-options-sheet" + index)].forEach(el => { if (el) el.style.display = 'block'; });
 
     // 存储当前index，在远程公式里能识别，如果不是当前页就不要刷新（远程公式只能刷新当前页）
     window.luckysheetCurrentIndex = index;
@@ -145,7 +145,7 @@ const sheetSwitchModule = {
     }
     const _visSet = cellMain.find(".luckysheet-datavisual-selection-set");
     if (_visSet) _visSet.style.display = 'none';
-    const _el147 = document.getElementById("luckysheet-datavisual-selection-set-" + index); if (_el147) _el147.style.display = '';
+    const _el147 = document.getElementById("luckysheet-datavisual-selection-set-" + index); if (_el147) _el147.style.display = 'block';
     luckysheetformula.hideButton();
     luckysheetFreezen.initialFreezen(index);
     _this.restoreselect();
@@ -154,7 +154,7 @@ const sheetSwitchModule = {
     const _elSheet = document.getElementById("luckysheet-sheets-item" + index);
     window.luckysheet_getcelldata_cache = null;
     document.querySelectorAll("#luckysheet-sheet-area div.luckysheet-sheets-item").forEach(el => el.classList.remove("luckysheet-sheets-item-active"));
-    if (_elSheet) { _elSheet.classList.add("luckysheet-sheets-item-active"); _elSheet.style.display = ''; }
+    if (_elSheet) { _elSheet.classList.add("luckysheet-sheets-item-active"); _elSheet.style.display = 'block'; }
     cleargridelement();
     this.changeSheet(index, isNewSheet, isCopySheet);
     [document.getElementById("luckysheet-sheet-list"), document.getElementById("luckysheet-rightclick-sheet-menu")].forEach(el => { if (el) el.style.display = 'none'; });

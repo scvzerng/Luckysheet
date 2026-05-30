@@ -1,3 +1,4 @@
+import { hideMenuByCancel } from '../../../global/cursorPos';
 import editor from '../../../global/editor';
 import { luckysheetrefreshgrid } from '../../../global/refresh';
 import { checkIsAllowEdit } from '../../../global/validate';
@@ -13,7 +14,12 @@ import '../../../components/ColorPicker/colorPicker.css';
 
 export function initBorder(_this) {
       //边框设置
-      document.getElementById("luckysheet-icon-border-all")?.addEventListener("click", function () {
+      let borderAllEl = document.getElementById("luckysheet-icon-border-all");
+      borderAllEl?.addEventListener("mousedown", function (e) {
+        hideMenuByCancel(e);
+        e.stopPropagation();
+      });
+      borderAllEl?.addEventListener("click", function () {
         if (!checkIsAllowEdit()) {
           return;
         }
@@ -58,7 +64,12 @@ export function initBorder(_this) {
           luckysheetrefreshgrid();
         }, 1);
       });
-      document.getElementById("luckysheet-icon-border-menu")?.addEventListener("click", function () {
+      let borderMenuEl = document.getElementById("luckysheet-icon-border-menu");
+      borderMenuEl?.addEventListener("mousedown", function (e) {
+        hideMenuByCancel(e);
+        e.stopPropagation();
+      });
+      borderMenuEl?.addEventListener("click", function () {
         let menuButtonId = this.getAttribute("id") + "-menuButton";
         let menuButton = document.getElementById(menuButtonId);
         if (menuButton == null) {

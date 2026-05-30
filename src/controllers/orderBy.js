@@ -268,7 +268,7 @@ export function orderByInitial(){
             "left": ((winw + scrollLeft - myw) / 2) + "px",
             "top": ((winh + scrollTop - myh) / 2) + "px"
         });
-        if (_elSortDialog2) _elSortDialog2.style.display = '';
+        if (_elSortDialog2) _elSortDialog2.style.display = 'block';
         showModalMask();
 
         if (r1 < r2) {

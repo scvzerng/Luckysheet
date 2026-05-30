@@ -7,26 +7,26 @@ import imageDialog from '../ui/imageDialog.js';
 export function getScrollPosition() {
     let el = cellMain.el;
     return {
-        scrollTop: el.scrollTop(),
-        scrollLeft: el.scrollLeft()
+        scrollTop: el ? el.scrollTop : 0,
+        scrollLeft: el ? el.scrollLeft : 0
     };
 }
 
 export function getCellMainSize() {
     let el = cellMain.el;
     return {
-        winH: el.height(),
-        winW: el.width()
+        winH: el ? el.clientHeight : 0,
+        winW: el ? el.clientWidth : 0
     };
 }
 
 export function getScrollAndSize() {
     let el = cellMain.el;
     return {
-        scrollTop: el.scrollTop(),
-        scrollLeft: el.scrollLeft(),
-        winH: el.height(),
-        winW: el.width()
+        scrollTop: el ? el.scrollTop : 0,
+        scrollLeft: el ? el.scrollLeft : 0,
+        winH: el ? el.clientHeight : 0,
+        winW: el ? el.clientWidth : 0
     };
 }
 
@@ -51,7 +51,7 @@ export function resetInputBoxStyle() {
 }
 
 export function showModalMask() {
-    const _elMask = document.getElementById("luckysheet-modal-dialog-mask"); if (_elMask) _elMask.style.display = '';
+    const _elMask = document.getElementById("luckysheet-modal-dialog-mask"); if (_elMask) _elMask.style.display = 'block';
 }
 
 export function hideModalMask() {

@@ -20,7 +20,7 @@ function getCellSelectedEl(s) {
 function showCellSelected(s, cssObj) {
     let el = getCellSelectedEl(s);
     if (el) {
-        el.style.display = '';
+        el.style.display = 'block';
         if (cssObj) Object.assign(el.style, cssObj);
     }
 }
@@ -33,7 +33,7 @@ function hideCellSelected(s) {
 function showCellSelectedProp(s, prop, val) {
     let el = getCellSelectedEl(s);
     if (el) {
-        el.style.display = '';
+        el.style.display = 'block';
         el.style[prop] = val;
     }
 }
@@ -509,7 +509,7 @@ const scrollAdaptModule = {
         let _elFormulaInput = e.querySelector(".formulaInputFocus");
         if (r >= _this.freezenhorizontaldata[1]) {
           if (postil_top + postil_height < freezenTop) {
-            e.style.display = '';
+            e.style.display = 'block';
             if (_elMain) _elMain.style.top = (postil_top + offTop) + "px";
             if (_elArrow) _elArrow.style.top = (size[1] + offTop) + "px";
           } else {
@@ -517,7 +517,7 @@ const scrollAdaptModule = {
               if (postil_top + postil_height <= freezenTop + offTop) {
                 show = false;
               } else {
-                e.style.display = '';
+                e.style.display = 'block';
                 if (_elMain) Object.assign(_elMain.style, {
                   "top": (freezenTop + offTop) + "px",
                   "height": (postil_height - (freezenTop + offTop - postil_top)) + "px"
@@ -527,7 +527,7 @@ const scrollAdaptModule = {
                 show2 = false;
               }
             } else {
-              e.style.display = '';
+              e.style.display = 'block';
               if (_elMain) Object.assign(_elMain.style, {
                 "top": postil_top + "px",
                 "height": postil_height + "px"
@@ -537,13 +537,13 @@ const scrollAdaptModule = {
             }
           }
         } else {
-          e.style.display = '';
+          e.style.display = 'block';
           if (_elMain) _elMain.style.top = (postil_top + offTop) + "px";
           if (_elArrow) _elArrow.style.top = (size[1] + offTop) + "px";
         }
         if (c >= _this.freezenverticaldata[1]) {
           if (postil_left + postil_width < freezenLeft) {
-            e.style.display = '';
+            e.style.display = 'block';
             if (_elMain) _elMain.style.left = (postil_left + offLeft) + "px";
             if (_elArrow) _elArrow.style.left = (size[0] + offLeft) + "px";
           } else {
@@ -551,7 +551,7 @@ const scrollAdaptModule = {
               if (postil_left + postil_width <= freezenLeft + offLeft) {
                 show = false;
               } else {
-                e.style.display = '';
+                e.style.display = 'block';
                 if (_elMain) Object.assign(_elMain.style, {
                   "left": (freezenLeft + offLeft) + "px",
                   "width": (postil_width - (freezenLeft + offLeft - postil_left)) + "px"
@@ -561,7 +561,7 @@ const scrollAdaptModule = {
                 show2 = false;
               }
             } else {
-              e.style.display = '';
+              e.style.display = 'block';
               if (_elMain) Object.assign(_elMain.style, {
                 "left": postil_left + "px",
                 "width": postil_width + "px"
@@ -571,7 +571,7 @@ const scrollAdaptModule = {
             }
           }
         } else {
-          e.style.display = '';
+          e.style.display = 'block';
           if (_elMain) _elMain.style.left = (postil_left + offLeft) + "px";
           if (_elArrow) _elArrow.style.left = (size[0] + offLeft) + "px";
         }
@@ -579,8 +579,8 @@ const scrollAdaptModule = {
           e.style.display = 'none';
         }
         if (show && show2) {
-          e.style.display = '';
-          if (_elArrow) _elArrow.style.display = '';
+          e.style.display = 'block';
+          if (_elArrow) _elArrow.style.display = 'block';
         }
       });
     } else if (_this.freezenhorizontaldata != null) {
@@ -617,7 +617,7 @@ const scrollAdaptModule = {
         let _elFormulaInput = e.querySelector(".formulaInputFocus");
         if (r >= _this.freezenhorizontaldata[1]) {
           if (postil_top + postil_height < freezenTop) {
-            e.style.display = '';
+            e.style.display = 'block';
             if (_elMain) _elMain.style.top = (postil_top + offTop) + "px";
             if (_elArrow) _elArrow.style.top = (size[1] + offTop) + "px";
           } else {
@@ -625,7 +625,7 @@ const scrollAdaptModule = {
               if (postil_top + postil_height <= freezenTop + offTop) {
                 e.style.display = 'none';
               } else {
-                e.style.display = '';
+                e.style.display = 'block';
                 if (_elMain) Object.assign(_elMain.style, {
                   "top": (freezenTop + offTop) + "px",
                   "height": (postil_height - (freezenTop + offTop - postil_top)) + "px"
@@ -638,7 +638,7 @@ const scrollAdaptModule = {
             }
           }
         } else {
-          e.style.display = '';
+          e.style.display = 'block';
           if (_elMain) _elMain.style.top = (postil_top + offTop) + "px";
           if (_elArrow) _elArrow.style.top = (size[1] + offTop) + "px";
         }
@@ -677,7 +677,7 @@ const scrollAdaptModule = {
         let _elFormulaInput = e.querySelector(".formulaInputFocus");
         if (c >= _this.freezenverticaldata[1]) {
           if (postil_left + postil_width < freezenLeft) {
-            e.style.display = '';
+            e.style.display = 'block';
             if (_elMain) _elMain.style.left = (postil_left + offLeft) + "px";
             if (_elArrow) _elArrow.style.left = (size[0] + offLeft) + "px";
           } else {
@@ -685,7 +685,7 @@ const scrollAdaptModule = {
               if (postil_left + postil_width <= freezenLeft + offLeft) {
                 e.style.display = 'none';
               } else {
-                e.style.display = '';
+                e.style.display = 'block';
                 if (_elMain) Object.assign(_elMain.style, {
                   "left": (freezenLeft + offLeft) + "px",
                   "width": (postil_width - (freezenLeft + offLeft - postil_left)) + "px"
@@ -698,7 +698,7 @@ const scrollAdaptModule = {
             }
           }
         } else {
-          e.style.display = '';
+          e.style.display = 'block';
           if (_elMain) _elMain.style.left = (postil_left + offLeft) + "px";
           if (_elArrow) _elArrow.style.left = (size[0] + offLeft) + "px";
         }
@@ -739,14 +739,14 @@ const scrollAdaptModule = {
         if (row_index < freezen_rowindex + offsetRow - 1 || col_index < freezen_colindex + offsetColumn - 1) {
           _elDropCellIcon.style.display = 'none';
         } else {
-          _elDropCellIcon.style.display = '';
+          _elDropCellIcon.style.display = 'block';
         }
       } else if (row_index >= freezen_rowindex) {
         if (row_index < freezen_rowindex + offsetRow - 1) {
           _elDropCellIcon.style.display = 'none';
         } else {
           let col = colLocationByIndex(col_index + offsetColumn)[1];
-          _elDropCellIcon.style.display = '';
+          _elDropCellIcon.style.display = 'block';
           _elDropCellIcon.style.left = col + "px";
         }
       } else if (col_index >= freezen_colindex) {
@@ -754,13 +754,13 @@ const scrollAdaptModule = {
           _elDropCellIcon.style.display = 'none';
         } else {
           let row = rowLocationByIndex(row_index + offsetRow)[1];
-          _elDropCellIcon.style.display = '';
+          _elDropCellIcon.style.display = 'block';
           _elDropCellIcon.style.top = row + "px";
         }
       } else {
         let row = rowLocationByIndex(row_index + offsetRow)[1],
           col = colLocationByIndex(col_index + offsetColumn)[1];
-        _elDropCellIcon.style.display = '';
+        _elDropCellIcon.style.display = 'block';
         Object.assign(_elDropCellIcon.style, {
           "left": col + "px",
           "top": row + "px"
@@ -773,11 +773,11 @@ const scrollAdaptModule = {
         if (row_index < freezen_rowindex + offsetRow - 1) {
           _elDropCellIcon.style.display = 'none';
         } else {
-          _elDropCellIcon.style.display = '';
+          _elDropCellIcon.style.display = 'block';
         }
       } else {
         let row = rowLocationByIndex(row_index + offsetRow)[1];
-        _elDropCellIcon.style.display = '';
+        _elDropCellIcon.style.display = 'block';
         _elDropCellIcon.style.top = row + "px";
       }
     } else if (_this.freezenverticaldata != null) {
@@ -787,17 +787,17 @@ const scrollAdaptModule = {
         if (col_index < freezen_colindex + offsetColumn - 1) {
           _elDropCellIcon.style.display = 'none';
         } else {
-          _elDropCellIcon.style.display = '';
+          _elDropCellIcon.style.display = 'block';
         }
       } else {
         let col = colLocationByIndex(col_index + offsetColumn)[1];
-        _elDropCellIcon.style.display = '';
+        _elDropCellIcon.style.display = 'block';
         _elDropCellIcon.style.left = col + "px";
       }
     } else {
       let row = rowLocationByIndex(row_index)[1],
         col = colLocationByIndex(col_index)[1];
-      _elDropCellIcon.style.display = '';
+      _elDropCellIcon.style.display = 'block';
       Object.assign(_elDropCellIcon.style, {
         "left": col + "px",
         "top": row + "px"
@@ -820,26 +820,26 @@ const scrollAdaptModule = {
           if (top < freezen_top || col_index < freezen_colindex + offsetColumn) {
             e.style.display = 'none';
           } else {
-            e.style.display = '';
+            e.style.display = 'block';
           }
         } else if (row_index >= freezen_rowindex) {
           if (top < freezen_top) {
             e.style.display = 'none';
           } else {
             let left = Store.visibledatacolumn[col_index + offsetColumn] - 20;
-            e.style.display = '';
+            e.style.display = 'block';
             e.style.left = left + "px";
           }
         } else if (col_index >= freezen_colindex) {
           if (col_index < freezen_colindex + offsetColumn) {
             e.style.display = 'none';
           } else {
-            e.style.display = '';
+            e.style.display = 'block';
             e.style.top = (top + scroll.scrollTop) + "px";
           }
         } else {
           let left = Store.visibledatacolumn[col_index + offsetColumn] - 20;
-          e.style.display = '';
+          e.style.display = 'block';
           Object.assign(e.style, {
             "left": left + "px",
             "top": (top + scroll.scrollTop) + "px"
@@ -856,10 +856,10 @@ const scrollAdaptModule = {
           if (top < freezen_top) {
             e.style.display = 'none';
           } else {
-            e.style.display = '';
+            e.style.display = 'block';
           }
         } else {
-          e.style.display = '';
+          e.style.display = 'block';
           e.style.top = (top + getScrollPosition().scrollTop) + "px";
         }
       });
@@ -872,11 +872,11 @@ const scrollAdaptModule = {
           if (col_index < freezen_colindex + offsetColumn) {
             e.style.display = 'none';
           } else {
-            e.style.display = '';
+            e.style.display = 'block';
           }
         } else {
           let left = Store.visibledatacolumn[col_index + offsetColumn] - 20;
-          e.style.display = '';
+          e.style.display = 'block';
           e.style.left = left + "px";
         }
       });

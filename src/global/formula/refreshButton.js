@@ -75,7 +75,7 @@ const refreshButton = {
                 col_pre = margeset.column[0];
             }
 
-            const _elFormulaRefresh = document.getElementById("luckysheet-formula-refresh"); if (_elFormulaRefresh) { _elFormulaRefresh.style.display = ''; _elFormulaRefresh.style.maxWidth = col - col_pre; _elFormulaRefresh.style.maxHeight = row - row_pre; _elFormulaRefresh.style.left = col - 20; _elFormulaRefresh.style.top = row_pre + (row - row_pre - 20) / 2; }
+            const _elFormulaRefresh = document.getElementById("luckysheet-formula-refresh"); if (_elFormulaRefresh) { _elFormulaRefresh.style.display = 'block'; _elFormulaRefresh.style.maxWidth = col - col_pre + "px"; _elFormulaRefresh.style.maxHeight = row - row_pre + "px"; _elFormulaRefresh.style.left = col - 20 + "px"; _elFormulaRefresh.style.top = row_pre + (row - row_pre - 20) / 2 + "px"; }
         },
 
         hideButton: function() {

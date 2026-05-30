@@ -21,30 +21,20 @@ function showrightclickmenu($menu, x, y) {
         top = 0;
     }
 
-    Object.assign($menu.style, { top: top, left: left }); $menu.style.display = '';
+    Object.assign($menu.style, { top: top + "px", left: left + "px" }); $menu.style.display = 'block';
 }
 
 function luckysheetactiveCell() {
     if (Store.fullscreenmode) {
         setTimeout(function() {
-            // need preventScroll:true,fix Luckysheet has been set top, and clicking the cell will trigger the scrolling problem
             const input = richTextEditor.getNativeElement();
             input.focus({ preventScroll: true });
             richTextEditor.select();
-            // document.getElementById("luckysheet-rich-text-editor").focus().select();
         }, 50);
     }
 }
 
 function luckysheetContainerFocus() {
-    // document.getElementById(Store.container).focus({
-    //     preventScroll: true
-    // });
-
-    // fix jquery error: Uncaught TypeError: ((n.event.special[g.origType] || {}).handle || g.handler).apply is not a function
-    // document.getElementById(Store.container).setAttribute("tabindex", 0).focus();
-
-    // need preventScroll:true,fix Luckysheet has been set top, and clicking the cell will trigger the scrolling problem fix #794 #152
     document.getElementById(Store.container)?.focus({ preventScroll: true });
 }
 
@@ -61,13 +51,13 @@ function mouseclickposition($menu, x, y, p) {
     }
 
     if (p == "lefttop") {
-        Object.assign($menu.style, { top: y, left: x }); $menu.style.display = '';
+        Object.assign($menu.style, { top: y + "px", left: x + "px" }); $menu.style.display = 'block';
     } else if (p == "righttop") {
-        Object.assign($menu.style, { top: y, left: x - menuW }); $menu.style.display = '';
+        Object.assign($menu.style, { top: y + "px", left: x - menuW + "px" }); $menu.style.display = 'block';
     } else if (p == "leftbottom") {
-        Object.assign($menu.style, { bottom: winH - y - 12, left: x }); $menu.style.display = '';
+        Object.assign($menu.style, { bottom: winH - y - 12 + "px", left: x + "px" }); $menu.style.display = 'block';
     } else if (p == "rightbottom") {
-        Object.assign($menu.style, { bottom: winH - y - 12, left: x - menuW }); $menu.style.display = '';
+        Object.assign($menu.style, { bottom: winH - y - 12 + "px", left: x - menuW + "px" }); $menu.style.display = 'block';
     }
 }
 

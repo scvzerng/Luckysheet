@@ -1,4 +1,4 @@
-﻿﻿import { onNS, offNS, deepMerge } from '../utils/migrationHelpers.js';
+﻿import { onNS, offNS, deepMerge } from '../utils/migrationHelpers.js';
 import {  luckysheetlodingHTML } from '../controllers/constant';
 import sheetmanage from '../controllers/sheetmanage';
 import luckysheetformula from './formula';
@@ -333,12 +333,12 @@ const method = {
 
             document.querySelector("#"+ Store.container +" .luckysheet-datavisual-selection-set")?.remove();
 
-            countShow.row.style.display = 'none';
-            countShow.column.style.display = 'none';
-            formulaRangeSelect.style.display = 'none';
-            resizeHandles.changeSizeLine.style.display = 'none';
-            cellSelectedFocus.style.display = 'none';
-            selectionCopy.style.display = 'none';
+            countShow.row.hide();
+            countShow.column.hide();
+            formulaRangeSelect.hide();
+            resizeHandles.changeSizeLine.hide();
+            cellSelectedFocus.hide();
+            selectionCopy.hide();
             [document.getElementById("luckysheet-cell-selected-extend"), document.getElementById("luckysheet-cell-selected-move"), document.getElementById("luckysheet-cell-selected")].forEach(el => { if (el) el.style.display = 'none'; });
 
             delete sheetfile.load;

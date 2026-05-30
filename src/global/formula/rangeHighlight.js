@@ -64,7 +64,7 @@ const rangeHighlight = {
                 }
             });
 
-            document.querySelectorAll("#luckysheet-formula-functionrange .luckysheet-formula-functionrange-highlight").forEach(el => el.style.display = '');
+            document.querySelectorAll("#luckysheet-formula-functionrange .luckysheet-formula-functionrange-highlight").forEach(el => el.style.display = 'block');
         },
 
         getrangeseleciton: function() {

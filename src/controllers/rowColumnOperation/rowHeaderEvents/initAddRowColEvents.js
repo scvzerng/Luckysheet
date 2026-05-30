@@ -16,7 +16,7 @@ export function initAddRowColEvents() {
       if (event.target.nodeName === "INPUT") {
         return;
       }
-      rightClickMenu.style.display = 'none';
+      rightClickMenu.hide();
       luckysheetContainerFocus();
       const _locale = locale();
       const locale_drag = _locale.drag;
@@ -57,7 +57,7 @@ export function initAddRowColEvents() {
   
     // When you right-click a cell, a row is inserted before the row by default
     document.getElementById("luckysheetColsRowsHandleAdd_row")?.addEventListener("click", function (event) {
-      rightClickMenu.style.display = 'none';
+      rightClickMenu.hide();
       luckysheetContainerFocus();
       if (Store.allowEdit === false) {
         return;
@@ -69,7 +69,7 @@ export function initAddRowColEvents() {
       luckysheetextendtable('row', st_index, 1, "lefttop");
     });
     document.getElementById("luckysheetColsRowsHandleAdd_column")?.addEventListener("click", function (event) {
-      rightClickMenu.style.display = 'none';
+      rightClickMenu.hide();
       luckysheetContainerFocus();
       if (Store.allowEdit === false) {
         return;
@@ -80,7 +80,7 @@ export function initAddRowColEvents() {
   
     // custom right-click a cell buttton click
     document.querySelector(".luckysheetColsRowsHandleAdd_custom")?.addEventListener("click", function (clickEvent) {
-      rightClickMenu.style.display = 'none';
+      rightClickMenu.hide();
       const cellRightClickConfig = luckysheetConfigsetting.cellRightClickConfig;
       const rowIndex = Store.luckysheet_select_save[0].row[0];
       const columnIndex = Store.luckysheet_select_save[0].column[0];
@@ -221,7 +221,7 @@ export function initAddRowColEvents() {
       if (event.target.nodeName === "INPUT") {
         return;
       }
-      rightClickMenu.style.display = 'none';
+      rightClickMenu.hide();
       luckysheetContainerFocus();
       const _locale = locale();
       const locale_drag = _locale.drag;

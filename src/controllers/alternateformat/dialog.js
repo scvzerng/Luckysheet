@@ -158,7 +158,7 @@ function init() {
             document.querySelector("#luckysheet-modal-dialog-slider-alternateformat #luckysheet-alternateformat-range input").value = rangeValue;
 
             const _rd1 = this.closest("#luckysheet-alternateformat-rangeDialog"); if (_rd1) _rd1.style.display = 'none';
-            const _elAFDShow1 = document.getElementById("luckysheet-modal-dialog-slider-alternateformat"); if (_elAFDShow1) _elAFDShow1.style.display = '';
+            const _elAFDShow1 = document.getElementById("luckysheet-modal-dialog-slider-alternateformat"); if (_elAFDShow1) _elAFDShow1.style.display = 'block';
             luckysheetsizeauto();
 
             _this.update();
@@ -166,13 +166,13 @@ function init() {
         offNS("AFrDCl");
         onNS(document, "click.AFrDCl", "#luckysheet-alternateformat-rangeDialog-close", function(){
             const _rd2 = this.closest("#luckysheet-alternateformat-rangeDialog"); if (_rd2) _rd2.style.display = 'none';
-            const _elAFDShow2 = document.getElementById("luckysheet-modal-dialog-slider-alternateformat"); if (_elAFDShow2) _elAFDShow2.style.display = '';
+            const _elAFDShow2 = document.getElementById("luckysheet-modal-dialog-slider-alternateformat"); if (_elAFDShow2) _elAFDShow2.style.display = 'block';
             luckysheetsizeauto();
         });
         offNS("AFrDTitle");
         onNS(document, "click.AFrDTitle", "#luckysheet-alternateformat-rangeDialog .luckysheet-modal-dialog-title-close", function(){
             const _rd3 = this.closest("#luckysheet-alternateformat-rangeDialog"); if (_rd3) _rd3.style.display = 'none';
-            const _elAFDShow3 = document.getElementById("luckysheet-modal-dialog-slider-alternateformat"); if (_elAFDShow3) _elAFDShow3.style.display = '';
+            const _elAFDShow3 = document.getElementById("luckysheet-modal-dialog-slider-alternateformat"); if (_elAFDShow3) _elAFDShow3.style.display = 'block';
             luckysheetsizeauto();
         });
 
@@ -488,7 +488,7 @@ function perfect() {
 function checkboxChange(hasRowHeader, hasRowFooter) {
         if(hasRowHeader){
             const _elRH = document.getElementById("luckysheet-alternateformat-rowHeader"); if (_elRH) _elRH.checked = true;
-            document.querySelectorAll("#luckysheet-alternateformat-modelToning .header").forEach(el => el.style.display = '');
+            document.querySelectorAll("#luckysheet-alternateformat-modelToning .header").forEach(el => el.style.display = 'block');
         }
         else{
             const _elRH2 = document.getElementById("luckysheet-alternateformat-rowHeader"); if (_elRH2) _elRH2.removeAttribute("checked");  
@@ -497,7 +497,7 @@ function checkboxChange(hasRowHeader, hasRowFooter) {
 
         if(hasRowFooter){
             const _elRF = document.getElementById("luckysheet-alternateformat-rowFooter"); if (_elRF) _elRF.checked = true;
-            document.querySelectorAll("#luckysheet-alternateformat-modelToning .footer").forEach(el => el.style.display = '');
+            document.querySelectorAll("#luckysheet-alternateformat-modelToning .footer").forEach(el => el.style.display = 'block');
         }
         else{
             const _elRF2 = document.getElementById("luckysheet-alternateformat-rowFooter"); if (_elRF2) _elRF2.removeAttribute("checked"); 
@@ -600,10 +600,10 @@ function colorSelectDialog(currenColor, colorType, source) {
         const _csDlg = document.getElementById("luckysheet-alternateformat-colorSelect-dialog");
         if (_csDlg) {
             Object.assign(_csDlg.style, {
-                "left": (winw + scrollLeft - myw) / 2,
-                "top": (winh + scrollTop - myh) / 3
+                "left": (winw + scrollLeft - myw) / 2 + "px",
+                "top": (winh + scrollTop - myh) / 3 + "px"
             });
-            _csDlg.style.display = '';
+            _csDlg.style.display = 'block';
         }
         
         //初始化选择颜色插件
@@ -677,10 +677,10 @@ function rangeDialog(value) {
         const _rdDlg = document.getElementById("luckysheet-alternateformat-rangeDialog");
         if (_rdDlg) {
             Object.assign(_rdDlg.style, {
-                "left": (winw + scrollLeft - myw) / 2,
-                "top": (winh + scrollTop - myh) / 3
+                "left": (winw + scrollLeft - myw) / 2 + "px",
+                "top": (winh + scrollTop - myh) / 3 + "px"
             });
-            _rdDlg.style.display = '';
+            _rdDlg.style.display = 'block';
         }
     },
 }

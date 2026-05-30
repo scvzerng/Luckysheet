@@ -17,7 +17,7 @@ export function initRuleTypeEvents(_this) {
         if (optionVal == "dataBar" || optionVal == "colorGradation" || optionVal == "icons" || optionVal == "number" || optionVal == "text" || optionVal == "date") {
           let _dialog = this.closest(".luckysheet-newEditorRule-dialog");
           let _optionBox = _dialog?.querySelector("." + optionVal + "Box");
-          if (_optionBox) _optionBox.style.display = '';
+          if (_optionBox) _optionBox.style.display = 'block';
           Array.from(_optionBox?.parentElement?.children || []).filter(s => s !== _optionBox).forEach(s => s.style.display = 'none');
         }
         if (optionVal == "date") {
@@ -31,15 +31,15 @@ export function initRuleTypeEvents(_this) {
         if (type1 == "colorGradation") {
           let type2 = this.value;
           if (type2 == "threeColor") {
-            _dialog?.querySelectorAll(".midVal").forEach(el => el.style.display = '');
+            _dialog?.querySelectorAll(".midVal").forEach(el => el.style.display = 'block');
           } else {
             _dialog?.querySelectorAll(".midVal").forEach(el => el.style.display = 'none');
           }
         } else if (type1 == "number") {
           let type2 = this.value;
           if (type2 == "betweenness") {
-            _dialog?.querySelectorAll(".txt").forEach(el => el.style.display = '');
-            _dialog?.querySelectorAll("#conditionVal2").forEach(el => el.style.display = '');
+            _dialog?.querySelectorAll(".txt").forEach(el => el.style.display = 'block');
+            _dialog?.querySelectorAll("#conditionVal2").forEach(el => el.style.display = 'block');
           } else {
             _dialog?.querySelectorAll(".txt").forEach(el => el.style.display = 'none');
             _dialog?.querySelectorAll("#conditionVal2").forEach(el => el.style.display = 'none');
