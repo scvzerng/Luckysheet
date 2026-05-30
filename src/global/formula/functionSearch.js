@@ -334,7 +334,7 @@ const functionSearch = {
             let funcName = null,
                 paramindex = null;
 
-            if ($span[i].matches(".luckysheet-formula-text-func")) {
+            if ($span[i] && $span[i].matches(".luckysheet-formula-text-func")) {
                 funcName = $span[i].textContent;
             } else {
                 let $cur = null,
@@ -342,6 +342,7 @@ const functionSearch = {
 
                 while (--i > 0) {
                     $cur = $span[i];
+                    if (!$cur) continue;
 
                     if (
                         $cur.matches(".luckysheet-formula-text-func") ||
@@ -361,7 +362,7 @@ const functionSearch = {
                             }
 
                             $cur = $span[a];
-                            if ($cur.matches(".luckysheet-formula-text-rpar")) {
+                            if ($cur && $cur.matches(".luckysheet-formula-text-rpar")) {
                                 exceptIndex = [i, a];
                                 funcName = null;
                                 endstate = false;

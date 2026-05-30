@@ -180,7 +180,7 @@ const formatUpdateModule = {
     let canvas = canvasElement.getContext("2d");
     if (attr in inlineStyleAffectAttribute) {
       if (isInputBoxActive()) {
-        let value = inputBox.el.text();
+        let value = inputBox.el?.textContent || "";
         if (value.substr(0, 1) != "=") {
           let cell = d[Store.luckysheetCellUpdate[0]][Store.luckysheetCellUpdate[1]];
           updateInlineStringFormat(cell, attr, foucsStatus, luckysheetformula.rangeResizeTo);

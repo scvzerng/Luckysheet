@@ -273,8 +273,9 @@ const rangeSelect = {
                     }
                 } else {
                     let currSelection = window.getSelection();
-                    let anchorOffset = currSelection.anchorNode;
-                    $editor = anchorOffset?.closest("div");
+                    let anchorNode = currSelection.anchorNode;
+                    $editor = anchorNode?.nodeType === Node.TEXT_NODE ? anchorNode.parentElement : anchorNode;
+                    $editor = $editor?.closest?.("div");
 
                     let $span = $editor?.querySelector("span[rangeindex='" + _this.rangechangeindex + "']");
                     if ($span) $span.innerHTML = range;

@@ -3,9 +3,10 @@ import rightClickMenu from '../ui/rightClickMenu.js';
 import resizeHandles from '../ui/resizeHandles.js';
 
 function luckysheetRangeLast(obj) {
+    if (!obj) return;
     let range;
     
-    if(document.createRange){ //chrome, firefox, opera, safari, ie9+
+    if(document.createRange){
         if(obj.innerHTML != obj.innerText || obj.innerHTML == ""){
             obj.focus(); //解决ff不获取焦点无法定位问题
             range = window.getSelection();//创建range

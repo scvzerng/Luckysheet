@@ -21,14 +21,14 @@ const ifFormulaGenerator = {
         const locale_formula = _locale.formula;
         const locale_button = _locale.button;
 
-        formulaDialogs.ifFormulaDialog.el.addEventListener("focus", function(e){
+        formulaDialogs.ifFormulaDialog.el?.addEventListener("focus", function(e){
             if(e.target.matches && e.target.matches("#compareValue")){
                 hideModalMask();
                 _this.singleRangeFocus = true;
             }
         }, true);
 
-        formulaDialogs.ifFormulaDialog.el.addEventListener("click", function(e){
+        formulaDialogs.ifFormulaDialog.el?.addEventListener("click", function(e){
             if(e.target?.closest?.(".singRange")){
                 let _elCompareValue = formulaDialogs.ifFormulaDialog.el?.querySelector("#compareValue");
                 let value = _elCompareValue ? _elCompareValue.value.trim() : "";
@@ -42,7 +42,7 @@ const ifFormulaGenerator = {
             }
         });
 
-        formulaDialogs.ifFormulaSingleRange.el.addEventListener("click", function(e){
+        formulaDialogs.ifFormulaSingleRange.el?.addEventListener("click", function(e){
             if(e.target.matches && e.target.matches("#luckysheet-ifFormulaGenerator-singleRange-confirm")){
                 formulaRangeSelect.hide();
 
@@ -59,7 +59,7 @@ const ifFormulaGenerator = {
             }
         });
 
-        formulaDialogs.ifFormulaSingleRange.el.addEventListener("click", function(e){
+        formulaDialogs.ifFormulaSingleRange.el?.addEventListener("click", function(e){
             if(e.target.matches && e.target.matches("#luckysheet-ifFormulaGenerator-singleRange-cancel")){
                 formulaRangeSelect.hide();
 
@@ -71,7 +71,7 @@ const ifFormulaGenerator = {
             }
         });
 
-        formulaDialogs.ifFormulaSingleRange.el.addEventListener("click", function(e){
+        formulaDialogs.ifFormulaSingleRange.el?.addEventListener("click", function(e){
             if(e.target?.closest?.(".luckysheet-modal-dialog-title-close")){
                 formulaRangeSelect.hide();
 
@@ -82,7 +82,7 @@ const ifFormulaGenerator = {
             }
         });
 
-        formulaDialogs.ifFormulaDialog.el.addEventListener("click", function(e){
+        formulaDialogs.ifFormulaDialog.el?.addEventListener("click", function(e){
             if(e.target?.closest?.(".multiRange")){
                 _this.multiRangeDialog();
 
@@ -90,7 +90,7 @@ const ifFormulaGenerator = {
             }
         });
 
-        formulaDialogs.ifFormulaMultiRange.el.addEventListener("click", function(e){
+        formulaDialogs.ifFormulaMultiRange.el?.addEventListener("click", function(e){
             if(e.target.matches && e.target.matches("#luckysheet-ifFormulaGenerator-multiRange-confirm")){
                 formulaRangeSelect.hide();
                 countShow.row.hide();
@@ -138,7 +138,7 @@ const ifFormulaGenerator = {
             }
         });
 
-        formulaDialogs.ifFormulaMultiRange.el.addEventListener("click", function(e){
+        formulaDialogs.ifFormulaMultiRange.el?.addEventListener("click", function(e){
             if(e.target.matches && e.target.matches("#luckysheet-ifFormulaGenerator-multiRange-cancel")){
                 formulaRangeSelect.hide();
                 countShow.row.hide();
@@ -150,7 +150,7 @@ const ifFormulaGenerator = {
             }
         });
 
-        formulaDialogs.ifFormulaMultiRange.el.addEventListener("click", function(e){
+        formulaDialogs.ifFormulaMultiRange.el?.addEventListener("click", function(e){
             if(e.target?.closest?.(".luckysheet-modal-dialog-title-close")){
                 countShow.row.hide();
                 countShow.column.hide();
@@ -160,7 +160,7 @@ const ifFormulaGenerator = {
             }
         });
 
-        formulaDialogs.ifFormulaDialog.el.addEventListener("change", function(e){
+        formulaDialogs.ifFormulaDialog.el?.addEventListener("change", function(e){
             if(e.target.matches && e.target.matches("#DivisionMethod")){
                 let _elSelected = e.target.querySelector("option:checked");
                 let value = _elSelected ? _elSelected.value : "";
@@ -179,7 +179,7 @@ const ifFormulaGenerator = {
             }
         });
 
-        formulaDialogs.ifFormulaDialog.el.addEventListener("click", function(e){
+        formulaDialogs.ifFormulaDialog.el?.addEventListener("click", function(e){
             if(e.target.matches && e.target.matches("#createBtn")){
                 let _elCompareValue3 = formulaDialogs.ifFormulaDialog.el?.querySelector("#compareValue");
                 let compareValue = _elCompareValue3 ? _elCompareValue3.value.trim() : "";
@@ -232,14 +232,14 @@ const ifFormulaGenerator = {
             }
         });
 
-        formulaDialogs.ifFormulaDialog.el.addEventListener("click", function(e){
+        formulaDialogs.ifFormulaDialog.el?.addEventListener("click", function(e){
             if(e.target?.closest?.(".item .fa-remove")){
                 let _elItem = e.target?.closest?.(".item");
                 if (_elItem) _elItem.remove();
             }
         });
 
-        formulaDialogs.ifFormulaDialog.el.addEventListener("click", function(e){
+        formulaDialogs.ifFormulaDialog.el?.addEventListener("click", function(e){
             if(e.target?.closest?.("#luckysheet-ifFormulaGenerator-dialog-confirm")){
                 let items = formulaDialogs.ifFormulaDialog.el?.querySelectorAll(".ifList .item");
                 let str = '';
@@ -323,12 +323,12 @@ const ifFormulaGenerator = {
             }
         });
 
-        formulaDialogs.ifFormulaInfo.el.addEventListener("click", function(e){
+        formulaDialogs.ifFormulaInfo.el?.addEventListener("click", function(e){
             if(e.target?.closest?.(".luckysheet-model-close-btn")){
                 showModalMask();
             }
         });
-        formulaDialogs.ifFormulaInfo.el.addEventListener("click", function(e){
+        formulaDialogs.ifFormulaInfo.el?.addEventListener("click", function(e){
             if(e.target?.closest?.(".luckysheet-modal-dialog-title-close")){
                 showModalMask();
             }

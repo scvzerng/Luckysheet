@@ -5,7 +5,7 @@ import resizeHandles from '../../ui/resizeHandles.js';
 const paintFormatModule = {
   cancelPaintModel: function () {
     let _this = this;
-    resizeHandles.sheetTable.classList.remove("luckysheetPaintCursor");
+    resizeHandles.sheetTable.removeClass("luckysheetPaintCursor");
     if (Store.luckysheet_copy_save["dataSheetIndex"] == Store.currentSheetIndex) {
       Store.luckysheet_selection_range = [];
       selectionCopyShow();
