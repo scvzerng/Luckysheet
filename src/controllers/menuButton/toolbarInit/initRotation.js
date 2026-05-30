@@ -7,7 +7,7 @@ import { iconfontObjects } from '../../constant';
 
 export function initRotation(_this) {
       //文本旋转
-      document.getElementById("luckysheet-icon-rotation-menu").addEventListener("click", function () {
+      document.getElementById("luckysheet-icon-rotation-menu")?.addEventListener("click", function () {
         let menuButtonId = this.getAttribute("id") + "-menuButton";
         let menuButton = document.getElementById(menuButtonId);
         if (menuButton == null) {
@@ -61,10 +61,10 @@ export function initRotation(_this) {
               let itemvalue = this.getAttribute("itemvalue");
               _this.focus(menuButton, itemvalue);
               let rotationEl = document.getElementById("luckysheet-icon-rotation");
-              rotationEl.setAttribute("type", itemvalue);
-              let icon = rotationEl.querySelector(".luckysheet-icon-img-container");
+              if (rotationEl) rotationEl.setAttribute("type", itemvalue);
+              let icon = rotationEl?.querySelector(".luckysheet-icon-img-container");
 
-              icon.className = "luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-rotation-" + itemvalue + iconfontObject[itemvalue];
+              if (icon) icon.className = "luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-rotation-" + itemvalue + iconfontObject[itemvalue];
               let d = editor.deepCopyFlowData(Store.flowdata);
               _this.updateFormat(d, "tr", itemvalue);
             });

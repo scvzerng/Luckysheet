@@ -14,9 +14,12 @@ const paintFormatModule = {
     }
     Store.luckysheet_copy_save = {};
     _this.luckysheetPaintModelOn = false;
-    document.getElementById("luckysheetpopover").fadeOut(200, function () {
-      document.getElementById("luckysheetpopover")?.remove();
-    });
+    const _popEl = document.getElementById("luckysheetpopover");
+    if (_popEl) {
+      _popEl.style.transition = "opacity 200ms";
+      _popEl.style.opacity = "0";
+      setTimeout(() => { _popEl.remove(); }, 200);
+    }
   },
   luckysheetPaintModelOn: false,
   luckysheetPaintSingle: false

@@ -21,7 +21,7 @@ export function initRowColWidthEvents() {
       luckysheetContainerFocus();
   
       // let size = parseInt(this.siblings("input[type='number']").value.trim());
-      let size = parseInt(this.closest(".luckysheet-cols-menuitem").querySelector("input[type='number']").value.trim());
+      let size = parseInt(this.closest(".luckysheet-cols-menuitem")?.querySelector("input[type='number']")?.value?.trim());
       const locale_info = locale().info;
   
       /* 对异常情况进行判断：NaN */

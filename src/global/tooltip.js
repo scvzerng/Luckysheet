@@ -88,9 +88,9 @@ const tooltip = {
             "botton": '<a style="text-decoration:none;color:#fff;" class="download btn btn-primary luckysheet-model-conform-btn">&nbsp;&nbsp;'+ locale_screenshot.downLoadBtn +'&nbsp;&nbsp;</a>&nbsp;&nbsp;<button class="btn btn-primary luckysheet-model-copy-btn">&nbsp;&nbsp;'+ locale_screenshot.downLoadCopy +'&nbsp;&nbsp;</button><button class="btn btn-default luckysheet-model-cancel-btn">&nbsp;&nbsp;'+ locale_screenshot.downLoadClose +'&nbsp;&nbsp;</button>' 
         }));
         let _screenshotDialog = document.getElementById("luckysheet-confirm");
-        _screenshotDialog.querySelector(".luckysheet-modal-dialog-content").style.minWidth = '300px';
-        let myh = _screenshotDialog.offsetHeight,
-            myw = _screenshotDialog.offsetWidth;
+        const _screenshotContent = _screenshotDialog?.querySelector(".luckysheet-modal-dialog-content"); if (_screenshotContent) _screenshotContent.style.minWidth = '300px';
+        let myh = _screenshotDialog?.offsetHeight || 0,
+            myw = _screenshotDialog?.offsetWidth || 0;
         let winw = document.documentElement.clientWidth, winh = document.documentElement.clientHeight;
         let scrollLeft = document.documentElement.scrollLeft, scrollTop = document.documentElement.scrollTop;
         const _elConfirm2 = document.getElementById("luckysheet-confirm"); if (_elConfirm2) { _elConfirm2.style.left = (winw + scrollLeft - myw) / 2; _elConfirm2.style.top = (winh + scrollTop - myh) / 3; _elConfirm2.style.display = ''; }
@@ -107,7 +107,7 @@ const tooltip = {
             hideModalMask();
         });
 
-        document.querySelector('#luckysheet-confirm .luckysheet-model-copy-btn').addEventListener("click", function(){
+        document.querySelector('#luckysheet-confirm .luckysheet-model-copy-btn')?.addEventListener("click", function(){
             let dt = new clipboard.DT();
             dt.setData("text/html", "<img src='"+ imgurl +"'>");
             clipboard.write(dt);
@@ -171,14 +171,14 @@ const tooltip = {
             if (!_target) return;
             _this.hoverTipshowState = false;
             clearTimeout(_this.hoverTipshowTimeOut);
-            document.getElementById("luckysheet-tooltip-up").classList.add("jfk-tooltip-hide");
+            document.getElementById("luckysheet-tooltip-up")?.classList.add("jfk-tooltip-hide");
         });
         objEl.addEventListener("click", function (e) {
             let _target = e.target.closest(to);
             if (!_target) return;
             _this.hoverTipshowState = true;
             clearTimeout(_this.hoverTipshowTimeOut);
-            document.getElementById("luckysheet-tooltip-up").classList.add("jfk-tooltip-hide");
+            document.getElementById("luckysheet-tooltip-up")?.classList.add("jfk-tooltip-hide");
         });
     },
     popover: function(content, position, close, style, btntxt, exitsFuc){
@@ -195,8 +195,8 @@ const tooltip = {
         document.body.insertAdjacentHTML('beforeend', htmldiv);
         const _el = document.querySelector("#luckysheetpopover .luckysheetpopover-content"); if (_el) _el.innerHTML = content;
 
-        let w = document.getElementById("luckysheetpopover").offsetWidth,
-            h = document.getElementById("luckysheetpopover").offsetHeight;
+        let w = document.getElementById("luckysheetpopover")?.offsetWidth || 0,
+            h = document.getElementById("luckysheetpopover")?.offsetHeight || 0;
         let pcss = {};
 
         if(position == 'topLeft'){
@@ -266,7 +266,12 @@ const tooltip = {
 
         if(close != null && typeof(close) == "number"){
             setTimeout(function(){
-                document.getElementById("luckysheetpopover").fadeOut().remove();
+                const _popEl3 = document.getElementById("luckysheetpopover");
+                if (_popEl3) {
+                    _popEl3.style.transition = "opacity 200ms";
+                    _popEl3.style.opacity = "0";
+                    setTimeout(() => { _popEl3.remove(); }, 200);
+                }
                 if(typeof(exitsFuc) == "function"){
                     exitsFuc();
                 }

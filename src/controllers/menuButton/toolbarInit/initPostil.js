@@ -7,7 +7,7 @@ import luckysheetPostil from '../../postil';
 
 export function initPostil(_this) {
       //批注
-      document.getElementById("luckysheet-icon-postil").addEventListener("click", function () {
+      document.getElementById("luckysheet-icon-postil")?.addEventListener("click", function () {
         let menuButtonId = this.getAttribute("id") + "-menuButton";
         let menuButton = document.getElementById(menuButtonId);
         const locale_comment = locale().comment;

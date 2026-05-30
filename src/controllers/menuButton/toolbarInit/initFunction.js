@@ -14,11 +14,11 @@ import functionBox from '../../../ui/functionBox.js';
 
 export function initFunction(_this) {
       //公式
-      document.getElementById("luckysheet-icon-function").addEventListener("click", function () {
+      document.getElementById("luckysheet-icon-function")?.addEventListener("click", function () {
         _this.autoSelectionFormula("SUM");
       });
 
-      document.getElementById("luckysheet-icon-function-menu").addEventListener("click", function () {
+      document.getElementById("luckysheet-icon-function-menu")?.addEventListener("click", function () {
         let menuButtonId = this.getAttribute("id") + "-menuButton";
         let menuButton = document.getElementById(menuButtonId);
         const _locale = locale();

@@ -274,10 +274,10 @@ const rangeSelect = {
                 } else {
                     let currSelection = window.getSelection();
                     let anchorOffset = currSelection.anchorNode;
-                    $editor = anchorOffset.closest("div");
+                    $editor = anchorOffset?.closest("div");
 
-                    let $span = $editor.querySelector("span[rangeindex='" + _this.rangechangeindex + "']");
-                    $span.innerHTML = range;
+                    let $span = $editor?.querySelector("span[rangeindex='" + _this.rangechangeindex + "']");
+                    if ($span) $span.innerHTML = range;
 
                     _this.setCaretPosition($span, 0, range.length);
                 }
@@ -290,13 +290,13 @@ const rangeSelect = {
                     ';">' +
                     range +
                     "</span>";
-                _this.rangeSetValueTo.insertAdjacentHTML('afterend', function_str);
-                let $t = _this.rangeSetValueTo.nextElementSibling;
+                _this.rangeSetValueTo?.insertAdjacentHTML('afterend', function_str);
+                let $t = _this.rangeSetValueTo?.nextElementSibling;
                 _this.rangechangeindex = _this.functionHTMLIndex;
-                $editor = _this.rangeSetValueTo.closest("div");
+                $editor = _this.rangeSetValueTo?.closest("div");
 
                 _this.setCaretPosition(
-                    $editor.querySelector("span[rangeindex='" + _this.rangechangeindex + "']"),
+                    $editor?.querySelector("span[rangeindex='" + _this.rangechangeindex + "']"),
                     0,
                     range.length,
                 );
@@ -723,8 +723,8 @@ const rangeSelect = {
             };
             let range = _this.getSelectedFromRange(selected);
             let rangetxt = getRangetxt(Store.currentSheetIndex, range, _this.rangetosheet);
-            let $span = _this.rangeResizeTo.querySelector("span[rangeindex='" + rangeindex + "']");
-            $span.innerHTML = rangetxt;
+            let $span = _this.rangeResizeTo?.querySelector("span[rangeindex='" + rangeindex + "']");
+            if ($span) $span.innerHTML = rangetxt;
             luckysheetRangeLast(_this.rangeResizeTo[0]);
             rangeResizeObj.dataset.range = range;
         },
@@ -754,9 +754,8 @@ const rangeSelect = {
             let _this = this;
 
             _this.rangeResize = null;
-            document.getElementById("luckysheet-formula-functionrange-highlight-" + _this.rangeResizeIndex)
-                .querySelector(".luckysheet-selection-copy-hc")
-                .style.opacity = 0.03;
+            const _resizeEl = document.getElementById("luckysheet-formula-functionrange-highlight-" + _this.rangeResizeIndex);
+            const _hcEl = _resizeEl?.querySelector(".luckysheet-selection-copy-hc"); if (_hcEl) _hcEl.style.opacity = 0.03;
         },
 
         rangeMovexy: null,
@@ -833,8 +832,8 @@ const rangeSelect = {
             };
             let range = _this.getSelectedFromRange(selected);
             let rangetxt = getRangetxt(Store.currentSheetIndex, range, _this.rangetosheet);
-            let $span = _this.rangeResizeTo.querySelector("span[rangeindex='" + rangeindex + "']");
-            $span.innerHTML = rangetxt;
+            let $span = _this.rangeResizeTo?.querySelector("span[rangeindex='" + rangeindex + "']");
+            if ($span) $span.innerHTML = rangetxt;
             luckysheetRangeLast(_this.rangeResizeTo[0]);
             _this.rangeMoveRangedata = range;
             Object.assign(obj.style, selected);
@@ -844,10 +843,9 @@ const rangeSelect = {
             let _this = this;
 
             _this.rangeMove = false;
-            document.getElementById("luckysheet-formula-functionrange-highlight-" + _this.rangeMoveIndex)
-                .dataset.range = _this.rangeMoveRangedata
-                .querySelector(".luckysheet-selection-copy-hc")
-                .style.opacity = 0.03;
+            const _moveEl = document.getElementById("luckysheet-formula-functionrange-highlight-" + _this.rangeMoveIndex);
+            if (_moveEl) _moveEl.dataset.range = _this.rangeMoveRangedata;
+            const _moveHcEl = _moveEl?.querySelector(".luckysheet-selection-copy-hc"); if (_moveHcEl) _moveHcEl.style.opacity = 0.03;
         }
 };
 

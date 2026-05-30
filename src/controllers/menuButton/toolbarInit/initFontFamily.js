@@ -6,11 +6,11 @@ import { checkMenuOverflow } from '../../../utils/domUtils.js';
 
 export function initFontFamily(_this) {
       //字体设置
-      document.getElementById("luckysheet-icon-font-family").addEventListener("mousedown", function (e) {
+      document.getElementById("luckysheet-icon-font-family")?.addEventListener("mousedown", function (e) {
         hideMenuByCancel(e);
         e.stopPropagation();
       });
-      document.getElementById("luckysheet-icon-font-family").addEventListener("click", function () {
+      document.getElementById("luckysheet-icon-font-family")?.addEventListener("click", function () {
         let menuButtonId = this.getAttribute("id") + "-menuButton";
         let menuButton = document.getElementById(menuButtonId);
         if (menuButton == null) {

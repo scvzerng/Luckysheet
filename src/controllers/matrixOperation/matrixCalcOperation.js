@@ -47,8 +47,8 @@ function initialMatrixCalcOperation() {
             return;
         }
 
-        let caltype = document.getElementById("luckysheet-matrix-cal-type").value,
-            calvalue = parseInt(document.getElementById("luckysheet-matrix-cal-value").value);
+        let caltype = document.getElementById("luckysheet-matrix-cal-type")?.value,
+            calvalue = parseInt(document.getElementById("luckysheet-matrix-cal-value")?.value);
 
         if(calvalue.toString() == "NaN"){
             if(isEditMode()){

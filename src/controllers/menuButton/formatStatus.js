@@ -14,27 +14,27 @@ const formatStatusModule = {
     const locale_fontjson = _locale.fontjson;
     if (attr == "bl") {
       if (foucsStatus != "0") {
-        document.getElementById("luckysheet-icon-bold").classList.add("luckysheet-toolbar-button-hover");
+        document.getElementById("luckysheet-icon-bold")?.classList?.add("luckysheet-toolbar-button-hover");
       } else {
-        document.getElementById("luckysheet-icon-bold").classList.remove("luckysheet-toolbar-button-hover");
+        document.getElementById("luckysheet-icon-bold")?.classList?.remove("luckysheet-toolbar-button-hover");
       }
     } else if (attr == "it") {
       if (foucsStatus != "0") {
-        document.getElementById("luckysheet-icon-italic").classList.add("luckysheet-toolbar-button-hover");
+        document.getElementById("luckysheet-icon-italic")?.classList?.add("luckysheet-toolbar-button-hover");
       } else {
-        document.getElementById("luckysheet-icon-italic").classList.remove("luckysheet-toolbar-button-hover");
+        document.getElementById("luckysheet-icon-italic")?.classList?.remove("luckysheet-toolbar-button-hover");
       }
     } else if (attr == "cl") {
       if (foucsStatus != "0") {
-        document.getElementById("luckysheet-icon-strikethrough").classList.add("luckysheet-toolbar-button-hover");
+        document.getElementById("luckysheet-icon-strikethrough")?.classList?.add("luckysheet-toolbar-button-hover");
       } else {
-        document.getElementById("luckysheet-icon-strikethrough").classList.remove("luckysheet-toolbar-button-hover");
+        document.getElementById("luckysheet-icon-strikethrough")?.classList?.remove("luckysheet-toolbar-button-hover");
       }
     } else if (attr == "un") {
       if (foucsStatus != "0") {
-        document.getElementById("luckysheet-icon-underline").classList.add("luckysheet-toolbar-button-hover");
+        document.getElementById("luckysheet-icon-underline")?.classList?.add("luckysheet-toolbar-button-hover");
       } else {
-        document.getElementById("luckysheet-icon-underline").classList.remove("luckysheet-toolbar-button-hover");
+        document.getElementById("luckysheet-icon-underline")?.classList?.remove("luckysheet-toolbar-button-hover");
       }
     } else if (attr == "ff") {
       let menuButtonId = "luckysheet-icon-font-family-menuButton";
@@ -67,8 +67,8 @@ const formatStatusModule = {
       let itemvalue = foucsStatus,
         $input = document.querySelector("#luckysheet-icon-font-size input");
       _this.focus($menuButton, itemvalue);
-      document.getElementById("luckysheet-icon-font-size").setAttribute("itemvalue", itemvalue);
-      $input.value = itemvalue;
+      document.getElementById("luckysheet-icon-font-size")?.setAttribute("itemvalue", itemvalue);
+      if ($input) $input.value = itemvalue;
     } else if (attr == "ht") {
       let $menuButton = document.getElementById("luckysheet-icon-align-menu-menuButton");
       let $t = document.querySelector("luckysheet-icon-align"),
@@ -83,10 +83,10 @@ const formatStatusModule = {
       // add iconfont
       const iconfontObject = iconfontObjects.align;
       let _alignEl = document.getElementById("luckysheet-icon-align");
-      _alignEl.setAttribute("type", itemvalue);
-      let $icon = _alignEl.querySelector(".luckysheet-icon-img-container");
-      $icon.className = "luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-align-" + itemvalue + iconfontObject[itemvalue];
-      $menuButton.style.display = 'none';
+      if (_alignEl) _alignEl.setAttribute("type", itemvalue);
+      let $icon = _alignEl?.querySelector(".luckysheet-icon-img-container");
+      if ($icon) $icon.className = "luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-align-" + itemvalue + iconfontObject[itemvalue];
+      if ($menuButton) $menuButton.style.display = 'none';
     } else if (attr == "vt") {
       let $menuButton = document.getElementById("luckysheet-icon-valign-menu-menuButton");
       let $t = document.querySelector("luckysheet-icon-valign"),
@@ -101,10 +101,10 @@ const formatStatusModule = {
       // add iconfont
       const iconfontObject = iconfontObjects.align;
       let _valignEl = document.getElementById("luckysheet-icon-valign");
-      _valignEl.setAttribute("type", itemvalue);
-      let $icon = _valignEl.querySelector(".luckysheet-icon-img-container");
-      $icon.className = "luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-valign-" + itemvalue + iconfontObject[itemvalue];
-      $menuButton.style.display = 'none';
+      if (_valignEl) _valignEl.setAttribute("type", itemvalue);
+      let $icon = _valignEl?.querySelector(".luckysheet-icon-img-container");
+      if ($icon) $icon.className = "luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-valign-" + itemvalue + iconfontObject[itemvalue];
+      if ($menuButton) $menuButton.style.display = 'none';
     } else if (attr == "tb") {
       let $menuButton = document.getElementById("luckysheet-icon-textwrap-menu-menuButton");
       let $t = document.querySelector("luckysheet-icon-textwrap"),
@@ -119,10 +119,10 @@ const formatStatusModule = {
       // add iconfont
       const iconfontObject = iconfontObjects.textWrap;
       let _textwrapEl = document.getElementById("luckysheet-icon-textwrap");
-      _textwrapEl.setAttribute("type", itemvalue);
-      let $icon = _textwrapEl.querySelector(".luckysheet-icon-img-container");
-      $icon.className = "luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-textwrap-" + itemvalue + iconfontObject[itemvalue];
-      $menuButton.style.display = 'none';
+      if (_textwrapEl) _textwrapEl.setAttribute("type", itemvalue);
+      let $icon = _textwrapEl?.querySelector(".luckysheet-icon-img-container");
+      if ($icon) $icon.className = "luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-textwrap-" + itemvalue + iconfontObject[itemvalue];
+      if ($menuButton) $menuButton.style.display = 'none';
     } else if (attr == "tr") {
       let $menuButton = document.getElementById("luckysheet-icon-rotation-menu-menuButton");
       let $t = document.querySelector("luckysheet-icon-rotation"),
@@ -143,10 +143,10 @@ const formatStatusModule = {
       // add iconfont
       const iconfontObject = iconfontObjects.rotation;
       let _rotationEl = document.getElementById("luckysheet-icon-rotation");
-      _rotationEl.setAttribute("type", itemvalue);
-      let $icon = _rotationEl.querySelector(".luckysheet-icon-img-container");
-      $icon.className = "luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-rotation-" + itemvalue + iconfontObject[itemvalue];
-      $menuButton.style.display = 'none';
+      if (_rotationEl) _rotationEl.setAttribute("type", itemvalue);
+      let $icon = _rotationEl?.querySelector(".luckysheet-icon-img-container");
+      if ($icon) $icon.className = "luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-rotation-" + itemvalue + iconfontObject[itemvalue];
+      if ($menuButton) $menuButton.style.display = 'none';
     } else if (attr == "ct") {
       let $menuButton = document.getElementById("luckysheet-icon-fmt-other");
       const _locale = locale();

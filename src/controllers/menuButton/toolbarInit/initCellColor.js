@@ -12,7 +12,7 @@ import '../../../components/ColorPicker/colorPicker.css';
 
 export function initCellColor(_this) {
       //背景颜色
-      document.getElementById("luckysheet-icon-cell-color").addEventListener("click", function () {
+      document.getElementById("luckysheet-icon-cell-color")?.addEventListener("click", function () {
         let d = editor.deepCopyFlowData(Store.flowdata);
         let color = this.getAttribute("color");
         if (color == null) {
@@ -20,7 +20,7 @@ export function initCellColor(_this) {
         }
         _this.updateFormat(d, "bg", color);
       });
-      document.getElementById("luckysheet-icon-cell-color-menu").addEventListener("click", function () {
+      document.getElementById("luckysheet-icon-cell-color-menu")?.addEventListener("click", function () {
         let menuButtonId = this.getAttribute("id") + "-menuButton";
         let menuButton = document.getElementById(menuButtonId);
         if (menuButton == null) {
@@ -60,8 +60,8 @@ export function initCellColor(_this) {
             palette: STANDARD_PALETTE,
             change: function (color) {
               let hexColor = color != null ? color.toHexString() : "#fff";
-              document.querySelector("#luckysheet-icon-cell-color .text-color-bar").style.backgroundColor = hexColor;
-              document.getElementById("luckysheet-icon-cell-color").setAttribute("color", hexColor);
+              const _elCellColorBar = document.querySelector("#luckysheet-icon-cell-color .text-color-bar"); if (_elCellColorBar) _elCellColorBar.style.backgroundColor = hexColor;
+              document.getElementById("luckysheet-icon-cell-color")?.setAttribute("color", hexColor);
               let d = editor.deepCopyFlowData(Store.flowdata);
               _this.updateFormat(d, "bg", hexColor);
               menuButton.style.display = "none";
@@ -74,10 +74,10 @@ export function initCellColor(_this) {
               luckysheetContainerFocus();
             let input = document.querySelector("#" + menuButtonId + " .luckysheet-color-selected");
             input.value = "#ffffff";
-            document.getElementById("luckysheet-icon-cell-color").removeAttribute("color");
+            document.getElementById("luckysheet-icon-cell-color")?.removeAttribute("color");
             getPicker(input)?.set("#ffffff");
-            document.querySelector("#luckysheet-icon-cell-color .luckysheet-color-menu-button-indicator").style.borderBottomColor = "#ffffff";
-            document.querySelector("#luckysheet-icon-cell-color .text-color-bar").style.backgroundColor = "#ffffff";
+            const _elIndicator = document.querySelector("#luckysheet-icon-cell-color .luckysheet-color-menu-button-indicator"); if (_elIndicator) _elIndicator.style.borderBottomColor = "#ffffff";
+            const _elBar = document.querySelector("#luckysheet-icon-cell-color .text-color-bar"); if (_elBar) _elBar.style.backgroundColor = "#ffffff";
             let d = editor.deepCopyFlowData(Store.flowdata);
             _this.updateFormat(d, "bg", null);
             });
@@ -108,7 +108,7 @@ export function initCellColor(_this) {
             alternateformat.perfect();
             });
           });
-          document.querySelector("#" + menuButtonId + " .luckysheet-color-selected").value = "#fff";
+          const _elColorSelected = document.querySelector("#" + menuButtonId + " .luckysheet-color-selected"); if (_elColorSelected) _elColorSelected.value = "#fff";
         }
         let userlen = this.offsetWidth;
         let tlen = menuButton.offsetWidth;

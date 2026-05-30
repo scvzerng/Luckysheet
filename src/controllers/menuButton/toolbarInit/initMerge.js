@@ -9,7 +9,7 @@ import { selectIsOverlap } from '../../select';
 
 export function initMerge(_this) {
       //合并单元�?
-      document.getElementById("luckysheet-icon-merge-button").addEventListener("click", function () {
+      document.getElementById("luckysheet-icon-merge-button")?.addEventListener("click", function () {
         const _locale = locale();
         const locale_merge = _locale.merge;
         if (selectIsOverlap()) {
@@ -44,7 +44,7 @@ export function initMerge(_this) {
         let d = editor.deepCopyFlowData(Store.flowdata);
         _this.updateFormat_mc(d, "mergeAll");
       });
-      document.getElementById("luckysheet-icon-merge-menu").addEventListener("click", function () {
+      document.getElementById("luckysheet-icon-merge-menu")?.addEventListener("click", function () {
         let menuButtonId = this.getAttribute("id") + "-menuButton";
         let menuButton = document.getElementById(menuButtonId);
         if (menuButton == null) {

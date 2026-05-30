@@ -13,8 +13,8 @@ const sheetVisibilityModule = {
     }
     Store.luckysheetfile[currentIdx].hide = 1;
     let luckysheetcurrentSheetitem = document.getElementById("luckysheet-sheets-item" + index);
-    luckysheetcurrentSheetitem.style.display = 'none';
-    document.querySelector("#luckysheet-sheet-area div.luckysheet-sheets-item").classList.remove("luckysheet-sheets-item-active");
+    if (luckysheetcurrentSheetitem) luckysheetcurrentSheetitem.style.display = 'none';
+    document.querySelector("#luckysheet-sheet-area div.luckysheet-sheets-item")?.classList?.remove("luckysheet-sheets-item-active");
     let indicator;
     if (luckysheetConfigsetting.showsheetbarConfig.sheet) {
       indicator = luckysheetcurrentSheetitem.nextAll(":visible");
@@ -37,7 +37,7 @@ const sheetVisibilityModule = {
       }
       indicator = Store.luckysheetfile[nextActiveIdx].index;
     }
-    document.getElementById("luckysheet-sheets-item" + indicator).classList.add("luckysheet-sheets-item-active");
+    document.getElementById("luckysheet-sheets-item" + indicator)?.classList?.add("luckysheet-sheets-item-active");
     _this.changeSheetExec(indicator);
     _this.locationSheet();
 

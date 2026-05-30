@@ -33,7 +33,7 @@ const rangeHighlight = {
                 let rangeindex = span.getAttribute("rangeindex"),
                     range = span.textContent;
 
-                document.getElementById("luckysheet-formula-functionrange").insertAdjacentHTML('beforeend', replaceHtml(_this.rangeHightlightHTML, {
+                document.getElementById("luckysheet-formula-functionrange")?.insertAdjacentHTML('beforeend', replaceHtml(_this.rangeHightlightHTML, {
                         id: rangeindex,
                     }),
                 );
@@ -47,10 +47,12 @@ const rangeHighlight = {
                     (cellrange.sheetIndex == -1 && _this.rangetosheet == Store.currentSheetIndex)
                 ) {
                     let _rangeEl = document.getElementById(rangeid);
-                    _rangeEl.dataset.range = cellrange;
-                    Object.assign(_rangeEl.querySelector(".luckysheet-copy").style, { background: luckyColor[rangeindex] });
-                    Object.assign(_rangeEl.querySelector(".luckysheet-highlight").style, { background: luckyColor[rangeindex] });
-                    Object.assign(_rangeEl.querySelector(".luckysheet-selection-copy-hc").style, { background: luckyColor[rangeindex] });
+                    if (_rangeEl) {
+                        _rangeEl.dataset.range = cellrange;
+                        const _copyEl = _rangeEl.querySelector(".luckysheet-copy"); if (_copyEl) Object.assign(_copyEl.style, { background: luckyColor[rangeindex] });
+                        const _highlightEl = _rangeEl.querySelector(".luckysheet-highlight"); if (_highlightEl) Object.assign(_highlightEl.style, { background: luckyColor[rangeindex] });
+                        const _hcEl = _rangeEl.querySelector(".luckysheet-selection-copy-hc"); if (_hcEl) Object.assign(_hcEl.style, { background: luckyColor[rangeindex] });
+                    }
 
                     seletedHighlistByindex(
                         rangeid,

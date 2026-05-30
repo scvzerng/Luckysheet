@@ -5,7 +5,7 @@ import { checkMenuOverflow } from '../../../utils/domUtils.js';
 
 export function initPrint(_this) {
       //print
-      document.getElementById("luckysheet-icon-print").addEventListener("click", function () {
+      document.getElementById("luckysheet-icon-print")?.addEventListener("click", function () {
         let menuButtonId = this.getAttribute("id") + "-menuButton";
         let menuButton = document.getElementById(menuButtonId);
         const _locale = locale();

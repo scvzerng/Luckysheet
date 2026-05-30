@@ -299,7 +299,7 @@ export function keyboardInitial(){
             
             if(anchorEl && (anchorEl.closest("#luckysheet-helpbox-cell") !== null || anchorEl === document.getElementById("luckysheet-helpbox-cell"))){
                 if(kcode == keycode.ENTER){
-                    let helpboxValue = document.getElementById("luckysheet-helpbox-cell").textContent;
+                    let helpboxValue = document.getElementById("luckysheet-helpbox-cell")?.textContent;
 
                     if(formula.iscelldata(helpboxValue)){
                         let cellrange = formula.getcellrange(helpboxValue);
@@ -467,7 +467,7 @@ export function keyboardInitial(){
                     }
                 }
                 else if (kcode == 66) {//Ctrl + B  加粗
-                    document.getElementById("luckysheet-icon-bold").click();
+                    document.getElementById("luckysheet-icon-bold")?.click();
                 }
                 else if (kcode == 67) {//Ctrl + C  复制
                     if(imageCtrl.currentImgId != null){
@@ -750,7 +750,7 @@ export function keyboardInitial(){
                     formula.functionInputHanddler(functionBox.el, richTextEditor.el, kcode);
                 }
                 else if (String.fromCharCode(kcode).toLocaleUpperCase() == "A") {
-                    document.getElementById("luckysheet-left-top").click()
+                    document.getElementById("luckysheet-left-top")?.click()
                 }
 
                 event.preventDefault();
@@ -973,10 +973,10 @@ export function keyboardInitial(){
 
             let minuslen = containerlen- savelen - updatelen - userlen - otherlen;
             if(inputlen > minuslen){
-                document.getElementById("luckysheet_info_detail_input").style.width = minuslen + 'px';
+                const _infoInput2 = document.getElementById("luckysheet_info_detail_input"); if (_infoInput2) _infoInput2.style.width = minuslen + 'px';
             }
             else{
-                document.getElementById("luckysheet_info_detail_input").style.width = inputlen + 'px';
+                const _infoInput3 = document.getElementById("luckysheet_info_detail_input"); if (_infoInput3) _infoInput3.style.width = inputlen + 'px';
             }
         });
         _infoInput.addEventListener('change', function(){

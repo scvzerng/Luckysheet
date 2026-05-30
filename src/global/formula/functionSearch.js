@@ -143,21 +143,21 @@ const functionSearch = {
             if (formulaDialogs.formulaSearchC.getLength() == 0) {
                 document.body.insertAdjacentHTML('beforeend', _this.searchHTML);
                 formulaDialogs.formulaSearchC.el
-                    .addEventListener("mouseover", function(e) {
+                ?.addEventListener("mouseover", function(e) {
                         let item = e.target.closest(".luckysheet-formula-search-item");
                         if (!item) return;
                         formulaDialogs.formulaSearchC.el
                             .querySelector(".luckysheet-formula-search-item-active")
-                            .classList.remove("luckysheet-formula-search-item-active");
+                            ?.classList.remove("luckysheet-formula-search-item-active");
                         item.classList.add("luckysheet-formula-search-item-active");
                     });
                 formulaDialogs.formulaSearchC.el
-                    .addEventListener("mouseout", function(e) {
+                    ?.addEventListener("mouseout", function(e) {
                         let item = e.target.closest(".luckysheet-formula-search-item");
                         if (!item) return;
                     });
                 formulaDialogs.formulaSearchC.el
-                    .addEventListener("click", function(e) {
+                    ?.addEventListener("click", function(e) {
                         let item = e.target.closest(".luckysheet-formula-search-item");
                         if (!item) return;
                         if (_this.searchFunctionCell == null) {
@@ -262,22 +262,19 @@ const functionSearch = {
             const _el3 = formulaDialogs.formulaHelp.querySelector(".luckysheet-formula-help-content-param"); if (_el3) _el3.innerHTML = fhcp;
 
             if (paramIndex == null) {
-                formulaDialogs.formulaHelp.querySelector(".luckysheet-formula-help-title-formula .luckysheet-arguments-help-function-name").style.fontWeight = "bold";
+                formulaDialogs.formulaHelp.querySelector(".luckysheet-formula-help-title-formula .luckysheet-arguments-help-function-name")?.style.setProperty("font-weight", "bold");
             } else {
-                formulaDialogs.formulaHelp.querySelector(".luckysheet-formula-help-title-formula .luckysheet-arguments-help-function-name").style.fontWeight = "normal";
+                formulaDialogs.formulaHelp.querySelector(".luckysheet-formula-help-title-formula .luckysheet-arguments-help-function-name")?.style.setProperty("font-weight", "normal");
                 let index = paramIndex >= $func.p.length ? $func.p.length - 1 : paramIndex;
-                formulaDialogs.formulaHelp.querySelector(".luckysheet-formula-help-title .luckysheet-arguments-parameter-holder .luckysheet-arguments-help-parameter").classList.remove("luckysheet-arguments-help-parameter-active");
-                formulaDialogs.formulaHelp.querySelector(".luckysheet-formula-help-title .luckysheet-arguments-parameter-holder .luckysheet-arguments-help-parameter")
-                    [index]
-                    .classList.add("luckysheet-arguments-help-parameter-active");
-                formulaDialogs.formulaHelp.querySelector(".luckysheet-arguments-help-formula .luckysheet-arguments-parameter-holder .luckysheet-arguments-help-parameter").classList.remove("luckysheet-arguments-help-parameter-active");
-                formulaDialogs.formulaHelp.querySelector(".luckysheet-arguments-help-formula .luckysheet-arguments-parameter-holder .luckysheet-arguments-help-parameter")
-                    [index]
-                    .classList.add("luckysheet-arguments-help-parameter-active");
-                formulaDialogs.formulaHelp.querySelector(".luckysheet-formula-help-content-param .luckysheet-arguments-help-section").classList.remove("luckysheet-arguments-help-parameter-active");
-                formulaDialogs.formulaHelp.querySelector(".luckysheet-formula-help-content-param .luckysheet-arguments-help-section")
-                    [index]
-                    .classList.add("luckysheet-arguments-help-parameter-active");
+                formulaDialogs.formulaHelp.querySelector(".luckysheet-formula-help-title .luckysheet-arguments-parameter-holder .luckysheet-arguments-help-parameter")?.classList.remove("luckysheet-arguments-help-parameter-active");
+                const _titleParam = formulaDialogs.formulaHelp.querySelector(".luckysheet-formula-help-title .luckysheet-arguments-parameter-holder .luckysheet-arguments-help-parameter");
+                if (_titleParam && _titleParam[index]) _titleParam[index].classList.add("luckysheet-arguments-help-parameter-active");
+                formulaDialogs.formulaHelp.querySelector(".luckysheet-arguments-help-formula .luckysheet-arguments-parameter-holder .luckysheet-arguments-help-parameter")?.classList.remove("luckysheet-arguments-help-parameter-active");
+                const _formulaParam = formulaDialogs.formulaHelp.querySelector(".luckysheet-arguments-help-formula .luckysheet-arguments-parameter-holder .luckysheet-arguments-help-parameter");
+                if (_formulaParam && _formulaParam[index]) _formulaParam[index].classList.add("luckysheet-arguments-help-parameter-active");
+                formulaDialogs.formulaHelp.querySelector(".luckysheet-formula-help-content-param .luckysheet-arguments-help-section")?.classList.remove("luckysheet-arguments-help-parameter-active");
+                const _contentParam = formulaDialogs.formulaHelp.querySelector(".luckysheet-formula-help-content-param .luckysheet-arguments-help-section");
+                if (_contentParam && _contentParam[index]) _contentParam[index].classList.add("luckysheet-arguments-help-parameter-active");
             }
 
             let $c = $editer.parentElement,
@@ -299,10 +296,10 @@ const functionSearch = {
                         helpAbstract: locale_formulaMore.helpAbstract,
                     }),
                 );
-                formulaDialogs.formulaHelp.querySelector(".luckysheet-formula-help-close").addEventListener("click", function() {
+                formulaDialogs.formulaHelp.querySelector(".luckysheet-formula-help-close")?.addEventListener("click", function() {
                     formulaDialogs.formulaHelp.style.display = 'none';
                 });
-                formulaDialogs.formulaHelp.querySelector(".luckysheet-formula-help-collapse").addEventListener("click", function() {
+                formulaDialogs.formulaHelp.querySelector(".luckysheet-formula-help-collapse")?.addEventListener("click", function() {
                     let $content = formulaDialogs.formulaHelp.querySelector(".luckysheet-formula-help-content");
                     if ($content.style.display === 'none') {
                         $content.style.display = '';
@@ -398,7 +395,7 @@ const functionSearch = {
             formulaDialogs.formulaHelp.style.display = 'none';
             document.querySelector(
                 "#luckysheet-formula-functionrange .luckysheet-formula-functionrange-highlight .luckysheet-selection-copy-hc",
-            ).style.opacity = "0.03";
+            )?.style.setProperty("opacity", "0.03");
             formulaDialogs.formulaSearchC.style.display = 'none';
             formulaDialogs.formulaHelp.style.display = 'none';
             _this.helpFunctionExe($editer, currSelection);
@@ -410,10 +407,12 @@ const functionSearch = {
             }
 
             let $anchorOffset = currSelection.closest(".luckysheet-formula-functionrange-cell");
+            if (!$anchorOffset) return;
             let rangeindex = $anchorOffset.getAttribute("rangeindex");
             let rangeid = "luckysheet-formula-functionrange-highlight-" + rangeindex;
 
-            Object.assign(document.getElementById(rangeid).querySelector(".luckysheet-selection-copy-hc").style, {
+            const _rangeEl = document.getElementById(rangeid);
+            const _hcEl = _rangeEl?.querySelector(".luckysheet-selection-copy-hc"); if (_hcEl) Object.assign(_hcEl.style, {
                     opacity: "0.13",
                 });
         }

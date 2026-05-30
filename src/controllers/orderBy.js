@@ -41,7 +41,7 @@ export function orderByInitial(){
     });
 
     let luckysheet_sort_initial = true;
-    document.getElementById("luckysheetorderby").addEventListener("click", function () {
+    document.getElementById("luckysheetorderby")?.addEventListener("click", function () {
 
         document.querySelectorAll("body .luckysheet-cols-menu").forEach(el => el.style.display = 'none');
         const locale_sort = _locale.sort;
@@ -73,7 +73,7 @@ export function orderByInitial(){
 
                 let _elSortTable = document.querySelector("#luckysheet-sort-dialog table");
                 let option = "", i = parseInt(_elSortTable.dataset.itemcount) + 1;
-                let t = document.getElementById("luckysheet-sort-haveheader").checked;
+                let t = document.getElementById("luckysheet-sort-haveheader")?.checked ?? false;
 
                 for (let c = c1; c <= c2; c++) {
                     if (t) {
@@ -106,7 +106,7 @@ export function orderByInitial(){
                 _elSortTable.dataset.itemcount = i;
             });
 
-            document.getElementById("luckysheet-sort-haveheader").addEventListener("change", function () {
+            document.getElementById("luckysheet-sort-haveheader")?.addEventListener("change", function () {
                 let last = Store.luckysheet_select_save[0];
                 let r1 = last["row"][0], r2 = last["row"][1];
                 let c1 = last["column"][0], c2 = last["column"][1];
@@ -134,7 +134,7 @@ export function orderByInitial(){
                 });
             });
 
-            document.getElementById("luckysheet-sort-modal-confirm").addEventListener("click", function () {
+            document.getElementById("luckysheet-sort-modal-confirm")?.addEventListener("click", function () {
                 if(Store.luckysheet_select_save.length > 1){
                     if(isEditMode()){
                         alert(locale_sort.noRangeError);
@@ -152,7 +152,7 @@ export function orderByInitial(){
                 let r1 = last["row"][0], r2 = last["row"][1];
                 let c1 = last["column"][0], c2 = last["column"][1];
 
-                let t = document.getElementById("luckysheet-sort-haveheader").checked;
+                let t = document.getElementById("luckysheet-sort-haveheader")?.checked ?? false;
 
                 let str;
                 if(t){
@@ -249,7 +249,8 @@ export function orderByInitial(){
             el.remove();
         });
 
-        document.getElementById("luckysheet-sort-haveheader").checked = false;
+        const _elHaveHeader = document.getElementById("luckysheet-sort-haveheader");
+        if (_elHaveHeader) _elHaveHeader.checked = false;
         let _elFirstRadio = document.querySelector("#luckysheet-sort-dialog input[type='radio']");
         if (_elFirstRadio) _elFirstRadio.checked = true;
 
@@ -257,17 +258,17 @@ export function orderByInitial(){
         if (_elTitleText) _elTitleText.innerHTML = locale_sort.sortRangeTitle+"<span>" + chatatABC(c1) + (r1 + 1) + "</span>"+ locale_sort.sortRangeTitleTo +"<span>" + chatatABC(c2) + (r2 + 1) + "</span>";
 
         let _elSortDialog2 = document.getElementById("luckysheet-sort-dialog");
-        let myh = _elSortDialog2.offsetHeight, myw = _elSortDialog2.offsetWidth;
+        let myh = _elSortDialog2?.offsetHeight, myw = _elSortDialog2?.offsetWidth;
         let winw = document.documentElement.clientWidth, winh = document.documentElement.clientHeight;
         let scrollLeft = document.documentElement.scrollLeft, scrollTop = document.documentElement.scrollTop;
 
         let _elTableC = document.getElementById("luckysheet-sort-dialog-tablec");
         if (_elTableC) _elTableC.style.maxHeight = ((winh - myh) / 2) + "px";
-        Object.assign(_elSortDialog2.style, {
+        if (_elSortDialog2) Object.assign(_elSortDialog2.style, {
             "left": ((winw + scrollLeft - myw) / 2) + "px",
             "top": ((winh + scrollTop - myh) / 2) + "px"
         });
-        _elSortDialog2.style.display = '';
+        if (_elSortDialog2) _elSortDialog2.style.display = '';
         showModalMask();
 
         if (r1 < r2) {
@@ -287,8 +288,8 @@ export function orderByInitial(){
 
                 if (hastitle) {
                     let _elHaveHeader = document.getElementById("luckysheet-sort-haveheader");
-                    _elHaveHeader.checked = true;
-                    _elHaveHeader.dispatchEvent(new Event("change"));
+                    if (_elHaveHeader) _elHaveHeader.checked = true;
+                    _elHaveHeader?.dispatchEvent(new Event("change"));
                 }
             }, 10);
         }

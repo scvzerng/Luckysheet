@@ -18,7 +18,8 @@ const createProxy = (data, k, callback) => {
 
 function openSelfModel(id, isshowMask = true) {
     let _dialog = document.getElementById(id);
-    _dialog.querySelector(".luckysheet-modal-dialog-content").style.minWidth = '300px';
+    if (!_dialog) return;
+    const _content = _dialog.querySelector(".luckysheet-modal-dialog-content"); if (_content) _content.style.minWidth = '300px';
     let myh = _dialog.offsetHeight,
         myw = _dialog.offsetWidth;
     let winw = document.documentElement.clientWidth,

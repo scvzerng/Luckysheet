@@ -345,8 +345,8 @@ export function initRowHeaderEvents() {
         const _elData1 = document.getElementById("luckysheet-cols-rows-data"); if (_elData1) _elData1.style.display = '';
         const _elShift2 = document.getElementById("luckysheet-cols-rows-shift"); if (_elShift2) _elShift2.style.display = 'none';
         const _elHandleInCell1 = document.getElementById("luckysheet-cols-rows-handleincell"); if (_elHandleInCell1) _elHandleInCell1.style.display = 'none';
-        document.querySelector("#luckysheet-cols-rows-add .luckysheet-menuseparator").style.display = "block";
-        document.querySelector("#luckysheet-cols-rows-data .luckysheet-menuseparator").style.display = "block";
+        const _sep15 = document.querySelector("#luckysheet-cols-rows-add .luckysheet-menuseparator"); if (_sep15) _sep15.style.display = "block";
+        const _sep16 = document.querySelector("#luckysheet-cols-rows-data .luckysheet-menuseparator"); if (_sep16) _sep16.style.display = "block";
   
         // 自定义右键菜单：向上向下增加行，删除行，隐藏显示行，设置行高
         const cellRightClickConfig = luckysheetConfigsetting.cellRightClickConfig;
@@ -355,27 +355,26 @@ export function initRowHeaderEvents() {
         if (!cellRightClickConfig.copy && !cellRightClickConfig.copyAs && !cellRightClickConfig.paste && !cellRightClickConfig.insertRow && !cellRightClickConfig.deleteRow && !cellRightClickConfig.hideRow && !cellRightClickConfig.rowHeight && !cellRightClickConfig.clear && !cellRightClickConfig.matrix && !cellRightClickConfig.sort && !cellRightClickConfig.filter && !cellRightClickConfig.image && !cellRightClickConfig.link && !cellRightClickConfig.data) {
           return;
         }
-        document.getElementById("luckysheet-top-left-add-selected").style.display = cellRightClickConfig.insertRow ? "block" : "none";
-        document.getElementById("luckysheet-bottom-right-add-selected").style.display = cellRightClickConfig.insertRow ? "block" : "none";
-        document.getElementById("luckysheet-del-selected").style.display = cellRightClickConfig.deleteRow ? "block" : "none";
-        document.getElementById("luckysheet-hide-selected").style.display = cellRightClickConfig.hideRow ? "block" : "none";
-        document.getElementById("luckysheet-show-selected").style.display = cellRightClickConfig.hideRow ? "block" : "none";
-        document.getElementById("luckysheet-column-row-width-selected").style.display = cellRightClickConfig.rowHeight ? "block" : "none";
+        const _tlAdd3 = document.getElementById("luckysheet-top-left-add-selected"); if (_tlAdd3) _tlAdd3.style.display = cellRightClickConfig.insertRow ? "block" : "none";
+        const _brAdd3 = document.getElementById("luckysheet-bottom-right-add-selected"); if (_brAdd3) _brAdd3.style.display = cellRightClickConfig.insertRow ? "block" : "none";
+        const _delSel3 = document.getElementById("luckysheet-del-selected"); if (_delSel3) _delSel3.style.display = cellRightClickConfig.deleteRow ? "block" : "none";
+        const _hideSel3 = document.getElementById("luckysheet-hide-selected"); if (_hideSel3) _hideSel3.style.display = cellRightClickConfig.hideRow ? "block" : "none";
+        const _showSel3 = document.getElementById("luckysheet-show-selected"); if (_showSel3) _showSel3.style.display = cellRightClickConfig.hideRow ? "block" : "none";
+        const _crwSel3 = document.getElementById("luckysheet-column-row-width-selected"); if (_crwSel3) _crwSel3.style.display = cellRightClickConfig.rowHeight ? "block" : "none";
   
         // 1. 当一个功能菜单块上方的功能块按钮都隐藏的时候，下方的功能块的顶部分割线也需要隐�?
         if (!cellRightClickConfig.copy && !cellRightClickConfig.copyAs && !cellRightClickConfig.paste) {
-          document.querySelector("#luckysheet-cols-rows-add .luckysheet-menuseparator").style.display = "none";
+          const _sep17 = document.querySelector("#luckysheet-cols-rows-add .luckysheet-menuseparator"); if (_sep17) _sep17.style.display = "none";
           if (!cellRightClickConfig.insertRow && !cellRightClickConfig.deleteRow && !cellRightClickConfig.hideRow && !cellRightClickConfig.rowHeight) {
-            document.querySelector("#luckysheet-cols-rows-data .luckysheet-menuseparator").style.display = "none";
+            const _sep18 = document.querySelector("#luckysheet-cols-rows-data .luckysheet-menuseparator"); if (_sep18) _sep18.style.display = "none";
           }
         }
-  
-        // 2. 当一个功能菜单块内所有的按钮都隐藏的时候，它顶部的分割线也需要隐藏掉
+
         if (!cellRightClickConfig.insertRow && !cellRightClickConfig.deleteRow && !cellRightClickConfig.hideRow && !cellRightClickConfig.rowHeight) {
-          document.querySelector("#luckysheet-cols-rows-add .luckysheet-menuseparator").style.display = "none";
+          const _sep19 = document.querySelector("#luckysheet-cols-rows-add .luckysheet-menuseparator"); if (_sep19) _sep19.style.display = "none";
         }
         if (!cellRightClickConfig.clear && !cellRightClickConfig.matrix && !cellRightClickConfig.sort && !cellRightClickConfig.filter && !cellRightClickConfig.image && !cellRightClickConfig.link && !cellRightClickConfig.data) {
-          document.querySelector("#luckysheet-cols-rows-data .luckysheet-menuseparator").style.display = "none";
+          const _sep20 = document.querySelector("#luckysheet-cols-rows-data .luckysheet-menuseparator"); if (_sep20) _sep20.style.display = "none";
         }
         rightClickMenu.showAt(this.getBoundingClientRect().left + window.pageXOffset + 46, event.pageY);
         Store.luckysheet_cols_menu_status = true;
@@ -400,9 +399,9 @@ export function initRowHeaderEvents() {
           }
         }
         if (isSame) {
-          document.getElementById("luckysheet-cols-rows-add").querySelector("input[type='number'].rcsize").value = first_rowlen;
+          const _rcInput1 = document.getElementById("luckysheet-cols-rows-add")?.querySelector("input[type='number'].rcsize"); if (_rcInput1) _rcInput1.value = first_rowlen;
         } else {
-          document.getElementById("luckysheet-cols-rows-add").querySelector("input[type='number'].rcsize").value = "";
+          const _rcInput2 = document.getElementById("luckysheet-cols-rows-add")?.querySelector("input[type='number'].rcsize"); if (_rcInput2) _rcInput2.value = "";
         }
       }
     });

@@ -8,7 +8,7 @@ export function initFontSize(_this) {
       //字体大小
       let luckysheet_fs_setTimeout = null;
       let fontSizeEl = document.getElementById("luckysheet-icon-font-size");
-      fontSizeEl.addEventListener("mousedown", function (e) {
+      fontSizeEl?.addEventListener("mousedown", function (e) {
         if (isInputBoxActive()) {
           let w = window.getSelection();
           if (w.type != "None") {
@@ -21,7 +21,7 @@ export function initFontSize(_this) {
         hideMenuByCancel(e);
         e.stopPropagation();
       });
-      fontSizeEl.addEventListener("click", function () {
+      fontSizeEl?.addEventListener("click", function () {
         let menuButtonId = this.getAttribute("id") + "-menuButton";
         let menuButton = document.getElementById(menuButtonId);
         if (menuButton == null) {
@@ -103,9 +103,9 @@ export function initFontSize(_this) {
               luckysheetContainerFocus();
               let itemvalue = this.getAttribute("itemvalue");
               let input = document.querySelector("#luckysheet-icon-font-size input");
-              document.getElementById("luckysheet-icon-font-size").setAttribute("itemvalue", itemvalue);
+              document.getElementById("luckysheet-icon-font-size")?.setAttribute("itemvalue", itemvalue);
               _this.focus(menuButton, itemvalue);
-              input.value = itemvalue;
+              if (input) input.value = itemvalue;
               let d = editor.deepCopyFlowData(Store.flowdata);
               _this.updateFormat(d, "fs", itemvalue);
               clearTimeout(luckysheet_fs_setTimeout);
@@ -114,7 +114,7 @@ export function initFontSize(_this) {
         }
         let userlen = this.offsetWidth;
         let tlen = menuButton.offsetWidth;
-        let defualtvalue = document.getElementById("luckysheet-icon-font-size").getAttribute("itemvalue");
+        let defualtvalue = document.getElementById("luckysheet-icon-font-size")?.getAttribute("itemvalue");
         if (defualtvalue == null) {
           defualtvalue = 10;
         }
@@ -125,11 +125,11 @@ export function initFontSize(_this) {
         }
         mouseclickposition(menuButton, menuleft, this.getBoundingClientRect().top + window.pageYOffset + 25, "lefttop");
       });
-      fontSizeEl.querySelector("input.luckysheet-toolbar-textinput").addEventListener("keydown", function (e) {
+      fontSizeEl?.querySelector("input.luckysheet-toolbar-textinput")?.addEventListener("keydown", function (e) {
         hideMenuByCancel(e);
         e.stopPropagation();
       });
-      fontSizeEl.querySelector("input.luckysheet-toolbar-textinput").addEventListener("keyup", function (e) {
+      fontSizeEl?.querySelector("input.luckysheet-toolbar-textinput")?.addEventListener("keyup", function (e) {
         if (e.keyCode != 13) {
           return;
         }

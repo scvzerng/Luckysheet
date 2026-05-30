@@ -215,7 +215,7 @@ const clipboardCopyModule = {
 
       // 等50毫秒，keyPress事件发生了再去处理数据
       setTimeout(function () {
-        document.getElementById("luckysheet-copy-content").blur();
+        document.getElementById("luckysheet-copy-content")?.blur();
       }, 10);
 
       // var oInput = document.createElement('input');

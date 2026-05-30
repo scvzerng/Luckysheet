@@ -7,15 +7,15 @@ import { iconfontObjects } from '../../constant';
 
 export function initValign(_this) {
       //垂直对齐
-      document.getElementById("luckysheet-icon-valign").addEventListener("click", function () {
-        let itemvalue = document.getElementById("luckysheet-icon-valign").getAttribute("type");
+      document.getElementById("luckysheet-icon-valign")?.addEventListener("click", function () {
+        let itemvalue = document.getElementById("luckysheet-icon-valign")?.getAttribute("type");
         if (itemvalue == null) {
           itemvalue = "bottom";
         }
         let d = editor.deepCopyFlowData(Store.flowdata);
         _this.updateFormat(d, "vt", itemvalue);
       });
-      document.getElementById("luckysheet-icon-valign-menu").addEventListener("click", function () {
+      document.getElementById("luckysheet-icon-valign-menu")?.addEventListener("click", function () {
         let menuButtonId = this.getAttribute("id") + "-menuButton";
         let menuButton = document.getElementById(menuButtonId);
         const _locale = locale();
@@ -55,10 +55,10 @@ export function initValign(_this) {
               let itemvalue = this.getAttribute("itemvalue");
               _this.focus(menuButton, itemvalue);
               let valignEl = document.getElementById("luckysheet-icon-valign");
-              valignEl.setAttribute("type", itemvalue);
-              let icon = valignEl.querySelector(".luckysheet-icon-img-container");
+              if (valignEl) valignEl.setAttribute("type", itemvalue);
+              let icon = valignEl?.querySelector(".luckysheet-icon-img-container");
 
-              icon.className = "luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-valign-" + itemvalue + iconfontObject[itemvalue];
+              if (icon) icon.className = "luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-valign-" + itemvalue + iconfontObject[itemvalue];
               let d = editor.deepCopyFlowData(Store.flowdata);
               _this.updateFormat(d, "vt", itemvalue);
             });

@@ -7,7 +7,7 @@ import luckysheetMoreFormat from '../../moreFormat';
 
 export function initMoreFormat(_this) {
       //更多格式
-      document.getElementById("luckysheet-icon-fmt-other").addEventListener("click", function () {
+      document.getElementById("luckysheet-icon-fmt-other")?.addEventListener("click", function () {
         const _locale = locale();
         const locale_format = _locale.format;
         const locale_defaultFmt = _locale.defaultFmt;
@@ -76,7 +76,7 @@ export function initMoreFormat(_this) {
             });
           });
         } else {
-          const text = this.querySelector(".luckysheet-toolbar-menu-button-caption").textContent.trim();
+          const text = this.querySelector(".luckysheet-toolbar-menu-button-caption")?.textContent?.trim();
           const format = locale_defaultFmt.find(f => f.text === text);
           if (format) {
             _this.focus(menuButton, format.value);

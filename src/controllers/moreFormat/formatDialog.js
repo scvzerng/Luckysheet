@@ -358,17 +358,17 @@ const luckysheetMoreFormat = {
             "style": "z-index:100003" 
         }));
         let _elMoreFmtDialog2 = document.getElementById("luckysheet-moreFormat-dialog");
-        let _elDialogContent = _elMoreFmtDialog2.querySelector(".luckysheet-modal-dialog-content");
-        _elDialogContent.style.minWidth = "400px";
-        let myh = _elMoreFmtDialog2.offsetHeight,
-            myw = _elMoreFmtDialog2.offsetWidth;
+        let _elDialogContent = _elMoreFmtDialog2?.querySelector(".luckysheet-modal-dialog-content");
+        if (_elDialogContent) _elDialogContent.style.minWidth = "400px";
+        let myh = _elMoreFmtDialog2?.offsetHeight,
+            myw = _elMoreFmtDialog2?.offsetWidth;
         let winw = document.documentElement.clientWidth, winh = document.documentElement.clientHeight;
         let scrollLeft = document.documentElement.scrollLeft, scrollTop = document.documentElement.scrollTop;
-        Object.assign(_elMoreFmtDialog2.style, {
+        if (_elMoreFmtDialog2) Object.assign(_elMoreFmtDialog2.style, {
             "left": ((winw + scrollLeft - myw) / 2) + "px",
             "top": ((winh + scrollTop - myh) / 3) + "px"
         });
-        _elMoreFmtDialog2.style.display = '';
+        if (_elMoreFmtDialog2) _elMoreFmtDialog2.style.display = '';
         
         let _elFirstItem = document.querySelector("#luckysheet-moreFormat-dialog .listbox .listItem");
         if (_elFirstItem) _elFirstItem.classList.add("on");
@@ -400,7 +400,7 @@ const luckysheetMoreFormat = {
                     return;
                 }
 
-                let decimal = parseInt(document.querySelector("#luckysheet-moreFormat-dialog .decimal input").value.trim());
+                let decimal = parseInt(document.querySelector("#luckysheet-moreFormat-dialog .decimal input")?.value?.trim());
 
                 if(decimal.toString() == "NaN" || decimal < 0 || decimal > 9){
                     if(isEditMode()){

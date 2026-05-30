@@ -93,7 +93,7 @@ export function zoomInitial(){
         zoomNumberDomBind(currentRatio);
     });
 
-    document.getElementById("luckysheet-zoom-plus").addEventListener("click", function(){
+    document.getElementById("luckysheet-zoom-plus")?.addEventListener("click", function(){
         let currentRatio;
         if(Store.zoomRatio==null){
             currentRatio = Store.zoomRatio = 1;
@@ -159,11 +159,11 @@ export function zoomInitial(){
 
         e.stopPropagation();
     });
-    _elZoomCursor.addEventListener("click", function(e){
+    _elZoomCursor?.addEventListener("click", function(e){
         e.stopPropagation();
     });
 
-    document.getElementById("luckysheet-zoom-ratioText").addEventListener("click", function(){
+    document.getElementById("luckysheet-zoom-ratioText")?.addEventListener("click", function(){
         zoomChange(1);
         zoomNumberDomBind(1);
     });
@@ -248,7 +248,7 @@ function zoomSlierDomBind(ratio){
     else if(ratio>1){
         domPos = Math.round((ratio - 1)*100 / 0.6)/10+50;
     }
-    document.getElementById("luckysheet-zoom-cursor").style.left = (domPos-4) + "px";
+    const _zoomCursor = document.getElementById("luckysheet-zoom-cursor"); if (_zoomCursor) _zoomCursor.style.left = (domPos-4) + "px";
 }
 
 export function zoomNumberDomBind(ratio){

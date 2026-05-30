@@ -9,7 +9,7 @@ import luckysheetSearchReplace from '../../searchReplace';
 
 export function initSearchReplace(_this) {
       //查找和替�?
-      document.getElementById("luckysheet-icon-seachmore").addEventListener("click", function () {
+      document.getElementById("luckysheet-icon-seachmore")?.addEventListener("click", function () {
         let menuButtonId = this.getAttribute("id") + "-menuButton";
         let menuButton = document.getElementById(menuButtonId);
         const _locale = locale();
@@ -89,7 +89,7 @@ export function initSearchReplace(_this) {
                 luckysheetSearchReplace.createDialog(1);
               }
               luckysheetSearchReplace.init();
-              document.querySelector("#luckysheet-search-replace #searchInput input").focus();
+              document.querySelector("#luckysheet-search-replace #searchInput input")?.focus();
             } else if (itemvalue == "location") {
               //定位条件
               luckysheetLocationCell.createDialog();

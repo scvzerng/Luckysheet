@@ -11,7 +11,7 @@ function initialCopyFormatOperation() {
 
     //右键功能键
     //复制为json格式字符串，首行为标题
-    document.getElementById("luckysheet-copy-json-head").addEventListener("click", function (event) {
+    document.getElementById("luckysheet-copy-json-head")?.addEventListener("click", function (event) {
         const _colsMenu = document.querySelector("body .luckysheet-cols-menu"); if (_colsMenu) _colsMenu.style.display = 'none';
         luckysheetContainerFocus();
 
@@ -84,7 +84,7 @@ function initialCopyFormatOperation() {
     });
 
     //复制为json格式字符串，无标题，采用ABCD作为标题
-    document.getElementById("luckysheet-copy-json-nohead").addEventListener("click", function (event) {
+    document.getElementById("luckysheet-copy-json-nohead")?.addEventListener("click", function (event) {
         const _colsMenu = document.querySelector("body .luckysheet-cols-menu"); if (_colsMenu) _colsMenu.style.display = 'none';
         luckysheetContainerFocus();
 
@@ -145,7 +145,7 @@ function initialCopyFormatOperation() {
     });
 
     //复制为一维数组
-    document.getElementById("luckysheet-copy-array1").addEventListener("click", function (event) {
+    document.getElementById("luckysheet-copy-array1")?.addEventListener("click", function (event) {
         const _colsMenu = document.querySelector("body .luckysheet-cols-menu"); if (_colsMenu) _colsMenu.style.display = 'none';
         luckysheetContainerFocus();
 
@@ -202,7 +202,7 @@ function initialCopyFormatOperation() {
     });
 
     //复制为二维数组
-    document.getElementById("luckysheet-copy-array2").addEventListener("click", function (event) {
+    document.getElementById("luckysheet-copy-array2")?.addEventListener("click", function (event) {
         const _colsMenu = document.querySelector("body .luckysheet-cols-menu"); if (_colsMenu) _colsMenu.style.display = 'none';
         luckysheetContainerFocus();
 
@@ -262,7 +262,7 @@ function initialCopyFormatOperation() {
     });
 
     //复制为多维数组
-    document.getElementById("luckysheet-copy-arraymore-confirm").addEventListener("click", function (event) {
+    document.getElementById("luckysheet-copy-arraymore-confirm")?.addEventListener("click", function (event) {
 
         // Click input element, don't comfirm 
         if(event.target.nodeName === 'INPUT'){
@@ -321,7 +321,7 @@ function initialCopyFormatOperation() {
             }
         }
 
-        let row = document.getElementById("luckysheet-copy-arraymore-row").value, col = document.getElementById("luckysheet-copy-arraymore-col").value;
+        let row = document.getElementById("luckysheet-copy-arraymore-row")?.value, col = document.getElementById("luckysheet-copy-arraymore-col")?.value;
 
         if (row == "" && col == "") {
             selection.copybyformat(event, JSON.stringify(arr));
@@ -387,7 +387,7 @@ function initialCopyFormatOperation() {
     });
 
     //复制为对角线
-    document.getElementById("luckysheet-copy-diagonal").addEventListener("click", function (event) {
+    document.getElementById("luckysheet-copy-diagonal")?.addEventListener("click", function (event) {
         const _colsMenu = document.querySelector("body .luckysheet-cols-menu"); if (_colsMenu) _colsMenu.style.display = 'none';
         luckysheetContainerFocus();
 
@@ -447,7 +447,7 @@ function initialCopyFormatOperation() {
     });
 
     //复制为反对角线
-    document.getElementById("luckysheet-copy-antidiagonal").addEventListener("click", function (event) {
+    document.getElementById("luckysheet-copy-antidiagonal")?.addEventListener("click", function (event) {
         const _colsMenu = document.querySelector("body .luckysheet-cols-menu"); if (_colsMenu) _colsMenu.style.display = 'none';
         luckysheetContainerFocus();
 
@@ -508,7 +508,7 @@ function initialCopyFormatOperation() {
     });
 
     //复制为对角偏移n列
-    document.getElementById("luckysheet-copy-diagonaloffset").addEventListener("click", function (event) {
+    document.getElementById("luckysheet-copy-diagonaloffset")?.addEventListener("click", function (event) {
 
         // Click input element, don't comfirm 
         if(event.target.nodeName === 'INPUT'){
@@ -563,7 +563,7 @@ function initialCopyFormatOperation() {
         }
 
         let clen = getdata[0].length,
-            offset = parseInt(document.getElementById("luckysheet-copy-diagonaloffset-value").value);
+            offset = parseInt(document.getElementById("luckysheet-copy-diagonaloffset-value")?.value);
 
         if(offset.toString() == "NaN"){
             if(isEditMode()){
@@ -600,7 +600,7 @@ function initialCopyFormatOperation() {
     });
 
     //复制为布尔值
-    document.getElementById("luckysheet-copy-boolvalue").addEventListener("click", function (event) {
+    document.getElementById("luckysheet-copy-boolvalue")?.addEventListener("click", function (event) {
         const _colsMenu = document.querySelector("body .luckysheet-cols-menu"); if (_colsMenu) _colsMenu.style.display = 'none';
         luckysheetContainerFocus();
 

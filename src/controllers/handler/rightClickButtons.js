@@ -139,33 +139,33 @@ export default function rightClickButtons() {
         });
     });
 
-    document.getElementById("luckysheet-insertImg-btn-title").addEventListener("click", function() {
+    document.getElementById("luckysheet-insertImg-btn-title")?.addEventListener("click", function() {
         if (!checkIsAllowEdit()) {
             return;
         }
-        document.getElementById("luckysheet-imgUpload").click();
+        document.getElementById("luckysheet-imgUpload")?.click();
     });
-    document.getElementById("luckysheetInsertImage").addEventListener("click", function() {
-        document.getElementById("luckysheet-imgUpload").click();
+    document.getElementById("luckysheetInsertImage")?.addEventListener("click", function() {
+        document.getElementById("luckysheet-imgUpload")?.click();
         rightClickMenu.hide();
     });
-    document.getElementById("luckysheet-imgUpload").addEventListener("click", function(e) {
+    document.getElementById("luckysheet-imgUpload")?.addEventListener("click", function(e) {
         e.stopPropagation();
     });
-    document.getElementById("luckysheet-imgUpload").addEventListener("change", function(e) {
+    document.getElementById("luckysheet-imgUpload")?.addEventListener("change", function(e) {
         let file = e.currentTarget.files[0];
         imageCtrl.insertImg(file);
     });
 
-    document.getElementById("luckysheet-insertLink-btn-title").addEventListener("click", function() {
+    document.getElementById("luckysheet-insertLink-btn-title")?.addEventListener("click", function() {
         if (!checkIsAllowEdit()) {
         }
 
         hyperlinkCtrl.createDialog();
         hyperlinkCtrl.init();
     });
-    document.getElementById("luckysheetInsertLink").addEventListener("click", function() {
-        document.getElementById("luckysheet-insertLink-btn-title").click();
+    document.getElementById("luckysheetInsertLink")?.addEventListener("click", function() {
+        document.getElementById("luckysheet-insertLink-btn-title")?.click();
         rightClickMenu.hide();
     });
 }

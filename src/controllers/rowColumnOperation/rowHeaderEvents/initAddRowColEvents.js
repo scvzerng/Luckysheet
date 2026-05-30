@@ -11,7 +11,7 @@ import rightClickMenu from '../../../ui/rightClickMenu.js';
 export function initAddRowColEvents() {
     //向左增加列，向上增加�?
     // document.querySelector("#luckysheet-add-lefttop, #luckysheet-add-lefttop_t").addEventListener("click", function (event) {
-    document.getElementById("luckysheet-top-left-add-selected").addEventListener("click", function (event) {
+    document.getElementById("luckysheet-top-left-add-selected")?.addEventListener("click", function (event) {
       // Click input element, don't comfirm
       if (event.target.nodeName === "INPUT") {
         return;
@@ -30,7 +30,7 @@ export function initAddRowColEvents() {
         return;
       }
       let $t = this,
-        value = $t.querySelector("input").value;
+        value = $t.querySelector("input")?.value;
       if (!isRealNum(value)) {
         if (isEditMode()) {
           alert(locale_info.tipInputNumber);
@@ -56,7 +56,7 @@ export function initAddRowColEvents() {
     });
   
     // When you right-click a cell, a row is inserted before the row by default
-    document.getElementById("luckysheetColsRowsHandleAdd_row").addEventListener("click", function (event) {
+    document.getElementById("luckysheetColsRowsHandleAdd_row")?.addEventListener("click", function (event) {
       rightClickMenu.style.display = 'none';
       luckysheetContainerFocus();
       if (Store.allowEdit === false) {
@@ -68,7 +68,7 @@ export function initAddRowColEvents() {
       }
       luckysheetextendtable('row', st_index, 1, "lefttop");
     });
-    document.getElementById("luckysheetColsRowsHandleAdd_column").addEventListener("click", function (event) {
+    document.getElementById("luckysheetColsRowsHandleAdd_column")?.addEventListener("click", function (event) {
       rightClickMenu.style.display = 'none';
       luckysheetContainerFocus();
       if (Store.allowEdit === false) {
@@ -79,7 +79,7 @@ export function initAddRowColEvents() {
     });
   
     // custom right-click a cell buttton click
-    document.querySelector(".luckysheetColsRowsHandleAdd_custom").addEventListener("click", function (clickEvent) {
+    document.querySelector(".luckysheetColsRowsHandleAdd_custom")?.addEventListener("click", function (clickEvent) {
       rightClickMenu.style.display = 'none';
       const cellRightClickConfig = luckysheetConfigsetting.cellRightClickConfig;
       const rowIndex = Store.luckysheet_select_save[0].row[0];
@@ -216,7 +216,7 @@ export function initAddRowColEvents() {
   
     //向右增加列，向下增加�?
     // document.querySelector("#luckysheet-add-rightbottom, #luckysheet-add-rightbottom_t").addEventListener("click", function (event) {
-    document.getElementById("luckysheet-bottom-right-add-selected").addEventListener("click", function (event) {
+    document.getElementById("luckysheet-bottom-right-add-selected")?.addEventListener("click", function (event) {
       // Click input element, don't comfirm
       if (event.target.nodeName === "INPUT") {
         return;
@@ -235,7 +235,7 @@ export function initAddRowColEvents() {
         return;
       }
       let $t = this,
-        value = $t.querySelector("input").value;
+        value = $t.querySelector("input")?.value;
       if (!isRealNum(value)) {
         if (isEditMode()) {
           alert(locale_info.tipInputNumber);

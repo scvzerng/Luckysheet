@@ -13,7 +13,7 @@ import sheetmanage from '../../sheetmanage';
 
 export function initConditionformat(_this) {
       //条件格式
-      document.getElementById("luckysheet-icon-conditionformat").addEventListener("click", function () {
+      document.getElementById("luckysheet-icon-conditionformat")?.addEventListener("click", function () {
         let menuButtonId = this.getAttribute("id") + "-menuButton";
         let menuButton = document.getElementById(menuButtonId);
         const conditionformat_text = locale().conditionformat;
@@ -228,8 +228,8 @@ export function initConditionformat(_this) {
           document.body.insertAdjacentHTML('beforeend', menu + submenu + submenu2 + submenu3 + submenu4 + submenu6);
           menuButton = document.getElementById(menuButtonId);
           menuButton.style.width = "190px";
-          document.getElementById("luckysheet-icon-highlightCellRule-menuButton").style.width = "160px";
-          document.getElementById("luckysheet-icon-projectSelectRule-menuButton").style.width = "180px";
+          const _elHighlight = document.getElementById("luckysheet-icon-highlightCellRule-menuButton"); if (_elHighlight) _elHighlight.style.width = "160px";
+          const _elProject = document.getElementById("luckysheet-icon-projectSelectRule-menuButton"); if (_elProject) _elProject.style.width = "180px";
           menuButton.querySelectorAll(".luckysheet-cols-menuitem").forEach(function (item) {
             item.addEventListener("click", function () {
               menuButton.style.display = "none";

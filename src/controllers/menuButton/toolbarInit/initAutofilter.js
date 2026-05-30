@@ -7,7 +7,7 @@ import { createFilter } from '../../filter';
 
 export function initAutofilter(_this) {
       //过滤和排�?
-      document.getElementById("luckysheet-icon-autofilter").addEventListener("click", function () {
+      document.getElementById("luckysheet-icon-autofilter")?.addEventListener("click", function () {
         let menuButtonId = this.getAttribute("id") + "-menuButton";
         let menuButton = document.getElementById(menuButtonId);
         if (menuButton == null) {
@@ -55,19 +55,19 @@ export function initAutofilter(_this) {
               luckysheetContainerFocus();
               let itemvalue = this.getAttribute("itemvalue");
               if (itemvalue == "diysort") {
-                document.getElementById("luckysheetorderby").click();
+                document.getElementById("luckysheetorderby")?.click();
               } else if (itemvalue == "asc") {
                 sortSelection(true);
               } else if (itemvalue == "desc") {
                 sortSelection(false);
               } else if (itemvalue == "filter") {
                 if (document.getElementById("luckysheet-filter-options-sheet" + Store.currentSheetIndex) != null) {
-                  document.getElementById("luckysheet-filter-initial").click();
+                  document.getElementById("luckysheet-filter-initial")?.click();
                 } else {
                   createFilter();
                 }
               } else if (itemvalue == "clearfilter") {
-                document.getElementById("luckysheet-filter-initial").click();
+                document.getElementById("luckysheet-filter-initial")?.click();
               }
             });
           });

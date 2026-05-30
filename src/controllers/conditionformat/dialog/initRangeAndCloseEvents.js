@@ -133,6 +133,6 @@ export function initRangeAndCloseEvents(_this) {
 
       offNS("CFinfoDialogClose");
       onNS(document, "click.CFinfoDialogClose", "#luckysheet-conditionformat-info-dialog-close", function () {
-        this.closest("#luckysheet-conditionformat-info-dialog").style.display = 'none';
+        this.closest("#luckysheet-conditionformat-info-dialog")?.style && (this.closest("#luckysheet-conditionformat-info-dialog").style.display = 'none');
       });
 }

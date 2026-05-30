@@ -23,22 +23,20 @@ let gridW = 0,
 export default function luckysheetsizeauto(isRefreshCanvas=true) {
     if (!luckysheetConfigsetting.showinfobar) {
         Store.infobarHeight = 0;
-        document.getElementById("luckysheet_info_detail").style.display = 'none';
+        const _infoDetail = document.getElementById("luckysheet_info_detail"); if (_infoDetail) _infoDetail.style.display = 'none';
     }
     else {
-        document.getElementById("luckysheet_info_detail").style.display = '';
-        // Store.infobarHeight = 56;
-        Store.infobarHeight = document.querySelector('#luckysheet_info_detail').offsetHeight;
+        const _infoDetail2 = document.getElementById("luckysheet_info_detail"); if (_infoDetail2) _infoDetail2.style.display = '';
+        Store.infobarHeight = document.querySelector('#luckysheet_info_detail')?.offsetHeight || 0;
     }
 
     if (!!Store.toobarObject && !!Store.toobarObject.toobarElements && Store.toobarObject.toobarElements === null) {
-        document.getElementById(Store.container).querySelector(".luckysheet-wa-editor").style.display = 'none';
+        const _waEditor = document.getElementById(Store.container)?.querySelector(".luckysheet-wa-editor"); if (_waEditor) _waEditor.style.display = 'none';
         Store.toolbarHeight = 0;
     }
     else {
-        document.getElementById(Store.container).querySelector(".luckysheet-wa-editor").style.display = '';
-        // Store.toolbarHeight = 72;
-        Store.toolbarHeight = document.querySelector('#' + Store.container +' .luckysheet-wa-editor').offsetHeight;
+        const _waEditor2 = document.getElementById(Store.container)?.querySelector(".luckysheet-wa-editor"); if (_waEditor2) _waEditor2.style.display = '';
+        Store.toolbarHeight = document.querySelector('#' + Store.container +' .luckysheet-wa-editor')?.offsetHeight || 0;
     }
 
     // if (!luckysheetConfigsetting.showsheetbar) {
@@ -67,17 +65,17 @@ export default function luckysheetsizeauto(isRefreshCanvas=true) {
     // 公式栏
     const formulaEle = document.querySelector("#" + Store.container + ' .luckysheet-wa-calculate');
     if (!luckysheetConfigsetting.sheetFormulaBar) {
-        formulaEle.style.display = 'none';
+        if (formulaEle) formulaEle.style.display = 'none';
         Store.calculatebarHeight = 0;
     }
     else {
-        formulaEle.style.display = 'block';
-        Store.calculatebarHeight = formulaEle.offsetHeight;
+        if (formulaEle) formulaEle.style.display = 'block';
+        Store.calculatebarHeight = formulaEle?.offsetHeight || 0;
     }
 
-    document.getElementById(Store.container).querySelector(".luckysheet-grid-container").style.top = Store.toolbarHeight + Store.infobarHeight + Store.calculatebarHeight;
+    const _gridContainer = document.getElementById(Store.container)?.querySelector(".luckysheet-grid-container"); if (_gridContainer) _gridContainer.style.top = Store.toolbarHeight + Store.infobarHeight + Store.calculatebarHeight;
 
-    gridW = document.getElementById(Store.container).offsetWidth;
+    gridW = document.getElementById(Store.container)?.offsetWidth || 0;
 
     if(luckysheetConfigsetting.showConfigWindowResize){
         const _altSlider = document.getElementById("luckysheet-modal-dialog-slider-alternateformat");
@@ -149,10 +147,10 @@ export default function luckysheetsizeauto(isRefreshCanvas=true) {
         const element = toobarElements[index];
         if(element instanceof Array){
             for(const ele of element){
-                document.getElementById("luckysheet-icon-morebtn-div").insertAdjacentHTML('beforeend', ele);
+                document.getElementById("luckysheet-icon-morebtn-div")?.insertAdjacentHTML('beforeend', ele);
             }
         }else{
-            document.getElementById("luckysheet-icon-morebtn-div").insertAdjacentHTML('beforeend', element);
+            document.getElementById("luckysheet-icon-morebtn-div")?.insertAdjacentHTML('beforeend', element);
         }
 
     }
@@ -160,17 +158,17 @@ export default function luckysheetsizeauto(isRefreshCanvas=true) {
     if(ismore){
 
         document.getElementById("luckysheet-wa-editor").insertAdjacentHTML('beforeend', morebtn);
-        document.getElementById("luckysheet-icon-morebtn").addEventListener("click", function(){
+        document.getElementById("luckysheet-icon-morebtn")?.addEventListener("click", function(){
 
             //When resize, change the width of the more button container in real time
-            document.getElementById("luckysheet-icon-morebtn-div").style.left = '';//reset
+            const _moreBtnDiv1 = document.getElementById("luckysheet-icon-morebtn-div"); if (_moreBtnDiv1) _moreBtnDiv1.style.left = '';
 
             // *这里计算containerLeft的作用是：获得容器左侧的margin值，以让点击出现的“更多按钮”栏位置不会出错。
-            const containerLeft = document.querySelector(`#${Store.container}`).getBoundingClientRect ? document.querySelector(`#${Store.container}`).getBoundingClientRect().left : 0;
-            const morebtnLeft = document.getElementById("luckysheet-icon-morebtn-div").getBoundingClientRect().left;//get real left info
+            const containerLeft = document.querySelector(`#${Store.container}`)?.getBoundingClientRect()?.left || 0;
+            const morebtnLeft = document.getElementById("luckysheet-icon-morebtn-div")?.getBoundingClientRect()?.left || 0;
 
             if(morebtnLeft < containerLeft){
-                document.getElementById("luckysheet-icon-morebtn-div").style.left = containerLeft + 'px';
+                const _moreBtnDiv2 = document.getElementById("luckysheet-icon-morebtn-div"); if (_moreBtnDiv2) _moreBtnDiv2.style.left = containerLeft + 'px';
             }
 
             let right = document.documentElement.clientWidth - document.getElementById("luckysheet-icon-morebtn").getBoundingClientRect().left + window.pageXOffset - document.getElementById("luckysheet-icon-morebtn").offsetWidth+ document.body.scrollLeft;
@@ -179,7 +177,7 @@ export default function luckysheetsizeauto(isRefreshCanvas=true) {
             // document.getElementById("luckysheet-icon-morebtn-div").toggle().style.right = right < 0 ? 0 : right;
 
             // use native js operation
-            document.getElementById("luckysheet-icon-morebtn-div").style.right = right < 0 ? 0 : right + 'px';
+            const _moreBtnDiv3 = document.getElementById("luckysheet-icon-morebtn-div"); if (_moreBtnDiv3) _moreBtnDiv3.style.right = right < 0 ? 0 : right + 'px';
 
             // change to visibility,morebtnLeft will get the actual value
             if(document.getElementById("luckysheet-icon-morebtn-div").style.visibility === 'hidden'){
@@ -279,9 +277,11 @@ export default function luckysheetsizeauto(isRefreshCanvas=true) {
     // When adding elements to the luckysheet-icon-morebtn-div element of the toolbar, it will affect the height of the entire workbook area, so the height is obtained here
     gridH = document.getElementById(Store.container).offsetHeight;
 
-    let _luckysheetEl = document.getElementById(Store.container).querySelector(".luckysheet");
-    _luckysheetEl.style.height = gridH - 2 + 'px';
-    _luckysheetEl.style.width = gridW - 2 + 'px';
+    let _luckysheetEl = document.getElementById(Store.container)?.querySelector(".luckysheet");
+    if (_luckysheetEl) {
+        _luckysheetEl.style.height = gridH - 2 + 'px';
+        _luckysheetEl.style.width = gridW - 2 + 'px';
+    }
 
     changeSheetContainerSize(gridW, gridH)
 
@@ -297,11 +297,11 @@ export default function luckysheetsizeauto(isRefreshCanvas=true) {
 
 export function changeSheetContainerSize(gridW, gridH){
     if(gridW==null){
-        gridW = document.getElementById(Store.container).offsetWidth;
+        gridW = document.getElementById(Store.container)?.offsetWidth || 0;
     }
 
     if(gridH==null){
-        gridH = document.getElementById(Store.container).offsetHeight;
+        gridH = document.getElementById(Store.container)?.offsetHeight || 0;
     }
     Store.cellmainHeight = gridH - (getHeaderTotalHeight() + Store.sheetBarHeight + Store.statisticBarHeight);
     Store.cellmainWidth = gridW - Store.rowHeaderWidth;
@@ -329,16 +329,16 @@ export function changeSheetContainerSize(gridW, gridH){
         Store.luckysheetTableContentHW[1]
     );
 
-    document.getElementById(Store.container).querySelector(".luckysheet-grid-window").style.bottom = Store.statisticBarHeight;
+    const _gridWinEl = document.getElementById(Store.container)?.querySelector(".luckysheet-grid-window"); if (_gridWinEl) _gridWinEl.style.bottom = Store.statisticBarHeight;
     gridWindow.setCssBottom(Store.sheetBarHeight);
 
     let gridwidth = gridWindow.getWidth();
-    Object.assign(document.getElementById("luckysheet-freezebar-horizontal").querySelector(".luckysheet-freezebar-horizontal-handle").style, { "width": gridwidth - 10 });
-    Object.assign(document.getElementById("luckysheet-freezebar-horizontal").querySelector(".luckysheet-freezebar-horizontal-drop").style, { "width": gridwidth - 10 });
+    const _freezebarHH = document.getElementById("luckysheet-freezebar-horizontal")?.querySelector(".luckysheet-freezebar-horizontal-handle"); if (_freezebarHH) Object.assign(_freezebarHH.style, { "width": gridwidth - 10 });
+    const _freezebarHD = document.getElementById("luckysheet-freezebar-horizontal")?.querySelector(".luckysheet-freezebar-horizontal-drop"); if (_freezebarHD) Object.assign(_freezebarHD.style, { "width": gridwidth - 10 });
 
     let gridheight = gridWindow.getHeight();
-    Object.assign(document.getElementById("luckysheet-freezebar-vertical").querySelector(".luckysheet-freezebar-vertical-handle").style, { "height": gridheight - 10 });
-    Object.assign(document.getElementById("luckysheet-freezebar-vertical").querySelector(".luckysheet-freezebar-vertical-drop").style, { "height": gridheight - 10 });
+    const _freezebarVH = document.getElementById("luckysheet-freezebar-vertical")?.querySelector(".luckysheet-freezebar-vertical-handle"); if (_freezebarVH) Object.assign(_freezebarVH.style, { "height": gridheight - 10 });
+    const _freezebarVD = document.getElementById("luckysheet-freezebar-vertical")?.querySelector(".luckysheet-freezebar-vertical-drop"); if (_freezebarVD) Object.assign(_freezebarVD.style, { "height": gridheight - 10 });
 
     luckysheetFreezen.createAssistCanvas();
 }
@@ -472,24 +472,25 @@ export function menuToolBarWidth() {
 
         if(index !== toobarElements.length - 1){
             if(curr.ele instanceof Array){
-                toobarWidths.push(document.querySelector(curr.ele[0]).getBoundingClientRect().left + window.pageXOffset);
+                const _el1 = document.querySelector(curr.ele[0]); toobarWidths.push(_el1?.getBoundingClientRect().left + window.pageXOffset || 0);
             }else{
-                toobarWidths.push(curr.ele.getBoundingClientRect().left + window.pageXOffset);
+                toobarWidths.push(curr.ele?.getBoundingClientRect().left + window.pageXOffset || 0);
             }
         }else{
             if(curr.ele instanceof Array){
-                toobarWidths.push(document.querySelector(curr.ele[0]).getBoundingClientRect().left + window.pageXOffset);
-                toobarWidths.push(document.querySelector(curr.ele[0]).getBoundingClientRect().left + window.pageXOffset + document.querySelector(curr.ele[0]).offsetWidth + 5);
+                const _el2 = document.querySelector(curr.ele[0]);
+                toobarWidths.push(_el2?.getBoundingClientRect().left + window.pageXOffset || 0);
+                toobarWidths.push((_el2?.getBoundingClientRect().left || 0) + window.pageXOffset + (_el2?.offsetWidth || 0) + 5);
             }else{
-                toobarWidths.push(curr.ele.getBoundingClientRect().left + window.pageXOffset);
-                toobarWidths.push(curr.ele.getBoundingClientRect().left + window.pageXOffset + curr.ele.offsetWidth + 5);
+                toobarWidths.push(curr.ele?.getBoundingClientRect().left + window.pageXOffset || 0);
+                toobarWidths.push((curr.ele?.getBoundingClientRect().left || 0) + window.pageXOffset + (curr.ele?.offsetWidth || 0) + 5);
             }
         }
 
     });
 
-    //If the container does not occupy the full screen, we need to subtract the left margin
-    const containerLeft = document.getElementById(Store.container).getBoundingClientRect().left + window.pageXOffset;
+    const _containerEl = document.getElementById(Store.container);
+    const containerLeft = _containerEl?.getBoundingClientRect().left + window.pageXOffset || 0;
     toobarWidths.forEach((item,i)=>{
         toobarWidths[i] -= containerLeft;
     })

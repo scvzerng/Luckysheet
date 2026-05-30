@@ -51,11 +51,10 @@ export function initResizeEvents() {
       Store.luckysheet_rows_change_size_start = [row_pre, row_index];
       rightClickMenu.style.display = 'none';
       resizeHandles.rowHover.style.display = 'none';
-      document.getElementById("luckysheet-cols-menu-btn").style.display = 'none';
+      const _colsMenuBtn5 = document.getElementById("luckysheet-cols-menu-btn"); if (_colsMenuBtn5) _colsMenuBtn5.style.display = 'none';
       event.stopPropagation();
     });
-  
-    //表格列标�?改变列宽按钮
+
     resizeHandles.colChangeSize.onMousedown(function (event) {
       if (!checkIsAllowEdit()) {
         return;
@@ -105,24 +104,24 @@ export function initResizeEvents() {
     });
   
     // 列标题的下拉箭头
-    document.getElementById("luckysheet-cols-menu-btn").addEventListener("click", function (event) {
+    document.getElementById("luckysheet-cols-menu-btn")?.addEventListener("click", function (event) {
       // *如果禁止前台编辑，则中止下一步操�?
       if (!checkIsAllowEdit()) {
         return;
       }
       let $menu = rightClickMenu.el;
       let offset = (() => { const _r = this.getBoundingClientRect(); return {top: _r.top + window.pageYOffset, left: _r.left + window.pageXOffset}; })();
-      document.getElementById("luckysheet-cols-rows-shift").style.display = '';
+      const _elShift4 = document.getElementById("luckysheet-cols-rows-shift"); if (_elShift4) _elShift4.style.display = '';
       Store.luckysheetRightHeadClickIs = "column";
       rightClickMenu.findText(".luckysheet-cols-rows-shift-word", locale().rightclick.column);
       rightClickMenu.findText(".luckysheet-cols-rows-shift-left", locale().rightclick.left);
       rightClickMenu.findText(".luckysheet-cols-rows-shift-right", locale().rightclick.right);
-      document.getElementById("luckysheet-cols-rows-add").style.display = '';
-      document.getElementById("luckysheet-cols-rows-data").style.display = 'none';
-      document.getElementById("luckysheet-cols-rows-shift").style.display = '';
-      document.getElementById("luckysheet-cols-rows-handleincell").style.display = 'none';
-      document.querySelector("#luckysheet-cols-rows-add .luckysheet-menuseparator").style.display = "block";
-      document.querySelector("#luckysheet-cols-rows-shift .luckysheet-menuseparator").style.display = "block";
+      const _elAdd3 = document.getElementById("luckysheet-cols-rows-add"); if (_elAdd3) _elAdd3.style.display = '';
+      const _elData3 = document.getElementById("luckysheet-cols-rows-data"); if (_elData3) _elData3.style.display = 'none';
+      const _elShift5 = document.getElementById("luckysheet-cols-rows-shift"); if (_elShift5) _elShift5.style.display = '';
+      const _elHandleInCell3 = document.getElementById("luckysheet-cols-rows-handleincell"); if (_elHandleInCell3) _elHandleInCell3.style.display = 'none';
+      const _sep27 = document.querySelector("#luckysheet-cols-rows-add .luckysheet-menuseparator"); if (_sep27) _sep27.style.display = "block";
+      const _sep28 = document.querySelector("#luckysheet-cols-rows-shift .luckysheet-menuseparator"); if (_sep28) _sep28.style.display = "block";
   
       // 自定义右键菜单：向左向右增加列，删除列，隐藏显示列，设置列宽
       const cellRightClickConfig = luckysheetConfigsetting.cellRightClickConfig;
@@ -131,27 +130,26 @@ export function initResizeEvents() {
       if (!cellRightClickConfig.copy && !cellRightClickConfig.copyAs && !cellRightClickConfig.paste && !cellRightClickConfig.insertColumn && !cellRightClickConfig.deleteColumn && !cellRightClickConfig.hideColumn && !cellRightClickConfig.columnWidth && !cellRightClickConfig.sort) {
         return;
       }
-      document.getElementById("luckysheet-top-left-add-selected").style.display = cellRightClickConfig.insertColumn ? "block" : "none";
-      document.getElementById("luckysheet-bottom-right-add-selected").style.display = cellRightClickConfig.insertColumn ? "block" : "none";
-      document.getElementById("luckysheet-del-selected").style.display = cellRightClickConfig.deleteColumn ? "block" : "none";
-      document.getElementById("luckysheet-hide-selected").style.display = cellRightClickConfig.hideColumn ? "block" : "none";
-      document.getElementById("luckysheet-show-selected").style.display = cellRightClickConfig.hideColumn ? "block" : "none";
-      document.getElementById("luckysheet-column-row-width-selected").style.display = cellRightClickConfig.columnWidth ? "block" : "none";
+      const _tlAdd5 = document.getElementById("luckysheet-top-left-add-selected"); if (_tlAdd5) _tlAdd5.style.display = cellRightClickConfig.insertColumn ? "block" : "none";
+      const _brAdd5 = document.getElementById("luckysheet-bottom-right-add-selected"); if (_brAdd5) _brAdd5.style.display = cellRightClickConfig.insertColumn ? "block" : "none";
+      const _delSel5 = document.getElementById("luckysheet-del-selected"); if (_delSel5) _delSel5.style.display = cellRightClickConfig.deleteColumn ? "block" : "none";
+      const _hideSel5 = document.getElementById("luckysheet-hide-selected"); if (_hideSel5) _hideSel5.style.display = cellRightClickConfig.hideColumn ? "block" : "none";
+      const _showSel5 = document.getElementById("luckysheet-show-selected"); if (_showSel5) _showSel5.style.display = cellRightClickConfig.hideColumn ? "block" : "none";
+      const _crwSel5 = document.getElementById("luckysheet-column-row-width-selected"); if (_crwSel5) _crwSel5.style.display = cellRightClickConfig.columnWidth ? "block" : "none";
   
       // 1. 当一个功能菜单块上方的功能块按钮都隐藏的时候，下方的功能块的顶部分割线也需要隐�?
       if (!cellRightClickConfig.copy && !cellRightClickConfig.copyAs && !cellRightClickConfig.paste) {
-        document.querySelector("#luckysheet-cols-rows-add .luckysheet-menuseparator").style.display = "none";
+        const _sep29 = document.querySelector("#luckysheet-cols-rows-add .luckysheet-menuseparator"); if (_sep29) _sep29.style.display = "none";
         if (!cellRightClickConfig.insertColumn && !cellRightClickConfig.deleteColumn && !cellRightClickConfig.hideColumn && !cellRightClickConfig.columnWidth) {
-          document.querySelector("#luckysheet-cols-rows-shift .luckysheet-menuseparator").style.display = "none";
+          const _sep30 = document.querySelector("#luckysheet-cols-rows-shift .luckysheet-menuseparator"); if (_sep30) _sep30.style.display = "none";
         }
       }
-  
-      // 2. 当一个功能菜单块内所有的按钮都隐藏的时候，它顶部的分割线也需要隐藏掉
+
       if (!cellRightClickConfig.insertColumn && !cellRightClickConfig.deleteColumn && !cellRightClickConfig.hideColumn && !cellRightClickConfig.columnWidth) {
-        document.querySelector("#luckysheet-cols-rows-add .luckysheet-menuseparator").style.display = "none";
+        const _sep31 = document.querySelector("#luckysheet-cols-rows-add .luckysheet-menuseparator"); if (_sep31) _sep31.style.display = "none";
       }
       if (!cellRightClickConfig.sort) {
-        document.querySelector("#luckysheet-cols-rows-shift .luckysheet-menuseparator").style.display = "none";
+        const _sep32 = document.querySelector("#luckysheet-cols-rows-shift .luckysheet-menuseparator"); if (_sep32) _sep32.style.display = "none";
       }
       showrightclickmenu($menu, offset.left, offset.top + 18);
       Store.luckysheet_cols_menu_status = true;

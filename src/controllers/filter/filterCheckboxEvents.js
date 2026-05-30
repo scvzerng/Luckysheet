@@ -19,15 +19,15 @@ export function filterCheckboxEvents() {
         const yearBox = this.closest(".yearBox");
         if(this.getAttribute("data-check") == "true"){
             this.setAttribute("data-check", "false");
-            yearBox.querySelectorAll(".month").forEach(el => el.setAttribute("data-check", "false"));
-            yearBox.querySelectorAll(".day").forEach(el => el.setAttribute("data-check", "false"));
-            yearBox.querySelectorAll("input[type='checkbox']").forEach(el => { el.checked = false; el.removeAttribute("checked"); });
+            yearBox?.querySelectorAll(".month").forEach(el => el.setAttribute("data-check", "false"));
+            yearBox?.querySelectorAll(".day").forEach(el => el.setAttribute("data-check", "false"));
+            yearBox?.querySelectorAll("input[type='checkbox']").forEach(el => { el.checked = false; el.removeAttribute("checked"); });
         }
         else{
             this.setAttribute("data-check", "true");
-            yearBox.querySelectorAll(".month").forEach(el => el.setAttribute("data-check", "true"));
-            yearBox.querySelectorAll(".day").forEach(el => el.setAttribute("data-check", "true"));
-            yearBox.querySelectorAll("input[type='checkbox']").forEach(el => { el.checked = true; });
+            yearBox?.querySelectorAll(".month").forEach(el => el.setAttribute("data-check", "true"));
+            yearBox?.querySelectorAll(".day").forEach(el => el.setAttribute("data-check", "true"));
+            yearBox?.querySelectorAll("input[type='checkbox']").forEach(el => { el.checked = true; });
         }
     })
     offNS("filterCheckbox3");
@@ -36,16 +36,16 @@ export function filterCheckboxEvents() {
         const yearBox = this.closest(".yearBox");
         if(this.getAttribute("data-check") == "true"){
             this.setAttribute("data-check", "false");
-            monthBox.querySelectorAll(".day").forEach(el => el.setAttribute("data-check", "false"));
-            monthBox.querySelectorAll("input[type='checkbox']").forEach(el => { el.checked = false; el.removeAttribute("checked"); });
+            monthBox?.querySelectorAll(".day").forEach(el => el.setAttribute("data-check", "false"));
+            monthBox?.querySelectorAll("input[type='checkbox']").forEach(el => { el.checked = false; el.removeAttribute("checked"); });
         }
         else{
             this.setAttribute("data-check", "true");
-            monthBox.querySelectorAll(".day").forEach(el => el.setAttribute("data-check", "true"));
-            monthBox.querySelectorAll("input[type='checkbox']").forEach(el => { el.checked = true; });
+            monthBox?.querySelectorAll(".day").forEach(el => el.setAttribute("data-check", "true"));
+            monthBox?.querySelectorAll("input[type='checkbox']").forEach(el => { el.checked = true; });
         }
         let yearDayAllCheck = true;
-        yearBox.querySelectorAll(".day").forEach(function(e){
+        yearBox?.querySelectorAll(".day").forEach(function(e){
             if(e.getAttribute("data-check") == "true"){
 
             }
@@ -54,12 +54,12 @@ export function filterCheckboxEvents() {
             }
         });
         if(yearDayAllCheck){
-            yearBox.querySelectorAll(".year").forEach(el => el.setAttribute("data-check", "true"));
-            yearBox.querySelectorAll(".year input[type='checkbox']").forEach(el => { el.checked = true; });
+            yearBox?.querySelectorAll(".year").forEach(el => el.setAttribute("data-check", "true"));
+            yearBox?.querySelectorAll(".year input[type='checkbox']").forEach(el => { el.checked = true; });
         }
         else{
-            yearBox.querySelectorAll(".year").forEach(el => el.setAttribute("data-check", "false"));
-            yearBox.querySelectorAll(".year input[type='checkbox']").forEach(el => { el.checked = false; el.removeAttribute("checked"); });
+            yearBox?.querySelectorAll(".year").forEach(el => el.setAttribute("data-check", "false"));
+            yearBox?.querySelectorAll(".year input[type='checkbox']").forEach(el => { el.checked = false; el.removeAttribute("checked"); });
         }
     })
     offNS("filterCheckbox4");
@@ -77,7 +77,7 @@ export function filterCheckboxEvents() {
             if (cb) cb.checked = true;
         }
         let monthDayAllCheck = true;
-        monthBox.querySelectorAll(".day").forEach(function(e){
+        monthBox?.querySelectorAll(".day").forEach(function(e){
             if(e.getAttribute("data-check") == "true"){
 
             }
@@ -86,15 +86,15 @@ export function filterCheckboxEvents() {
             }
         });
         if(monthDayAllCheck){
-            monthBox.querySelectorAll(".month").forEach(el => el.setAttribute("data-check", "true"));
-            monthBox.querySelectorAll(".month input[type='checkbox']").forEach(el => { el.checked = true; });
+            monthBox?.querySelectorAll(".month").forEach(el => el.setAttribute("data-check", "true"));
+            monthBox?.querySelectorAll(".month input[type='checkbox']").forEach(el => { el.checked = true; });
         }
         else{
-            monthBox.querySelectorAll(".month").forEach(el => el.setAttribute("data-check", "false"));
-            monthBox.querySelectorAll(".month input[type='checkbox']").forEach(el => { el.checked = false; el.removeAttribute("checked"); });
+            monthBox?.querySelectorAll(".month").forEach(el => el.setAttribute("data-check", "false"));
+            monthBox?.querySelectorAll(".month input[type='checkbox']").forEach(el => { el.checked = false; el.removeAttribute("checked"); });
         }
         let yearDayAllCheck = true;
-        yearBox.querySelectorAll(".day").forEach(function(e){
+        yearBox?.querySelectorAll(".day").forEach(function(e){
             if(e.getAttribute("data-check") == "true"){
 
             }
@@ -103,12 +103,12 @@ export function filterCheckboxEvents() {
             }
         });
         if(yearDayAllCheck){
-            yearBox.querySelectorAll(".year").forEach(el => el.setAttribute("data-check", "true"));
-            yearBox.querySelectorAll(".year input[type='checkbox']").forEach(el => { el.checked = true; });
+            yearBox?.querySelectorAll(".year").forEach(el => el.setAttribute("data-check", "true"));
+            yearBox?.querySelectorAll(".year input[type='checkbox']").forEach(el => { el.checked = true; });
         }
         else{
-            yearBox.querySelectorAll(".year").forEach(el => el.setAttribute("data-check", "false"));
-            yearBox.querySelectorAll(".year input[type='checkbox']").forEach(el => { el.checked = false; el.removeAttribute("checked"); });
+            yearBox?.querySelectorAll(".year").forEach(el => el.setAttribute("data-check", "false"));
+            yearBox?.querySelectorAll(".year input[type='checkbox']").forEach(el => { el.checked = false; el.removeAttribute("checked"); });
         }
     })
 
@@ -116,11 +116,11 @@ export function filterCheckboxEvents() {
     onNS(document, "click.filterYearDropdown", "#luckysheet-filter-byvalue-select .yearBox .fa-caret-right",function(event){
         const p = this.closest(".luckysheet-mousedown-cancel");
         if(p && p.classList.contains("year")){
-            const monthList = this.closest(".yearBox").querySelector(".monthList");
+            const monthList = this.closest(".yearBox")?.querySelector(".monthList");
             if (monthList) monthList.style.display = monthList.style.display === 'none' ? '' : 'none';
         }
         if(p && p.classList.contains("month")){
-            const dayList = this.closest(".monthBox").querySelector(".dayList");
+            const dayList = this.closest(".monthBox")?.querySelector(".dayList");
             if (dayList) dayList.style.display = dayList.style.display === 'none' ? '' : 'none';
         }
 

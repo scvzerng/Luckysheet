@@ -72,7 +72,7 @@ const imageCtrl = {
             render.onload = function(event){
                 let src = event.target.result;
                 imageCtrl._insertImg(src);
-                document.getElementById("luckysheet-imgUpload").value = "";
+                const _imgUpload = document.getElementById("luckysheet-imgUpload"); if (_imgUpload) _imgUpload.value = "";
             }
         }
     },
@@ -220,18 +220,20 @@ const imageCtrl = {
 
         //类型
         let type = imgItem.type;
-        imageDialog.slider.el.querySelector("#imgItemType" + type).checked = true;
+        const _typeRadio = imageDialog.slider.el.querySelector("#imgItemType" + type); if (_typeRadio) _typeRadio.checked = true;
 
         let isFixedPos = imgItem.isFixedPos;
-        imageDialog.slider.el.querySelector("#imgItemIsFixedPos").checked = isFixedPos;
+        const _fixedPosCheck = imageDialog.slider.el.querySelector("#imgItemIsFixedPos"); if (_fixedPosCheck) _fixedPosCheck.checked = isFixedPos;
 
         let border = imgItem.border;
-        imageDialog.slider.el.querySelector("#imgItemBorderWidth").value = border.width;
-        imageDialog.slider.el.querySelector("#imgItemBorderRadius").value = border.radius;
-        imageDialog.slider.el.querySelector("#imgItemBorderStyle").value = border.style;
+        const _borderWidthInput = imageDialog.slider.el.querySelector("#imgItemBorderWidth"); if (_borderWidthInput) _borderWidthInput.value = border.width;
+        const _borderRadiusInput = imageDialog.slider.el.querySelector("#imgItemBorderRadius"); if (_borderRadiusInput) _borderRadiusInput.value = border.radius;
+        const _borderStyleSelect = imageDialog.slider.el.querySelector("#imgItemBorderStyle"); if (_borderStyleSelect) _borderStyleSelect.value = border.style;
         const _borderColorSpan = imageDialog.slider.el.querySelector("#imgItemBorderColor span");
-        _borderColorSpan.style.backgroundColor = border.color;
-        _borderColorSpan.title = border.color;
+        if (_borderColorSpan) {
+            _borderColorSpan.style.backgroundColor = border.color;
+            _borderColorSpan.title = border.color;
+        }
     
         _this.init();
     },
@@ -308,7 +310,7 @@ const imageCtrl = {
         let _this = this;
 
         //关闭
-        imageDialog.slider.el.querySelector(".luckysheet-model-close-btn").addEventListener("click", function () {
+        imageDialog.slider.el.querySelector(".luckysheet-model-close-btn")?.addEventListener("click", function () {
             imageDialog.slider.hide();
             luckysheetsizeauto();
         });
@@ -355,23 +357,21 @@ const imageCtrl = {
         onNS(document, "click.selectColorConfirm", "#luckysheet-imageCtrl-colorSelect-dialog-confirm", function(){
             let parentEl = this.closest("#luckysheet-imageCtrl-colorSelect-dialog");
             hideModalMask();
-            parentEl.style.display = 'none';
+            if (parentEl) parentEl.style.display = 'none';
 
-            let currenColor = parentEl.querySelector(".currenColor span").getAttribute("title");
+            let currenColor = parentEl?.querySelector(".currenColor span")?.getAttribute("title");
             const _borderSpan = imageDialog.slider.el.querySelector("#imgItemBorderColor span");
-            _borderSpan.style.backgroundColor = currenColor;
-            _borderSpan.title = currenColor;
+            if (_borderSpan && currenColor != null) {
+                _borderSpan.style.backgroundColor = currenColor;
+                _borderSpan.title = currenColor;
+            }
 
             _this.configChange("border-color", currenColor);            
         });
 
         //image active
         offNS("active");
-        onNS(document.getElementById("luckysheet-image-showBoxs"), "mousedown.active", ".luckysheet-modal-dialog-image", function(e) {
-
-
-
-            this.style.display = 'none';
+        onNS(document.getElementById("luckysheet-image-showBoxs"), "mousedown.active", ".luckysheet-modal-dialog-image", function(e) {            this.style.display = 'none';
             let id = this.id;
 
             if(_this.currentImgId != null && _this.currentImgId != id){
@@ -398,13 +398,15 @@ const imageCtrl = {
             });
             let imageUrlHandle = Store.toJsonOptions && Store.toJsonOptions['imageUrlHandle'];
             let imgUrl = typeof imageUrlHandle === 'function' ? imageUrlHandle(item.src) : item.src;
-            Object.assign(imageDialog.active.el.querySelector(".luckysheet-modal-dialog-content").style, {
+            const _activeContent = imageDialog.active.el.querySelector(".luckysheet-modal-dialog-content");
+            if (_activeContent) Object.assign(_activeContent.style, {
                 backgroundImage: "url(" + imgUrl + ")",
                 backgroundSize: item.default.width * Store.zoomRatio + "px " + item.default.height * Store.zoomRatio + "px",
                 backgroundPosition: -item.crop.offsetLeft * Store.zoomRatio + "px " + -item.crop.offsetTop * Store.zoomRatio + "px"
             })
 
-            Object.assign(imageDialog.active.el.querySelector(".luckysheet-modal-dialog-border").style, {
+            const _activeBorder = imageDialog.active.el.querySelector(".luckysheet-modal-dialog-border");
+            if (_activeBorder) Object.assign(_activeBorder.style, {
                 borderWidth: item.border.width * Store.zoomRatio + 'px',
                 borderStyle: item.border.style,
                 borderColor: item.border.color,
@@ -515,14 +517,15 @@ const imageCtrl = {
 
         //image restore
         offNS("restore");
-        onNS(document.getElementById("luckysheet-image-showBoxs"), "mousedown.restore", ".luckysheet-modal-controll-restore", function(e) {
+        const _showBoxs = document.getElementById("luckysheet-image-showBoxs");
+        onNS(_showBoxs, "mousedown.restore", ".luckysheet-modal-controll-restore", function(e) {
             _this.restoreImgItem();
             e.stopPropagation();
         })
 
         //image delete
         offNS("delete");
-        onNS(document.getElementById("luckysheet-image-showBoxs"), "mousedown.delete", ".luckysheet-modal-controll-del", function(e) {
+        onNS(_showBoxs, "mousedown.delete", ".luckysheet-modal-controll-del", function(e) {
             _this.removeImgItem();
             e.stopPropagation();
         })
@@ -556,7 +559,8 @@ const imageCtrl = {
                 break;
             case "border-width":
                 imgItem.border.width = value;
-                Object.assign(imageDialog.active.el.querySelector(".luckysheet-modal-dialog-border").style, {
+                const _borderEl1 = imageDialog.active.el.querySelector(".luckysheet-modal-dialog-border");
+                if (_borderEl1) Object.assign(_borderEl1.style, {
                     borderWidth: value + 'px',
                     left: -value + 'px',
                     right: -value + 'px',
@@ -566,15 +570,15 @@ const imageCtrl = {
                 break;
             case "border-radius":
                 imgItem.border.radius = value;
-                imageDialog.active.el.querySelector(".luckysheet-modal-dialog-border").style.borderRadius = value + 'px';
+                const _borderEl2 = imageDialog.active.el.querySelector(".luckysheet-modal-dialog-border"); if (_borderEl2) _borderEl2.style.borderRadius = value + 'px';
                 break;
             case "border-style":
                 imgItem.border.style = value;
-                imageDialog.active.el.querySelector(".luckysheet-modal-dialog-border").style.borderStyle = value;
+                const _borderEl3 = imageDialog.active.el.querySelector(".luckysheet-modal-dialog-border"); if (_borderEl3) _borderEl3.style.borderStyle = value;
                 break;
             case "border-color":
                 imgItem.border.color = value;
-                imageDialog.active.el.querySelector(".luckysheet-modal-dialog-border").style.borderColor = value;
+                const _borderEl4 = imageDialog.active.el.querySelector(".luckysheet-modal-dialog-border"); if (_borderEl4) _borderEl4.style.borderColor = value;
                 break;
         }
         
@@ -698,7 +702,7 @@ const imageCtrl = {
         let id = _this.generateRandomId();
         let modelHtml = _this.modelHtml(id, imgItem);
 
-        document.querySelector("#luckysheet-image-showBoxs .img-list").insertAdjacentHTML('beforeend', modelHtml);
+        const _imgList = document.querySelector("#luckysheet-image-showBoxs .img-list"); _imgList?.insertAdjacentHTML('beforeend', modelHtml);
 
         _this.images[id] = imgItem;
         _this.ref();
@@ -786,7 +790,8 @@ const imageCtrl = {
         let imageUrlHandle = Store.toJsonOptions && Store.toJsonOptions['imageUrlHandle'];
         let imgSrc = typeof imageUrlHandle === 'function' ? imageUrlHandle(item.src) : item.src;
 
-        Object.assign(imageDialog.cropping.el.querySelector(".cropping-mask").style, {
+        const _cropMask = imageDialog.cropping.el.querySelector(".cropping-mask");
+        if (_cropMask) Object.assign(_cropMask.style, {
             width: item.default.width + 'px',
             height: item.default.height + 'px',
             backgroundImage: "url(" + imgSrc + ")",
@@ -794,13 +799,15 @@ const imageCtrl = {
             top: -item.crop.offsetTop + 'px'
         })
 
-        Object.assign(imageDialog.cropping.el.querySelector(".cropping-content").style, {
+        const _cropContent = imageDialog.cropping.el.querySelector(".cropping-content");
+        if (_cropContent) Object.assign(_cropContent.style, {
             backgroundImage: "url(" + imgSrc + ")",
             backgroundSize: item.default.width + "px " + item.default.height + "px",
             backgroundPosition: -item.crop.offsetLeft + "px " + -item.crop.offsetTop + "px"
         })
 
-        Object.assign(imageDialog.cropping.el.querySelector(".luckysheet-modal-dialog-border").style, {
+        const _cropBorder = imageDialog.cropping.el.querySelector(".luckysheet-modal-dialog-border");
+        if (_cropBorder) Object.assign(_cropBorder.style, {
             borderWidth: item.border.width + 'px',
             borderStyle: item.border.style,
             borderColor: item.border.color,
@@ -836,7 +843,8 @@ const imageCtrl = {
         let imageUrlHandle = Store.toJsonOptions && Store.toJsonOptions['imageUrlHandle'];
         let imgSrc = typeof imageUrlHandle === 'function' ? imageUrlHandle(item.src) : item.src;
 
-        Object.assign(imageDialog.active.el.querySelector(".luckysheet-modal-dialog-content").style, {
+        const _exitContent = imageDialog.active.el.querySelector(".luckysheet-modal-dialog-content");
+        if (_exitContent) Object.assign(_exitContent.style, {
             backgroundImage: "url(" + imgSrc + ")",
             backgroundSize: item.default.width + "px " + item.default.height + "px",
             backgroundPosition: -item.crop.offsetLeft + "px " + -item.crop.offsetTop + "px"
@@ -886,7 +894,8 @@ const imageCtrl = {
         let imageUrlHandle = Store.toJsonOptions && Store.toJsonOptions['imageUrlHandle'];
         let imgSrc = typeof imageUrlHandle === 'function' ? imageUrlHandle(imgItem.src) : imgItem.src;
 
-        Object.assign(imageDialog.active.el.querySelector(".luckysheet-modal-dialog-content").style, {
+        const _restoreContent = imageDialog.active.el.querySelector(".luckysheet-modal-dialog-content");
+        if (_restoreContent) Object.assign(_restoreContent.style, {
             backgroundImage: "url(" + imgSrc + ")",
             backgroundSize: imgItem.default.width + "px " + imgItem.default.height + "px",
             backgroundPosition: -imgItem.crop.offsetLeft + "px " + -imgItem.crop.offsetTop + "px"
@@ -928,13 +937,15 @@ const imageCtrl = {
 
         if (!clipboardData) {
             let textarea = document.getElementById("luckysheet-copy-content");
-            textarea.innerHTML = cpdata;
-            textarea.focus();
-            textarea.select();
+            if (textarea) {
+                textarea.innerHTML = cpdata;
+                textarea.focus();
+                textarea.select();
+            }
             document.execCommand("selectAll");
             document.execCommand("Copy");
             setTimeout(function () {
-                document.getElementById("luckysheet-copy-content").blur();
+                document.getElementById("luckysheet-copy-content")?.blur();
             }, 10);
         }
         else {
@@ -967,9 +978,9 @@ const imageCtrl = {
         let id = _this.generateRandomId();
         let modelHtml = _this.modelHtml(id, img);
 
-        document.querySelector("#luckysheet-image-showBoxs .img-list").insertAdjacentHTML('beforeend', modelHtml);
+        const _imgList2 = document.querySelector("#luckysheet-image-showBoxs .img-list"); _imgList2?.insertAdjacentHTML('beforeend', modelHtml);
 
-        _this.images[id] = img;
+        _this.images[id] = imgItem;
         _this.ref();
 
         _this.init();
@@ -989,7 +1000,7 @@ const imageCtrl = {
         for(let imgId in _this.images){
             let imgItem = _this.images[imgId];
             let modelHtml = _this.modelHtml(imgId, imgItem);
-            document.querySelector("#luckysheet-image-showBoxs .img-list").insertAdjacentHTML('beforeend', modelHtml);
+            const _imgList3 = document.querySelector("#luckysheet-image-showBoxs .img-list"); _imgList3?.insertAdjacentHTML('beforeend', modelHtml);
         }
     },
     moveChangeSize: function(rc, index, size) {

@@ -80,9 +80,9 @@ export function filterActions() {
                     if(e.closest(".day")){
                         let day = Array.from(e.parentElement.children).filter(s => s !== e && s.matches("label"))[0];
                         let dayText = day ? day.textContent.toString() : '';
-                        let monthLabel = e.closest(".monthBox").querySelector(".month label");
+                        let monthLabel = e.closest(".monthBox")?.querySelector(".month label");
                         let monthText = monthLabel ? monthLabel.textContent.toString() : '';
-                        let yearLabel = e.closest(".yearBox").querySelector(".year label");
+                        let yearLabel = e.closest(".yearBox")?.querySelector(".year label");
                         let yearText = yearLabel ? yearLabel.textContent.toString() : '';
                         let itemV = yearText + "-" + monthText + "-" + dayText;
 
@@ -90,15 +90,15 @@ export function filterActions() {
                             const dayEl = e.closest(".day");
                             if (dayEl) dayEl.style.display = 'none';
 
-                            let monthDayVisible = Array.from(e.closest(".dayList").querySelectorAll(".day")).filter(el => el.offsetWidth > 0);
+                            let monthDayVisible = Array.from(e.closest(".dayList")?.querySelectorAll(".day") || []).filter(el => el.offsetWidth > 0);
                             if(monthDayVisible.length == 0){
-                                const monthEl = e.closest(".monthBox").querySelector(".month");
+                                const monthEl = e.closest(".monthBox")?.querySelector(".month");
                                 if (monthEl) monthEl.style.display = 'none';
                             }
 
-                            let yearDayVisible = Array.from(e.closest(".monthList").querySelectorAll(".day")).filter(el => el.offsetWidth > 0);
+                            let yearDayVisible = Array.from(e.closest(".monthList")?.querySelectorAll(".day") || []).filter(el => el.offsetWidth > 0);
                             if(yearDayVisible.length == 0){
-                                const yearEl = e.closest(".yearBox").querySelector(".year");
+                                const yearEl = e.closest(".yearBox")?.querySelector(".year");
                                 if (yearEl) yearEl.style.display = 'none';
                             }
                         }
@@ -463,13 +463,13 @@ export function filterActions() {
                             dayText = "0" + Number(dayText);
                         }
 
-                        let monthLabel = e.closest(".monthBox").querySelector(".month label");
+                        let monthLabel = e.closest(".monthBox")?.querySelector(".month label");
                         let monthText = monthLabel ? monthLabel.textContent.replace(filterState.locale_filter.filiterMonthText, "") : '';
                         if(Number(monthText) < 10){
                             monthText = "0" + Number(monthText);
                         }
 
-                        let yearLabel = e.closest(".yearBox").querySelector(".year label");
+                        let yearLabel = e.closest(".yearBox")?.querySelector(".year label");
                         let yearText = yearLabel ? yearLabel.textContent.replace(filterState.locale_filter.filiterYearText, "") : '';
 
                         let itemV = filterState.locale_filter.filterDateFormatTip +"#$$$#" + yearText + "-" + monthText + "-" + dayText;
@@ -478,7 +478,7 @@ export function filterActions() {
                     }
 
                     if(e.closest(".textBox")){
-                        let itemV = e.closest(".textBox").dataset.filter;
+                        let itemV = e.closest(".textBox")?.dataset?.filter;
 
                         filterdata[itemV] = "1";
                     }

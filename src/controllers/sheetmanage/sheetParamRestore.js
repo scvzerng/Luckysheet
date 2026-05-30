@@ -214,7 +214,7 @@ const sheetParamRestoreModule = {
   },
   showSheet: function () {
     // changeSheetContainerSize();
-    Object.assign(document.getElementById("luckysheet-cell-flow_0").style, {
+    const _elCellFlow = document.getElementById("luckysheet-cell-flow_0"); if (_elCellFlow) Object.assign(_elCellFlow.style, {
       width: Store.ch_width,
       top: "-1px"
     }); //width更新
@@ -222,8 +222,8 @@ const sheetParamRestoreModule = {
       width: Store.ch_width - 1,
       height: Store.rh_height
     });
-    document.getElementById("luckysheetrowHeader_0").style.height = Store.rh_height;
-    document.getElementById("luckysheet-cols-h-cells_0").style.width = Store.ch_width; //width更新
+    const _elRowHeader = document.getElementById("luckysheetrowHeader_0"); if (_elRowHeader) _elRowHeader.style.height = Store.rh_height;
+    const _elColsHCells = document.getElementById("luckysheet-cols-h-cells_0"); if (_elColsHCells) _elColsHCells.style.width = Store.ch_width; //width更新
 
     scrollBarX.setInnerDivWidth(Store.ch_width);
     scrollBarY.setInnerDivHeight(Store.rh_height + Store.columnHeaderHeight - Store.cellMainSrollBarSize - 3);

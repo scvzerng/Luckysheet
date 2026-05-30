@@ -78,7 +78,7 @@ export function setSheetAdd(options = {}) {
     if(order <= 0){
         let beforeIndex = Store.luckysheetfile[0].index;
         let beforeObj = document.getElementById("luckysheet-sheets-item" + beforeIndex);
-        beforeObj.parentElement.insertBefore(document.getElementById("luckysheet-sheets-item" + index), beforeObj);
+        beforeObj?.parentElement?.insertBefore(document.getElementById("luckysheet-sheets-item" + index), beforeObj);
 
         Store.luckysheetfile.splice(0, 0, sheetconfig);
     }
@@ -89,7 +89,7 @@ export function setSheetAdd(options = {}) {
 
         let afterIndex = Store.luckysheetfile[order - 1].index;
         let afterObj = document.getElementById("luckysheet-sheets-item" + afterIndex);
-        afterObj.parentElement.insertBefore(document.getElementById("luckysheet-sheets-item" + index), afterObj.nextElementSibling);
+        afterObj?.parentElement?.insertBefore(document.getElementById("luckysheet-sheets-item" + index), afterObj?.nextElementSibling);
 
         Store.luckysheetfile.splice(order, 0, sheetconfig);
     }
@@ -101,8 +101,8 @@ export function setSheetAdd(options = {}) {
         orders[item.index.toString()] = i;
     })
 
-    document.querySelector("#luckysheet-sheet-area div.luckysheet-sheets-item").classList.remove("luckysheet-sheets-item-active");
-    document.getElementById("luckysheet-sheets-item" + index).classList.add("luckysheet-sheets-item-active");
+    document.querySelector("#luckysheet-sheet-area div.luckysheet-sheets-item")?.classList.remove("luckysheet-sheets-item-active");
+    document.getElementById("luckysheet-sheets-item" + index)?.classList.add("luckysheet-sheets-item-active");
     cellMain.append('<div id="luckysheet-datavisual-selection-set-' + index + '" class="luckysheet-datavisual-selection-set"></div>');
     cleargridelement(true);
 
@@ -199,11 +199,11 @@ export function setSheetCopy(options = {}) {
         "style": "",
         "colorset": colorset
     }));
-    afterObj.parentElement.insertBefore(document.getElementById("luckysheet-sheets-item" + copyjson.index), afterObj.nextElementSibling);
+    afterObj?.parentElement?.insertBefore(document.getElementById("luckysheet-sheets-item" + copyjson.index), afterObj?.nextElementSibling);
     Store.luckysheetfile.splice(targetOrder, 0, copyjson);
 
-    document.querySelector("#luckysheet-sheet-area div.luckysheet-sheets-item").classList.remove("luckysheet-sheets-item-active");
-    document.getElementById("luckysheet-sheets-item" + index).classList.add("luckysheet-sheets-item-active");
+    document.querySelector("#luckysheet-sheet-area div.luckysheet-sheets-item")?.classList.remove("luckysheet-sheets-item-active");
+    document.getElementById("luckysheet-sheets-item" + index)?.classList.add("luckysheet-sheets-item-active");
     cellMain.append('<div id="luckysheet-datavisual-selection-set-' + index + '" class="luckysheet-datavisual-selection-set"></div>');
     cleargridelement(true);
 
@@ -294,8 +294,8 @@ export function setSheetActive(order, options = {}) {
         success
     } = {...options}
 
-    document.querySelector("#luckysheet-sheet-area div.luckysheet-sheets-item").classList.remove("luckysheet-sheets-item-active");
-    document.getElementById("luckysheet-sheets-item" + file.index).classList.add("luckysheet-sheets-item-active");
+    document.querySelector("#luckysheet-sheet-area div.luckysheet-sheets-item")?.classList.remove("luckysheet-sheets-item-active");
+    document.getElementById("luckysheet-sheets-item" + file.index)?.classList.add("luckysheet-sheets-item-active");
 
     sheetmanage.changeSheet(file.index);
 
@@ -326,7 +326,7 @@ export function setSheetName(name, options = {}) {
     let oldtxt = file.name;
     file.name = name;
 
-    document.querySelector("#luckysheet-sheets-item" + file.index + " .luckysheet-sheets-item-name").textContent = name;
+    const _sheetNameEl = document.querySelector("#luckysheet-sheets-item" + file.index + " .luckysheet-sheets-item-name"); if (_sheetNameEl) _sheetNameEl.textContent = name;
 
 
     if (Store.clearjfundo) {
@@ -366,7 +366,7 @@ export function setSheetColor(color, options = {}) {
     file.color = color;
 
     document.getElementById("luckysheet-sheets-item" + file.index)?.querySelector(".luckysheet-sheets-item-color")?.remove();
-    document.getElementById("luckysheet-sheets-item" + file.index).insertAdjacentHTML('beforeend', '<div class="luckysheet-sheets-item-color" style=" position: absolute; width: 100%; height: 3px; bottom: 0px; left: 0px; background-color: ' + color + ';"></div>');
+    document.getElementById("luckysheet-sheets-item" + file.index)?.insertAdjacentHTML('beforeend', '<div class="luckysheet-sheets-item-color" style=" position: absolute; width: 100%; height: 3px; bottom: 0px; left: 0px; background-color: ' + color + ';"></div>');
 
 
     if (Store.clearjfundo) {
@@ -415,7 +415,7 @@ export function setSheetMove(type, options = {}) {
         }
 
         let prevIndex = Store.luckysheetfile[order - 1].index;
-        document.getElementById("luckysheet-sheets-item" + prevIndex).parentElement.insertBefore(document.getElementById("luckysheet-sheets-item" + sheetIndex), document.getElementById("luckysheet-sheets-item" + prevIndex));
+        document.getElementById("luckysheet-sheets-item" + prevIndex)?.parentElement?.insertBefore(document.getElementById("luckysheet-sheets-item" + sheetIndex), document.getElementById("luckysheet-sheets-item" + prevIndex));
 
         Store.luckysheetfile.splice(order, 1);
         Store.luckysheetfile.splice(order - 1, 0, file);
@@ -426,7 +426,7 @@ export function setSheetMove(type, options = {}) {
         }
 
         let nextIndex = Store.luckysheetfile[order + 1].index;
-        document.getElementById("luckysheet-sheets-item" + nextIndex).parentElement.insertBefore(document.getElementById("luckysheet-sheets-item" + sheetIndex), document.getElementById("luckysheet-sheets-item" + nextIndex).nextElementSibling);
+        document.getElementById("luckysheet-sheets-item" + nextIndex)?.parentElement?.insertBefore(document.getElementById("luckysheet-sheets-item" + sheetIndex), document.getElementById("luckysheet-sheets-item" + nextIndex)?.nextElementSibling);
 
         Store.luckysheetfile.splice(order, 1);
         Store.luckysheetfile.splice(order + 1, 0, file);
@@ -446,11 +446,11 @@ export function setSheetMove(type, options = {}) {
 
         if(type < order){
             let prevIndex = Store.luckysheetfile[type].index;
-            document.getElementById("luckysheet-sheets-item" + prevIndex).parentElement.insertBefore(document.getElementById("luckysheet-sheets-item" + sheetIndex), document.getElementById("luckysheet-sheets-item" + prevIndex));
+            document.getElementById("luckysheet-sheets-item" + prevIndex)?.parentElement?.insertBefore(document.getElementById("luckysheet-sheets-item" + sheetIndex), document.getElementById("luckysheet-sheets-item" + prevIndex));
         }
         else{
             let nextIndex = Store.luckysheetfile[type].index;
-            document.getElementById("luckysheet-sheets-item" + nextIndex).parentElement.insertBefore(document.getElementById("luckysheet-sheets-item" + sheetIndex), document.getElementById("luckysheet-sheets-item" + nextIndex).nextElementSibling);
+            document.getElementById("luckysheet-sheets-item" + nextIndex)?.parentElement?.insertBefore(document.getElementById("luckysheet-sheets-item" + sheetIndex), document.getElementById("luckysheet-sheets-item" + nextIndex)?.nextElementSibling);
         }
 
         Store.luckysheetfile.splice(order, 1);
@@ -506,7 +506,7 @@ export function setSheetOrder(orderList, options = {}) {
 
         if(i > 0){
             let preIndex = arr[i - 1].index;
-            document.getElementById("luckysheet-sheets-item" + preIndex).parentElement.insertBefore(document.getElementById("luckysheet-sheets-item" + item.index), document.getElementById("luckysheet-sheets-item" + preIndex).nextElementSibling);
+            document.getElementById("luckysheet-sheets-item" + preIndex)?.parentElement?.insertBefore(document.getElementById("luckysheet-sheets-item" + item.index), document.getElementById("luckysheet-sheets-item" + preIndex)?.nextElementSibling);
         }
     })
 

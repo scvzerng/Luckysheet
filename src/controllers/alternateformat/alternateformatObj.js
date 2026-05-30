@@ -70,7 +70,7 @@ const alternateformat = {
                              '</div>';
         }
 
-        document.querySelector("#luckysheet-modal-dialog-slider-alternateformat #luckysheet-alternateformat-modelList").insertAdjacentHTML('beforeend', modelListHtml);
+        const _elModelList = document.querySelector("#luckysheet-modal-dialog-slider-alternateformat #luckysheet-alternateformat-modelList"); if (_elModelList) _elModelList.insertAdjacentHTML('beforeend', modelListHtml);
 
         //自定义 模板
         let modelCustom = getCurrentFile()["luckysheet_alternateformat_save_modelCustom"];
@@ -117,7 +117,7 @@ const alternateformat = {
                                     '</div>';
             }
 
-            document.querySelector("#luckysheet-modal-dialog-slider-alternateformat #luckysheet-alternateformat-modelCustom").insertAdjacentHTML('beforeend', modelCustomHtml);
+            const _elModelCustom = document.querySelector("#luckysheet-modal-dialog-slider-alternateformat #luckysheet-alternateformat-modelCustom"); if (_elModelCustom) _elModelCustom.insertAdjacentHTML('beforeend', modelCustomHtml);
         }
     },
     init: function(){
@@ -128,7 +128,7 @@ const alternateformat = {
         luckysheetsizeauto();
 
         //关闭
-        document.querySelector("#luckysheet-modal-dialog-slider-alternateformat .luckysheet-model-close-btn").addEventListener("click", function () {
+        document.querySelector("#luckysheet-modal-dialog-slider-alternateformat .luckysheet-model-close-btn")?.addEventListener("click", function () {
             const _elAF1 = document.getElementById("luckysheet-modal-dialog-slider-alternateformat"); if (_elAF1) _elAF1.style.display = 'none';
             luckysheetsizeauto();
         });
@@ -194,7 +194,7 @@ const alternateformat = {
             }
 
             let hasRowFooter;
-            if(document.getElementById("luckysheet-alternateformat-rowFooter").checked){
+            if(document.getElementById("luckysheet-alternateformat-rowFooter")?.checked){
                 hasRowFooter = true;
             }
             else{
@@ -208,7 +208,7 @@ const alternateformat = {
         offNS("AFrowFooter");
         onNS(document, "change.AFrowFooter", "#luckysheet-alternateformat-rowFooter", function(){
             let hasRowHeader;
-            if(document.getElementById("luckysheet-alternateformat-rowHeader").checked){
+            if(document.getElementById("luckysheet-alternateformat-rowHeader")?.checked){
                 hasRowHeader = true;
             }
             else{
@@ -232,7 +232,7 @@ const alternateformat = {
         offNS("AFmodelbox");
         onNS(document, "click.AFmodelbox", "#luckysheet-modal-dialog-slider-alternateformat .modelbox", function(){
             let index = Array.from(this.parentElement.children).indexOf(this);
-            let $id = this.closest(".cf").getAttribute("id");
+            let $id = this.closest(".cf")?.getAttribute("id");
 
             if($id == "luckysheet-alternateformat-modelList"){
                 _this.modelfocusIndex = index;
@@ -252,27 +252,27 @@ const alternateformat = {
             let $parent = this.closest(".toningbox");
 
             let colorType, currenColor;
-            if(this.querySelector(".luckysheet-icon-img").classList.contains("luckysheet-icon-text-color")){
+            if(this.querySelector(".luckysheet-icon-img")?.classList?.contains("luckysheet-icon-text-color")){
                 colorType = "fc";
-                currenColor = $parent.querySelector(".toningShow").dataset.fc;
+                currenColor = $parent?.querySelector(".toningShow")?.dataset.fc;
             }
-            else if(this.querySelector(".luckysheet-icon-img").classList.contains("luckysheet-icon-cell-color")){
+            else if(this.querySelector(".luckysheet-icon-img")?.classList?.contains("luckysheet-icon-cell-color")){
                 colorType = "bc";
-                currenColor = $parent.querySelector(".toningShow").dataset.bc;
+                currenColor = $parent?.querySelector(".toningShow")?.dataset.bc;
             }
 
             //source
             let source;
-            if($parent.classList.contains("header")){
+            if($parent?.classList?.contains("header")){
                 source = "0";
             }
-            else if($parent.classList.contains("ctOne")){
+            else if($parent?.classList?.contains("ctOne")){
                 source = "1";
             }
-            else if($parent.classList.contains("ctTwo")){
+            else if($parent?.classList?.contains("ctTwo")){
                 source = "2";
             }
-            else if($parent.classList.contains("footer")){
+            else if($parent?.classList?.contains("footer")){
                 source = "3";
             }
 
@@ -289,17 +289,17 @@ const alternateformat = {
             if ($parent) $parent.style.display = 'none';
 
             //获取currenColor colorType source
-            let currenColor = $parent.querySelector(".currenColor span").getAttribute("title");
+            let currenColor = $parent?.querySelector(".currenColor span")?.getAttribute("title");
 
             let colorType;
-            if($parent.querySelector(".luckysheet-modal-dialog-title-text").textContent == alternatingColors.selectionTextColor){
+            if($parent?.querySelector(".luckysheet-modal-dialog-title-text")?.textContent == alternatingColors.selectionTextColor){
                 colorType = "fc";
             }
-            else if($parent.querySelector(".luckysheet-modal-dialog-title-text").textContent == alternatingColors.selectionCellColor){
+            else if($parent?.querySelector(".luckysheet-modal-dialog-title-text")?.textContent == alternatingColors.selectionCellColor){
                 colorType = "bc";
             }
 
-            let source = $parent.querySelector(".currenColor").getAttribute("data-source");
+            let source = $parent?.querySelector(".currenColor")?.getAttribute("data-source");
             
             //赋给颜色
             if(source == "0"){
@@ -345,7 +345,7 @@ const alternateformat = {
             
             //若模板聚焦在固有模板，则新加模板；若模板聚焦在自定义模板，则修改该模板
             let hasRowHeader;
-            if(document.getElementById("luckysheet-alternateformat-rowHeader").checked){
+            if(document.getElementById("luckysheet-alternateformat-rowHeader")?.checked){
                 hasRowHeader = true;
             }
             else{
@@ -353,7 +353,7 @@ const alternateformat = {
             }
 
             let hasRowFooter;
-            if(document.getElementById("luckysheet-alternateformat-rowFooter").checked){
+            if(document.getElementById("luckysheet-alternateformat-rowFooter")?.checked){
                 hasRowFooter = true;
             }
             else{
@@ -463,7 +463,7 @@ const alternateformat = {
         
         //应用范围
         let cellrange = obj["cellrange"];
-        document.querySelector("#luckysheet-alternateformat-range input").value = getRangetxt(Store.currentSheetIndex, { "row": cellrange["row"], "column": cellrange["column"] }, Store.currentSheetIndex);
+        const _elRangeInput = document.querySelector("#luckysheet-alternateformat-range input"); if (_elRangeInput) _elRangeInput.value = getRangetxt(Store.currentSheetIndex, { "row": cellrange["row"], "column": cellrange["column"] }, Store.currentSheetIndex);
         
         Store.luckysheet_select_save = [{ "row": cellrange["row"], "column": cellrange["column"] }];
         selectHightlightShow();
@@ -485,24 +485,24 @@ const alternateformat = {
         _this.modelboxOn();
 
         //标识 交替颜色的index
-        document.getElementById("luckysheet-alternateformat-remove").dataset.index = existsIndex;
+        document.getElementById("luckysheet-alternateformat-remove")?.setAttribute("data-index", existsIndex);
     },
     checkboxChange: function(hasRowHeader, hasRowFooter){
         if(hasRowHeader){
-            document.getElementById("luckysheet-alternateformat-rowHeader").checked = true;
+            const _elRH = document.getElementById("luckysheet-alternateformat-rowHeader"); if (_elRH) _elRH.checked = true;
             document.querySelectorAll("#luckysheet-alternateformat-modelToning .header").forEach(el => el.style.display = '');
         }
         else{
-            document.getElementById("luckysheet-alternateformat-rowHeader").removeAttribute("checked");  
+            const _elRH2 = document.getElementById("luckysheet-alternateformat-rowHeader"); if (_elRH2) _elRH2.removeAttribute("checked");  
             document.querySelectorAll("#luckysheet-alternateformat-modelToning .header").forEach(el => el.style.display = 'none');
         }
 
         if(hasRowFooter){
-            document.getElementById("luckysheet-alternateformat-rowFooter").checked = true;
+            const _elRF = document.getElementById("luckysheet-alternateformat-rowFooter"); if (_elRF) _elRF.checked = true;
             document.querySelectorAll("#luckysheet-alternateformat-modelToning .footer").forEach(el => el.style.display = '');
         }
         else{
-            document.getElementById("luckysheet-alternateformat-rowFooter").removeAttribute("checked"); 
+            const _elRF2 = document.getElementById("luckysheet-alternateformat-rowFooter"); if (_elRF2) _elRF2.removeAttribute("checked"); 
             document.querySelectorAll("#luckysheet-alternateformat-modelToning .footer").forEach(el => el.style.display = 'none');  
         }
 
@@ -601,7 +601,7 @@ const alternateformat = {
         }
         
         //初始化选择颜色插件
-        createColorPicker(document.getElementById("luckysheet-alternateformat-colorSelect-dialog").querySelector(".colorshowbox"), {
+        createColorPicker(document.getElementById("luckysheet-alternateformat-colorSelect-dialog")?.querySelector(".colorshowbox"), {
             showPalette: true,
             showPaletteOnly: true,
             preferredFormat: "hex",

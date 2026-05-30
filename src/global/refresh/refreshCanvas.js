@@ -40,12 +40,12 @@ function jfrefreshgrid_rhcw(rowheight, colwidth, isRefreshCanvas=true){
     //选区同步
     selectHightlightShow();
     //改变单元格行高，复制虚线框同步
-    if(document.querySelector(".luckysheet-selection-copy").offsetWidth > 0){
+    if(document.querySelector(".luckysheet-selection-copy")?.offsetWidth > 0){
         selectionCopyShow();
     }
 
     //改变单元格行高，选区下拉icon隐藏
-    if(document.getElementById("luckysheet-dropCell-icon").offsetWidth > 0){
+    if(document.getElementById("luckysheet-dropCell-icon")?.offsetWidth > 0){
         document.getElementById("luckysheet-dropCell-icon")?.remove();
     }
 
@@ -140,7 +140,7 @@ function jfrefreshgrid_rhcw(rowheight, colwidth, isRefreshCanvas=true){
         let col = Store.visibledatacolumn[c2], 
             col_pre = c1 - 1 == -1 ? 0 : Store.visibledatacolumn[c1 - 1];
 
-        Object.assign(document.getElementById("luckysheet-filter-selected-sheet" + Store.currentSheetIndex).style, {
+        const _filterSelected = document.getElementById("luckysheet-filter-selected-sheet" + Store.currentSheetIndex); if (_filterSelected) Object.assign(_filterSelected.style, {
             "left": col_pre,
             "width": col - col_pre - 1,
             "top": row_pre,

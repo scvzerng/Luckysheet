@@ -71,7 +71,7 @@ function colLocation(x) {
 }
 
 function mouseposition(x, y) {
-    let container_offset = (() => { const _r = document.getElementById(Store.container).getBoundingClientRect(); return {top: _r.top + window.pageYOffset, left: _r.left + window.pageXOffset}; })();
+    let container_offset = (() => { const _el = document.getElementById(Store.container); const _r = _el?.getBoundingClientRect(); return _r ? {top: _r.top + window.pageYOffset, left: _r.left + window.pageXOffset} : {top: 0, left: 0}; })();
 
     let newX = x - container_offset.left - Store.rowHeaderWidth,
         newY = y - container_offset.top - Store.infobarHeight - Store.toolbarHeight - Store.calculatebarHeight - Store.columnHeaderHeight;

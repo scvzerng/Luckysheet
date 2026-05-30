@@ -13,7 +13,7 @@ import '../../../components/ColorPicker/colorPicker.css';
 
 export function initBorder(_this) {
       //边框设置
-      document.getElementById("luckysheet-icon-border-all").addEventListener("click", function () {
+      document.getElementById("luckysheet-icon-border-all")?.addEventListener("click", function () {
         if (!checkIsAllowEdit()) {
           return;
         }
@@ -23,8 +23,8 @@ export function initBorder(_this) {
           type = "border-all";
         }
         let subcolormenuid = "luckysheet-icon-borderColor-menuButton";
-        let color = document.querySelector("#" + subcolormenuid + " .luckysheet-color-selected").value;
-        let style = document.getElementById("luckysheetborderSizepreview").getAttribute("itemvalue");
+        let color = document.querySelector("#" + subcolormenuid + " .luckysheet-color-selected")?.value;
+        let style = document.getElementById("luckysheetborderSizepreview")?.getAttribute("itemvalue");
         if (color == null || color == "") {
           color = "#000";
         }
@@ -58,7 +58,7 @@ export function initBorder(_this) {
           luckysheetrefreshgrid();
         }, 1);
       });
-      document.getElementById("luckysheet-icon-border-menu").addEventListener("click", function () {
+      document.getElementById("luckysheet-icon-border-menu")?.addEventListener("click", function () {
         let menuButtonId = this.getAttribute("id") + "-menuButton";
         let menuButton = document.getElementById(menuButtonId);
         if (menuButton == null) {
@@ -213,8 +213,8 @@ export function initBorder(_this) {
           _this.focus(menuButton, "border-all");
           document.querySelectorAll("#" + submenuid + " canvas").forEach(function (canvasEl) {
             let type = canvasEl.getAttribute("type");
-            let itemvalue = canvasEl.closest(".luckysheet-cols-menuitem").getAttribute("itemvalue");
-            canvasEl.classList.add("luckysheet-mousedown-cancel");
+            let itemvalue = canvasEl.closest(".luckysheet-cols-menuitem")?.getAttribute("itemvalue");
+            canvasEl?.classList?.add("luckysheet-mousedown-cancel");
             let canvasborder = canvasEl.getContext("2d");
             canvasborder.translate(0.5, 0.5);
             _this.setLineDash(canvasborder, itemvalue, "h", 0, 5, 100, 5);
@@ -228,13 +228,13 @@ export function initBorder(_this) {
               let itemvalue = this.getAttribute("itemvalue");
             if (itemvalue == 0) {
                 let preview = document.getElementById("luckysheetborderSizepreview");
-                preview.setAttribute("src", "data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==");
-                preview.removeAttribute("itemvalue");
+                if (preview) preview.setAttribute("src", "data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==");
+                preview?.removeAttribute("itemvalue");
               } else {
                 let bg = this.querySelector("canvas").toDataURL("image/png");
                 let preview = document.getElementById("luckysheetborderSizepreview");
-                preview.setAttribute("src", bg);
-                preview.setAttribute("itemvalue", itemvalue);
+                if (preview) preview.setAttribute("src", bg);
+                preview?.setAttribute("itemvalue", itemvalue);
               }
               _this.focus(document.getElementById(submenuid), itemvalue);
             });
@@ -253,8 +253,8 @@ export function initBorder(_this) {
               return;
             }
             let d = editor.deepCopyFlowData(Store.flowdata);
-            let color = document.querySelector("#" + subcolormenuid + " .luckysheet-color-selected").value;
-            let style = document.getElementById("luckysheetborderSizepreview").getAttribute("itemvalue");
+            let color = document.querySelector("#" + subcolormenuid + " .luckysheet-color-selected")?.value;
+            let style = document.getElementById("luckysheetborderSizepreview")?.getAttribute("itemvalue");
             if (color == null || color == "") {
               color = "#000";
             }
@@ -287,10 +287,10 @@ export function initBorder(_this) {
             setTimeout(function () {
               luckysheetrefreshgrid();
             }, 1);
-            document.getElementById("luckysheet-icon-border-all").setAttribute("type", itemvalue);
-            let icon = document.getElementById("luckysheet-icon-border-all").querySelector(".luckysheet-icon-img-container");
+            document.getElementById("luckysheet-icon-border-all")?.setAttribute("type", itemvalue);
+            let icon = document.getElementById("luckysheet-icon-border-all")?.querySelector(".luckysheet-icon-img-container");
 
-            icon.className = "luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-" + itemvalue + iconfontObject[itemvalue];
+            if (icon) icon.className = "luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-" + itemvalue + iconfontObject[itemvalue];
             _this.focus(menuButton, itemvalue);
             });
           });
@@ -312,17 +312,17 @@ export function initBorder(_this) {
             palette: STANDARD_PALETTE,
             change: function (color) {
               let hexColor = color != null ? color.toHexString() : "#000";
-              document.getElementById("luckysheet-icon-borderColor-linecolor").style.borderBottomColor = hexColor;
-              document.querySelector("#" + subcolormenuid + " .luckysheet-color-selected").value = hexColor;
+              const _elLineColor = document.getElementById("luckysheet-icon-borderColor-linecolor"); if (_elLineColor) _elLineColor.style.borderBottomColor = hexColor;
+              const _elColorSel = document.querySelector("#" + subcolormenuid + " .luckysheet-color-selected"); if (_elColorSel) _elColorSel.value = hexColor;
             }
           });
           document.querySelectorAll("#" + subcolormenuid + " .luckysheet-color-reset").forEach(function (item) {
             item.addEventListener("click", function () {
             let input = document.querySelector("#" + subcolormenuid + " .luckysheet-color-selected");
-            input.value = "#000";
-            document.getElementById("luckysheet-icon-cell-color").removeAttribute("color");
+            if (input) input.value = "#000";
+            document.getElementById("luckysheet-icon-cell-color")?.removeAttribute("color");
             getPicker(input)?.set("#000");
-            document.getElementById("luckysheet-icon-borderColor-linecolor").style.borderBottomColor = "#000";
+            const _elLineClr = document.getElementById("luckysheet-icon-borderColor-linecolor"); if (_elLineClr) _elLineClr.style.borderBottomColor = "#000";
             });
           });
         }

@@ -227,7 +227,12 @@ export default function documentMouseup() {
         if (luckysheetPostil.move) {
             luckysheetPostil.move = false;
 
-            let ps_id = luckysheetPostil.currentObj.closest(".luckysheet-postil-show").id;
+            let ps_id = luckysheetPostil.currentObj.closest(".luckysheet-postil-show")?.id;
+
+            if (!ps_id) {
+                luckysheetPostil.move = false;
+                return;
+            }
 
             let ps_r = ps_id.split("luckysheet-postil-show_")[1].split("_")[0];
             let ps_c = ps_id.split("luckysheet-postil-show_")[1].split("_")[1];
@@ -265,10 +270,15 @@ export default function documentMouseup() {
         if (luckysheetPostil.resize) {
             luckysheetPostil.resize = null;
 
-            let ps_id = luckysheetPostil.currentObj.closest(".luckysheet-postil-show").id;
+            let ps_id2 = luckysheetPostil.currentObj.closest(".luckysheet-postil-show")?.id;
 
-            let ps_r = ps_id.split("luckysheet-postil-show_")[1].split("_")[0];
-            let ps_c = ps_id.split("luckysheet-postil-show_")[1].split("_")[1];
+            if (!ps_id2) {
+                luckysheetPostil.resize = null;
+                return;
+            }
+
+            let ps_r = ps_id2.split("luckysheet-postil-show_")[1].split("_")[0];
+            let ps_c = ps_id2.split("luckysheet-postil-show_")[1].split("_")[1];
 
             let d = editor.deepCopyFlowData(Store.flowdata);
             let rc = [];

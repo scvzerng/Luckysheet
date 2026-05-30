@@ -14,11 +14,11 @@ import '../../../components/ColorPicker/colorPicker.css';
 export function initTextColor(_this) {
       //字体颜色
       let textColorEl = document.getElementById("luckysheet-icon-text-color");
-      textColorEl.addEventListener("mousedown", function (e) {
+      textColorEl?.addEventListener("mousedown", function (e) {
         hideMenuByCancel(e);
         e.stopPropagation();
       });
-      textColorEl.addEventListener("click", function () {
+      textColorEl?.addEventListener("click", function () {
         let d = editor.deepCopyFlowData(Store.flowdata);
         let color = this.getAttribute("color");
         if (color == null) {
@@ -27,11 +27,11 @@ export function initTextColor(_this) {
         _this.updateFormat(d, "fc", color);
       });
       let textColorMenuEl = document.getElementById("luckysheet-icon-text-color-menu");
-      textColorMenuEl.addEventListener("mousedown", function (e) {
+      textColorMenuEl?.addEventListener("mousedown", function (e) {
         hideMenuByCancel(e);
         e.stopPropagation();
       });
-      textColorMenuEl.addEventListener("click", function () {
+      textColorMenuEl?.addEventListener("click", function () {
         let menuButtonId = this.getAttribute("id") + "-menuButton";
         let menuButton = document.getElementById(menuButtonId);
         if (menuButton == null) {
@@ -77,8 +77,8 @@ export function initTextColor(_this) {
             palette: STANDARD_PALETTE,
             change: function (color) {
               let hexColor = color != null ? color.toHexString() : "#000";
-              document.querySelector("#luckysheet-icon-text-color .text-color-bar").style.backgroundColor = hexColor;
-              document.getElementById("luckysheet-icon-text-color").setAttribute("color", hexColor);
+              const _elTextColorBar = document.querySelector("#luckysheet-icon-text-color .text-color-bar"); if (_elTextColorBar) _elTextColorBar.style.backgroundColor = hexColor;
+              document.getElementById("luckysheet-icon-text-color")?.setAttribute("color", hexColor);
               let d = editor.deepCopyFlowData(Store.flowdata);
               _this.updateFormat(d, "fc", hexColor);
               menuButton.style.display = "none";
@@ -91,10 +91,10 @@ export function initTextColor(_this) {
               luckysheetContainerFocus();
             let input = document.querySelector("#" + menuButtonId + " .luckysheet-color-selected");
             input.value = "#000000";
-            document.getElementById("luckysheet-icon-text-color").removeAttribute("color");
+            document.getElementById("luckysheet-icon-text-color")?.removeAttribute("color");
             getPicker(input)?.set("#000000");
-            document.querySelector("#luckysheet-icon-text-color .luckysheet-color-menu-button-indicator").style.borderBottomColor = "#000000";
-            document.querySelector("#luckysheet-icon-text-color .text-color-bar").style.backgroundColor = "#000000";
+            const _elIndicator = document.querySelector("#luckysheet-icon-text-color .luckysheet-color-menu-button-indicator"); if (_elIndicator) _elIndicator.style.borderBottomColor = "#000000";
+            const _elBar = document.querySelector("#luckysheet-icon-text-color .text-color-bar"); if (_elBar) _elBar.style.backgroundColor = "#000000";
             let d = editor.deepCopyFlowData(Store.flowdata);
             _this.updateFormat(d, "fc", null);
             });

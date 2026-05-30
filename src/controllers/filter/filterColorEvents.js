@@ -178,8 +178,8 @@ export function filterColorEvents() {
         document.querySelectorAll("#luckysheet-filter-orderby-color-submenu .item").forEach(function(e){
             const cb = e.querySelector("input[type='checkbox']");
             if(cb && cb.checked){
-                let color = e.querySelector("label").getAttribute("title");
-                let boxId = e.closest(".box").getAttribute("id");
+                let color = e.querySelector("label")?.getAttribute("title");
+                let boxId = e.closest(".box")?.getAttribute("id");
 
                 if(boxId == "filterBgColor"){
                     bg_colorMap[color] = 0;

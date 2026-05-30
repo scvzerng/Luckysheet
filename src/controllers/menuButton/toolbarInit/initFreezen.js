@@ -14,7 +14,7 @@ import cellMain from '../../../ui/cellMain.js';
 
 export function initFreezen(_this) {
       //冻结行列
-      document.getElementById("luckysheet-icon-freezen-menu").addEventListener("click", function () {
+      document.getElementById("luckysheet-icon-freezen-menu")?.addEventListener("click", function () {
         let menuButtonId = this.getAttribute("id") + "-menuButton";
         let menuButton = document.getElementById(menuButtonId);
         if (menuButton == null) {

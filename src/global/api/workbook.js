@@ -254,7 +254,7 @@ export function setWorkbookName(name, options = {}) {
         return tooltip.info("The name parameter is invalid.", "");
     }
 
-    document.getElementById("luckysheet_info_detail_input").value = name;
+    const _detailInput = document.getElementById("luckysheet_info_detail_input"); if (_detailInput) _detailInput.value = name;
 
     let {
         success
@@ -446,7 +446,7 @@ export function toJson(){
     const toJsonOptions = Store.toJsonOptions;
 
     // Workbook name
-    toJsonOptions.title = document.getElementById("luckysheet_info_detail_input").value;
+    toJsonOptions.title = document.getElementById("luckysheet_info_detail_input")?.value;
 
     toJsonOptions.data = getAllSheets();
 

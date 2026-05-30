@@ -55,7 +55,7 @@ const ruleManagerModule = {
         conditionformatDialog.adminRule.find(".ruleList .listBox").prepend(itemHtml);
       }
       conditionformatDialog.adminRule.find(".ruleList .listBox .item canvas").each(function (i) {
-        let x = this.closest(".item").getAttribute("data-item");
+        let x = this.closest(".item")?.getAttribute("data-item");
         let type = ruleArr[x]["type"];
         let format = ruleArr[x]["format"];
         let can = this.getContext("2d");

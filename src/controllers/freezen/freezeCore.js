@@ -81,29 +81,29 @@ const freezeCoreModule = {
     if (_this.initialVertical) {
       _this.initialVertical = false;
       gridWindow.append(_this.freezenVerticalHTML);
-      let _freezebarVDrop = document.getElementById("luckysheet-freezebar-vertical").querySelector(".luckysheet-freezebar-vertical-drop");
-      _freezebarVDrop.addEventListener("mouseenter", function () {
+      let _freezebarVDrop = document.getElementById("luckysheet-freezebar-vertical")?.querySelector(".luckysheet-freezebar-vertical-drop");
+      _freezebarVDrop?.addEventListener("mouseenter", function () {
         this.parentElement.classList.add("luckysheet-freezebar-hover");
       });
-      _freezebarVDrop.addEventListener("mouseleave", function () {
+      _freezebarVDrop?.addEventListener("mouseleave", function () {
         this.parentElement.classList.remove("luckysheet-freezebar-hover");
       });
-      _freezebarVDrop.addEventListener("mousedown", function () {
+      _freezebarVDrop?.addEventListener("mousedown", function () {
         _this.verticalmovestate = true;
         _this.verticalmoveposition = this.offsetLeft;
         _this.windowWidth = gridWindow.getWidth();
         this.parentElement.classList.add("luckysheet-freezebar-active");
-        document.getElementById("luckysheet-freezebar-vertical").querySelector(".luckysheet-freezebar-vertical-handle").style.cursor = "-webkit-grabbing";
+        const _elHandle = document.getElementById("luckysheet-freezebar-vertical")?.querySelector(".luckysheet-freezebar-vertical-handle"); if (_elHandle) _elHandle.style.cursor = "-webkit-grabbing";
       });
       let gridheight = gridWindow.getHeight();
-      let _freezebarVHandle = document.getElementById("luckysheet-freezebar-vertical").querySelector(".luckysheet-freezebar-vertical-handle");
-      Object.assign(_freezebarVHandle.style, {
+      let _freezebarVHandle = document.getElementById("luckysheet-freezebar-vertical")?.querySelector(".luckysheet-freezebar-vertical-handle");
+      if (_freezebarVHandle) Object.assign(_freezebarVHandle.style, {
         height: gridheight - 10 + "px",
         width: "4px",
         cursor: "-webkit-grab",
         top: "0px"
       });
-      Object.assign(_freezebarVDrop.style, {
+      if (_freezebarVDrop) Object.assign(_freezebarVDrop.style, {
         height: gridheight - 10 + "px",
         width: "4px",
         top: "0px",
@@ -318,29 +318,29 @@ const freezeCoreModule = {
     if (_this.initialHorizontal) {
       _this.initialHorizontal = false;
       gridWindow.append(_this.freezenHorizontalHTML);
-      let _freezebarHDrop = document.getElementById("luckysheet-freezebar-horizontal").querySelector(".luckysheet-freezebar-horizontal-drop");
-      _freezebarHDrop.addEventListener("mouseenter", function () {
+      let _freezebarHDrop = document.getElementById("luckysheet-freezebar-horizontal")?.querySelector(".luckysheet-freezebar-horizontal-drop");
+      _freezebarHDrop?.addEventListener("mouseenter", function () {
         this.parentElement.classList.add("luckysheet-freezebar-hover");
       });
-      _freezebarHDrop.addEventListener("mouseleave", function () {
+      _freezebarHDrop?.addEventListener("mouseleave", function () {
         this.parentElement.classList.remove("luckysheet-freezebar-hover");
       });
-      _freezebarHDrop.addEventListener("mousedown", function () {
+      _freezebarHDrop?.addEventListener("mousedown", function () {
         _this.horizontalmovestate = true;
         _this.horizontalmoveposition = this.offsetTop;
         _this.windowHeight = gridWindow.getHeight();
         this.parentElement.classList.add("luckysheet-freezebar-active");
-        document.getElementById("luckysheet-freezebar-horizontal").querySelector(".luckysheet-freezebar-horizontal-handle").style.cursor = "-webkit-grabbing";
+        const _elHHandle = document.getElementById("luckysheet-freezebar-horizontal")?.querySelector(".luckysheet-freezebar-horizontal-handle"); if (_elHHandle) _elHHandle.style.cursor = "-webkit-grabbing";
       });
       let gridwidth = gridWindow.getWidth();
-      let _freezebarHHandle = document.getElementById("luckysheet-freezebar-horizontal").querySelector(".luckysheet-freezebar-horizontal-handle");
-      Object.assign(_freezebarHHandle.style, {
+      let _freezebarHHandle = document.getElementById("luckysheet-freezebar-horizontal")?.querySelector(".luckysheet-freezebar-horizontal-handle");
+      if (_freezebarHHandle) Object.assign(_freezebarHHandle.style, {
         width: gridwidth - 10 + "px",
         height: "4px",
         cursor: "-webkit-grab",
         left: "0px"
       });
-      Object.assign(_freezebarHDrop.style, {
+      if (_freezebarHDrop) Object.assign(_freezebarHDrop.style, {
         width: gridwidth - 10 + "px",
         height: "4px",
         left: "0px",

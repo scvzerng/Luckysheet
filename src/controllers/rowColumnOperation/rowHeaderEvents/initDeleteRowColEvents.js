@@ -124,7 +124,7 @@ export function initDeleteRowColEvents() {
     // });
   
     //删除选中行列
-    document.querySelector("#luckysheet-del-selected, #luckysheet-del-selected_t").addEventListener("click", function (event) {
+    document.querySelector("#luckysheet-del-selected, #luckysheet-del-selected_t")?.addEventListener("click", function (event) {
       rightClickMenu.style.display = 'none';
       luckysheetContainerFocus();
       const locale_drag = locale().drag;
@@ -151,7 +151,7 @@ export function initDeleteRowColEvents() {
       }
       luckysheetdeletetable(Store.luckysheetRightHeadClickIs, st_index, ed_index);
     });
-    document.getElementById("luckysheet-delRows").addEventListener("click", function (event) {
+    document.getElementById("luckysheet-delRows")?.addEventListener("click", function (event) {
       rightClickMenu.style.display = 'none';
       luckysheetContainerFocus();
       const locale_drag = locale().drag;
@@ -178,7 +178,7 @@ export function initDeleteRowColEvents() {
       }
       luckysheetdeletetable('row', st_index, ed_index);
     });
-    document.getElementById("luckysheet-delCols").addEventListener("click", function (event) {
+    document.getElementById("luckysheet-delCols")?.addEventListener("click", function (event) {
       rightClickMenu.style.display = 'none';
       luckysheetContainerFocus();
       const locale_drag = locale().drag;

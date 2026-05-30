@@ -180,7 +180,7 @@ function update(modelfocusIndex, rangefocus) {
         let dataIndex = document.getElementById("luckysheet-alternateformat-remove").dataset.index;
         
         //应用范围
-        let rangeValue = document.querySelector("#luckysheet-modal-dialog-slider-alternateformat #luckysheet-alternateformat-range input").value.trim();
+        let rangeValue = document.querySelector("#luckysheet-modal-dialog-slider-alternateformat #luckysheet-alternateformat-range input")?.value?.trim();
         
         if(!formula.iscelldata(rangeValue)){
             if(isEditMode()){
@@ -209,7 +209,7 @@ function update(modelfocusIndex, rangefocus) {
 
         //页眉、页脚
         let hasRowHeader;
-        if(document.querySelector("#luckysheet-modal-dialog-slider-alternateformat #luckysheet-alternateformat-rowHeader").checked){
+        if(document.querySelector("#luckysheet-modal-dialog-slider-alternateformat #luckysheet-alternateformat-rowHeader")?.checked){
             hasRowHeader = true;
         }
         else{
@@ -217,7 +217,7 @@ function update(modelfocusIndex, rangefocus) {
         }
 
         let hasRowFooter;
-        if(document.querySelector("#luckysheet-modal-dialog-slider-alternateformat #luckysheet-alternateformat-rowFooter").checked){
+        if(document.querySelector("#luckysheet-modal-dialog-slider-alternateformat #luckysheet-alternateformat-rowFooter")?.checked){
             hasRowFooter = true;
         }
         else{

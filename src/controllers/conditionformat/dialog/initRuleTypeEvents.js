@@ -16,39 +16,39 @@ export function initRuleTypeEvents(_this) {
         let optionVal = this.value;
         if (optionVal == "dataBar" || optionVal == "colorGradation" || optionVal == "icons" || optionVal == "number" || optionVal == "text" || optionVal == "date") {
           let _dialog = this.closest(".luckysheet-newEditorRule-dialog");
-          let _optionBox = _dialog.querySelector("." + optionVal + "Box");
+          let _optionBox = _dialog?.querySelector("." + optionVal + "Box");
           if (_optionBox) _optionBox.style.display = '';
-          Array.from(_optionBox.parentElement.children).filter(s => s !== _optionBox).forEach(s => s.style.display = 'none');
+          Array.from(_optionBox?.parentElement?.children || []).filter(s => s !== _optionBox).forEach(s => s.style.display = 'none');
         }
         if (optionVal == "date") {
-          _this.daterangeInit(this.closest(".luckysheet-newEditorRule-dialog").id);
+          _this.daterangeInit(this.closest(".luckysheet-newEditorRule-dialog")?.id);
         }
       });
       offNS("CFnewEditorRuleType2");
       onNS(document, "change.CFnewEditorRuleType2", ".luckysheet-newEditorRule-dialog #type2", function () {
         let _dialog = this.closest(".luckysheet-newEditorRule-dialog");
-        let type1 = _dialog.querySelector("#type1")?.value;
+        let type1 = _dialog?.querySelector("#type1")?.value;
         if (type1 == "colorGradation") {
           let type2 = this.value;
           if (type2 == "threeColor") {
-            _dialog.querySelectorAll(".midVal").forEach(el => el.style.display = '');
+            _dialog?.querySelectorAll(".midVal").forEach(el => el.style.display = '');
           } else {
-            _dialog.querySelectorAll(".midVal").forEach(el => el.style.display = 'none');
+            _dialog?.querySelectorAll(".midVal").forEach(el => el.style.display = 'none');
           }
         } else if (type1 == "number") {
           let type2 = this.value;
           if (type2 == "betweenness") {
-            _dialog.querySelectorAll(".txt").forEach(el => el.style.display = '');
-            _dialog.querySelectorAll("#conditionVal2").forEach(el => el.style.display = '');
+            _dialog?.querySelectorAll(".txt").forEach(el => el.style.display = '');
+            _dialog?.querySelectorAll("#conditionVal2").forEach(el => el.style.display = '');
           } else {
-            _dialog.querySelectorAll(".txt").forEach(el => el.style.display = 'none');
-            _dialog.querySelectorAll("#conditionVal2").forEach(el => el.style.display = 'none');
+            _dialog?.querySelectorAll(".txt").forEach(el => el.style.display = 'none');
+            _dialog?.querySelectorAll("#conditionVal2").forEach(el => el.style.display = 'none');
           }
         }
       });
       offNS("CFiconsShowbox");
       onNS(document, "click.CFiconsShowbox", ".luckysheet-newEditorRule-dialog .iconsBox .showbox", function () {
-        let _ul = this.closest(".iconsBox").querySelector("ul");
+        let _ul = this.closest(".iconsBox")?.querySelector("ul");
         if (_ul) _ul.style.display = _ul.style.display === 'none' ? '' : 'none';
       });
       offNS("CFiconsLi");
@@ -60,7 +60,7 @@ export function initRuleTypeEvents(_this) {
         let title = _div?.getAttribute("title");
         let position = _div ? getComputedStyle(_div).backgroundPosition : '';
         let _iconsBox = this.closest(".iconsBox");
-        let _model = _iconsBox.querySelector(".showbox .model");
+        let _model = _iconsBox?.querySelector(".showbox .model");
         if (_model) {
           _model.style.backgroundPosition = position;
           _model.setAttribute("data-len", len);

@@ -137,27 +137,27 @@ export default function globalEvents() {
             if ((_textColor && _textColor.offsetWidth > 0) || (_cellColor && _cellColor.offsetWidth > 0)) {
                 conditionformatDialog.main.show();
             }
-            e.currentTarget.closest(".luckysheet-modal-dialog").style.display = 'none';
+            const _modalDlg = e.currentTarget.closest(".luckysheet-modal-dialog"); if (_modalDlg) _modalDlg.style.display = 'none';
             hideModalMask();
 
             //函数查找功能所有弹出框关闭和取消
             if (
                 this.closest(".luckysheet-modal-dialog")
-                    .classList.contains("luckysheet-search-formula")
+                    ?.classList.contains("luckysheet-search-formula")
             ) {
                 formula.dontupdate();
                 luckysheetMoveHighlightCell("down", 0, "rangeOfSelect");
             }
             if (
                 this.closest(".luckysheet-modal-dialog")
-                    .classList.contains("luckysheet-search-formula-parm")
+                    ?.classList.contains("luckysheet-search-formula-parm")
             ) {
                 formula.dontupdate();
                 luckysheetMoveHighlightCell("down", 0, "rangeOfSelect");
             }
             if (
                 this.closest(".luckysheet-modal-dialog")
-                    .classList.contains("luckysheet-search-formula-parm-select")
+                    ?.classList.contains("luckysheet-search-formula-parm-select")
             ) {
                 formula.dontupdate();
                 luckysheetMoveHighlightCell("down", 0, "rangeOfSelect");

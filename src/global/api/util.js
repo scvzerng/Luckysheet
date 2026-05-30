@@ -43,8 +43,8 @@ export function getTxtByRange(range=Store.luckysheet_select_save){
 export function pagerInit (config) {
     const {prevPage, nextPage, total} = locale().button;
     document.getElementById("luckysheet-bottom-pager")?.remove()
-    document.getElementById("luckysheet-sheet-content").after('<div id="luckysheet-bottom-pager" style="font-size: 14px; margin-left: 10px; display: inline-block;"></div>')
-    document.getElementById("luckysheet-bottom-pager").sPage({
+    const _sheetContent = document.getElementById("luckysheet-sheet-content"); if (_sheetContent) _sheetContent.after('<div id="luckysheet-bottom-pager" style="font-size: 14px; margin-left: 10px; display: inline-block;"></div>')
+    document.getElementById("luckysheet-bottom-pager")?.sPage({
         page: config.pageIndex, //当前页码，必填
         total: config.total, //数据总条数，必填
         selectOption: config.selectOption, // 选择每页的行数，
@@ -141,5 +141,5 @@ export function checkTheStatusOfTheSelectedCells(type,status){
 export function openSearchDialog(source = 1){
     luckysheetSearchReplace.createDialog(source);
     luckysheetSearchReplace.init();
-    document.querySelector("#luckysheet-search-replace #searchInput input").focus();
+    document.querySelector("#luckysheet-search-replace #searchInput input")?.focus();
 }

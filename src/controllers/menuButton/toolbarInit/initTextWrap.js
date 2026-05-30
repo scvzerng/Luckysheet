@@ -7,7 +7,7 @@ import { iconfontObjects } from '../../constant';
 
 export function initTextWrap(_this) {
       //文本换行
-      document.getElementById("luckysheet-icon-textwrap-menu").addEventListener("click", function () {
+      document.getElementById("luckysheet-icon-textwrap-menu")?.addEventListener("click", function () {
         let menuButtonId = this.getAttribute("id") + "-menuButton";
         let menuButton = document.getElementById(menuButtonId);
         if (menuButton == null) {
@@ -47,10 +47,10 @@ export function initTextWrap(_this) {
               let itemvalue = this.getAttribute("itemvalue");
               _this.focus(menuButton, itemvalue);
               let textwrapEl = document.getElementById("luckysheet-icon-textwrap");
-              textwrapEl.setAttribute("type", itemvalue);
-              let icon = textwrapEl.querySelector(".luckysheet-icon-img-container");
+              if (textwrapEl) textwrapEl.setAttribute("type", itemvalue);
+              let icon = textwrapEl?.querySelector(".luckysheet-icon-img-container");
 
-              icon.className = "luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-textwrap-" + itemvalue + iconfontObject[itemvalue];
+              if (icon) icon.className = "luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-textwrap-" + itemvalue + iconfontObject[itemvalue];
               let d = editor.deepCopyFlowData(Store.flowdata);
               _this.updateFormat(d, "tb", itemvalue);
             });

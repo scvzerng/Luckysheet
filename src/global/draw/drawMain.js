@@ -66,7 +66,7 @@ function luckysheetDrawMain(scrollWidth, scrollHeight, drawWidth, drawHeight, of
         luckysheetTableContent = mycanvas;
       }
     } else {
-      luckysheetTableContent = document.getElementById(mycanvas).getContext("2d");
+      luckysheetTableContent = document.getElementById(mycanvas)?.getContext("2d");
     }
   }
   luckysheetTableContent.save();

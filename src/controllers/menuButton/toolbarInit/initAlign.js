@@ -7,15 +7,15 @@ import { iconfontObjects } from '../../constant';
 
 export function initAlign(_this) {
       //水平对齐
-      document.getElementById("luckysheet-icon-align").addEventListener("click", function () {
-        let itemvalue = document.getElementById("luckysheet-icon-align").getAttribute("type");
+      document.getElementById("luckysheet-icon-align")?.addEventListener("click", function () {
+        let itemvalue = document.getElementById("luckysheet-icon-align")?.getAttribute("type");
         if (itemvalue == null) {
           itemvalue = "left";
         }
         let d = editor.deepCopyFlowData(Store.flowdata);
         _this.updateFormat(d, "ht", itemvalue);
       });
-      document.getElementById("luckysheet-icon-align-menu").addEventListener("click", function () {
+      document.getElementById("luckysheet-icon-align-menu")?.addEventListener("click", function () {
         let menuButtonId = this.getAttribute("id") + "-menuButton";
         let menuButton = document.getElementById(menuButtonId);
         if (menuButton == null) {
@@ -55,10 +55,10 @@ export function initAlign(_this) {
               let itemvalue = this.getAttribute("itemvalue");
               _this.focus(menuButton, itemvalue);
               let alignEl = document.getElementById("luckysheet-icon-align");
-              alignEl.setAttribute("type", itemvalue);
-              let icon = alignEl.querySelector(".luckysheet-icon-img-container");
+              if (alignEl) alignEl.setAttribute("type", itemvalue);
+              let icon = alignEl?.querySelector(".luckysheet-icon-img-container");
 
-              icon.className = "luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-align-" + itemvalue + iconfontObject[itemvalue];
+              if (icon) icon.className = "luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-align-" + itemvalue + iconfontObject[itemvalue];
               let d = editor.deepCopyFlowData(Store.flowdata);
               _this.updateFormat(d, "ht", itemvalue);
             });
