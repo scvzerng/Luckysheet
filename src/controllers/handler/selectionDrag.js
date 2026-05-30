@@ -31,7 +31,8 @@ export default function selectionDrag() {
     // }
 
     //选区拖动替换
-    cellMain.find("div.luckysheet-cs-draghandle").mousedown(function(event) {
+    const _dragHandle = cellMain.find("div.luckysheet-cs-draghandle");
+    if (_dragHandle) _dragHandle.addEventListener("mousedown", function(event) {
         if (isEditMode() || Store.allowEdit === false) {
             //此模式下禁用选区拖动
             return;
@@ -80,8 +81,9 @@ export default function selectionDrag() {
     });
 
     //选区下拉
-    cellMain.find("div.luckysheet-cs-fillhandle")
-        .mousedown(function(event) {
+    const _fillHandle = cellMain.find("div.luckysheet-cs-fillhandle");
+    if (_fillHandle) {
+        _fillHandle.addEventListener("mousedown", function(event) {
             if (isEditMode() || Store.allowEdit === false) {
                 //此模式下禁用选区下拉
                 return;
@@ -131,12 +133,12 @@ export default function selectionDrag() {
             }, 100);
 
             event.stopPropagation();
-        })
-        .click(function() {
+        });
+        _fillHandle.addEventListener("click", function() {
             clearTimeout(Store.luckysheet_cell_selected_extend_time);
             event.stopPropagation();
-        })
-        .dblclick(function() {
+        });
+        _fillHandle.addEventListener("dblclick", function() {
             let last = Store.luckysheet_select_save[0];
 
             let r0 = last.row[0],
@@ -250,5 +252,6 @@ export default function selectionDrag() {
 
             event.stopPropagation();
         });
+    }
 
 }

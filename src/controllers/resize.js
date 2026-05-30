@@ -80,8 +80,9 @@ export default function luckysheetsizeauto(isRefreshCanvas=true) {
     gridW = document.getElementById(Store.container).offsetWidth;
 
     if(luckysheetConfigsetting.showConfigWindowResize){
-        if(document.getElementById("luckysheet-modal-dialog-slider-alternateformat").offsetWidth > 0){
-            gridW -= document.getElementById("luckysheet-modal-dialog-slider-alternateformat").offsetWidth;
+        const _altSlider = document.getElementById("luckysheet-modal-dialog-slider-alternateformat");
+        if(_altSlider && _altSlider.offsetWidth > 0){
+            gridW -= _altSlider.offsetWidth;
         }
     }
 

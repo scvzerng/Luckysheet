@@ -166,14 +166,14 @@ const tooltip = {
             }, 300);
 
         });
-        obj.addEventListener("mouseout", function (e) {
+        objEl.addEventListener("mouseout", function (e) {
             let _target = e.target.closest(to);
             if (!_target) return;
             _this.hoverTipshowState = false;
             clearTimeout(_this.hoverTipshowTimeOut);
             document.getElementById("luckysheet-tooltip-up").classList.add("jfk-tooltip-hide");
         });
-        obj.addEventListener("click", function (e) {
+        objEl.addEventListener("click", function (e) {
             let _target = e.target.closest(to);
             if (!_target) return;
             _this.hoverTipshowState = true;
