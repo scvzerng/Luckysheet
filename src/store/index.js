@@ -19,8 +19,8 @@ const Store = {
     sheetWidth: 0,
     sheetHeight: 0,
 
-    cellmainWidth: 0,
-    cellmainHeight: 0,
+    gridWidth: 0,
+    gridHeight: 0,
     toolbarHeight: 0,
     infobarHeight: 0,
     calculatebarHeight: 0,

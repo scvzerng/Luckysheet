@@ -61,8 +61,8 @@ export function handleCellMousedown(event) {
               //luckysheetautoadjustmousedown = 1;
               let mouse = mouseposition(event.pageX, event.pageY);
               if (
-                  mouse[0] >= Store.cellmainWidth - Store.cellMainSrollBarSize ||
-                  mouse[1] >= Store.cellmainHeight - Store.cellMainSrollBarSize
+                  mouse[0] >= Store.gridWidth - Store.cellMainSrollBarSize ||
+                  mouse[1] >= Store.gridHeight - Store.cellMainSrollBarSize
               ) {
                   return;
               }

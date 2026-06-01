@@ -630,9 +630,9 @@ import formulaDialogs from '../../../ui/formulaDialogs.js';
                             Store.toolbarHeight +
                             Store.calculatebarHeight +
                             Store.columnHeaderHeight;
-                        maxTop = minTop + Store.cellmainHeight - Store.cellMainSrollBarSize - myh;
+                        maxTop = minTop + Store.gridHeight - Store.cellMainSrollBarSize - myh;
                         minLeft = Store.rowHeaderWidth;
-                        maxLeft = minLeft + Store.cellmainWidth - Store.cellMainSrollBarSize - myw;
+                        maxLeft = minLeft + Store.gridWidth - Store.cellMainSrollBarSize - myw;
                     }
 
                     if (top < minTop) {
@@ -757,8 +757,8 @@ import formulaDialogs from '../../../ui/formulaDialogs.js';
                                 left = resizeXY[4] - resizeXY[6] + resizeXY[2] - width;
                             }
 
-                            if (height > minTop + Store.cellmainHeight - Store.cellMainSrollBarSize - top) {
-                                height = minTop + Store.cellmainHeight - Store.cellMainSrollBarSize - top;
+                            if (height > minTop + Store.gridHeight - Store.cellMainSrollBarSize - top) {
+                                height = minTop + Store.gridHeight - Store.cellMainSrollBarSize - top;
 
                                 width = Math.round(height * (resizeXY[2] / resizeXY[3]));
                                 left = resizeXY[4] - resizeXY[6] + resizeXY[2] - width;
@@ -772,8 +772,8 @@ import formulaDialogs from '../../../ui/formulaDialogs.js';
                                 width = 1;
                             }
 
-                            if (width > minLeft + Store.cellmainWidth - Store.cellMainSrollBarSize - left) {
-                                width = minLeft + Store.cellmainWidth - Store.cellMainSrollBarSize - left;
+                            if (width > minLeft + Store.gridWidth - Store.cellMainSrollBarSize - left) {
+                                width = minLeft + Store.gridWidth - Store.cellMainSrollBarSize - left;
                             }
 
                             height = Math.round(width * (resizeXY[3] / resizeXY[2]));
@@ -801,8 +801,8 @@ import formulaDialogs from '../../../ui/formulaDialogs.js';
                                 width = 1;
                             }
 
-                            if (width > minLeft + Store.cellmainWidth - Store.cellMainSrollBarSize - left) {
-                                width = minLeft + Store.cellmainWidth - Store.cellMainSrollBarSize - left;
+                            if (width > minLeft + Store.gridWidth - Store.cellMainSrollBarSize - left) {
+                                width = minLeft + Store.gridWidth - Store.cellMainSrollBarSize - left;
                             }
 
                             top = resizeXY[5] - resizeXY[7];
@@ -816,8 +816,8 @@ import formulaDialogs from '../../../ui/formulaDialogs.js';
                                 width = 1;
                             }
 
-                            if (width > minLeft + Store.cellmainWidth - Store.cellMainSrollBarSize - left) {
-                                width = minLeft + Store.cellmainWidth - Store.cellMainSrollBarSize - left;
+                            if (width > minLeft + Store.gridWidth - Store.cellMainSrollBarSize - left) {
+                                width = minLeft + Store.gridWidth - Store.cellMainSrollBarSize - left;
                             }
 
                             height = Math.round(width * (resizeXY[3] / resizeXY[2]));
@@ -829,8 +829,8 @@ import formulaDialogs from '../../../ui/formulaDialogs.js';
                                 width = Math.round(height * (resizeXY[2] / resizeXY[3]));
                             }
 
-                            if (height > minTop + Store.cellmainHeight - Store.cellMainSrollBarSize - top) {
-                                height = minTop + Store.cellmainHeight - Store.cellMainSrollBarSize - top;
+                            if (height > minTop + Store.gridHeight - Store.cellMainSrollBarSize - top) {
+                                height = minTop + Store.gridHeight - Store.cellMainSrollBarSize - top;
 
                                 width = Math.round(height * (resizeXY[2] / resizeXY[3]));
                             }
@@ -861,8 +861,8 @@ import formulaDialogs from '../../../ui/formulaDialogs.js';
                                 height = 1;
                             }
 
-                            if (height > minTop + Store.cellmainHeight - Store.cellMainSrollBarSize - top) {
-                                height = minTop + Store.cellmainHeight - Store.cellMainSrollBarSize - top;
+                            if (height > minTop + Store.gridHeight - Store.cellMainSrollBarSize - top) {
+                                height = minTop + Store.gridHeight - Store.cellMainSrollBarSize - top;
                             }
                         }
                     } else {

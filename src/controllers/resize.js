@@ -310,23 +310,23 @@ export function changeSheetContainerSize(gridW, gridH){
     if(gridH==null){
         gridH = document.getElementById(Store.container)?.offsetHeight || 0;
     }
-    Store.cellmainHeight = gridH - (getHeaderTotalHeight() + Store.sheetBarHeight + Store.statisticBarHeight);
-    Store.cellmainWidth = gridW - Store.rowHeaderWidth;
+    Store.gridHeight = gridH - (getHeaderTotalHeight() + Store.sheetBarHeight + Store.statisticBarHeight);
+    Store.gridWidth = gridW - Store.rowHeaderWidth;
 
-    colHeader.setWidth(Store.cellmainWidth);
-    cellMain.setWidth(Store.cellmainWidth);
-    cellMain.setHeight(Store.cellmainHeight);
-    rowHeader.setHeight(Store.cellmainHeight - Store.cellMainSrollBarSize);
+    colHeader.setWidth(Store.gridWidth);
+    cellMain.setWidth(Store.gridWidth);
+    cellMain.setHeight(Store.gridHeight);
+    rowHeader.setHeight(Store.gridHeight - Store.cellMainSrollBarSize);
 
-    scrollBarY.setHeight(Store.cellmainHeight + Store.columnHeaderHeight - Store.cellMainSrollBarSize - 3);
+    scrollBarY.setHeight(Store.gridHeight + Store.columnHeaderHeight - Store.cellMainSrollBarSize - 3);
     scrollBarX.setHeight(Store.cellMainSrollBarSize);
     scrollBarY.setWidth(Store.cellMainSrollBarSize);
 
-    scrollBarX.setWidth(Store.cellmainWidth).setCssLeft(Store.rowHeaderWidth - 2);
+    scrollBarX.setWidth(Store.gridWidth).setCssLeft(Store.rowHeaderWidth - 2);
 
     Store.luckysheetTableContentHW = [
-        Store.cellmainWidth + Store.rowHeaderWidth - Store.cellMainSrollBarSize,
-        Store.cellmainHeight + Store.columnHeaderHeight - Store.cellMainSrollBarSize
+        Store.gridWidth + Store.rowHeaderWidth - Store.cellMainSrollBarSize,
+        Store.gridHeight + Store.columnHeaderHeight - Store.cellMainSrollBarSize
     ];
 
     canvasContext.setCanvasSize(
