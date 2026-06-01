@@ -3,12 +3,13 @@ import inputBox from '../ui/inputBox.js';
 import cellMain from '../ui/cellMain.js';
 import formulaDialogs from '../ui/formulaDialogs.js';
 import imageDialog from '../ui/imageDialog.js';
+import scrollBarX from '../ui/scrollBarX.js';
+import scrollBarY from '../ui/scrollBarY.js';
 
 export function getScrollPosition() {
-    let el = cellMain.el;
     return {
-        scrollTop: el ? el.scrollTop : 0,
-        scrollLeft: el ? el.scrollLeft : 0
+        scrollTop: scrollBarY.getScrollTop(),
+        scrollLeft: scrollBarX.getScrollLeft()
     };
 }
 

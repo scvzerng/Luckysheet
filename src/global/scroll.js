@@ -49,7 +49,7 @@ export default function luckysheetscrollevent(isadjust) {
         "left": inputBox.getCss("left"),
         "top": (parseInt(inputBox.getCss("top")) - 20) + "px",
         "z-index": inputBox.getCss("z-index")
-    }).style.display = 'block';
+    }).show();
 
     luckysheetrefreshgrid(scrollLeft, scrollTop);
     
