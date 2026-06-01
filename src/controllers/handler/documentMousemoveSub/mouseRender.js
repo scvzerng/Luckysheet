@@ -1354,7 +1354,7 @@ import formulaDialogs from '../../../ui/formulaDialogs.js';
                         formula.rangeResizeWinW,
                         formula.rangeResizeWinH,
                         Store.sheetWidth,
-                        Store.rh_height,
+                        Store.sheetHeight,
                     );
                 } else if (formula.rangeMove) {
                     formula.rangeMoveDraging(

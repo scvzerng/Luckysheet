@@ -455,7 +455,7 @@ function jfrefreshgrid_pastcut(source, target, RowlChange){
 
     if(RowlChange){
         Store.visibleRowPositions = [];
-        Store.rh_height = 0;
+        Store.sheetHeight = 0;
         
         for (let i = 0; i < rowHeight; i++) {
             let rowlen = Store.defaultrowlen;
@@ -466,16 +466,16 @@ function jfrefreshgrid_pastcut(source, target, RowlChange){
 
             if (isRowHidden(i)) {
                 rowlen = Store.config["rowhidden"][i];
-                Store.visibleRowPositions.push(Store.rh_height);
+                Store.visibleRowPositions.push(Store.sheetHeight);
                 continue;
             }
             else {
-                Store.rh_height += rowlen + 1;
+                Store.sheetHeight += rowlen + 1;
             }
 
-            Store.visibleRowPositions.push(Store.rh_height);//行的临时长度分布
+            Store.visibleRowPositions.push(Store.sheetHeight);//行的临时长度分布
         }
-        Store.rh_height += 80;
+        Store.sheetHeight += 80;
         // sheetmanage.showSheet();
 
         if(Store.currentSheetIndex == source["sheetIndex"]){

@@ -129,7 +129,7 @@ function luckysheetDrawgridRowTitle(scrollHeight, drawHeight, offsetTop) {
   // );
   // luckysheetTableContent.lineTo(
   //     (Store.rowHeaderWidth - 2 + 0.5) ,
-  //     (Store.rh_height + offsetTop)
+  //     (Store.sheetHeight + offsetTop)
   // );
   // luckysheetTableContent.lineWidth = 1;
   // luckysheetTableContent.strokeStyle = luckysheetdefaultstyle.strokeStyle;

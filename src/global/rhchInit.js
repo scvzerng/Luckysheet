@@ -9,7 +9,7 @@ export default function rhchInit(rowheight, colwidth) {
     //行高
     if(rowheight != null){
         Store.visibleRowPositions = [];
-        Store.rh_height = 0;
+        Store.sheetHeight = 0;
 
         for (let r = 0; r < rowheight; r++) {
             let rowlen = Store.defaultrowlen;
@@ -19,7 +19,7 @@ export default function rhchInit(rowheight, colwidth) {
             }
 
             if (isRowHidden(r)) {
-                Store.visibleRowPositions.push(Store.rh_height);
+                Store.visibleRowPositions.push(Store.sheetHeight);
                 continue;
             }
 
@@ -27,16 +27,16 @@ export default function rhchInit(rowheight, colwidth) {
             if (rowlen === 'auto') {
                 rowlen = computeRowlenByContent(Store.sheetData, r);
             }
-            Store.rh_height += Math.round((rowlen + 1) * Store.zoomRatio);
+            Store.sheetHeight += Math.round((rowlen + 1) * Store.zoomRatio);
 
-            Store.visibleRowPositions.push(Store.rh_height); //行的临时长度分布
+            Store.visibleRowPositions.push(Store.sheetHeight); //行的临时长度分布
         }
 
         // 如果增加行和回到顶部按钮隐藏，则减少底部空白区域，但是预留足够空间给单元格下拉按钮
         if (!luckysheetConfigsetting.enableAddRow && !luckysheetConfigsetting.enableAddBackTop) {
-            Store.rh_height += 29;
+            Store.sheetHeight += 29;
         } else {
-            Store.rh_height += 80;  //最底部增加空白
+            Store.sheetHeight += 80;  //最底部增加空白
         }
 
     }

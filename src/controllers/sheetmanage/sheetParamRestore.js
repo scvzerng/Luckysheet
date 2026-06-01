@@ -63,7 +63,7 @@ const sheetParamRestoreModule = {
     file["visibledatarow"] = Store.visibleRowPositions;
     file["visibledatacolumn"] = Store.visibleColPositions;
     file["ch_width"] = Store.sheetWidth;
-    file["rh_height"] = Store.rh_height;
+    file["rh_height"] = Store.sheetHeight;
     file["luckysheet_select_save"] = structuredClone(Store.selections);
     file["luckysheet_selection_range"] = structuredClone(Store.luckysheet_selection_range);
     if (scrollBarX.getScrollWidth() > scrollBarX.getOffsetWidth()) {
@@ -220,13 +220,13 @@ const sheetParamRestoreModule = {
     }); //width更新
     resizeHandles.sheetTable.setCss({
       width: Store.sheetWidth - 1,
-      height: Store.rh_height
+      height: Store.sheetHeight
     });
-    const _elRowHeader = document.getElementById("luckysheet-row-header-content"); if (_elRowHeader) _elRowHeader.style.height = Store.rh_height + "px";
+    const _elRowHeader = document.getElementById("luckysheet-row-header-content"); if (_elRowHeader) _elRowHeader.style.height = Store.sheetHeight + "px";
     const _elColsHCells = document.getElementById("luckysheet-cols-h-cells_0"); if (_elColsHCells) _elColsHCells.style.width = Store.sheetWidth + "px"; //width更新
 
     scrollBarX.setInnerDivWidth(Store.sheetWidth);
-    scrollBarY.setInnerDivHeight(Store.rh_height + Store.columnHeaderHeight - Store.cellMainSrollBarSize - 3);
+    scrollBarY.setInnerDivHeight(Store.sheetHeight + Store.columnHeaderHeight - Store.cellMainSrollBarSize - 3);
 
     //等待滚动条dom宽高计算完成后 初始化该表格滚动位置
     let index = this.getSheetIndex(Store.currentSheetIndex);

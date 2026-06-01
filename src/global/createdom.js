@@ -90,18 +90,18 @@ export default function luckysheetcreatedom(colwidth, rowheight, data, menu, tit
         bottomControll += backControll;
     }
 
-    let flowstr = replaceHtml('<div id="luckysheet-col-table" class="luckysheet-cell-flow-col"> <div id ="luckysheet-sheet-table" class="luckysheet-cell-sheettable" style="height:${height}px;width:${width}px;"></div><div id="luckysheet-bottom-controll-row" class="luckysheet-bottom-controll-row"> '+ bottomControll +' </div> </div>', { "height": Store.rh_height, "width": Store.sheetWidth - 1 });
+    let flowstr = replaceHtml('<div id="luckysheet-col-table" class="luckysheet-cell-flow-col"> <div id ="luckysheet-sheet-table" class="luckysheet-cell-sheettable" style="height:${height}px;width:${width}px;"></div><div id="luckysheet-bottom-controll-row" class="luckysheet-bottom-controll-row"> '+ bottomControll +' </div> </div>', { "height": Store.sheetHeight, "width": Store.sheetWidth - 1 });
 
     let colsheader = replaceHtml(columnHeaderHTML, { "width": Store.sheetWidth, "index": 0, "column": "" });
 
     flowHTML = replaceHtml(flowHTML, { "width": Store.sheetWidth, "flow": flowstr, "index": 0 });
 
-    gh = replaceHtml(gh, { "flow": flowHTML, "rowHeader": "<div style='height:" + Store.rh_height + "px' id='luckysheet-row-header-content' class='luckysheetsheetchange'></div>", "columnHeader": colsheader, "functionButton": luckysheetConfigsetting.functionButton });//设置需要显示的菜单
+    gh = replaceHtml(gh, { "flow": flowHTML, "rowHeader": "<div style='height:" + Store.sheetHeight + "px' id='luckysheet-row-header-content' class='luckysheetsheetchange'></div>", "columnHeader": colsheader, "functionButton": luckysheetConfigsetting.functionButton });//设置需要显示的菜单
 
     document.getElementById(Store.container)?.insertAdjacentHTML('beforeend', gh);
 
     scrollBarX.setInnerDivWidth(Store.sheetWidth);
-    scrollBarY.setInnerDivHeight(Store.rh_height + Store.columnHeaderHeight - Store.cellMainSrollBarSize - 3);
+    scrollBarY.setInnerDivHeight(Store.sheetHeight + Store.columnHeaderHeight - Store.cellMainSrollBarSize - 3);
 
     //新建行菜单
     document.body.insertAdjacentHTML('beforeend', maskHTML);

@@ -17,7 +17,7 @@ const Store = {
     visibleRowPositions: [],
     visibleColPositions: [],
     sheetWidth: 0,
-    rh_height: 0,
+    sheetHeight: 0,
 
     cellmainWidth: 0,
     cellmainHeight: 0,
