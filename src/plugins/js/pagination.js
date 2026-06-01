@@ -1,13 +1,13 @@
-function sPage(element, options) {
+function Pagination(element, options) {
     this.element = element;
-    this.settings = Object.assign({}, sPage.defaults, options);
+    this.settings = Object.assign({}, Pagination.defaults, options);
     this.pageNum = 1;
     this.pageList = [];
     this.pageTatol = 0;
     this.init();
 }
 
-sPage.defaults = {
+Pagination.defaults = {
     page: 1,
     pageSize: 200,
     total: 0,
@@ -23,13 +23,13 @@ sPage.defaults = {
     backFun: function () {}
 };
 
-sPage.prototype.init = function () {
+Pagination.prototype.init = function () {
     this.element.innerHTML = '';
     this.viewHtml();
     this.clickBtn();
 };
 
-sPage.prototype.creatHtml = function (t) {
+Pagination.prototype.creatHtml = function (t) {
     if (t == this.settings.page) {
         this.pageList.push('<button class="active" data-page=' + t + ">" + t + "</button>");
     } else {
@@ -37,7 +37,7 @@ sPage.prototype.creatHtml = function (t) {
     }
 };
 
-sPage.prototype.viewHtml = function () {
+Pagination.prototype.viewHtml = function () {
     var t = this.settings;
     var e = 0;
     var a = [];
@@ -58,16 +58,16 @@ sPage.prototype.viewHtml = function () {
     this.pageNum = t.page;
 
     if (t.showTotal) {
-        a.push('<div class="spage-total">' + t.totalTxt + "</div>");
+        a.push('<div class="luckysheet-pagination-total">' + t.totalTxt + "</div>");
     }
-    a.push('<div class="spage-number">');
+    a.push('<div class="luckysheet-pagination-numbers">');
     this.pageList = [];
 
     if (t.showPN) {
         if (t.page == 1) {
-            this.pageList.push('<button class="button-disabled" data-page="prev"><i class="prevBtn"></i></button>');
+            this.pageList.push('<button class="button-disabled" data-page="prev"><i class="luckysheet-pagination-prev-icon"></i></button>');
         } else {
-            this.pageList.push('<button data-page="prev"><i class="prevBtn"></i></button>');
+            this.pageList.push('<button data-page="prev"><i class="luckysheet-pagination-prev-icon"></i></button>');
         }
     }
 
@@ -80,22 +80,22 @@ sPage.prototype.viewHtml = function () {
             for (var s = 1; s <= 3; s++) {
                 this.creatHtml(s);
             }
-            this.pageList.push('<button data-page="after" class="spage-after">...</button><button data-page=' + e + ">" + e + "</button>");
+            this.pageList.push('<button data-page="after" class="luckysheet-pagination-ellipsis-after">...</button><button data-page=' + e + ">" + e + "</button>");
         } else if (t.page > e - 3) {
-            this.pageList.push('<button data-page="1">1</button><button data-page="before" class="spage-before">...</button>');
+            this.pageList.push('<button data-page="1">1</button><button data-page="before" class="luckysheet-pagination-ellipsis-before">...</button>');
             for (var s = e - 3; s <= e; s++) {
                 this.creatHtml(s);
             }
         } else {
             this.pageList.push('<button data-page="1">1</button>');
             if (t.page > 3) {
-                this.pageList.push('<button data-page="before" class="spage-before">...</button>');
+                this.pageList.push('<button data-page="before" class="luckysheet-pagination-ellipsis-before">...</button>');
             }
             for (var s = t.page - 1; s <= Number(t.page) + 1; s++) {
                 this.creatHtml(s);
             }
             if (t.page <= e - 3) {
-                this.pageList.push('<button data-page="after" class="spage-after">...</button>');
+                this.pageList.push('<button data-page="after" class="luckysheet-pagination-ellipsis-after">...</button>');
             }
             this.pageList.push('<button data-page=' + e + ">" + e + "</button>");
         }
@@ -103,9 +103,9 @@ sPage.prototype.viewHtml = function () {
 
     if (t.showPN) {
         if (t.page == e) {
-            this.pageList.push('<button class="button-disabled" data-page="next"><i class="nextBtn"></i></button>');
+            this.pageList.push('<button class="button-disabled" data-page="next"><i class="luckysheet-pagination-next-icon"></i></button>');
         } else {
-            this.pageList.push('<button data-page="next"><i class="nextBtn"></i></button>');
+            this.pageList.push('<button data-page="next"><i class="luckysheet-pagination-next-icon"></i></button>');
         }
     }
 
@@ -113,7 +113,7 @@ sPage.prototype.viewHtml = function () {
     a.push("</div>");
 
     if (t.selectOption.length > 0) {
-        var str = '<select class="selectNum" id="selectNum">';
+        var str = '<select class="luckysheet-pagination-select" id="luckysheet-pagination-select">';
         for (var i = 0; i <= t.selectOption.length - 1; i++) {
             str += '<option value=' + t.selectOption[i] + ' ';
             if (t.pageSize === t.selectOption[i]) {
@@ -127,20 +127,20 @@ sPage.prototype.viewHtml = function () {
     }
 
     if (t.showSkip) {
-        a.push('<div class="spage-skip">跳至&nbsp;<input type="text" class="luckysheet-mousedown-cancel" value="' + t.page + '"/>&nbsp;页&nbsp;&nbsp;</div>');
+        a.push('<div class="luckysheet-pagination-skip">跳至&nbsp;<input type="text" class="luckysheet-mousedown-cancel" value="' + t.page + '"/>&nbsp;页&nbsp;&nbsp;</div>');
     }
 
     this.element.innerHTML = a.join("");
 };
 
-sPage.prototype.clickBtn = function () {
+Pagination.prototype.clickBtn = function () {
     var a = this;
     var s = this.settings;
     var n = this.pageTatol;
 
     this.element.addEventListener('change', function (e) {
         if (e.target.tagName === 'SELECT') {
-            var value = parseInt(document.getElementById('selectNum').value);
+            var value = parseInt(document.getElementById('luckysheet-pagination-select').value);
             s.pageSize = value;
             s.page = 1;
             a.element.innerHTML = '';
@@ -214,18 +214,18 @@ sPage.prototype.clickBtn = function () {
 
     if (s.fastForward > 0) {
         this.element.addEventListener('mouseenter', function (e) {
-            var btn = e.target.closest('.spage-after');
+            var btn = e.target.closest('.luckysheet-pagination-ellipsis-after');
             if (btn) btn.innerHTML = "&raquo;";
-            var btn2 = e.target.closest('.spage-before');
+            var btn2 = e.target.closest('.luckysheet-pagination-ellipsis-before');
             if (btn2) btn2.innerHTML = "&laquo;";
         }, true);
         this.element.addEventListener('mouseleave', function (e) {
-            var btn = e.target.closest('.spage-after');
+            var btn = e.target.closest('.luckysheet-pagination-ellipsis-after');
             if (btn) btn.innerHTML = "...";
-            var btn2 = e.target.closest('.spage-before');
+            var btn2 = e.target.closest('.luckysheet-pagination-ellipsis-before');
             if (btn2) btn2.innerHTML = "...";
         }, true);
     }
 };
 
-export default sPage;
+export default Pagination;

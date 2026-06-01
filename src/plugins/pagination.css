@@ -1,0 +1,126 @@
+.luckysheet-pagination-total {
+    display: inline-block;
+    margin-right: 10px;
+    line-height: 29px;
+    color: #666;
+    font-size: 14px
+}
+
+.luckysheet-pagination-numbers {
+    display: inline-block;
+    color: #666;
+    font-size: 14px
+}
+.luckysheet-pagination-select {
+    font-size: 14px;
+    height: 27px;
+    box-sizing: border-box;
+    vertical-align: top;
+    line-height: 27px;
+    border: 1px solid #ddd;
+    margin-left: 5px;
+    vertical-align: middle;
+}
+.luckysheet-pagination-numbers button {
+    position: relative;
+    box-sizing: border-box;
+    display: inline-block;
+    margin-left: -1px;
+    padding: 0 10px;
+    line-height: 27px;
+    border: 1px solid #ddd;
+    text-align: center;
+    transition: all .2s;
+    cursor: pointer;
+    outline: none;
+    background: 0 0;
+    user-select: none;
+    color: #333;
+    background: #fff;
+    vertical-align: middle;
+}
+.luckysheet-pagination-prev-icon, .luckysheet-pagination-next-icon {
+    width: 16px;
+    height: 27px;
+    background: url(images/js.png) no-repeat center center;
+    background-size: 100% auto;
+    display: block;
+    transform: rotate(180deg);
+}
+.luckysheet-pagination-next-icon {
+    transform: rotate(0);
+}
+.luckysheet-pagination-numbers button.active {
+    background: #2d98e6;
+    color: #fff;
+    border-color: #2d98e6;
+    z-index: 3
+}
+
+.luckysheet-pagination-numbers button.active:hover {
+    background: #2d98e6;
+    color: #fff;
+    border-color: #2d98e6;
+    z-index: 3
+}
+
+.luckysheet-pagination-numbers button:hover {
+    background-color: #eee
+}
+
+.luckysheet-pagination-numbers button.button-disabled {
+    cursor: not-allowed;
+    color: #ccc
+}
+
+.luckysheet-pagination-numbers .luckysheet-pagination-ellipsis-after,
+.luckysheet-pagination-ellipsis-before {
+    padding: 0;
+    width: 40px
+}
+
+.luckysheet-pagination-skip {
+    display: inline-block;
+    margin-left: 5px;
+    line-height: 27px;
+    color: #666;
+    font-size: 14px
+}
+
+.luckysheet-pagination-skip input {
+    box-sizing: border-box;
+    display: inline-block;
+    width: 45px;
+    height: 29px;
+    text-align: center;
+    vertical-align: top;
+    border: 1px solid #ddd;
+    background: 0 0;
+    outline: none;
+    transition: all .2s
+}
+
+.luckysheet-pagination-skip input:focus {
+    border-color: #2d98e6
+}
+
+.luckysheet-pagination-skip button {
+    display: inline-block;
+    padding: 0 14px;
+    line-height: 27px;
+    vertical-align: top;
+    color: #333;
+    border: 1px solid #ddd;
+    cursor: pointer;
+    transition: all .2s;
+    outline: none;
+    background: 0 0;
+    user-select: none;
+    background-color: #fff;
+}
+
+.luckysheet-pagination-skip button:hover {
+    background: #2d98e6;
+    color: #fff;
+    border: 1px solid #2d98e6
+}

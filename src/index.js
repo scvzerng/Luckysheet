@@ -3,7 +3,7 @@ import { luckysheet } from './core'
 import __firefox from './utils/polyfill'
 
 import '@fortawesome/fontawesome-free/css/all.min.css'
-import './plugins/jquery.sPage.css'
+import './plugins/pagination.css'
 import './css/core/index.css'
 import './css/luckysheet-zoom.css'
 import './assets/iconfont/iconfont.css'

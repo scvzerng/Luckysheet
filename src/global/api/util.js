@@ -12,7 +12,7 @@ import formula from "../formula";
 import method from "../method";
 import { getRangeWithFlatten } from "./rangeRead";
 import { luckysheetrefreshgrid } from "../refresh";
-import sPage from "../../plugins/js/sPage.js";
+import Pagination from "../../plugins/js/pagination.js";
 
 export function getRangeByTxt(txt){
 
@@ -48,7 +48,7 @@ export function pagerInit (config) {
     if (_sheetContent) _sheetContent.insertAdjacentHTML('afterend', '<div id="luckysheet-bottom-pager" style="font-size: 14px; margin-left: 10px; display: inline-block;"></div>');
     const pagerEl = document.getElementById("luckysheet-bottom-pager");
     if (pagerEl) {
-        new sPage(pagerEl, {
+        new Pagination(pagerEl, {
             page: config.pageIndex,
             total: config.total,
             selectOption: config.selectOption,
