@@ -91,7 +91,7 @@ const gridHTML = function() {
                     <div class="luckysheet-grid-container luckysheet-scrollbars-enabled"> 
                         <div class="luckysheet-grid-window"> 
                             <div class="luckysheet-help-sub"></div> 
-                            <div class="luckysheet-grid-window-1" id="luckysheet-grid-window-1">
+                            <div class="luckysheet-grid-viewport" id="luckysheet-grid-viewport">
                                 <canvas id="luckysheetTableContent" class="luckysheetTableContent"></canvas> 
                                 <table class="luckysheet-grid-window-2" cellspacing="0" cellpadding="0" dir="ltr" tabindex="-1" > 
                                     <tbody> 

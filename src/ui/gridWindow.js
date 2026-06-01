@@ -1,6 +1,6 @@
 class GridWindow {
     constructor() { this._el = null; }
-    get el() { if (!this._el || !document.body.contains(this._el)) this._el = document.getElementById("luckysheet-grid-window-1"); return this._el; }
+    get el() { if (!this._el || !document.body.contains(this._el)) this._el = document.getElementById("luckysheet-grid-viewport"); return this._el; }
 
     getWidth() { if (!this.el) return 0; return this.el.getBoundingClientRect().width; }
     getHeight() { if (!this.el) return 0; return this.el.getBoundingClientRect().height; }
