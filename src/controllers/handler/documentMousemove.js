@@ -132,7 +132,7 @@ export default function documentMousemove() {
             }
 
             Store.calculatebarHeight = mpx;
-            const _calcBar = document.getElementById("luckysheet-wa-calculate");
+            const _calcBar = document.getElementById("luckysheet-formula-bar");
             if (_calcBar) _calcBar.style.height = (Store.calculatebarHeight - 2) + 'px';
             const _calcSize = document.getElementById("luckysheet-wa-calculate-size");
             if (_calcSize) Object.assign(_calcSize.style, { background: "#5e5e5e", cursor: "ns-resize" });

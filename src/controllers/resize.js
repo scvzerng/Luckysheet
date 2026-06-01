@@ -63,7 +63,7 @@ export default function luckysheetsizeauto(isRefreshCanvas=true) {
     customStatisticBarConfig();
 
     // 公式栏
-    const formulaEle = document.querySelector("#" + Store.container + ' .luckysheet-wa-calculate');
+    const formulaEle = document.querySelector("#" + Store.container + ' .luckysheet-formula-bar');
     if (!luckysheetConfigsetting.sheetFormulaBar) {
         if (formulaEle) formulaEle.style.display = 'none';
         Store.calculatebarHeight = 0;

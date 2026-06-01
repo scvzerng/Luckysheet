@@ -45,7 +45,7 @@ describe('gridTemplate - 主网格DOM模板', () => {
 
     it('应包含公式栏区域', () => {
         const html = gridHTML();
-        expect(html).toContain('luckysheet-wa-calculate');
+        expect(html).toContain('luckysheet-formula-bar');
     });
 
     it('应包含网格主体区域', () => {
