@@ -1,4 +1,4 @@
-.luckysheet-wa-editor {
+.luckysheet-toolbar {
     height: 32px;
     /* background: #f7f7f7; */
     background: #fafafc;
@@ -12,7 +12,7 @@
 }
 
 /* 
-.luckysheet-wa-editor>div.luckysheetfulltoolbar {
+.luckysheet-toolbar>div.luckysheetfulltoolbar {
     display: inline-block;
     height: 34px;
     padding: 0px 5px;
@@ -25,13 +25,13 @@
     vertical-align: middle;
 }
 
-.luckysheet-wa-editor>div.luckysheetfulltoolbar:hover {
+.luckysheet-toolbar>div.luckysheetfulltoolbar:hover {
     background: #0188fb;
     color: #FAFAFA;
     cursor: pointer;
 }
 
-.luckysheet-wa-editor>div.luckysheetfulltoolbar:active {
+.luckysheet-toolbar>div.luckysheetfulltoolbar:active {
     background: #FB4747;
     color: #FFFFFF;
     -webkit-box-shadow: inset 0 0 2px #727272;

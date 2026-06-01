@@ -66,7 +66,7 @@ export default function globalEvents() {
         hideMenuByCancel(event);
 
         if (
-            event.target.closest("#luckysheet-wa-editor") !== null &&
+            event.target.closest("#luckysheet-toolbar") !== null &&
             isInputBoxActive()
         ) {
             formula.updatecell(Store.luckysheetCellUpdate[0], Store.luckysheetCellUpdate[1]);

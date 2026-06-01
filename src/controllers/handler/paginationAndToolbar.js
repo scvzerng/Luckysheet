@@ -89,7 +89,7 @@ export default function paginationAndToolbar() {
         });
     }
 
-    document.querySelectorAll("#luckysheet-wa-editor,#luckysheet-icon-morebtn-div,.luckysheet-toolbar-button").forEach(el => el.addEventListener("click", function(e) {
+    document.querySelectorAll("#luckysheet-toolbar,#luckysheet-icon-morebtn-div,.luckysheet-toolbar-button").forEach(el => el.addEventListener("click", function(e) {
         if (this.id != "luckysheet-icon-paintformat" && menuButton.luckysheetPaintModelOn) {
             menuButton.cancelPaintModel();
         }

@@ -57,7 +57,7 @@ const gridHTML = function() {
                             }
                             
                         </div> 
-                        <div id="luckysheet-wa-editor" class="luckysheet-wa-editor toolbar"> \${menu} </div> 
+                        <div id="luckysheet-toolbar" class="luckysheet-toolbar toolbar"> \${menu} </div> 
                         <div id="luckysheet-wa-calculate" class="luckysheet-wa-calculate"> 
                             <div class="luckysheet-wa-calculate-size" id="luckysheet-wa-calculate-size"></div> 
                             <div class="luckysheet-wa-calculate-help"> 

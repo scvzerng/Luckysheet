@@ -71,7 +71,7 @@ const sheetInitModule = {
     luckysheetcreatedom(colwidth, rowheight, data, menu, title);
     setTimeout(function () {
       tooltip.createHoverTip("#luckysheet_info_detail", ".luckysheet_info_detail_back, .luckysheet_info_detail_input, .luckysheet_info_detail_update");
-      tooltip.createHoverTip("#luckysheet-wa-editor", ".luckysheet-toolbar-menu-button, .luckysheet-toolbar-button, .luckysheet-toolbar-combo-button");
+      tooltip.createHoverTip("#luckysheet-toolbar", ".luckysheet-toolbar-menu-button, .luckysheet-toolbar-button, .luckysheet-toolbar-combo-button");
       Store.luckysheetTableContentHW = [cellMain.getWidth() + Store.rowHeaderWidth - Store.cellMainSrollBarSize, cellMain.getHeight() + Store.columnHeaderHeight - Store.cellMainSrollBarSize];
       canvasContext.initContext({
         width: Math.ceil(Store.luckysheetTableContentHW[0] * Store.devicePixelRatio),
