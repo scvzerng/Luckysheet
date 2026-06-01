@@ -417,7 +417,7 @@ function selectHelpboxFill() {
     let range = getLastSelection();
     let _focus = getFocusCell();
     let rf = _focus.row, cf = _focus.col;
-    let _elHelpboxCell = document.getElementById("luckysheet-helpbox-cell");
+    let _elHelpboxCell = document.getElementById("luckysheet-formula-input-cell");
     if (!_elHelpboxCell) return;
     if (Store.config["merge"] != null && (rf + "_" + cf) in Store.config["merge"]) {
         _elHelpboxCell.textContent = getRangetxt(Store.currentSheetIndex, {

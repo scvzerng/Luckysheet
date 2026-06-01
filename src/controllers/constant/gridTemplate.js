@@ -62,8 +62,8 @@ const gridHTML = function() {
                             <div class="luckysheet-wa-calculate-size" id="luckysheet-wa-calculate-size"></div> 
                             <div class="luckysheet-wa-calculate-help"> 
                                 <div class="luckysheet-wa-calculate-help-box"> 
-                                    <div spellcheck="false" aria-hidden="false" id="luckysheet-helpbox">
-                                        <div id="luckysheet-helpbox-cell" class="luckysheet-helpbox-cell-input luckysheet-mousedown-cancel" tabindex="0" contenteditable="true" dir="ltr" aria-autocomplete="list"></div>
+                                    <div spellcheck="false" aria-hidden="false" id="luckysheet-formula-input">
+                                        <div id="luckysheet-formula-input-cell" class="luckysheet-formula-input-cell luckysheet-mousedown-cancel" tabindex="0" contenteditable="true" dir="ltr" aria-autocomplete="list"></div>
                                     </div> 
                                 </div>  
                                 <div class="luckysheet-wa-calculate-help-tool">

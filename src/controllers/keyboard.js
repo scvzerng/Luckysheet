@@ -297,9 +297,9 @@ export function keyboardInitial(){
             let anchorNode = window.getSelection().anchorNode;
             let anchorEl = anchorNode ? (anchorNode.nodeType === Node.TEXT_NODE ? anchorNode.parentElement : anchorNode) : null;
             
-            if(anchorEl && (anchorEl.closest("#luckysheet-helpbox-cell") !== null || anchorEl === document.getElementById("luckysheet-helpbox-cell"))){
+            if(anchorEl && (anchorEl.closest("#luckysheet-formula-input-cell") !== null || anchorEl === document.getElementById("luckysheet-formula-input-cell"))){
                 if(kcode == keycode.ENTER){
-                    let helpboxValue = document.getElementById("luckysheet-helpbox-cell")?.textContent;
+                    let helpboxValue = document.getElementById("luckysheet-formula-input-cell")?.textContent;
 
                     if(formula.iscelldata(helpboxValue)){
                         let cellrange = formula.getcellrange(helpboxValue);
@@ -307,7 +307,7 @@ export function keyboardInitial(){
                         Store.luckysheet_select_save = [{ "row": cellrange["row"], "column": cellrange["column"], "row_focus": cellrange["row"][0], "column_focus": cellrange["column"][0] }];
                         selectHightlightShow();
                         
-                        let _helpboxEl = document.getElementById("luckysheet-helpbox-cell"); if (_helpboxEl) _helpboxEl.blur();
+                        let _helpboxEl = document.getElementById("luckysheet-formula-input-cell"); if (_helpboxEl) _helpboxEl.blur();
 
                         let scroll = getScrollPosition();
                         let scrollLeft = scroll.scrollLeft,
