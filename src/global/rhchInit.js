@@ -44,7 +44,7 @@ export default function rhchInit(rowheight, colwidth) {
     //列宽
     if(colwidth != null){
         Store.visibleColPositions = [];
-        Store.ch_width = 0;
+        Store.sheetWidth = 0;
 
         let maxColumnlen = 120;
 
@@ -74,7 +74,7 @@ export default function rhchInit(rowheight, colwidth) {
             }
 
             if(isColHidden(c)){
-                Store.visibleColPositions.push(Store.ch_width);
+                Store.visibleColPositions.push(Store.sheetWidth);
                 continue;
             }
 
@@ -82,17 +82,17 @@ export default function rhchInit(rowheight, colwidth) {
             if (firstcolumnlen === 'auto') {
                 firstcolumnlen = computeColWidthByContent(Store.sheetData, c, rowheight);
             }
-            Store.ch_width += Math.round((firstcolumnlen + 1)*Store.zoomRatio);
+            Store.sheetWidth += Math.round((firstcolumnlen + 1)*Store.zoomRatio);
 
-            Store.visibleColPositions.push(Store.ch_width);//列的临时长度分布
+            Store.visibleColPositions.push(Store.sheetWidth);//列的临时长度分布
 
             // if(maxColumnlen < firstcolumnlen + 1){
             //     maxColumnlen = firstcolumnlen + 1;
             // }
         }
 
-        // Store.ch_width += 120;
-        Store.ch_width += maxColumnlen;
+        // Store.sheetWidth += 120;
+        Store.sheetWidth += maxColumnlen;
     }
 }
 

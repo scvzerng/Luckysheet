@@ -1353,7 +1353,7 @@ import formulaDialogs from '../../../ui/formulaDialogs.js';
                         formula.rangeResize,
                         formula.rangeResizeWinW,
                         formula.rangeResizeWinH,
-                        Store.ch_width,
+                        Store.sheetWidth,
                         Store.rh_height,
                     );
                 } else if (formula.rangeMove) {

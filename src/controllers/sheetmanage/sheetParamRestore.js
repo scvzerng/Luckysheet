@@ -62,7 +62,7 @@ const sheetParamRestoreModule = {
     file["config"] = Store.config;
     file["visibledatarow"] = Store.visibleRowPositions;
     file["visibledatacolumn"] = Store.visibleColPositions;
-    file["ch_width"] = Store.ch_width;
+    file["ch_width"] = Store.sheetWidth;
     file["rh_height"] = Store.rh_height;
     file["luckysheet_select_save"] = structuredClone(Store.selections);
     file["luckysheet_selection_range"] = structuredClone(Store.luckysheet_selection_range);
@@ -215,17 +215,17 @@ const sheetParamRestoreModule = {
   showSheet: function () {
     // changeSheetContainerSize();
     const _elCellFlow = document.getElementById("luckysheet-cell-flow_0"); if (_elCellFlow) Object.assign(_elCellFlow.style, {
-      width: Store.ch_width + "px",
+      width: Store.sheetWidth + "px",
       top: "-1px"
     }); //width更新
     resizeHandles.sheetTable.setCss({
-      width: Store.ch_width - 1,
+      width: Store.sheetWidth - 1,
       height: Store.rh_height
     });
     const _elRowHeader = document.getElementById("luckysheet-row-header-content"); if (_elRowHeader) _elRowHeader.style.height = Store.rh_height + "px";
-    const _elColsHCells = document.getElementById("luckysheet-cols-h-cells_0"); if (_elColsHCells) _elColsHCells.style.width = Store.ch_width + "px"; //width更新
+    const _elColsHCells = document.getElementById("luckysheet-cols-h-cells_0"); if (_elColsHCells) _elColsHCells.style.width = Store.sheetWidth + "px"; //width更新
 
-    scrollBarX.setInnerDivWidth(Store.ch_width);
+    scrollBarX.setInnerDivWidth(Store.sheetWidth);
     scrollBarY.setInnerDivHeight(Store.rh_height + Store.columnHeaderHeight - Store.cellMainSrollBarSize - 3);
 
     //等待滚动条dom宽高计算完成后 初始化该表格滚动位置

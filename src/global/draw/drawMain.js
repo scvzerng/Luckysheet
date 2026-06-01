@@ -377,7 +377,7 @@ function luckysheetDrawMain(scrollWidth, scrollHeight, drawWidth, drawHeight, of
 
   //娓叉煋琛ㄦ牸鏃舵湁灏惧垪鏃讹紝娓呴櫎鍙宠竟鐏拌壊鍖哄煙锛岄槻姝㈣〃鏍兼湁鍊兼孩鍑?
   if (dataset_col_ed == getMaxColIndex()) {
-    luckysheetTableContent.clearRect(fill_col_ed - scrollWidth + offsetLeft - 1, offsetTop - 1, Store.ch_width - Store.visibleColPositions[dataset_col_ed], fill_row_ed - scrollHeight);
+    luckysheetTableContent.clearRect(fill_col_ed - scrollWidth + offsetLeft - 1, offsetTop - 1, Store.sheetWidth - Store.visibleColPositions[dataset_col_ed], fill_row_ed - scrollHeight);
   }
   luckysheetTableContent.restore();
   Store.measureTextCacheTimeOut = setTimeout(() => {

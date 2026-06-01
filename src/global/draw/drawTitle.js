@@ -264,7 +264,7 @@ function luckysheetDrawgridColumnTitle(scrollWidth, drawWidth, offsetLeft) {
   //     (Store.columnHeaderHeight - 2 + 0.5)
   // );
   // luckysheetTableContent.lineTo(
-  //     (Store.ch_width + offsetLeft - 2) ,
+  //     (Store.sheetWidth + offsetLeft - 2) ,
   //     (Store.columnHeaderHeight - 2 + 0.5)
   // );
   // luckysheetTableContent.lineWidth = 1;

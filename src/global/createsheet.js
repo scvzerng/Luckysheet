@@ -13,7 +13,7 @@ export default function luckysheetcreatesheet(colwidth, rowheight, data, cfg, ac
 
     Store.visibleRowPositions = [];
     Store.visibleColPositions = [];
-    Store.ch_width = 0;
+    Store.sheetWidth = 0;
     Store.rh_height = 0;
     Store.zoomRatio = 1;
 
