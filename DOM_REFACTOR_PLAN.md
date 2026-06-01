@@ -370,12 +370,49 @@ onScroll()
 
 ### 变量重构执行顺序（按变量）
 
-| 序号 | 旧命名 | 新命名 | 预计引用数 |
-|------|--------|--------|-----------|
-| 1 | `Store.ch_width` | `Store.colHeaderWidth` | 20+ |
-| 2 | `Store.rh_height` | `Store.rowHeaderHeight` | 20+ |
-| 3 | `Store.flowdata` | `Store.sheetData` | 100+ |
-| ... | ... | ... | ... |
+> **注意**：必须按变量逐个处理，处理完一个变量的所有引用后才能处理下一个变量。
+
+#### 高优先级（核心数据结构）
+
+| 序号 | 旧命名 | 新命名 | 引用数 | 文件数 | 说明 |
+|------|--------|--------|--------|--------|------|
+| 1 | `Store.flowdata` | `Store.sheetData` | 408 | 100 | Sheet 二维数据 |
+| 2 | `Store.luckysheet_select_save` | `Store.selections` | 723 | 86 | 选区数组 |
+| 3 | `Store.visibledatacolumn` | `Store.visibleColPositions` | 241 | 47 | 列边界位置数组 |
+| 4 | `Store.visibledatarow` | `Store.visibleRowPositions` | 238 | 50 | 行边界位置数组 |
+
+#### 中优先级（布局尺寸）
+
+| 序号 | 旧命名 | 新命名 | 引用数 | 文件数 | 说明 |
+|------|--------|--------|--------|--------|------|
+| 5 | `Store.ch_width` | `Store.sheetWidth` | 20 | 8 | Sheet 总宽度 |
+| 6 | `Store.rh_height` | `Store.sheetHeight` | 22 | 8 | Sheet 总高度 |
+| 7 | `Store.cellmainWidth` | `Store.gridWidth` | 14 | 4 | 网格区域宽度 |
+| 8 | `Store.cellmainHeight` | `Store.gridHeight` | 14 | 4 | 网格区域高度 |
+| 9 | `Store.cellMainSrollBarSize` | `Store.scrollBarSize` | 29 | 8 | 滚动条尺寸 |
+
+#### 低优先级（状态标志）
+
+| 序号 | 旧命名 | 新命名 | 引用数 | 说明 |
+|------|--------|--------|--------|------|
+| 10 | `Store.luckysheet_select_status` | `Store.isSelecting` | - | 选择状态 |
+| 11 | `Store.luckysheet_scroll_status` | `Store.isScrolling` | - | 滚动状态 |
+| 12 | `Store.luckysheet_rows_selected_status` | `Store.isRowsSelected` | - | 行选中状态 |
+| 13 | `Store.luckysheet_cols_selected_status` | `Store.isColsSelected` | - | 列选中状态 |
+
+#### 其他待重构变量
+
+| 旧命名 | 新命名 | 说明 |
+|--------|--------|------|
+| `Store.visibledatarow_unique` | `Store.visibleRowPositionsUnique` | 唯一行位置 |
+| `Store.visibledatacolumn_unique` | `Store.visibleColPositionsUnique` | 唯一列位置 |
+| `Store.defaultcollen` | `Store.defaultColWidth` | 默认列宽 |
+| `Store.defaultrowlen` | `Store.defaultRowHeight` | 默认行高 |
+| `Store.luckysheet_copy_save` | `Store.clipboardData` | 剪贴板数据 |
+| `Store.luckysheet_filter_save` | `Store.filterConfig` | 筛选配置 |
+| `Store.jfundo` | `Store.undoStack` | 撤销栈 |
+| `Store.jfredo` | `Store.redoStack` | 重做栈 |
+| `Store.measureTextCache` | `Store.textMeasureCache` | 文本测量缓存 |
 
 ---
 
