@@ -750,7 +750,7 @@ export function keyboardInitial(){
                     formula.functionInputHanddler(functionBox.el, richTextEditor.el, kcode);
                 }
                 else if (String.fromCharCode(kcode).toLocaleUpperCase() == "A") {
-                    document.getElementById("luckysheet-left-top")?.click()
+                    document.getElementById("luckysheet-corner-cell")?.click()
                 }
 
                 event.preventDefault();

@@ -75,7 +75,7 @@ export default function globalEvents() {
     });
 
     //表格左上角点击 全选表格
-    const _leftTop = document.getElementById("luckysheet-left-top"); if (_leftTop) _leftTop.addEventListener("click", function(event) {
+    const _leftTop = document.getElementById("luckysheet-corner-cell"); if (_leftTop) _leftTop.addEventListener("click", function(event) {
 
         const _confirmBtn = document.getElementById("luckysheet-wa-functionbox-confirm"); if (_confirmBtn) _confirmBtn.click();
         Store.luckysheet_select_status = false;

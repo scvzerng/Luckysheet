@@ -97,7 +97,7 @@ const gridHTML = function() {
                                     <tbody> 
                                         <tr> 
                                             <td valign="top" class="luckysheet-paneswrapper"> 
-                                                <div class="luckysheet-left-top" id="luckysheet-left-top"> </div> 
+                                                <div class="luckysheet-corner-cell" id="luckysheet-corner-cell"> </div> 
                                             </td> 
                                             <td valign="top" class="luckysheet-paneswrapper"> 
                                                 <div id="luckysheet-col-header" class="luckysheet-col-header">
