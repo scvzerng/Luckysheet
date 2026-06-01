@@ -40,7 +40,7 @@ describe('gridTemplate - 主网格DOM模板', () => {
 
     it('应包含信息栏区域', () => {
         const html = gridHTML();
-        expect(html).toContain('luckysheet_info_detail');
+        expect(html).toContain('luckysheet-sheet-info');
     });
 
     it('应包含公式栏区域', () => {

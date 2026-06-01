@@ -70,7 +70,7 @@ const sheetInitModule = {
 
     luckysheetcreatedom(colwidth, rowheight, data, menu, title);
     setTimeout(function () {
-      tooltip.createHoverTip("#luckysheet_info_detail", ".luckysheet_info_detail_back, .luckysheet_info_detail_input, .luckysheet_info_detail_update");
+      tooltip.createHoverTip("#luckysheet-sheet-info", ".luckysheet_info_detail_back, .luckysheet_info_detail_input, .luckysheet_info_detail_update");
       tooltip.createHoverTip("#luckysheet-toolbar", ".luckysheet-toolbar-menu-button, .luckysheet-toolbar-button, .luckysheet-toolbar-combo-button");
       Store.luckysheetTableContentHW = [cellMain.getWidth() + Store.rowHeaderWidth - Store.cellMainSrollBarSize, cellMain.getHeight() + Store.columnHeaderHeight - Store.cellMainSrollBarSize];
       canvasContext.initContext({

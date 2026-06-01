@@ -15,7 +15,7 @@ const gridHTML = function() {
     return `<div class="luckysheet">
                     <canvas id="luckysheetTableContentF" style="display:none;" class="luckysheetTableContent"></canvas> 
                     <div class="luckysheet-work-area luckysheet-noselected-text"> 
-                        <div id ="luckysheet_info_detail" class="luckysheet_info_detail"> 
+                        <div id ="luckysheet-sheet-info" class="luckysheet-sheet-info"> 
                             <div data-tips="${
                                 locale_info.return
                             }" id="luckysheet_info_detail_title" class="luckysheet_info_detail_back"> 

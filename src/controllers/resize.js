@@ -23,11 +23,11 @@ let gridW = 0,
 export default function luckysheetsizeauto(isRefreshCanvas=true) {
     if (!luckysheetConfigsetting.showinfobar) {
         Store.infobarHeight = 0;
-        const _infoDetail = document.getElementById("luckysheet_info_detail"); if (_infoDetail) _infoDetail.style.display = 'none';
+        const _infoDetail = document.getElementById("luckysheet-sheet-info"); if (_infoDetail) _infoDetail.style.display = 'none';
     }
     else {
-        const _infoDetail2 = document.getElementById("luckysheet_info_detail"); if (_infoDetail2) _infoDetail2.style.display = 'block';
-        Store.infobarHeight = document.querySelector('#luckysheet_info_detail')?.offsetHeight || 0;
+        const _infoDetail2 = document.getElementById("luckysheet-sheet-info"); if (_infoDetail2) _infoDetail2.style.display = 'block';
+        Store.infobarHeight = document.querySelector('#luckysheet-sheet-info')?.offsetHeight || 0;
     }
 
     if (!!Store.toobarObject && !!Store.toobarObject.toobarElements && Store.toobarObject.toobarElements === null) {
