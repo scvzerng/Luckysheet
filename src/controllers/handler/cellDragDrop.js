@@ -28,7 +28,7 @@ import canvasContext from '../../ui/canvasContext.js';
 
 export default function cellDragDrop() {
     //监听拖拽
-    document.getElementById("luckysheet-cell-main").addEventListener(
+    document.getElementById("luckysheet-grid-body").addEventListener(
         "drop",
         function(e) {
             e.preventDefault();
@@ -44,7 +44,7 @@ export default function cellDragDrop() {
         },
         false,
     );
-    document.getElementById("luckysheet-cell-main").addEventListener(
+    document.getElementById("luckysheet-grid-body").addEventListener(
         "dragover",
         function(e) {
             e.preventDefault();

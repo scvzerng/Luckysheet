@@ -50,7 +50,7 @@ describe('gridTemplate - 主网格DOM模板', () => {
 
     it('应包含网格主体区域', () => {
         const html = gridHTML();
-        expect(html).toContain('luckysheet-cell-main');
+        expect(html).toContain('luckysheet-grid-body');
     });
 
     it('应包含canvas元素', () => {

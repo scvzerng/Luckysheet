@@ -130,7 +130,7 @@ const gridHTML = function() {
                                                 <div class="luckysheet-cell-freezen"></div> 
                                                 <div class="luckysheet-scrollbars luckysheet-scrollbar-ltr luckysheet-scrollbar-x" id="luckysheet-scrollbar-x"><div></div></div> 
                                                 <div class="luckysheet-scrollbars luckysheet-scrollbar-ltr luckysheet-scrollbar-y" id="luckysheet-scrollbar-y"><div></div></div> 
-                                                <div class="luckysheet-cell-main " id="luckysheet-cell-main">
+                                                <div class="luckysheet-grid-body " id="luckysheet-grid-body">
                                                     <div id="luckysheet-formula-functionrange"></div>  
                                                     <div id="luckysheet-formula-functionrange-select" class="luckysheet-selection-copy luckysheet-formula-functionrange-select">
                                                         <div class="luckysheet-selection-copy-top luckysheet-copy"></div>

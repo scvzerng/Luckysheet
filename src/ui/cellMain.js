@@ -2,7 +2,7 @@ class CellMain {
     constructor() { this._el = null; }
 
     get el() {
-        if (!this._el || !document.body.contains(this._el)) this._el = document.getElementById("luckysheet-cell-main");
+        if (!this._el || !document.body.contains(this._el)) this._el = document.getElementById("luckysheet-grid-body");
         return this._el;
     }
 

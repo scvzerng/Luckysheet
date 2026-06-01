@@ -89,7 +89,7 @@ export function initFreezen(_this) {
             if (itemvalue == "freezenRow") {
               //首行冻结
               frozenFirstRow();
-              // let scrollTop = document.getElementById("luckysheet-cell-main").scrollTop;
+              // let scrollTop = document.getElementById("luckysheet-grid-body").scrollTop;
               // let row_st = luckysheet_searcharray(Store.visibledatarow, scrollTop);
               // if(row_st == -1){
               //     row_st = 0;
@@ -110,7 +110,7 @@ export function initFreezen(_this) {
             } else if (itemvalue == "freezenColumn") {
               //首列冻结
               frozenFirstColumn();
-              // let scrollLeft = document.getElementById("luckysheet-cell-main").scrollLeft;
+              // let scrollLeft = document.getElementById("luckysheet-grid-body").scrollLeft;
               // let col_st = luckysheet_searcharray(Store.visibledatacolumn, scrollLeft);
               // if(col_st == -1){
               //     col_st = 0;
