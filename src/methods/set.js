@@ -30,7 +30,7 @@ function setvisibledatarow(v) {
 }
 
 function setvisibledatacolumn(v) {
-    Store.visibledatacolumn = v;
+    Store.visibleColPositions = v;
 
     if(Store.luckysheetfile != null){
         getCurrentFile().visibledatacolumn = v;

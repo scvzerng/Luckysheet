@@ -477,8 +477,8 @@ function luckysheetextendtable(type, index, value, direction, sheetIndex) {
     } else if (freezen_col_st > index) {
       freezen_col_st += value;
     }
-    let freezen_left = Store.visibledatacolumn[freezen_col_st] - 2 - freezen_scrollLeft + Store.rowHeaderWidth;
-    newFreezen.freezenverticaldata = [Store.visibledatacolumn[freezen_col_st], freezen_col_st + 1, freezen_scrollLeft, luckysheetFreezen.cutVolumn(Store.visibledatacolumn, freezen_col_st + 1), freezen_left];
+    let freezen_left = Store.visibleColPositions[freezen_col_st] - 2 - freezen_scrollLeft + Store.rowHeaderWidth;
+    newFreezen.freezenverticaldata = [Store.visibleColPositions[freezen_col_st], freezen_col_st + 1, freezen_scrollLeft, luckysheetFreezen.cutVolumn(Store.visibleColPositions, freezen_col_st + 1), freezen_left];
   } else {
     newFreezen.freezenverticaldata = luckysheetFreezen.freezenverticaldata;
   }

@@ -367,8 +367,8 @@ function luckysheetMoveHighlightCell(postion, index, type, isScroll) {
       // row_index = moveX;
       // row_index_ed = moveX;
 
-      col = Store.visibledatacolumn[moveY];
-      col_pre = moveY - 1 == -1 ? 0 : Store.visibledatacolumn[moveY - 1];
+      col = Store.visibleColPositions[moveY];
+      col_pre = moveY - 1 == -1 ? 0 : Store.visibleColPositions[moveY - 1];
       // col_index = moveY;
       // col_index_ed = moveY;
 
@@ -462,8 +462,8 @@ function luckysheetMoveHighlightCell(postion, index, type, isScroll) {
       row_pre = moveX - 1 == -1 ? 0 : Store.visibledatarow[moveX - 1];
       row_index = moveX;
       row_index_ed = moveX;
-      col = Store.visibledatacolumn[moveY];
-      col_pre = moveY - 1 == -1 ? 0 : Store.visibledatacolumn[moveY - 1];
+      col = Store.visibleColPositions[moveY];
+      col_pre = moveY - 1 == -1 ? 0 : Store.visibleColPositions[moveY - 1];
       col_index = moveY;
       col_index_ed = moveY;
     }
@@ -589,8 +589,8 @@ function luckysheetMoveHighlightCell2(postion, type, isScroll) {
     let columnseleted = [cf, cf];
     row = Store.visibledatarow[rf];
     row_pre = rf - 1 == -1 ? 0 : Store.visibledatarow[rf - 1];
-    col = Store.visibledatacolumn[cf];
-    col_pre = cf - 1 == -1 ? 0 : Store.visibledatacolumn[cf - 1];
+    col = Store.visibleColPositions[cf];
+    col_pre = cf - 1 == -1 ? 0 : Store.visibleColPositions[cf - 1];
     let changeparam = menuButton.mergeMoveMain(columnseleted, rowseleted, last, row_pre, row - row_pre - 1, col_pre, col - col_pre - 1);
     if (changeparam != null) {
       columnseleted = changeparam[0];
@@ -657,8 +657,8 @@ function luckysheetMoveHighlightCell2(postion, type, isScroll) {
     let columnseleted = [cf, cf];
     row = Store.visibledatarow[rf];
     row_pre = rf - 1 == -1 ? 0 : Store.visibledatarow[rf - 1];
-    col = Store.visibledatacolumn[cf];
-    col_pre = cf - 1 == -1 ? 0 : Store.visibledatacolumn[cf - 1];
+    col = Store.visibleColPositions[cf];
+    col_pre = cf - 1 == -1 ? 0 : Store.visibleColPositions[cf - 1];
     let top = row_pre,
       height = row - row_pre - 1;
     let left = col_pre,

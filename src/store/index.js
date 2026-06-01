@@ -15,7 +15,7 @@ const Store = {
     config: {},
 
     visibledatarow: [],
-    visibledatacolumn: [],
+    visibleColPositions: [],
     ch_width: 0,
     rh_height: 0,
 

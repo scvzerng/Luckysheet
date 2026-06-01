@@ -80,10 +80,10 @@ export function getMaxRowIndex() {
 }
 
 export function getMaxColIndex() {
-    if (Store.visibledatacolumn == null || Store.visibledatacolumn.length === 0) {
+    if (Store.visibleColPositions == null || Store.visibleColPositions.length === 0) {
         return 0;
     }
-    return Store.visibledatacolumn.length - 1;
+    return Store.visibleColPositions.length - 1;
 }
 
 export function syncConfigToStore() {

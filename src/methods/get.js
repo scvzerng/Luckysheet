@@ -72,7 +72,7 @@ function getvisibledatarow() {
 }
 
 function getvisibledatacolumn() {
-    return Store.visibledatacolumn;
+    return Store.visibleColPositions;
 }
 
 function getConditionFormatCells() {

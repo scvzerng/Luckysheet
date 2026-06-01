@@ -100,9 +100,9 @@ const mergeCalcModule = {
         if (c == 0) {
           start_c = 0;
         } else {
-          start_c = Store.visibledatacolumn[c - 1];
+          start_c = Store.visibleColPositions[c - 1];
         }
-        end_c = Store.visibledatacolumn[c];
+        end_c = Store.visibleColPositions[c];
         if (col_pre == null) {
           col_pre = start_c;
           col = end_c;

@@ -384,8 +384,8 @@ const insertFormula = {
                     c2 = cellrange.column[1];
                 let row = Store.visibledatarow[r2], 
                     row_pre = r1 - 1 == -1 ? 0 : Store.visibledatarow[r1 - 1];
-                let col = Store.visibledatacolumn[c2], 
-                    col_pre = c1 - 1 == -1 ? 0 : Store.visibledatacolumn[c1 - 1];
+                let col = Store.visibleColPositions[c2], 
+                    col_pre = c1 - 1 == -1 ? 0 : Store.visibleColPositions[c1 - 1];
 
                 formulaRangeSelect.showAt({ 
                     "left": col_pre, 
@@ -448,8 +448,8 @@ const insertFormula = {
                 c2 = cellrange.column[1];
             let row = Store.visibledatarow[r2], 
                 row_pre = r1 - 1 == -1 ? 0 : Store.visibledatarow[r1 - 1];
-            let col = Store.visibledatacolumn[c2], 
-                col_pre = c1 - 1 == -1 ? 0 : Store.visibledatacolumn[c1 - 1];
+            let col = Store.visibleColPositions[c2], 
+                col_pre = c1 - 1 == -1 ? 0 : Store.visibleColPositions[c1 - 1];
 
             formulaRangeSelect.showAt({ 
                 "left": col_pre, 

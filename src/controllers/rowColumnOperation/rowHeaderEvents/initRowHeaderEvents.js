@@ -38,7 +38,7 @@ export function initRowHeaderEvents() {
         row_pre = row_location[0],
         row_index = row_location[2];
       let col_index = getMaxColIndex(),
-        col = Store.visibledatacolumn[col_index],
+        col = Store.visibleColPositions[col_index],
         col_pre = 0;
       rightClickMenu.hide();
       [document.getElementById("luckysheet-sheet-list"), document.getElementById("luckysheet-rightclick-sheet-menu")].forEach(el => { if (el) el.style.display = 'none'; });

@@ -21,8 +21,8 @@ function createFilterOptions(luckysheet_filter_save, filterObj) {
 
     let row = Store.visibledatarow[r2], 
         row_pre = r1 - 1 == -1 ? 0 : Store.visibledatarow[r1 - 1];
-    let col = Store.visibledatacolumn[c2], 
-        col_pre = c1 - 1 == -1 ? 0 : Store.visibledatacolumn[c1 - 1];
+    let col = Store.visibleColPositions[c2], 
+        col_pre = c1 - 1 == -1 ? 0 : Store.visibleColPositions[c1 - 1];
 
     let newSelectedHTML = '<div id="luckysheet-filter-selected-sheet'+ Store.currentSheetIndex +'" class="luckysheet-cell-selected luckysheet-filter-selected"  style="left:'+ col_pre +'px;width:'+ (col - col_pre - 1) +'px;top:'+ row_pre +'px;height:'+ (row - row_pre - 1) +'px;display:block;border-color:#897BFF;z-index:20;background:none;"></div>';
     cellMain.append(newSelectedHTML);
@@ -33,7 +33,7 @@ function createFilterOptions(luckysheet_filter_save, filterObj) {
         const isHide = isColHidden(c)
 
         if(filterObj == null || filterObj[c - c1] == null){
-            optionHTML += '<div data-rowhidden="" data-str="'+ r1 +'" data-edr="'+ r2 +'" data-cindex="'+ c +'" data-stc="'+ c1 +'" data-edc="'+ c2 +'" class="luckysheet-filter-options" style="left:'+ (Store.visibledatacolumn[c] - 20) +'px;top:'+ row_pre +'px;display:'+ (isHide ? 'none' : 'block') +';"><i class="fa fa-caret-down" aria-hidden="true"></i></div>';
+            optionHTML += '<div data-rowhidden="" data-str="'+ r1 +'" data-edr="'+ r2 +'" data-cindex="'+ c +'" data-stc="'+ c1 +'" data-edc="'+ c2 +'" class="luckysheet-filter-options" style="left:'+ (Store.visibleColPositions[c] - 20) +'px;top:'+ row_pre +'px;display:'+ (isHide ? 'none' : 'block') +';"><i class="fa fa-caret-down" aria-hidden="true"></i></div>';
         }
         else{
             let caljs_data;
@@ -65,7 +65,7 @@ function createFilterOptions(luckysheet_filter_save, filterObj) {
                 caljs_data = '';
             }
 
-            optionHTML += '<div data-rowhidden="'+ JSON.stringify(filterObj[c - c1].rowhidden).replace(/\"/g, "'") +'" '+ caljs_data +' data-str="'+ r1 +'" data-edr="'+ r2 +'" data-cindex="'+ c +'" data-stc="'+ c1 +'" data-edc="'+ c2 +'" class="luckysheet-filter-options luckysheet-filter-options-active" style="left:'+ (Store.visibledatacolumn[c] - 20) +'px;top:'+ row_pre +'px;display:'+ (isHide ? 'none' : 'block') +';"><i class="fa fa-filter luckysheet-mousedown-cancel" aria-hidden="true"></i></div>';
+            optionHTML += '<div data-rowhidden="'+ JSON.stringify(filterObj[c - c1].rowhidden).replace(/\"/g, "'") +'" '+ caljs_data +' data-str="'+ r1 +'" data-edr="'+ r2 +'" data-cindex="'+ c +'" data-stc="'+ c1 +'" data-edc="'+ c2 +'" class="luckysheet-filter-options luckysheet-filter-options-active" style="left:'+ (Store.visibleColPositions[c] - 20) +'px;top:'+ row_pre +'px;display:'+ (isHide ? 'none' : 'block') +';"><i class="fa fa-filter luckysheet-mousedown-cancel" aria-hidden="true"></i></div>';
         }
     }
 

@@ -17,8 +17,8 @@ import countShow from '../ui/countShow.js';
 function seletedHighlistByindex(id, r1, r2, c1, c2) {
     let row = Store.visibledatarow[r2],
         row_pre = r1 - 1 == -1 ? 0 : Store.visibledatarow[r1 - 1];
-    let col = Store.visibledatacolumn[c2],
-        col_pre = c1 - 1 == -1 ? 0 : Store.visibledatacolumn[c1 - 1];
+    let col = Store.visibleColPositions[c2],
+        col_pre = c1 - 1 == -1 ? 0 : Store.visibleColPositions[c1 - 1];
 
     let _el = document.getElementById(id);
     if (_el) {
@@ -62,13 +62,13 @@ function selectHightlightShow(isRestore = false) {
 
             let row = Store.visibledatarow[r2],
                 row_pre = r1 - 1 == -1 ? 0 : Store.visibledatarow[r1 - 1];
-            let col = Store.visibledatacolumn[c2],
-                col_pre = c1 - 1 == -1 ? 0 : Store.visibledatacolumn[c1 - 1];
+            let col = Store.visibleColPositions[c2],
+                col_pre = c1 - 1 == -1 ? 0 : Store.visibleColPositions[c1 - 1];
 
             let row_f = Store.visibledatarow[rf],
                 row_pre_f = rf - 1 == -1 ? 0 : Store.visibledatarow[rf - 1];
-            let col_f = Store.visibledatacolumn[cf],
-                col_pre_f = cf - 1 == -1 ? 0 : Store.visibledatacolumn[cf - 1];
+            let col_f = Store.visibleColPositions[cf],
+                col_pre_f = cf - 1 == -1 ? 0 : Store.visibleColPositions[cf - 1];
 
             let margeset = menuButton.mergeborer(Store.sheetData, rf, cf);
             if (margeset) {
@@ -344,8 +344,8 @@ function selectionCopyShow(range) {
 
             let row = Store.visibledatarow[r2],
                 row_pre = r1 - 1 == -1 ? 0 : Store.visibledatarow[r1 - 1];
-            let col = Store.visibledatacolumn[c2],
-                col_pre = c1 - 1 == -1 ? 0 : Store.visibledatacolumn[c1 - 1];
+            let col = Store.visibleColPositions[c2],
+                col_pre = c1 - 1 == -1 ? 0 : Store.visibleColPositions[c1 - 1];
 
             let copyDomHtml = '<div class="luckysheet-selection-copy" style="display: block; left: ' + col_pre + 'px; width: ' + (col - col_pre - 1) + 'px; top: ' + row_pre + 'px; height: ' + (row - row_pre - 1) + 'px;">' +
                 '<div class="luckysheet-selection-copy-top luckysheet-copy"></div>' +

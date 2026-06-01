@@ -293,7 +293,7 @@ import formulaDialogs from '../../../ui/formulaDialogs.js';
                         row_pre = row_location[0],
                         row_index = row_location[2];
                     let col_index = getMaxColIndex(),
-                        col = Store.visibledatacolumn[col_index],
+                        col = Store.visibleColPositions[col_index],
                         col_pre = 0;
 
                     let last = structuredClone(getLastSelection());
@@ -443,7 +443,7 @@ import formulaDialogs from '../../../ui/formulaDialogs.js';
                         row_e = getMaxRowIndex();
                     }
 
-                    if (col_e >= Store.visibledatacolumn[getMaxColIndex()] || x > winW) {
+                    if (col_e >= Store.visibleColPositions[getMaxColIndex()] || x > winW) {
                         col_s =
                             getMaxColIndex() -
                             Store.selections[0]["column"][1] +
@@ -451,8 +451,8 @@ import formulaDialogs from '../../../ui/formulaDialogs.js';
                         col_e = getMaxColIndex();
                     }
 
-                    col_pre = col_s - 1 == -1 ? 0 : Store.visibledatacolumn[col_s - 1];
-                    col = Store.visibledatacolumn[col_e];
+                    col_pre = col_s - 1 == -1 ? 0 : Store.visibleColPositions[col_s - 1];
+                    col = Store.visibleColPositions[col_e];
                     row_pre = row_s - 1 == -1 ? 0 : Store.visibledatarow[row_s - 1];
                     row = Store.visibledatarow[row_e];
 
@@ -514,7 +514,7 @@ import formulaDialogs from '../../../ui/formulaDialogs.js';
                         row_e = getMaxRowIndex();
                     }
 
-                    if (col_e >= Store.visibledatacolumn[getMaxColIndex()] || x > winW) {
+                    if (col_e >= Store.visibleColPositions[getMaxColIndex()] || x > winW) {
                         col_s =
                             getMaxColIndex() -
                             Store.selections[0]["column"][1] +

@@ -43,11 +43,11 @@ export function insertImage(src, options = {}){
             colIndex = 0;
         }
 
-        if(colIndex > Store.visibledatacolumn.length){
-            colIndex = Store.visibledatacolumn.length;
+        if(colIndex > Store.visibleColPositions.length){
+            colIndex = Store.visibleColPositions.length;
         }
 
-        let left = colIndex == 0 ? 0 : Store.visibledatacolumn[colIndex - 1];
+        let left = colIndex == 0 ? 0 : Store.visibleColPositions[colIndex - 1];
         let top = rowIndex == 0 ? 0 : Store.visibledatarow[rowIndex - 1];
 
         let image = new Image();

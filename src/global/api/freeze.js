@@ -66,28 +66,28 @@ export function frozenFirstColumn(order) {
         let freezenverticaldata, col_st, left;
         if (luckysheetFreezen.freezenRealFirstRowColumn) {
             col_st = 0;
-            left = Store.visibledatacolumn[col_st] - 2 + Store.rowHeaderWidth;
+            left = Store.visibleColPositions[col_st] - 2 + Store.rowHeaderWidth;
             freezenverticaldata = [
-                Store.visibledatacolumn[col_st],
+                Store.visibleColPositions[col_st],
                 col_st + 1,
                 0,
-                luckysheetFreezen.cutVolumn(Store.visibledatacolumn, col_st + 1),
+                luckysheetFreezen.cutVolumn(Store.visibleColPositions, col_st + 1),
                 left
             ];
         } else {
             let scrollLeft = getScrollPosition().scrollLeft;
 
-            col_st = luckysheet_searcharray(Store.visibledatacolumn, scrollLeft);
+            col_st = luckysheet_searcharray(Store.visibleColPositions, scrollLeft);
             if(col_st == -1){
                 col_st = 0;
             }
 
-            left = Store.visibledatacolumn[col_st] - 2 - scrollLeft + Store.rowHeaderWidth;
+            left = Store.visibleColPositions[col_st] - 2 - scrollLeft + Store.rowHeaderWidth;
             freezenverticaldata = [
-                Store.visibledatacolumn[col_st],
+                Store.visibleColPositions[col_st],
                 col_st + 1,
                 scrollLeft,
-                luckysheetFreezen.cutVolumn(Store.visibledatacolumn, col_st + 1),
+                luckysheetFreezen.cutVolumn(Store.visibleColPositions, col_st + 1),
                 left
             ];
         }
@@ -188,7 +188,7 @@ export function frozenColumnRange(range, order) {
 
     if (!order || order == getSheetIndex(Store.currentSheetIndex)) {
         let scrollLeft = getScrollPosition().scrollLeft;
-        let col_st = luckysheet_searcharray(Store.visibledatacolumn, scrollLeft);
+        let col_st = luckysheet_searcharray(Store.visibleColPositions, scrollLeft);
 
         let column_focus = range.column_focus;
         if(column_focus > col_st){
@@ -198,12 +198,12 @@ export function frozenColumnRange(range, order) {
             col_st = 0;
         }
 
-        let left = Store.visibledatacolumn[col_st] - 2 - scrollLeft + Store.rowHeaderWidth;
+        let left = Store.visibleColPositions[col_st] - 2 - scrollLeft + Store.rowHeaderWidth;
         let freezenverticaldata = [
-            Store.visibledatacolumn[col_st],
+            Store.visibleColPositions[col_st],
             col_st + 1,
             scrollLeft,
-            luckysheetFreezen.cutVolumn(Store.visibledatacolumn, col_st + 1),
+            luckysheetFreezen.cutVolumn(Store.visibleColPositions, col_st + 1),
             left
         ];
         luckysheetFreezen.saveFreezen(null, null, freezenverticaldata, left);
@@ -319,16 +319,16 @@ export function setBothFrozen(isRange, options = {}) {
             luckysheetFreezen.createFreezenHorizontal(freezenhorizontaldata, top);
 
             let scrollLeft = scroll.scrollLeft;
-            let col_st = luckysheet_searcharray(Store.visibledatacolumn, scrollLeft);
+            let col_st = luckysheet_searcharray(Store.visibleColPositions, scrollLeft);
             if(col_st == -1){
                 col_st = 0;
             }
-            let left = Store.visibledatacolumn[col_st] - 2 - scrollLeft + Store.rowHeaderWidth;
+            let left = Store.visibleColPositions[col_st] - 2 - scrollLeft + Store.rowHeaderWidth;
             let freezenverticaldata = [
-                Store.visibledatacolumn[col_st],
+                Store.visibleColPositions[col_st],
                 col_st + 1,
                 scrollLeft,
-                luckysheetFreezen.cutVolumn(Store.visibledatacolumn, col_st + 1),
+                luckysheetFreezen.cutVolumn(Store.visibleColPositions, col_st + 1),
                 left
             ];
             luckysheetFreezen.saveFreezen(null, null, freezenverticaldata, left);
@@ -388,7 +388,7 @@ export function setBothFrozen(isRange, options = {}) {
             luckysheetFreezen.createFreezenHorizontal(freezenhorizontaldata, top);
 
             let scrollLeft = scroll.scrollLeft;
-            let col_st = luckysheet_searcharray(Store.visibledatacolumn, scrollLeft);
+            let col_st = luckysheet_searcharray(Store.visibleColPositions, scrollLeft);
 
             let column_focus = range.column_focus;
 
@@ -400,12 +400,12 @@ export function setBothFrozen(isRange, options = {}) {
                 col_st = 0;
             }
 
-            let left = Store.visibledatacolumn[col_st] - 2 - scrollLeft + Store.rowHeaderWidth;
+            let left = Store.visibleColPositions[col_st] - 2 - scrollLeft + Store.rowHeaderWidth;
             let freezenverticaldata = [
-                Store.visibledatacolumn[col_st],
+                Store.visibleColPositions[col_st],
                 col_st + 1,
                 scrollLeft,
-                luckysheetFreezen.cutVolumn(Store.visibledatacolumn, col_st + 1),
+                luckysheetFreezen.cutVolumn(Store.visibleColPositions, col_st + 1),
                 left
             ];
             luckysheetFreezen.saveFreezen(null, null, freezenverticaldata, left);

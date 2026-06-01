@@ -113,16 +113,16 @@ const freezeCoreModule = {
     if (freezenverticaldata == null) {
       if (_this.freezenRealFirstRowColumn) {
         let dataset_col_st = 0;
-        left = Store.visibledatacolumn[dataset_col_st] - 2 + Store.rowHeaderWidth;
-        freezenverticaldata = [Store.visibledatacolumn[dataset_col_st], dataset_col_st + 1, 0, _this.cutVolumn(Store.visibledatacolumn, dataset_col_st + 1), left];
+        left = Store.visibleColPositions[dataset_col_st] - 2 + Store.rowHeaderWidth;
+        freezenverticaldata = [Store.visibleColPositions[dataset_col_st], dataset_col_st + 1, 0, _this.cutVolumn(Store.visibleColPositions, dataset_col_st + 1), left];
       } else {
         let scrollLeft = getScrollPosition().scrollLeft;
-        let dataset_col_st = luckysheet_searcharray(Store.visibledatacolumn, scrollLeft);
+        let dataset_col_st = luckysheet_searcharray(Store.visibleColPositions, scrollLeft);
         if (dataset_col_st == -1) {
           dataset_col_st = 0;
         }
-        left = Store.visibledatacolumn[dataset_col_st] - 2 - scrollLeft + Store.rowHeaderWidth;
-        freezenverticaldata = [Store.visibledatacolumn[dataset_col_st], dataset_col_st + 1, scrollLeft, _this.cutVolumn(Store.visibledatacolumn, dataset_col_st + 1), left];
+        left = Store.visibleColPositions[dataset_col_st] - 2 - scrollLeft + Store.rowHeaderWidth;
+        freezenverticaldata = [Store.visibleColPositions[dataset_col_st], dataset_col_st + 1, scrollLeft, _this.cutVolumn(Store.visibleColPositions, dataset_col_st + 1), left];
       }
       _this.saveFreezen(null, null, freezenverticaldata, left);
     }
@@ -207,7 +207,7 @@ const freezeCoreModule = {
     let _this = this;
     if (type == "v" && _this.freezenverticaldata != null) {
       let freezen_colindex = _this.freezenverticaldata[1];
-      let offset = luckysheet_searcharray(Store.visibledatacolumn, getScrollPosition().scrollLeft);
+      let offset = luckysheet_searcharray(Store.visibleColPositions, getScrollPosition().scrollLeft);
       if (originindex - offset < freezen_colindex) {
         originindex = originindex - offset;
       }
@@ -241,14 +241,14 @@ const freezeCoreModule = {
       let offset = luckysheet_searcharray(_this.freezenverticaldata[3], getScrollPosition().scrollLeft);
       let top = _this.freezenverticaldata[4];
       freezen_colindex += offset;
-      if (column >= Store.visibledatacolumn.length) {
+      if (column >= Store.visibleColPositions.length) {
         column = getMaxColIndex();
       }
-      if (freezen_colindex >= Store.visibledatacolumn.length) {
+      if (freezen_colindex >= Store.visibleColPositions.length) {
         freezen_colindex = getMaxColIndex();
       }
-      let column_px = Store.visibledatacolumn[column],
-        freezen_px = Store.visibledatacolumn[freezen_colindex];
+      let column_px = Store.visibleColPositions[column],
+        freezen_px = Store.visibleColPositions[freezen_colindex];
       if (column_px <= freezen_px + top) {
         setTimeout(function () {
           scrollBarX.setScrollLeft(0);

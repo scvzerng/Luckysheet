@@ -199,8 +199,8 @@ const luckysheetSearchReplace = {
 
                 let row = Store.visibledatarow[r],
                     row_pre = r - 1 == -1 ? 0 : Store.visibledatarow[r - 1];
-                let col = Store.visibledatacolumn[c],
-                    col_pre = c - 1 == -1 ? 0 : Store.visibledatacolumn[c - 1];
+                let col = Store.visibleColPositions[c],
+                    col_pre = c - 1 == -1 ? 0 : Store.visibleColPositions[c - 1];
 
                 if (col - scrollLeft - winW + 20 > 0) {
                     scrollBarX.setScrollLeft(col - winW + 20);
@@ -349,8 +349,8 @@ const luckysheetSearchReplace = {
 
         let row = Store.visibledatarow[searchIndexArr[count].r],
             row_pre = searchIndexArr[count].r - 1 == -1 ? 0 : Store.visibledatarow[searchIndexArr[count].r - 1];
-        let col = Store.visibledatacolumn[searchIndexArr[count].c],
-            col_pre = searchIndexArr[count].c - 1 == -1 ? 0 : Store.visibledatacolumn[searchIndexArr[count].c - 1];
+        let col = Store.visibleColPositions[searchIndexArr[count].c],
+            col_pre = searchIndexArr[count].c - 1 == -1 ? 0 : Store.visibleColPositions[searchIndexArr[count].c - 1];
 
         if (col - scrollLeft - winW + 20 > 0) {
             scrollBarX.setScrollLeft(col - winW + 20);
@@ -702,8 +702,8 @@ const luckysheetSearchReplace = {
 
         let row = Store.visibledatarow[r],
             row_pre = r - 1 == -1 ? 0 : Store.visibledatarow[r - 1];
-        let col = Store.visibledatacolumn[c],
-            col_pre = c - 1 == -1 ? 0 : Store.visibledatacolumn[c - 1];
+        let col = Store.visibleColPositions[c],
+            col_pre = c - 1 == -1 ? 0 : Store.visibleColPositions[c - 1];
 
         if (col - scrollLeft - winW + 20 > 0) {
             scrollBarX.setScrollLeft(col - winW + 20);

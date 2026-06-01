@@ -223,7 +223,7 @@ export default function documentMousemove() {
                     col,
                     col_index + 1,
                     scrollLeft,
-                    luckysheetFreezen.cutVolumn(Store.visibledatacolumn, col_index + 1),
+                    luckysheetFreezen.cutVolumn(Store.visibleColPositions, col_index + 1),
                     left,
                 ];
             } else {
@@ -232,7 +232,7 @@ export default function documentMousemove() {
                     col_pre,
                     col_index,
                     scrollLeft,
-                    luckysheetFreezen.cutVolumn(Store.visibledatacolumn, col_index),
+                    luckysheetFreezen.cutVolumn(Store.visibleColPositions, col_index),
                     left,
                 ];
             }

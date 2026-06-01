@@ -114,8 +114,8 @@ function dynamicArrayHightShow(r, c) {
 
         let row = Store.visibledatarow[d_row_end], 
             row_pre = d_row - 1 == -1 ? 0 : Store.visibledatarow[d_row - 1];
-        let col = Store.visibledatacolumn[d_col_end], 
-            col_pre = d_col - 1 == -1 ? 0 : Store.visibledatacolumn[d_col - 1];
+        let col = Store.visibleColPositions[d_col_end], 
+            col_pre = d_col - 1 == -1 ? 0 : Store.visibleColPositions[d_col - 1];
 
         const _elDynArr = document.getElementById("luckysheet-dynamicArray-hightShow"); if (_elDynArr) { Object.assign(_elDynArr.style, { left: col_pre + "px", width: col - col_pre - 1 + "px", top: row_pre + "px", height: row - row_pre - 1 + "px", display: "block" }); }
     }

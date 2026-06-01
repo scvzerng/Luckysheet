@@ -65,12 +65,12 @@ function jfrefreshgrid_rhcw(rowheight, colwidth, isRefreshCanvas=true){
             luckysheetFreezen.cutVolumn(Store.visibledatarow, row_st + 1), 
             top
         ];
-        let left = Store.visibledatacolumn[col_st] - 2 - scrollLeft + Store.rowHeaderWidth;
+        let left = Store.visibleColPositions[col_st] - 2 - scrollLeft + Store.rowHeaderWidth;
         let freezenverticaldata = [
-            Store.visibledatacolumn[col_st], 
+            Store.visibleColPositions[col_st], 
             col_st + 1, 
             scrollLeft, 
-            luckysheetFreezen.cutVolumn(Store.visibledatacolumn, col_st + 1), 
+            luckysheetFreezen.cutVolumn(Store.visibleColPositions, col_st + 1), 
             left
         ];
 
@@ -100,12 +100,12 @@ function jfrefreshgrid_rhcw(rowheight, colwidth, isRefreshCanvas=true){
         let col_st = luckysheetFreezen.freezenverticaldata[1] - 1;
         let scrollLeft = luckysheetFreezen.freezenverticaldata[2];
 
-        let left = Store.visibledatacolumn[col_st] - 2 - scrollLeft + Store.rowHeaderWidth;
+        let left = Store.visibleColPositions[col_st] - 2 - scrollLeft + Store.rowHeaderWidth;
         let freezenverticaldata = [
-            Store.visibledatacolumn[col_st], 
+            Store.visibleColPositions[col_st], 
             col_st + 1, 
             scrollLeft, 
-            luckysheetFreezen.cutVolumn(Store.visibledatacolumn, col_st + 1), 
+            luckysheetFreezen.cutVolumn(Store.visibleColPositions, col_st + 1), 
             left
         ];
 
@@ -119,7 +119,7 @@ function jfrefreshgrid_rhcw(rowheight, colwidth, isRefreshCanvas=true){
             document.querySelectorAll("#luckysheet-filter-options-sheet" + Store.currentSheetIndex + " .luckysheet-filter-options").forEach(function(e) {
                 let str = e.dataset.str, cindex = e.dataset.cindex;
 
-                let left = Store.visibledatacolumn[cindex] - 20;
+                let left = Store.visibleColPositions[cindex] - 20;
                 let top = str - 1 == -1 ? 0 : Store.visibledatarow[str - 1];
 
                 Object.assign(e.style, { "left": left + "px", "top": top + "px" });
@@ -137,8 +137,8 @@ function jfrefreshgrid_rhcw(rowheight, colwidth, isRefreshCanvas=true){
 
         let row = Store.visibledatarow[r2], 
             row_pre = r1 - 1 == -1 ? 0 : Store.visibledatarow[r1 - 1];
-        let col = Store.visibledatacolumn[c2], 
-            col_pre = c1 - 1 == -1 ? 0 : Store.visibledatacolumn[c1 - 1];
+        let col = Store.visibleColPositions[c2], 
+            col_pre = c1 - 1 == -1 ? 0 : Store.visibleColPositions[c1 - 1];
 
         const _filterSelected = document.getElementById("luckysheet-filter-selected-sheet" + Store.currentSheetIndex); if (_filterSelected) Object.assign(_filterSelected.style, {
             "left": col_pre + "px",

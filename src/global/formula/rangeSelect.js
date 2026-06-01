@@ -520,7 +520,7 @@ const rangeSelect = {
                 row_pre = row_location[0],
                 row_index = row_location[2];
 
-            let visibledatacolumn = Store.visibledatacolumn;
+            let visibledatacolumn = Store.visibleColPositions;
             let col_index = visibledatacolumn.length - 1,
                 col = visibledatacolumn[col_index],
                 col_pre = 0;
@@ -809,7 +809,7 @@ const rangeSelect = {
                 row_s = visibledatarow.length - 1 - luckysheet_select_save["row"][1] + luckysheet_select_save["row"][0];
                 row_e = visibledatarow.length - 1;
             }
-            let visibledatacolumn = Store.visibledatacolumn;
+            let visibledatacolumn = Store.visibleColPositions;
             if (col_e >= visibledatacolumn[visibledatacolumn.length - 1] || x > winW) {
                 col_s =
                     visibledatacolumn.length -

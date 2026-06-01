@@ -43,7 +43,7 @@ export default function rhchInit(rowheight, colwidth) {
 
     //列宽
     if(colwidth != null){
-        Store.visibledatacolumn = [];
+        Store.visibleColPositions = [];
         Store.ch_width = 0;
 
         let maxColumnlen = 120;
@@ -74,7 +74,7 @@ export default function rhchInit(rowheight, colwidth) {
             }
 
             if(isColHidden(c)){
-                Store.visibledatacolumn.push(Store.ch_width);
+                Store.visibleColPositions.push(Store.ch_width);
                 continue;
             }
 
@@ -84,7 +84,7 @@ export default function rhchInit(rowheight, colwidth) {
             }
             Store.ch_width += Math.round((firstcolumnlen + 1)*Store.zoomRatio);
 
-            Store.visibledatacolumn.push(Store.ch_width);//列的临时长度分布
+            Store.visibleColPositions.push(Store.ch_width);//列的临时长度分布
 
             // if(maxColumnlen < firstcolumnlen + 1){
             //     maxColumnlen = firstcolumnlen + 1;

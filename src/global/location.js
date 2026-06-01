@@ -31,13 +31,13 @@ function rowLocation(y) {
 
 function colLocationByIndex(col_index){
     let col = 0, col_pre = 0;
-    col = Store.visibledatacolumn[col_index];
+    col = Store.visibleColPositions[col_index];
 
     if (col_index == 0) {
         col_pre = 0;
     }
     else {
-        col_pre = Store.visibledatacolumn[col_index - 1];
+        col_pre = Store.visibleColPositions[col_index - 1];
     }
 
     return [col_pre, col, col_index];
@@ -45,20 +45,20 @@ function colLocationByIndex(col_index){
 
 function colSpanLocationByIndex(col_index, span){
     let col = 0, col_pre = 0;
-    col = Store.visibledatacolumn[col_index + span - 1];
+    col = Store.visibleColPositions[col_index + span - 1];
 
     if (col_index == 0) {
         col_pre = 0;
     }
     else {
-        col_pre = Store.visibledatacolumn[col_index - 1];
+        col_pre = Store.visibleColPositions[col_index - 1];
     }
 
     return [col_pre, col, col_index];
 }
 
 function colLocation(x) {
-    let col_index = luckysheet_searcharray(Store.visibledatacolumn, x);
+    let col_index = luckysheet_searcharray(Store.visibleColPositions, x);
 
     if (col_index == -1 && x > 0) {
         col_index = getMaxColIndex();

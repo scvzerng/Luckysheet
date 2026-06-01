@@ -110,8 +110,8 @@ export function scroll(options = {}){
             return tooltip.info("The targetColumn parameter is invalid.", "");
         }
 
-        let col = Store.visibledatacolumn[targetColumn],
-            col_pre = targetColumn <= 0 ? 0 : Store.visibledatacolumn[targetColumn - 1];
+        let col = Store.visibleColPositions[targetColumn],
+            col_pre = targetColumn <= 0 ? 0 : Store.visibleColPositions[targetColumn - 1];
 
         scrollBarX.setScrollLeft(col_pre);
     }
@@ -185,7 +185,7 @@ export function getScreenshot(options = {}) {
     }
 
     let visibledatarow = Store.visibledatarow;
-    let visibledatacolumn = Store.visibledatacolumn;
+    let visibledatacolumn = Store.visibleColPositions;
 
     let scrollHeight, rh_height;
     if (str - 1 < 0) {

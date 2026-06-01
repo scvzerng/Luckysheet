@@ -159,8 +159,8 @@ function luckysheetDrawgridColumnTitle(scrollWidth, drawWidth, offsetLeft) {
   luckysheetTableContent.clearRect(offsetLeft, 0, drawWidth, Store.columnHeaderHeight - 1);
   initCanvasDefaults(luckysheetTableContent);
   let dataset_col_st, dataset_col_ed;
-  dataset_col_st = luckysheet_searcharray(Store.visibledatacolumn, scrollWidth);
-  dataset_col_ed = luckysheet_searcharray(Store.visibledatacolumn, scrollWidth + drawWidth);
+  dataset_col_st = luckysheet_searcharray(Store.visibleColPositions, scrollWidth);
+  dataset_col_ed = luckysheet_searcharray(Store.visibleColPositions, scrollWidth + drawWidth);
   if (dataset_col_st == -1) {
     dataset_col_st = 0;
   }

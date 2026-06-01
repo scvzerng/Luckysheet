@@ -45,8 +45,8 @@ function getCellOverflowMap(canvas, col_st, col_ed, row_st, row_end) {
 
         //canvas.measureText(value).width;
 
-        let start_c = c - 1 < 0 ? 0 : Store.visibledatacolumn[c - 1];
-        let end_c = Store.visibledatacolumn[c];
+        let start_c = c - 1 < 0 ? 0 : Store.visibleColPositions[c - 1];
+        let end_c = Store.visibleColPositions[c];
         let stc, edc;
         if (end_c - start_c < textMetrics) {
           if (horizonAlign == "0") {
@@ -139,8 +139,8 @@ function cellOverflow_trace(r, curC, traceC, traceDir, horizonAlign, textMetrics
       c: traceC
     };
   }
-  let start_curC = curC - 1 < 0 ? 0 : Store.visibledatacolumn[curC - 1];
-  let end_curC = Store.visibledatacolumn[curC];
+  let start_curC = curC - 1 < 0 ? 0 : Store.visibleColPositions[curC - 1];
+  let end_curC = Store.visibleColPositions[curC];
   let w = textMetrics - (end_curC - start_curC);
   if (horizonAlign == "0") {
     //灞呬腑瀵归綈
@@ -153,8 +153,8 @@ function cellOverflow_trace(r, curC, traceC, traceDir, horizonAlign, textMetrics
     //鍙冲榻?
     start_curC -= w;
   }
-  let start_traceC = traceC - 1 < 0 ? 0 : Store.visibledatacolumn[traceC - 1];
-  let end_traceC = Store.visibledatacolumn[traceC];
+  let start_traceC = traceC - 1 < 0 ? 0 : Store.visibleColPositions[traceC - 1];
+  let end_traceC = Store.visibleColPositions[traceC];
   if (traceDir == "forward") {
     if (start_curC < start_traceC) {
       return cellOverflow_trace(r, curC, traceC - 1, traceDir, horizonAlign, textMetrics);
@@ -245,9 +245,9 @@ let cellOverflowRender = function(r, c, stc, edc, luckysheetTableContent, scroll
   if (stc == 0) {
     start_c = -scrollWidth;
   } else {
-    start_c = Store.visibledatacolumn[stc - 1] - scrollWidth;
+    start_c = Store.visibleColPositions[stc - 1] - scrollWidth;
   }
-  let end_c = Store.visibledatacolumn[edc] - scrollWidth;
+  let end_c = Store.visibleColPositions[edc] - scrollWidth;
   let cell = Store.sheetData[r][c];
   let cellWidth = end_c - start_c - 2;
   let cellHeight = end_r - start_r - 2;

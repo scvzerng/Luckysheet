@@ -124,8 +124,8 @@ const scrollAdaptModule = {
         }
         let c1 = obj.column[0],
           c2 = obj.column[1];
-        let col = Store.visibledatacolumn[c2],
-          col_pre = c1 - 1 == -1 ? 0 : Store.visibledatacolumn[c1 - 1];
+        let col = Store.visibleColPositions[c2],
+          col_pre = c1 - 1 == -1 ? 0 : Store.visibleColPositions[c1 - 1];
         let left_move = col_pre;
         let width_move = col - col_pre - 1;
         if (c1 >= freezen_colindex) {
@@ -165,8 +165,8 @@ const scrollAdaptModule = {
           let cf = obj.column_focus == null ? c1 : obj.column_focus;
           let row_f = Store.visibledatarow[rf],
             row_pre_f = rf - 1 == -1 ? 0 : Store.visibledatarow[rf - 1];
-          let col_f = Store.visibledatacolumn[cf],
-            col_pre_f = cf - 1 == -1 ? 0 : Store.visibledatacolumn[cf - 1];
+          let col_f = Store.visibleColPositions[cf],
+            col_pre_f = cf - 1 == -1 ? 0 : Store.visibleColPositions[cf - 1];
           let margeset = menuButton.mergeborer(Store.sheetData, rf, cf);
           if (margeset) {
             row_f = margeset.row[1];
@@ -334,8 +334,8 @@ const scrollAdaptModule = {
         let obj = structuredClone(Store.selections[s]);
         let c1 = obj.column[0],
           c2 = obj.column[1];
-        let col = Store.visibledatacolumn[c2],
-          col_pre = c1 - 1 == -1 ? 0 : Store.visibledatacolumn[c1 - 1];
+        let col = Store.visibleColPositions[c2],
+          col_pre = c1 - 1 == -1 ? 0 : Store.visibleColPositions[c1 - 1];
         let left_move = col_pre;
         let width_move = col - col_pre - 1;
         if (c1 >= freezen_colindex) {
@@ -370,8 +370,8 @@ const scrollAdaptModule = {
         if (s == Store.selections.length - 1) {
           let rf = obj.row_focus == null ? obj.row[0] : obj.row_focus;
           let cf = obj.column_focus == null ? c1 : obj.column_focus;
-          let col_f = Store.visibledatacolumn[cf],
-            col_pre_f = cf - 1 == -1 ? 0 : Store.visibledatacolumn[cf - 1];
+          let col_f = Store.visibleColPositions[cf],
+            col_pre_f = cf - 1 == -1 ? 0 : Store.visibleColPositions[cf - 1];
           let margeset = menuButton.mergeborer(Store.sheetData, rf, cf);
           if (margeset) {
             col_f = margeset.column[1];
@@ -483,8 +483,8 @@ const scrollAdaptModule = {
         let postil = Store.sheetData[r][c].ps;
         let row = Store.visibledatarow[r],
           row_pre = r - 1 == -1 ? 0 : Store.visibledatarow[r - 1];
-        let col = Store.visibledatacolumn[c],
-          col_pre = c - 1 == -1 ? 0 : Store.visibledatacolumn[c - 1];
+        let col = Store.visibleColPositions[c],
+          col_pre = c - 1 == -1 ? 0 : Store.visibleColPositions[c - 1];
         let margeset = menuButton.mergeborer(Store.sheetData, r, c);
         if (margeset) {
           row = margeset.row[1];
@@ -593,8 +593,8 @@ const scrollAdaptModule = {
         let postil = Store.sheetData[r][c].ps;
         let row = Store.visibledatarow[r],
           row_pre = r - 1 == -1 ? 0 : Store.visibledatarow[r - 1];
-        let col = Store.visibledatacolumn[c],
-          col_pre = c - 1 == -1 ? 0 : Store.visibledatacolumn[c - 1];
+        let col = Store.visibleColPositions[c],
+          col_pre = c - 1 == -1 ? 0 : Store.visibleColPositions[c - 1];
         let margeset = menuButton.mergeborer(Store.sheetData, r, c);
         if (margeset) {
           row = margeset.row[1];
@@ -653,8 +653,8 @@ const scrollAdaptModule = {
         let postil = Store.sheetData[r][c].ps;
         let row = Store.visibledatarow[r],
           row_pre = r - 1 == -1 ? 0 : Store.visibledatarow[r - 1];
-        let col = Store.visibledatacolumn[c],
-          col_pre = c - 1 == -1 ? 0 : Store.visibledatacolumn[c - 1];
+        let col = Store.visibleColPositions[c],
+          col_pre = c - 1 == -1 ? 0 : Store.visibleColPositions[c - 1];
         let margeset = menuButton.mergeborer(Store.sheetData, r, c);
         if (margeset) {
           row = margeset.row[1];
@@ -826,7 +826,7 @@ const scrollAdaptModule = {
           if (top < freezen_top) {
             e.style.display = 'none';
           } else {
-            let left = Store.visibledatacolumn[col_index + offsetColumn] - 20;
+            let left = Store.visibleColPositions[col_index + offsetColumn] - 20;
             e.style.display = 'block';
             e.style.left = left + "px";
           }
@@ -838,7 +838,7 @@ const scrollAdaptModule = {
             e.style.top = (top + scroll.scrollTop) + "px";
           }
         } else {
-          let left = Store.visibledatacolumn[col_index + offsetColumn] - 20;
+          let left = Store.visibleColPositions[col_index + offsetColumn] - 20;
           e.style.display = 'block';
           Object.assign(e.style, {
             "left": left + "px",
@@ -875,7 +875,7 @@ const scrollAdaptModule = {
             e.style.display = 'block';
           }
         } else {
-          let left = Store.visibledatacolumn[col_index + offsetColumn] - 20;
+          let left = Store.visibleColPositions[col_index + offsetColumn] - 20;
           e.style.display = 'block';
           e.style.left = left + "px";
         }

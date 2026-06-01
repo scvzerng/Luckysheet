@@ -62,7 +62,7 @@ export default function scroll() {
     gridWindow.onMousewheel(function(event) {
         let scrollLeft = scrollBarX.getScrollLeft(),
             scrollTop = scrollBarY.getScrollTop();
-        let visibledatacolumn_c = Store.visibledatacolumn,
+        let visibledatacolumn_c = Store.visibleColPositions,
             visibledatarow_c = Store.visibledatarow;
 
         if (luckysheetFreezen.freezenhorizontaldata != null) {
@@ -75,11 +75,11 @@ export default function scroll() {
 
         clearTimeout(context.mousewheelArrayUniqueTimeout);
 
-        if (Store.visibledatacolumn_unique != null) {
-            visibledatacolumn_c = Store.visibledatacolumn_unique;
+        if (Store.visibleColPositions_unique != null) {
+            visibledatacolumn_c = Store.visibleColPositions_unique;
         } else {
             visibledatacolumn_c = ArrayUnique(visibledatacolumn_c);
-            Store.visibledatacolumn_unique = visibledatacolumn_c;
+            Store.visibleColPositions_unique = visibledatacolumn_c;
         }
 
         if (Store.visibledatarow_unique != null) {
@@ -139,7 +139,7 @@ export default function scroll() {
         }
 
         context.mousewheelArrayUniqueTimeout = setTimeout(() => {
-            Store.visibledatacolumn_unique = null;
+            Store.visibleColPositions_unique = null;
             Store.visibledatarow_unique = null;
         }, 500);
     });

@@ -88,8 +88,8 @@ function luckysheetDrawMain(scrollWidth, scrollHeight, drawWidth, drawHeight, of
   if (dataset_row_ed >= Store.visibledatarow.length) {
     dataset_row_ed = getMaxRowIndex();
   }
-  dataset_col_st = luckysheet_searcharray(Store.visibledatacolumn, scrollWidth);
-  dataset_col_ed = luckysheet_searcharray(Store.visibledatacolumn, scrollWidth + drawWidth);
+  dataset_col_st = luckysheet_searcharray(Store.visibleColPositions, scrollWidth);
+  dataset_col_ed = luckysheet_searcharray(Store.visibleColPositions, scrollWidth + drawWidth);
   if (dataset_col_st == -1) {
     dataset_col_st = 0;
   }
@@ -98,7 +98,7 @@ function luckysheetDrawMain(scrollWidth, scrollHeight, drawWidth, drawHeight, of
     dataset_col_ed = getMaxColIndex();
   }
   dataset_col_ed += columnOffsetCell;
-  if (dataset_col_ed >= Store.visibledatacolumn.length) {
+  if (dataset_col_ed >= Store.visibleColPositions.length) {
     dataset_col_ed = getMaxColIndex();
   }
 
@@ -113,9 +113,9 @@ function luckysheetDrawMain(scrollWidth, scrollHeight, drawWidth, drawHeight, of
   if (dataset_col_st == 0) {
     fill_col_st = 0;
   } else {
-    fill_col_st = Store.visibledatacolumn[dataset_col_st - 1];
+    fill_col_st = Store.visibleColPositions[dataset_col_st - 1];
   }
-  fill_col_ed = Store.visibledatacolumn[dataset_col_ed];
+  fill_col_ed = Store.visibleColPositions[dataset_col_ed];
 
   //琛ㄦ牸canvas 鍒濆鍖栧鐞?
   luckysheetTableContent.fillStyle = "#ffffff";
@@ -303,7 +303,7 @@ function luckysheetDrawMain(scrollWidth, scrollHeight, drawWidth, drawHeight, of
     if (c == 0) {
       start_c = -scrollWidth;
     } else {
-      start_c = Store.visibledatacolumn[c - 1] - scrollWidth;
+      start_c = Store.visibleColPositions[c - 1] - scrollWidth;
     }
     if (r == 0) {
       start_r = -scrollHeight - 1;
@@ -311,7 +311,7 @@ function luckysheetDrawMain(scrollWidth, scrollHeight, drawWidth, drawHeight, of
       start_r = Store.visibledatarow[r - 1] - scrollHeight - 1;
     }
     end_r = Store.visibledatarow[r + mainCell["mc"].rs - 1] - scrollHeight;
-    end_c = Store.visibledatacolumn[c + mainCell["mc"].cs - 1] - scrollWidth;
+    end_c = Store.visibleColPositions[c + mainCell["mc"].cs - 1] - scrollWidth;
     if (value == null || value.toString() === null) {
       nullCellRender(r, c, start_r, start_c, end_r, end_c, luckysheetTableContent, af_compute, cf_compute, offsetLeft, offsetTop, dynamicArray_compute, cellOverflowMap, dataset_col_st, dataset_col_ed, scrollHeight, scrollWidth, bodrder05, true);
     } else {
@@ -377,7 +377,7 @@ function luckysheetDrawMain(scrollWidth, scrollHeight, drawWidth, drawHeight, of
 
   //娓叉煋琛ㄦ牸鏃舵湁灏惧垪鏃讹紝娓呴櫎鍙宠竟鐏拌壊鍖哄煙锛岄槻姝㈣〃鏍兼湁鍊兼孩鍑?
   if (dataset_col_ed == getMaxColIndex()) {
-    luckysheetTableContent.clearRect(fill_col_ed - scrollWidth + offsetLeft - 1, offsetTop - 1, Store.ch_width - Store.visibledatacolumn[dataset_col_ed], fill_row_ed - scrollHeight);
+    luckysheetTableContent.clearRect(fill_col_ed - scrollWidth + offsetLeft - 1, offsetTop - 1, Store.ch_width - Store.visibleColPositions[dataset_col_ed], fill_row_ed - scrollHeight);
   }
   luckysheetTableContent.restore();
   Store.measureTextCacheTimeOut = setTimeout(() => {

@@ -199,8 +199,8 @@ const luckysheetPostil = {
 
         let row = Store.visibledatarow[row_index], 
             row_pre = row_index - 1 == -1 ? 0 : Store.visibledatarow[row_index - 1];
-        let col = Store.visibledatacolumn[col_index], 
-            col_pre = col_index - 1 == -1 ? 0 : Store.visibledatacolumn[col_index - 1];
+        let col = Store.visibleColPositions[col_index], 
+            col_pre = col_index - 1 == -1 ? 0 : Store.visibleColPositions[col_index - 1];
 
         if(margeset){
             row = margeset.row[1];
@@ -346,8 +346,8 @@ const luckysheetPostil = {
         if(isshow){
             let row = Store.visibledatarow[r], 
                 row_pre = r - 1 == -1 ? 0 : Store.visibledatarow[r - 1];
-            let col = Store.visibledatacolumn[c], 
-                col_pre = c - 1 == -1 ? 0 : Store.visibledatacolumn[c - 1];
+            let col = Store.visibleColPositions[c], 
+                col_pre = c - 1 == -1 ? 0 : Store.visibleColPositions[c - 1];
 
             let margeset = menuButton.mergeborer(Store.sheetData, r, c);
             if(margeset){
@@ -423,8 +423,8 @@ const luckysheetPostil = {
 
         let row = Store.visibledatarow[r], 
             row_pre = r - 1 == -1 ? 0 : Store.visibledatarow[r - 1];
-        let col = Store.visibledatacolumn[c], 
-            col_pre = c - 1 == -1 ? 0 : Store.visibledatacolumn[c - 1];
+        let col = Store.visibleColPositions[c], 
+            col_pre = c - 1 == -1 ? 0 : Store.visibleColPositions[c - 1];
 
         let margeset = menuButton.mergeborer(Store.sheetData, r, c);
         if(margeset){
@@ -516,8 +516,8 @@ const luckysheetPostil = {
 
             let row = Store.visibledatarow[r], 
                 row_pre = r - 1 == -1 ? 0 : Store.visibledatarow[r - 1];
-            let col = Store.visibledatacolumn[c], 
-                col_pre = c - 1 == -1 ? 0 : Store.visibledatacolumn[c - 1];
+            let col = Store.visibleColPositions[c], 
+                col_pre = c - 1 == -1 ? 0 : Store.visibleColPositions[c - 1];
 
             let margeset = menuButton.mergeborer(Store.sheetData, r, c);
             if(margeset){
@@ -631,8 +631,8 @@ const luckysheetPostil = {
 
             let row = Store.visibledatarow[r], 
                 row_pre = r - 1 == -1 ? 0 : Store.visibledatarow[r - 1];
-            let col = Store.visibledatacolumn[c], 
-                col_pre = c - 1 == -1 ? 0 : Store.visibledatacolumn[c - 1];
+            let col = Store.visibleColPositions[c], 
+                col_pre = c - 1 == -1 ? 0 : Store.visibleColPositions[c - 1];
 
             let margeset = menuButton.mergeborer(Store.sheetData, r, c);
             if(margeset){
@@ -758,8 +758,8 @@ const luckysheetPostil = {
                     if(!postil["isshow"]){
                         let row = Store.visibledatarow[rowIndex], 
                             row_pre = rowIndex - 1 == -1 ? 0 : Store.visibledatarow[rowIndex - 1];
-                        let col = Store.visibledatacolumn[colIndex], 
-                            col_pre = colIndex - 1 == -1 ? 0 : Store.visibledatacolumn[colIndex - 1];
+                        let col = Store.visibleColPositions[colIndex], 
+                            col_pre = colIndex - 1 == -1 ? 0 : Store.visibleColPositions[colIndex - 1];
 
                         let margeset = menuButton.mergeborer(Store.sheetData, rowIndex, colIndex);
                         if(margeset){

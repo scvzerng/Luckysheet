@@ -121,8 +121,8 @@ function formulaMoveEvent(dir, ctrlKey, shiftKey, event){
 
                 let row = Store.visibledatarow[r2], 
                     row_pre = r1 - 1 == -1 ? 0 : Store.visibledatarow[r1 - 1];
-                let col = Store.visibledatacolumn[c2], 
-                    col_pre = c1 - 1 == -1 ? 0 : Store.visibledatacolumn[c1 - 1];
+                let col = Store.visibleColPositions[c2], 
+                    col_pre = c1 - 1 == -1 ? 0 : Store.visibleColPositions[c1 - 1];
 
                 formula.func_selectedrange = {
                     "left": col_pre,
@@ -317,8 +317,8 @@ export function keyboardInitial(){
 
                         let row = Store.visibledatarow[cellrange["row"][1]], 
                             row_pre = cellrange["row"][0] - 1 == -1 ? 0 : Store.visibledatarow[cellrange["row"][0] - 1];
-                        let col = Store.visibledatacolumn[cellrange["column"][1]], 
-                            col_pre = cellrange["column"][0] - 1 == -1 ? 0 : Store.visibledatacolumn[cellrange["column"][0] - 1];
+                        let col = Store.visibleColPositions[cellrange["column"][1]], 
+                            col_pre = cellrange["column"][0] - 1 == -1 ? 0 : Store.visibleColPositions[cellrange["column"][0] - 1];
 
                         if (col - scrollLeft - winW + 20 > 0) {
                             scrollBarX.setScrollLeft(col - winW + 20);

@@ -588,7 +588,7 @@ export default function documentMouseup() {
                 row_e = getMaxRowIndex();
             }
 
-            if (col_e >= Store.visibledatacolumn[getMaxColIndex()] || x > winW) {
+            if (col_e >= Store.visibleColPositions[getMaxColIndex()] || x > winW) {
                 col_s = getMaxColIndex() - last["column"][1] + last["column"][0];
                 col_e = getMaxColIndex();
             }
@@ -830,7 +830,7 @@ export default function documentMouseup() {
                 row_e = getMaxRowIndex();
             }
 
-            if (col_e >= Store.visibledatacolumn[getMaxColIndex()] || x > winW) {
+            if (col_e >= Store.visibleColPositions[getMaxColIndex()] || x > winW) {
                 col_s = getMaxColIndex() - last["column"][1] + last["column"][0];
                 col_e = getMaxColIndex();
             }

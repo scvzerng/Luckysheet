@@ -268,7 +268,7 @@ const hyperlinkCtrl = {
             selectHightlightShow(true);
 
             let row_pre = cellrange.row[0] - 1 == -1 ? 0 : Store.visibledatarow[cellrange.row[0] - 1];
-            let col_pre = cellrange.column[0] - 1 == -1 ? 0 : Store.visibledatacolumn[cellrange.column[0] - 1];
+            let col_pre = cellrange.column[0] - 1 == -1 ? 0 : Store.visibleColPositions[cellrange.column[0] - 1];
 
             scrollBarX.setScrollLeft(col_pre);
             scrollBarY.setScrollTop(row_pre);
@@ -321,8 +321,8 @@ const hyperlinkCtrl = {
 
         let row = Store.visibledatarow[row_index], 
             row_pre = row_index - 1 == -1 ? 0 : Store.visibledatarow[row_index - 1];
-        let col = Store.visibledatacolumn[col_index], 
-            col_pre = col_index - 1 == -1 ? 0 : Store.visibledatacolumn[col_index - 1];
+        let col = Store.visibleColPositions[col_index], 
+            col_pre = col_index - 1 == -1 ? 0 : Store.visibleColPositions[col_index - 1];
 
         if(margeset){
             row = margeset.row[1];

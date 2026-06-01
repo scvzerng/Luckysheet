@@ -63,8 +63,8 @@ const refreshButton = {
 
             let row = Store.visibledatarow[r],
                 row_pre = r == 0 ? 0 : Store.visibledatarow[r - 1];
-            let col = Store.visibledatacolumn[c],
-                col_pre = c == 0 ? 0 : Store.visibledatacolumn[c - 1];
+            let col = Store.visibleColPositions[c],
+                col_pre = c == 0 ? 0 : Store.visibleColPositions[c - 1];
 
             let margeset = menuButton.mergeborer(Store.sheetData, r, c);
             if(margeset){

@@ -58,8 +58,8 @@ function getRowStartEnd(r, scrollHeight) {
 }
 
 function getColStartEnd(c, scrollWidth) {
-    let start_c = (c == 0 ? 0 : Store.visibledatacolumn[c - 1]) - scrollWidth;
-    let end_c = Store.visibledatacolumn[c] - scrollWidth;
+    let start_c = (c == 0 ? 0 : Store.visibleColPositions[c - 1]) - scrollWidth;
+    let end_c = Store.visibleColPositions[c] - scrollWidth;
     return { start_c, end_c };
 }
 
