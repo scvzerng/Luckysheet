@@ -229,7 +229,7 @@ const clipboardPaintModelModule = {
         RowlChange: true,
         cdformat: cdformat
       };
-      jfrefreshgrid(d, Store.luckysheet_select_save, allParam);
+      jfrefreshgrid(d, Store.selections, allParam);
     } else {
       // 选区格式刷存在超出边界的情况
       if (maxh >= d.length) {
@@ -241,7 +241,7 @@ const clipboardPaintModelModule = {
         RowlChange: true,
         cdformat: cdformat
       };
-      jfrefreshgrid(d, Store.luckysheet_select_save, allParam);
+      jfrefreshgrid(d, Store.selections, allParam);
       selectHightlightShow();
     }
   }

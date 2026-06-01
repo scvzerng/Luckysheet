@@ -6,7 +6,7 @@ import { isEditMode } from '../../global/validate';
 function checkMultiSelection() {
     const _locale = locale();
     const locale_drag = _locale.drag;
-    if(Store.luckysheet_select_save.length > 1){
+    if(Store.selections.length > 1){
         if(isEditMode()){
             alert(locale_drag.noMulti);
         }

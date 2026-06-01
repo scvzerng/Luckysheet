@@ -264,7 +264,7 @@ const hyperlinkCtrl = {
                 sheetmanage.changeSheet(sheetIndex);
             }
 
-            Store.luckysheet_select_save = range;
+            Store.selections = range;
             selectHightlightShow(true);
 
             let row_pre = cellrange.row[0] - 1 == -1 ? 0 : Store.visibledatarow[cellrange.row[0] - 1];

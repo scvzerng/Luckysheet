@@ -21,7 +21,7 @@ export function initAddRowColEvents() {
       const _locale = locale();
       const locale_drag = _locale.drag;
       const locale_info = _locale.info;
-      if (Store.luckysheet_select_save.length > 1) {
+      if (Store.selections.length > 1) {
         if (isEditMode()) {
           alert(locale_drag.noMulti);
         } else {
@@ -48,7 +48,7 @@ export function initAddRowColEvents() {
         }
         return;
       }
-      let st_index = Store.luckysheet_select_save[0][Store.luckysheetRightHeadClickIs][0];
+      let st_index = Store.selections[0][Store.luckysheetRightHeadClickIs][0];
       if (!method.createHookFunction("rowInsertBefore", st_index, value, "lefttop", Store.luckysheetRightHeadClickIs)) {
         return;
       }
@@ -62,7 +62,7 @@ export function initAddRowColEvents() {
       if (Store.allowEdit === false) {
         return;
       }
-      let st_index = Store.luckysheet_select_save[0].row[0];
+      let st_index = Store.selections[0].row[0];
       if (!method.createHookFunction("rowInsertBefore", st_index, 1, "lefttop", Store.luckysheetRightHeadClickIs)) {
         return;
       }
@@ -74,7 +74,7 @@ export function initAddRowColEvents() {
       if (Store.allowEdit === false) {
         return;
       }
-      let st_index = Store.luckysheet_select_save[0].column[0];
+      let st_index = Store.selections[0].column[0];
       luckysheetextendtable("column", st_index, 1, "lefttop");
     });
   
@@ -82,8 +82,8 @@ export function initAddRowColEvents() {
     document.querySelector(".luckysheetColsRowsHandleAdd_custom")?.addEventListener("click", function (clickEvent) {
       rightClickMenu.hide();
       const cellRightClickConfig = luckysheetConfigsetting.cellRightClickConfig;
-      const rowIndex = Store.luckysheet_select_save[0].row[0];
-      const columnIndex = Store.luckysheet_select_save[0].column[0];
+      const rowIndex = Store.selections[0].row[0];
+      const columnIndex = Store.selections[0].column[0];
       if (cellRightClickConfig.customs[Number(clickEvent.currentTarget.dataset.index)]) {
         try {
           cellRightClickConfig.customs[Number(clickEvent.currentTarget.dataset.index)].onClick(clickEvent, event, {
@@ -111,7 +111,7 @@ export function initAddRowColEvents() {
     //     const locale_drag = _locale.drag;
     //     const locale_info = _locale.info;
   
-    //     if(Store.luckysheet_select_save.length > 1){
+    //     if(Store.selections.length > 1){
     //         if(isEditMode()){
     //             alert(locale_drag.noMulti);
     //         }
@@ -146,7 +146,7 @@ export function initAddRowColEvents() {
     //         return;
     //     }
   
-    //     let st_index = Store.luckysheet_select_save[0].row[0];
+    //     let st_index = Store.selections[0].row[0];
     //     luckysheetextendtable('row', st_index, value, "lefttop");
   
     //     document.getElementById("luckysheetColsRowsHandleAdd_sub").style.display = 'none';
@@ -172,7 +172,7 @@ export function initAddRowColEvents() {
     //     const locale_drag = _locale.drag;
     //     const locale_info = _locale.info;
 
-    //     if(Store.luckysheet_select_save.length > 1){
+    //     if(Store.selections.length > 1){
     //         if(isEditMode()){
     //             alert(locale_drag.noMulti);
     //         }
@@ -207,7 +207,7 @@ export function initAddRowColEvents() {
     //         return;
     //     }
 
-    //     let st_index = Store.luckysheet_select_save[0].column[0];
+    //     let st_index = Store.selections[0].column[0];
     //     luckysheetextendtable('column', st_index, value, "lefttop");
 
     //     document.getElementById("luckysheetColsRowsHandleAdd_sub").style.display = 'none';
@@ -226,7 +226,7 @@ export function initAddRowColEvents() {
       const _locale = locale();
       const locale_drag = _locale.drag;
       const locale_info = _locale.info;
-      if (Store.luckysheet_select_save.length > 1) {
+      if (Store.selections.length > 1) {
         if (isEditMode()) {
           alert(locale_drag.noMulti);
         } else {
@@ -253,7 +253,7 @@ export function initAddRowColEvents() {
         }
         return;
       }
-      let st_index = Store.luckysheet_select_save[0][Store.luckysheetRightHeadClickIs][1];
+      let st_index = Store.selections[0][Store.luckysheetRightHeadClickIs][1];
       if (!method.createHookFunction("rowInsertBefore", st_index, value, "rightbottom", Store.luckysheetRightHeadClickIs)) {
         return;
       }

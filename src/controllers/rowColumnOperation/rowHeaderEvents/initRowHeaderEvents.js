@@ -46,8 +46,8 @@ export function initRowHeaderEvents() {
       //mousedown是右�?
       if (event.which == "3") {
         let isright = false;
-        for (let s = 0; s < Store.luckysheet_select_save.length; s++) {
-          let obj_s = Store.luckysheet_select_save[s];
+        for (let s = 0; s < Store.selections.length; s++) {
+          let obj_s = Store.selections[s];
           if (obj_s["row"] != null && row_index >= obj_s["row"][0] && row_index <= obj_s["row"][1] && obj_s["column"][0] == 0 && obj_s["column"][1] == Store.sheetData[0].length - 1) {
             isright = true;
             break;
@@ -253,7 +253,7 @@ export function initRowHeaderEvents() {
           last["height_move"] = height;
           setLastSelection(last);
         } else if (event.ctrlKey) {
-          Store.luckysheet_select_save.push({
+          Store.selections.push({
             left: colLocationByIndex(0)[0],
             width: colLocationByIndex(0)[1] - colLocationByIndex(0)[0] - 1,
             top: top,
@@ -269,8 +269,8 @@ export function initRowHeaderEvents() {
             row_select: true
           });
         } else {
-          Store.luckysheet_select_save.length = 0;
-          Store.luckysheet_select_save.push({
+          Store.selections.length = 0;
+          Store.selections.push({
             left: colLocationByIndex(0)[0],
             width: colLocationByIndex(0)[1] - colLocationByIndex(0)[0] - 1,
             top: top,
@@ -384,10 +384,10 @@ export function initRowHeaderEvents() {
         if (cfg["rowlen"] == null) {
           cfg["rowlen"] = {};
         }
-        let first_rowlen = cfg["rowlen"][Store.luckysheet_select_save[0].row[0]] == null ? Store.defaultrowlen : cfg["rowlen"][Store.luckysheet_select_save[0].row[0]];
+        let first_rowlen = cfg["rowlen"][Store.selections[0].row[0]] == null ? Store.defaultrowlen : cfg["rowlen"][Store.selections[0].row[0]];
         let isSame = true;
-        for (let i = 0; i < Store.luckysheet_select_save.length; i++) {
-          let s = Store.luckysheet_select_save[i];
+        for (let i = 0; i < Store.selections.length; i++) {
+          let s = Store.selections[i];
           let r1 = s.row[0],
             r2 = s.row[1];
           for (let r = r1; r <= r2; r++) {

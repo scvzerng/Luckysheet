@@ -139,7 +139,7 @@ export default function selectionDrag() {
             event.stopPropagation();
         });
         _fillHandle.addEventListener("dblclick", function() {
-            let last = Store.luckysheet_select_save[0];
+            let last = Store.selections[0];
 
             let r0 = last.row[0],
                 r1 = last.row[1],
@@ -237,7 +237,7 @@ export default function selectionDrag() {
             luckysheetDropCell.applyRange = { row: [r1 + 1, r1 + step], column: [c0, c1] };
             luckysheetDropCell.direction = "down";
 
-            Store.luckysheet_select_save = [{ row: [r0, r1 + step], column: [c0, c1] }];
+            Store.selections = [{ row: [r0, r1 + step], column: [c0, c1] }];
 
             luckysheetDropCell.update();
             luckysheetDropCell.createIcon();

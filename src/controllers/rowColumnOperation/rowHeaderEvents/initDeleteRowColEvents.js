@@ -24,7 +24,7 @@ export function initDeleteRowColEvents() {
     //     const locale_drag = _locale.drag;
     //     const locale_info = _locale.info;
   
-    //     if(Store.luckysheet_select_save.length > 1){
+    //     if(Store.selections.length > 1){
     //         if(isEditMode()){
     //             alert(locale_drag.noMulti);
     //         }
@@ -60,7 +60,7 @@ export function initDeleteRowColEvents() {
     //         return;
     //     }
   
-    //     let st_index = Store.luckysheet_select_save[0].row[1];
+    //     let st_index = Store.selections[0].row[1];
     //     luckysheetextendtable('row', st_index, value, "rightbottom");
   
     //     document.getElementById("luckysheetColsRowsHandleAdd_sub").style.display = 'none';
@@ -80,7 +80,7 @@ export function initDeleteRowColEvents() {
     //     const locale_drag = _locale.drag;
     //     const locale_info = _locale.info;
   
-    //     if(Store.luckysheet_select_save.length > 1){
+    //     if(Store.selections.length > 1){
     //         if(isEditMode()){
     //             alert(locale_drag.noMulti);
     //         }
@@ -116,7 +116,7 @@ export function initDeleteRowColEvents() {
     //         return;
     //     }
   
-    //     let st_index = Store.luckysheet_select_save[0].column[1];
+    //     let st_index = Store.selections[0].column[1];
     //     luckysheetextendtable('column', st_index, value, "rightbottom");
   
     //     document.getElementById("luckysheetColsRowsHandleAdd_sub").style.display = 'none';
@@ -128,7 +128,7 @@ export function initDeleteRowColEvents() {
       rightClickMenu.hide();
       luckysheetContainerFocus();
       const locale_drag = locale().drag;
-      if (Store.luckysheet_select_save.length > 1) {
+      if (Store.selections.length > 1) {
         if (Store.luckysheetRightHeadClickIs == "row") {
           if (isEditMode()) {
             alert(locale_drag.noMulti);
@@ -144,8 +144,8 @@ export function initDeleteRowColEvents() {
         }
         return;
       }
-      let st_index = Store.luckysheet_select_save[0][Store.luckysheetRightHeadClickIs][0],
-        ed_index = Store.luckysheet_select_save[0][Store.luckysheetRightHeadClickIs][1];
+      let st_index = Store.selections[0][Store.luckysheetRightHeadClickIs][0],
+        ed_index = Store.selections[0][Store.luckysheetRightHeadClickIs][1];
       if (!method.createHookFunction("rowDeleteBefore", st_index, ed_index, Store.luckysheetRightHeadClickIs)) {
         return;
       }
@@ -155,7 +155,7 @@ export function initDeleteRowColEvents() {
       rightClickMenu.hide();
       luckysheetContainerFocus();
       const locale_drag = locale().drag;
-      if (Store.luckysheet_select_save.length > 1) {
+      if (Store.selections.length > 1) {
         if (Store.luckysheetRightHeadClickIs == "row") {
           if (isEditMode()) {
             alert(locale_drag.noMulti);
@@ -171,8 +171,8 @@ export function initDeleteRowColEvents() {
         }
         return;
       }
-      let st_index = Store.luckysheet_select_save[0].row[0],
-        ed_index = Store.luckysheet_select_save[0].row[1];
+      let st_index = Store.selections[0].row[0],
+        ed_index = Store.selections[0].row[1];
       if (!method.createHookFunction("rowDeleteBefore", st_index, ed_index, 'row')) {
         return;
       }
@@ -182,7 +182,7 @@ export function initDeleteRowColEvents() {
       rightClickMenu.hide();
       luckysheetContainerFocus();
       const locale_drag = locale().drag;
-      if (Store.luckysheet_select_save.length > 1) {
+      if (Store.selections.length > 1) {
         if (Store.luckysheetRightHeadClickIs == "row") {
           if (isEditMode()) {
             alert(locale_drag.noMulti);
@@ -198,8 +198,8 @@ export function initDeleteRowColEvents() {
         }
         return;
       }
-      let st_index = Store.luckysheet_select_save[0].column[0],
-        ed_index = Store.luckysheet_select_save[0].column[1];
+      let st_index = Store.selections[0].column[0],
+        ed_index = Store.selections[0].column[1];
       luckysheetdeletetable("column", st_index, ed_index);
     });
 }

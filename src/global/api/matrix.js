@@ -26,7 +26,7 @@ export function matrixOperation(type, options = {}) {
         return tooltip.info('The type parameter is invalid.', '')
     }
 
-    let curRange = Store.luckysheet_select_save[0];
+    let curRange = Store.selections[0];
     let {
         range = curRange,
         success
@@ -339,7 +339,7 @@ export function matrixCalculation(type, number, options = {}) {
         return tooltip.info('The number parameter is invalid.', '')
     }
 
-    let curRange = Store.luckysheet_select_save[0];
+    let curRange = Store.selections[0];
     let {
         range = curRange,
         success

@@ -62,7 +62,7 @@ const clipboardPasteModule = {
     }
     const _locale = locale();
     const locale_paste = _locale.paste;
-    if (Store.luckysheet_select_save.length > 1) {
+    if (Store.selections.length > 1) {
       if (isEditMode()) {
         alert(locale_paste.errorNotAllowMulti);
       } else {
@@ -82,10 +82,10 @@ const clipboardPasteModule = {
       }
       let copyh = data.length,
         copyc = data[0].length;
-      let minh = Store.luckysheet_select_save[0].row[0],
+      let minh = Store.selections[0].row[0],
         //应用范围首尾行
         maxh = minh + copyh - 1;
-      let minc = Store.luckysheet_select_save[0].column[0],
+      let minc = Store.selections[0].column[0],
         //应用范围首尾列
         maxc = minc + copyc - 1;
 
@@ -177,7 +177,7 @@ const clipboardPasteModule = {
           cfg["rowlen"][h] = currentRowLen;
         }
       }
-      Store.luckysheet_select_save = [{
+      Store.selections = [{
         row: [minh, maxh],
         column: [minc, maxc]
       }];
@@ -186,12 +186,12 @@ const clipboardPasteModule = {
           cfg: cfg,
           RowlChange: true
         };
-        jfrefreshgrid(d, Store.luckysheet_select_save, allParam);
+        jfrefreshgrid(d, Store.selections, allParam);
       } else {
         let allParam = {
           cfg: cfg
         };
-        jfrefreshgrid(d, Store.luckysheet_select_save, allParam);
+        jfrefreshgrid(d, Store.selections, allParam);
         selectHightlightShow();
       }
     } else {
@@ -272,9 +272,9 @@ const clipboardPasteModule = {
         let allParam = {
           RowlChange: true
         };
-        jfrefreshgrid(d, Store.luckysheet_select_save, allParam);
+        jfrefreshgrid(d, Store.selections, allParam);
       } else {
-        jfrefreshgrid(d, Store.luckysheet_select_save);
+        jfrefreshgrid(d, Store.selections);
         selectHightlightShow();
       }
     }

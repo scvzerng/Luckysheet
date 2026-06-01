@@ -141,7 +141,7 @@ export default function pasteEvent() {
             const locale_fontjson = locale().fontjson;
 
             // hook
-            if (!method.createHookFunction("rangePasteBefore", Store.luckysheet_select_save, txtdata)) {
+            if (!method.createHookFunction("rangePasteBefore", Store.selections, txtdata)) {
                 return;
             }
 
@@ -286,8 +286,8 @@ export default function pasteEvent() {
                                         colspan = 1;
                                     }
 
-                                    let r_ab = Store.luckysheet_select_save[0]["row"][0] + r;
-                                    let c_ab = Store.luckysheet_select_save[0]["column"][0] + c;
+                                    let r_ab = Store.selections[0]["row"][0] + r;
+                                    let c_ab = Store.selections[0]["column"][0] + c;
 
                                     for (let rp = 0; rp < rowspan; rp++) {
                                         for (let cp = 0; cp < colspan; cp++) {

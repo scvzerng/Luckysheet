@@ -456,7 +456,7 @@ const alternateformat = {
     perfect: function(){
         let _this = this;
 
-        let range = structuredClone(Store.luckysheet_select_save[0]);
+        let range = structuredClone(Store.selections[0]);
         let existsIndex = _this.rangeIsExists(range)[1];
         
         let obj = structuredClone(getCurrentFile()["luckysheet_alternateformat_save"][existsIndex]);
@@ -465,7 +465,7 @@ const alternateformat = {
         let cellrange = obj["cellrange"];
         const _elRangeInput = document.querySelector("#luckysheet-alternateformat-range input"); if (_elRangeInput) _elRangeInput.value = getRangetxt(Store.currentSheetIndex, { "row": cellrange["row"], "column": cellrange["column"] }, Store.currentSheetIndex);
         
-        Store.luckysheet_select_save = [{ "row": cellrange["row"], "column": cellrange["column"] }];
+        Store.selections = [{ "row": cellrange["row"], "column": cellrange["column"] }];
         selectHightlightShow();
 
         //页眉、页脚

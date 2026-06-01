@@ -32,7 +32,7 @@ export function getRangeByTxt(txt){
     };
 }
 
-export function getTxtByRange(range=Store.luckysheet_select_save){
+export function getTxtByRange(range=Store.selections){
 
     // 单个范围
     if(getObjType(range) === 'object'){

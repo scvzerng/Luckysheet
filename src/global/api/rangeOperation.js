@@ -83,7 +83,7 @@ export function setRangeMerge(type, options = {}) {
     }
 
     let curSheetOrder = getCurrentSheetOrder(),
-        curRange = JSON.parse(JSON.stringify(Store.luckysheet_select_save));
+        curRange = JSON.parse(JSON.stringify(Store.selections));
     let {
         range = curRange,
         order = curSheetOrder,
@@ -286,7 +286,7 @@ export function setRangeMerge(type, options = {}) {
 }
 
 export function cancelRangeMerge(options = {}) {
-    let curRange = Store.luckysheet_select_save,
+    let curRange = Store.selections,
         curSheetOrder = getCurrentSheetOrder();
     let {
         range = curRange,
@@ -423,7 +423,7 @@ export function setRangeSort(type, options = {}) {
     }
 
     let curSheetOrder = getCurrentSheetOrder(),
-        curRange = Store.luckysheet_select_save[0];
+        curRange = Store.selections[0];
     let {
         range = curRange,
         order = curSheetOrder,
@@ -508,7 +508,7 @@ export function setRangeSortMulti(hasTitle, sort, options = {}) {
     }
 
     let curSheetOrder = getCurrentSheetOrder(),
-        curRange = Store.luckysheet_select_save[0];
+        curRange = Store.selections[0];
     let {
         range = curRange,
         order = curSheetOrder,
@@ -600,7 +600,7 @@ export function setRangeSortMulti(hasTitle, sort, options = {}) {
 
 export function clearRange(options = {}) {
     let {
-        range = Store.luckysheet_select_save,
+        range = Store.selections,
         order = getCurrentSheetOrder(),
         success
     } = {...options}

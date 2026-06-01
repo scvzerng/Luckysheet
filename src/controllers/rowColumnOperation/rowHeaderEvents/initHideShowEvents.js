@@ -14,7 +14,7 @@ export function initHideShowEvents() {
       rightClickMenu.hide();
       luckysheetContainerFocus();
       const locale_drag = locale().drag;
-      if (Store.luckysheet_select_save.length > 1) {
+      if (Store.selections.length > 1) {
         if (Store.luckysheetRightHeadClickIs == "row") {
           if (isEditMode()) {
             alert(locale_drag.noMulti);
@@ -37,9 +37,9 @@ export function initHideShowEvents() {
         if (cfg["rowhidden"] == null) {
           cfg["rowhidden"] = {};
         }
-        for (let s = 0; s < Store.luckysheet_select_save.length; s++) {
-          let r1 = Store.luckysheet_select_save[s].row[0],
-            r2 = Store.luckysheet_select_save[s].row[1];
+        for (let s = 0; s < Store.selections.length; s++) {
+          let r1 = Store.selections[s].row[0],
+            r2 = Store.selections[s].row[1];
           for (let r = r1; r <= r2; r++) {
             cfg["rowhidden"][r] = 0;
           }
@@ -69,9 +69,9 @@ export function initHideShowEvents() {
         if (cfg["colhidden"] == null) {
           cfg["colhidden"] = {};
         }
-        for (let s = 0; s < Store.luckysheet_select_save.length; s++) {
-          let c1 = Store.luckysheet_select_save[s].column[0],
-            c2 = Store.luckysheet_select_save[s].column[1];
+        for (let s = 0; s < Store.selections.length; s++) {
+          let c1 = Store.selections[s].column[0],
+            c2 = Store.selections[s].column[1];
           for (let c = c1; c <= c2; c++) {
             cfg["colhidden"][c] = 0;
           }
@@ -102,7 +102,7 @@ export function initHideShowEvents() {
       rightClickMenu.hide();
       luckysheetContainerFocus();
       const locale_drag = locale().drag;
-      if (Store.luckysheet_select_save.length > 1) {
+      if (Store.selections.length > 1) {
         if (Store.luckysheetRightHeadClickIs == "row") {
           if (isEditMode()) {
             alert(locale_drag.noMulti);
@@ -125,9 +125,9 @@ export function initHideShowEvents() {
         if (cfg["rowhidden"] == null) {
           return;
         }
-        for (let s = 0; s < Store.luckysheet_select_save.length; s++) {
-          let r1 = Store.luckysheet_select_save[s].row[0],
-            r2 = Store.luckysheet_select_save[s].row[1];
+        for (let s = 0; s < Store.selections.length; s++) {
+          let r1 = Store.selections[s].row[0],
+            r2 = Store.selections[s].row[1];
           for (let r = r1; r <= r2; r++) {
             delete cfg["rowhidden"][r];
           }
@@ -155,9 +155,9 @@ export function initHideShowEvents() {
         if (cfg["colhidden"] == null) {
           return;
         }
-        for (let s = 0; s < Store.luckysheet_select_save.length; s++) {
-          let c1 = Store.luckysheet_select_save[s].column[0],
-            c2 = Store.luckysheet_select_save[s].column[1];
+        for (let s = 0; s < Store.selections.length; s++) {
+          let c1 = Store.selections[s].column[0],
+            c2 = Store.selections[s].column[1];
           for (let c = c1; c <= c2; c++) {
             delete cfg["colhidden"][c];
           }

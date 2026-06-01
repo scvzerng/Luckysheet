@@ -167,7 +167,7 @@ export function initFreezen(_this) {
             } else if (itemvalue == "freezenRowRange") {
               //选区行冻�?
   
-              if (Store.luckysheet_select_save == null || Store.luckysheet_select_save === null) {
+              if (Store.selections == null || Store.selections === null) {
                 if (isEditMode()) {
                   alert(locale_freezen.noSeletionError);
                 } else {
@@ -204,7 +204,7 @@ export function initFreezen(_this) {
               luckysheetrefreshgrid();
             } else if (itemvalue == "freezenColumnRange") {
               //选区列冻�?
-              if (Store.luckysheet_select_save == null || Store.luckysheet_select_save === null) {
+              if (Store.selections == null || Store.selections === null) {
                 if (isEditMode()) {
                   alert(locale_freezen.noSeletionError);
                 } else {
@@ -241,7 +241,7 @@ export function initFreezen(_this) {
               luckysheetrefreshgrid();
             } else if (itemvalue == "freezenRCRange") {
               //选区行列冻结
-              if (Store.luckysheet_select_save == null || Store.luckysheet_select_save === null) {
+              if (Store.selections == null || Store.selections === null) {
                 if (isEditMode()) {
                   alert(locale_freezen.noSeletionError);
                 } else {

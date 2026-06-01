@@ -86,8 +86,8 @@ const clipboardCopyModule = {
     let copyRange = [],
       RowlChange = false,
       HasMC = false;
-    for (let s = 0; s < Store.luckysheet_select_save.length; s++) {
-      let range = Store.luckysheet_select_save[s];
+    for (let s = 0; s < Store.selections.length; s++) {
+      let range = Store.selections[s];
       let r1 = range.row[0],
         r2 = range.row[1];
       let c1 = range.column[0],
@@ -243,8 +243,8 @@ const clipboardCopyModule = {
     //copy事件
     let clipboardData = e.originalEvent && e.originalEvent.clipboardData;
     Store.luckysheet_selection_range = [{
-      row: Store.luckysheet_select_save[0].row,
-      column: Store.luckysheet_select_save[0].column
+      row: Store.selections[0].row,
+      column: Store.selections[0].column
     }];
     selectionCopyShow();
     let cpdata = txt;

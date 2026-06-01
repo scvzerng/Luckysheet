@@ -148,13 +148,13 @@ export function handleCellMousedown(event) {
               if (event.which == "3") {
                   let isright = false;
   
-                  for (let s = 0; s < Store.luckysheet_select_save.length; s++) {
+                  for (let s = 0; s < Store.selections.length; s++) {
                       if (
-                          Store.luckysheet_select_save[s]["row"] != null &&
-                          row_index >= Store.luckysheet_select_save[s]["row"][0] &&
-                          row_index <= Store.luckysheet_select_save[s]["row"][1] &&
-                          col_index >= Store.luckysheet_select_save[s]["column"][0] &&
-                          col_index <= Store.luckysheet_select_save[s]["column"][1]
+                          Store.selections[s]["row"] != null &&
+                          row_index >= Store.selections[s]["row"][0] &&
+                          row_index <= Store.selections[s]["row"][1] &&
+                          col_index >= Store.selections[s]["column"][0] &&
+                          col_index <= Store.selections[s]["column"][1]
                       ) {
                           isright = true;
                           break;
@@ -728,12 +728,12 @@ export function handleCellMousedown(event) {
                       const _rangeDialog = document.getElementById("luckysheet-alternateformat-rangeDialog");
                       if (_rangeDialog && _rangeDialog.offsetWidth > 0) {
                           const _rangeDialogInput = _rangeDialog.querySelector("input");
-                          if (_rangeDialogInput) _rangeDialogInput.value = getRangetxt(Store.currentSheetIndex, Store.luckysheet_select_save);
+                          if (_rangeDialogInput) _rangeDialogInput.value = getRangetxt(Store.currentSheetIndex, Store.selections);
                       }
   
                   } else if (event.ctrlKey) {
                       //选区添加
-                      Store.luckysheet_select_save.push({
+                      Store.selections.push({
                           left: col_pre,
                           width: col - col_pre - 1,
                           top: row_pre,
@@ -748,8 +748,8 @@ export function handleCellMousedown(event) {
                           column_focus: col_index,
                       });
                   } else {
-                      Store.luckysheet_select_save.length = 0;
-                      Store.luckysheet_select_save.push({
+                      Store.selections.length = 0;
+                      Store.selections.push({
                           left: col_pre,
                           width: col - col_pre - 1,
                           top: row_pre,

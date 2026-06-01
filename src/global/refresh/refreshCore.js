@@ -33,7 +33,7 @@ function jfrefreshgrid(data, range, allParam, isRunExecFunction = true, isRefres
     }
 
     if(range == null){
-        range = Store.luckysheet_select_save;
+        range = Store.selections;
     }
     range = JSON.parse(JSON.stringify(range));
 
@@ -167,7 +167,7 @@ function jfrefreshgridall(colwidth, rowheight, data, cfg, range, ctrlType, ctrlV
         redo["config"] = structuredClone(Store.config);
         redo["curconfig"] = structuredClone(cfg);
 
-        redo["range"] = structuredClone(Store.luckysheet_select_save);
+        redo["range"] = structuredClone(Store.selections);
         redo["currange"] = range;
 
         redo["ctrlType"] = ctrlType;
@@ -185,7 +185,7 @@ function jfrefreshgridall(colwidth, rowheight, data, cfg, range, ctrlType, ctrlV
         redo["config"] = structuredClone(Store.config);
         redo["curconfig"] = structuredClone(cfg);
 
-        redo["range"] = structuredClone(Store.luckysheet_select_save);
+        redo["range"] = structuredClone(Store.selections);
         redo["currange"] = range;
 
         redo["ctrlType"] = ctrlType;
@@ -203,7 +203,7 @@ function jfrefreshgridall(colwidth, rowheight, data, cfg, range, ctrlType, ctrlV
         redo["config"] = structuredClone(Store.config);
         redo["curconfig"] = structuredClone(cfg);
 
-        redo["range"] = structuredClone(Store.luckysheet_select_save);
+        redo["range"] = structuredClone(Store.selections);
         redo["currange"] = range;
 
         redo["ctrlType"] = ctrlType;
@@ -215,7 +215,7 @@ function jfrefreshgridall(colwidth, rowheight, data, cfg, range, ctrlType, ctrlV
         redo["config"] = structuredClone(Store.config);
         redo["curconfig"] = structuredClone(cfg);
 
-        redo["range"] = structuredClone(Store.luckysheet_select_save);
+        redo["range"] = structuredClone(Store.selections);
         redo["currange"] = range;
 
         redo["ctrlType"] = ctrlType;
@@ -225,7 +225,7 @@ function jfrefreshgridall(colwidth, rowheight, data, cfg, range, ctrlType, ctrlV
     else {
         redo["type"] = "datachangeAll";
 
-        redo["range"] = structuredClone(Store.luckysheet_select_save);
+        redo["range"] = structuredClone(Store.selections);
         redo["currange"] = range;
 
         redo["ctrlType"] = ctrlType;
@@ -265,8 +265,8 @@ function jfrefreshgridall(colwidth, rowheight, data, cfg, range, ctrlType, ctrlV
     }
 
     //选区
-    Store.luckysheet_select_save = structuredClone(range);
-    if(Store.luckysheet_select_save.length > 0){
+    Store.selections = structuredClone(range);
+    if(Store.selections.length > 0){
         //有选区时，刷新一下选区
         selectHightlightShow();
     }

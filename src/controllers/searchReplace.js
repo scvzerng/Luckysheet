@@ -187,7 +187,7 @@ const luckysheetSearchReplace = {
                     sheetmanage.changeSheetExec(sheetIndex);
                 }
 
-                Store.luckysheet_select_save = [{ row: [r, r], column: [c, c] }];
+                Store.selections = [{ row: [r, r], column: [c, c] }];
 
                 selectHightlightShow();
 
@@ -238,10 +238,10 @@ const luckysheetSearchReplace = {
         const locale_findAndReplace = _locale.findAndReplace;
         let range;
         if (
-            Store.luckysheet_select_save.length == 0 ||
-            (Store.luckysheet_select_save.length == 1 &&
-                Store.luckysheet_select_save[0].row[0] == Store.luckysheet_select_save[0].row[1] &&
-                Store.luckysheet_select_save[0].column[0] == Store.luckysheet_select_save[0].column[1])
+            Store.selections.length == 0 ||
+            (Store.selections.length == 1 &&
+                Store.selections[0].row[0] == Store.selections[0].row[1] &&
+                Store.selections[0].column[0] == Store.selections[0].column[1])
         ) {
             range = [
                 {
@@ -250,7 +250,7 @@ const luckysheetSearchReplace = {
                 },
             ];
         } else {
-            range = structuredClone(Store.luckysheet_select_save);
+            range = structuredClone(Store.selections);
         }
 
         let searchIndexArr = _this.getSearchIndexArr(searchText, range);
@@ -268,18 +268,18 @@ const luckysheetSearchReplace = {
         let count = 0;
 
         if (
-            Store.luckysheet_select_save.length == 0 ||
-            (Store.luckysheet_select_save.length == 1 &&
-                Store.luckysheet_select_save[0].row[0] == Store.luckysheet_select_save[0].row[1] &&
-                Store.luckysheet_select_save[0].column[0] == Store.luckysheet_select_save[0].column[1])
+            Store.selections.length == 0 ||
+            (Store.selections.length == 1 &&
+                Store.selections[0].row[0] == Store.selections[0].row[1] &&
+                Store.selections[0].column[0] == Store.selections[0].column[1])
         ) {
-            if (Store.luckysheet_select_save.length == 0) {
+            if (Store.selections.length == 0) {
                 count = 0;
             } else {
                 for (let i = 0; i < searchIndexArr.length; i++) {
                     if (
-                        searchIndexArr[i].r == Store.luckysheet_select_save[0].row[0] &&
-                        searchIndexArr[i].c == Store.luckysheet_select_save[0].column[0]
+                        searchIndexArr[i].r == Store.selections[0].row[0] &&
+                        searchIndexArr[i].c == Store.selections[0].column[0]
                     ) {
                         if (i == searchIndexArr.length - 1) {
                             count = 0;
@@ -292,7 +292,7 @@ const luckysheetSearchReplace = {
                 }
             }
 
-            Store.luckysheet_select_save = [
+            Store.selections = [
                 {
                     row: [searchIndexArr[count].r, searchIndexArr[count].r],
                     column: [searchIndexArr[count].c, searchIndexArr[count].c],
@@ -336,7 +336,7 @@ const luckysheetSearchReplace = {
                 }
             }
 
-            Store.luckysheet_select_save = range;
+            Store.selections = range;
         }
 
         selectHightlightShow();
@@ -387,7 +387,7 @@ const luckysheetSearchReplace = {
          * fix #1115 查找改为全局查找（todo: 后续可以传入range）
          */
         let range;
-        // if(Store.luckysheet_select_save.length == 0 || (Store.luckysheet_select_save.length == 1 && Store.luckysheet_select_save[0].row[0] == Store.luckysheet_select_save[0].row[1] && Store.luckysheet_select_save[0].column[0] == Store.luckysheet_select_save[0].column[1])){
+        // if(Store.selections.length == 0 || (Store.selections.length == 1 && Store.selections[0].row[0] == Store.selections[0].row[1] && Store.selections[0].column[0] == Store.selections[0].column[1])){
         range = [
             {
                 row: [0, Store.sheetData.length - 1],
@@ -396,7 +396,7 @@ const luckysheetSearchReplace = {
         ];
         // }
         // else{
-        //     range = structuredClone(Store.luckysheet_select_save);
+        //     range = structuredClone(Store.selections);
         // }
 
         let searchIndexArr = _this.getSearchIndexArr(searchText, range);
@@ -474,7 +474,7 @@ const luckysheetSearchReplace = {
           Array.from(_firstBoxItem.parentElement.children).filter(s => s !== _firstBoxItem).forEach(s => s.classList.remove("on"));
         }
 
-        Store.luckysheet_select_save = [
+        Store.selections = [
             {
                 row: [searchIndexArr[0].r, searchIndexArr[0].r],
                 column: [searchIndexArr[0].c, searchIndexArr[0].c],
@@ -579,10 +579,10 @@ const luckysheetSearchReplace = {
 
         let range;
         if (
-            Store.luckysheet_select_save.length == 0 ||
-            (Store.luckysheet_select_save.length == 1 &&
-                Store.luckysheet_select_save[0].row[0] == Store.luckysheet_select_save[0].row[1] &&
-                Store.luckysheet_select_save[0].column[0] == Store.luckysheet_select_save[0].column[1])
+            Store.selections.length == 0 ||
+            (Store.selections.length == 1 &&
+                Store.selections[0].row[0] == Store.selections[0].row[1] &&
+                Store.selections[0].column[0] == Store.selections[0].column[1])
         ) {
             range = [
                 {
@@ -591,7 +591,7 @@ const luckysheetSearchReplace = {
                 },
             ];
         } else {
-            range = structuredClone(Store.luckysheet_select_save);
+            range = structuredClone(Store.selections);
         }
 
         let searchIndexArr = _this.getSearchIndexArr(searchText, range);
@@ -685,13 +685,13 @@ const luckysheetSearchReplace = {
             setcellvalue(r, c, d, v);
         }
 
-        Store.luckysheet_select_save = [{ row: [r, r], column: [c, c] }];
+        Store.selections = [{ row: [r, r], column: [c, c] }];
 
         if (document.querySelector("#luckysheet-search-replace #searchAllbox")?.offsetWidth > 0) {
             const _elSearchBox1 = document.querySelector("#luckysheet-search-replace #searchAllbox"); if (_elSearchBox1) _elSearchBox1.style.display = 'none';
         }
 
-        jfrefreshgrid(d, Store.luckysheet_select_save);
+        jfrefreshgrid(d, Store.selections);
         selectHightlightShow();
 
         let scroll = getScrollPosition();
@@ -741,10 +741,10 @@ const luckysheetSearchReplace = {
 
         let range;
         if (
-            Store.luckysheet_select_save.length == 0 ||
-            (Store.luckysheet_select_save.length == 1 &&
-                Store.luckysheet_select_save[0].row[0] == Store.luckysheet_select_save[0].row[1] &&
-                Store.luckysheet_select_save[0].column[0] == Store.luckysheet_select_save[0].column[1])
+            Store.selections.length == 0 ||
+            (Store.selections.length == 1 &&
+                Store.selections[0].row[0] == Store.selections[0].row[1] &&
+                Store.selections[0].column[0] == Store.selections[0].column[1])
         ) {
             range = [
                 {
@@ -753,7 +753,7 @@ const luckysheetSearchReplace = {
                 },
             ];
         } else {
-            range = structuredClone(Store.luckysheet_select_save);
+            range = structuredClone(Store.selections);
         }
 
         let searchIndexArr = _this.getSearchIndexArr(searchText, range);
@@ -834,7 +834,7 @@ const luckysheetSearchReplace = {
 
         jfrefreshgrid(d, range);
 
-        Store.luckysheet_select_save = structuredClone(range);
+        Store.selections = structuredClone(range);
         selectHightlightShow();
 
         let succeedInfo = replaceHtml(locale_findAndReplace.successTip, {

@@ -223,18 +223,18 @@ const freezeCoreModule = {
   scrollFreezen: function () {
     let _this = this;
     let row;
-    let row_focus = Store.luckysheet_select_save[0]["row_focus"];
-    if (row_focus == Store.luckysheet_select_save[0]["row"][0]) {
-      row = Store.luckysheet_select_save[0]["row"][1];
-    } else if (row_focus == Store.luckysheet_select_save[0]["row"][1]) {
-      row = Store.luckysheet_select_save[0]["row"][0];
+    let row_focus = Store.selections[0]["row_focus"];
+    if (row_focus == Store.selections[0]["row"][0]) {
+      row = Store.selections[0]["row"][1];
+    } else if (row_focus == Store.selections[0]["row"][1]) {
+      row = Store.selections[0]["row"][0];
     }
     let column;
-    let column_focus = Store.luckysheet_select_save[0]["column_focus"];
-    if (column_focus == Store.luckysheet_select_save[0]["column"][0]) {
-      column = Store.luckysheet_select_save[0]["column"][1];
-    } else if (column_focus == Store.luckysheet_select_save[0]["column"][1]) {
-      column = Store.luckysheet_select_save[0]["column"][0];
+    let column_focus = Store.selections[0]["column_focus"];
+    if (column_focus == Store.selections[0]["column"][0]) {
+      column = Store.selections[0]["column"][1];
+    } else if (column_focus == Store.selections[0]["column"][1]) {
+      column = Store.selections[0]["column"][0];
     }
     if (_this.freezenverticaldata != null) {
       let freezen_colindex = _this.freezenverticaldata[1];

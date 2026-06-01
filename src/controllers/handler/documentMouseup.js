@@ -741,14 +741,14 @@ export default function documentMouseup() {
             }
 
             let rf;
-            if (Store.luckysheet_select_save[0].row_focus == Store.luckysheet_select_save[0].row[0]) {
+            if (Store.selections[0].row_focus == Store.selections[0].row[0]) {
                 rf = row_s;
             } else {
                 rf = row_e;
             }
 
             let cf;
-            if (Store.luckysheet_select_save[0].column_focus == Store.luckysheet_select_save[0].column[0]) {
+            if (Store.selections[0].column_focus == Store.selections[0].column[0]) {
                 cf = col_s;
             } else {
                 cf = col_e;
@@ -859,7 +859,7 @@ export default function documentMouseup() {
 
             if (Math.abs(row_index_original - row_index) > Math.abs(col_index_original - col_index)) {
                 if (!(row_index >= row_s && row_index <= row_e)) {
-                    if (Store.luckysheet_select_save[0].top_move >= row_pre) {
+                    if (Store.selections[0].top_move >= row_pre) {
                         //当往上拖拽时
                         luckysheetDropCell.applyRange = {
                             row: [row_index, last["row"][0] - 1],
@@ -887,7 +887,7 @@ export default function documentMouseup() {
                 }
             } else {
                 if (!(col_index >= col_s && col_index <= col_e)) {
-                    if (Store.luckysheet_select_save[0].left_move >= col_pre) {
+                    if (Store.selections[0].left_move >= col_pre) {
                         //当往左拖拽时
                         luckysheetDropCell.applyRange = {
                             row: last["row"],

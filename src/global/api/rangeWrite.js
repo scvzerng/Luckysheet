@@ -86,7 +86,7 @@ export function setRangeShow(range, options = {}) {
     file.luckysheet_select_save = range;
 
     if(file.index == Store.currentSheetIndex){
-        Store.luckysheet_select_save = range;
+        Store.selections = range;
         selectHightlightShow();
 
         if(!show){
@@ -214,7 +214,7 @@ export function setSingleRangeFormat(attr, value, options = {}) {
 
  export function setRangeFormat(attr, value, options = {}) {
     let curSheetOrder = getCurrentSheetOrder();
-    let curRange = JSON.parse(JSON.stringify(Store.luckysheet_select_save));
+    let curRange = JSON.parse(JSON.stringify(Store.selections));
     let {
         range = curRange,
         order = curSheetOrder,

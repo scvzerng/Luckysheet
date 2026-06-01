@@ -9,7 +9,7 @@ import rightClickMenu from '../../ui/rightClickMenu.js';
 
 function createFilter() {
 
-    if(Store.luckysheet_select_save.length > 1){
+    if(Store.selections.length > 1){
         rightClickMenu.hide();
         [document.getElementById("luckysheet-filter-menu"), document.getElementById("luckysheet-filter-submenu")].forEach(el => { if (el) el.style.display = 'none'; });
         const _elContainer = document.getElementById(Store.container); if (_elContainer) { _elContainer.setAttribute("tabindex", 0); _elContainer.focus(); }
@@ -29,7 +29,7 @@ function createFilter() {
     const _elFilterSelRm = document.getElementById("luckysheet-filter-selected-sheet" + Store.currentSheetIndex); if (_elFilterSelRm) _elFilterSelRm.remove();
     const _elFilterOptRm = document.getElementById("luckysheet-filter-options-sheet" + Store.currentSheetIndex); if (_elFilterOptRm) _elFilterOptRm.remove();
 
-    let last = Store.luckysheet_select_save[0];
+    let last = Store.selections[0];
     if (last["row"][0] == last["row"][1] && last["column"][0] == last["column"][1]) {
         let st_c, ed_c, curR = last["row"][1];
 
@@ -51,7 +51,7 @@ function createFilter() {
             ed_c = Store.sheetData[curR].length - 1;
         }
 
-        Store.luckysheet_select_save = [{ "row": [curR, curR], "column": [st_c, ed_c] }];
+        Store.selections = [{ "row": [curR, curR], "column": [st_c, ed_c] }];
         selectHightlightShow();
 
         Store.luckysheet_shiftpositon = structuredClone(last);
@@ -62,7 +62,7 @@ function createFilter() {
         luckysheetMoveEndCell("down", "range");
     }
 
-    Store.luckysheet_filter_save = structuredClone(Store.luckysheet_select_save[0]);
+    Store.luckysheet_filter_save = structuredClone(Store.selections[0]);
 
     createFilterOptions(Store.luckysheet_filter_save);
 

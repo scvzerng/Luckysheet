@@ -111,8 +111,8 @@ const luckysheetSplitColumn = {
             let regStr = _this.getRegStr();
             let dataArr = _this.getDataArr(regStr);
 
-            let r = Store.luckysheet_select_save[0].row[0];
-            let c = Store.luckysheet_select_save[0].column[0];
+            let r = Store.selections[0].row[0];
+            let c = Store.selections[0].column[0];
 
             if(dataArr[0].length == 1){
                 return;
@@ -152,8 +152,8 @@ const luckysheetSplitColumn = {
             }
         }
 
-        let st_r = Store.luckysheet_select_save[0].row[0], 
-            st_c = Store.luckysheet_select_save[0].column[0];
+        let st_r = Store.selections[0].row[0], 
+            st_c = Store.selections[0].column[0];
 
         let range = [{ "row": [st_r, st_r + dataArr.length - 1], "column": [st_c, st_c + dataArr[0].length - 1] }]
 
@@ -237,9 +237,9 @@ const luckysheetSplitColumn = {
 
         let arr = [];
 
-        let r1 = Store.luckysheet_select_save[0].row[0];
-        let r2 = Store.luckysheet_select_save[0].row[1];
-        let c = Store.luckysheet_select_save[0].column[0];
+        let r1 = Store.selections[0].row[0];
+        let r2 = Store.selections[0].row[1];
+        let c = Store.selections[0].column[0];
 
         if(regStr != null && regStr != ""){
             let reg = new RegExp(regStr, "g");

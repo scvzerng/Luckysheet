@@ -236,7 +236,7 @@ export function initConditionformat(_this) {
               luckysheetContainerFocus();
               let itemvalue = this.getAttribute("itemvalue");
             if (itemvalue == "icons") {
-              if (Store.luckysheet_select_save.length == 0) {
+              if (Store.selections.length == 0) {
                 if (isEditMode()) {
                   alert(conditionformat_text.pleaseSelectRange);
                 } else {
@@ -247,7 +247,7 @@ export function initConditionformat(_this) {
               conditionformat.CFiconsDialog();
               conditionformat.init();
             } else if (itemvalue == "newRule") {
-              if (Store.luckysheet_select_save.length == 0) {
+              if (Store.selections.length == 0) {
                 if (isEditMode()) {
                   alert(conditionformat_text.pleaseSelectRange);
                 } else {
@@ -306,7 +306,7 @@ export function initConditionformat(_this) {
             const _elHighlight = document.getElementById("luckysheet-icon-highlightCellRule-menuButton"); if (_elHighlight) _elHighlight.style.display = 'none';
             luckysheetContainerFocus();
             let itemvalue = this.getAttribute("itemvalue");
-            if (Store.luckysheet_select_save.length == 0) {
+            if (Store.selections.length == 0) {
               if (isEditMode()) {
                 alert(conditionformat_text.pleaseSelectRange);
               } else {
@@ -419,7 +419,7 @@ export function initConditionformat(_this) {
             const _elProject = document.getElementById("luckysheet-icon-projectSelectRule-menuButton"); if (_elProject) _elProject.style.display = 'none';
             luckysheetContainerFocus();
             let itemvalue = this.getAttribute("itemvalue");
-            if (Store.luckysheet_select_save.length == 0) {
+            if (Store.selections.length == 0) {
               if (isEditMode()) {
                 alert(conditionformat_text.pleaseSelectRange);
               } else {
@@ -518,8 +518,8 @@ export function initConditionformat(_this) {
             const _elDataBar = document.getElementById("luckysheet-icon-dataBar-menuButton"); if (_elDataBar) _elDataBar.style.display = 'none';
             luckysheetContainerFocus();
             let itemvalue = this.getAttribute("itemvalue");
-            if (Store.luckysheet_select_save.length > 0) {
-              let cellrange = structuredClone(Store.luckysheet_select_save);
+            if (Store.selections.length > 0) {
+              let cellrange = structuredClone(Store.selections);
               let format = conditionformat.dataBarList[itemvalue]["format"];
               conditionformat.updateItem("dataBar", cellrange, format);
             }
@@ -532,8 +532,8 @@ export function initConditionformat(_this) {
             const _elColorGrad = document.getElementById("luckysheet-icon-colorGradation-menuButton"); if (_elColorGrad) _elColorGrad.style.display = 'none';
             luckysheetContainerFocus();
             let itemvalue = this.getAttribute("itemvalue");
-            if (Store.luckysheet_select_save.length > 0) {
-              let cellrange = structuredClone(Store.luckysheet_select_save);
+            if (Store.selections.length > 0) {
+              let cellrange = structuredClone(Store.selections);
               let format = conditionformat.colorGradationList[itemvalue]["format"];
               conditionformat.updateItem("colorGradation", cellrange, format);
             }

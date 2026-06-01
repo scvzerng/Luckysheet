@@ -15,7 +15,7 @@ function initialCopyFormatOperation() {
         const _colsMenu = document.querySelector("body .luckysheet-cols-menu"); if (_colsMenu) _colsMenu.style.display = 'none';
         luckysheetContainerFocus();
 
-        if(Store.luckysheet_select_save.length > 1){
+        if(Store.selections.length > 1){
             if(isEditMode()){
                 alert(locale_drag.noMulti);
             }
@@ -29,11 +29,11 @@ function initialCopyFormatOperation() {
         if(Store.config["merge"] != null){
             let has_PartMC = false;
 
-            for(let s = 0; s < Store.luckysheet_select_save.length; s++){
-                let r1 = Store.luckysheet_select_save[s].row[0], 
-                    r2 = Store.luckysheet_select_save[s].row[1];
-                let c1 = Store.luckysheet_select_save[s].column[0], 
-                    c2 = Store.luckysheet_select_save[s].column[1];
+            for(let s = 0; s < Store.selections.length; s++){
+                let r1 = Store.selections[s].row[0], 
+                    r2 = Store.selections[s].row[1];
+                let c1 = Store.selections[s].column[0], 
+                    c2 = Store.selections[s].column[1];
 
                 has_PartMC = hasPartMC(Store.config, r1, r2, c1, c2);
 
@@ -53,7 +53,7 @@ function initialCopyFormatOperation() {
             }
         }
 
-        let getdata = getdatabyselection(Store.luckysheet_select_save[0]);
+        let getdata = getdatabyselection(Store.selections[0]);
         let arr = [];
         if (getdata === null) {
             return;
@@ -89,7 +89,7 @@ function initialCopyFormatOperation() {
         luckysheetContainerFocus();
 
 
-        if(Store.luckysheet_select_save.length > 1){
+        if(Store.selections.length > 1){
             if(isEditMode()){
                 alert(locale_drag.noMulti);
             }
@@ -103,11 +103,11 @@ function initialCopyFormatOperation() {
         if(Store.config["merge"] != null){
             let has_PartMC = false;
 
-            for(let s = 0; s < Store.luckysheet_select_save.length; s++){
-                let r1 = Store.luckysheet_select_save[s].row[0], 
-                    r2 = Store.luckysheet_select_save[s].row[1];
-                let c1 = Store.luckysheet_select_save[s].column[0], 
-                    c2 = Store.luckysheet_select_save[s].column[1];
+            for(let s = 0; s < Store.selections.length; s++){
+                let r1 = Store.selections[s].row[0], 
+                    r2 = Store.selections[s].row[1];
+                let c1 = Store.selections[s].column[0], 
+                    c2 = Store.selections[s].column[1];
 
                 has_PartMC = hasPartMC(Store.config, r1, r2, c1, c2);
 
@@ -127,12 +127,12 @@ function initialCopyFormatOperation() {
             }
         }
 
-        let getdata = getdatabyselection(Store.luckysheet_select_save[0]);
+        let getdata = getdatabyselection(Store.selections[0]);
         let arr = [];
         if (getdata === null) {
             return;
         }
-        let st = Store.luckysheet_select_save[0]["column"][0];
+        let st = Store.selections[0]["column"][0];
         for (let r = 0; r < getdata.length; r++) {
             let obj = {};
             for (let c = 0; c < getdata[0].length; c++) {
@@ -149,7 +149,7 @@ function initialCopyFormatOperation() {
         const _colsMenu = document.querySelector("body .luckysheet-cols-menu"); if (_colsMenu) _colsMenu.style.display = 'none';
         luckysheetContainerFocus();
 
-        if(Store.luckysheet_select_save.length > 1){
+        if(Store.selections.length > 1){
             if(isEditMode()){
                 alert(locale_drag.noMulti);
             }
@@ -163,11 +163,11 @@ function initialCopyFormatOperation() {
         if(Store.config["merge"] != null){
             let has_PartMC = false;
 
-            for(let s = 0; s < Store.luckysheet_select_save.length; s++){
-                let r1 = Store.luckysheet_select_save[s].row[0], 
-                    r2 = Store.luckysheet_select_save[s].row[1];
-                let c1 = Store.luckysheet_select_save[s].column[0], 
-                    c2 = Store.luckysheet_select_save[s].column[1];
+            for(let s = 0; s < Store.selections.length; s++){
+                let r1 = Store.selections[s].row[0], 
+                    r2 = Store.selections[s].row[1];
+                let c1 = Store.selections[s].column[0], 
+                    c2 = Store.selections[s].column[1];
 
                 has_PartMC = hasPartMC(Store.config, r1, r2, c1, c2);
 
@@ -187,7 +187,7 @@ function initialCopyFormatOperation() {
             }
         }
 
-        let getdata = getdatabyselection(Store.luckysheet_select_save[0]);
+        let getdata = getdatabyselection(Store.selections[0]);
         let arr = [];
         if (getdata === null) {
             return;
@@ -207,7 +207,7 @@ function initialCopyFormatOperation() {
         luckysheetContainerFocus();
 
 
-        if(Store.luckysheet_select_save.length > 1){
+        if(Store.selections.length > 1){
             if(isEditMode()){
                 alert(locale_drag.noMulti);
             }
@@ -221,11 +221,11 @@ function initialCopyFormatOperation() {
         if(Store.config["merge"] != null){
             let has_PartMC = false;
 
-            for(let s = 0; s < Store.luckysheet_select_save.length; s++){
-                let r1 = Store.luckysheet_select_save[s].row[0], 
-                    r2 = Store.luckysheet_select_save[s].row[1];
-                let c1 = Store.luckysheet_select_save[s].column[0], 
-                    c2 = Store.luckysheet_select_save[s].column[1];
+            for(let s = 0; s < Store.selections.length; s++){
+                let r1 = Store.selections[s].row[0], 
+                    r2 = Store.selections[s].row[1];
+                let c1 = Store.selections[s].column[0], 
+                    c2 = Store.selections[s].column[1];
 
                 has_PartMC = hasPartMC(Store.config, r1, r2, c1, c2);
 
@@ -245,7 +245,7 @@ function initialCopyFormatOperation() {
             }
         }
 
-        let getdata = getdatabyselection(Store.luckysheet_select_save[0]);
+        let getdata = getdatabyselection(Store.selections[0]);
         let arr = [];
         if (getdata === null) {
             return;
@@ -271,7 +271,7 @@ function initialCopyFormatOperation() {
 
         const _colsMenu = document.querySelector("body .luckysheet-cols-menu"); if (_colsMenu) _colsMenu.style.display = 'none';
 
-        if(Store.luckysheet_select_save.length > 1){
+        if(Store.selections.length > 1){
             if(isEditMode()){
                 alert(locale_drag.noMulti);
             }
@@ -285,11 +285,11 @@ function initialCopyFormatOperation() {
         if(Store.config["merge"] != null){
             let has_PartMC = false;
 
-            for(let s = 0; s < Store.luckysheet_select_save.length; s++){
-                let r1 = Store.luckysheet_select_save[s].row[0],
-                    r2 = Store.luckysheet_select_save[s].row[1];
-                let c1 = Store.luckysheet_select_save[s].column[0],
-                    c2 = Store.luckysheet_select_save[s].column[1];
+            for(let s = 0; s < Store.selections.length; s++){
+                let r1 = Store.selections[s].row[0],
+                    r2 = Store.selections[s].row[1];
+                let c1 = Store.selections[s].column[0],
+                    c2 = Store.selections[s].column[1];
 
                 has_PartMC = hasPartMC(Store.config, r1, r2, c1, c2);
 
@@ -309,7 +309,7 @@ function initialCopyFormatOperation() {
             }
         }
 
-        let getdata = getdatabyselection(Store.luckysheet_select_save[0]);
+        let getdata = getdatabyselection(Store.selections[0]);
         let arr = [];
         if (getdata === null) {
             return;
@@ -391,7 +391,7 @@ function initialCopyFormatOperation() {
         const _colsMenu = document.querySelector("body .luckysheet-cols-menu"); if (_colsMenu) _colsMenu.style.display = 'none';
         luckysheetContainerFocus();
 
-        if(Store.luckysheet_select_save.length > 1){
+        if(Store.selections.length > 1){
             if(isEditMode()){
                 alert(locale_drag.noMulti);
             }
@@ -405,11 +405,11 @@ function initialCopyFormatOperation() {
         if(Store.config["merge"] != null){
             let has_PartMC = false;
 
-            for(let s = 0; s < Store.luckysheet_select_save.length; s++){
-                let r1 = Store.luckysheet_select_save[s].row[0], 
-                    r2 = Store.luckysheet_select_save[s].row[1];
-                let c1 = Store.luckysheet_select_save[s].column[0], 
-                    c2 = Store.luckysheet_select_save[s].column[1];
+            for(let s = 0; s < Store.selections.length; s++){
+                let r1 = Store.selections[s].row[0], 
+                    r2 = Store.selections[s].row[1];
+                let c1 = Store.selections[s].column[0], 
+                    c2 = Store.selections[s].column[1];
 
                 has_PartMC = hasPartMC(Store.config, r1, r2, c1, c2);
 
@@ -429,7 +429,7 @@ function initialCopyFormatOperation() {
             }
         }
 
-        let getdata = getdatabyselection(Store.luckysheet_select_save[0]);
+        let getdata = getdatabyselection(Store.selections[0]);
         let arr = [];
         if (getdata === null) {
             return;
@@ -452,7 +452,7 @@ function initialCopyFormatOperation() {
         luckysheetContainerFocus();
 
 
-        if(Store.luckysheet_select_save.length > 1){
+        if(Store.selections.length > 1){
             if(isEditMode()){
                 alert(locale_drag.noMulti);
             }
@@ -466,11 +466,11 @@ function initialCopyFormatOperation() {
         if(Store.config["merge"] != null){
             let has_PartMC = false;
 
-            for(let s = 0; s < Store.luckysheet_select_save.length; s++){
-                let r1 = Store.luckysheet_select_save[s].row[0], 
-                    r2 = Store.luckysheet_select_save[s].row[1];
-                let c1 = Store.luckysheet_select_save[s].column[0], 
-                    c2 = Store.luckysheet_select_save[s].column[1];
+            for(let s = 0; s < Store.selections.length; s++){
+                let r1 = Store.selections[s].row[0], 
+                    r2 = Store.selections[s].row[1];
+                let c1 = Store.selections[s].column[0], 
+                    c2 = Store.selections[s].column[1];
 
                 has_PartMC = hasPartMC(Store.config, r1, r2, c1, c2);
 
@@ -490,7 +490,7 @@ function initialCopyFormatOperation() {
             }
         }
 
-        let getdata = getdatabyselection(Store.luckysheet_select_save[0]);
+        let getdata = getdatabyselection(Store.selections[0]);
         let arr = [];
         if (getdata === null) {
             return;
@@ -518,7 +518,7 @@ function initialCopyFormatOperation() {
         const _colsMenu = document.querySelector("body .luckysheet-cols-menu"); if (_colsMenu) _colsMenu.style.display = 'none';
         luckysheetContainerFocus();
 
-        if(Store.luckysheet_select_save.length > 1){
+        if(Store.selections.length > 1){
             if(isEditMode()){
                 alert(locale_drag.noMulti);
             }
@@ -532,11 +532,11 @@ function initialCopyFormatOperation() {
         if(Store.config["merge"] != null){
             let has_PartMC = false;
 
-            for(let s = 0; s < Store.luckysheet_select_save.length; s++){
-                let r1 = Store.luckysheet_select_save[s].row[0],
-                    r2 = Store.luckysheet_select_save[s].row[1];
-                let c1 = Store.luckysheet_select_save[s].column[0],
-                    c2 = Store.luckysheet_select_save[s].column[1];
+            for(let s = 0; s < Store.selections.length; s++){
+                let r1 = Store.selections[s].row[0],
+                    r2 = Store.selections[s].row[1];
+                let c1 = Store.selections[s].column[0],
+                    c2 = Store.selections[s].column[1];
 
                 has_PartMC = hasPartMC(Store.config, r1, r2, c1, c2);
 
@@ -556,7 +556,7 @@ function initialCopyFormatOperation() {
             }
         }
 
-        let getdata = getdatabyselection(Store.luckysheet_select_save[0]);
+        let getdata = getdatabyselection(Store.selections[0]);
         let arr = [];
         if (getdata === null) {
             return;
@@ -605,7 +605,7 @@ function initialCopyFormatOperation() {
         luckysheetContainerFocus();
 
 
-        if(Store.luckysheet_select_save.length > 1){
+        if(Store.selections.length > 1){
             if(isEditMode()){
                 alert(locale_drag.noMulti);
             }
@@ -619,11 +619,11 @@ function initialCopyFormatOperation() {
         if(Store.config["merge"] != null){
             let has_PartMC = false;
 
-            for(let s = 0; s < Store.luckysheet_select_save.length; s++){
-                let r1 = Store.luckysheet_select_save[s].row[0], 
-                    r2 = Store.luckysheet_select_save[s].row[1];
-                let c1 = Store.luckysheet_select_save[s].column[0], 
-                    c2 = Store.luckysheet_select_save[s].column[1];
+            for(let s = 0; s < Store.selections.length; s++){
+                let r1 = Store.selections[s].row[0], 
+                    r2 = Store.selections[s].row[1];
+                let c1 = Store.selections[s].column[0], 
+                    c2 = Store.selections[s].column[1];
 
                 has_PartMC = hasPartMC(Store.config, r1, r2, c1, c2);
 
@@ -643,7 +643,7 @@ function initialCopyFormatOperation() {
             }
         }
 
-        let getdata = getdatabyselection(Store.luckysheet_select_save[0]);
+        let getdata = getdatabyselection(Store.selections[0]);
         let arr = [];
         if (getdata === null) {
             return;

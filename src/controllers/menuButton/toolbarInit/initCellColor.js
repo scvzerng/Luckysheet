@@ -100,7 +100,7 @@ export function initCellColor(_this) {
               }
               menuButton.style.display = "none";
               luckysheetContainerFocus();
-            if (Store.luckysheet_select_save.length > 1) {
+            if (Store.selections.length > 1) {
               if (isEditMode()) {
                 alert(locale_alternatingColors.errorInfo);
               } else {
@@ -108,7 +108,7 @@ export function initCellColor(_this) {
               }
               return;
             }
-            let range = structuredClone(Store.luckysheet_select_save[0]);
+            let range = structuredClone(Store.selections[0]);
             let isExists = alternateformat.rangeIsExists(range)[0];
             if (!isExists) {
               alternateformat.modelfocusIndex = 0;

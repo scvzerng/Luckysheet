@@ -45,7 +45,7 @@ export function orderByInitial(){
 
         document.querySelectorAll("body .luckysheet-cols-menu").forEach(el => el.style.display = 'none');
         const locale_sort = _locale.sort;
-        if(Store.luckysheet_select_save.length > 1){
+        if(Store.selections.length > 1){
             if(isEditMode()){
                 alert(locale_sort.noRangeError);
             }
@@ -55,7 +55,7 @@ export function orderByInitial(){
             return;
         }
 
-        let last = Store.luckysheet_select_save[0];
+        let last = Store.selections[0];
         let r1 = last["row"][0], r2 = last["row"][1];
         let c1 = last["column"][0], c2 = last["column"][1];
 
@@ -67,7 +67,7 @@ export function orderByInitial(){
             document.body.insertAdjacentHTML('beforeend', replaceHtml(modelHTML, { "id": "luckysheet-sort-dialog", "addclass": "", "title": _locale.sort.sortTitle, "content": content, "botton": `<button id="luckysheet-sort-modal-confirm" class="btn btn-primary">${locale_sort.confirm}</button><button class="btn btn-default luckysheet-model-close-btn">${locale_sort.close}</button>`}));
 
             document.querySelector("#luckysheet-sort-dialog .luckysheet-sort-dialog-additem").addEventListener("click", function () {
-                let last = Store.luckysheet_select_save[0];
+                let last = Store.selections[0];
                 let r1 = last["row"][0], r2 = last["row"][1];
                 let c1 = last["column"][0], c2 = last["column"][1];
 
@@ -107,7 +107,7 @@ export function orderByInitial(){
             });
 
             document.getElementById("luckysheet-sort-haveheader")?.addEventListener("change", function () {
-                let last = Store.luckysheet_select_save[0];
+                let last = Store.selections[0];
                 let r1 = last["row"][0], r2 = last["row"][1];
                 let c1 = last["column"][0], c2 = last["column"][1];
 
@@ -135,7 +135,7 @@ export function orderByInitial(){
             });
 
             document.getElementById("luckysheet-sort-modal-confirm")?.addEventListener("click", function () {
-                if(Store.luckysheet_select_save.length > 1){
+                if(Store.selections.length > 1){
                     if(isEditMode()){
                         alert(locale_sort.noRangeError);
                     }
@@ -148,7 +148,7 @@ export function orderByInitial(){
 
                 let d = editor.deepCopyFlowData(Store.sheetData);
 
-                let last = Store.luckysheet_select_save[0];
+                let last = Store.selections[0];
                 let r1 = last["row"][0], r2 = last["row"][1];
                 let c1 = last["column"][0], c2 = last["column"][1];
 

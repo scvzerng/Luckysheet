@@ -18,15 +18,15 @@ import scrollBarY from '../../ui/scrollBarY.js';
 import resizeHandles from '../../ui/resizeHandles.js';
 const sheetParamRestoreModule = {
   sheetParamRestore: function (file, data) {
-    Store.luckysheet_select_save = file["luckysheet_select_save"];
-    if (Store.luckysheet_select_save == null || Store.luckysheet_select_save === null) {
+    Store.selections = file["luckysheet_select_save"];
+    if (Store.selections == null || Store.selections === null) {
       if (data[0] != null && data[0][0] != null && data[0][0].mc != null) {
-        Store.luckysheet_select_save = [{
+        Store.selections = [{
           row: [0, data[0][0].mc.rs - 1],
           column: [0, data[0][0].mc.cs - 1]
         }];
       } else {
-        Store.luckysheet_select_save = [{
+        Store.selections = [{
           row: [0, 0],
           column: [0, 0]
         }];
@@ -64,7 +64,7 @@ const sheetParamRestoreModule = {
     file["visibledatacolumn"] = Store.visibledatacolumn;
     file["ch_width"] = Store.ch_width;
     file["rh_height"] = Store.rh_height;
-    file["luckysheet_select_save"] = structuredClone(Store.luckysheet_select_save);
+    file["luckysheet_select_save"] = structuredClone(Store.selections);
     file["luckysheet_selection_range"] = structuredClone(Store.luckysheet_selection_range);
     if (scrollBarX.getScrollWidth() > scrollBarX.getOffsetWidth()) {
       file["scrollLeft"] = scrollBarX.getScrollLeft();

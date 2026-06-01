@@ -49,8 +49,8 @@ export function initColHeaderEvents() {
       //mousedown是右�?
       if (event.which == "3") {
         let isright = false;
-        for (let s = 0; s < Store.luckysheet_select_save.length; s++) {
-          let obj_s = Store.luckysheet_select_save[s];
+        for (let s = 0; s < Store.selections.length; s++) {
+          let obj_s = Store.selections[s];
           if (obj_s["column"] != null && col_index >= obj_s["column"][0] && col_index <= obj_s["column"][1] && obj_s["row"][0] == 0 && obj_s["row"][1] == Store.sheetData.length - 1) {
             isright = true;
             break;
@@ -245,7 +245,7 @@ export function initColHeaderEvents() {
           setLastSelection(last);
         } else if (event.ctrlKey) {
           //选区添加
-          Store.luckysheet_select_save.push({
+          Store.selections.push({
             left: left,
             width: width,
             top: rowLocationByIndex(0)[0],
@@ -261,8 +261,8 @@ export function initColHeaderEvents() {
             column_select: true
           });
         } else {
-          Store.luckysheet_select_save.length = 0;
-          Store.luckysheet_select_save.push({
+          Store.selections.length = 0;
+          Store.selections.push({
             left: left,
             width: width,
             top: rowLocationByIndex(0)[0],
@@ -398,10 +398,10 @@ export function initColHeaderEvents() {
         if (cfg["columnlen"] == null) {
           cfg["columnlen"] = {};
         }
-        let first_collen = cfg["columnlen"][Store.luckysheet_select_save[0].column[0]] == null ? Store.defaultcollen : cfg["columnlen"][Store.luckysheet_select_save[0].column[0]];
+        let first_collen = cfg["columnlen"][Store.selections[0].column[0]] == null ? Store.defaultcollen : cfg["columnlen"][Store.selections[0].column[0]];
         let isSame = true;
-        for (let i = 0; i < Store.luckysheet_select_save.length; i++) {
-          let s = Store.luckysheet_select_save[i];
+        for (let i = 0; i < Store.selections.length; i++) {
+          let s = Store.selections[i];
           let c1 = s.column[0],
             c2 = s.column[1];
           for (let c = c1; c <= c2; c++) {

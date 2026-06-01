@@ -20,8 +20,8 @@ export function initNumberFormat(_this) {
       //减少小数位数
       document.getElementById("luckysheet-icon-fmt-decimal-decrease")?.addEventListener("click", function () {
         let d = editor.deepCopyFlowData(Store.sheetData); //取数�?
-        let row_index = Store.luckysheet_select_save[0]["row_focus"],
-          col_index = Store.luckysheet_select_save[0]["column_focus"];
+        let row_index = Store.selections[0]["row_focus"],
+          col_index = Store.selections[0]["column_focus"];
         let foucsStatus = _this.checkstatus(d, row_index, col_index, "ct");
         let cell = d[row_index][col_index];
         if (foucsStatus == null || foucsStatus.t != "n") {
@@ -87,8 +87,8 @@ export function initNumberFormat(_this) {
       //增加小数位数
       document.getElementById("luckysheet-icon-fmt-decimal-increase")?.addEventListener("click", function () {
         let d = editor.deepCopyFlowData(Store.sheetData); //取数�?
-        let row_index = Store.luckysheet_select_save[0]["row_focus"],
-          col_index = Store.luckysheet_select_save[0]["column_focus"];
+        let row_index = Store.selections[0]["row_focus"],
+          col_index = Store.selections[0]["column_focus"];
         let foucsStatus = _this.checkstatus(d, row_index, col_index, "ct");
         let cell = d[row_index][col_index];
         if (foucsStatus == null || foucsStatus.t != "n") {

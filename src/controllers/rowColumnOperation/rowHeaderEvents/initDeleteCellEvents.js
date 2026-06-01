@@ -22,9 +22,9 @@ export function initDeleteCellEvents() {
     //         cfg["rowhidden"] = {};
     //     }
   
-    //     for(let s = 0; s < Store.luckysheet_select_save.length; s++){
-    //         let r1 = Store.luckysheet_select_save[s].row[0],
-    //             r2 = Store.luckysheet_select_save[s].row[1];
+    //     for(let s = 0; s < Store.selections.length; s++){
+    //         let r1 = Store.selections[s].row[0],
+    //             r2 = Store.selections[s].row[1];
   
     //         for(let r = r1; r <= r2; r++){
     //             cfg["rowhidden"][r] = 0;
@@ -59,9 +59,9 @@ export function initDeleteCellEvents() {
     //         return;
     //     }
   
-    //     for(let s = 0; s < Store.luckysheet_select_save.length; s++){
-    //         let r1 = Store.luckysheet_select_save[s].row[0],
-    //             r2 = Store.luckysheet_select_save[s].row[1];
+    //     for(let s = 0; s < Store.selections.length; s++){
+    //         let r1 = Store.selections[s].row[0],
+    //             r2 = Store.selections[s].row[1];
   
     //         for(let r = r1; r <= r2; r++){
     //             delete cfg["rowhidden"][r];
@@ -98,9 +98,9 @@ export function initDeleteCellEvents() {
     //         cfg["colhidden"] = {};
     //     }
   
-    //     for(let s = 0; s < Store.luckysheet_select_save.length; s++){
-    //         let c1 = Store.luckysheet_select_save[s].column[0],
-    //             c2 = Store.luckysheet_select_save[s].column[1];
+    //     for(let s = 0; s < Store.selections.length; s++){
+    //         let c1 = Store.selections[s].column[0],
+    //             c2 = Store.selections[s].column[1];
   
     //         for(let c = c1; c <= c2; c++){
     //             cfg["colhidden"][c] = 0;
@@ -135,9 +135,9 @@ export function initDeleteCellEvents() {
     //         return;
     //     }
   
-    //     for(let s = 0; s < Store.luckysheet_select_save.length; s++){
-    //         let c1 = Store.luckysheet_select_save[s].column[0],
-    //             c2 = Store.luckysheet_select_save[s].column[1];
+    //     for(let s = 0; s < Store.selections.length; s++){
+    //         let c1 = Store.selections[s].column[0],
+    //             c2 = Store.selections[s].column[1];
   
     //         for(let c = c1; c <= c2; c++){
     //             delete cfg["colhidden"][c];
@@ -169,7 +169,7 @@ export function initDeleteCellEvents() {
       document.querySelectorAll("body .luckysheet-cols-menu").forEach(el => el.style.display = 'none');
       luckysheetContainerFocus();
       const locale_drag = locale().drag;
-      if (Store.luckysheet_select_save.length > 1) {
+      if (Store.selections.length > 1) {
         if (isEditMode()) {
           alert(locale_drag.noMulti);
         } else {
@@ -177,17 +177,17 @@ export function initDeleteCellEvents() {
         }
         return;
       }
-      let str = Store.luckysheet_select_save[0].row[0],
-        edr = Store.luckysheet_select_save[0].row[1],
-        stc = Store.luckysheet_select_save[0].column[0],
-        edc = Store.luckysheet_select_save[0].column[1];
+      let str = Store.selections[0].row[0],
+        edr = Store.selections[0].row[1],
+        stc = Store.selections[0].column[0],
+        edc = Store.selections[0].column[1];
       luckysheetDeleteCell("moveLeft", str, edr, stc, edc);
     });
     document.getElementById("luckysheet-delCellsMoveUp").addEventListener("click", function (event) {
       document.querySelectorAll("body .luckysheet-cols-menu").forEach(el => el.style.display = 'none');
       luckysheetContainerFocus();
       const locale_drag = locale().drag;
-      if (Store.luckysheet_select_save.length > 1) {
+      if (Store.selections.length > 1) {
         if (isEditMode()) {
           alert(locale_drag.noMulti);
         } else {
@@ -195,10 +195,10 @@ export function initDeleteCellEvents() {
         }
         return;
       }
-      let str = Store.luckysheet_select_save[0].row[0],
-        edr = Store.luckysheet_select_save[0].row[1],
-        stc = Store.luckysheet_select_save[0].column[0],
-        edc = Store.luckysheet_select_save[0].column[1];
+      let str = Store.selections[0].row[0],
+        edr = Store.selections[0].row[1],
+        stc = Store.selections[0].column[0],
+        edc = Store.selections[0].column[1];
       luckysheetDeleteCell("moveUp", str, edr, stc, edc);
     });
   
@@ -209,14 +209,14 @@ export function initDeleteCellEvents() {
       if (Store.allowEdit === false) {
         return;
       }
-      if (Store.luckysheet_select_save !== null) {
+      if (Store.selections !== null) {
         let d = editor.deepCopyFlowData(Store.sheetData);
         let has_PartMC = false;
-        for (let s = 0; s < Store.luckysheet_select_save.length; s++) {
-          let r1 = Store.luckysheet_select_save[s].row[0],
-            r2 = Store.luckysheet_select_save[s].row[1];
-          let c1 = Store.luckysheet_select_save[s].column[0],
-            c2 = Store.luckysheet_select_save[s].column[1];
+        for (let s = 0; s < Store.selections.length; s++) {
+          let r1 = Store.selections[s].row[0],
+            r2 = Store.selections[s].row[1];
+          let c1 = Store.selections[s].column[0],
+            c2 = Store.selections[s].column[1];
           if (hasPartMC(Store.config, r1, r2, c1, c2)) {
             has_PartMC = true;
             break;
@@ -234,11 +234,11 @@ export function initDeleteCellEvents() {
         const file = getCurrentFile();
         const hyperlink = file.hyperlink && structuredClone(file.hyperlink);
         let hyperlinkUpdated;
-        for (let s = 0; s < Store.luckysheet_select_save.length; s++) {
-          let r1 = Store.luckysheet_select_save[s].row[0],
-            r2 = Store.luckysheet_select_save[s].row[1];
-          let c1 = Store.luckysheet_select_save[s].column[0],
-            c2 = Store.luckysheet_select_save[s].column[1];
+        for (let s = 0; s < Store.selections.length; s++) {
+          let r1 = Store.selections[s].row[0],
+            r2 = Store.selections[s].row[1];
+          let c1 = Store.selections[s].column[0],
+            c2 = Store.selections[s].column[1];
           for (let r = r1; r <= r2; r++) {
             for (let c = c1; c <= c2; c++) {
               if (getObjType(d[r][c]) == "object") {
@@ -263,7 +263,7 @@ export function initDeleteCellEvents() {
             }
           }
         }
-        jfrefreshgrid(d, Store.luckysheet_select_save, hyperlinkUpdated && {
+        jfrefreshgrid(d, Store.selections, hyperlinkUpdated && {
           hyperlink
         });
   

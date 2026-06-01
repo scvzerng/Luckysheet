@@ -502,12 +502,12 @@ function jfrefreshgrid_pastcut(source, target, RowlChange){
     
     //luckysheet_select_save
     if(Store.currentSheetIndex == target["sheetIndex"]){
-        Store.luckysheet_select_save = [{"row": target["range"].row, "column": target["range"].column}];
+        Store.selections = [{"row": target["range"].row, "column": target["range"].column}];
     }
     else{
-        Store.luckysheet_select_save = [{"row": source["range"].row, "column": source["range"].column}];
+        Store.selections = [{"row": source["range"].row, "column": source["range"].column}];
     }
-    if(Store.luckysheet_select_save.length > 0){
+    if(Store.selections.length > 0){
         //有选区时，刷新一下选区
         selectHightlightShow();
     }

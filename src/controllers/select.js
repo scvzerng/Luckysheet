@@ -38,26 +38,26 @@ function selectHightlightShow(isRestore = false) {
         Array.from(_elCellSelected.parentElement.children).filter(s => s !== _elCellSelected && s.classList.contains("luckysheet-cell-selected")).forEach(el => el.remove());
     }
 
-    if (Store.luckysheet_select_save.length > 0) {
-        for (let i = 0; i < Store.luckysheet_select_save.length; i++) {
-            let r1 = Store.luckysheet_select_save[i].row[0],
-                r2 = Store.luckysheet_select_save[i].row[1];
-            let c1 = Store.luckysheet_select_save[i].column[0],
-                c2 = Store.luckysheet_select_save[i].column[1];
+    if (Store.selections.length > 0) {
+        for (let i = 0; i < Store.selections.length; i++) {
+            let r1 = Store.selections[i].row[0],
+                r2 = Store.selections[i].row[1];
+            let c1 = Store.selections[i].column[0],
+                c2 = Store.selections[i].column[1];
 
             let rf, cf;
-            if (Store.luckysheet_select_save[i].row_focus == null) {
+            if (Store.selections[i].row_focus == null) {
                 rf = r1;
             }
             else {
-                rf = Store.luckysheet_select_save[i].row_focus;
+                rf = Store.selections[i].row_focus;
             }
 
-            if (Store.luckysheet_select_save[i].column_focus == null) {
+            if (Store.selections[i].column_focus == null) {
                 cf = c1;
             }
             else {
-                cf = Store.luckysheet_select_save[i].column_focus;
+                cf = Store.selections[i].column_focus;
             }
 
             let row = Store.visibledatarow[r2],
@@ -79,32 +79,32 @@ function selectHightlightShow(isRestore = false) {
                 col_pre_f = margeset.column[0];
             }
 
-            Store.luckysheet_select_save[i]["row"] = [r1, r2];
-            Store.luckysheet_select_save[i]["column"] = [c1, c2];
+            Store.selections[i]["row"] = [r1, r2];
+            Store.selections[i]["column"] = [c1, c2];
 
-            Store.luckysheet_select_save[i]["row_focus"] = rf;
-            Store.luckysheet_select_save[i]["column_focus"] = cf;
+            Store.selections[i]["row_focus"] = rf;
+            Store.selections[i]["column_focus"] = cf;
 
-            Store.luckysheet_select_save[i]["left"] = col_pre_f;
-            Store.luckysheet_select_save[i]["width"] = col_f - col_pre_f - 1;
-            Store.luckysheet_select_save[i]["top"] = row_pre_f;
-            Store.luckysheet_select_save[i]["height"] = row_f - row_pre_f - 1;
+            Store.selections[i]["left"] = col_pre_f;
+            Store.selections[i]["width"] = col_f - col_pre_f - 1;
+            Store.selections[i]["top"] = row_pre_f;
+            Store.selections[i]["height"] = row_f - row_pre_f - 1;
 
-            Store.luckysheet_select_save[i]["left_move"] = col_pre;
-            Store.luckysheet_select_save[i]["width_move"] = col - col_pre - 1;
-            Store.luckysheet_select_save[i]["top_move"] = row_pre;
-            Store.luckysheet_select_save[i]["height_move"] = row - row_pre - 1;
+            Store.selections[i]["left_move"] = col_pre;
+            Store.selections[i]["width_move"] = col - col_pre - 1;
+            Store.selections[i]["top_move"] = row_pre;
+            Store.selections[i]["height_move"] = row - row_pre - 1;
 
             if (i == 0) {
                 _elCellSelected = document.querySelector("#luckysheet-cell-selected-boxs #luckysheet-cell-selected");
                 if (_elCellSelected) {
-                    if (Store.luckysheet_select_save.length == 1) {
+                    if (Store.selections.length == 1) {
                         if (browser.mobilecheck()) {
                             Object.assign(_elCellSelected.style, {
-                                "left": Store.luckysheet_select_save[i]["left_move"] + "px",
-                                "width": Store.luckysheet_select_save[i]["width_move"] + "px",
-                                "top": Store.luckysheet_select_save[i]["top_move"] + "px",
-                                "height": Store.luckysheet_select_save[i]["height_move"] + "px",
+                                "left": Store.selections[i]["left_move"] + "px",
+                                "width": Store.selections[i]["width_move"] + "px",
+                                "top": Store.selections[i]["top_move"] + "px",
+                                "height": Store.selections[i]["height_move"] + "px",
                                 "display": "block",
                                 "border": "1px solid #0188fb"
                             });
@@ -117,10 +117,10 @@ function selectHightlightShow(isRestore = false) {
                         }
                         else {
                             Object.assign(_elCellSelected.style, {
-                                "left": Store.luckysheet_select_save[i]["left_move"] + "px",
-                                "width": Store.luckysheet_select_save[i]["width_move"] + "px",
-                                "top": Store.luckysheet_select_save[i]["top_move"] + "px",
-                                "height": Store.luckysheet_select_save[i]["height_move"] + "px",
+                                "left": Store.selections[i]["left_move"] + "px",
+                                "width": Store.selections[i]["width_move"] + "px",
+                                "top": Store.selections[i]["top_move"] + "px",
+                                "height": Store.selections[i]["height_move"] + "px",
                                 "display": "block",
                                 "border": "1px solid #0188fb"
                             });
@@ -134,10 +134,10 @@ function selectHightlightShow(isRestore = false) {
                     }
                     else {
                         Object.assign(_elCellSelected.style, {
-                            "left": Store.luckysheet_select_save[i]["left_move"] + "px",
-                            "width": Store.luckysheet_select_save[i]["width_move"] + "px",
-                            "top": Store.luckysheet_select_save[i]["top_move"] + "px",
-                            "height": Store.luckysheet_select_save[i]["height_move"] + "px",
+                            "left": Store.selections[i]["left_move"] + "px",
+                            "width": Store.selections[i]["width_move"] + "px",
+                            "top": Store.selections[i]["top_move"] + "px",
+                            "height": Store.selections[i]["height_move"] + "px",
                             "display": "block",
                             "border": "1px solid rgba(1, 136, 251, 0.15)"
                         });
@@ -151,23 +151,23 @@ function selectHightlightShow(isRestore = false) {
             else {
                 let _elSelBoxs = document.getElementById("luckysheet-cell-selected-boxs");
                 if (_elSelBoxs) {
-                    _elSelBoxs.insertAdjacentHTML('beforeend', '<div class="luckysheet-cell-selected" style="left: ' + Store.luckysheet_select_save[i]["left_move"] + 'px; width: ' + Store.luckysheet_select_save[i]["width_move"] + 'px; top: ' + Store.luckysheet_select_save[i]["top_move"] + 'px; height: ' + Store.luckysheet_select_save[i]["height_move"] + 'px; border: 1px solid rgba(1, 136, 251, 0.15); display: block;"></div>');
+                    _elSelBoxs.insertAdjacentHTML('beforeend', '<div class="luckysheet-cell-selected" style="left: ' + Store.selections[i]["left_move"] + 'px; width: ' + Store.selections[i]["width_move"] + 'px; top: ' + Store.selections[i]["top_move"] + 'px; height: ' + Store.selections[i]["height_move"] + 'px; border: 1px solid rgba(1, 136, 251, 0.15); display: block;"></div>');
                 }
             }
 
-            if (i == Store.luckysheet_select_save.length - 1) {
+            if (i == Store.selections.length - 1) {
                 cellSelectedFocus.setCss({
-                    "left": Store.luckysheet_select_save[i]["left"],
-                    "width": Store.luckysheet_select_save[i]["width"],
-                    "top": Store.luckysheet_select_save[i]["top"],
-                    "height": Store.luckysheet_select_save[i]["height"],
+                    "left": Store.selections[i]["left"],
+                    "width": Store.selections[i]["width"],
+                    "top": Store.selections[i]["top"],
+                    "height": Store.selections[i]["height"],
                     "display": "block"
                 });
                 luckysheet_count_show(
-                    Store.luckysheet_select_save[i]["left_move"],
-                    Store.luckysheet_select_save[i]["top_move"],
-                    Store.luckysheet_select_save[i]["width_move"],
-                    Store.luckysheet_select_save[i]["height_move"],
+                    Store.selections[i]["left_move"],
+                    Store.selections[i]["top_move"],
+                    Store.selections[i]["width_move"],
+                    Store.selections[i]["height_move"],
                     [r1, r2],
                     [c1, c2]
                 );
@@ -175,25 +175,25 @@ function selectHightlightShow(isRestore = false) {
             }
         }
 
-        selectTitlesShow(Store.luckysheet_select_save, isRestore);
+        selectTitlesShow(Store.selections, isRestore);
 
         selectHelpboxFill();
 
-        if (Store.luckysheet_select_save.length == 1 && Store.luckysheet_select_save[0].row[0] == Store.luckysheet_select_save[0].row[1] && Store.luckysheet_select_save[0].column[0] == Store.luckysheet_select_save[0].column[1]) {
-            dynamicArrayHightShow(Store.luckysheet_select_save[0].row[0], Store.luckysheet_select_save[0].column[0]);
+        if (Store.selections.length == 1 && Store.selections[0].row[0] == Store.selections[0].row[1] && Store.selections[0].column[0] == Store.selections[0].column[1]) {
+            dynamicArrayHightShow(Store.selections[0].row[0], Store.selections[0].column[0]);
         }
     
         refreshMenuButtonFocus();
     }
 
-    getCurrentFile().luckysheet_select_save = Store.luckysheet_select_save;
-        const luckysheet_select_save_previous = JSON.stringify(Store.luckysheet_select_save);
+    getCurrentFile().luckysheet_select_save = Store.selections;
+        const luckysheet_select_save_previous = JSON.stringify(Store.selections);
 
-        if(Store.luckysheet_select_save_previous == null |Store.luckysheet_select_save_previous !== luckysheet_select_save_previous){
-            method.createHookFunction('rangeSelect', getCurrentFile(), Store.luckysheet_select_save);
+        if(Store.selections_previous == null |Store.selections_previous !== luckysheet_select_save_previous){
+            method.createHookFunction('rangeSelect', getCurrentFile(), Store.selections);
         }
         
-        Store.luckysheet_select_save_previous = luckysheet_select_save_previous;
+        Store.selections_previous = luckysheet_select_save_previous;
 }
 
 function selectTitlesShow(rangeArr, isRestore = false) {
@@ -301,7 +301,7 @@ function selectTitlesRange(map) {
 
 function selectIsOverlap(range) {
     if (range == null) {
-        range = Store.luckysheet_select_save;
+        range = Store.selections;
     }
     range = JSON.parse(JSON.stringify(range));
 

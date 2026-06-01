@@ -42,7 +42,7 @@ const scrollAdaptModule = {
   scrollAdapt: function () {
     let _this = this;
 
-    if (Store.luckysheet_select_save != null && Store.luckysheet_select_save.length > 0) {
+    if (Store.selections != null && Store.selections.length > 0) {
       _this.scrollAdaptOfselect();
     }
 
@@ -84,8 +84,8 @@ const scrollAdaptModule = {
       let freezenLeft = _this.freezenverticaldata[0];
       let freezen_colindex = _this.freezenverticaldata[1];
       let offLeft = scrollLeft - _this.freezenverticaldata[2];
-      for (let s = 0; s < Store.luckysheet_select_save.length; s++) {
-        let obj = structuredClone(Store.luckysheet_select_save[s]);
+      for (let s = 0; s < Store.selections.length; s++) {
+        let obj = structuredClone(Store.selections[s]);
         let r1 = obj.row[0],
           r2 = obj.row[1];
         let row = Store.visibledatarow[r2],
@@ -160,7 +160,7 @@ const scrollAdaptModule = {
         if (!rangeshow) {
           hideCellSelected(s);
         }
-        if (s == Store.luckysheet_select_save.length - 1) {
+        if (s == Store.selections.length - 1) {
           let rf = obj.row_focus == null ? r1 : obj.row_focus;
           let cf = obj.column_focus == null ? c1 : obj.column_focus;
           let row_f = Store.visibledatarow[rf],
@@ -246,8 +246,8 @@ const scrollAdaptModule = {
       let freezenTop = _this.freezenhorizontaldata[0];
       let freezen_rowindex = _this.freezenhorizontaldata[1];
       let offTop = scrollTop - _this.freezenhorizontaldata[2];
-      for (let s = 0; s < Store.luckysheet_select_save.length; s++) {
-        let obj = structuredClone(Store.luckysheet_select_save[s]);
+      for (let s = 0; s < Store.selections.length; s++) {
+        let obj = structuredClone(Store.selections[s]);
         let r1 = obj.row[0],
           r2 = obj.row[1];
         let row = Store.visibledatarow[r2],
@@ -283,7 +283,7 @@ const scrollAdaptModule = {
         } else {
           showCellSelectedProp(s, "top", (top_move + offTop) + "px");
         }
-        if (s == Store.luckysheet_select_save.length - 1) {
+        if (s == Store.selections.length - 1) {
           let rf = obj.row_focus == null ? r1 : obj.row_focus;
           let cf = obj.column_focus == null ? obj.column[0] : obj.column_focus;
           let row_f = Store.visibledatarow[rf],
@@ -330,8 +330,8 @@ const scrollAdaptModule = {
       let freezenLeft = _this.freezenverticaldata[0];
       let freezen_colindex = _this.freezenverticaldata[1];
       let offLeft = scrollLeft - _this.freezenverticaldata[2];
-      for (let s = 0; s < Store.luckysheet_select_save.length; s++) {
-        let obj = structuredClone(Store.luckysheet_select_save[s]);
+      for (let s = 0; s < Store.selections.length; s++) {
+        let obj = structuredClone(Store.selections[s]);
         let c1 = obj.column[0],
           c2 = obj.column[1];
         let col = Store.visibledatacolumn[c2],
@@ -367,7 +367,7 @@ const scrollAdaptModule = {
         } else {
           showCellSelectedProp(s, "left", (left_move + offLeft) + "px");
         }
-        if (s == Store.luckysheet_select_save.length - 1) {
+        if (s == Store.selections.length - 1) {
           let rf = obj.row_focus == null ? obj.row[0] : obj.row_focus;
           let cf = obj.column_focus == null ? c1 : obj.column_focus;
           let col_f = Store.visibledatacolumn[cf],

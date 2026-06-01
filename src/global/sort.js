@@ -127,7 +127,7 @@ function sortSelection(isAsc) {
     const _locale = locale();
     const locale_sort = _locale.sort;
 
-    if(Store.luckysheet_select_save.length > 1){
+    if(Store.selections.length > 1){
         if(isEditMode()){
             alert(locale_sort.noRangeError);
         }
@@ -144,10 +144,10 @@ function sortSelection(isAsc) {
 
     let d = editor.deepCopyFlowData(Store.sheetData);
 
-    let r1 = Store.luckysheet_select_save[0].row[0], 
-        r2 = Store.luckysheet_select_save[0].row[1];
-    let c1 = Store.luckysheet_select_save[0].column[0], 
-        c2 = Store.luckysheet_select_save[0].column[1];
+    let r1 = Store.selections[0].row[0], 
+        r2 = Store.selections[0].row[1];
+    let c1 = Store.selections[0].column[0], 
+        c2 = Store.selections[0].column[1];
 
     let str, edr;
 

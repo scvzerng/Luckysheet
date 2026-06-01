@@ -177,18 +177,18 @@ const luckysheetLocationCell = {
                 }
 
                 let range;
-                if(Store.luckysheet_select_save.length == 0 || (Store.luckysheet_select_save.length == 1 && Store.luckysheet_select_save[0].row[0] == Store.luckysheet_select_save[0].row[1] && Store.luckysheet_select_save[0].column[0] == Store.luckysheet_select_save[0].column[1])){
+                if(Store.selections.length == 0 || (Store.selections.length == 1 && Store.selections[0].row[0] == Store.selections[0].row[1] && Store.selections[0].column[0] == Store.selections[0].column[1])){
                     //单个单元格
                     range = [{"row": [0, Store.sheetData.length - 1], "column": [0, Store.sheetData[0].length - 1]}];
                 }
                 else{
-                    range = structuredClone(Store.luckysheet_select_save);
+                    range = structuredClone(Store.selections);
                 }
 
                 _this.apply(range, id, value);
             }
             else if(id == "locationStepRow"){
-                if(Store.luckysheet_select_save.length == 0 || (Store.luckysheet_select_save.length == 1 && Store.luckysheet_select_save[0].row[0] == Store.luckysheet_select_save[0].row[1])){
+                if(Store.selections.length == 0 || (Store.selections.length == 1 && Store.selections[0].row[0] == Store.selections[0].row[1])){
                     if(isEditMode()){
                         alert(locale_location.locationTiplessTwoRow);
                     }
@@ -198,12 +198,12 @@ const luckysheetLocationCell = {
                     return;                            
                 }
 
-                let range = structuredClone(Store.luckysheet_select_save);
+                let range = structuredClone(Store.selections);
 
                 _this.apply(range, "locationStepRow");
             }
             else if(id == "locationStepColumn"){
-                if(Store.luckysheet_select_save.length == 0 || (Store.luckysheet_select_save.length == 1 && Store.luckysheet_select_save[0].column[0] == Store.luckysheet_select_save[0].column[1])){
+                if(Store.selections.length == 0 || (Store.selections.length == 1 && Store.selections[0].column[0] == Store.selections[0].column[1])){
                     if(isEditMode()){
                         alert(locale_location.locationTiplessTwoColumn);
                     }
@@ -213,18 +213,18 @@ const luckysheetLocationCell = {
                     return;                            
                 }
 
-                let range = structuredClone(Store.luckysheet_select_save);
+                let range = structuredClone(Store.selections);
 
                 _this.apply(range, "locationStepColumn");
             }
             else{
                 let range;
-                if(Store.luckysheet_select_save.length == 0 || (Store.luckysheet_select_save.length == 1 && Store.luckysheet_select_save[0].row[0] == Store.luckysheet_select_save[0].row[1] && Store.luckysheet_select_save[0].column[0] == Store.luckysheet_select_save[0].column[1])){
+                if(Store.selections.length == 0 || (Store.selections.length == 1 && Store.selections[0].row[0] == Store.selections[0].row[1] && Store.selections[0].column[0] == Store.selections[0].column[1])){
                     //单个单元格
                     range = [{"row": [0, Store.sheetData.length - 1], "column": [0, Store.sheetData[0].length - 1]}];
                 }
                 else{
-                    range = structuredClone(Store.luckysheet_select_save);
+                    range = structuredClone(Store.selections);
                 }
 
                 _this.apply(range, id);
@@ -383,7 +383,7 @@ const luckysheetLocationCell = {
             }
         }
         else{
-            Store.luckysheet_select_save = rangeArr;
+            Store.selections = rangeArr;
             selectHightlightShow(); 
 
             let scroll = getScrollPosition();
@@ -392,10 +392,10 @@ const luckysheetLocationCell = {
             let winH = cellMain.getHeight(), 
                 winW = cellMain.getWidth();
 
-            let r1 = Store.luckysheet_select_save[0]["row"][0],
-                r2 = Store.luckysheet_select_save[0]["row"][1],
-                c1 = Store.luckysheet_select_save[0]["column"][0],
-                c2 = Store.luckysheet_select_save[0]["column"][1];
+            let r1 = Store.selections[0]["row"][0],
+                r2 = Store.selections[0]["row"][1],
+                c1 = Store.selections[0]["column"][0],
+                c2 = Store.selections[0]["column"][1];
 
             let row = Store.visibledatarow[r2], 
                 row_pre = r1 - 1 == -1 ? 0 : Store.visibledatarow[r1 - 1];

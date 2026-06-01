@@ -32,7 +32,7 @@ export function formulaBarInitial(){
             return;
         }
 
-        if(Store.luckysheet_select_save.length > 0){
+        if(Store.selections.length > 0){
             let last = getLastSelection();
 
             let _focus = getFocusCell();
@@ -59,7 +59,7 @@ export function formulaBarInitial(){
             }
             else {
                 formula.updatecell(Store.luckysheetCellUpdate[0], Store.luckysheetCellUpdate[1]);
-                Store.luckysheet_select_save = [{ "row": [Store.luckysheetCellUpdate[0], Store.luckysheetCellUpdate[0]], "column": [Store.luckysheetCellUpdate[1], Store.luckysheetCellUpdate[1]], "row_focus": Store.luckysheetCellUpdate[0], "column_focus": Store.luckysheetCellUpdate[1] }];
+                Store.selections = [{ "row": [Store.luckysheetCellUpdate[0], Store.luckysheetCellUpdate[0]], "column": [Store.luckysheetCellUpdate[1], Store.luckysheetCellUpdate[1]], "row_focus": Store.luckysheetCellUpdate[0], "column_focus": Store.luckysheetCellUpdate[1] }];
                 luckysheetMoveHighlightCell("down", 1, "rangeOfSelect");
                 richTextEditor.focus();
             }
@@ -153,7 +153,7 @@ export function formulaBarInitial(){
     });
 
     document.getElementById("luckysheet-wa-functionbox-fx").addEventListener("click", function () {
-        if(Store.luckysheet_select_save.length == 0){
+        if(Store.selections.length == 0){
             if(isEditMode()){
                 alert(locale_formula.tipSelectCell);
             }

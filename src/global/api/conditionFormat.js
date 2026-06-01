@@ -42,7 +42,7 @@ export function setRangeConditionalFormatDefault(conditionName, conditionValue, 
             "textColor": "#000000",
             "cellColor": "#ff0000"
         },
-        cellrange = Store.luckysheet_select_save,
+        cellrange = Store.selections,
         order = getCurrentSheetOrder(),
         success
     } = {...options}
@@ -210,7 +210,7 @@ export function setRangeConditionalFormat(type, options = {}) {
 
     let {
         format,
-        cellrange = Store.luckysheet_select_save,
+        cellrange = Store.selections,
         order = getCurrentSheetOrder(),
         success
     } = {...options}

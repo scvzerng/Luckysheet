@@ -11,7 +11,7 @@ import Store from '../store';
 //Get selection range value
 export function getdatabyselection(range, sheetIndex) {
     if(range == null){
-        range = Store.luckysheet_select_save[0];
+        range = Store.selections[0];
     }
 
     if (range["row"] == null || range["row"] === null) {

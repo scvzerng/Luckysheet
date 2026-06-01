@@ -52,7 +52,7 @@ function getRangetxt(sheetIndex, range, currentIndex) {
 }
 
 function getluckysheet_select_save() {
-    return Store.luckysheet_select_save;
+    return Store.selections;
 }
 
 function getluckysheet_scroll_status() {

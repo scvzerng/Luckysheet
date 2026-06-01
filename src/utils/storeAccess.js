@@ -22,17 +22,17 @@ export function getCurrentSheetOrder() {
 }
 
 export function getLastSelection() {
-    if (Store.luckysheet_select_save == null || Store.luckysheet_select_save.length === 0) {
+    if (Store.selections == null || Store.selections.length === 0) {
         return null;
     }
-    return Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1];
+    return Store.selections[Store.selections.length - 1];
 }
 
 export function setLastSelection(value) {
-    if (Store.luckysheet_select_save == null || Store.luckysheet_select_save.length === 0) {
+    if (Store.selections == null || Store.selections.length === 0) {
         return;
     }
-    Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1] = value;
+    Store.selections[Store.selections.length - 1] = value;
 }
 
 export function getFocusCell() {

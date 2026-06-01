@@ -16,7 +16,7 @@ import tooltip from "../tooltip";
 import { isEditMode, hasPartMC } from "../validate";
 
 export function getRange() {
-    let rangeArr = JSON.parse(JSON.stringify(Store.luckysheet_select_save));
+    let rangeArr = JSON.parse(JSON.stringify(Store.selections));
 
     let result = [];
 
@@ -65,7 +65,7 @@ export function getRangeValuesWithFlatte(range){
 
 export function getRangeAxis() {
     let result = [];
-    let rangeArr = JSON.parse(JSON.stringify(Store.luckysheet_select_save));
+    let rangeArr = JSON.parse(JSON.stringify(Store.selections));
     let sheetIndex = Store.currentSheetIndex;
 
     rangeArr.forEach(ele=>{
@@ -98,7 +98,7 @@ export function getRangeValue(options = {}) {
 
 export function getRangeHtml(options = {}) {
     let {
-        range = Store.luckysheet_select_save,
+        range = Store.selections,
         order = getCurrentSheetOrder(),
         success
     } = {...options}
@@ -455,7 +455,7 @@ export function getRangeArray(dimensional, options = {}) {
 
 export function getRangeJson(isFirstRowTitle, options = {}) {
     const locale_drag = locale().drag;
-    let curRange = Store.luckysheet_select_save[0];
+    let curRange = Store.selections[0];
     let curSheetOrder = getCurrentSheetOrder();
     let {
         range = curRange,
@@ -510,7 +510,7 @@ export function getRangeDiagonal(type, options = {}) {
     }
 
     let curSheetOrder = getCurrentSheetOrder();
-    let curRange = JSON.parse(JSON.stringify(Store.luckysheet_select_save));
+    let curRange = JSON.parse(JSON.stringify(Store.selections));
     let {
         column = 1,
         range = curRange,
@@ -607,7 +607,7 @@ export function getRangeDiagonal(type, options = {}) {
 
 export function getRangeBoolean(options = {}) {
     let curSheetOrder = getCurrentSheetOrder();
-    let curRange = JSON.parse(JSON.stringify(Store.luckysheet_select_save));
+    let curRange = JSON.parse(JSON.stringify(Store.selections));
     let {
         range = curRange,
         order = curSheetOrder

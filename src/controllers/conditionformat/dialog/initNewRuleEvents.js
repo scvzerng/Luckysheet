@@ -18,7 +18,7 @@ export function initNewRuleEvents(_this) {
       offNS("CFnewConditionRule");
       onNS(document, "click.CFnewConditionRule", "#newConditionRule", function () {
         let sheetIndex = conditionformatDialog.adminRule.find(".chooseSheet option:checked")?.value;
-        if (Store.luckysheet_select_save.length == 0) {
+        if (Store.selections.length == 0) {
           if (isEditMode()) {
             alert(conditionformat_Text.pleaseSelectRange);
           } else {
@@ -48,7 +48,7 @@ export function initNewRuleEvents(_this) {
             }
             rule = {
               "type": "dataBar",
-              "cellrange": structuredClone(Store.luckysheet_select_save),
+              "cellrange": structuredClone(Store.selections),
               "format": format
             };
           } else if (type1 == "colorGradation") {
@@ -65,7 +65,7 @@ export function initNewRuleEvents(_this) {
             }
             rule = {
               "type": "colorGradation",
-              "cellrange": structuredClone(Store.luckysheet_select_save),
+              "cellrange": structuredClone(Store.selections),
               "format": format
             };
           } else if (type1 == "icons") {
@@ -81,7 +81,7 @@ export function initNewRuleEvents(_this) {
             };
             rule = {
               "type": "icons",
-              "cellrange": structuredClone(Store.luckysheet_select_save),
+              "cellrange": structuredClone(Store.selections),
               "format": format
             };
           }
@@ -219,7 +219,7 @@ export function initNewRuleEvents(_this) {
           };
           rule = {
             "type": "default",
-            "cellrange": structuredClone(Store.luckysheet_select_save),
+            "cellrange": structuredClone(Store.selections),
             "format": format,
             "conditionName": conditionName,
             "conditionRange": conditionRange,

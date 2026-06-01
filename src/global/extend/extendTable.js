@@ -854,7 +854,7 @@ function luckysheetextendtable(type, index, value, direction, sheetIndex) {
   }
   file.luckysheet_select_save = range;
   if (file.index == Store.currentSheetIndex) {
-    Store.luckysheet_select_save = range;
+    Store.selections = range;
     selectHightlightShow();
   }
   if (type == "row") {

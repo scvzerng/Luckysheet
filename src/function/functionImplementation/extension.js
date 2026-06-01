@@ -22,7 +22,7 @@ const extensionFunctions = {
       var startRow = window.luckysheetCurrentRow;
       var startColumn = window.luckysheetCurrentColumn;
 
-      // const {row, column} = Store.luckysheet_select_save[0];
+      // const {row, column} = Store.selections[0];
       // const startRow = row[0]
       // const endRow = row[1]
       // const startColumn = column[0]
@@ -54,7 +54,7 @@ const extensionFunctions = {
           let file = getCurrentFile();
           file.row = d.length;
           file.data = d;
-          jfrefreshgridall(d[0].length, d.length, d, null, Store.luckysheet_select_save, "datachangeAll", undefined, undefined);
+          jfrefreshgridall(d[0].length, d.length, d, null, Store.selections, "datachangeAll", undefined, undefined);
 
           // jfrefreshgrid(d, [{"row": [startRow, startRow+target.length], "column": [startColumn, startColumn + target[0].length]}]);
         } else {
@@ -97,7 +97,7 @@ const extensionFunctions = {
       const sort_index = func_methods.getFirstValue(arguments[1]);
       // 表示所需排序顺序的数字；1表示升序（默认），0表示降序
       const sort_order = func_methods.getFirstValue(arguments[2]);
-      // const {row, column} = Store.luckysheet_select_save[0];
+      // const {row, column} = Store.selections[0];
       // const startRow = row[0]
       // const endRow = row[1]
       // const startColumn = column[0]
@@ -128,7 +128,7 @@ const extensionFunctions = {
           let file = getCurrentFile();
           file.row = d.length;
           file.data = d;
-          jfrefreshgridall(d[0].length, d.length, d, null, Store.luckysheet_select_save, "datachangeAll", undefined, undefined);
+          jfrefreshgridall(d[0].length, d.length, d, null, Store.selections, "datachangeAll", undefined, undefined);
           // jfrefreshgrid(d, [{"row": [startRow, startRow+data.length], "column": [startColumn, startColumn + data[0].length]}]);
         } else {
           let file = getCurrentFile();
@@ -167,7 +167,7 @@ const extensionFunctions = {
       }
       var startRow = window.luckysheetCurrentRow;
       var startColumn = window.luckysheetCurrentColumn;
-      // const {row, column} = Store.luckysheet_select_save[0];
+      // const {row, column} = Store.selections[0];
       // const startRow = row[0]
       // const endRow = row[1]
       // const startColumn = column[0]
@@ -222,7 +222,7 @@ const extensionFunctions = {
           let file = getCurrentFile();
           file.row = d.length;
           file.data = d;
-          jfrefreshgridall(d[0].length, d.length, d, null, Store.luckysheet_select_save, "datachangeAll", undefined, undefined);
+          jfrefreshgridall(d[0].length, d.length, d, null, Store.selections, "datachangeAll", undefined, undefined);
 
           // jfrefreshgrid(d, [{"row": [startRow, startRow+resultTable.length], "column": [startColumn, startColumn + resultTable[0].length]}]);
         } else {

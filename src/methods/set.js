@@ -2,7 +2,7 @@ import { getCurrentFile } from '../utils/storeAccess.js';
 import Store from '../store';
 
 function setluckysheet_select_save(v) {
-    Store.luckysheet_select_save = v;
+    Store.selections = v;
 }
 
 function setluckysheet_scroll_status(v) {

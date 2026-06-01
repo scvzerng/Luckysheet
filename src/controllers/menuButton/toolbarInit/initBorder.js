@@ -46,7 +46,7 @@ export function initBorder(_this) {
           borderType: type,
           color: color,
           style: style,
-          range: structuredClone(Store.luckysheet_select_save)
+          range: structuredClone(Store.selections)
         };
         cfg["borderInfo"].push(borderInfo);
         if (Store.clearjfundo) {
@@ -281,7 +281,7 @@ export function initBorder(_this) {
               borderType: itemvalue,
               color: color,
               style: style,
-              range: structuredClone(Store.luckysheet_select_save)
+              range: structuredClone(Store.selections)
             };
             cfg["borderInfo"].push(borderInfo);
             if (Store.clearjfundo) {

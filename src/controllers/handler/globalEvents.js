@@ -80,7 +80,7 @@ export default function globalEvents() {
         const _confirmBtn = document.getElementById("luckysheet-wa-functionbox-confirm"); if (_confirmBtn) _confirmBtn.click();
         Store.luckysheet_select_status = false;
 
-        Store.luckysheet_select_save = [
+        Store.selections = [
             {
                 row: [0, Store.sheetData.length - 1],
                 column: [0, Store.sheetData[0].length - 1],

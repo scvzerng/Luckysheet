@@ -600,7 +600,7 @@ function luckysheetMoveHighlightCell2(postion, type, isScroll) {
       // left = changeparam[4];
       // width = changeparam[5];
     }
-    Store.luckysheet_select_save = [{
+    Store.selections = [{
       "row": rowseleted,
       "column": columnseleted
     }];

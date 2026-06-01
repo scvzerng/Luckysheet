@@ -33,12 +33,12 @@ import tooltip from '../../global/tooltip';
 describe('matrixValidation - 矩阵操作验证', () => {
     describe('checkMultiSelection', () => {
         it('单选区时应返回false', () => {
-            Store.luckysheet_select_save = [{ row: [0, 2], column: [0, 2] }];
+            Store.selections = [{ row: [0, 2], column: [0, 2] }];
             expect(checkMultiSelection()).toBe(false);
         });
 
         it('多选区时应返回true并提示', () => {
-            Store.luckysheet_select_save = [
+            Store.selections = [
                 { row: [0, 2], column: [0, 2] },
                 { row: [4, 6], column: [0, 2] },
             ];

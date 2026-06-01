@@ -964,8 +964,8 @@ const imageCtrl = {
             _this.images = {};
         }
 
-        let rowIndex = Store.luckysheet_select_save[0].row_focus || 0;
-        let colIndex = Store.luckysheet_select_save[0].column_focus || 0;
+        let rowIndex = Store.selections[0].row_focus || 0;
+        let colIndex = Store.selections[0].column_focus || 0;
         let left = colIndex == 0 ? 0 : Store.visibledatacolumn[colIndex - 1];
         let top = rowIndex == 0 ? 0 : Store.visibledatarow[rowIndex - 1];
 

@@ -397,7 +397,7 @@ const controlHistory = {
         cleargridelement(e);
         if (ctr.range) {
             //使用深复制
-            Store.luckysheet_select_save = structuredClone(ctr.range);
+            Store.selections = structuredClone(ctr.range);
             selectHightlightShow();
         }
         Store.clearjfundo = true;
@@ -580,7 +580,7 @@ const controlHistory = {
             [document.getElementById("luckysheet-filter-menu"), document.getElementById("luckysheet-filter-submenu")].forEach(el => { if (el) el.style.display = 'none'; });
         }
         else if (ctr.type == "filtershow") {
-            Store.luckysheet_select_save = [ctr.filter_save];
+            Store.selections = [ctr.filter_save];
             Store.filterchage = false;
             createFilter();
             Store.filterchage = true;
@@ -700,7 +700,7 @@ const controlHistory = {
 
         if (ctr.range) {
             //使用深复制
-            Store.luckysheet_select_save = structuredClone(ctr.range);
+            Store.selections = structuredClone(ctr.range);
             selectHightlightShow();
         }
         Store.clearjfundo = true;

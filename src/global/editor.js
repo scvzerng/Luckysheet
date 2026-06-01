@@ -87,10 +87,10 @@ const editor = {
         }
 
         if (addr > 0 || addc > 0) {
-            jfrefreshgridall(d[0].length, d.length, d, null, Store.luckysheet_select_save, "datachangeAll");
+            jfrefreshgridall(d[0].length, d.length, d, null, Store.selections, "datachangeAll");
         }
         else {
-            jfrefreshrange(d, Store.luckysheet_select_save);
+            jfrefreshrange(d, Store.selections);
         }
     },
     clearRangeByindex: function (st_r, ed_r, st_c, ed_c, sheetIndex) {

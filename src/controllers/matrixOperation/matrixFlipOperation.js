@@ -13,7 +13,7 @@ function initialMatrixFlipOperation() {
         document.querySelectorAll("body .luckysheet-cols-menu").forEach(el => el.style.display = 'none');
         luckysheetContainerFocus();
 
-        if(Store.luckysheet_select_save.length > 1){
+        if(Store.selections.length > 1){
             if(isEditMode()){
                 alert(locale_drag.noMulti);
             }
@@ -23,7 +23,7 @@ function initialMatrixFlipOperation() {
             return;
         }
 
-        let getdata = getdatabyselection(Store.luckysheet_select_save[0]);
+        let getdata = getdatabyselection(Store.selections[0]);
         if (getdata.length == 0) {
             return;
         }
@@ -49,7 +49,7 @@ function initialMatrixFlipOperation() {
         document.querySelectorAll("body .luckysheet-cols-menu").forEach(el => el.style.display = 'none');
         luckysheetContainerFocus();
 
-        if(Store.luckysheet_select_save.length > 1){
+        if(Store.selections.length > 1){
             if(isEditMode()){
                 alert(locale_drag.noMulti);
             }
@@ -59,7 +59,7 @@ function initialMatrixFlipOperation() {
             return;
         }
 
-        let getdata = getdatabyselection(Store.luckysheet_select_save[0]);
+        let getdata = getdatabyselection(Store.selections[0]);
         if (getdata.length == 0) {
             return;
         }
@@ -85,7 +85,7 @@ function initialMatrixFlipOperation() {
         document.querySelectorAll("body .luckysheet-cols-menu").forEach(el => el.style.display = 'none');
         luckysheetContainerFocus();
 
-        if(Store.luckysheet_select_save.length > 1){
+        if(Store.selections.length > 1){
             if(isEditMode()){
                 alert(locale_drag.noMulti);
             }
@@ -95,7 +95,7 @@ function initialMatrixFlipOperation() {
             return;
         }
 
-        let getdata = getdatabyselection(Store.luckysheet_select_save[0]);
+        let getdata = getdatabyselection(Store.selections[0]);
         if (getdata.length == 0) {
             return;
         }
@@ -121,7 +121,7 @@ function initialMatrixFlipOperation() {
         document.querySelectorAll("body .luckysheet-cols-menu").forEach(el => el.style.display = 'none');
         luckysheetContainerFocus();
 
-        if(Store.luckysheet_select_save.length > 1){
+        if(Store.selections.length > 1){
             if(isEditMode()){
                 alert(locale_drag.noMulti);
             }
@@ -131,7 +131,7 @@ function initialMatrixFlipOperation() {
             return;
         }
 
-        let getdata = getdatabyselection(Store.luckysheet_select_save[0]);
+        let getdata = getdatabyselection(Store.selections[0]);
         if (getdata.length == 0) {
             return;
         }
@@ -157,7 +157,7 @@ function initialMatrixFlipOperation() {
         document.querySelectorAll("body .luckysheet-cols-menu").forEach(el => el.style.display = 'none');
         luckysheetContainerFocus();
 
-        if(Store.luckysheet_select_save.length > 1){
+        if(Store.selections.length > 1){
             if(isEditMode()){
                 alert(locale_drag.noMulti);
             }
@@ -167,7 +167,7 @@ function initialMatrixFlipOperation() {
             return;
         }
 
-        let getdata = getdatabyselection(Store.luckysheet_select_save[0]);
+        let getdata = getdatabyselection(Store.selections[0]);
         if (getdata.length == 0) {
             return;
         }

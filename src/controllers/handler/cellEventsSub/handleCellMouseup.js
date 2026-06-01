@@ -21,7 +21,7 @@ export function handleCellMouseup(event) {
                   let y = event.pageY;
                   let data = Store.sheetData;
   
-                  let obj_s = Store.luckysheet_select_save[0];
+                  let obj_s = Store.selections[0];
   
                   const cellRightClickConfig = luckysheetConfigsetting.cellRightClickConfig;
   
@@ -112,13 +112,13 @@ export function handleCellMouseup(event) {
                       }
   
                       let first_collen =
-                          cfg["columnlen"][Store.luckysheet_select_save[0].column[0]] == null
+                          cfg["columnlen"][Store.selections[0].column[0]] == null
                               ? Store.defaultcollen
-                              : cfg["columnlen"][Store.luckysheet_select_save[0].column[0]];
+                              : cfg["columnlen"][Store.selections[0].column[0]];
                       let isSame = true;
   
-                      for (let i = 0; i < Store.luckysheet_select_save.length; i++) {
-                          let s = Store.luckysheet_select_save[i];
+                      for (let i = 0; i < Store.selections.length; i++) {
+                          let s = Store.selections[i];
                           let c1 = s.column[0],
                               c2 = s.column[1];
   
@@ -221,13 +221,13 @@ export function handleCellMouseup(event) {
                       }
   
                       let first_rowlen =
-                          cfg["rowlen"][Store.luckysheet_select_save[0].row[0]] == null
+                          cfg["rowlen"][Store.selections[0].row[0]] == null
                               ? Store.defaultrowlen
-                              : cfg["rowlen"][Store.luckysheet_select_save[0].row[0]];
+                              : cfg["rowlen"][Store.selections[0].row[0]];
                       let isSame = true;
   
-                      for (let i = 0; i < Store.luckysheet_select_save.length; i++) {
-                          let s = Store.luckysheet_select_save[i];
+                      for (let i = 0; i < Store.selections.length; i++) {
+                          let s = Store.selections[i];
                           let r1 = s.row[0],
                               r2 = s.row[1];
   

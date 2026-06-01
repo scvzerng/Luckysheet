@@ -309,7 +309,7 @@ const coreModule = {
       "cfg": cfg,
       "cdformat": cdformat
     };
-    jfrefreshgrid(d, Store.luckysheet_select_save, allParam);
+    jfrefreshgrid(d, Store.selections, allParam);
     selectHightlightShow();
   },
     getCopyData: function (d, r1, r2, c1, c2, direction) {

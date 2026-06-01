@@ -418,36 +418,36 @@ import formulaDialogs from '../../../ui/formulaDialogs.js';
                     let row_index_original = Store.luckysheet_cell_selected_move_index[0],
                         col_index_original = Store.luckysheet_cell_selected_move_index[1];
 
-                    let row_s = Store.luckysheet_select_save[0]["row"][0] - row_index_original + row_index,
-                        row_e = Store.luckysheet_select_save[0]["row"][1] - row_index_original + row_index;
+                    let row_s = Store.selections[0]["row"][0] - row_index_original + row_index,
+                        row_e = Store.selections[0]["row"][1] - row_index_original + row_index;
 
-                    let col_s = Store.luckysheet_select_save[0]["column"][0] - col_index_original + col_index,
-                        col_e = Store.luckysheet_select_save[0]["column"][1] - col_index_original + col_index;
+                    let col_s = Store.selections[0]["column"][0] - col_index_original + col_index,
+                        col_e = Store.selections[0]["column"][1] - col_index_original + col_index;
 
                     if (row_s < 0 || y < 0) {
                         row_s = 0;
-                        row_e = Store.luckysheet_select_save[0]["row"][1] - Store.luckysheet_select_save[0]["row"][0];
+                        row_e = Store.selections[0]["row"][1] - Store.selections[0]["row"][0];
                     }
 
                     if (col_s < 0 || x < 0) {
                         col_s = 0;
                         col_e =
-                            Store.luckysheet_select_save[0]["column"][1] - Store.luckysheet_select_save[0]["column"][0];
+                            Store.selections[0]["column"][1] - Store.selections[0]["column"][0];
                     }
 
                     if (row_e >= Store.visibledatarow[getMaxRowIndex()] || y > winH) {
                         row_s =
                             getMaxRowIndex() -
-                            Store.luckysheet_select_save[0]["row"][1] +
-                            Store.luckysheet_select_save[0]["row"][0];
+                            Store.selections[0]["row"][1] +
+                            Store.selections[0]["row"][0];
                         row_e = getMaxRowIndex();
                     }
 
                     if (col_e >= Store.visibledatacolumn[getMaxColIndex()] || x > winW) {
                         col_s =
                             getMaxColIndex() -
-                            Store.luckysheet_select_save[0]["column"][1] +
-                            Store.luckysheet_select_save[0]["column"][0];
+                            Store.selections[0]["column"][1] +
+                            Store.selections[0]["column"][0];
                         col_e = getMaxColIndex();
                     }
 
@@ -490,67 +490,67 @@ import formulaDialogs from '../../../ui/formulaDialogs.js';
                     let row_index_original = Store.luckysheet_cell_selected_extend_index[0],
                         col_index_original = Store.luckysheet_cell_selected_extend_index[1];
 
-                    let row_s = Store.luckysheet_select_save[0]["row"][0],
-                        row_e = Store.luckysheet_select_save[0]["row"][1];
-                    let col_s = Store.luckysheet_select_save[0]["column"][0],
-                        col_e = Store.luckysheet_select_save[0]["column"][1];
+                    let row_s = Store.selections[0]["row"][0],
+                        row_e = Store.selections[0]["row"][1];
+                    let col_s = Store.selections[0]["column"][0],
+                        col_e = Store.selections[0]["column"][1];
 
                     if (row_s < 0 || y < 0) {
                         row_s = 0;
-                        row_e = Store.luckysheet_select_save[0]["row"][1] - Store.luckysheet_select_save[0]["row"][0];
+                        row_e = Store.selections[0]["row"][1] - Store.selections[0]["row"][0];
                     }
 
                     if (col_s < 0 || x < 0) {
                         col_s = 0;
                         col_e =
-                            Store.luckysheet_select_save[0]["column"][1] - Store.luckysheet_select_save[0]["column"][0];
+                            Store.selections[0]["column"][1] - Store.selections[0]["column"][0];
                     }
 
                     if (row_e >= Store.visibledatarow[getMaxRowIndex()] || y > winH) {
                         row_s =
                             getMaxRowIndex() -
-                            Store.luckysheet_select_save[0]["row"][1] +
-                            Store.luckysheet_select_save[0]["row"][0];
+                            Store.selections[0]["row"][1] +
+                            Store.selections[0]["row"][0];
                         row_e = getMaxRowIndex();
                     }
 
                     if (col_e >= Store.visibledatacolumn[getMaxColIndex()] || x > winW) {
                         col_s =
                             getMaxColIndex() -
-                            Store.luckysheet_select_save[0]["column"][1] +
-                            Store.luckysheet_select_save[0]["column"][0];
+                            Store.selections[0]["column"][1] +
+                            Store.selections[0]["column"][0];
                         col_e = getMaxColIndex();
                     }
 
-                    let top = Store.luckysheet_select_save[0].top_move,
-                        height = Store.luckysheet_select_save[0].height_move;
-                    let left = Store.luckysheet_select_save[0].left_move,
-                        width = Store.luckysheet_select_save[0].width_move;
+                    let top = Store.selections[0].top_move,
+                        height = Store.selections[0].height_move;
+                    let left = Store.selections[0].left_move,
+                        width = Store.selections[0].width_move;
 
                     if (Math.abs(row_index_original - row_index) > Math.abs(col_index_original - col_index)) {
                         if (!(row_index >= row_s && row_index <= row_e)) {
-                            if (Store.luckysheet_select_save[0].top_move >= row_pre) {
+                            if (Store.selections[0].top_move >= row_pre) {
                                 top = row_pre;
                                 height =
-                                    Store.luckysheet_select_save[0].top_move +
-                                    Store.luckysheet_select_save[0].height_move -
+                                    Store.selections[0].top_move +
+                                    Store.selections[0].height_move -
                                     row_pre;
                             } else {
-                                top = Store.luckysheet_select_save[0].top_move;
-                                height = row - Store.luckysheet_select_save[0].top_move - 1;
+                                top = Store.selections[0].top_move;
+                                height = row - Store.selections[0].top_move - 1;
                             }
                         }
                     } else {
                         if (!(col_index >= col_s && col_index <= col_e)) {
-                            if (Store.luckysheet_select_save[0].left_move >= col_pre) {
+                            if (Store.selections[0].left_move >= col_pre) {
                                 left = col_pre;
                                 width =
-                                    Store.luckysheet_select_save[0].left_move +
-                                    Store.luckysheet_select_save[0].width_move -
+                                    Store.selections[0].left_move +
+                                    Store.selections[0].width_move -
                                     col_pre;
                             } else {
-                                left = Store.luckysheet_select_save[0].left_move;
-                                width = col - Store.luckysheet_select_save[0].left_move - 1;
+                                left = Store.selections[0].left_move;
+                                width = col - Store.selections[0].left_move - 1;
                             }
                         }
                     }

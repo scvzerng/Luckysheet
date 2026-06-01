@@ -267,13 +267,13 @@ const clipboardCopyPasteModule = {
         RowlChange: true,
         cdformat: cdformat
       };
-      jfrefreshgrid(d, Store.luckysheet_select_save, allParam);
+      jfrefreshgrid(d, Store.selections, allParam);
     } else {
       let allParam = {
         cfg: cfg,
         cdformat: cdformat
       };
-      jfrefreshgrid(d, Store.luckysheet_select_save, allParam);
+      jfrefreshgrid(d, Store.selections, allParam);
       selectHightlightShow();
     }
   }

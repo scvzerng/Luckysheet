@@ -95,16 +95,16 @@ export function initSearchReplace(_this) {
               luckysheetLocationCell.createDialog();
               luckysheetLocationCell.init();
             } else if (itemvalue == "locationFormula" || itemvalue == "locationConstantDate" || itemvalue == "locationConstantNumber" || itemvalue == "locationConstantString" || itemvalue == "locationConstantError" || itemvalue == "locationCF") {
-              let last = Store.luckysheet_select_save[0];
+              let last = Store.selections[0];
               let range;
-              if (Store.luckysheet_select_save.length == 0 || Store.luckysheet_select_save.length == 1 && last.row[0] == last.row[1] && last.column[0] == last.column[1]) {
+              if (Store.selections.length == 0 || Store.selections.length == 1 && last.row[0] == last.row[1] && last.column[0] == last.column[1]) {
                 //单个单元�?
                 range = [{
                   row: [0, Store.sheetData.length - 1],
                   column: [0, Store.sheetData[0].length - 1]
                 }];
               } else {
-                range = structuredClone(Store.luckysheet_select_save);
+                range = structuredClone(Store.selections);
               }
               if (itemvalue == "locationFormula") {
                 //公式
@@ -127,7 +127,7 @@ export function initSearchReplace(_this) {
               }
             } else if (itemvalue == "locationStepRow") {
               //间隔�?
-              if (Store.luckysheet_select_save.length == 0 || Store.luckysheet_select_save.length == 1 && Store.luckysheet_select_save[0].row[0] == Store.luckysheet_select_save[0].row[1]) {
+              if (Store.selections.length == 0 || Store.selections.length == 1 && Store.selections[0].row[0] == Store.selections[0].row[1]) {
                 if (isEditMode()) {
                   alert(locale_findAndReplace.lessTwoRowTip);
                 } else {
@@ -135,11 +135,11 @@ export function initSearchReplace(_this) {
                 }
                 return;
               }
-              let range = structuredClone(Store.luckysheet_select_save);
+              let range = structuredClone(Store.selections);
               luckysheetLocationCell.apply(range, "locationStepRow");
             } else if (itemvalue == "locationStepColumn") {
               //间隔�?
-              if (Store.luckysheet_select_save.length == 0 || Store.luckysheet_select_save.length == 1 && Store.luckysheet_select_save[0].column[0] == Store.luckysheet_select_save[0].column[1]) {
+              if (Store.selections.length == 0 || Store.selections.length == 1 && Store.selections[0].column[0] == Store.selections[0].column[1]) {
                 if (isEditMode()) {
                   alert(locale_findAndReplace.lessTwoColumnTip);
                 } else {
@@ -147,7 +147,7 @@ export function initSearchReplace(_this) {
                 }
                 return;
               }
-              let range = structuredClone(Store.luckysheet_select_save);
+              let range = structuredClone(Store.selections);
               luckysheetLocationCell.apply(range, "locationStepColumn");
             }
             });

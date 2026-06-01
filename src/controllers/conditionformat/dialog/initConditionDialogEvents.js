@@ -110,7 +110,7 @@ export function initConditionDialogEvents(_this) {
         //保存当前的规�?
         let rule = {
           "type": "default",
-          "cellrange": structuredClone(Store.luckysheet_select_save),
+          "cellrange": structuredClone(Store.selections),
           "format": {
             "textColor": textcolor,
             "cellColor": cellcolor
@@ -138,8 +138,8 @@ export function initConditionDialogEvents(_this) {
       onNS(document, "click.CFicons", "#luckysheet-CFicons-dialog .item", function () {
         hideModalMask();
         const _elCFicons = document.getElementById("luckysheet-CFicons-dialog"); if (_elCFicons) _elCFicons.style.display = 'none';
-        if (Store.luckysheet_select_save.length > 0) {
-          let cellrange = structuredClone(Store.luckysheet_select_save);
+        if (Store.selections.length > 0) {
+          let cellrange = structuredClone(Store.selections);
           let format = {
             "len": this.getAttribute("data-len"),
             "leftMin": this.getAttribute("data-leftMin"),

@@ -86,7 +86,7 @@ const formulaAutoInputModule = {
     });
 
     //刷新生成公式所在的单元格，刷新calcChain
-    Store.luckysheet_select_save.push({
+    Store.selections.push({
       "row": [r, r],
       "column": [c, c]
     });
@@ -260,7 +260,7 @@ const formulaAutoInputModule = {
     let d = editor.deepCopyFlowData(Store.sheetData);
     let nullfindnum = 40;
     let isfalse = true;
-    let select_save_len = Store.luckysheet_select_save.length;
+    let select_save_len = Store.selections.length;
     luckysheetformula.execFunctionExist = [];
     let execFormulaInput_c = function (d, st_r, ed_r, st_c, ed_c, formula) {
       let st_c_c = _this.getNoNullValue(d, st_r, ed_c, "c");
@@ -279,12 +279,12 @@ const formulaAutoInputModule = {
       }
     };
     for (let s = 0; s < select_save_len; s++) {
-      let st_r = Store.luckysheet_select_save[s].row[0],
-        ed_r = Store.luckysheet_select_save[s].row[1];
-      let st_c = Store.luckysheet_select_save[s].column[0],
-        ed_c = Store.luckysheet_select_save[s].column[1];
-      let row_index = Store.luckysheet_select_save[s].row_focus,
-        col_index = Store.luckysheet_select_save[s].column_focus;
+      let st_r = Store.selections[s].row[0],
+        ed_r = Store.selections[s].row[1];
+      let st_c = Store.selections[s].column[0],
+        ed_c = Store.selections[s].column[1];
+      let row_index = Store.selections[s].row_focus,
+        col_index = Store.selections[s].column_focus;
       if (st_r == ed_r && st_c == ed_c) {
         if (ed_r - 1 < 0 && ed_c - 1 < 0) {
           _this.activeFormulaInput(st_r, st_c, null, null, formula, true);
@@ -317,7 +317,7 @@ const formulaAutoInputModule = {
     if (!isfalse) {
       luckysheetformula.execFunctionExist.reverse();
       luckysheetformula.execFunctionGroup(null, null, null, null, d);
-      jfrefreshgrid(d, Store.luckysheet_select_save);
+      jfrefreshgrid(d, Store.selections);
       clearTimeout(Store.jfcountfuncTimeout);
       Store.jfcountfuncTimeout = setTimeout(function () {
         countfunc();

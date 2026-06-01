@@ -105,7 +105,7 @@ export function initFunction(_this) {
               ifFormulaGenerator.init();
             } else if (itemvalue == "formula") {
               //点击函数查找弹出�?
-              if (Store.luckysheet_select_save.length == 0) {
+              if (Store.selections.length == 0) {
                 if (isEditMode()) {
                   alert(locale_formula.tipSelectCell);
                 } else {

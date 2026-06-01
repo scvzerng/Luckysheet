@@ -191,11 +191,11 @@ const formatUpdateModule = {
     if (cfg["rowlen"] == null) {
       cfg["rowlen"] = {};
     }
-    for (let s = 0; s < Store.luckysheet_select_save.length; s++) {
-      let row_st = Store.luckysheet_select_save[s]["row"][0],
-        row_ed = Store.luckysheet_select_save[s]["row"][1];
-      let col_st = Store.luckysheet_select_save[s]["column"][0],
-        col_ed = Store.luckysheet_select_save[s]["column"][1];
+    for (let s = 0; s < Store.selections.length; s++) {
+      let row_st = Store.selections[s]["row"][0],
+        row_ed = Store.selections[s]["row"][1];
+      let col_st = Store.selections[s]["column"][0],
+        col_ed = Store.selections[s]["column"][1];
       this.updateFormatCell(d, attr, foucsStatus, row_st, row_ed, col_st, col_ed);
       if (attr == "tb" || attr == "tr" || attr == "fs") {
         cfg = rowlenByRange(d, row_st, row_ed, cfg);
@@ -208,7 +208,7 @@ const formatUpdateModule = {
         RowlChange: true
       };
     }
-    jfrefreshgrid(d, Store.luckysheet_select_save, allParam, false);
+    jfrefreshgrid(d, Store.selections, allParam, false);
   },
   updateFormat_mc: function (d, foucsStatus) {
     // *如果禁止前台编辑，则中止下一步操作
@@ -220,8 +220,8 @@ const formatUpdateModule = {
       cfg["merge"] = {};
     }
     if (foucsStatus == "mergeCancel") {
-      for (let i = 0; i < Store.luckysheet_select_save.length; i++) {
-        let range = Store.luckysheet_select_save[i];
+      for (let i = 0; i < Store.selections.length; i++) {
+        let range = Store.selections[i];
         let r1 = range["row"][0],
           r2 = range["row"][1];
         let c1 = range["column"][0],
@@ -256,8 +256,8 @@ const formatUpdateModule = {
     } else {
       let isHasMc = false; //选区是否含有 合并的单元格
 
-      for (let i = 0; i < Store.luckysheet_select_save.length; i++) {
-        let range = Store.luckysheet_select_save[i];
+      for (let i = 0; i < Store.selections.length; i++) {
+        let range = Store.selections[i];
         let r1 = range["row"][0],
           r2 = range["row"][1];
         let c1 = range["column"][0],
@@ -274,8 +274,8 @@ const formatUpdateModule = {
       }
       if (isHasMc) {
         //选区有合并单元格（选区都执行 取消合并）
-        for (let i = 0; i < Store.luckysheet_select_save.length; i++) {
-          let range = Store.luckysheet_select_save[i];
+        for (let i = 0; i < Store.selections.length; i++) {
+          let range = Store.selections[i];
           let r1 = range["row"][0],
             r2 = range["row"][1];
           let c1 = range["column"][0],
@@ -308,8 +308,8 @@ const formatUpdateModule = {
           }
         }
       } else {
-        for (let i = 0; i < Store.luckysheet_select_save.length; i++) {
-          let range = Store.luckysheet_select_save[i];
+        for (let i = 0; i < Store.selections.length; i++) {
+          let range = Store.selections[i];
           let r1 = range["row"][0],
             r2 = range["row"][1];
           let c1 = range["column"][0],
@@ -430,7 +430,7 @@ const formatUpdateModule = {
         sheetIndex: Store.currentSheetIndex,
         data: Store.sheetData,
         curData: d,
-        range: structuredClone(Store.luckysheet_select_save),
+        range: structuredClone(Store.selections),
         config: structuredClone(Store.config),
         curConfig: cfg,
         calc: file.calcChain,
@@ -440,7 +440,7 @@ const formatUpdateModule = {
       });
     }
     Store.clearjfundo = false;
-    jfrefreshgrid(d, Store.luckysheet_select_save, {
+    jfrefreshgrid(d, Store.selections, {
       cfg,
       calc,
       hyperlink
