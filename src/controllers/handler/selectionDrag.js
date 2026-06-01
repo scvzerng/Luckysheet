@@ -244,7 +244,7 @@ export default function selectionDrag() {
 
             const _elMoveHide = document.getElementById("luckysheet-cell-selected-move"); if (_elMoveHide) _elMoveHide.style.display = 'none';
 
-            const _elSheettable = document.getElementById("luckysheet-sheettable"); if (_elSheettable) _elSheettable.style.cursor = "default";
+            const _elSheettable = document.getElementById("luckysheet-sheet-table"); if (_elSheettable) _elSheettable.style.cursor = "default";
             clearTimeout(Store.countfuncTimeout);
             Store.countfuncTimeout = setTimeout(function() {
                 countfunc();

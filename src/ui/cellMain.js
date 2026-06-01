@@ -33,14 +33,14 @@ class CellMain {
     setCursor(cursor) {
         if (!this.el) return this;
         this.el.style.cursor = cursor;
-        document.querySelectorAll("#luckysheetTableContent, #luckysheet-sheettable_0").forEach(el => el.style.cursor = cursor);
+        document.querySelectorAll("#luckysheetTableContent, #luckysheet-sheet-table").forEach(el => el.style.cursor = cursor);
         return this;
     }
 
     setCursorDefault() {
         if (!this.el) return this;
         this.el.style.cursor = "default";
-        document.querySelectorAll("#luckysheetTableContent, #luckysheet-sheettable_0").forEach(el => el.style.cursor = "default");
+        document.querySelectorAll("#luckysheetTableContent, #luckysheet-sheet-table").forEach(el => el.style.cursor = "default");
         return this;
     }
 

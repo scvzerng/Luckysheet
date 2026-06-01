@@ -14,7 +14,7 @@ class RowHeader {
     onContextmenu(callback) { if (!this.el) return this; this.el.addEventListener("contextmenu", callback); return this; }
     setCursor(cursor) {
         if (!this.el) return this;
-        document.getElementById("luckysheet-sheettable").style.cursor = cursor;
+        document.getElementById("luckysheet-sheet-table").style.cursor = cursor;
         this.el.style.cursor = cursor;
         this.el.querySelectorAll("canvas").forEach(c => c.style.cursor = cursor);
         return this;
@@ -37,7 +37,7 @@ class ColHeader {
     onContextmenu(callback) { if (!this.el) return this; this.el.addEventListener("contextmenu", callback); return this; }
     setCursor(cursor) {
         if (!this.el) return this;
-        document.getElementById("luckysheet-sheettable").style.cursor = cursor;
+        document.getElementById("luckysheet-sheet-table").style.cursor = cursor;
         this.el.style.cursor = cursor;
         document.querySelectorAll(".luckysheet-cols-h-cells").forEach(el => el.style.cursor = cursor);
         document.querySelectorAll(".luckysheet-cols-h-cells canvas").forEach(c => c.style.cursor = cursor);

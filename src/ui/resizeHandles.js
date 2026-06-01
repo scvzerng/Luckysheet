@@ -20,7 +20,7 @@ const resizeHandles = {
     changeSizeLine: new ResizeHandle("#luckysheet-change-size-line"),
     colHover: new ResizeHandle("#luckysheet-cols-h-hover"),
     rowHover: new ResizeHandle("#luckysheet-rows-h-hover"),
-    sheetTable: new ResizeHandle("#luckysheet-sheettable_0"),
+    sheetTable: new ResizeHandle("#luckysheet-sheet-table"),
 };
 
 export default resizeHandles;

@@ -773,7 +773,7 @@ export default function documentMouseup() {
 
             selectHightlightShow();
 
-            const _sheetTable = document.getElementById("luckysheet-sheettable"); if (_sheetTable) _sheetTable.style.cursor = "default";
+            const _sheetTable = document.getElementById("luckysheet-sheet-table"); if (_sheetTable) _sheetTable.style.cursor = "default";
             clearTimeout(Store.countfuncTimeout);
             Store.countfuncTimeout = setTimeout(function() {
                 countfunc();
@@ -969,7 +969,7 @@ export default function documentMouseup() {
 
             const _elMoveHide2 = document.getElementById("luckysheet-cell-selected-move"); if (_elMoveHide2) _elMoveHide2.style.display = 'none';
 
-            const _sheetTable2 = document.getElementById("luckysheet-sheettable"); if (_sheetTable2) _sheetTable2.style.cursor = "default";
+            const _sheetTable2 = document.getElementById("luckysheet-sheet-table"); if (_sheetTable2) _sheetTable2.style.cursor = "default";
             clearTimeout(Store.countfuncTimeout);
             Store.countfuncTimeout = setTimeout(function() {
                 countfunc();
