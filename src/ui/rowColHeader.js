@@ -1,6 +1,6 @@
 class RowHeader {
     constructor() { this._el = null; }
-    get el() { if (!this._el || !document.body.contains(this._el)) this._el = document.getElementById("luckysheet-rows-h"); return this._el; }
+    get el() { if (!this._el || !document.body.contains(this._el)) this._el = document.getElementById("luckysheet-row-header"); return this._el; }
 
     getScrollTop() { if (!this.el) return 0; return this.el.scrollTop; }
     setScrollTop(value) { if (!this.el) return this; this.el.scrollTop = value; return this; }

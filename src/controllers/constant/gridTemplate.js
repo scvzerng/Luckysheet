@@ -112,7 +112,7 @@ const gridHTML = function() {
                                         </tr>
                                         <tr>
                                             <td valign="top" class="luckysheet-paneswrapper"> 
-                                                <div class="luckysheet-rows-h" id="luckysheet-rows-h"> 
+                                                <div class="luckysheet-row-header" id="luckysheet-row-header"> 
                                                     <div class="luckysheet-rows-change-size" id="luckysheet-rows-change-size"></div> 
                                                     <div class="luckysheet-rows-h-hover" id="luckysheet-rows-h-hover"></div> 
                                                     <div id="luckysheet-rows-h-selected"></div>  

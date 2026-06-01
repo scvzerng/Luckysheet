@@ -68,7 +68,7 @@
     background: #f3f3f2;
 }
 
-.luckysheet-rows-h {
+.luckysheet-row-header {
     position: relative;
     outline-style: none;
     color: #5e5e5e;
@@ -231,7 +231,7 @@ body:not(.ewa-ipad) .luckysheet-rows-h-cell-sel:hover {
     padding-top: 2px;
 }
 
-.luckysheet-rows-h {
+.luckysheet-row-header {
     position: relative;
     outline-style: none;
     color: #5e5e5e;
