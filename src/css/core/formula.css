@@ -1,5 +1,5 @@
 /*函数样式*/
-#luckysheet-functionbox-container {
+#luckysheet-function-input-container {
     height: 100%;
     padding-left: 10px;
     overflow: hidden;
@@ -11,14 +11,14 @@
     border-left: 1px solid #e5e5e5;
 }
 
-#luckysheet-functionbox-container > div {
+#luckysheet-function-input-container > div {
     height: 100%;
     overflow-x: hidden;
     overflow-y: auto;
     position: relative;
 }
 
-#luckysheet-functionbox {
+#luckysheet-function-input {
     bottom: 6px;
     left: 0;
     position: absolute;
@@ -33,13 +33,13 @@
     padding: 0px 5px;
 }
 
-#luckysheet-functionbox .luckysheet-functionbox-cell-input {
+#luckysheet-function-input .luckysheet-function-input-cell {
     word-wrap: break-word;
     -webkit-nbsp-mode: space;
     -webkit-line-break: after-white-space;
 }
 
-.luckysheet-functionbox-cell-input {
+.luckysheet-function-input-cell {
     width: 100%;
     height: 100%;
     margin: 0;

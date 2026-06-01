@@ -1,6 +1,6 @@
 class FunctionBox {
     constructor() { this._el = null; }
-    get el() { if (!this._el || !document.body.contains(this._el)) this._el = document.getElementById("luckysheet-functionbox-cell"); return this._el; }
+    get el() { if (!this._el || !document.body.contains(this._el)) this._el = document.getElementById("luckysheet-function-input-cell"); return this._el; }
 
     getHtml() { if (!this.el) return ''; return this.el.innerHTML; }
     setHtml(value) { if (!this.el) return this; this.el.innerHTML = value; return this; }

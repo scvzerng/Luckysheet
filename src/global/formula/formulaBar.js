@@ -141,7 +141,7 @@ const formulaBar = {
                     //     if(c.id=="luckysheet-rich-text-editor" || c.closest("#luckysheet-rich-text-editor")){
                     //         $functionbox.innerHTML = value;
                     //     }
-                    //     else if(c.id=="luckysheet-functionbox-cell" || c.closest("#luckysheet-functionbox-cell")){
+                    //     else if(c.id=="luckysheet-function-input-cell" || c.closest("#luckysheet-function-input-cell")){
                     //         if(value1.indexOf("span")>-1){
 
                     //         }

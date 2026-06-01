@@ -79,10 +79,10 @@ const gridHTML = function() {
                             <div id="luckysheet-wa-functionbox-fx" class="luckysheet-wa-functionbox">
                                 <span><i class="iconfont-luckysheet luckysheet-iconfont-hanshu" aria-hidden="true" style="color:#333"></i></span> 
                             </div> 
-                            <div id="luckysheet-functionbox-container" class="luckysheet-mousedown-cancel">
-                                <div class="luckysheet-mousedown-cancel" dir="ltr">
-                                    <div spellcheck="false" aria-hidden="false" id="luckysheet-functionbox">
-                                        <div id="luckysheet-functionbox-cell" class="luckysheet-functionbox-cell-input luckysheet-mousedown-cancel" tabindex="0" contenteditable="true" dir="ltr" aria-autocomplete="list" aria-label="D4"></div>
+                            <div id="luckysheet-function-input-container" class="luckysheet-mousedown-cancel">
+                                <div class="luckysheet-wa-calculate-help-tool" id="luckysheet-wa-functionbox-confirm" style="display:none;">
+                                    <div spellcheck="false" aria-hidden="false" id="luckysheet-function-input">
+                                        <div id="luckysheet-function-input-cell" class="luckysheet-function-input-cell luckysheet-mousedown-cancel" tabindex="0" contenteditable="true" dir="ltr" aria-autocomplete="list" aria-label="D4"></div>
                                     </div>
                                 </div>
                             </div>   
