@@ -222,7 +222,7 @@ const sheetParamRestoreModule = {
       width: Store.ch_width - 1,
       height: Store.rh_height
     });
-    const _elRowHeader = document.getElementById("luckysheetrowHeader_0"); if (_elRowHeader) _elRowHeader.style.height = Store.rh_height + "px";
+    const _elRowHeader = document.getElementById("luckysheet-row-header-content"); if (_elRowHeader) _elRowHeader.style.height = Store.rh_height + "px";
     const _elColsHCells = document.getElementById("luckysheet-cols-h-cells_0"); if (_elColsHCells) _elColsHCells.style.width = Store.ch_width + "px"; //width更新
 
     scrollBarX.setInnerDivWidth(Store.ch_width);
