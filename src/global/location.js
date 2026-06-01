@@ -4,20 +4,20 @@ import Store from '../store';
 
 function rowLocationByIndex(row_index) {
     let row = 0, row_pre = 0;
-    row = Store.visibledatarow[row_index];
+    row = Store.visibleRowPositions[row_index];
 
     if (row_index == 0) {
         row_pre = 0;
     }
     else {
-        row_pre = Store.visibledatarow[row_index - 1];
+        row_pre = Store.visibleRowPositions[row_index - 1];
     }
 
     return [row_pre, row, row_index];
 }
 
 function rowLocation(y) {
-    let row_index = luckysheet_searcharray(Store.visibledatarow, y);
+    let row_index = luckysheet_searcharray(Store.visibleRowPositions, y);
 
     if (row_index == -1 && y > 0) {
         row_index = getMaxRowIndex();

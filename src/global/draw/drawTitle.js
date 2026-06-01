@@ -24,8 +24,8 @@ function luckysheetDrawgridRowTitle(scrollHeight, drawHeight, offsetTop) {
   luckysheetTableContent.clearRect(0, offsetTop, Store.rowHeaderWidth - 1, drawHeight);
   initCanvasDefaults(luckysheetTableContent);
   let dataset_row_st, dataset_row_ed;
-  dataset_row_st = luckysheet_searcharray(Store.visibledatarow, scrollHeight);
-  dataset_row_ed = luckysheet_searcharray(Store.visibledatarow, scrollHeight + drawHeight);
+  dataset_row_st = luckysheet_searcharray(Store.visibleRowPositions, scrollHeight);
+  dataset_row_ed = luckysheet_searcharray(Store.visibleRowPositions, scrollHeight + drawHeight);
   if (dataset_row_st == -1) {
     dataset_row_st = 0;
   }

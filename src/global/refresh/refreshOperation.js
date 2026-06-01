@@ -454,7 +454,7 @@ function jfrefreshgrid_pastcut(source, target, RowlChange){
     }
 
     if(RowlChange){
-        Store.visibledatarow = [];
+        Store.visibleRowPositions = [];
         Store.rh_height = 0;
         
         for (let i = 0; i < rowHeight; i++) {
@@ -466,14 +466,14 @@ function jfrefreshgrid_pastcut(source, target, RowlChange){
 
             if (isRowHidden(i)) {
                 rowlen = Store.config["rowhidden"][i];
-                Store.visibledatarow.push(Store.rh_height);
+                Store.visibleRowPositions.push(Store.rh_height);
                 continue;
             }
             else {
                 Store.rh_height += rowlen + 1;
             }
 
-            Store.visibledatarow.push(Store.rh_height);//行的临时长度分布
+            Store.visibleRowPositions.push(Store.rh_height);//行的临时长度分布
         }
         Store.rh_height += 80;
         // sheetmanage.showSheet();

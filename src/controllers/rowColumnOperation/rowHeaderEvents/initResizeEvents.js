@@ -74,7 +74,7 @@ export function initResizeEvents() {
       let winH = cellMain.getHeight();
       let x = mouse[0] + scrollLeft;
       let row_index = getMaxRowIndex(),
-        row = Store.visibledatarow[row_index],
+        row = Store.visibleRowPositions[row_index],
         row_pre = 0;
       let col_location = colLocation(x),
         col = col_location[1],

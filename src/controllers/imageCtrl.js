@@ -85,7 +85,7 @@ const imageCtrl = {
         let rowIndex = _focus.row || 0;
         let colIndex = _focus.col || 0;
         let left = colIndex == 0 ? 0 : Store.visibleColPositions[colIndex - 1];
-        let top = rowIndex == 0 ? 0 : Store.visibledatarow[rowIndex - 1];
+        let top = rowIndex == 0 ? 0 : Store.visibleRowPositions[rowIndex - 1];
 
         let image = new Image();
         image.onload = function(){
@@ -967,7 +967,7 @@ const imageCtrl = {
         let rowIndex = Store.selections[0].row_focus || 0;
         let colIndex = Store.selections[0].column_focus || 0;
         let left = colIndex == 0 ? 0 : Store.visibleColPositions[colIndex - 1];
-        let top = rowIndex == 0 ? 0 : Store.visibledatarow[rowIndex - 1];
+        let top = rowIndex == 0 ? 0 : Store.visibleRowPositions[rowIndex - 1];
 
         let img = structuredClone(_this.copyImgItemObj);
         
@@ -1012,8 +1012,8 @@ const imageCtrl = {
         let images = structuredClone(_this.images);
 
         if(rc == "row"){
-            let row = Store.visibledatarow[index], 
-                row_pre = index - 1 == -1 ? 0 : Store.visibledatarow[index - 1];
+            let row = Store.visibleRowPositions[index], 
+                row_pre = index - 1 == -1 ? 0 : Store.visibleRowPositions[index - 1];
             let changeSize = size - (row - row_pre - 1);
             
             for(let imgId in images){

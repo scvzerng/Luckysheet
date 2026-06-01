@@ -14,7 +14,7 @@ const Store = {
 	sheetData: [],
     config: {},
 
-    visibledatarow: [],
+    visibleRowPositions: [],
     visibleColPositions: [],
     ch_width: 0,
     rh_height: 0,

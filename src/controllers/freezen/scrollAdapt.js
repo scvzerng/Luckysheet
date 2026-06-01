@@ -88,8 +88,8 @@ const scrollAdaptModule = {
         let obj = structuredClone(Store.selections[s]);
         let r1 = obj.row[0],
           r2 = obj.row[1];
-        let row = Store.visibledatarow[r2],
-          row_pre = r1 - 1 == -1 ? 0 : Store.visibledatarow[r1 - 1];
+        let row = Store.visibleRowPositions[r2],
+          row_pre = r1 - 1 == -1 ? 0 : Store.visibleRowPositions[r1 - 1];
         let top_move = row_pre;
         let height_move = row - row_pre - 1;
         let rangeshow = true;
@@ -163,8 +163,8 @@ const scrollAdaptModule = {
         if (s == Store.selections.length - 1) {
           let rf = obj.row_focus == null ? r1 : obj.row_focus;
           let cf = obj.column_focus == null ? c1 : obj.column_focus;
-          let row_f = Store.visibledatarow[rf],
-            row_pre_f = rf - 1 == -1 ? 0 : Store.visibledatarow[rf - 1];
+          let row_f = Store.visibleRowPositions[rf],
+            row_pre_f = rf - 1 == -1 ? 0 : Store.visibleRowPositions[rf - 1];
           let col_f = Store.visibleColPositions[cf],
             col_pre_f = cf - 1 == -1 ? 0 : Store.visibleColPositions[cf - 1];
           let margeset = menuButton.mergeborer(Store.sheetData, rf, cf);
@@ -250,8 +250,8 @@ const scrollAdaptModule = {
         let obj = structuredClone(Store.selections[s]);
         let r1 = obj.row[0],
           r2 = obj.row[1];
-        let row = Store.visibledatarow[r2],
-          row_pre = r1 - 1 == -1 ? 0 : Store.visibledatarow[r1 - 1];
+        let row = Store.visibleRowPositions[r2],
+          row_pre = r1 - 1 == -1 ? 0 : Store.visibleRowPositions[r1 - 1];
         let top_move = row_pre;
         let height_move = row - row_pre - 1;
         if (r1 >= freezen_rowindex) {
@@ -286,8 +286,8 @@ const scrollAdaptModule = {
         if (s == Store.selections.length - 1) {
           let rf = obj.row_focus == null ? r1 : obj.row_focus;
           let cf = obj.column_focus == null ? obj.column[0] : obj.column_focus;
-          let row_f = Store.visibledatarow[rf],
-            row_pre_f = rf - 1 == -1 ? 0 : Store.visibledatarow[rf - 1];
+          let row_f = Store.visibleRowPositions[rf],
+            row_pre_f = rf - 1 == -1 ? 0 : Store.visibleRowPositions[rf - 1];
           let margeset = menuButton.mergeborer(Store.sheetData, rf, cf);
           if (margeset) {
             row_f = margeset.row[1];
@@ -481,8 +481,8 @@ const scrollAdaptModule = {
         let r = id.split("luckysheet-postil-show_")[1].split("_")[0];
         let c = id.split("luckysheet-postil-show_")[1].split("_")[1];
         let postil = Store.sheetData[r][c].ps;
-        let row = Store.visibledatarow[r],
-          row_pre = r - 1 == -1 ? 0 : Store.visibledatarow[r - 1];
+        let row = Store.visibleRowPositions[r],
+          row_pre = r - 1 == -1 ? 0 : Store.visibleRowPositions[r - 1];
         let col = Store.visibleColPositions[c],
           col_pre = c - 1 == -1 ? 0 : Store.visibleColPositions[c - 1];
         let margeset = menuButton.mergeborer(Store.sheetData, r, c);
@@ -591,8 +591,8 @@ const scrollAdaptModule = {
         let r = id.split("luckysheet-postil-show_")[1].split("_")[0];
         let c = id.split("luckysheet-postil-show_")[1].split("_")[1];
         let postil = Store.sheetData[r][c].ps;
-        let row = Store.visibledatarow[r],
-          row_pre = r - 1 == -1 ? 0 : Store.visibledatarow[r - 1];
+        let row = Store.visibleRowPositions[r],
+          row_pre = r - 1 == -1 ? 0 : Store.visibleRowPositions[r - 1];
         let col = Store.visibleColPositions[c],
           col_pre = c - 1 == -1 ? 0 : Store.visibleColPositions[c - 1];
         let margeset = menuButton.mergeborer(Store.sheetData, r, c);
@@ -651,8 +651,8 @@ const scrollAdaptModule = {
         let r = id.split("luckysheet-postil-show_")[1].split("_")[0];
         let c = id.split("luckysheet-postil-show_")[1].split("_")[1];
         let postil = Store.sheetData[r][c].ps;
-        let row = Store.visibledatarow[r],
-          row_pre = r - 1 == -1 ? 0 : Store.visibledatarow[r - 1];
+        let row = Store.visibleRowPositions[r],
+          row_pre = r - 1 == -1 ? 0 : Store.visibleRowPositions[r - 1];
         let col = Store.visibleColPositions[c],
           col_pre = c - 1 == -1 ? 0 : Store.visibleColPositions[c - 1];
         let margeset = menuButton.mergeborer(Store.sheetData, r, c);
@@ -814,7 +814,7 @@ const scrollAdaptModule = {
       let offsetColumn = luckysheet_searcharray(_this.freezenverticaldata[3], scroll.scrollLeft - _this.freezenverticaldata[2]);
       document.querySelectorAll("#luckysheet-filter-options-sheet" + Store.currentSheetIndex + " .luckysheet-filter-options").forEach(function (e) {
         let row_index = e.dataset.str;
-        let top = row_index - 1 == -1 ? 0 : Store.visibledatarow[row_index - 1];
+        let top = row_index - 1 == -1 ? 0 : Store.visibleRowPositions[row_index - 1];
         let col_index = e.dataset.cindex;
         if (row_index >= freezen_rowindex && col_index >= freezen_colindex) {
           if (top < freezen_top || col_index < freezen_colindex + offsetColumn) {
@@ -851,7 +851,7 @@ const scrollAdaptModule = {
       let freezen_top = _this.freezenhorizontaldata[0] + getScrollPosition().scrollTop;
       document.querySelectorAll("#luckysheet-filter-options-sheet" + Store.currentSheetIndex + " .luckysheet-filter-options").forEach(function (e) {
         let row_index = e.dataset.str;
-        let top = row_index - 1 == -1 ? 0 : Store.visibledatarow[row_index - 1];
+        let top = row_index - 1 == -1 ? 0 : Store.visibleRowPositions[row_index - 1];
         if (row_index >= freezen_rowindex) {
           if (top < freezen_top) {
             e.style.display = 'none';

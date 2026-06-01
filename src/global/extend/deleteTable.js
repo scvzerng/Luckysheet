@@ -436,7 +436,7 @@ function luckysheetdeletetable(type, st, ed, sheetIndex) {
   };
   if (luckysheetFreezen.freezenhorizontaldata != null && type == "row") {
     let freezen_scrollTop = luckysheetFreezen.freezenhorizontaldata[2];
-    let freezen_st = luckysheet_searcharray(Store.visibledatarow, freezen_scrollTop);
+    let freezen_st = luckysheet_searcharray(Store.visibleRowPositions, freezen_scrollTop);
     if (freezen_st == -1) {
       freezen_st = 0;
     }
@@ -451,8 +451,8 @@ function luckysheetdeletetable(type, st, ed, sheetIndex) {
     if (freezen_row_st < freezen_st) {
       freezen_row_st = freezen_st;
     }
-    let freezen_top = Store.visibledatarow[freezen_row_st] - 2 - freezen_scrollTop + Store.columnHeaderHeight;
-    newFreezen.freezenhorizontaldata = [Store.visibledatarow[freezen_row_st], freezen_row_st + 1, freezen_scrollTop, luckysheetFreezen.cutVolumn(Store.visibledatarow, freezen_row_st + 1), freezen_top];
+    let freezen_top = Store.visibleRowPositions[freezen_row_st] - 2 - freezen_scrollTop + Store.columnHeaderHeight;
+    newFreezen.freezenhorizontaldata = [Store.visibleRowPositions[freezen_row_st], freezen_row_st + 1, freezen_scrollTop, luckysheetFreezen.cutVolumn(Store.visibleRowPositions, freezen_row_st + 1), freezen_top];
   } else {
     newFreezen.freezenhorizontaldata = luckysheetFreezen.freezenhorizontaldata;
   }

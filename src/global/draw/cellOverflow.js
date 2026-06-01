@@ -238,9 +238,9 @@ let cellOverflowRender = function(r, c, stc, edc, luckysheetTableContent, scroll
   if (r == 0) {
     start_r = -scrollHeight - 1;
   } else {
-    start_r = Store.visibledatarow[r - 1] - scrollHeight - 1;
+    start_r = Store.visibleRowPositions[r - 1] - scrollHeight - 1;
   }
-  let end_r = Store.visibledatarow[r] - scrollHeight;
+  let end_r = Store.visibleRowPositions[r] - scrollHeight;
   let start_c;
   if (stc == 0) {
     start_c = -scrollWidth;

@@ -63,7 +63,7 @@ export default function scroll() {
         let scrollLeft = scrollBarX.getScrollLeft(),
             scrollTop = scrollBarY.getScrollTop();
         let visibledatacolumn_c = Store.visibleColPositions,
-            visibledatarow_c = Store.visibledatarow;
+            visibledatarow_c = Store.visibleRowPositions;
 
         if (luckysheetFreezen.freezenhorizontaldata != null) {
             visibledatarow_c = luckysheetFreezen.freezenhorizontaldata[3];
@@ -82,11 +82,11 @@ export default function scroll() {
             Store.visibleColPositions_unique = visibledatacolumn_c;
         }
 
-        if (Store.visibledatarow_unique != null) {
-            visibledatarow_c = Store.visibledatarow_unique;
+        if (Store.visibleRowPositions_unique != null) {
+            visibledatarow_c = Store.visibleRowPositions_unique;
         } else {
             visibledatarow_c = ArrayUnique(visibledatarow_c);
-            Store.visibledatarow_unique = visibledatarow_c;
+            Store.visibleRowPositions_unique = visibledatarow_c;
         }
 
         let col_st = luckysheet_searcharray(visibledatacolumn_c, scrollLeft);
@@ -140,7 +140,7 @@ export default function scroll() {
 
         context.mousewheelArrayUniqueTimeout = setTimeout(() => {
             Store.visibleColPositions_unique = null;
-            Store.visibledatarow_unique = null;
+            Store.visibleRowPositions_unique = null;
         }, 500);
     });
 

@@ -143,8 +143,8 @@ function luckysheetMoveHighlightRange(postion, index, type, isScroll) {
     }
     let rowseleted = [curR, endR];
     let columnseleted = [curC, endC];
-    row = Store.visibledatarow[endR];
-    row_pre = curR - 1 == -1 ? 0 : Store.visibledatarow[curR - 1];
+    row = Store.visibleRowPositions[endR];
+    row_pre = curR - 1 == -1 ? 0 : Store.visibleRowPositions[curR - 1];
     col = Store.visibleColPositions[endC];
     col_pre = curC - 1 == -1 ? 0 : Store.visibleColPositions[curC - 1];
     let changeparam = menuButton.mergeMoveMain(columnseleted, rowseleted, last, row_pre, row - row_pre - 1, col_pre, col - col_pre - 1);
@@ -281,8 +281,8 @@ function luckysheetMoveHighlightRange(postion, index, type, isScroll) {
     }
     let rowseleted = [curR, endR];
     let columnseleted = [curC, endC];
-    row = Store.visibledatarow[endR];
-    row_pre = curR - 1 == -1 ? 0 : Store.visibledatarow[curR - 1];
+    row = Store.visibleRowPositions[endR];
+    row_pre = curR - 1 == -1 ? 0 : Store.visibleRowPositions[curR - 1];
     col = Store.visibleColPositions[endC];
     col_pre = curC - 1 == -1 ? 0 : Store.visibleColPositions[curC - 1];
     let top = row_pre,
@@ -458,8 +458,8 @@ function luckysheetMoveHighlightRange2(postion, type, isScroll) {
     }
     let rowseleted = [r1, r2];
     let columnseleted = [c1, c2];
-    row = Store.visibledatarow[r2];
-    row_pre = r1 - 1 == -1 ? 0 : Store.visibledatarow[r1 - 1];
+    row = Store.visibleRowPositions[r2];
+    row_pre = r1 - 1 == -1 ? 0 : Store.visibleRowPositions[r1 - 1];
     col = Store.visibleColPositions[c2];
     col_pre = c1 - 1 == -1 ? 0 : Store.visibleColPositions[c1 - 1];
     let changeparam = menuButton.mergeMoveMain(columnseleted, rowseleted, last, row_pre, row - row_pre - 1, col_pre, col - col_pre - 1);
@@ -569,8 +569,8 @@ function luckysheetMoveHighlightRange2(postion, type, isScroll) {
     }
     let rowseleted = [r1, r2];
     let columnseleted = [c1, c2];
-    row = Store.visibledatarow[r2];
-    row_pre = r1 - 1 == -1 ? 0 : Store.visibledatarow[r1 - 1];
+    row = Store.visibleRowPositions[r2];
+    row_pre = r1 - 1 == -1 ? 0 : Store.visibleRowPositions[r1 - 1];
     col = Store.visibleColPositions[c2];
     col_pre = c1 - 1 == -1 ? 0 : Store.visibleColPositions[c1 - 1];
     let top = row_pre,

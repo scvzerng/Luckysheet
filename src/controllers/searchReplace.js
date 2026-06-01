@@ -197,8 +197,8 @@ const luckysheetSearchReplace = {
                 let winH = cellMain.getHeight(),
                     winW = cellMain.getWidth();
 
-                let row = Store.visibledatarow[r],
-                    row_pre = r - 1 == -1 ? 0 : Store.visibledatarow[r - 1];
+                let row = Store.visibleRowPositions[r],
+                    row_pre = r - 1 == -1 ? 0 : Store.visibleRowPositions[r - 1];
                 let col = Store.visibleColPositions[c],
                     col_pre = c - 1 == -1 ? 0 : Store.visibleColPositions[c - 1];
 
@@ -347,8 +347,8 @@ const luckysheetSearchReplace = {
         let winH = cellMain.getHeight(),
         winW = cellMain.getWidth();
 
-        let row = Store.visibledatarow[searchIndexArr[count].r],
-            row_pre = searchIndexArr[count].r - 1 == -1 ? 0 : Store.visibledatarow[searchIndexArr[count].r - 1];
+        let row = Store.visibleRowPositions[searchIndexArr[count].r],
+            row_pre = searchIndexArr[count].r - 1 == -1 ? 0 : Store.visibleRowPositions[searchIndexArr[count].r - 1];
         let col = Store.visibleColPositions[searchIndexArr[count].c],
             col_pre = searchIndexArr[count].c - 1 == -1 ? 0 : Store.visibleColPositions[searchIndexArr[count].c - 1];
 
@@ -700,8 +700,8 @@ const luckysheetSearchReplace = {
         let winH = cellMain.getHeight(),
             winW = cellMain.getWidth();
 
-        let row = Store.visibledatarow[r],
-            row_pre = r - 1 == -1 ? 0 : Store.visibledatarow[r - 1];
+        let row = Store.visibleRowPositions[r],
+            row_pre = r - 1 == -1 ? 0 : Store.visibleRowPositions[r - 1];
         let col = Store.visibleColPositions[c],
             col_pre = c - 1 == -1 ? 0 : Store.visibleColPositions[c - 1];
 

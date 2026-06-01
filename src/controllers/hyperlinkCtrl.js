@@ -267,7 +267,7 @@ const hyperlinkCtrl = {
             Store.selections = range;
             selectHightlightShow(true);
 
-            let row_pre = cellrange.row[0] - 1 == -1 ? 0 : Store.visibledatarow[cellrange.row[0] - 1];
+            let row_pre = cellrange.row[0] - 1 == -1 ? 0 : Store.visibleRowPositions[cellrange.row[0] - 1];
             let col_pre = cellrange.column[0] - 1 == -1 ? 0 : Store.visibleColPositions[cellrange.column[0] - 1];
 
             scrollBarX.setScrollLeft(col_pre);
@@ -319,8 +319,8 @@ const hyperlinkCtrl = {
             linkTooltip = item.linkAddress;
         }
 
-        let row = Store.visibledatarow[row_index], 
-            row_pre = row_index - 1 == -1 ? 0 : Store.visibledatarow[row_index - 1];
+        let row = Store.visibleRowPositions[row_index], 
+            row_pre = row_index - 1 == -1 ? 0 : Store.visibleRowPositions[row_index - 1];
         let col = Store.visibleColPositions[col_index], 
             col_pre = col_index - 1 == -1 ? 0 : Store.visibleColPositions[col_index - 1];
 

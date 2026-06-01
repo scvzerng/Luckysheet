@@ -173,7 +173,7 @@ export default function documentMousemove() {
                     row,
                     row_index + 1,
                     scrollTop,
-                    luckysheetFreezen.cutVolumn(Store.visibledatarow, row_index + 1),
+                    luckysheetFreezen.cutVolumn(Store.visibleRowPositions, row_index + 1),
                     top,
                 ];
             } else {
@@ -182,7 +182,7 @@ export default function documentMousemove() {
                     row_pre,
                     row_index,
                     scrollTop,
-                    luckysheetFreezen.cutVolumn(Store.visibledatarow, row_index),
+                    luckysheetFreezen.cutVolumn(Store.visibleRowPositions, row_index),
                     top,
                 ];
             }

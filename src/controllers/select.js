@@ -15,8 +15,8 @@ import cellMain from '../ui/cellMain.js';
 import countShow from '../ui/countShow.js';
 
 function seletedHighlistByindex(id, r1, r2, c1, c2) {
-    let row = Store.visibledatarow[r2],
-        row_pre = r1 - 1 == -1 ? 0 : Store.visibledatarow[r1 - 1];
+    let row = Store.visibleRowPositions[r2],
+        row_pre = r1 - 1 == -1 ? 0 : Store.visibleRowPositions[r1 - 1];
     let col = Store.visibleColPositions[c2],
         col_pre = c1 - 1 == -1 ? 0 : Store.visibleColPositions[c1 - 1];
 
@@ -60,13 +60,13 @@ function selectHightlightShow(isRestore = false) {
                 cf = Store.selections[i].column_focus;
             }
 
-            let row = Store.visibledatarow[r2],
-                row_pre = r1 - 1 == -1 ? 0 : Store.visibledatarow[r1 - 1];
+            let row = Store.visibleRowPositions[r2],
+                row_pre = r1 - 1 == -1 ? 0 : Store.visibleRowPositions[r1 - 1];
             let col = Store.visibleColPositions[c2],
                 col_pre = c1 - 1 == -1 ? 0 : Store.visibleColPositions[c1 - 1];
 
-            let row_f = Store.visibledatarow[rf],
-                row_pre_f = rf - 1 == -1 ? 0 : Store.visibledatarow[rf - 1];
+            let row_f = Store.visibleRowPositions[rf],
+                row_pre_f = rf - 1 == -1 ? 0 : Store.visibleRowPositions[rf - 1];
             let col_f = Store.visibleColPositions[cf],
                 col_pre_f = cf - 1 == -1 ? 0 : Store.visibleColPositions[cf - 1];
 
@@ -342,8 +342,8 @@ function selectionCopyShow(range) {
             let r1 = range[s].row[0], r2 = range[s].row[1];
             let c1 = range[s].column[0], c2 = range[s].column[1];
 
-            let row = Store.visibledatarow[r2],
-                row_pre = r1 - 1 == -1 ? 0 : Store.visibledatarow[r1 - 1];
+            let row = Store.visibleRowPositions[r2],
+                row_pre = r1 - 1 == -1 ? 0 : Store.visibleRowPositions[r1 - 1];
             let col = Store.visibleColPositions[c2],
                 col_pre = c1 - 1 == -1 ? 0 : Store.visibleColPositions[c1 - 1];
 

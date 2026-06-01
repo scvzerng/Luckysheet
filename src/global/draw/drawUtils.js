@@ -52,8 +52,8 @@ function resetCanvasStroke(ctx) {
 }
 
 function getRowStartEnd(r, scrollHeight) {
-    let start_r = (r == 0 ? -1 : Store.visibledatarow[r - 1]) - scrollHeight - 1;
-    let end_r = Store.visibledatarow[r] - scrollHeight;
+    let start_r = (r == 0 ? -1 : Store.visibleRowPositions[r - 1]) - scrollHeight - 1;
+    let end_r = Store.visibleRowPositions[r] - scrollHeight;
     return { start_r, end_r };
 }
 

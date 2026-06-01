@@ -435,7 +435,7 @@ const rangeSelect = {
             let x = mouse[0] + scroll.scrollLeft;
             let y = mouse[1] + scroll.scrollTop;
 
-            let visibledatarow = Store.visibledatarow;
+            let visibledatarow = Store.visibleRowPositions;
             let row_index = visibledatarow.length - 1,
                 row = visibledatarow[row_index],
                 row_pre = 0;
@@ -804,7 +804,7 @@ const rangeSelect = {
                 col_e = luckysheet_select_save["column"][1] - luckysheet_select_save["column"][0];
             }
 
-            let visibledatarow = Store.visibledatarow;
+            let visibledatarow = Store.visibleRowPositions;
             if (row_e >= visibledatarow[visibledatarow.length - 1] || y > winH) {
                 row_s = visibledatarow.length - 1 - luckysheet_select_save["row"][1] + luckysheet_select_save["row"][0];
                 row_e = visibledatarow.length - 1;

@@ -57,12 +57,12 @@ function jfrefreshgrid_rhcw(rowheight, colwidth, isRefreshCanvas=true){
         let scrollTop = luckysheetFreezen.freezenhorizontaldata[2];
         let scrollLeft = luckysheetFreezen.freezenverticaldata[2];
 
-        let top = Store.visibledatarow[row_st] - 2 - scrollTop + Store.columnHeaderHeight;
+        let top = Store.visibleRowPositions[row_st] - 2 - scrollTop + Store.columnHeaderHeight;
         let freezenhorizontaldata = [
-            Store.visibledatarow[row_st], 
+            Store.visibleRowPositions[row_st], 
             row_st + 1, 
             scrollTop, 
-            luckysheetFreezen.cutVolumn(Store.visibledatarow, row_st + 1), 
+            luckysheetFreezen.cutVolumn(Store.visibleRowPositions, row_st + 1), 
             top
         ];
         let left = Store.visibleColPositions[col_st] - 2 - scrollLeft + Store.rowHeaderWidth;
@@ -83,12 +83,12 @@ function jfrefreshgrid_rhcw(rowheight, colwidth, isRefreshCanvas=true){
         let row_st = luckysheetFreezen.freezenhorizontaldata[1] - 1;
         let scrollTop = luckysheetFreezen.freezenhorizontaldata[2];
 
-        let top = Store.visibledatarow[row_st] - 2 - scrollTop + Store.columnHeaderHeight;
+        let top = Store.visibleRowPositions[row_st] - 2 - scrollTop + Store.columnHeaderHeight;
         let freezenhorizontaldata = [
-            Store.visibledatarow[row_st], 
+            Store.visibleRowPositions[row_st], 
             row_st + 1, 
             scrollTop, 
-            luckysheetFreezen.cutVolumn(Store.visibledatarow, row_st + 1), 
+            luckysheetFreezen.cutVolumn(Store.visibleRowPositions, row_st + 1), 
             top
         ];
 
@@ -120,7 +120,7 @@ function jfrefreshgrid_rhcw(rowheight, colwidth, isRefreshCanvas=true){
                 let str = e.dataset.str, cindex = e.dataset.cindex;
 
                 let left = Store.visibleColPositions[cindex] - 20;
-                let top = str - 1 == -1 ? 0 : Store.visibledatarow[str - 1];
+                let top = str - 1 == -1 ? 0 : Store.visibleRowPositions[str - 1];
 
                 Object.assign(e.style, { "left": left + "px", "top": top + "px" });
             });
@@ -135,8 +135,8 @@ function jfrefreshgrid_rhcw(rowheight, colwidth, isRefreshCanvas=true){
         let c1 = luckysheet_filter_save.column[0], 
             c2 = luckysheet_filter_save.column[1];
 
-        let row = Store.visibledatarow[r2], 
-            row_pre = r1 - 1 == -1 ? 0 : Store.visibledatarow[r1 - 1];
+        let row = Store.visibleRowPositions[r2], 
+            row_pre = r1 - 1 == -1 ? 0 : Store.visibleRowPositions[r1 - 1];
         let col = Store.visibleColPositions[c2], 
             col_pre = c1 - 1 == -1 ? 0 : Store.visibleColPositions[c1 - 1];
 

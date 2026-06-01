@@ -19,8 +19,8 @@ function createFilterOptions(luckysheet_filter_save, filterObj) {
     let c1 = luckysheet_filter_save.column[0], 
         c2 = luckysheet_filter_save.column[1];
 
-    let row = Store.visibledatarow[r2], 
-        row_pre = r1 - 1 == -1 ? 0 : Store.visibledatarow[r1 - 1];
+    let row = Store.visibleRowPositions[r2], 
+        row_pre = r1 - 1 == -1 ? 0 : Store.visibleRowPositions[r1 - 1];
     let col = Store.visibleColPositions[c2], 
         col_pre = c1 - 1 == -1 ? 0 : Store.visibleColPositions[c1 - 1];
 

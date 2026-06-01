@@ -197,8 +197,8 @@ const luckysheetPostil = {
 
         let value = postil["value"] == null ? "" : postil["value"];
 
-        let row = Store.visibledatarow[row_index], 
-            row_pre = row_index - 1 == -1 ? 0 : Store.visibledatarow[row_index - 1];
+        let row = Store.visibleRowPositions[row_index], 
+            row_pre = row_index - 1 == -1 ? 0 : Store.visibleRowPositions[row_index - 1];
         let col = Store.visibleColPositions[col_index], 
             col_pre = col_index - 1 == -1 ? 0 : Store.visibleColPositions[col_index - 1];
 
@@ -344,8 +344,8 @@ const luckysheetPostil = {
         let isshow = postil["isshow"] == null ? false : postil["isshow"];
 
         if(isshow){
-            let row = Store.visibledatarow[r], 
-                row_pre = r - 1 == -1 ? 0 : Store.visibledatarow[r - 1];
+            let row = Store.visibleRowPositions[r], 
+                row_pre = r - 1 == -1 ? 0 : Store.visibleRowPositions[r - 1];
             let col = Store.visibleColPositions[c], 
                 col_pre = c - 1 == -1 ? 0 : Store.visibleColPositions[c - 1];
 
@@ -421,8 +421,8 @@ const luckysheetPostil = {
 
         let _this = this;
 
-        let row = Store.visibledatarow[r], 
-            row_pre = r - 1 == -1 ? 0 : Store.visibledatarow[r - 1];
+        let row = Store.visibleRowPositions[r], 
+            row_pre = r - 1 == -1 ? 0 : Store.visibleRowPositions[r - 1];
         let col = Store.visibleColPositions[c], 
             col_pre = c - 1 == -1 ? 0 : Store.visibleColPositions[c - 1];
 
@@ -514,8 +514,8 @@ const luckysheetPostil = {
         else{
             let postil = Store.sheetData[r][c].ps;
 
-            let row = Store.visibledatarow[r], 
-                row_pre = r - 1 == -1 ? 0 : Store.visibledatarow[r - 1];
+            let row = Store.visibleRowPositions[r], 
+                row_pre = r - 1 == -1 ? 0 : Store.visibleRowPositions[r - 1];
             let col = Store.visibleColPositions[c], 
                 col_pre = c - 1 == -1 ? 0 : Store.visibleColPositions[c - 1];
 
@@ -629,8 +629,8 @@ const luckysheetPostil = {
         else{
             d[r][c].ps.isshow = true;
 
-            let row = Store.visibledatarow[r], 
-                row_pre = r - 1 == -1 ? 0 : Store.visibledatarow[r - 1];
+            let row = Store.visibleRowPositions[r], 
+                row_pre = r - 1 == -1 ? 0 : Store.visibleRowPositions[r - 1];
             let col = Store.visibleColPositions[c], 
                 col_pre = c - 1 == -1 ? 0 : Store.visibleColPositions[c - 1];
 
@@ -756,8 +756,8 @@ const luckysheetPostil = {
                     let postil = d[rowIndex][colIndex].ps;
 
                     if(!postil["isshow"]){
-                        let row = Store.visibledatarow[rowIndex], 
-                            row_pre = rowIndex - 1 == -1 ? 0 : Store.visibledatarow[rowIndex - 1];
+                        let row = Store.visibleRowPositions[rowIndex], 
+                            row_pre = rowIndex - 1 == -1 ? 0 : Store.visibleRowPositions[rowIndex - 1];
                         let col = Store.visibleColPositions[colIndex], 
                             col_pre = colIndex - 1 == -1 ? 0 : Store.visibleColPositions[colIndex - 1];
 

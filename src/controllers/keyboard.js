@@ -119,8 +119,8 @@ function formulaMoveEvent(dir, ctrlKey, shiftKey, event){
                 let r1 = range["row"][0], r2 = range["row"][1];
                 let c1 = range["column"][0], c2 = range["column"][1];
 
-                let row = Store.visibledatarow[r2], 
-                    row_pre = r1 - 1 == -1 ? 0 : Store.visibledatarow[r1 - 1];
+                let row = Store.visibleRowPositions[r2], 
+                    row_pre = r1 - 1 == -1 ? 0 : Store.visibleRowPositions[r1 - 1];
                 let col = Store.visibleColPositions[c2], 
                     col_pre = c1 - 1 == -1 ? 0 : Store.visibleColPositions[c1 - 1];
 
@@ -315,8 +315,8 @@ export function keyboardInitial(){
                         let winH = cellMain.getHeight(), 
                             winW = cellMain.getWidth();
 
-                        let row = Store.visibledatarow[cellrange["row"][1]], 
-                            row_pre = cellrange["row"][0] - 1 == -1 ? 0 : Store.visibledatarow[cellrange["row"][0] - 1];
+                        let row = Store.visibleRowPositions[cellrange["row"][1]], 
+                            row_pre = cellrange["row"][0] - 1 == -1 ? 0 : Store.visibleRowPositions[cellrange["row"][0] - 1];
                         let col = Store.visibleColPositions[cellrange["column"][1]], 
                             col_pre = cellrange["column"][0] - 1 == -1 ? 0 : Store.visibleColPositions[cellrange["column"][0] - 1];
 

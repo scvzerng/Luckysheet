@@ -31,8 +31,8 @@ export function insertImage(src, options = {}){
             rowIndex = 0;
         }
 
-        if(rowIndex > Store.visibledatarow.length){
-            rowIndex = Store.visibledatarow.length;
+        if(rowIndex > Store.visibleRowPositions.length){
+            rowIndex = Store.visibleRowPositions.length;
         }
 
         if(colIndex == null){
@@ -48,7 +48,7 @@ export function insertImage(src, options = {}){
         }
 
         let left = colIndex == 0 ? 0 : Store.visibleColPositions[colIndex - 1];
-        let top = rowIndex == 0 ? 0 : Store.visibledatarow[rowIndex - 1];
+        let top = rowIndex == 0 ? 0 : Store.visibleRowPositions[rowIndex - 1];
 
         let image = new Image();
         image.onload = function(){

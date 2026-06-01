@@ -112,8 +112,8 @@ function dynamicArrayHightShow(r, c) {
         let d_row_end = d_row + rlen - 1;
         let d_col_end = d_col + clen - 1;
 
-        let row = Store.visibledatarow[d_row_end], 
-            row_pre = d_row - 1 == -1 ? 0 : Store.visibledatarow[d_row - 1];
+        let row = Store.visibleRowPositions[d_row_end], 
+            row_pre = d_row - 1 == -1 ? 0 : Store.visibleRowPositions[d_row - 1];
         let col = Store.visibleColPositions[d_col_end], 
             col_pre = d_col - 1 == -1 ? 0 : Store.visibleColPositions[d_col - 1];
 

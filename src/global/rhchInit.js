@@ -8,7 +8,7 @@ export default function rhchInit(rowheight, colwidth) {
     zoomSetting();//Zoom sheet on first load
     //行高
     if(rowheight != null){
-        Store.visibledatarow = [];
+        Store.visibleRowPositions = [];
         Store.rh_height = 0;
 
         for (let r = 0; r < rowheight; r++) {
@@ -19,7 +19,7 @@ export default function rhchInit(rowheight, colwidth) {
             }
 
             if (isRowHidden(r)) {
-                Store.visibledatarow.push(Store.rh_height);
+                Store.visibleRowPositions.push(Store.rh_height);
                 continue;
             }
 
@@ -29,7 +29,7 @@ export default function rhchInit(rowheight, colwidth) {
             }
             Store.rh_height += Math.round((rowlen + 1) * Store.zoomRatio);
 
-            Store.visibledatarow.push(Store.rh_height); //行的临时长度分布
+            Store.visibleRowPositions.push(Store.rh_height); //行的临时长度分布
         }
 
         // 如果增加行和回到顶部按钮隐藏，则减少底部空白区域，但是预留足够空间给单元格下拉按钮

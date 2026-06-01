@@ -68,7 +68,7 @@ function getconfig() {
 }
 
 function getvisibledatarow() {
-    return Store.visibledatarow;
+    return Store.visibleRowPositions;
 }
 
 function getvisibledatacolumn() {

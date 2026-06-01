@@ -292,8 +292,8 @@ export function setCenterInputPosition(row_index, col_index, d){
 }
 
 export function getColumnAndRowSize(row_index, col_index, d){
-    let row = Store.visibledatarow[row_index], 
-        row_pre = row_index - 1 == -1 ? 0 : Store.visibledatarow[row_index - 1];
+    let row = Store.visibleRowPositions[row_index], 
+        row_pre = row_index - 1 == -1 ? 0 : Store.visibleRowPositions[row_index - 1];
     let col = Store.visibleColPositions[col_index], 
         col_pre = col_index - 1 == -1 ? 0 : Store.visibleColPositions[col_index - 1];
 

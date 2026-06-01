@@ -62,8 +62,8 @@ export function initAdminRuleEvents(_this) {
               r2 = range[s].row[1];
             let c1 = range[s].column[0],
               c2 = range[s].column[1];
-            let row = Store.visibledatarow[r2],
-              row_pre = r1 - 1 == -1 ? 0 : Store.visibledatarow[r1 - 1];
+            let row = Store.visibleRowPositions[r2],
+              row_pre = r1 - 1 == -1 ? 0 : Store.visibleRowPositions[r1 - 1];
             let col = Store.visibleColPositions[c2],
               col_pre = c1 - 1 == -1 ? 0 : Store.visibleColPositions[c1 - 1];
             _this.selectRange.push({

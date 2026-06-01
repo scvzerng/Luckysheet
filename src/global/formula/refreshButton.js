@@ -61,8 +61,8 @@ const refreshButton = {
 
             let _this = this;
 
-            let row = Store.visibledatarow[r],
-                row_pre = r == 0 ? 0 : Store.visibledatarow[r - 1];
+            let row = Store.visibleRowPositions[r],
+                row_pre = r == 0 ? 0 : Store.visibleRowPositions[r - 1];
             let col = Store.visibleColPositions[c],
                 col_pre = c == 0 ? 0 : Store.visibleColPositions[c - 1];
 

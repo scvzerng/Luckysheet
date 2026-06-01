@@ -73,10 +73,10 @@ export function getDataSize(data) {
 }
 
 export function getMaxRowIndex() {
-    if (Store.visibledatarow == null || Store.visibledatarow.length === 0) {
+    if (Store.visibleRowPositions == null || Store.visibleRowPositions.length === 0) {
         return 0;
     }
-    return Store.visibledatarow.length - 1;
+    return Store.visibleRowPositions.length - 1;
 }
 
 export function getMaxColIndex() {

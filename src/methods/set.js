@@ -22,7 +22,7 @@ function setconfig(v) {
 }
 
 function setvisibledatarow(v) {
-    Store.visibledatarow = v;
+    Store.visibleRowPositions = v;
 
     if(Store.luckysheetfile != null){
         getCurrentFile().visibledatarow = v;

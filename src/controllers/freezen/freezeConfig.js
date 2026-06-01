@@ -67,12 +67,12 @@ const freezeConfigModule = {
     // transform to freezen
     if (frozen.type === 'row') {
       let scrollTop = 0;
-      let row_st = luckysheet_searcharray(Store.visibledatarow, scrollTop);
+      let row_st = luckysheet_searcharray(Store.visibleRowPositions, scrollTop);
       if (row_st == -1) {
         row_st = 0;
       }
-      let top = Store.visibledatarow[row_st] - 2 - scrollTop + Store.columnHeaderHeight;
-      let freezenhorizontaldata = [Store.visibledatarow[row_st], row_st + 1, scrollTop, freezeCoreModule.cutVolumn(Store.visibledatarow, row_st + 1), top];
+      let top = Store.visibleRowPositions[row_st] - 2 - scrollTop + Store.columnHeaderHeight;
+      let freezenhorizontaldata = [Store.visibleRowPositions[row_st], row_st + 1, scrollTop, freezeCoreModule.cutVolumn(Store.visibleRowPositions, row_st + 1), top];
       freezen = {
         horizontal: {
           freezenhorizontaldata: freezenhorizontaldata,
@@ -95,12 +95,12 @@ const freezeConfigModule = {
       };
     } else if (frozen.type === 'both') {
       let scrollTop = 0;
-      let row_st = luckysheet_searcharray(Store.visibledatarow, scrollTop);
+      let row_st = luckysheet_searcharray(Store.visibleRowPositions, scrollTop);
       if (row_st == -1) {
         row_st = 0;
       }
-      let top = Store.visibledatarow[row_st] - 2 - scrollTop + Store.columnHeaderHeight;
-      let freezenhorizontaldata = [Store.visibledatarow[row_st], row_st + 1, scrollTop, freezeCoreModule.cutVolumn(Store.visibledatarow, row_st + 1), top];
+      let top = Store.visibleRowPositions[row_st] - 2 - scrollTop + Store.columnHeaderHeight;
+      let freezenhorizontaldata = [Store.visibleRowPositions[row_st], row_st + 1, scrollTop, freezeCoreModule.cutVolumn(Store.visibleRowPositions, row_st + 1), top];
       let scrollLeft = 0;
       let col_st = luckysheet_searcharray(Store.visibleColPositions, scrollLeft);
       if (col_st == -1) {
@@ -120,7 +120,7 @@ const freezeConfigModule = {
       };
     } else if (frozen.type === 'rangeRow') {
       let scrollTop = 0;
-      let row_st = luckysheet_searcharray(Store.visibledatarow, scrollTop);
+      let row_st = luckysheet_searcharray(Store.visibleRowPositions, scrollTop);
       let row_focus = frozen.range["row_focus"];
       if (row_focus > row_st) {
         row_st = row_focus;
@@ -128,8 +128,8 @@ const freezeConfigModule = {
       if (row_st == -1) {
         row_st = 0;
       }
-      let top = Store.visibledatarow[row_st] - 2 - scrollTop + Store.columnHeaderHeight;
-      let freezenhorizontaldata = [Store.visibledatarow[row_st], row_st + 1, scrollTop, freezeCoreModule.cutVolumn(Store.visibledatarow, row_st + 1), top];
+      let top = Store.visibleRowPositions[row_st] - 2 - scrollTop + Store.columnHeaderHeight;
+      let freezenhorizontaldata = [Store.visibleRowPositions[row_st], row_st + 1, scrollTop, freezeCoreModule.cutVolumn(Store.visibleRowPositions, row_st + 1), top];
       freezen = {
         horizontal: {
           freezenhorizontaldata: freezenhorizontaldata,
@@ -156,7 +156,7 @@ const freezeConfigModule = {
       };
     } else if (frozen.type === 'rangeBoth') {
       let scrollTop = 0;
-      let row_st = luckysheet_searcharray(Store.visibledatarow, scrollTop);
+      let row_st = luckysheet_searcharray(Store.visibleRowPositions, scrollTop);
       let row_focus = frozen.range["row_focus"];
       if (row_focus > row_st) {
         row_st = row_focus;
@@ -164,8 +164,8 @@ const freezeConfigModule = {
       if (row_st == -1) {
         row_st = 0;
       }
-      let top = Store.visibledatarow[row_st] - 2 - scrollTop + Store.columnHeaderHeight;
-      let freezenhorizontaldata = [Store.visibledatarow[row_st], row_st + 1, scrollTop, freezeCoreModule.cutVolumn(Store.visibledatarow, row_st + 1), top];
+      let top = Store.visibleRowPositions[row_st] - 2 - scrollTop + Store.columnHeaderHeight;
+      let freezenhorizontaldata = [Store.visibleRowPositions[row_st], row_st + 1, scrollTop, freezeCoreModule.cutVolumn(Store.visibleRowPositions, row_st + 1), top];
       let scrollLeft = 0;
       let col_st = luckysheet_searcharray(Store.visibleColPositions, scrollLeft);
       let column_focus = frozen.range["column_focus"];

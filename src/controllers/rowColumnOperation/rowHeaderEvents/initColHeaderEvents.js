@@ -34,7 +34,7 @@ export function initColHeaderEvents() {
       let mouse = mouseposition(event.pageX, event.pageY);
       let x = mouse[0] + colHeader.getScrollLeft();
       let row_index = getMaxRowIndex(),
-        row = Store.visibledatarow[row_index],
+        row = Store.visibleRowPositions[row_index],
         row_pre = 0;
       let col_location = colLocation(x),
         col = col_location[1],

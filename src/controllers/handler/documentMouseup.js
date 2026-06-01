@@ -417,7 +417,7 @@ export default function documentMouseup() {
             let winW = document.documentElement.clientWidth;
 
             let row_index = getMaxRowIndex(),
-                row = Store.visibledatarow[row_index],
+                row = Store.visibleRowPositions[row_index],
                 row_pre = 0;
             let col_location = colLocation(x),
                 col = col_location[1],
@@ -583,7 +583,7 @@ export default function documentMouseup() {
                 col_e = last["column"][1] - last["column"][0];
             }
 
-            if (row_e >= Store.visibledatarow[getMaxRowIndex()] || y > winH) {
+            if (row_e >= Store.visibleRowPositions[getMaxRowIndex()] || y > winH) {
                 row_s = getMaxRowIndex() - last["row"][1] + last["row"][0];
                 row_e = getMaxRowIndex();
             }
@@ -825,7 +825,7 @@ export default function documentMouseup() {
                 col_e = last["column"][1] - last["column"][0];
             }
 
-            if (row_e >= Store.visibledatarow[getMaxRowIndex()] || y > winH) {
+            if (row_e >= Store.visibleRowPositions[getMaxRowIndex()] || y > winH) {
                 row_s = getMaxRowIndex() - last["row"][1] + last["row"][0];
                 row_e = getMaxRowIndex();
             }

@@ -345,7 +345,7 @@ import formulaDialogs from '../../../ui/formulaDialogs.js';
                     }
 
                     let row_index = getMaxRowIndex(),
-                        row = Store.visibledatarow[row_index],
+                        row = Store.visibleRowPositions[row_index],
                         row_pre = 0;
                     let col_location = colLocation(x),
                         col = col_location[1],
@@ -435,7 +435,7 @@ import formulaDialogs from '../../../ui/formulaDialogs.js';
                             Store.selections[0]["column"][1] - Store.selections[0]["column"][0];
                     }
 
-                    if (row_e >= Store.visibledatarow[getMaxRowIndex()] || y > winH) {
+                    if (row_e >= Store.visibleRowPositions[getMaxRowIndex()] || y > winH) {
                         row_s =
                             getMaxRowIndex() -
                             Store.selections[0]["row"][1] +
@@ -453,8 +453,8 @@ import formulaDialogs from '../../../ui/formulaDialogs.js';
 
                     col_pre = col_s - 1 == -1 ? 0 : Store.visibleColPositions[col_s - 1];
                     col = Store.visibleColPositions[col_e];
-                    row_pre = row_s - 1 == -1 ? 0 : Store.visibledatarow[row_s - 1];
-                    row = Store.visibledatarow[row_e];
+                    row_pre = row_s - 1 == -1 ? 0 : Store.visibleRowPositions[row_s - 1];
+                    row = Store.visibleRowPositions[row_e];
 
                     let _elCellSelectedMove = document.getElementById("luckysheet-cell-selected-move");
                     if (_elCellSelectedMove) {
@@ -506,7 +506,7 @@ import formulaDialogs from '../../../ui/formulaDialogs.js';
                             Store.selections[0]["column"][1] - Store.selections[0]["column"][0];
                     }
 
-                    if (row_e >= Store.visibledatarow[getMaxRowIndex()] || y > winH) {
+                    if (row_e >= Store.visibleRowPositions[getMaxRowIndex()] || y > winH) {
                         row_s =
                             getMaxRowIndex() -
                             Store.selections[0]["row"][1] +
@@ -572,7 +572,7 @@ import formulaDialogs from '../../../ui/formulaDialogs.js';
                     let winW = document.documentElement.clientWidth;
 
                     let row_index = getMaxRowIndex(),
-                        row = Store.visibledatarow[row_index],
+                        row = Store.visibleRowPositions[row_index],
                         row_pre = 0;
                     let col_location = colLocation(x),
                         col = col_location[1],

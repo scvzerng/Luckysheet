@@ -213,7 +213,7 @@ const freezeCoreModule = {
       }
     } else if (type == "h" && _this.freezenhorizontaldata != null) {
       let freezen_rowindex = _this.freezenhorizontaldata[1];
-      let offset = luckysheet_searcharray(Store.visibledatarow, getScrollPosition().scrollTop);
+      let offset = luckysheet_searcharray(Store.visibleRowPositions, getScrollPosition().scrollTop);
       if (originindex - offset < freezen_rowindex) {
         originindex = originindex - offset;
       }
@@ -260,14 +260,14 @@ const freezeCoreModule = {
       let offset = luckysheet_searcharray(_this.freezenhorizontaldata[3], getScrollPosition().scrollTop);
       let left = _this.freezenhorizontaldata[4];
       freezen_rowindex += offset;
-      if (row >= Store.visibledatarow.length) {
+      if (row >= Store.visibleRowPositions.length) {
         row = getMaxRowIndex();
       }
-      if (freezen_rowindex >= Store.visibledatarow.length) {
+      if (freezen_rowindex >= Store.visibleRowPositions.length) {
         freezen_rowindex = getMaxRowIndex();
       }
-      let row_px = Store.visibledatarow[row],
-        freezen_px = Store.visibledatarow[freezen_rowindex];
+      let row_px = Store.visibleRowPositions[row],
+        freezen_px = Store.visibleRowPositions[freezen_rowindex];
       if (row_px <= freezen_px + left) {
         setTimeout(function () {
           scrollBarY.setScrollTop(0);
@@ -351,8 +351,8 @@ const freezeCoreModule = {
       let dataset_row_st;
       if (_this.freezenRealFirstRowColumn) {
         dataset_row_st = 0;
-        top = Store.visibledatarow[dataset_row_st] - 2 + Store.columnHeaderHeight;
-        freezenhorizontaldata = [Store.visibledatarow[dataset_row_st], dataset_row_st + 1, 0, _this.cutVolumn(Store.visibledatarow, dataset_row_st + 1), top];
+        top = Store.visibleRowPositions[dataset_row_st] - 2 + Store.columnHeaderHeight;
+        freezenhorizontaldata = [Store.visibleRowPositions[dataset_row_st], dataset_row_st + 1, 0, _this.cutVolumn(Store.visibleRowPositions, dataset_row_st + 1), top];
         _this.saveFreezen(freezenhorizontaldata, top, null, null);
         // todo: 没有下面代码 如果有滚动，冻结之后首行的行号仍显示的之前滚动的行号
         // todo: 不 setTimeout 这里直接刷新的话，冻结的首行显示有问题，没有列的分割线
@@ -362,12 +362,12 @@ const freezeCoreModule = {
         });
       } else {
         let scrollTop = getScrollPosition().scrollTop;
-        dataset_row_st = luckysheet_searcharray(Store.visibledatarow, scrollTop);
+        dataset_row_st = luckysheet_searcharray(Store.visibleRowPositions, scrollTop);
         if (dataset_row_st == -1) {
           dataset_row_st = 0;
         }
-        top = Store.visibledatarow[dataset_row_st] - 2 - scrollTop + Store.columnHeaderHeight;
-        freezenhorizontaldata = [Store.visibledatarow[dataset_row_st], dataset_row_st + 1, scrollTop, _this.cutVolumn(Store.visibledatarow, dataset_row_st + 1), top];
+        top = Store.visibleRowPositions[dataset_row_st] - 2 - scrollTop + Store.columnHeaderHeight;
+        freezenhorizontaldata = [Store.visibleRowPositions[dataset_row_st], dataset_row_st + 1, scrollTop, _this.cutVolumn(Store.visibleRowPositions, dataset_row_st + 1), top];
         _this.saveFreezen(freezenhorizontaldata, top, null, null);
       }
     }

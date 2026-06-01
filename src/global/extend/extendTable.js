@@ -464,8 +464,8 @@ function luckysheetextendtable(type, index, value, direction, sheetIndex) {
     } else if (freezen_row_st > index) {
       freezen_row_st += value;
     }
-    let freezen_top = Store.visibledatarow[freezen_row_st] - 2 - freezen_scrollTop + Store.columnHeaderHeight;
-    newFreezen.freezenhorizontaldata = [Store.visibledatarow[freezen_row_st], freezen_row_st + 1, freezen_scrollTop, luckysheetFreezen.cutVolumn(Store.visibledatarow, freezen_row_st + 1), freezen_top];
+    let freezen_top = Store.visibleRowPositions[freezen_row_st] - 2 - freezen_scrollTop + Store.columnHeaderHeight;
+    newFreezen.freezenhorizontaldata = [Store.visibleRowPositions[freezen_row_st], freezen_row_st + 1, freezen_scrollTop, luckysheetFreezen.cutVolumn(Store.visibleRowPositions, freezen_row_st + 1), freezen_top];
   } else {
     newFreezen.freezenhorizontaldata = luckysheetFreezen.freezenhorizontaldata;
   }
@@ -863,8 +863,8 @@ function luckysheetextendtable(type, index, value, direction, sheetIndex) {
       scrollTop = scroll.scrollTop;
     let winH = cellMain.getHeight(),
       winW = cellMain.getWidth();
-    let row = Store.visibledatarow[range[0].row[1]],
-      row_pre = range[0].row[0] - 1 == -1 ? 0 : Store.visibledatarow[range[0].row[0] - 1];
+    let row = Store.visibleRowPositions[range[0].row[1]],
+      row_pre = range[0].row[0] - 1 == -1 ? 0 : Store.visibleRowPositions[range[0].row[0] - 1];
     if (row - scrollTop - winH + 20 > 0) {
       scrollBarY.setScrollTop(row - winH + 20);
     } else if (row_pre - scrollTop - 20 < 0) {

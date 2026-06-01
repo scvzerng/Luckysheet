@@ -85,9 +85,9 @@ const mergeCalcModule = {
         if (r == 0) {
           start_r = -1;
         } else {
-          start_r = Store.visibledatarow[r - 1] - 1;
+          start_r = Store.visibleRowPositions[r - 1] - 1;
         }
-        end_r = Store.visibledatarow[r];
+        end_r = Store.visibleRowPositions[r];
         if (row_pre == null) {
           row_pre = start_r;
           row = end_r;

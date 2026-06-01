@@ -129,8 +129,8 @@ export function scroll(options = {}){
             return tooltip.info("The targetRow parameter is invalid.", "");
         }
 
-        let row = Store.visibledatarow[targetRow],
-            row_pre = targetRow <= 0 ? 0 : Store.visibledatarow[targetRow - 1];
+        let row = Store.visibleRowPositions[targetRow],
+            row_pre = targetRow <= 0 ? 0 : Store.visibleRowPositions[targetRow - 1];
 
         scrollBarY.setScrollTop(row_pre);
     }
@@ -184,7 +184,7 @@ export function getScreenshot(options = {}) {
         return tooltip.info('Cannot perform this operation on partially merged cells', '');
     }
 
-    let visibledatarow = Store.visibledatarow;
+    let visibledatarow = Store.visibleRowPositions;
     let visibledatacolumn = Store.visibleColPositions;
 
     let scrollHeight, rh_height;

@@ -75,8 +75,8 @@ function luckysheetDrawMain(scrollWidth, scrollHeight, drawWidth, drawHeight, of
 
   //琛ㄦ牸娓叉煋鍖哄煙 璧锋琛屽垪涓嬫爣
   let dataset_row_st, dataset_row_ed, dataset_col_st, dataset_col_ed;
-  dataset_row_st = luckysheet_searcharray(Store.visibledatarow, scrollHeight);
-  dataset_row_ed = luckysheet_searcharray(Store.visibledatarow, scrollHeight + drawHeight);
+  dataset_row_st = luckysheet_searcharray(Store.visibleRowPositions, scrollHeight);
+  dataset_row_ed = luckysheet_searcharray(Store.visibleRowPositions, scrollHeight + drawHeight);
   if (dataset_row_st == -1) {
     dataset_row_st = 0;
   }
@@ -85,7 +85,7 @@ function luckysheetDrawMain(scrollWidth, scrollHeight, drawWidth, drawHeight, of
     dataset_row_ed = getMaxRowIndex();
   }
   dataset_row_ed += rowOffsetCell;
-  if (dataset_row_ed >= Store.visibledatarow.length) {
+  if (dataset_row_ed >= Store.visibleRowPositions.length) {
     dataset_row_ed = getMaxRowIndex();
   }
   dataset_col_st = luckysheet_searcharray(Store.visibleColPositions, scrollWidth);
@@ -107,9 +107,9 @@ function luckysheetDrawMain(scrollWidth, scrollHeight, drawWidth, drawHeight, of
   if (dataset_row_st == 0) {
     fill_row_st = 0;
   } else {
-    fill_row_st = Store.visibledatarow[dataset_row_st - 1];
+    fill_row_st = Store.visibleRowPositions[dataset_row_st - 1];
   }
-  fill_row_ed = Store.visibledatarow[dataset_row_ed];
+  fill_row_ed = Store.visibleRowPositions[dataset_row_ed];
   if (dataset_col_st == 0) {
     fill_col_st = 0;
   } else {
@@ -308,9 +308,9 @@ function luckysheetDrawMain(scrollWidth, scrollHeight, drawWidth, drawHeight, of
     if (r == 0) {
       start_r = -scrollHeight - 1;
     } else {
-      start_r = Store.visibledatarow[r - 1] - scrollHeight - 1;
+      start_r = Store.visibleRowPositions[r - 1] - scrollHeight - 1;
     }
-    end_r = Store.visibledatarow[r + mainCell["mc"].rs - 1] - scrollHeight;
+    end_r = Store.visibleRowPositions[r + mainCell["mc"].rs - 1] - scrollHeight;
     end_c = Store.visibleColPositions[c + mainCell["mc"].cs - 1] - scrollWidth;
     if (value == null || value.toString() === null) {
       nullCellRender(r, c, start_r, start_c, end_r, end_c, luckysheetTableContent, af_compute, cf_compute, offsetLeft, offsetTop, dynamicArray_compute, cellOverflowMap, dataset_col_st, dataset_col_ed, scrollHeight, scrollWidth, bodrder05, true);
