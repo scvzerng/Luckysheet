@@ -16,7 +16,7 @@ import Store from "../../store";
  */
 
 function luckysheetextendData(rowlen, newData) {
-  let d = editor.deepCopyFlowData(Store.flowdata);
+  let d = editor.deepCopyFlowData(Store.sheetData);
   let cfg = structuredClone(Store.config);
   if (cfg["merge"] == null) {
     cfg["merge"] = {};
@@ -35,8 +35,8 @@ function luckysheetextendData(rowlen, newData) {
   }
 
   //luckysheet.flowdata
-  Store.flowdata = d;
-  editor.webWorkerFlowDataCache(Store.flowdata);
+  Store.sheetData = d;
+  editor.webWorkerFlowDataCache(Store.sheetData);
   syncDataToStore();
 
   //config

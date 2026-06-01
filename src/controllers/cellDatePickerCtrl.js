@@ -35,7 +35,7 @@ const cellDatePickerCtrl = {
         let col = Store.visibledatacolumn[c],
             col_pre = c == 0 ? 0 : Store.visibledatacolumn[c - 1];
 
-        let margeset = menuButton.mergeborer(Store.flowdata, r, c);
+        let margeset = menuButton.mergeborer(Store.sheetData, r, c);
         let type = cell.ct.fa || 'YYYY-MM-DD';
         let defaultDate = update('yyyy-MM-dd hh:mm:ss', cell.v);
         let dateFormat = fitFormat(type);

@@ -25,22 +25,22 @@ export default function luckysheetcreatesheet(colwidth, rowheight, data, cfg, ac
     }
 
     if (data.length == 0) {
-        Store.flowdata = datagridgrowth(data, rowheight, colwidth);
+        Store.sheetData = datagridgrowth(data, rowheight, colwidth);
     }
     else if (data.length < rowheight && data[0].length < colwidth) {
-        Store.flowdata = datagridgrowth(data, rowheight - data.length, colwidth - data[0].length);
+        Store.sheetData = datagridgrowth(data, rowheight - data.length, colwidth - data[0].length);
     }
     else if (data.length < rowheight) {
-        Store.flowdata = datagridgrowth(data, rowheight - data.length, 0);
+        Store.sheetData = datagridgrowth(data, rowheight - data.length, 0);
     }
     else if (data[0].length < colwidth) {
-        Store.flowdata = datagridgrowth(data, 0, colwidth - data[0].length);
+        Store.sheetData = datagridgrowth(data, 0, colwidth - data[0].length);
     }
     else {
-        Store.flowdata = data;
+        Store.sheetData = data;
     }
 
-    editor.webWorkerFlowDataCache(Store.flowdata);//worker存数据
+    editor.webWorkerFlowDataCache(Store.sheetData);//worker存数据
 
     rhchInit(rowheight, colwidth);
 

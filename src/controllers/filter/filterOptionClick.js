@@ -120,7 +120,7 @@ export function filterOptionClick() {
             }
         });
 
-        let data = Store.flowdata;
+        let data = Store.sheetData;
 
         setTimeout(function () {
             let dvmap = {};
@@ -134,11 +134,11 @@ export function filterOptionClick() {
                     continue;
                 }
 
-                if(Store.flowdata[r] == null){
+                if(Store.sheetData[r] == null){
                     continue;
                 }
 
-                let cell = Store.flowdata[r][cindex];
+                let cell = Store.sheetData[r][cindex];
 
                 if(cell != null && !isRealNull(cell.v) && cell.ct != null && cell.ct.t == "d" ){
                     let v = update("YYYY-MM-DD", cell.v);
@@ -171,7 +171,7 @@ export function filterOptionClick() {
                     let v, m;
                     if((cell == null || isRealNull(cell.v)) && cell?.mc){
                         const { r, c } = cell.mc;
-                        const mainCell = Store.flowdata[r][c];
+                        const mainCell = Store.sheetData[r][c];
                         v = mainCell.v;
                         m = mainCell.m;
                     }

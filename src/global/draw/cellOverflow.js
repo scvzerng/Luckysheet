@@ -10,7 +10,7 @@ import Store from "../../store";
 //鑾峰彇琛ㄦ牸娓叉煋鑼冨洿 婧㈠嚭鍗曞厓鏍?
 function getCellOverflowMap(canvas, col_st, col_ed, row_st, row_end) {
   let map = {};
-  let data = Store.flowdata;
+  let data = Store.sheetData;
   for (let r = row_st; r <= row_end; r++) {
     if (data[r] == null) {
       continue;
@@ -112,7 +112,7 @@ function getCellOverflowMap(canvas, col_st, col_ed, row_st, row_end) {
   return map;
 }
 function cellOverflow_trace(r, curC, traceC, traceDir, horizonAlign, textMetrics) {
-  let data = Store.flowdata;
+  let data = Store.sheetData;
 
   //杩芥函鍗曞厓鏍煎垪瓒呭嚭鏁扮粍鑼冨洿 鍒欒拷婧粓姝?
   if (traceDir == "forward" && traceC < 0) {
@@ -248,7 +248,7 @@ let cellOverflowRender = function(r, c, stc, edc, luckysheetTableContent, scroll
     start_c = Store.visibledatacolumn[stc - 1] - scrollWidth;
   }
   let end_c = Store.visibledatacolumn[edc] - scrollWidth;
-  let cell = Store.flowdata[r][c];
+  let cell = Store.sheetData[r][c];
   let cellWidth = end_c - start_c - 2;
   let cellHeight = end_r - start_r - 2;
   let space_width = 2, space_height = 2;
@@ -271,7 +271,7 @@ let cellOverflowRender = function(r, c, stc, edc, luckysheetTableContent, scroll
   });
   let checksAF = alternateformat.checksAF(r, c, af_compute);
   let checksCF = conditionformat.checksCF(r, c, cf_compute);
-  luckysheetTableContent.fillStyle = menuButton.checkstatus(Store.flowdata, r, c, "fc");
+  luckysheetTableContent.fillStyle = menuButton.checkstatus(Store.sheetData, r, c, "fc");
   if (checksAF != null && checksAF[0] != null) {
     luckysheetTableContent.fillStyle = checksAF[0];
   }

@@ -107,7 +107,7 @@ const ifFormulaGenerator = {
                     end_r = cellrange["row"][1],
                     str_c = cellrange["column"][0],
                     end_c = cellrange["column"][1];
-                let d = editor.deepCopyFlowData(Store.flowdata);
+                let d = editor.deepCopyFlowData(Store.sheetData);
                 let arr = [];
 
                 for(let r = str_r; r <= end_r; r++){
@@ -314,7 +314,7 @@ const ifFormulaGenerator = {
                 let row_index = _focus.row,
                     col_index = _focus.col;
 
-                luckysheetupdateCell(row_index, col_index, Store.flowdata);
+                luckysheetupdateCell(row_index, col_index, Store.sheetData);
 
                 richTextEditor.setHtml("=" + str);
                 functionBox.setHtml(richTextEditor.getHtml());

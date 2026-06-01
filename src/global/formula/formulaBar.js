@@ -40,7 +40,7 @@ const formulaBar = {
 
             let _this = this;
 
-            let d = Store.flowdata;
+            let d = Store.sheetData;
             let value = "";
             // && d[r][c].v != null
             if (d[r] != null && d[r][c] != null) {

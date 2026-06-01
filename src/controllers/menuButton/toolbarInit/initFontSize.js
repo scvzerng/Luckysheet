@@ -106,7 +106,7 @@ export function initFontSize(_this) {
               document.getElementById("luckysheet-icon-font-size")?.setAttribute("itemvalue", itemvalue);
               _this.focus(menuButton, itemvalue);
               if (input) input.value = itemvalue;
-              let d = editor.deepCopyFlowData(Store.flowdata);
+              let d = editor.deepCopyFlowData(Store.sheetData);
               _this.updateFormat(d, "fs", itemvalue);
               clearTimeout(luckysheet_fs_setTimeout);
             });
@@ -137,7 +137,7 @@ export function initFontSize(_this) {
         let itemvalue = parseInt(self.value);
         let menuButton = document.getElementById("luckysheet-icon-font-size-menuButton");
         _this.focus(menuButton, itemvalue);
-        let d = editor.deepCopyFlowData(Store.flowdata);
+        let d = editor.deepCopyFlowData(Store.sheetData);
         _this.updateFormat(d, "fs", itemvalue);
         luckysheet_fs_setTimeout = setTimeout(function () {
           menuButton.style.display = "none";

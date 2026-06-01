@@ -78,19 +78,19 @@ const sheetParamRestoreModule = {
     let _this = this;
     _this.storeSheetParam();
     let index = _this.getSheetIndex(Store.currentSheetIndex);
-    Store.luckysheetfile[index]["data"] = Store.flowdata;
+    Store.luckysheetfile[index]["data"] = Store.sheetData;
     Store.luckysheetfile[index]["config"] = structuredClone(Store.config);
   },
   setSheetParam: function (isload = true) {
     let index = this.getSheetIndex(Store.currentSheetIndex);
     let file = Store.luckysheetfile[index];
-    Store.flowdata = file["data"];
-    editor.webWorkerFlowDataCache(Store.flowdata); //worker存数据
+    Store.sheetData = file["data"];
+    editor.webWorkerFlowDataCache(Store.sheetData); //worker存数据
 
     // formula.execFunctionGroupData = null;
     formula.execFunctionGlobalData = null;
     window.luckysheet_getcelldata_cache = null;
-    this.sheetParamRestore(file, Store.flowdata);
+    this.sheetParamRestore(file, Store.sheetData);
     if (file["freezen"] == null) {
       luckysheetFreezen.freezenhorizontaldata = null;
       luckysheetFreezen.freezenverticaldata = null;
@@ -99,11 +99,11 @@ const sheetParamRestoreModule = {
       luckysheetFreezen.freezenverticaldata = file["freezen"].vertical == null ? null : file["freezen"].vertical.freezenverticaldata;
     }
     if (isload) {
-      rhchInit(Store.flowdata.length, Store.flowdata[0].length);
+      rhchInit(Store.sheetData.length, Store.sheetData[0].length);
     }
 
     //批注
-    luckysheetPostil.buildAllPs(Store.flowdata);
+    luckysheetPostil.buildAllPs(Store.sheetData);
 
     //图片
     imageCtrl.currentImgId = null;
@@ -153,7 +153,7 @@ const sheetParamRestoreModule = {
     //         file.config.rowhidden =  {};
     //         Store.config = file.config;
 
-    //         jfrefreshgrid_rhcw(Store.flowdata.length, Store.flowdata[0].length,false);
+    //         jfrefreshgrid_rhcw(Store.sheetData.length, Store.sheetData[0].length,false);
     //     }
 
     //     return;
@@ -195,7 +195,7 @@ const sheetParamRestoreModule = {
     }
     file.config["rowhidden"] = rowhidden;
     Store.config = file.config;
-    jfrefreshgrid_rhcw(Store.flowdata.length, Store.flowdata[0].length, false);
+    jfrefreshgrid_rhcw(Store.sheetData.length, Store.sheetData[0].length, false);
   },
   restoreFreezen: function (sheetIndex) {
     luckysheetFreezen.initialFreezen(sheetIndex);

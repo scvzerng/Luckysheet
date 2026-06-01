@@ -108,7 +108,7 @@ export function updataSheet (options = {}) {
 }
 
 export function refreshMenuButtonFocus(data ,r,c , success){
-    data = data || Store.flowdata;
+    data = data || Store.sheetData;
     if(r == null && c == null){
         /* 获取选取范围 */
         let last = getLastSelection();
@@ -133,7 +133,7 @@ export function checkTheStatusOfTheSelectedCells(type,status){
     let cells = getRangeWithFlatten();
 
     let flag = cells.every(({r,c})=>{
-        let cell = Store.flowdata[r][c];
+        let cell = Store.sheetData[r][c];
         if(cell == null){
             return false;
         }

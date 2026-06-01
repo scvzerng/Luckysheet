@@ -221,7 +221,7 @@ luckysheet.sheetmanage = sheetmanage;
 
 // Data of the current table
 luckysheet.flowdata = function () {
-    return Store.flowdata;
+    return Store.sheetData;
 };
 
 // Set selection highlight

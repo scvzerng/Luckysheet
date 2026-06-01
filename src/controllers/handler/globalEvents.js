@@ -82,8 +82,8 @@ export default function globalEvents() {
 
         Store.luckysheet_select_save = [
             {
-                row: [0, Store.flowdata.length - 1],
-                column: [0, Store.flowdata[0].length - 1],
+                row: [0, Store.sheetData.length - 1],
+                column: [0, Store.sheetData[0].length - 1],
                 row_focus: 0,
                 column_focus: 0,
                 row_select: true,

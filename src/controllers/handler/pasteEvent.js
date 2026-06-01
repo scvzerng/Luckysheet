@@ -85,7 +85,7 @@ export default function pasteEvent() {
 
                 let d;
                 if (copy_index == Store.currentSheetIndex) {
-                    d = editor.deepCopyFlowData(Store.flowdata);
+                    d = editor.deepCopyFlowData(Store.sheetData);
                 } else {
                     d = getFileBySheetIndex(copy_index).data;
                 }

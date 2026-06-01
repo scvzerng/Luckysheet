@@ -64,7 +64,7 @@ const clipboardPaintModelModule = {
     let timesH = Math.ceil((maxh - minh + 1) / copyh); //复制行 组数
     let timesC = Math.ceil((maxc - minc + 1) / copyc); //复制列 组数
 
-    let d = editor.deepCopyFlowData(Store.flowdata); //取数据
+    let d = editor.deepCopyFlowData(Store.sheetData); //取数据
     let cellMaxLength = d[0].length;
     let rowMaxLength = d.length;
     let borderInfoCompute = getBorderInfoCompute(copySheetIndex);

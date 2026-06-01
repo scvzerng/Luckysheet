@@ -89,8 +89,8 @@ export function setCellValue(row, column, value, options = {}) {
     }
 
     let oldValue
-    if (Store.flowdata[row] && Store.flowdata[row][column]) {
-      oldValue = JSON.stringify(Store.flowdata[row][column]);
+    if (Store.sheetData[row] && Store.sheetData[row][column]) {
+      oldValue = JSON.stringify(Store.sheetData[row][column]);
     }
 
     // formula.updatecell(row, column, value);
@@ -185,7 +185,7 @@ export function setCellValue(row, column, value, options = {}) {
         }
         // Hook function
         if (triggerUpdated) {
-            method.createHookFunction("cellUpdated", row, column, oldValueObj, Store.flowdata[row][column], isRefresh);
+            method.createHookFunction("cellUpdated", row, column, oldValueObj, Store.sheetData[row][column], isRefresh);
         }
 
     }, 0);

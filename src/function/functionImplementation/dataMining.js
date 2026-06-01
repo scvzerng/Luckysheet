@@ -54,7 +54,7 @@ const dataMiningFunctions = {
           "type": datetype
         }).toString()
       }).then(function(response) { return response.text(); }).then(function (data) {
-        var d = [].concat(Store.flowdata);
+        var d = [].concat(Store.sheetData);
         formula.execFunctionGroup(cell_r, cell_c, data);
         d[cell_r][cell_c] = {
           "v": data,
@@ -136,7 +136,7 @@ const dataMiningFunctions = {
           "set": set
         }).toString()
       }).then(function(response) { return response.text(); }).then(function (data) {
-        var d = editor.deepCopyFlowData(Store.flowdata);
+        var d = editor.deepCopyFlowData(Store.sheetData);
         formula.execFunctionGroup(cell_r, cell_c, data);
         d[cell_r][cell_c] = {
           "v": data,
@@ -218,7 +218,7 @@ const dataMiningFunctions = {
           "set": set
         }).toString()
       }).then(function(response) { return response.text(); }).then(function (data) {
-        var d = editor.deepCopyFlowData(Store.flowdata);
+        var d = editor.deepCopyFlowData(Store.sheetData);
         formula.execFunctionGroup(cell_r, cell_c, data);
         d[cell_r][cell_c] = {
           "v": data,

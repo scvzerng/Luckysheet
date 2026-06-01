@@ -9,7 +9,7 @@ function getBorderInfoComputeRange(dataset_row_st,dataset_row_ed,dataset_col_st,
     let cfg, data; 
     if(sheetIndex == null){
         cfg = Store.config;
-        data = Store.flowdata;
+        data = Store.sheetData;
     }
     else{
         let file = getFileBySheetIndex(sheetIndex);
@@ -1087,7 +1087,7 @@ function getBorderInfoCompute(sheetIndex) {
     let cfg, data; 
     if(sheetIndex == null){
         cfg = Store.config;
-        data = Store.flowdata;
+        data = Store.sheetData;
     }
     else{
         let file = getFileBySheetIndex(sheetIndex);

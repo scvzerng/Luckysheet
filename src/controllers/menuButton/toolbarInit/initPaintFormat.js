@@ -65,7 +65,7 @@ export function initPaintFormat(_this) {
             RowlChange = true;
           }
           for (let c = Store.luckysheet_select_save[0].column[0]; c <= Store.luckysheet_select_save[0].column[1]; c++) {
-            let cell = Store.flowdata[r][c];
+            let cell = Store.sheetData[r][c];
             if (getObjType(cell) == "object" && "mc" in cell && cell.mc.rs != null) {
               HasMC = true;
             }
@@ -124,7 +124,7 @@ export function initPaintFormat(_this) {
             RowlChange = true;
           }
           for (let c = Store.luckysheet_select_save[0].column[0]; c <= Store.luckysheet_select_save[0].column[1]; c++) {
-            let cell = Store.flowdata[r][c];
+            let cell = Store.sheetData[r][c];
             if (getObjType(cell) == "object" && "mc" in cell && cell.mc.rs != null) {
               HasMC = true;
             }

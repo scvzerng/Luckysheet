@@ -9,7 +9,7 @@ function initCanvasDefaults(ctx) {
 }
 
 function getCellTextColor(r, c, checksAF, checksCF, cell) {
-    let textColor = menuButton.checkstatus(Store.flowdata, r, c, "fc");
+    let textColor = menuButton.checkstatus(Store.sheetData, r, c, "fc");
     if (checksAF != null && checksAF[0] != null) {
         textColor = checksAF[0];
     }
@@ -23,7 +23,7 @@ function getCellTextColor(r, c, checksAF, checksCF, cell) {
 }
 
 function getCellBgColor(r, c, checksAF, checksCF) {
-    let bgColor = menuButton.checkstatus(Store.flowdata, r, c, "bg");
+    let bgColor = menuButton.checkstatus(Store.sheetData, r, c, "bg");
     if (checksAF != null && checksAF[1] != null) {
         bgColor = checksAF[1];
     }

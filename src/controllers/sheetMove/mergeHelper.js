@@ -4,7 +4,7 @@ import Store from "../../store";
 function rowHasMerge(r, c1, c2) {
   let rowHasMerge = false;
   for (let c = c1; c <= c2; c++) {
-    let cell = Store.flowdata[r][c];
+    let cell = Store.sheetData[r][c];
     if (getObjType(cell) == "object" && "mc" in cell) {
       rowHasMerge = true;
       break;
@@ -15,7 +15,7 @@ function rowHasMerge(r, c1, c2) {
 function colHasMerge(c, r1, r2) {
   let colHasMerge = false;
   for (let r = r1; r <= r2; r++) {
-    let cell = Store.flowdata[r][c];
+    let cell = Store.sheetData[r][c];
     if (getObjType(cell) == "object" && "mc" in cell) {
       colHasMerge = true;
       break;
@@ -25,12 +25,12 @@ function colHasMerge(c, r1, r2) {
 }
 function getRowMerge(rIndex, c1, c2) {
   let r1 = 0,
-    r2 = Store.flowdata.length - 1;
+    r2 = Store.sheetData.length - 1;
   let str = null;
   if (rIndex > r1) {
     for (let r = rIndex; r >= r1; r--) {
       for (let c = c1; c <= c2; c++) {
-        let cell = Store.flowdata[r][c];
+        let cell = Store.sheetData[r][c];
         if (getObjType(cell) == "object" && "mc" in cell) {
           let mc = Store.config["merge"][cell["mc"].r + "_" + cell["mc"].c];
           if (str == null || mc.r < str) {
@@ -51,7 +51,7 @@ function getRowMerge(rIndex, c1, c2) {
   if (rIndex < r2) {
     for (let r = rIndex; r <= r2; r++) {
       for (let c = c1; c <= c2; c++) {
-        let cell = Store.flowdata[r][c];
+        let cell = Store.sheetData[r][c];
         if (getObjType(cell) == "object" && "mc" in cell) {
           let mc = Store.config["merge"][cell["mc"].r + "_" + cell["mc"].c];
           if (end == null || mc.r + mc.rs - 1 > end) {
@@ -72,12 +72,12 @@ function getRowMerge(rIndex, c1, c2) {
 }
 function getColMerge(cIndex, r1, r2) {
   let c1 = 0,
-    c2 = Store.flowdata[0].length - 1;
+    c2 = Store.sheetData[0].length - 1;
   let str = null;
   if (cIndex > c1) {
     for (let c = cIndex; c >= c1; c--) {
       for (let r = r1; r <= r2; r++) {
-        let cell = Store.flowdata[r][c];
+        let cell = Store.sheetData[r][c];
         if (getObjType(cell) == "object" && "mc" in cell) {
           let mc = Store.config["merge"][cell["mc"].r + "_" + cell["mc"].c];
           if (str == null || mc.c < str) {
@@ -98,7 +98,7 @@ function getColMerge(cIndex, r1, r2) {
   if (cIndex < c2) {
     for (let c = cIndex; c <= c2; c++) {
       for (let r = r1; r <= r2; r++) {
-        let cell = Store.flowdata[r][c];
+        let cell = Store.sheetData[r][c];
         if (getObjType(cell) == "object" && "mc" in cell) {
           let mc = Store.config["merge"][cell["mc"].r + "_" + cell["mc"].c];
           if (end == null || mc.c + mc.cs - 1 > end) {

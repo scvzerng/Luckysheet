@@ -70,7 +70,7 @@ function iterateCellRange(cellrange, callback, options) {
     options = options || {};
     let skipHidden = options.skipHidden || false;
     let skipNull = options.skipNull || false;
-    let data = options.data || Store.flowdata;
+    let data = options.data || Store.sheetData;
     let config = options.config || Store.config;
 
     for (let s = 0; s < cellrange.length; s++) {

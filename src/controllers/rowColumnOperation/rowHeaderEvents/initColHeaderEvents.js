@@ -51,7 +51,7 @@ export function initColHeaderEvents() {
         let isright = false;
         for (let s = 0; s < Store.luckysheet_select_save.length; s++) {
           let obj_s = Store.luckysheet_select_save[s];
-          if (obj_s["column"] != null && col_index >= obj_s["column"][0] && col_index <= obj_s["column"][1] && obj_s["row"][0] == 0 && obj_s["row"][1] == Store.flowdata.length - 1) {
+          if (obj_s["column"] != null && col_index >= obj_s["column"][0] && col_index <= obj_s["column"][1] && obj_s["row"][0] == 0 && obj_s["row"][1] == Store.sheetData.length - 1) {
             isright = true;
             break;
           }

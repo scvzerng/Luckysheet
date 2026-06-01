@@ -45,7 +45,7 @@ const cellUpdate = {
                 sheetmanage.changeSheetExec(_this.rangetosheet);
             }
 
-            let curv = Store.flowdata[r][c];
+            let curv = Store.sheetData[r][c];
 
             // Store old value for hook function
             const oldValue = JSON.stringify(curv);
@@ -142,7 +142,7 @@ const cellUpdate = {
 
             let isRunExecFunction = true;
 
-            let d = editor.deepCopyFlowData(Store.flowdata);
+            let d = editor.deepCopyFlowData(Store.sheetData);
             let dynamicArrayItem = null; //动态数组
 
             if (getObjType(curv) == "object") {
@@ -365,7 +365,7 @@ const cellUpdate = {
 
             setTimeout(() => {
                 // Hook function
-                method.createHookFunction("cellUpdated", r, c, JSON.parse(oldValue), Store.flowdata[r][c], isRefresh);
+                method.createHookFunction("cellUpdated", r, c, JSON.parse(oldValue), Store.sheetData[r][c], isRefresh);
             }, 0);
 
             if (isRefresh) {

@@ -71,7 +71,7 @@ export function initRotation(_this) {
               let icon = rotationEl?.querySelector(".luckysheet-icon-img-container");
 
               if (icon) icon.className = "luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-rotation-" + itemvalue + iconfontObject[itemvalue];
-              let d = editor.deepCopyFlowData(Store.flowdata);
+              let d = editor.deepCopyFlowData(Store.sheetData);
               _this.updateFormat(d, "tr", itemvalue);
             });
           });

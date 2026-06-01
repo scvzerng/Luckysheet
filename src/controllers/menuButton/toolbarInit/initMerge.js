@@ -47,7 +47,7 @@ export function initMerge(_this) {
             return;
           }
         }
-        let d = editor.deepCopyFlowData(Store.flowdata);
+        let d = editor.deepCopyFlowData(Store.sheetData);
         _this.updateFormat_mc(d, "mergeAll");
       });
       let mergeMenuEl = document.getElementById("luckysheet-icon-merge-menu");
@@ -123,7 +123,7 @@ export function initMerge(_this) {
               }
               let itemvalue = this.getAttribute("itemvalue");
               _this.focus(menuButton, itemvalue);
-              let d = editor.deepCopyFlowData(Store.flowdata);
+              let d = editor.deepCopyFlowData(Store.sheetData);
               _this.updateFormat_mc(d, itemvalue);
             });
           });

@@ -153,8 +153,8 @@ const uiModule = {
       hasChnWeek3 = false;
     for (let r = str_r; r <= end_r; r++) {
       for (let c = str_c; c <= end_c; c++) {
-        if (Store.flowdata[r][c]) {
-          let cell = Store.flowdata[r][c];
+        if (Store.sheetData[r][c]) {
+          let cell = Store.sheetData[r][c];
           if (getObjType(cell) == "object" && cell["v"] != null && cell["f"] == null) {
             if (cell["ct"] != null && cell["ct"].t == "n") {
               hasNumber = true;

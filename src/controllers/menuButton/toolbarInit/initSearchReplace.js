@@ -100,8 +100,8 @@ export function initSearchReplace(_this) {
               if (Store.luckysheet_select_save.length == 0 || Store.luckysheet_select_save.length == 1 && last.row[0] == last.row[1] && last.column[0] == last.column[1]) {
                 //单个单元�?
                 range = [{
-                  row: [0, Store.flowdata.length - 1],
-                  column: [0, Store.flowdata[0].length - 1]
+                  row: [0, Store.sheetData.length - 1],
+                  column: [0, Store.sheetData[0].length - 1]
                 }];
               } else {
                 range = structuredClone(Store.luckysheet_select_save);

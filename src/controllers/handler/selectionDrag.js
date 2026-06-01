@@ -150,10 +150,10 @@ export default function selectionDrag() {
             let dropCellState = false;
             let step = 0;
 
-            for (let r = r1 + 1; r < Store.flowdata.length; r++) {
-                if (c0 - 1 >= 0 && c1 + 1 < Store.flowdata[0].length) {
-                    let cell1 = Store.flowdata[r][c0 - 1];
-                    let cell2 = Store.flowdata[r][c1 + 1];
+            for (let r = r1 + 1; r < Store.sheetData.length; r++) {
+                if (c0 - 1 >= 0 && c1 + 1 < Store.sheetData[0].length) {
+                    let cell1 = Store.sheetData[r][c0 - 1];
+                    let cell2 = Store.sheetData[r][c1 + 1];
 
                     if (r == r1 + 1) {
                         if ((cell1 == null || isRealNull(cell1.v)) && (cell2 == null || isRealNull(cell2.v))) {
@@ -171,7 +171,7 @@ export default function selectionDrag() {
                         step++;
                     }
                 } else if (c0 - 1 >= 0) {
-                    let cell = Store.flowdata[r][c0 - 1];
+                    let cell = Store.sheetData[r][c0 - 1];
 
                     if (r == r1 + 1) {
                         if (cell == null || isRealNull(cell.v)) {
@@ -188,8 +188,8 @@ export default function selectionDrag() {
 
                         step++;
                     }
-                } else if (c1 + 1 < Store.flowdata[0].length) {
-                    let cell = Store.flowdata[r][c1 + 1];
+                } else if (c1 + 1 < Store.sheetData[0].length) {
+                    let cell = Store.sheetData[r][c1 + 1];
 
                     if (r == r1 + 1) {
                         if (cell == null || isRealNull(cell.v)) {

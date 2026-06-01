@@ -187,11 +187,11 @@ export function filterActions() {
                         continue;
                     }
 
-                    if(Store.flowdata[r] == null){
+                    if(Store.sheetData[r] == null){
                         continue;
                     }
 
-                    let cell = Store.flowdata[r][cindex];
+                    let cell = Store.sheetData[r][cindex];
 
                     if (value == "cellnull") {
                         if(cell != null && !isRealNull(cell.v)){
@@ -489,16 +489,16 @@ export function filterActions() {
                         continue;
                     }
 
-                    if(Store.flowdata[r] == null){
+                    if(Store.sheetData[r] == null){
                         continue;
                     }
 
-                    let cell = Store.flowdata[r][cindex];
+                    let cell = Store.sheetData[r][cindex];
 
                     let value;
                     if((cell == null || isRealNull(cell.v)) && cell?.mc){
                         const { r, c } = cell.mc
-                        const mainCell = Store.flowdata[r][c]
+                        const mainCell = Store.sheetData[r][c]
                         value = mainCell.v + "#$$$#" + mainCell.m;
                     }
                     else if(cell == null || isRealNull(cell.v)){

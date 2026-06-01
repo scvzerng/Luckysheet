@@ -58,7 +58,7 @@ const clipboardCutPasteModule = {
       }
       return;
     }
-    let d = editor.deepCopyFlowData(Store.flowdata); //取数据
+    let d = editor.deepCopyFlowData(Store.sheetData); //取数据
     let rowMaxLength = d.length;
     let cellMaxLength = d[0].length;
     let addr = copyh + minh - rowMaxLength,
@@ -305,7 +305,7 @@ const clipboardCutPasteModule = {
       };
       target = {
         sheetIndex: Store.currentSheetIndex,
-        data: Store.flowdata,
+        data: Store.sheetData,
         curData: d,
         config: structuredClone(Store.config),
         curConfig: cfg,
@@ -341,7 +341,7 @@ const clipboardCutPasteModule = {
       //当前表操作
       source = {
         sheetIndex: Store.currentSheetIndex,
-        data: Store.flowdata,
+        data: Store.sheetData,
         curData: d,
         config: structuredClone(Store.config),
         curConfig: cfg,
@@ -354,7 +354,7 @@ const clipboardCutPasteModule = {
       };
       target = {
         sheetIndex: Store.currentSheetIndex,
-        data: Store.flowdata,
+        data: Store.sheetData,
         curData: d,
         config: structuredClone(Store.config),
         curConfig: cfg,

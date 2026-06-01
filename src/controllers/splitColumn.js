@@ -121,7 +121,7 @@ const luckysheetSplitColumn = {
             let dataCover = false;
             for(let i = 0; i < dataArr.length; i++){
                 for(let j = 1; j < dataArr[0].length; j++){
-                    let cell = Store.flowdata[r + i][c + j];
+                    let cell = Store.sheetData[r + i][c + j];
 
                     if(cell != null && cell.v != null){
                         dataCover = true;
@@ -143,7 +143,7 @@ const luckysheetSplitColumn = {
         });
     },
     update: function(r, c, dataArr){
-        let d = editor.deepCopyFlowData(Store.flowdata);
+        let d = editor.deepCopyFlowData(Store.sheetData);
 
         for(let i = 0; i < dataArr.length; i++){
             for(let j = 0; j < dataArr[0].length; j++){
@@ -249,14 +249,14 @@ const luckysheetSplitColumn = {
             for(let r = r1; r <= r2; r++){
                 let rowArr = [];
 
-                let cell = Store.flowdata[r][c];
+                let cell = Store.sheetData[r][c];
 
                 let value;
                 if(cell != null && cell["m"] != null){
                     value = cell["m"];
                 }
                 else{
-                    value = getcellvalue(r, c, Store.flowdata);
+                    value = getcellvalue(r, c, Store.sheetData);
                 }
 
                 if(value == null){
@@ -291,14 +291,14 @@ const luckysheetSplitColumn = {
             for(let r = r1; r <= r2; r++){
                 let rowArr = [];
 
-                let cell = Store.flowdata[r][c];
+                let cell = Store.sheetData[r][c];
 
                 let value;
                 if(cell != null && cell["m"] != null){
                     value = cell["m"];
                 }
                 else{
-                    value = getcellvalue(r, c, Store.flowdata);
+                    value = getcellvalue(r, c, Store.sheetData);
                 }
 
                 if(value == null){

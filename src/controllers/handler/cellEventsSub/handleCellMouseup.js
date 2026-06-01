@@ -19,7 +19,7 @@ export function handleCellMouseup(event) {
   
                   let x = event.pageX;
                   let y = event.pageY;
-                  let data = Store.flowdata;
+                  let data = Store.sheetData;
   
                   let obj_s = Store.luckysheet_select_save[0];
   
@@ -33,7 +33,7 @@ export function handleCellMouseup(event) {
                   const _sep1 = document.querySelector("#luckysheet-cols-rows-data .luckysheet-menuseparator"); if (_sep1) _sep1.style.display = "block";
                   const _sep2 = document.querySelector("#luckysheet-cols-rows-handleincell .luckysheet-menuseparator"); if (_sep2) _sep2.style.display = "block";
   
-                  if (obj_s["row"] != null && obj_s["row"][0] == 0 && obj_s["row"][1] == Store.flowdata.length - 1) {
+                  if (obj_s["row"] != null && obj_s["row"][0] == 0 && obj_s["row"][1] == Store.sheetData.length - 1) {
                       // 如果全部按钮都隐藏，则整个菜单容器也要隐藏
                       if (
                           !cellRightClickConfig.copy &&
@@ -142,7 +142,7 @@ export function handleCellMouseup(event) {
                   } else if (
                       obj_s["column"] != null &&
                       obj_s["column"][0] == 0 &&
-                      obj_s["column"][1] == Store.flowdata[0].length - 1
+                      obj_s["column"][1] == Store.sheetData[0].length - 1
                   ) {
                       // 如果全部按钮都隐藏，则整个菜单容器也要隐藏
                       if (

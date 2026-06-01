@@ -56,7 +56,7 @@ export function handleCellDblclick(event) {
               let col_location = colLocation(x),
                   col_index = col_location[2];
   
-              let margeset = menuButton.mergeborer(Store.flowdata, row_index, col_index);
+              let margeset = menuButton.mergeborer(Store.sheetData, row_index, col_index);
               if (margeset) {
                   row_index = margeset.row[2];
                   col_index = margeset.column[2];
@@ -97,7 +97,7 @@ export function handleCellDblclick(event) {
                       row_index = row_focus;
                       col_index = column_focus;
                   }
-                  luckysheetupdateCell(row_index, col_index, Store.flowdata);
+                  luckysheetupdateCell(row_index, col_index, Store.sheetData);
   
                   /* 设置选区高亮 */
                   selectHightlightShow();

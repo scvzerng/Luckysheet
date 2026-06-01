@@ -24,7 +24,7 @@ const refreshButton = {
                 let txt = ''
                 file.calcChain?.find(({ r, c, func }) => {
                     if(r === row_index && c === col_index){
-                        txt = Store.flowdata[r][c]?.f;
+                        txt = Store.sheetData[r][c]?.f;
                         return true
                     }
                 });
@@ -66,7 +66,7 @@ const refreshButton = {
             let col = Store.visibledatacolumn[c],
                 col_pre = c == 0 ? 0 : Store.visibledatacolumn[c - 1];
 
-            let margeset = menuButton.mergeborer(Store.flowdata, r, c);
+            let margeset = menuButton.mergeborer(Store.sheetData, r, c);
             if(margeset){
                 row = margeset.row[1];
                 row_pre = margeset.row[0];

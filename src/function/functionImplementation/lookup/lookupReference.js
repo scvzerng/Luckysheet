@@ -150,7 +150,7 @@ const lookupReference = {
       let index = getSheetIndex(Store.calculateSheetIndex);
       let currentSheet = luckysheetfile[index];
       let sheetdata = currentSheet.data;
-      // sheetdata = Store.flowdata;
+      // sheetdata = Store.sheetData;
       // if (formula.execFunctionGroupData != null) {
       //     sheetdata = formula.execFunctionGroupData;
       // }

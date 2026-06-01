@@ -18,7 +18,7 @@ export function initValign(_this) {
         if (itemvalue == null) {
           itemvalue = "bottom";
         }
-        let d = editor.deepCopyFlowData(Store.flowdata);
+        let d = editor.deepCopyFlowData(Store.sheetData);
         _this.updateFormat(d, "vt", itemvalue);
       });
       let valignMenuEl = document.getElementById("luckysheet-icon-valign-menu");
@@ -70,7 +70,7 @@ export function initValign(_this) {
               let icon = valignEl?.querySelector(".luckysheet-icon-img-container");
 
               if (icon) icon.className = "luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-valign-" + itemvalue + iconfontObject[itemvalue];
-              let d = editor.deepCopyFlowData(Store.flowdata);
+              let d = editor.deepCopyFlowData(Store.sheetData);
               _this.updateFormat(d, "vt", itemvalue);
             });
           });

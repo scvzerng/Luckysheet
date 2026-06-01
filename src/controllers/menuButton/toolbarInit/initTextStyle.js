@@ -11,7 +11,7 @@ export function initTextStyle(_this) {
           e.stopPropagation();
         });
         _bold.addEventListener("click", function (e) {
-          let d = editor.deepCopyFlowData(Store.flowdata);
+          let d = editor.deepCopyFlowData(Store.sheetData);
           let flag = checkTheStatusOfTheSelectedCells("bl", 1);
           let foucsStatus = flag ? 0 : 1;
           _this.updateFormat(d, "bl", foucsStatus);
@@ -25,7 +25,7 @@ export function initTextStyle(_this) {
           e.stopPropagation();
         });
         _italic.addEventListener("click", function () {
-          let d = editor.deepCopyFlowData(Store.flowdata);
+          let d = editor.deepCopyFlowData(Store.sheetData);
           let flag = checkTheStatusOfTheSelectedCells("it", 1);
           let foucsStatus = flag ? 0 : 1;
           _this.updateFormat(d, "it", foucsStatus);
@@ -39,7 +39,7 @@ export function initTextStyle(_this) {
           e.stopPropagation();
         });
         _strike.addEventListener("click", function () {
-          let d = editor.deepCopyFlowData(Store.flowdata);
+          let d = editor.deepCopyFlowData(Store.sheetData);
           let flag = checkTheStatusOfTheSelectedCells("cl", 1);
           let foucsStatus = flag ? 0 : 1;
           _this.updateFormat(d, "cl", foucsStatus);
@@ -53,7 +53,7 @@ export function initTextStyle(_this) {
           e.stopPropagation();
         });
         _underline.addEventListener("click", function () {
-          let d = editor.deepCopyFlowData(Store.flowdata);
+          let d = editor.deepCopyFlowData(Store.sheetData);
           let flag = checkTheStatusOfTheSelectedCells("un", 1);
           let foucsStatus = flag ? 0 : 1;
           _this.updateFormat(d, "un", foucsStatus);

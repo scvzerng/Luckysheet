@@ -73,7 +73,7 @@ export default function cellDragDrop() {
                 col_pre = col_location[0],
                 col_index = col_location[2];
 
-            let margeset = menuButton.mergeborer(Store.flowdata, row_index, col_index);
+            let margeset = menuButton.mergeborer(Store.sheetData, row_index, col_index);
             if (margeset) {
                 row = margeset.row[1];
                 row_pre = margeset.row[0];
@@ -89,7 +89,7 @@ export default function cellDragDrop() {
             let luckysheetTableContent = canvasContext.getContext();
             method.createHookFunction(
                 "cellDragStop",
-                Store.flowdata[row_index][col_index],
+                Store.sheetData[row_index][col_index],
                 {
                     r: row_index,
                     c: col_index,

@@ -66,7 +66,7 @@ const sheetInitModule = {
       luckysheetConfigsetting.workbookCreateBefore(luckysheet);
     }
 
-    // Store.flowdata = data;
+    // Store.sheetData = data;
 
     luckysheetcreatedom(colwidth, rowheight, data, menu, title);
     setTimeout(function () {
@@ -89,7 +89,7 @@ const sheetInitModule = {
         let execF = function () {
           _this.mergeCalculation(file["index"]);
           _this.setSheetParam(false);
-          // editor.webWorkerFlowDataCache(Store.flowdata);//worker存数据
+          // editor.webWorkerFlowDataCache(Store.sheetData);//worker存数据
           _this.storeSheetParam();
           _this.restoreselect();
           _this.CacheNotLoadControll = [];

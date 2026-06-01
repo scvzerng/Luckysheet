@@ -58,7 +58,7 @@ export function getRangeValuesWithFlatte(range){
 
     // 获取到的这个数据不是最新的数据
     range.forEach(item=> {
-        values.push(Store.flowdata[item.r][item.c]);
+        values.push(Store.sheetData[item.r][item.c]);
     });
     return values;
 }

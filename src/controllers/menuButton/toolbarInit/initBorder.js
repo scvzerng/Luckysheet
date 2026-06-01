@@ -23,7 +23,7 @@ export function initBorder(_this) {
         if (!checkIsAllowEdit()) {
           return;
         }
-        let d = editor.deepCopyFlowData(Store.flowdata);
+        let d = editor.deepCopyFlowData(Store.sheetData);
         let type = this.getAttribute("type");
         if (type == null) {
           type = "border-all";
@@ -263,7 +263,7 @@ export function initBorder(_this) {
             if (itemvalue == "borderColor" || itemvalue == "borderSize") {
               return;
             }
-            let d = editor.deepCopyFlowData(Store.flowdata);
+            let d = editor.deepCopyFlowData(Store.sheetData);
             let color = document.querySelector("#" + subcolormenuid + " .luckysheet-color-selected")?.value;
             let style = document.getElementById("luckysheetborderSizepreview")?.getAttribute("itemvalue");
             if (color == null || color == "") {

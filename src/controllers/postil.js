@@ -179,17 +179,17 @@ const luckysheetPostil = {
         let row_index = rowLocation(y)[2];
         let col_index = colLocation(x)[2];
 
-        let margeset = menuButton.mergeborer(Store.flowdata, row_index, col_index);
+        let margeset = menuButton.mergeborer(Store.sheetData, row_index, col_index);
         if(margeset){
             row_index = margeset.row[2];
             col_index = margeset.column[2];
         }
 
-        if(Store.flowdata[row_index] == null || Store.flowdata[row_index][col_index] == null || Store.flowdata[row_index][col_index].ps == null){
+        if(Store.sheetData[row_index] == null || Store.sheetData[row_index][col_index] == null || Store.sheetData[row_index][col_index].ps == null){
             return;
         }
 
-        let postil = Store.flowdata[row_index][col_index].ps;
+        let postil = Store.sheetData[row_index][col_index].ps;
 
         if(postil["isshow"] || document.querySelector("#luckysheet-postil-show_"+ row_index +"_"+ col_index) !== null){
             return;
@@ -349,7 +349,7 @@ const luckysheetPostil = {
             let col = Store.visibledatacolumn[c], 
                 col_pre = c - 1 == -1 ? 0 : Store.visibledatacolumn[c - 1];
 
-            let margeset = menuButton.mergeborer(Store.flowdata, r, c);
+            let margeset = menuButton.mergeborer(Store.sheetData, r, c);
             if(margeset){
                 row = margeset.row[1];
                 row_pre = margeset.row[0];
@@ -426,7 +426,7 @@ const luckysheetPostil = {
         let col = Store.visibledatacolumn[c], 
             col_pre = c - 1 == -1 ? 0 : Store.visibledatacolumn[c - 1];
 
-        let margeset = menuButton.mergeborer(Store.flowdata, r, c);
+        let margeset = menuButton.mergeborer(Store.sheetData, r, c);
         if(margeset){
             row = margeset.row[1];
             row_pre = margeset.row[0];
@@ -486,7 +486,7 @@ const luckysheetPostil = {
 
         _this.init();
 
-        let d = editor.deepCopyFlowData(Store.flowdata);
+        let d = editor.deepCopyFlowData(Store.sheetData);
         let rc = [];
 
         if(d[r][c] == null){
@@ -512,14 +512,14 @@ const luckysheetPostil = {
             const _resizeEl2 = document.querySelector("#luckysheet-postil-show_"+ r +"_"+ c +" .luckysheet-postil-dialog-resize"); if (_resizeEl2) _resizeEl2.style.display = 'block';
         }
         else{
-            let postil = Store.flowdata[r][c].ps;
+            let postil = Store.sheetData[r][c].ps;
 
             let row = Store.visibledatarow[r], 
                 row_pre = r - 1 == -1 ? 0 : Store.visibledatarow[r - 1];
             let col = Store.visibledatacolumn[c], 
                 col_pre = c - 1 == -1 ? 0 : Store.visibledatacolumn[c - 1];
 
-            let margeset = menuButton.mergeborer(Store.flowdata, r, c);
+            let margeset = menuButton.mergeborer(Store.sheetData, r, c);
             if(margeset){
                 row = margeset.row[1];
                 row_pre = margeset.row[0];
@@ -591,7 +591,7 @@ const luckysheetPostil = {
     },
     delPs: function(r, c){
         // Hook function
-        if(!method.createHookFunction('commentDeleteBefore',r,c,Store.flowdata[r][c])){
+        if(!method.createHookFunction('commentDeleteBefore',r,c,Store.sheetData[r][c])){
             return;
         }
 
@@ -599,7 +599,7 @@ const luckysheetPostil = {
             document.querySelector("#luckysheet-postil-show_"+ r +"_"+ c)?.remove();
         }
 
-        let d = editor.deepCopyFlowData(Store.flowdata);
+        let d = editor.deepCopyFlowData(Store.sheetData);
         let rc = [];
 
         delete d[r][c].ps;
@@ -609,16 +609,16 @@ const luckysheetPostil = {
 
         // Hook function
         setTimeout(() => {
-            method.createHookFunction('commentDeleteAfter',r,c, Store.flowdata[r][c])
+            method.createHookFunction('commentDeleteAfter',r,c, Store.sheetData[r][c])
         }, 0);
     },
     showHidePs: function(r, c){
         let _this = this;
 
-        let postil = Store.flowdata[r][c].ps;
+        let postil = Store.sheetData[r][c].ps;
         let isshow = postil["isshow"];
 
-        let d = editor.deepCopyFlowData(Store.flowdata);
+        let d = editor.deepCopyFlowData(Store.sheetData);
         let rc = [];
 
         if(isshow){
@@ -634,7 +634,7 @@ const luckysheetPostil = {
             let col = Store.visibledatacolumn[c], 
                 col_pre = c - 1 == -1 ? 0 : Store.visibledatacolumn[c - 1];
 
-            let margeset = menuButton.mergeborer(Store.flowdata, r, c);
+            let margeset = menuButton.mergeborer(Store.sheetData, r, c);
             if(margeset){
                 row = margeset.row[1];
                 row_pre = margeset.row[0];
@@ -714,7 +714,7 @@ const luckysheetPostil = {
     showHideAllPs: function(){
         let _this = this;
 
-        let d = editor.deepCopyFlowData(Store.flowdata);
+        let d = editor.deepCopyFlowData(Store.sheetData);
 
         let isAllShow = true;
         let allPs = [];
@@ -761,7 +761,7 @@ const luckysheetPostil = {
                         let col = Store.visibledatacolumn[colIndex], 
                             col_pre = colIndex - 1 == -1 ? 0 : Store.visibledatacolumn[colIndex - 1];
 
-                        let margeset = menuButton.mergeborer(Store.flowdata, rowIndex, colIndex);
+                        let margeset = menuButton.mergeborer(Store.sheetData, rowIndex, colIndex);
                         if(margeset){
                             row = margeset.row[1];
                             row_pre = margeset.row[0];
@@ -854,13 +854,13 @@ const luckysheetPostil = {
             let value = document.getElementById(id)?.querySelector(".formulaInputFocus")?.innerHTML?.replaceAll('<div>', '\n').replaceAll(/<(.*)>.*?|<(.*) \/>/g, '').trim() || "";
             // Hook function
             if(!method.createHookFunction('commentUpdateBefore',r,c,value)){
-                if (!Store.flowdata[r][c].ps.isshow) {
+                if (!Store.sheetData[r][c].ps.isshow) {
                     document.getElementById(id)?.remove();
                 }
                 return;
             }
 
-            const previousCell = structuredClone(Store.flowdata[r][c]);
+            const previousCell = structuredClone(Store.sheetData[r][c]);
 
             const _activeEl = document.getElementById(id);
             if (_activeEl) {
@@ -870,7 +870,7 @@ const luckysheetPostil = {
                 const _mainEl2 = _activeEl.querySelector(".luckysheet-postil-show-main"); if (_mainEl2) _mainEl2.style.zIndex = 100;
             }
 
-            let d = editor.deepCopyFlowData(Store.flowdata);
+            let d = editor.deepCopyFlowData(Store.sheetData);
             let rc = [];
 
             d[r][c].ps.value = value;
@@ -893,7 +893,7 @@ const luckysheetPostil = {
             
             Store.jfredo.push({ 
                 "type": "postil", 
-                "data": Store.flowdata, 
+                "data": Store.sheetData, 
                 "curdata": data, 
                 "sheetIndex": Store.currentSheetIndex,
                 "rc": rc 
@@ -901,8 +901,8 @@ const luckysheetPostil = {
         }
 
         //flowdata
-        Store.flowdata = data;
-        editor.webWorkerFlowDataCache(Store.flowdata);//worker存数据
+        Store.sheetData = data;
+        editor.webWorkerFlowDataCache(Store.sheetData);//worker存数据
 
         syncDataToStore();
 
@@ -920,7 +920,7 @@ const luckysheetPostil = {
             let r = id.split("luckysheet-postil-show_")[1].split("_")[0];
             let c = id.split("luckysheet-postil-show_")[1].split("_")[1];
 
-            let cell = Store.flowdata[r][c];
+            let cell = Store.sheetData[r][c];
             
             if(cell != null && cell.ps != null){
                 _this.buildPs(r, c, cell.ps);

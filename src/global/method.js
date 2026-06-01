@@ -295,7 +295,7 @@ const method = {
             }, 500);
 
             file["data"] = data;
-            Store.flowdata = data;
+            Store.sheetData = data;
             editor.webWorkerFlowDataCache(data);//worker存数据
 
             luckysheetcreatesheet(data[0].length, data.length, data, null, false);
@@ -328,8 +328,8 @@ const method = {
             sheetfile.status = 0;
             sheetfile.load = 0;
 
-            Store.flowdata = [];
-            editor.webWorkerFlowDataCache(Store.flowdata);//worker存数据
+            Store.sheetData = [];
+            editor.webWorkerFlowDataCache(Store.sheetData);//worker存数据
 
             document.querySelector("#"+ Store.container +" .luckysheet-datavisual-selection-set")?.remove();
 

@@ -62,7 +62,7 @@ export default function bottomButtons() {
             return;
         }
 
-        luckysheetextendtable("row", Store.flowdata.length - 1, value);
+        luckysheetextendtable("row", Store.sheetData.length - 1, value);
     });
 
     const _returnTop = document.getElementById("luckysheet-bottom-return-top");

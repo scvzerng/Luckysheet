@@ -109,7 +109,7 @@ const clipboardCopyModule = {
           if (!colIndexArr.includes(copyC)) {
             colIndexArr.push(copyC);
           }
-          let cell = Store.flowdata[copyR][copyC];
+          let cell = Store.sheetData[copyR][copyC];
           if (getObjType(cell) == "object" && "mc" in cell && cell.mc.rs != null) {
             HasMC = true;
           }
@@ -142,7 +142,7 @@ const clipboardCopyModule = {
       borderInfoCompute = getBorderInfoCompute();
     }
     let cpdata = "",
-      d = editor.deepCopyFlowData(Store.flowdata);
+      d = editor.deepCopyFlowData(Store.sheetData);
     let colgroup = "";
 
     // rowIndexArr = rowIndexArr.sort();

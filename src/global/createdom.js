@@ -36,19 +36,19 @@ export default function luckysheetcreatedom(colwidth, rowheight, data, menu, tit
     gh = replaceHtml(gh, { "menu": menuToolBar() });//设置需要显示的菜单
 
     // if (data === null) {
-    //     Store.flowdata = datagridgrowth(data, rowheight, colwidth);
+    //     Store.sheetData = datagridgrowth(data, rowheight, colwidth);
     // }
     // else if (data.length < rowheight && data[0].length < colwidth) {
-    //     Store.flowdata = datagridgrowth(data, rowheight - data.length, colwidth - data[0].length);
+    //     Store.sheetData = datagridgrowth(data, rowheight - data.length, colwidth - data[0].length);
     // }
     // else if (data.length < rowheight) {
-    //     Store.flowdata = datagridgrowth(data, rowheight - data.length, 0);
+    //     Store.sheetData = datagridgrowth(data, rowheight - data.length, 0);
     // }
     // else if (data[0].length < colwidth) {
-    //     Store.flowdata = datagridgrowth(data, 0, colwidth - data[0].length);
+    //     Store.sheetData = datagridgrowth(data, 0, colwidth - data[0].length);
     // }
     // else {
-    //     Store.flowdata = data;
+    //     Store.sheetData = data;
     // }
     
     let flowHTML = flow;
@@ -117,7 +117,7 @@ export default function luckysheetcreatedom(colwidth, rowheight, data, menu, tit
     const _leftTop = document.getElementById("luckysheet-corner-cell"); if (_leftTop) Object.assign(_leftTop.style, {width:Store.rowHeaderWidth-1.5+"px", height:Store.columnHeaderHeight-1.5+"px"});
 
     // //批注
-    // luckysheetPostil.buildAllPs(Store.flowdata);
+    // luckysheetPostil.buildAllPs(Store.sheetData);
 
     const _detailInput = document.getElementById("luckysheet_info_detail_input"); if (_detailInput) _detailInput.value = luckysheetConfigsetting.title;
 }

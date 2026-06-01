@@ -64,7 +64,7 @@ export default function documentMouseup() {
                 col_pre = col_location[0],
                 col_index = col_location[2];
 
-            let margeset = menuButton.mergeborer(Store.flowdata, row_index, col_index);
+            let margeset = menuButton.mergeborer(Store.sheetData, row_index, col_index);
             if (margeset) {
                 row = margeset.row[1];
                 row_pre = margeset.row[0];
@@ -75,7 +75,7 @@ export default function documentMouseup() {
                 col_index = margeset.column[2];
             }
 
-            // if(Store.flowdata[row_index] && Store.flowdata[row_index][col_index]){
+            // if(Store.sheetData[row_index] && Store.sheetData[row_index][col_index]){
             let sheetFile = sheetmanage.getSheetByIndex();
 
             let moveState = {
@@ -99,7 +99,7 @@ export default function documentMouseup() {
 
             method.createHookFunction(
                 "sheetMouseup",
-                Store.flowdata[row_index][col_index],
+                Store.sheetData[row_index][col_index],
                 {
                     r: row_index,
                     c: col_index,
@@ -237,7 +237,7 @@ export default function documentMouseup() {
             let ps_r = ps_id.split("luckysheet-postil-show_")[1].split("_")[0];
             let ps_c = ps_id.split("luckysheet-postil-show_")[1].split("_")[1];
 
-            let d = editor.deepCopyFlowData(Store.flowdata);
+            let d = editor.deepCopyFlowData(Store.sheetData);
             let rc = [];
 
             d[ps_r][ps_c].ps.left = luckysheetPostil.currentObj.offsetLeft;
@@ -280,7 +280,7 @@ export default function documentMouseup() {
             let ps_r = ps_id2.split("luckysheet-postil-show_")[1].split("_")[0];
             let ps_c = ps_id2.split("luckysheet-postil-show_")[1].split("_")[1];
 
-            let d = editor.deepCopyFlowData(Store.flowdata);
+            let d = editor.deepCopyFlowData(Store.sheetData);
             let rc = [];
 
             d[ps_r][ps_c].ps.left = luckysheetPostil.currentObj.offsetLeft;
@@ -545,7 +545,7 @@ export default function documentMouseup() {
                 return;
             }
 
-            let d = editor.deepCopyFlowData(Store.flowdata);
+            let d = editor.deepCopyFlowData(Store.sheetData);
             let last = getLastSelection();
 
             let data = getdatabyselection(last);
@@ -920,7 +920,7 @@ export default function documentMouseup() {
 
                 for (let r = last["row"][0]; r <= last["row"][1]; r++) {
                     for (let c = last["column"][0]; c <= last["column"][1]; c++) {
-                        let cell = Store.flowdata[r][c];
+                        let cell = Store.sheetData[r][c];
 
                         if (cell != null && cell.mc != null) {
                             hasMc = true;
@@ -941,7 +941,7 @@ export default function documentMouseup() {
 
                 for (let r = row_s; r <= row_e; r++) {
                     for (let c = col_s; c <= col_e; c++) {
-                        let cell = Store.flowdata[r][c];
+                        let cell = Store.sheetData[r][c];
 
                         if (cell != null && cell.mc != null) {
                             hasMc = true;

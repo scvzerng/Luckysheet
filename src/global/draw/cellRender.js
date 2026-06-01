@@ -34,10 +34,10 @@ let nullCellRender = function(
 ) {
     let checksAF = alternateformat.checksAF(r, c, af_compute);
     let checksCF = conditionformat.checksCF(r, c, cf_compute);
-    let borderfix = menuButton.borderfix(Store.flowdata, r, c);
+    let borderfix = menuButton.borderfix(Store.sheetData, r, c);
     luckysheetTableContent.fillStyle = getCellBgColor(r, c, checksAF, checksCF);
-    if (Store.flowdata[r][c] != null && Store.flowdata[r][c].tc != null) {
-        luckysheetTableContent.fillStyle = Store.flowdata[r][c].tc;
+    if (Store.sheetData[r][c] != null && Store.sheetData[r][c].tc != null) {
+        luckysheetTableContent.fillStyle = Store.sheetData[r][c].tc;
     }
     let cellsize = [
         start_c + offsetLeft + borderfix[0] + 1,
@@ -48,7 +48,7 @@ let nullCellRender = function(
     if (
         !method.createHookFunction(
             "cellRenderBefore",
-            Store.flowdata[r][c],
+            Store.sheetData[r][c],
             {
                 r: r,
                 c: c,
@@ -75,7 +75,7 @@ let nullCellRender = function(
         luckysheetTableContent.textBaseline = "bottom";
         luckysheetTableContent.fillText(value == null ? "" : value, horizonAlignPos, verticalAlignPos);
     }
-    if (Store.flowdata[r][c] != null && Store.flowdata[r][c].ps != null) {
+    if (Store.sheetData[r][c] != null && Store.sheetData[r][c].ps != null) {
         let ps_w = 8 * Store.zoomRatio,
             ps_h = 8 * Store.zoomRatio;
         luckysheetTableContent.beginPath();
@@ -112,7 +112,7 @@ let nullCellRender = function(
     }
     method.createHookFunction(
         "cellRenderAfter",
-        Store.flowdata[r][c],
+        Store.sheetData[r][c],
         {
             r: r,
             c: c,
@@ -147,17 +147,17 @@ let cellRender = function(
     bodrder05,
     isMerge,
 ) {
-    let cell = Store.flowdata[r][c];
+    let cell = Store.sheetData[r][c];
     let cellWidth = end_c - start_c - 2;
     let cellHeight = end_r - start_r - 2;
     let space_width = 2,
         space_height = 2;
-    let horizonAlign = menuButton.checkstatus(Store.flowdata, r, c, "ht");
-    let verticalAlign = menuButton.checkstatus(Store.flowdata, r, c, "vt");
+    let horizonAlign = menuButton.checkstatus(Store.sheetData, r, c, "ht");
+    let verticalAlign = menuButton.checkstatus(Store.sheetData, r, c, "vt");
     let checksAF = alternateformat.checksAF(r, c, af_compute);
     let checksCF = conditionformat.checksCF(r, c, cf_compute);
     luckysheetTableContent.fillStyle = getCellBgColor(r, c, checksAF, checksCF);
-    let borderfix = menuButton.borderfix(Store.flowdata, r, c);
+    let borderfix = menuButton.borderfix(Store.sheetData, r, c);
     let cellsize = [
         start_c + offsetLeft + borderfix[0] + 1,
         start_r + offsetTop + borderfix[1] + 1,
@@ -167,7 +167,7 @@ let cellRender = function(
     if (
         !method.createHookFunction(
             "cellRenderBefore",
-            Store.flowdata[r][c],
+            Store.sheetData[r][c],
             {
                 r: r,
                 c: c,
@@ -377,7 +377,7 @@ let cellRender = function(
     }
     method.createHookFunction(
         "cellRenderAfter",
-        Store.flowdata[r][c],
+        Store.sheetData[r][c],
         {
             r: r,
             c: c,

@@ -29,7 +29,7 @@ const extensionFunctions = {
       // const endColumn = column[1]
       var cell_fp = window.luckysheetCurrentFunction;
       setTimeout(() => {
-        var d = editor.deepCopyFlowData(Store.flowdata);
+        var d = editor.deepCopyFlowData(Store.sheetData);
         const target = excelToLuckyArray(companyTargetData);
         const rowheight = startRow + target.length;
         const colwidth = startColumn + target[0].length;
@@ -103,7 +103,7 @@ const extensionFunctions = {
       // const startColumn = column[0]
       // const endColumn = column[1]
       var cell_fp = window.luckysheetCurrentFunction;
-      var d = editor.deepCopyFlowData(Store.flowdata);
+      var d = editor.deepCopyFlowData(Store.sheetData);
       getAirTable(url, sort_index, sort_order, data => {
         const rowheight = startRow + data.length;
         const colwidth = startColumn + data[0].length;
@@ -198,7 +198,7 @@ const extensionFunctions = {
         }
       }
       setTimeout(() => {
-        var d = editor.deepCopyFlowData(Store.flowdata);
+        var d = editor.deepCopyFlowData(Store.sheetData);
         const rowheight = startRow + resultTable.length;
         const colwidth = startColumn + resultTable[0].length;
         if (rowheight >= d.length && colwidth >= d[0].length) {
@@ -286,7 +286,7 @@ const extensionFunctions = {
         return remoteFunction;
       }
       luckysheetConfigsetting.remoteFunction(remoteFunction, data => {
-        const flowData = editor.deepCopyFlowData(Store.flowdata);
+        const flowData = editor.deepCopyFlowData(Store.sheetData);
         formula.execFunctionGroup(cellRow, cellColumn, data);
         flowData[cellRow][cellColumn] = {
           "v": data,

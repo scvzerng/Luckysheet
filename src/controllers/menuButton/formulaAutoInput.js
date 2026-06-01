@@ -20,7 +20,7 @@ const formulaAutoInputModule = {
     if (isnull == null) {
       isnull = false;
     }
-    luckysheetupdateCell(row_index, col_index, Store.flowdata, true);
+    luckysheetupdateCell(row_index, col_index, Store.sheetData, true);
     if (isnull) {
       let formulaTxt = '<span dir="auto" class="luckysheet-formula-text-color">=</span><span dir="auto" class="luckysheet-formula-text-color">' + formula.toUpperCase() + '</span><span dir="auto" class="luckysheet-formula-text-color">(</span><span dir="auto" class="luckysheet-formula-text-color">)</span>';
       richTextEditor.setHtml(formulaTxt);
@@ -257,7 +257,7 @@ const formulaAutoInputModule = {
   },
   autoSelectionFormula: function (formula) {
     let _this = this;
-    let d = editor.deepCopyFlowData(Store.flowdata);
+    let d = editor.deepCopyFlowData(Store.sheetData);
     let nullfindnum = 40;
     let isfalse = true;
     let select_save_len = Store.luckysheet_select_save.length;

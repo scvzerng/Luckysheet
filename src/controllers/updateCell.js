@@ -298,7 +298,7 @@ export function getColumnAndRowSize(row_index, col_index, d){
         col_pre = col_index - 1 == -1 ? 0 : Store.visibledatacolumn[col_index - 1];
 
     if(d == null){
-        d = Store.flowdata;
+        d = Store.sheetData;
     }
 
     let margeset = menuButton.mergeborer(d, row_index, col_index);

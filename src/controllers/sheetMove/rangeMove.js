@@ -29,8 +29,8 @@ function luckysheetMoveHighlightRange(postion, index, type, isScroll) {
       endC = last["column"][1];
     let rf = last["row_focus"],
       cf = last["column_focus"];
-    let datarowlen = Store.flowdata.length,
-      datacolumnlen = Store.flowdata[0].length;
+    let datarowlen = Store.sheetData.length,
+      datacolumnlen = Store.sheetData[0].length;
     if (postion == "down") {
       //选区上下变动
       if (rowHasMerge(rf, curC, endC)) {
@@ -167,8 +167,8 @@ function luckysheetMoveHighlightRange(postion, index, type, isScroll) {
       endC = last["column"][1];
     let rf = last["row_focus"],
       cf = last["column_focus"];
-    let datarowlen = Store.flowdata.length,
-      datacolumnlen = Store.flowdata[0].length;
+    let datarowlen = Store.sheetData.length,
+      datacolumnlen = Store.sheetData[0].length;
     if (postion == "down") {
       //选区上下变动
       if (rowHasMerge(rf, curC, endC)) {
@@ -372,7 +372,7 @@ function luckysheetMoveHighlightRange2(postion, type, isScroll) {
     let c1 = last["column"][0],
       c2 = last["column"][1];
     if (postion == "down") {
-      if (r2 == Store.flowdata.length - 1) {
+      if (r2 == Store.sheetData.length - 1) {
         return;
       }
       if (rowHasMerge(rf, c1, c2)) {
@@ -383,13 +383,13 @@ function luckysheetMoveHighlightRange2(postion, type, isScroll) {
         if (rf_str > r1 && rf_end == r2) {
           r1 = getNextIndex("down", cf, r1, r2);
         } else {
-          r2 = getNextIndex("down", cf, r2, Store.flowdata.length - 1);
+          r2 = getNextIndex("down", cf, r2, Store.sheetData.length - 1);
         }
       } else {
         if (rf > r1 && rf == r2) {
           r1 = getNextIndex("down", cf, r1, r2);
         } else {
-          r2 = getNextIndex("down", cf, r2, Store.flowdata.length - 1);
+          r2 = getNextIndex("down", cf, r2, Store.sheetData.length - 1);
         }
       }
     } else if (postion == "up") {
@@ -414,7 +414,7 @@ function luckysheetMoveHighlightRange2(postion, type, isScroll) {
         }
       }
     } else if (postion == "right") {
-      if (c2 == Store.flowdata[0].length - 1) {
+      if (c2 == Store.sheetData[0].length - 1) {
         return;
       }
       if (colHasMerge(cf, r1, r2)) {
@@ -425,13 +425,13 @@ function luckysheetMoveHighlightRange2(postion, type, isScroll) {
         if (cf_str > c1 && cf_end == c2) {
           c1 = getNextIndex("right", rf, c1, c2);
         } else {
-          c2 = getNextIndex("right", rf, c2, Store.flowdata[0].length - 1);
+          c2 = getNextIndex("right", rf, c2, Store.sheetData[0].length - 1);
         }
       } else {
         if (cf > c1 && cf == c2) {
           c1 = getNextIndex("right", rf, c1, c2);
         } else {
-          c2 = getNextIndex("right", rf, c2, Store.flowdata[0].length - 1);
+          c2 = getNextIndex("right", rf, c2, Store.sheetData[0].length - 1);
         }
       }
     } else if (postion == "left") {
@@ -483,7 +483,7 @@ function luckysheetMoveHighlightRange2(postion, type, isScroll) {
     let c1 = last["column"][0],
       c2 = last["column"][1];
     if (postion == "down") {
-      if (r2 == Store.flowdata.length - 1) {
+      if (r2 == Store.sheetData.length - 1) {
         return;
       }
       if (rowHasMerge(rf, c1, c2)) {
@@ -494,13 +494,13 @@ function luckysheetMoveHighlightRange2(postion, type, isScroll) {
         if (rf_str > r1 && rf_end == r2) {
           r1 = getNextIndex("down", cf, r1, r2);
         } else {
-          r2 = getNextIndex("down", cf, r2, Store.flowdata.length - 1);
+          r2 = getNextIndex("down", cf, r2, Store.sheetData.length - 1);
         }
       } else {
         if (rf > r1 && rf == r2) {
           r1 = getNextIndex("down", cf, r1, r2);
         } else {
-          r2 = getNextIndex("down", cf, r2, Store.flowdata.length - 1);
+          r2 = getNextIndex("down", cf, r2, Store.sheetData.length - 1);
         }
       }
     } else if (postion == "up") {
@@ -525,7 +525,7 @@ function luckysheetMoveHighlightRange2(postion, type, isScroll) {
         }
       }
     } else if (postion == "right") {
-      if (c2 == Store.flowdata[0].length - 1) {
+      if (c2 == Store.sheetData[0].length - 1) {
         return;
       }
       if (colHasMerge(cf, r1, r2)) {
@@ -536,13 +536,13 @@ function luckysheetMoveHighlightRange2(postion, type, isScroll) {
         if (cf_str > c1 && cf_end == c2) {
           c1 = getNextIndex("right", rf, c1, c2);
         } else {
-          c2 = getNextIndex("right", rf, c2, Store.flowdata[0].length - 1);
+          c2 = getNextIndex("right", rf, c2, Store.sheetData[0].length - 1);
         }
       } else {
         if (cf > c1 && cf == c2) {
           c1 = getNextIndex("right", rf, c1, c2);
         } else {
-          c2 = getNextIndex("right", rf, c2, Store.flowdata[0].length - 1);
+          c2 = getNextIndex("right", rf, c2, Store.sheetData[0].length - 1);
         }
       }
     } else if (postion == "left") {

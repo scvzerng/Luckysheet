@@ -215,7 +215,7 @@ const cellRange = {
                 let index = getSheetIndex(i);
                 sheettxt = luckysheetfile[index].name;
                 sheetIndex = luckysheetfile[index].index;
-                sheetdata = Store.flowdata;
+                sheetdata = Store.sheetData;
                 rangetxt = txt;
             }
 

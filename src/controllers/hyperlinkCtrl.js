@@ -170,7 +170,7 @@ const hyperlinkCtrl = {
 
             currentHyperlink[rowIndex + "_" + colIndex] = item;
 
-            let d = editor.deepCopyFlowData(Store.flowdata);
+            let d = editor.deepCopyFlowData(Store.sheetData);
             let cell = d[rowIndex][colIndex];
 
             if(cell == null){
@@ -302,7 +302,7 @@ const hyperlinkCtrl = {
         let row_index = rowLocation(y)[2];
         let col_index = colLocation(x)[2];
 
-        let margeset = menuButton.mergeborer(Store.flowdata, row_index, col_index);
+        let margeset = menuButton.mergeborer(Store.sheetData, row_index, col_index);
         if(margeset){
             row_index = margeset.row[2];
             col_index = margeset.column[2];
@@ -350,7 +350,7 @@ const hyperlinkCtrl = {
             redo["sheetIndex"] = sheetIndex;
             redo["historyHyperlink"] = historyHyperlink;
             redo["currentHyperlink"] = currentHyperlink;
-            redo["data"] = Store.flowdata; 
+            redo["data"] = Store.sheetData; 
             redo["curData"] = d;
             redo["range"] = range; 
             Store.jfredo.push(redo); 
@@ -359,9 +359,9 @@ const hyperlinkCtrl = {
         _this.hyperlink = currentHyperlink;
         getFileBySheetIndex(sheetIndex).hyperlink = currentHyperlink;
 
-        Store.flowdata = d;
-        editor.webWorkerFlowDataCache(Store.flowdata);//worker存数据
-        getFileBySheetIndex(sheetIndex).data = Store.flowdata;
+        Store.sheetData = d;
+        editor.webWorkerFlowDataCache(Store.sheetData);//worker存数据
+        getFileBySheetIndex(sheetIndex).data = Store.sheetData;
 
         setTimeout(function () {
             luckysheetrefreshgrid();

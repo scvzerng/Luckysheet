@@ -90,7 +90,7 @@ function luckysheet_offset_check() {
     var cellRow1 = cellRow0 + height - 1;
     var cellCol1 = cellCol0 + width - 1;
 
-    if (cellRow0 < 0 || cellRow1 >= Store.flowdata.length || cellCol0 < 0 || cellCol1 >= Store.flowdata[0].length) {
+    if (cellRow0 < 0 || cellRow1 >= Store.sheetData.length || cellCol0 < 0 || cellCol1 >= Store.sheetData[0].length) {
         return formula.error.r;
     }
 

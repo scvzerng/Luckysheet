@@ -18,7 +18,7 @@ export function initAlign(_this) {
         if (itemvalue == null) {
           itemvalue = "left";
         }
-        let d = editor.deepCopyFlowData(Store.flowdata);
+        let d = editor.deepCopyFlowData(Store.sheetData);
         _this.updateFormat(d, "ht", itemvalue);
       });
       let alignMenuEl = document.getElementById("luckysheet-icon-align-menu");
@@ -70,7 +70,7 @@ export function initAlign(_this) {
               let icon = alignEl?.querySelector(".luckysheet-icon-img-container");
 
               if (icon) icon.className = "luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-align-" + itemvalue + iconfontObject[itemvalue];
-              let d = editor.deepCopyFlowData(Store.flowdata);
+              let d = editor.deepCopyFlowData(Store.sheetData);
               _this.updateFormat(d, "ht", itemvalue);
             });
           });

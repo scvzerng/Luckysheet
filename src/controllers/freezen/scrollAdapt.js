@@ -167,7 +167,7 @@ const scrollAdaptModule = {
             row_pre_f = rf - 1 == -1 ? 0 : Store.visibledatarow[rf - 1];
           let col_f = Store.visibledatacolumn[cf],
             col_pre_f = cf - 1 == -1 ? 0 : Store.visibledatacolumn[cf - 1];
-          let margeset = menuButton.mergeborer(Store.flowdata, rf, cf);
+          let margeset = menuButton.mergeborer(Store.sheetData, rf, cf);
           if (margeset) {
             row_f = margeset.row[1];
             row_pre_f = margeset.row[0];
@@ -288,7 +288,7 @@ const scrollAdaptModule = {
           let cf = obj.column_focus == null ? obj.column[0] : obj.column_focus;
           let row_f = Store.visibledatarow[rf],
             row_pre_f = rf - 1 == -1 ? 0 : Store.visibledatarow[rf - 1];
-          let margeset = menuButton.mergeborer(Store.flowdata, rf, cf);
+          let margeset = menuButton.mergeborer(Store.sheetData, rf, cf);
           if (margeset) {
             row_f = margeset.row[1];
             row_pre_f = margeset.row[0];
@@ -372,7 +372,7 @@ const scrollAdaptModule = {
           let cf = obj.column_focus == null ? c1 : obj.column_focus;
           let col_f = Store.visibledatacolumn[cf],
             col_pre_f = cf - 1 == -1 ? 0 : Store.visibledatacolumn[cf - 1];
-          let margeset = menuButton.mergeborer(Store.flowdata, rf, cf);
+          let margeset = menuButton.mergeborer(Store.sheetData, rf, cf);
           if (margeset) {
             col_f = margeset.column[1];
             col_pre_f = margeset.column[0];
@@ -480,12 +480,12 @@ const scrollAdaptModule = {
         let id = e.id;
         let r = id.split("luckysheet-postil-show_")[1].split("_")[0];
         let c = id.split("luckysheet-postil-show_")[1].split("_")[1];
-        let postil = Store.flowdata[r][c].ps;
+        let postil = Store.sheetData[r][c].ps;
         let row = Store.visibledatarow[r],
           row_pre = r - 1 == -1 ? 0 : Store.visibledatarow[r - 1];
         let col = Store.visibledatacolumn[c],
           col_pre = c - 1 == -1 ? 0 : Store.visibledatacolumn[c - 1];
-        let margeset = menuButton.mergeborer(Store.flowdata, r, c);
+        let margeset = menuButton.mergeborer(Store.sheetData, r, c);
         if (margeset) {
           row = margeset.row[1];
           row_pre = margeset.row[0];
@@ -590,12 +590,12 @@ const scrollAdaptModule = {
         let id = e.id;
         let r = id.split("luckysheet-postil-show_")[1].split("_")[0];
         let c = id.split("luckysheet-postil-show_")[1].split("_")[1];
-        let postil = Store.flowdata[r][c].ps;
+        let postil = Store.sheetData[r][c].ps;
         let row = Store.visibledatarow[r],
           row_pre = r - 1 == -1 ? 0 : Store.visibledatarow[r - 1];
         let col = Store.visibledatacolumn[c],
           col_pre = c - 1 == -1 ? 0 : Store.visibledatacolumn[c - 1];
-        let margeset = menuButton.mergeborer(Store.flowdata, r, c);
+        let margeset = menuButton.mergeborer(Store.sheetData, r, c);
         if (margeset) {
           row = margeset.row[1];
           row_pre = margeset.row[0];
@@ -650,12 +650,12 @@ const scrollAdaptModule = {
         let id = e.id;
         let r = id.split("luckysheet-postil-show_")[1].split("_")[0];
         let c = id.split("luckysheet-postil-show_")[1].split("_")[1];
-        let postil = Store.flowdata[r][c].ps;
+        let postil = Store.sheetData[r][c].ps;
         let row = Store.visibledatarow[r],
           row_pre = r - 1 == -1 ? 0 : Store.visibledatarow[r - 1];
         let col = Store.visibledatacolumn[c],
           col_pre = c - 1 == -1 ? 0 : Store.visibledatacolumn[c - 1];
-        let margeset = menuButton.mergeborer(Store.flowdata, r, c);
+        let margeset = menuButton.mergeborer(Store.sheetData, r, c);
         if (margeset) {
           row = margeset.row[1];
           row_pre = margeset.row[0];
@@ -708,7 +708,7 @@ const scrollAdaptModule = {
         let id = e.id;
         let r = id.split("luckysheet-postil-show_")[1].split("_")[0];
         let c = id.split("luckysheet-postil-show_")[1].split("_")[1];
-        let postil = Store.flowdata[r][c].ps;
+        let postil = Store.sheetData[r][c].ps;
         luckysheetPostil.buildPs(r, c, postil);
       });
     }

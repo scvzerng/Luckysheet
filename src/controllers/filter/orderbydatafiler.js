@@ -8,7 +8,7 @@ import {  jfrefreshgrid } from '../../global/refresh';
 import {  orderbydata } from '../../global/sort';
 
 function orderbydatafiler(str, stc, edr, edc, index, asc) {
-    let d = editor.deepCopyFlowData(Store.flowdata);
+    let d = editor.deepCopyFlowData(Store.sheetData);
 
     str = str + 1;
 

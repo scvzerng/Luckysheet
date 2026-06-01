@@ -179,7 +179,7 @@ const luckysheetLocationCell = {
                 let range;
                 if(Store.luckysheet_select_save.length == 0 || (Store.luckysheet_select_save.length == 1 && Store.luckysheet_select_save[0].row[0] == Store.luckysheet_select_save[0].row[1] && Store.luckysheet_select_save[0].column[0] == Store.luckysheet_select_save[0].column[1])){
                     //单个单元格
-                    range = [{"row": [0, Store.flowdata.length - 1], "column": [0, Store.flowdata[0].length - 1]}];
+                    range = [{"row": [0, Store.sheetData.length - 1], "column": [0, Store.sheetData[0].length - 1]}];
                 }
                 else{
                     range = structuredClone(Store.luckysheet_select_save);
@@ -221,7 +221,7 @@ const luckysheetLocationCell = {
                 let range;
                 if(Store.luckysheet_select_save.length == 0 || (Store.luckysheet_select_save.length == 1 && Store.luckysheet_select_save[0].row[0] == Store.luckysheet_select_save[0].row[1] && Store.luckysheet_select_save[0].column[0] == Store.luckysheet_select_save[0].column[1])){
                     //单个单元格
-                    range = [{"row": [0, Store.flowdata.length - 1], "column": [0, Store.flowdata[0].length - 1]}];
+                    range = [{"row": [0, Store.sheetData.length - 1], "column": [0, Store.sheetData[0].length - 1]}];
                 }
                 else{
                     range = structuredClone(Store.luckysheet_select_save);
@@ -259,10 +259,10 @@ const luckysheetLocationCell = {
 
                 for(let r = st_r; r <= ed_r; r++){
                     for(let c = st_c; c <= ed_c; c++){
-                        let cell = Store.flowdata[r][c];
+                        let cell = Store.sheetData[r][c];
 
                         if(cell != null && cell.mc != null){
-                            cell = Store.flowdata[cell.mc.r][cell.mc.c];
+                            cell = Store.sheetData[cell.mc.r][cell.mc.c];
                         }
 
                         if(type == 'locationFormula' && cell != null && !isRealNull(cell.v) && cell.f != null && (value == 'all' || (cell.ct != null && value.indexOf(cell.ct.t) > -1))){
@@ -431,7 +431,7 @@ const luckysheetLocationCell = {
 
         for(let r = minR; r <= maxR; r++){
             for(let c = minC; c <= maxC; c++){
-                let cell = Store.flowdata[r][c];
+                let cell = Store.sheetData[r][c];
                 
                 if((r + '_' + c) in cellSave){
                     if(cell != null && cell.mc != null){

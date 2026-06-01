@@ -191,7 +191,7 @@ export function hideRowOrColumn(type, startIndex, endIndex, options = {}) {
     if (order == curSheetOrder) {
         //config
         Store.config = cfg;
-        jfrefreshgrid_rhcw(Store.flowdata.length, Store.flowdata[0].length);
+        jfrefreshgrid_rhcw(Store.sheetData.length, Store.sheetData[0].length);
     }
 
     if (success && typeof success === 'function') {
@@ -239,7 +239,7 @@ export function showRowOrColumn(type, startIndex, endIndex, options = {}) {
     // 若操作sheet为当前sheet页，行高、列宽 刷新
     if (order === curSheetOrder) {
         Store.config = cfg;
-        jfrefreshgrid_rhcw(Store.flowdata.length, Store.flowdata[0].length);
+        jfrefreshgrid_rhcw(Store.sheetData.length, Store.sheetData[0].length);
     }
 
     if (success && typeof success === 'function') {

@@ -48,7 +48,7 @@ export function initRowHeaderEvents() {
         let isright = false;
         for (let s = 0; s < Store.luckysheet_select_save.length; s++) {
           let obj_s = Store.luckysheet_select_save[s];
-          if (obj_s["row"] != null && row_index >= obj_s["row"][0] && row_index <= obj_s["row"][1] && obj_s["column"][0] == 0 && obj_s["column"][1] == Store.flowdata[0].length - 1) {
+          if (obj_s["row"] != null && row_index >= obj_s["row"][0] && row_index <= obj_s["row"][1] && obj_s["column"][0] == 0 && obj_s["column"][1] == Store.sheetData[0].length - 1) {
             isright = true;
             break;
           }

@@ -26,7 +26,7 @@ export function getdatabyselection(range, sheetIndex) {
         cfg = file["config"];
     }
     else{
-        d = editor.deepCopyFlowData(Store.flowdata);
+        d = editor.deepCopyFlowData(Store.sheetData);
         cfg = Store.config;    
     }
 
@@ -112,8 +112,8 @@ export function getdatabyselectionNoCopy(range) {
         for (let c = range["column"][0]; c <= range["column"][1]; c++) {
             let value = "";
 
-            if (Store.flowdata[r] != null && Store.flowdata[r][c] != null) {
-                value = Store.flowdata[r][c];
+            if (Store.sheetData[r] != null && Store.sheetData[r][c] != null) {
+                value = Store.sheetData[r][c];
             }
 
             row.push(value);
@@ -132,7 +132,7 @@ export function getcellvalue(r, c, data, type) {
     }
 
     if (data == null) {
-        data = Store.flowdata;
+        data = Store.sheetData;
     }
 
     let d_value;
@@ -255,7 +255,7 @@ export function getOrigincell(r, c, i) {
     }
     let data;
     if (i == null) {
-        data = Store.flowdata;
+        data = Store.sheetData;
     }
     else{
         let sheet = sheetmanage.getSheetByIndex(i);
@@ -305,7 +305,7 @@ export function getInlineStringNoStyle(r, c){
 export function getInlineStringStyle(r, c, data){
     let ct = getcellvalue(r, c, data, "ct");
     if (data == null) {
-        data = Store.flowdata;
+        data = Store.sheetData;
     }
     let cell = data[r][c];
     if(isInlineStringCT(ct)){

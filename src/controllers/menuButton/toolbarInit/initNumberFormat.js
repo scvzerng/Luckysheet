@@ -5,21 +5,21 @@ import Store from '../../../store';
 export function initNumberFormat(_this) {
       //货币格式
       document.getElementById("luckysheet-icon-currency")?.addEventListener("click", function () {
-        let d = editor.deepCopyFlowData(Store.flowdata); //取数�?
+        let d = editor.deepCopyFlowData(Store.sheetData); //取数�?
   
         _this.updateFormat(d, "ct", "¥ #.00");
       });
   
       //百分�?
       document.getElementById("luckysheet-icon-percent")?.addEventListener("click", function () {
-        let d = editor.deepCopyFlowData(Store.flowdata); //取数�?
+        let d = editor.deepCopyFlowData(Store.sheetData); //取数�?
   
         _this.updateFormat(d, "ct", "0.00%");
       });
   
       //减少小数位数
       document.getElementById("luckysheet-icon-fmt-decimal-decrease")?.addEventListener("click", function () {
-        let d = editor.deepCopyFlowData(Store.flowdata); //取数�?
+        let d = editor.deepCopyFlowData(Store.sheetData); //取数�?
         let row_index = Store.luckysheet_select_save[0]["row_focus"],
           col_index = Store.luckysheet_select_save[0]["column_focus"];
         let foucsStatus = _this.checkstatus(d, row_index, col_index, "ct");
@@ -86,7 +86,7 @@ export function initNumberFormat(_this) {
   
       //增加小数位数
       document.getElementById("luckysheet-icon-fmt-decimal-increase")?.addEventListener("click", function () {
-        let d = editor.deepCopyFlowData(Store.flowdata); //取数�?
+        let d = editor.deepCopyFlowData(Store.sheetData); //取数�?
         let row_index = Store.luckysheet_select_save[0]["row_focus"],
           col_index = Store.luckysheet_select_save[0]["column_focus"];
         let foucsStatus = _this.checkstatus(d, row_index, col_index, "ct");

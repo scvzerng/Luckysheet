@@ -425,7 +425,7 @@ const localeCnFunctions = {
           type: "0"
         }).toString()
       }).then(function(response) { return response.text(); }).then(function (data) {
-        var d = editor.deepCopyFlowData(Store.flowdata);
+        var d = editor.deepCopyFlowData(Store.sheetData);
         var v = numFormat(data);
         if (v == null) {
           v = data;
@@ -517,7 +517,7 @@ const localeCnFunctions = {
           type: "1"
         }).toString()
       }).then(function(response) { return response.text(); }).then(function (data) {
-        var d = editor.deepCopyFlowData(Store.flowdata);
+        var d = editor.deepCopyFlowData(Store.sheetData);
         formula.execFunctionGroup(cell_r, cell_c, data);
         d[cell_r][cell_c] = {
           "v": data,
@@ -605,7 +605,7 @@ const localeCnFunctions = {
           type: "2"
         }).toString()
       }).then(function(response) { return response.text(); }).then(function (data) {
-        var d = editor.deepCopyFlowData(Store.flowdata);
+        var d = editor.deepCopyFlowData(Store.sheetData);
         formula.execFunctionGroup(cell_r, cell_c, data);
         d[cell_r][cell_c] = {
           "v": data,
@@ -693,7 +693,7 @@ const localeCnFunctions = {
           type: "3"
         }).toString()
       }).then(function(response) { return response.text(); }).then(function (data) {
-        var d = editor.deepCopyFlowData(Store.flowdata);
+        var d = editor.deepCopyFlowData(Store.sheetData);
         formula.execFunctionGroup(cell_r, cell_c, data);
         d[cell_r][cell_c] = {
           "v": data,
@@ -781,7 +781,7 @@ const localeCnFunctions = {
           type: "4"
         }).toString()
       }).then(function(response) { return response.text(); }).then(function (data) {
-        var d = editor.deepCopyFlowData(Store.flowdata);
+        var d = editor.deepCopyFlowData(Store.sheetData);
         formula.execFunctionGroup(cell_r, cell_c, data);
         d[cell_r][cell_c] = {
           "v": data,
@@ -869,7 +869,7 @@ const localeCnFunctions = {
           type: "5"
         }).toString()
       }).then(function(response) { return response.text(); }).then(function (data) {
-        var d = editor.deepCopyFlowData(Store.flowdata);
+        var d = editor.deepCopyFlowData(Store.sheetData);
         formula.execFunctionGroup(cell_r, cell_c, data);
         d[cell_r][cell_c] = {
           "v": data,

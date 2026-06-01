@@ -73,7 +73,7 @@ function jfrefreshgrid_adRC(data, cfg, ctrlType, ctrlValue, calc, filterObj, cf,
         Store.jfredo.push({
             "type": ctrlType,
             "sheetIndex": Store.currentSheetIndex,
-            "data": Store.flowdata,
+            "data": Store.sheetData,
             "curData": data,
             "config": structuredClone(Store.config),
             "curConfig": cfg,
@@ -151,9 +151,9 @@ function jfrefreshgrid_adRC(data, cfg, ctrlType, ctrlValue, calc, filterObj, cf,
     else if(ctrlType == "delRC"){
     }
 
-    //Store.flowdata
-    Store.flowdata = data;
-    editor.webWorkerFlowDataCache(Store.flowdata);//worker存数据
+    //Store.sheetData
+    Store.sheetData = data;
+    editor.webWorkerFlowDataCache(Store.sheetData);//worker存数据
     file.data = data;
 
     //config
@@ -314,7 +314,7 @@ function jfrefreshgrid_deleteCell(data, cfg, ctrl, calc, filterObj, cf, hyperlin
             "type": "deleteCell",
             "sheetIndex": Store.currentSheetIndex,
             "ctrl": ctrl,
-            "data": Store.flowdata,
+            "data": Store.sheetData,
             "curData": data,
             "config": structuredClone(Store.config),
             "curConfig": cfg,
@@ -333,9 +333,9 @@ function jfrefreshgrid_deleteCell(data, cfg, ctrl, calc, filterObj, cf, hyperlin
         });
     }
 
-    //Store.flowdata
-    Store.flowdata = data;
-    editor.webWorkerFlowDataCache(Store.flowdata);//worker存数据
+    //Store.sheetData
+    Store.sheetData = data;
+    editor.webWorkerFlowDataCache(Store.sheetData);//worker存数据
     file.data = data;
 
     //config
@@ -488,16 +488,16 @@ function jfrefreshgrid_pastcut(source, target, RowlChange){
         }
     }
 
-    //Store.flowdata
+    //Store.sheetData
     if(Store.currentSheetIndex == source["sheetIndex"]){
-        Store.flowdata = source["curData"];
+        Store.sheetData = source["curData"];
         getFileBySheetIndex(target["sheetIndex"])["data"] = target["curData"];
     }
     else if(Store.currentSheetIndex == target["sheetIndex"]){
-        Store.flowdata = target["curData"];
+        Store.sheetData = target["curData"];
         getFileBySheetIndex(source["sheetIndex"])["data"] = source["curData"];
     }
-    editor.webWorkerFlowDataCache(Store.flowdata);//worker存数据
+    editor.webWorkerFlowDataCache(Store.sheetData);//worker存数据
     syncDataToStore();
     
     //luckysheet_select_save

@@ -19,7 +19,7 @@ export function initTextColor(_this) {
         e.stopPropagation();
       });
       textColorEl?.addEventListener("click", function () {
-        let d = editor.deepCopyFlowData(Store.flowdata);
+        let d = editor.deepCopyFlowData(Store.sheetData);
         let color = this.getAttribute("color");
         if (color == null) {
           color = "#000000";
@@ -79,7 +79,7 @@ export function initTextColor(_this) {
               let hexColor = color != null ? color.toHexString() : "#000";
               const _elTextColorBar = document.querySelector("#luckysheet-icon-text-color .text-color-bar"); if (_elTextColorBar) _elTextColorBar.style.backgroundColor = hexColor;
               document.getElementById("luckysheet-icon-text-color")?.setAttribute("color", hexColor);
-              let d = editor.deepCopyFlowData(Store.flowdata);
+              let d = editor.deepCopyFlowData(Store.sheetData);
               _this.updateFormat(d, "fc", hexColor);
               menuButton.style.display = "none";
               luckysheetContainerFocus();
@@ -95,7 +95,7 @@ export function initTextColor(_this) {
             getPicker(input)?.set("#000000");
             const _elIndicator = document.querySelector("#luckysheet-icon-text-color .luckysheet-color-menu-button-indicator"); if (_elIndicator) _elIndicator.style.borderBottomColor = "#000000";
             const _elBar = document.querySelector("#luckysheet-icon-text-color .text-color-bar"); if (_elBar) _elBar.style.backgroundColor = "#000000";
-            let d = editor.deepCopyFlowData(Store.flowdata);
+            let d = editor.deepCopyFlowData(Store.sheetData);
             _this.updateFormat(d, "fc", null);
             });
           });

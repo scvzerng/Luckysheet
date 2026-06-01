@@ -388,7 +388,7 @@ const luckysheetMoreFormat = {
             const _elMoreFmt = document.getElementById("luckysheet-moreFormat-dialog"); if (_elMoreFmt) _elMoreFmt.style.display = 'none';
             hideModalMask();
 
-            let d = editor.deepCopyFlowData(Store.flowdata);
+            let d = editor.deepCopyFlowData(Store.sheetData);
 
             let _elValueEl = document.querySelector("#luckysheet-moreFormat-dialog .listbox .listItem.on .value");
             let value = _elValueEl ? _elValueEl.textContent : "";

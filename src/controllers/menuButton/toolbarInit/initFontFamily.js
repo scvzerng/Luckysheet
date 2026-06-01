@@ -46,7 +46,7 @@ export function initFontFamily(_this) {
               let itemname = item.getAttribute("itemname");
               _this.focus(menuButton, itemvalue);
               const _el = document.getElementById("luckysheet-icon-font-family")?.querySelector(".luckysheet-toolbar-menu-button-caption"); if (_el) _el.innerHTML = " " + itemname + " ";
-              let d = editor.deepCopyFlowData(Store.flowdata);
+              let d = editor.deepCopyFlowData(Store.sheetData);
               _this.updateFormat(d, "ff", itemvalue);
             }
           });

@@ -108,7 +108,7 @@ const informationFunctions = {
       var col_index = cellrange.column[0];
 
       // let sheetdata = null;
-      // sheetdata = Store.flowdata;
+      // sheetdata = Store.sheetData;
       // if (formula.execFunctionGroupData != null) {
       //     sheetdata = formula.execFunctionGroupData;
       // }

@@ -38,7 +38,7 @@ const formulaExec = {
             let _this = this;
 
             if (data == null) {
-                data = Store.flowdata;
+                data = Store.sheetData;
             }
 
             if (!window.luckysheet_compareWith) {
@@ -413,7 +413,7 @@ const formulaExec = {
             let _this = this;
 
             if (data == null) {
-                data = Store.flowdata;
+                data = Store.sheetData;
             }
 
             if (!window.luckysheet_compareWith) {
@@ -685,7 +685,7 @@ const formulaExec = {
                     const cell = setcellvalue(item.r, item.c, data, updateValue);
                 }
 
-                editor.webWorkerFlowDataCache(Store.flowdata); //worker存数据
+                editor.webWorkerFlowDataCache(Store.sheetData); //worker存数据
                 _this.groupValuesRefreshData = [];
             }
         },

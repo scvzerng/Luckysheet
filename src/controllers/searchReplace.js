@@ -245,8 +245,8 @@ const luckysheetSearchReplace = {
         ) {
             range = [
                 {
-                    row: [0, Store.flowdata.length - 1],
-                    column: [0, Store.flowdata[0].length - 1],
+                    row: [0, Store.sheetData.length - 1],
+                    column: [0, Store.sheetData[0].length - 1],
                 },
             ];
         } else {
@@ -390,8 +390,8 @@ const luckysheetSearchReplace = {
         // if(Store.luckysheet_select_save.length == 0 || (Store.luckysheet_select_save.length == 1 && Store.luckysheet_select_save[0].row[0] == Store.luckysheet_select_save[0].row[1] && Store.luckysheet_select_save[0].column[0] == Store.luckysheet_select_save[0].column[1])){
         range = [
             {
-                row: [0, Store.flowdata.length - 1],
-                column: [0, Store.flowdata[0].length - 1],
+                row: [0, Store.sheetData.length - 1],
+                column: [0, Store.sheetData[0].length - 1],
             },
         ];
         // }
@@ -414,7 +414,7 @@ const luckysheetSearchReplace = {
         let searchAllHtml = "";
 
         for (let i = 0; i < searchIndexArr.length; i++) {
-            let value_ShowEs = valueShowEs(searchIndexArr[i].r, searchIndexArr[i].c, Store.flowdata).toString();
+            let value_ShowEs = valueShowEs(searchIndexArr[i].r, searchIndexArr[i].c, Store.sheetData).toString();
 
             if (value_ShowEs.indexOf("</") > -1 && value_ShowEs.indexOf(">") > -1) {
                 searchAllHtml +=
@@ -521,10 +521,10 @@ const luckysheetSearchReplace = {
 
             for (let r = r1; r <= r2; r++) {
                 for (let c = c1; c <= c2; c++) {
-                    const cell = Store.flowdata[r][c];
+                    const cell = Store.sheetData[r][c];
 
                     if (cell != null) {
-                        let value = valueShowEs(r, c, Store.flowdata);
+                        let value = valueShowEs(r, c, Store.sheetData);
 
                         if (value == 0) {
                             value = value.toString();
@@ -586,8 +586,8 @@ const luckysheetSearchReplace = {
         ) {
             range = [
                 {
-                    row: [0, Store.flowdata.length - 1],
-                    column: [0, Store.flowdata[0].length - 1],
+                    row: [0, Store.sheetData.length - 1],
+                    column: [0, Store.sheetData[0].length - 1],
                 },
             ];
         } else {
@@ -657,7 +657,7 @@ const luckysheetSearchReplace = {
 
         let replaceText = document.querySelector("#luckysheet-search-replace #replaceInput input")?.value;
 
-        let d = editor.deepCopyFlowData(Store.flowdata);
+        let d = editor.deepCopyFlowData(Store.sheetData);
 
         let r, c;
         if (wordCheck) {
@@ -748,8 +748,8 @@ const luckysheetSearchReplace = {
         ) {
             range = [
                 {
-                    row: [0, Store.flowdata.length - 1],
-                    column: [0, Store.flowdata[0].length - 1],
+                    row: [0, Store.sheetData.length - 1],
+                    column: [0, Store.sheetData[0].length - 1],
                 },
             ];
         } else {
@@ -791,7 +791,7 @@ const luckysheetSearchReplace = {
 
         let replaceText = document.querySelector("#luckysheet-search-replace #replaceInput input")?.value;
 
-        let d = editor.deepCopyFlowData(Store.flowdata);
+        let d = editor.deepCopyFlowData(Store.sheetData);
         let replaceCount = 0;
         if (wordCheck) {
             for (let i = 0; i < searchIndexArr.length; i++) {

@@ -29,7 +29,7 @@ function runExecFunction(range, index, data){
 
 function jfrefreshgrid(data, range, allParam, isRunExecFunction = true, isRefreshCanvas = true) {
     if(data == null){
-        data = Store.flowdata;
+        data = Store.sheetData;
     }
 
     if(range == null){
@@ -80,7 +80,7 @@ function jfrefreshgrid(data, range, allParam, isRunExecFunction = true, isRefres
         
         Store.jfredo.push({ 
             "type": "datachange", 
-            "data": Store.flowdata, 
+            "data": Store.sheetData, 
             "curdata": data,
             "sheetIndex": Store.currentSheetIndex, 
             "config": structuredClone(Store.config), 
@@ -99,10 +99,10 @@ function jfrefreshgrid(data, range, allParam, isRunExecFunction = true, isRefres
         });
     }
 
-    //Store.flowdata
-    Store.flowdata = data;
-    editor.webWorkerFlowDataCache(Store.flowdata);//worker存数据
-    file.data = Store.flowdata;
+    //Store.sheetData
+    Store.sheetData = data;
+    editor.webWorkerFlowDataCache(Store.sheetData);//worker存数据
+    file.data = Store.sheetData;
 
     // 必须要处理，可能之前的config为空，则也需要清空
     if(cfg != null){
@@ -237,7 +237,7 @@ function jfrefreshgridall(colwidth, rowheight, data, cfg, range, ctrlType, ctrlV
     if (Store.clearjfundo) {
         Store.jfundo.length  = 0;
 
-        redo["data"] = Store.flowdata;
+        redo["data"] = Store.sheetData;
         redo["curdata"] = data;
         redo["sheetIndex"] = Store.currentSheetIndex;
         redo["cdformat"] = structuredClone(getCurrentFile()["luckysheet_conditionformat_save"]);
@@ -246,8 +246,8 @@ function jfrefreshgridall(colwidth, rowheight, data, cfg, range, ctrlType, ctrlV
         Store.jfredo.push(redo);
     }
 
-    //Store.flowdata
-    Store.flowdata = data;
+    //Store.sheetData
+    Store.sheetData = data;
     editor.webWorkerFlowDataCache(data);//worker存数据
     syncDataToStore();
 
@@ -300,7 +300,7 @@ function jfrefreshrange(data, range, cdformat) {
 
         Store.jfredo.push({ 
             "type": "rangechange", 
-            "data": Store.flowdata, 
+            "data": Store.sheetData, 
             "curdata": data,
             "range": range, 
             "sheetIndex": Store.currentSheetIndex,
@@ -310,8 +310,8 @@ function jfrefreshrange(data, range, cdformat) {
     }
 
     //flowdata
-    Store.flowdata = data;
-    editor.webWorkerFlowDataCache(Store.flowdata);//worker存数据
+    Store.sheetData = data;
+    editor.webWorkerFlowDataCache(Store.sheetData);//worker存数据
 
     syncDataToStore();
 

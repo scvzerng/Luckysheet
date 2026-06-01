@@ -12,7 +12,7 @@ function dynamicArrayCompute(dynamicArray) {
             let d_col = dynamicArray[i].c;
             let d_f = dynamicArray[i].f;
             
-            if(Store.flowdata[d_row][d_col] != null && Store.flowdata[d_row][d_col].f != null && Store.flowdata[d_row][d_col].f == d_f){
+            if(Store.sheetData[d_row][d_col] != null && Store.sheetData[d_row][d_col].f != null && Store.sheetData[d_row][d_col].f == d_f){
                 if((d_row + "_" + d_col) in dynamicArray_compute){
                     dynamicArray_compute = dynamicArraySpillEditCompute(dynamicArray_compute, d_row , d_col);
                 }
@@ -25,7 +25,7 @@ function dynamicArrayCompute(dynamicArray) {
                     d_collen = d_data[0].length;
                 }
 
-                if(dynamicArrayRangeIsAllNull({ "row": [d_row, d_row + d_rowlen - 1], "column": [d_col, d_col + d_collen - 1] }, Store.flowdata)){
+                if(dynamicArrayRangeIsAllNull({ "row": [d_row, d_row + d_rowlen - 1], "column": [d_col, d_col + d_collen - 1] }, Store.sheetData)){
                     for(let x = 0; x < d_rowlen; x++){
                         for(let y = 0; y < d_collen; y++){
                             let rowIndex = d_row + x;
@@ -93,7 +93,7 @@ function dynamicArrayHightShow(r, c) {
         let d_row = dynamicArray_compute[r + "_" + c].r;
         let d_col = dynamicArray_compute[r + "_" + c].c;
 
-        let d_f = Store.flowdata[d_row][d_col].f;
+        let d_f = Store.sheetData[d_row][d_col].f;
 
         let rlen, clen;
         for(let i = 0; i < dynamicArray.length; i++){

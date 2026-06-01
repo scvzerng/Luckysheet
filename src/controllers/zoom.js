@@ -11,7 +11,7 @@ import imageCtrl from './imageCtrl';
 let luckysheetZoomTimeout = null;
 
 export function zoomChange(ratio){
-    if(Store.flowdata==null || Store.flowdata.length==0){
+    if(Store.sheetData==null || Store.sheetData.length==0){
         return;
     }
 
@@ -57,7 +57,7 @@ export function zoomChange(ratio){
 }
 
 export function zoomRefreshView(){
-    jfrefreshgrid_rhcw(Store.flowdata.length, Store.flowdata[0].length);
+    jfrefreshgrid_rhcw(Store.sheetData.length, Store.sheetData[0].length);
     changeSheetContainerSize();
 }
 

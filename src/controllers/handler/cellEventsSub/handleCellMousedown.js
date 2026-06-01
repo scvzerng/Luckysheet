@@ -100,7 +100,7 @@ export function handleCellMousedown(event) {
   
               let row_index_ed = row_index,
                   col_index_ed = col_index;
-              let margeset = menuButton.mergeborer(Store.flowdata, row_index, col_index);
+              let margeset = menuButton.mergeborer(Store.sheetData, row_index, col_index);
               if (margeset) {
                   row = margeset.row[1];
                   row_pre = margeset.row[0];
@@ -117,7 +117,7 @@ export function handleCellMousedown(event) {
               if (
                   !method.createHookFunction(
                       "cellMousedownBefore",
-                      Store.flowdata[row_index][col_index],
+                      Store.sheetData[row_index][col_index],
                       {
                           r: row_index,
                           c: col_index,
@@ -168,15 +168,15 @@ export function handleCellMousedown(event) {
   
               //单元格数据下钻
               if (
-                  Store.flowdata[row_index] != null &&
-                  Store.flowdata[row_index][col_index] != null &&
-                  Store.flowdata[row_index][col_index].dd != null
+                  Store.sheetData[row_index] != null &&
+                  Store.sheetData[row_index][col_index] != null &&
+                  Store.sheetData[row_index][col_index].dd != null
               ) {
                   if (
                       luckysheetConfigsetting.fireMousedown != null &&
                       getObjType(luckysheetConfigsetting.fireMousedown) == "function"
                   ) {
-                      luckysheetConfigsetting.fireMousedown(Store.flowdata[row_index][col_index].dd);
+                      luckysheetConfigsetting.fireMousedown(Store.sheetData[row_index][col_index].dd);
                       return;
                   }
               }
@@ -765,7 +765,7 @@ export function handleCellMousedown(event) {
                       });
   
                       //单元格格式icon对应
-                      menuButton.menuButtonFocus(Store.flowdata, row_index, col_index);
+                      menuButton.menuButtonFocus(Store.sheetData, row_index, col_index);
                       //函数公式显示栏
                       formula.fucntionboxshow(row_index, col_index);
                   }
@@ -804,7 +804,7 @@ export function handleCellMousedown(event) {
   
               method.createHookFunction(
                   "cellMousedown",
-                  Store.flowdata[row_index][col_index],
+                  Store.sheetData[row_index][col_index],
                   {
                       r: row_index,
                       c: col_index,

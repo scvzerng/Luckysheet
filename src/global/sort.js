@@ -142,7 +142,7 @@ function sortSelection(isAsc) {
         isAsc = true;
     }
 
-    let d = editor.deepCopyFlowData(Store.flowdata);
+    let d = editor.deepCopyFlowData(Store.sheetData);
 
     let r1 = Store.luckysheet_select_save[0].row[0], 
         r2 = Store.luckysheet_select_save[0].row[1];
@@ -237,7 +237,7 @@ function sortColumnSeletion(colIndex, isAsc) {
     const _locale = locale();
     const locale_sort = _locale.sort;
 
-    let d = editor.deepCopyFlowData(Store.flowdata);
+    let d = editor.deepCopyFlowData(Store.sheetData);
 
     let r1 = 0, r2 = d.length - 1;
     let c1 = 0, c2 = d[0].length - 1;

@@ -21,7 +21,7 @@ function getCellTextInfo(cell , ctx, option){
         return textInfo;
     }
 
-    // let cell = Store.flowdata[r][c];
+    // let cell = Store.sheetData[r][c];
     let space_width = option.space_width, space_height = option.space_height; //宽高方向 间隙
 
     if(space_width==null){

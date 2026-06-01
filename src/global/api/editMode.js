@@ -48,7 +48,7 @@ export function enterEditMode(options = {}){
 
         let row_index = _focus.row, col_index = _focus.col;
 
-        luckysheetupdateCell(row_index, col_index, Store.flowdata);
+        luckysheetupdateCell(row_index, col_index, Store.sheetData);
     }
 
     if (options.success && typeof options.success === 'function') {

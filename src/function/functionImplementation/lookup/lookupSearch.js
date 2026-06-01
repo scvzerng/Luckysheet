@@ -90,7 +90,7 @@ const lookupSearch = {
       var cellCol1 = cellCol0 + width - 1;
 
       // let sheetdata = null;
-      // sheetdata = Store.flowdata;
+      // sheetdata = Store.sheetData;
       // if (formula.execFunctionGroupData != null) {
       //     sheetdata = formula.execFunctionGroupData;
       // }

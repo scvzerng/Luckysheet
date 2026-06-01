@@ -47,11 +47,11 @@ export function getFocusCell() {
 }
 
 export function getFlowData() {
-    return Store.flowdata;
+    return Store.sheetData;
 }
 
 export function getCell(row, col, data) {
-    data = data || Store.flowdata;
+    data = data || Store.sheetData;
     if (data == null) {
         return null;
     }
@@ -62,7 +62,7 @@ export function getCell(row, col, data) {
 }
 
 export function getDataSize(data) {
-    data = data || Store.flowdata;
+    data = data || Store.sheetData;
     if (data == null || data.length === 0) {
         return { rowCount: 0, colCount: 0 };
     }
@@ -96,7 +96,7 @@ export function syncConfigToStore() {
 export function syncDataToStore() {
     let file = getCurrentFile();
     if (file != null) {
-        file.data = Store.flowdata;
+        file.data = Store.sheetData;
     }
 }
 

@@ -60,7 +60,7 @@ export default function documentMousemove() {
                 col_pre = col_location[0],
                 col_index = col_location[2];
 
-            let margeset = menuButton.mergeborer(Store.flowdata, row_index, col_index);
+            let margeset = menuButton.mergeborer(Store.sheetData, row_index, col_index);
             if (margeset) {
                 row = margeset.row[1];
                 row_pre = margeset.row[0];
@@ -71,7 +71,7 @@ export default function documentMousemove() {
                 col_index = margeset.column[2];
             }
 
-            // if(Store.flowdata[row_index] && Store.flowdata[row_index][col_index]){
+            // if(Store.sheetData[row_index] && Store.sheetData[row_index][col_index]){
             let sheetFile = sheetmanage.getSheetByIndex();
 
             let moveState = {
@@ -93,10 +93,10 @@ export default function documentMousemove() {
 
             let luckysheetTableContent = canvasContext.getContext();
 
-            if (Store.flowdata && Store.flowdata[row_index]) {
+            if (Store.sheetData && Store.sheetData[row_index]) {
                 method.createHookFunction(
                     "sheetMousemove",
-                    Store.flowdata[row_index][col_index],
+                    Store.sheetData[row_index][col_index],
                     {
                         r: row_index,
                         c: col_index,

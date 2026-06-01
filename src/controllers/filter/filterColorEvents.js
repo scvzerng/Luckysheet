@@ -31,9 +31,9 @@ export function filterColorEvents() {
             let cf_compute = conditionformat.getComputeMap();
 
             for (let r = st_r + 1; r <= ed_r; r++) {
-                let cell = Store.flowdata[r][cindex];
+                let cell = Store.sheetData[r][cindex];
 
-                let bg = menuButton.checkstatus(Store.flowdata, r, cindex , "bg");
+                let bg = menuButton.checkstatus(Store.sheetData, r, cindex , "bg");
 
                 if(bg == null){
                     bg = "#ffffff";
@@ -57,7 +57,7 @@ export function filterColorEvents() {
                     bg = bg.substr(0, 1) + bg.substr(1, 1).repeat(2) + bg.substr(2, 1).repeat(2) + bg.substr(3, 1).repeat(2);
                 }
 
-                let fc = menuButton.checkstatus(Store.flowdata, r, cindex , "fc");
+                let fc = menuButton.checkstatus(Store.sheetData, r, cindex , "fc");
 
                 if(checksAF != null){
                     fc = checksAF[0];
@@ -230,13 +230,13 @@ export function filterColorEvents() {
                 continue;
             }
 
-            if(Store.flowdata[r] == null){
+            if(Store.sheetData[r] == null){
                 continue;
             }
 
-            let cell = Store.flowdata[r][cindex];
+            let cell = Store.sheetData[r][cindex];
 
-            let bg = menuButton.checkstatus(Store.flowdata, r, cindex , "bg");
+            let bg = menuButton.checkstatus(Store.sheetData, r, cindex , "bg");
 
             let checksAF = alternateformat.checksAF(r, cindex, af_compute);
             if(checksAF != null){
@@ -258,7 +258,7 @@ export function filterColorEvents() {
                 bg = bg.substr(0, 1) + bg.substr(1, 1).repeat(2) + bg.substr(2, 1).repeat(2) + bg.substr(3, 1).repeat(2);
             }
 
-            let fc = menuButton.checkstatus(Store.flowdata, r, cindex , "fc");
+            let fc = menuButton.checkstatus(Store.sheetData, r, cindex , "fc");
 
             if(checksAF != null){
                 fc = checksAF[0];

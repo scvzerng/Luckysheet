@@ -428,7 +428,7 @@ const formatUpdateModule = {
       Store.jfredo.push({
         type: "mergeChange",
         sheetIndex: Store.currentSheetIndex,
-        data: Store.flowdata,
+        data: Store.sheetData,
         curData: d,
         range: structuredClone(Store.luckysheet_select_save),
         config: structuredClone(Store.config),

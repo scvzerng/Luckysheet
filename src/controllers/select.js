@@ -70,7 +70,7 @@ function selectHightlightShow(isRestore = false) {
             let col_f = Store.visibledatacolumn[cf],
                 col_pre_f = cf - 1 == -1 ? 0 : Store.visibledatacolumn[cf - 1];
 
-            let margeset = menuButton.mergeborer(Store.flowdata, rf, cf);
+            let margeset = menuButton.mergeborer(Store.sheetData, rf, cf);
             if (margeset) {
                 row_f = margeset.row[1];
                 row_pre_f = margeset.row[0];

@@ -66,9 +66,9 @@ function luckysheetMoveEndCell(postion, type, isScroll, terminal, onlyvalue) {
       }
     }
   }
-  let datarowlen = Store.flowdata.length,
-    datacolumnlen = Store.flowdata[0].length;
-  let data = Store.flowdata,
+  let datarowlen = Store.sheetData.length,
+    datacolumnlen = Store.sheetData[0].length;
+  let data = Store.sheetData,
     moveP = "",
     moveV = 0;
   if (postion == "up") {
@@ -285,8 +285,8 @@ function luckysheetMoveHighlightCell(postion, index, type, isScroll) {
   if (!postion) {
     postion == "down";
   }
-  let datarowlen = Store.flowdata.length,
-    datacolumnlen = Store.flowdata[0].length;
+  let datarowlen = Store.sheetData.length,
+    datacolumnlen = Store.sheetData[0].length;
   let row, row_pre, row_index, row_index_ed;
   let col, col_pre, col_index, col_index_ed;
   if (type == "rangeOfSelect") {
@@ -305,7 +305,7 @@ function luckysheetMoveHighlightCell(postion, index, type, isScroll) {
     }
 
     //focus单元格 是否是合并单元格
-    let margeset = menuButton.mergeborer(Store.flowdata, curR, curC);
+    let margeset = menuButton.mergeborer(Store.sheetData, curR, curC);
     if (margeset) {
       let str_r = margeset.row[2];
       let end_r = margeset.row[3];
@@ -351,7 +351,7 @@ function luckysheetMoveHighlightCell(postion, index, type, isScroll) {
     }
 
     //移动的下一个单元格是否是合并的单元格
-    let margeset2 = menuButton.mergeborer(Store.flowdata, curR, curC);
+    let margeset2 = menuButton.mergeborer(Store.sheetData, curR, curC);
     if (margeset2) {
       row = margeset2.row[1];
       row_pre = margeset2.row[0];
@@ -401,7 +401,7 @@ function luckysheetMoveHighlightCell(postion, index, type, isScroll) {
     }
 
     //focus单元格 是否是合并单元格
-    let margeset = menuButton.mergeborer(Store.flowdata, curR, curC);
+    let margeset = menuButton.mergeborer(Store.sheetData, curR, curC);
     if (margeset) {
       let str_r = margeset.row[2];
       let end_r = margeset.row[3];
@@ -447,7 +447,7 @@ function luckysheetMoveHighlightCell(postion, index, type, isScroll) {
     }
 
     //移动的下一个单元格是否是合并的单元格
-    let margeset2 = menuButton.mergeborer(Store.flowdata, curR, curC);
+    let margeset2 = menuButton.mergeborer(Store.sheetData, curR, curC);
     if (margeset2) {
       row = margeset2.row[1];
       row_pre = margeset2.row[0];
@@ -549,13 +549,13 @@ function luckysheetMoveHighlightCell2(postion, type, isScroll) {
       mc = Store.config["merge"][rf + "_" + cf];
     }
     if (postion == "down") {
-      if (rf == Store.flowdata.length - 1) {
+      if (rf == Store.sheetData.length - 1) {
         return;
       }
       if (focusIsMerge) {
-        rf = getNextIndex("down", cf, mc.r + mc.rs - 1, Store.flowdata.length - 1);
+        rf = getNextIndex("down", cf, mc.r + mc.rs - 1, Store.sheetData.length - 1);
       } else {
-        rf = getNextIndex("down", cf, rf, Store.flowdata.length - 1);
+        rf = getNextIndex("down", cf, rf, Store.sheetData.length - 1);
       }
     } else if (postion == "up") {
       if (rf == 0) {
@@ -567,13 +567,13 @@ function luckysheetMoveHighlightCell2(postion, type, isScroll) {
         rf = getNextIndex("up", cf, 0, rf);
       }
     } else if (postion == "right") {
-      if (cf == Store.flowdata[0].length - 1) {
+      if (cf == Store.sheetData[0].length - 1) {
         return;
       }
       if (focusIsMerge) {
-        cf = getNextIndex("right", rf, mc.c + mc.cs - 1, Store.flowdata[0].length - 1);
+        cf = getNextIndex("right", rf, mc.c + mc.cs - 1, Store.sheetData[0].length - 1);
       } else {
-        cf = getNextIndex("right", rf, cf, Store.flowdata[0].length - 1);
+        cf = getNextIndex("right", rf, cf, Store.sheetData[0].length - 1);
       }
     } else if (postion == "left") {
       if (cf == 0) {
@@ -617,13 +617,13 @@ function luckysheetMoveHighlightCell2(postion, type, isScroll) {
       mc = Store.config["merge"][rf + "_" + cf];
     }
     if (postion == "down") {
-      if (rf == Store.flowdata.length - 1) {
+      if (rf == Store.sheetData.length - 1) {
         return;
       }
       if (focusIsMerge) {
-        rf = getNextIndex("down", cf, mc.r + mc.rs - 1, Store.flowdata.length - 1);
+        rf = getNextIndex("down", cf, mc.r + mc.rs - 1, Store.sheetData.length - 1);
       } else {
-        rf = getNextIndex("down", cf, rf, Store.flowdata.length - 1);
+        rf = getNextIndex("down", cf, rf, Store.sheetData.length - 1);
       }
     } else if (postion == "up") {
       if (rf == 0) {
@@ -635,13 +635,13 @@ function luckysheetMoveHighlightCell2(postion, type, isScroll) {
         rf = getNextIndex("up", cf, 0, rf);
       }
     } else if (postion == "right") {
-      if (cf == Store.flowdata[0].length - 1) {
+      if (cf == Store.sheetData[0].length - 1) {
         return;
       }
       if (focusIsMerge) {
-        cf = getNextIndex("right", rf, mc.c + mc.cs - 1, Store.flowdata[0].length - 1);
+        cf = getNextIndex("right", rf, mc.c + mc.cs - 1, Store.sheetData[0].length - 1);
       } else {
-        cf = getNextIndex("right", rf, cf, Store.flowdata[0].length - 1);
+        cf = getNextIndex("right", rf, cf, Store.sheetData[0].length - 1);
       }
     } else if (postion == "left") {
       if (cf == 0) {

@@ -350,7 +350,7 @@ export function keyboardInitial(){
             let last = getLastSelection();
             let _focus = getFocusCell();
             let row_index = _focus.row, col_index = _focus.col;
-            enterKeyControll(Store.flowdata[row_index][col_index]);
+            enterKeyControll(Store.sheetData[row_index][col_index]);
             event.preventDefault();
         }
         else if (kcode == keycode.ENTER && parseInt(inputboxEl.style.top) > 0) {
@@ -392,7 +392,7 @@ export function keyboardInitial(){
             let last = getLastSelection();
             let _focus = getFocusCell();
             let row_index = _focus.row, col_index = _focus.col;
-            luckysheetupdateCell(row_index, col_index, Store.flowdata);
+            luckysheetupdateCell(row_index, col_index, Store.sheetData);
             event.preventDefault();
         }
         else if (kcode == keycode.F4 && parseInt(inputboxEl.style.top) > 0) {
@@ -412,7 +412,7 @@ export function keyboardInitial(){
                 let last = getLastSelection();
                 let _focus = getFocusCell();
                 let row_index = _focus.row, col_index = _focus.col;
-                luckysheetupdateCell(row_index, col_index, Store.flowdata);
+                luckysheetupdateCell(row_index, col_index, Store.sheetData);
                 event.preventDefault();
             }
         }
@@ -458,7 +458,7 @@ export function keyboardInitial(){
                         let _focus = getFocusCell();
                         let row_index = _focus.row, 
                             col_index = _focus.col;
-                        luckysheetupdateCell(row_index, col_index, Store.flowdata, true);
+                        luckysheetupdateCell(row_index, col_index, Store.sheetData, true);
 
                         let value = getNowDateTime(2);
                         richTextEditor.setHtml(value);
@@ -730,7 +730,7 @@ export function keyboardInitial(){
                     let _focus = getFocusCell();
                     let row_index = _focus.row, 
                         col_index = _focus.col;
-                    luckysheetupdateCell(row_index, col_index, Store.flowdata, true);
+                    luckysheetupdateCell(row_index, col_index, Store.sheetData, true);
 
                     let value = getNowDateTime(1);
                     richTextEditor.setHtml(value);
@@ -742,7 +742,7 @@ export function keyboardInitial(){
                     let _focus = getFocusCell();
                     let row_index = _focus.row,
                         col_index = _focus.col;
-                    luckysheetupdateCell(row_index, col_index, Store.flowdata, true);
+                    luckysheetupdateCell(row_index, col_index, Store.sheetData, true);
 
                     let value = getNowDateTime(2);
                     richTextEditor.setHtml(value);
@@ -865,7 +865,7 @@ export function keyboardInitial(){
                     let _focus = getFocusCell();
                     let row_index = _focus.row, col_index = _focus.col;
 
-                    luckysheetupdateCell(row_index, col_index, Store.flowdata, true);
+                    luckysheetupdateCell(row_index, col_index, Store.sheetData, true);
                     if(kcode == 8){
                         richTextEditor.setHtml("<br/>");
                     }
@@ -933,7 +933,7 @@ export function keyboardInitial(){
         }
         else if (!((kcode >= 112 && kcode <= 123) || kcode <= 46 || kcode == 144 || kcode == 108 || event.ctrlKey || event.altKey || (event.shiftKey && (kcode == 37 || kcode == 38 || kcode == 39 || kcode == 40 || kcode == keycode.WIN || kcode == keycode.WIN_R || kcode == keycode.MENU))) || kcode == 8 || kcode == 32 || kcode == 46 || (event.ctrlKey && kcode == 86)) {
                 formula.functionInputHanddler(functionBox.el, richTextEditor.el, kcode);
-                setCenterInputPosition(Store.luckysheetCellUpdate[0], Store.luckysheetCellUpdate[1], Store.flowdata);
+                setCenterInputPosition(Store.luckysheetCellUpdate[0], Store.luckysheetCellUpdate[1], Store.sheetData);
         }
     });
     if (_el2) _el2.addEventListener("keyup", function (e) {

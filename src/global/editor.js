@@ -22,7 +22,7 @@ const editor = {
         }
         else{
             if(flowData == null){
-                flowData = Store.flowdata;
+                flowData = Store.sheetData;
             }
 
             return structuredClone(flowData);
@@ -61,7 +61,7 @@ const editor = {
     controlHandler: function (dataChe, range) {
         let _this = this;
 
-        let d = _this.deepCopyFlowData(Store.flowdata);//取数据
+        let d = _this.deepCopyFlowData(Store.sheetData);//取数据
 
         // let last = getLastSelection();
         let last = range || getLastSelection();
@@ -125,7 +125,7 @@ const editor = {
     controlHandlerD: function (dataChe) {
         let _this = this;
 
-        let d = _this.deepCopyFlowData(Store.flowdata);//取数据
+        let d = _this.deepCopyFlowData(Store.sheetData);//取数据
 
         let last = getLastSelection();
         let r1 = last["row"][0], r2 = last["row"][1];

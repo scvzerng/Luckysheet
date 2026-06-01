@@ -17,7 +17,7 @@ import Store from "../../store";
 import sheetmanage from "../../controllers/sheetmanage";
 import canvasContext from '../../ui/canvasContext.js';
 function luckysheetDrawMain(scrollWidth, scrollHeight, drawWidth, drawHeight, offsetLeft, offsetTop, columnOffsetCell, rowOffsetCell, mycanvas) {
-  if (Store.flowdata == null) {
+  if (Store.sheetData == null) {
     return;
   }
   let sheetFile = sheetmanage.getSheetByIndex();
@@ -129,7 +129,7 @@ function luckysheetDrawMain(scrollWidth, scrollHeight, drawWidth, drawHeight, of
   let bodrder05 = 0.5; //Default 0.5
 
   // 閽╁瓙鍑芥暟
-  method.createHookFunction("cellAllRenderBefore", Store.flowdata, sheetFile, luckysheetTableContent);
+  method.createHookFunction("cellAllRenderBefore", Store.sheetData, sheetFile, luckysheetTableContent);
   for (let r = dataset_row_st; r <= dataset_row_ed; r++) {
     let _rowPos = getRowStartEnd(r, scrollHeight);
     let start_r = _rowPos.start_r;
@@ -148,8 +148,8 @@ function luckysheetDrawMain(scrollWidth, scrollHeight, drawWidth, drawHeight, of
       if (Store.config["columnlen"] != null && Store.config["columnlen"][c] != null) {
         firstcolumnlen = Store.config["columnlen"][c];
       }
-      if (Store.flowdata[r] != null && Store.flowdata[r][c] != null) {
-        let value = Store.flowdata[r][c];
+      if (Store.sheetData[r] != null && Store.sheetData[r][c] != null) {
+        let value = Store.sheetData[r][c];
         if (getObjType(value) == "object" && "mc" in value) {
           borderOffset[r + "_" + c] = {
             start_r: start_r,
@@ -188,7 +188,7 @@ function luckysheetDrawMain(scrollWidth, scrollHeight, drawWidth, drawHeight, of
         }
       } else {
         //绌哄崟鍏冩牸娓叉煋鍓?
-        // if(!method.createHookFunction("cellRenderBefore", Store.flowdata[r][c], {
+        // if(!method.createHookFunction("cellRenderBefore", Store.sheetData[r][c], {
         //     r:r,
         //     c:c,
         //     "start_r": cellsize[1],
@@ -236,12 +236,12 @@ function luckysheetDrawMain(scrollWidth, scrollHeight, drawWidth, drawHeight, of
       end_r = item.end_r,
       end_c = item.end_c;
     let firstcolumnlen = item.firstcolumnlen;
-    if (Store.flowdata[r] == null) {
+    if (Store.sheetData[r] == null) {
       continue;
     }
 
     // //鏈夊€煎崟鍏冩牸娓叉煋鍓?
-    // if(!method.createHookFunction("cellRenderBefore", Store.flowdata[r][c], {
+    // if(!method.createHookFunction("cellRenderBefore", Store.sheetData[r][c], {
     //     r:r,
     //     c:c,
     //     "start_r": cellsize[1],
@@ -250,11 +250,11 @@ function luckysheetDrawMain(scrollWidth, scrollHeight, drawWidth, drawHeight, of
     //     "end_c": cellsize[2]
     // }, sheetFile,luckysheetTableContent)){ continue; }
 
-    if (Store.flowdata[r][c] == null) {
+    if (Store.sheetData[r][c] == null) {
       //绌哄崟鍏冩牸
       nullCellRender(r, c, start_r, start_c, end_r, end_c, luckysheetTableContent, af_compute, cf_compute, offsetLeft, offsetTop, dynamicArray_compute, cellOverflowMap, dataset_col_st, dataset_col_ed, scrollHeight, scrollWidth, bodrder05);
     } else {
-      let cell = Store.flowdata[r][c];
+      let cell = Store.sheetData[r][c];
       let value = null;
       if (typeof cell == "object" && "mc" in cell) {
         mcArr.push(cellupdate[cud]);
@@ -273,7 +273,7 @@ function luckysheetDrawMain(scrollWidth, scrollHeight, drawWidth, drawHeight, of
       }
     }
 
-    // method.createHookFunction("cellRenderAfter", Store.flowdata[r][c], {
+    // method.createHookFunction("cellRenderAfter", Store.sheetData[r][c], {
     //     r:r,
     //     c:c,
     //     "start_r": start_r,
@@ -293,13 +293,13 @@ function luckysheetDrawMain(scrollWidth, scrollHeight, drawWidth, drawHeight, of
       end_r = item.end_r - 1,
       end_c = item.end_c - 1;
     let firstcolumnlen = item.firstcolumnlen;
-    let cell = Store.flowdata[r][c];
+    let cell = Store.sheetData[r][c];
     let value = null;
     let margeMaindata = cell["mc"];
     value = getRealCellValue(margeMaindata.r, margeMaindata.c);
     r = margeMaindata.r;
     c = margeMaindata.c;
-    let mainCell = Store.flowdata[r][c];
+    let mainCell = Store.sheetData[r][c];
     if (c == 0) {
       start_c = -scrollWidth;
     } else {

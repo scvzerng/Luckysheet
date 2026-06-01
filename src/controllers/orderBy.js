@@ -77,7 +77,7 @@ export function orderByInitial(){
 
                 for (let c = c1; c <= c2; c++) {
                     if (t) {
-                        let v = getcellvalue(r1, c, Store.flowdata, "m");
+                        let v = getcellvalue(r1, c, Store.sheetData, "m");
 
                         if(v == null){
                             v = locale_sort.columnOperation + (c - c1 + 1); 
@@ -116,7 +116,7 @@ export function orderByInitial(){
 
                 for (let c = c1; c <= c2; c++) {
                     if (t) {
-                        let v = getcellvalue(r1, c, Store.flowdata, "m");
+                        let v = getcellvalue(r1, c, Store.sheetData, "m");
                         
                         if(v == null){
                             v = locale_sort.columnOperation + (c - c1 + 1); 
@@ -146,7 +146,7 @@ export function orderByInitial(){
                     return;
                 }
 
-                let d = editor.deepCopyFlowData(Store.flowdata);
+                let d = editor.deepCopyFlowData(Store.sheetData);
 
                 let last = Store.luckysheet_select_save[0];
                 let r1 = last["row"][0], r2 = last["row"][1];
@@ -273,8 +273,8 @@ export function orderByInitial(){
 
         if (r1 < r2) {
             setTimeout(function () {
-                let flowrowdata1 = Store.flowdata[r1], 
-                    flowrowdata2 = Store.flowdata[r1 + 1], 
+                let flowrowdata1 = Store.sheetData[r1], 
+                    flowrowdata2 = Store.sheetData[r1 + 1], 
                     hastitle = false;
                 
                 for (let i = c1; i <= c2; i++) {

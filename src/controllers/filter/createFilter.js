@@ -33,8 +33,8 @@ function createFilter() {
     if (last["row"][0] == last["row"][1] && last["column"][0] == last["column"][1]) {
         let st_c, ed_c, curR = last["row"][1];
 
-        for (let c = 0; c < Store.flowdata[curR].length; c++) {
-            let cell = Store.flowdata[curR][c];
+        for (let c = 0; c < Store.sheetData[curR].length; c++) {
+            let cell = Store.sheetData[curR][c];
 
             if (cell != null && !isRealNull(cell.v)) {
                 if (st_c == null) {
@@ -48,7 +48,7 @@ function createFilter() {
         }
 
         if (ed_c == null) {
-            ed_c = Store.flowdata[curR].length - 1;
+            ed_c = Store.sheetData[curR].length - 1;
         }
 
         Store.luckysheet_select_save = [{ "row": [curR, curR], "column": [st_c, ed_c] }];

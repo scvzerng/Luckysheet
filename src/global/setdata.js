@@ -8,7 +8,7 @@ import { GENERAL_NUMBER_CT } from "../utils/constants.js";
 //Set cell value
 function setcellvalue(r, c, d, v) {
     if (d == null) {
-        d = Store.flowdata;
+        d = Store.sheetData;
     }
     // 若采用深拷贝，初始化时的单元格属性丢失
     // let cell = structuredClone(d[r][c]);

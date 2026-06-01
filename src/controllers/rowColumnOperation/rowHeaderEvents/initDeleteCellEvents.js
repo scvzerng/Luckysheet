@@ -48,7 +48,7 @@ export function initDeleteCellEvents() {
     //     syncConfigToStore();
   
     //     //行高、列�?刷新
-    //     jfrefreshgrid_rhcw(Store.flowdata.length, Store.flowdata[0].length);
+    //     jfrefreshgrid_rhcw(Store.sheetData.length, Store.sheetData[0].length);
     // })
     // document.getElementById("luckysheet-showHidRows").addEventListener("click", function (event) {
     //     rightClickMenu.style.display = 'none';
@@ -85,7 +85,7 @@ export function initDeleteCellEvents() {
     //     syncConfigToStore();
   
     //     //行高、列�?刷新
-    //     jfrefreshgrid_rhcw(Store.flowdata.length, Store.flowdata[0].length);
+    //     jfrefreshgrid_rhcw(Store.sheetData.length, Store.sheetData[0].length);
     // })
   
     //隐藏、显示列
@@ -124,7 +124,7 @@ export function initDeleteCellEvents() {
     //     syncConfigToStore();
   
     //     //行高、列�?刷新
-    //     jfrefreshgrid_rhcw(Store.flowdata.length, Store.flowdata[0].length);
+    //     jfrefreshgrid_rhcw(Store.sheetData.length, Store.sheetData[0].length);
     // })
     // document.getElementById("luckysheet-showHidCols").addEventListener("click", function (event) {
     //     rightClickMenu.style.display = 'none';
@@ -161,7 +161,7 @@ export function initDeleteCellEvents() {
     //     syncConfigToStore();
   
     //     //行高、列�?刷新
-    //     jfrefreshgrid_rhcw(Store.flowdata.length, Store.flowdata[0].length);
+    //     jfrefreshgrid_rhcw(Store.sheetData.length, Store.sheetData[0].length);
     // })
   
     //删除单元格（左移、上移）
@@ -210,7 +210,7 @@ export function initDeleteCellEvents() {
         return;
       }
       if (Store.luckysheet_select_save !== null) {
-        let d = editor.deepCopyFlowData(Store.flowdata);
+        let d = editor.deepCopyFlowData(Store.sheetData);
         let has_PartMC = false;
         for (let s = 0; s < Store.luckysheet_select_save.length; s++) {
           let r1 = Store.luckysheet_select_save[s].row[0],

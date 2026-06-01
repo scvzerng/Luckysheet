@@ -31,7 +31,7 @@ const coreModule = {
     if (Store.allowEdit === false) {
       return;
     }
-    let d = editor.deepCopyFlowData(Store.flowdata);
+    let d = editor.deepCopyFlowData(Store.sheetData);
     let file = getCurrentFile();
     let cfg = structuredClone(Store.config);
     let borderInfoCompute = getBorderInfoCompute();

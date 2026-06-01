@@ -11,7 +11,7 @@ const Store = {
 
     currentSheetIndex: 0,
     calculateSheetIndex: 0,
-	flowdata: [],
+	sheetData: [],
     config: {},
 
     visibledatarow: [],

@@ -25,7 +25,7 @@ export function initPostil(_this) {
           col_index = last["column"][0];
         }
         let itemdata;
-        if (Store.flowdata[row_index][col_index] != null && Store.flowdata[row_index][col_index].ps != null) {
+        if (Store.sheetData[row_index][col_index] != null && Store.sheetData[row_index][col_index].ps != null) {
           itemdata = [{
             text: locale_comment.edit,
             value: "editPs",

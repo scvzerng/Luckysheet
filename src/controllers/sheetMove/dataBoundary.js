@@ -5,7 +5,7 @@ function getNextIndex(direction, focusIndex, strIndex, endIndex) {
   let index = null;
   let stNull;
   if (direction == "down") {
-    let stValue = Store.flowdata[strIndex][focusIndex];
+    let stValue = Store.sheetData[strIndex][focusIndex];
     if (getObjType(stValue) == "object" && isRealNull(stValue.v)) {
       stNull = true;
     } else if (isRealNull(stValue)) {
@@ -17,7 +17,7 @@ function getNextIndex(direction, focusIndex, strIndex, endIndex) {
     let cellNull = [],
       i = 0;
     for (let r = strIndex + 1; r <= endIndex; r++) {
-      let cell = Store.flowdata[r][focusIndex];
+      let cell = Store.sheetData[r][focusIndex];
       if (getObjType(cell) == "object" && isRealNull(cell.v)) {
         cellNull.push(true);
       } else if (isRealNull(cell)) {
@@ -52,7 +52,7 @@ function getNextIndex(direction, focusIndex, strIndex, endIndex) {
       i++;
     }
   } else if (direction == "up") {
-    let stValue = Store.flowdata[endIndex][focusIndex];
+    let stValue = Store.sheetData[endIndex][focusIndex];
     if (getObjType(stValue) == "object" && isRealNull(stValue.v)) {
       stNull = true;
     } else if (isRealNull(stValue)) {
@@ -63,7 +63,7 @@ function getNextIndex(direction, focusIndex, strIndex, endIndex) {
     let cellNull = [],
       i = 0;
     for (let r = endIndex - 1; r >= strIndex; r--) {
-      let cell = Store.flowdata[r][focusIndex];
+      let cell = Store.sheetData[r][focusIndex];
       if (getObjType(cell) == "object" && isRealNull(cell.v)) {
         cellNull.push(true);
       } else if (isRealNull(cell)) {
@@ -98,7 +98,7 @@ function getNextIndex(direction, focusIndex, strIndex, endIndex) {
       i++;
     }
   } else if (direction == "right") {
-    let stValue = Store.flowdata[focusIndex][strIndex];
+    let stValue = Store.sheetData[focusIndex][strIndex];
     if (getObjType(stValue) == "object" && isRealNull(stValue.v)) {
       stNull = true;
     } else if (isRealNull(stValue)) {
@@ -109,7 +109,7 @@ function getNextIndex(direction, focusIndex, strIndex, endIndex) {
     let cellNull = [],
       i = 0;
     for (let c = strIndex + 1; c <= endIndex; c++) {
-      let cell = Store.flowdata[focusIndex][c];
+      let cell = Store.sheetData[focusIndex][c];
       if (getObjType(cell) == "object" && isRealNull(cell.v)) {
         cellNull.push(true);
       } else if (isRealNull(cell)) {
@@ -144,7 +144,7 @@ function getNextIndex(direction, focusIndex, strIndex, endIndex) {
       i++;
     }
   } else if (direction == "left") {
-    let stValue = Store.flowdata[focusIndex][endIndex];
+    let stValue = Store.sheetData[focusIndex][endIndex];
     if (getObjType(stValue) == "object" && isRealNull(stValue.v)) {
       stNull = true;
     } else if (isRealNull(stValue)) {
@@ -155,7 +155,7 @@ function getNextIndex(direction, focusIndex, strIndex, endIndex) {
     let cellNull = [],
       i = 0;
     for (let c = endIndex - 1; c >= strIndex; c--) {
-      let cell = Store.flowdata[focusIndex][c];
+      let cell = Store.sheetData[focusIndex][c];
       if (getObjType(cell) == "object" && isRealNull(cell.v)) {
         cellNull.push(true);
       } else if (isRealNull(cell)) {

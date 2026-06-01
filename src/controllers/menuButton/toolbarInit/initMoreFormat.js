@@ -59,7 +59,7 @@ export function initMoreFormat(_this) {
               if (itemvalue == "fmtOtherSelf") {
                 return;
               }
-              let d = editor.deepCopyFlowData(Store.flowdata);
+              let d = editor.deepCopyFlowData(Store.sheetData);
               _this.focus(menuButton, itemvalue);
               _this.updateFormat(d, "ct", itemvalue);
             });

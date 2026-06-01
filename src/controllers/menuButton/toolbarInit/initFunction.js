@@ -87,8 +87,8 @@ export function initFunction(_this) {
               let last = getLastSelection();
               let r = last["row_focus"] == null ? last["row"][0] : last["row_focus"];
               let c = last["column_focus"] == null ? last["column"][0] : last["column_focus"];
-              if (!!Store.flowdata[r] && !!Store.flowdata[r][c] && !!Store.flowdata[r][c]["f"]) {
-                let fp = Store.flowdata[r][c]["f"].toString();
+              if (!!Store.sheetData[r] && !!Store.sheetData[r][c] && !!Store.sheetData[r][c]["f"]) {
+                let fp = Store.sheetData[r][c]["f"].toString();
                 if (fp.indexOf("=if(") != -1) {
                   ifFormulaGenerator.ifFormulaDialog(fp);
                 } else {
@@ -117,8 +117,8 @@ export function initFunction(_this) {
               let _focus = getFocusCell();
               let row_index = _focus.row,
                 col_index = _focus.col;
-              luckysheetupdateCell(row_index, col_index, Store.flowdata);
-              let cell = Store.flowdata[row_index][col_index];
+              luckysheetupdateCell(row_index, col_index, Store.sheetData);
+              let cell = Store.sheetData[row_index][col_index];
               if (cell != null && cell.f != null) {
                 //单元格有计算
                 let functionStr = luckysheetformula.getfunctionParam(cell.f);

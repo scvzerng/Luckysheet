@@ -38,7 +38,7 @@ export function formulaBarInitial(){
             let _focus = getFocusCell();
             let row_index = _focus.row, col_index = _focus.col;
             
-            luckysheetupdateCell(row_index, col_index, Store.flowdata, null, true);
+            luckysheetupdateCell(row_index, col_index, Store.sheetData, null, true);
             formula.rangeResizeTo = functionBox.el;
         }
     });
@@ -169,9 +169,9 @@ export function formulaBarInitial(){
         let _focus = getFocusCell();
         let row_index = _focus.row, col_index = _focus.col;
 
-        luckysheetupdateCell(row_index, col_index, Store.flowdata);
+        luckysheetupdateCell(row_index, col_index, Store.sheetData);
         
-        let cell = Store.flowdata[row_index][col_index];
+        let cell = Store.sheetData[row_index][col_index];
         if(cell != null && cell.f != null){
             let functionStr = formula.getfunctionParam(cell.f);
             if(functionStr.fn != null){

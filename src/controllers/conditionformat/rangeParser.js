@@ -2,7 +2,7 @@ import Store from '../../store/index.js';
 import { getcellvalue } from '../../global/getdata.js';
 
 function parseConditionRange(rangeText, _this, conditionformat_Text, options = {}) {
-    const { data = Store.flowdata, allowNonNumeric = false } = options;
+    const { data = Store.sheetData, allowNonNumeric = false } = options;
     let conditionRange = [];
     let conditionValue = [];
 

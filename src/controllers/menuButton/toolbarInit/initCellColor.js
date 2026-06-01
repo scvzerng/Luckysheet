@@ -18,7 +18,7 @@ export function initCellColor(_this) {
         e.stopPropagation();
       });
       cellColorEl?.addEventListener("click", function () {
-        let d = editor.deepCopyFlowData(Store.flowdata);
+        let d = editor.deepCopyFlowData(Store.sheetData);
         let color = this.getAttribute("color");
         if (color == null) {
           color = "#ffffff";
@@ -72,7 +72,7 @@ export function initCellColor(_this) {
               let hexColor = color != null ? color.toHexString() : "#fff";
               const _elCellColorBar = document.querySelector("#luckysheet-icon-cell-color .text-color-bar"); if (_elCellColorBar) _elCellColorBar.style.backgroundColor = hexColor;
               document.getElementById("luckysheet-icon-cell-color")?.setAttribute("color", hexColor);
-              let d = editor.deepCopyFlowData(Store.flowdata);
+              let d = editor.deepCopyFlowData(Store.sheetData);
               _this.updateFormat(d, "bg", hexColor);
               menuButton.style.display = "none";
               luckysheetContainerFocus();
@@ -88,7 +88,7 @@ export function initCellColor(_this) {
             getPicker(input)?.set("#ffffff");
             const _elIndicator = document.querySelector("#luckysheet-icon-cell-color .luckysheet-color-menu-button-indicator"); if (_elIndicator) _elIndicator.style.borderColor = "#ffffff";
             const _elBar = document.querySelector("#luckysheet-icon-cell-color .text-color-bar"); if (_elBar) _elBar.style.backgroundColor = "#ffffff";
-            let d = editor.deepCopyFlowData(Store.flowdata);
+            let d = editor.deepCopyFlowData(Store.sheetData);
             _this.updateFormat(d, "bg", null);
             });
           });

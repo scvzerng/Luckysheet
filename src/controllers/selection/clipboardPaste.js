@@ -102,7 +102,7 @@ const clipboardPasteModule = {
         }
         return;
       }
-      let d = editor.deepCopyFlowData(Store.flowdata); //取数据
+      let d = editor.deepCopyFlowData(Store.sheetData); //取数据
       let rowMaxLength = d.length;
       let cellMaxLength = d[0].length;
 
@@ -205,7 +205,7 @@ const clipboardPasteModule = {
         }
         dataChe.push(che[i].split("\t"));
       }
-      let d = editor.deepCopyFlowData(Store.flowdata); //取数据
+      let d = editor.deepCopyFlowData(Store.sheetData); //取数据
 
       let last = getLastSelection();
       let curR = last["row"] == null ? 0 : last["row"][0];
