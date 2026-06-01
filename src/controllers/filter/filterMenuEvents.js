@@ -29,7 +29,7 @@ function slideUp(el, duration) {
 
 function slideDown(el, duration) {
     if (!el) return;
-    el.style.display = '';
+    el.style.display = 'block';
     el.style.overflow = 'hidden';
     el.style.height = '0px';
     el.offsetHeight;
@@ -43,46 +43,72 @@ function slideDown(el, duration) {
 }
 
 export function filterMenuEvents() {
-    document.querySelectorAll(".luckysheet-cols-menu .luckysheet-cols-submenu").forEach(el => {
-        el.addEventListener("mouseenter", function () {
-            let t = this, attrid = t.getAttribute("id"), attr = document.getElementById(attrid + "_sub"), con = t.parentElement;
-            let winW = document.documentElement.clientWidth, winH = document.documentElement.clientHeight;
-            let menuW = con.offsetWidth, attrH = attr ? attr.offsetHeight + 25 : 0, attrW = attr ? attr.offsetWidth + 5 : 0;
-            let tRect = t.getBoundingClientRect();
-            let offsetTop = tRect.top + window.pageYOffset,
-                offsetLeft = tRect.left + window.pageXOffset;
-            let top = offsetTop, left = offsetLeft + menuW;
+    function findSubPanel(t) {
+        let attrid = t.getAttribute("id");
+        if (attrid) {
+            let sub = document.getElementById(attrid + "_sub");
+            if (sub) return sub;
+        }
+        let itemvalue = t.getAttribute("itemvalue");
+        if (itemvalue) {
+            let sub = document.getElementById("luckysheet-icon-" + itemvalue + "-menuButton");
+            if (sub) return sub;
+        }
+        return null;
+    }
 
-            if (left + attrW > winW) {
-                left = offsetLeft - attrW;
-            }
+    document.addEventListener("mouseover", function (e) {
+        let t = e.target?.closest?.(".luckysheet-cols-submenu");
+        if (!t) return;
+        let attr = findSubPanel(t), con = t.parentElement;
+        if (!attr) return;
+        let winW = document.documentElement.clientWidth, winH = document.documentElement.clientHeight;
+        let attrH = attr.offsetHeight + 25, attrW = attr.offsetWidth + 5;
+        let tRect = t.getBoundingClientRect();
+        let top = tRect.top + window.pageYOffset;
+        let left = tRect.right + window.pageXOffset;
 
-            if (top + attrH > winH) {
-                top = winH - attrH;
-            }
+        if (left + attrW > winW) {
+            left = tRect.left + window.pageXOffset - attrW;
+        }
 
-            if (attr) {
-                attr.style.top = top + 'px';
-                attr.style.left = left + 'px';
-                attr.style.display = '';
-            }
-            rightclickmenu = t;
-        });
-        el.addEventListener("mouseleave", function () {
-            let t = this, attrid = t.getAttribute("id"), attr = document.getElementById(attrid + "_sub");
-            submenuhide = setTimeout(function () { if (attr) attr.style.display = 'none'; }, 200);
-        });
+        if (top + attrH > winH) {
+            top = winH - attrH;
+        }
+
+        attr.style.top = top + 'px';
+        attr.style.left = left + 'px';
+        attr.style.display = 'block';
+        rightclickmenu = t;
     });
 
-    document.querySelectorAll(".luckysheet-rightglick-menu-sub").forEach(el => {
-        el.addEventListener("mouseenter", function () {
-            if (rightclickmenu) rightclickmenu.classList.add("luckysheet-cols-menuitem-hover");
-            clearTimeout(submenuhide);
-        });
-        el.addEventListener("mouseleave", function () {
-            if (rightclickmenu) rightclickmenu.classList.remove("luckysheet-cols-menuitem-hover");
-            this.style.display = 'none';
-        });
+    document.addEventListener("mouseout", function (e) {
+        let t = e.target?.closest?.(".luckysheet-cols-submenu");
+        if (!t) return;
+        let related = e.relatedTarget;
+        if (related && (related.closest?.(".luckysheet-cols-submenu") === t || related.closest?.(".luckysheet-rightgclick-menu-sub, .luckysheet-menuButton-sub"))) {
+            return;
+        }
+        let attr = findSubPanel(t);
+        submenuhide = setTimeout(function () { if (attr) attr.style.display = 'none'; }, 200);
+    });
+
+    document.addEventListener("mouseover", function (e) {
+        let t = e.target?.closest?.(".luckysheet-rightgclick-menu-sub, .luckysheet-menuButton-sub");
+        if (!t) return;
+        if (rightclickmenu) rightclickmenu.classList.add("luckysheet-cols-menuitem-hover");
+        clearTimeout(submenuhide);
+    });
+
+    document.addEventListener("mouseout", function (e) {
+        let t = e.target?.closest?.(".luckysheet-rightgclick-menu-sub, .luckysheet-menuButton-sub");
+        if (!t) return;
+        let related = e.relatedTarget;
+        if (related && related.closest?.(".luckysheet-rightgclick-menu-sub, .luckysheet-menuButton-sub") === t) {
+            return;
+        }
+        if (rightclickmenu) rightclickmenu.classList.remove("luckysheet-cols-menuitem-hover");
+        t.style.display = 'none';
     });
 
     const filterMenu = document.getElementById("luckysheet-filter-menu");
@@ -118,7 +144,7 @@ export function filterMenuEvents() {
                 if (type == "2") {
                     if (selectedSpan) selectedSpan.dataset.type = "2";
                     const input2 = document.querySelector("#luckysheet-filter-menu .luckysheet-filter-selected-input2");
-                    if (input2) input2.style.display = '';
+                    if (input2) input2.style.display = 'block';
                     document.querySelectorAll("#luckysheet-filter-menu .luckysheet-filter-selected-input input").forEach(input => { input.type = "number"; });
                 }
                 else if (type == "0") {
@@ -127,7 +153,7 @@ export function filterMenuEvents() {
                 else {
                     if (selectedSpan) selectedSpan.dataset.type = "1";
                     const firstInput = document.querySelectorAll("#luckysheet-filter-menu .luckysheet-filter-selected-input")[0];
-                    if (firstInput) firstInput.style.display = '';
+                    if (firstInput) firstInput.style.display = 'block';
 
                     if(value == "dateequal" || value == "datelessthan" || value == "datemorethan"){
                         document.querySelectorAll("#luckysheet-filter-menu .luckysheet-filter-selected-input input").forEach(input => { input.type = "date"; });
@@ -204,7 +230,7 @@ export function filterMenuEvents() {
                 menu.style.top = top + 'px';
                 menu.style.left = left + 'px';
                 menu.style.height = mheight + 'px';
-                menu.style.display = '';
+                menu.style.display = 'block';
             }
             clearTimeout(filterState.hidefilersubmenu);
         });

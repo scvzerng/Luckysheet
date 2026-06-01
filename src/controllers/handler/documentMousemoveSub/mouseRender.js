@@ -1360,7 +1360,7 @@ import formulaDialogs from '../../../ui/formulaDialogs.js';
                     formula.rangeMoveDraging(
                         { pageX, pageY },
                         formula.rangeMovexy,
-                        formula.rangeMoveObj.data("range"),
+                        formula.rangeMoveObj.dataset.range,
                         formula.rangeMoveObj,
                         Store.sheetBarHeight,
                         Store.statisticBarHeight,

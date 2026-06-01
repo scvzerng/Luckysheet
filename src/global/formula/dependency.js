@@ -128,7 +128,7 @@ const dependency = {
                         _this.isFunctionRangeSaveChange(str, r, c, index, dynamicArray_compute);
                         // if (r != null && c != null) {
 
-                        //     let range = _this.getcellrange($.trim(str));
+                        //     let range = _this.getcellrange(str.trim());
                         //     let row = range.row,
                         //         col = range.column;
 
@@ -160,7 +160,7 @@ const dependency = {
                         //     }
                         // }
                         // else {
-                        //     let sheetlen = $.trim(str).split("!");
+                        //     let sheetlen = str.trim().split("!");
 
                         //     if (sheetlen.length > 1) {
                         //         _this.isFunctionRangeSave = _this.isFunctionRangeSave || true;
@@ -473,7 +473,7 @@ const dependency = {
                     let endstr = "";
                     let str_nb = str.trim().replace(/'/g, "\\'");
                     if (_this.iscelldata(str_nb) && str_nb.substr(0, 1) != ":") {
-                        // endstr = "luckysheet_getcelldata('" + $.trim(str) + "')";
+                        // endstr = "luckysheet_getcelldata('" + str.trim() + "')";
                         endstr = "luckysheet_getcelldata('" + str_nb + "')";
                         _this.isFunctionRangeSaveChange(str, r, c, index, dynamicArray_compute);
                     } else if (str_nb.substr(0, 1) == ":") {
@@ -579,7 +579,7 @@ const dependency = {
                 }
             } else {
                 _this.isFunctionRangeSave = _this.isFunctionRangeSave || false;
-                // let sheetlen = $.trim(str).split("!");
+                // let sheetlen = str.trim().split("!");
 
                 // if (sheetlen.length > 1) {
                 //     _this.isFunctionRangeSave = _this.isFunctionRangeSave || true;//if change sheet, it must be true, but this is very slow
@@ -639,7 +639,7 @@ const dependency = {
             //                 if(str instanceof Object && str.data!=null){
             //                     str = str.data.v;
             //                 }
-            //                 let str_nb = $.trim(str);
+            //                 let str_nb = str.trim();
             //                 // console.log(function_str, tempFunc,str, this.iscelldata(str_nb),this.isFunctionRangeSave,r,c);
             //                 if (this.iscelldata(str_nb)) {
             //                     if(typeof(cellRangeFunction)=="function"){
@@ -663,7 +663,7 @@ const dependency = {
             //                 if(str instanceof Object && str.data!=null){
             //                     str = str.data.v;
             //                 }
-            //                 let str_nb = $.trim(str);
+            //                 let str_nb = str.trim();
             //                 if (this.iscelldata(str_nb)) {
             //                     if(typeof(cellRangeFunction)=="function"){
             //                         cellRangeFunction(str_nb);

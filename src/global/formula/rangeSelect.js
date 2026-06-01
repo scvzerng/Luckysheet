@@ -726,7 +726,7 @@ const rangeSelect = {
             let rangetxt = getRangetxt(Store.currentSheetIndex, range, _this.rangetosheet);
             let $span = _this.rangeResizeTo?.querySelector("span[rangeindex='" + rangeindex + "']");
             if ($span) $span.innerHTML = rangetxt;
-            luckysheetRangeLast(_this.rangeResizeTo[0]);
+            luckysheetRangeLast(_this.rangeResizeTo);
             rangeResizeObj.dataset.range = range;
         },
 
@@ -835,7 +835,7 @@ const rangeSelect = {
             let rangetxt = getRangetxt(Store.currentSheetIndex, range, _this.rangetosheet);
             let $span = _this.rangeResizeTo?.querySelector("span[rangeindex='" + rangeindex + "']");
             if ($span) $span.innerHTML = rangetxt;
-            luckysheetRangeLast(_this.rangeResizeTo[0]);
+            luckysheetRangeLast(_this.rangeResizeTo);
             _this.rangeMoveRangedata = range;
             Object.assign(obj.style, selected);
         },

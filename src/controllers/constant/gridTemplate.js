@@ -100,7 +100,7 @@ const gridHTML = function() {
                                                 <div class="luckysheet-left-top" id="luckysheet-left-top"> </div> 
                                             </td> 
                                             <td valign="top" class="luckysheet-paneswrapper"> 
-                                                <div id="luckysheet-cols-h-c" class="luckysheet-cols-h-c">
+                                                <div id="luckysheet-col-header" class="luckysheet-col-header">
                                                     <div class="luckysheet-cols-change-size" id="luckysheet-cols-change-size"></div>  
                                                     <div class="luckysheet-cols-menu-btn luckysheet-mousedown-cancel" id="luckysheet-cols-menu-btn"><i class="fa fa-caret-down luckysheet-mousedown-cancel" aria-hidden="true"></i></div>  
                                                     <div class="luckysheet-cols-h-hover" id="luckysheet-cols-h-hover"></div>  

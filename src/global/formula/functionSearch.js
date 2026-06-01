@@ -131,7 +131,7 @@ const functionSearch = {
             let _this = this;
 
             let functxt = $obj.dataset.func;
-            _this.searchFunctionCell.textContent = functxt.after('<span dir="auto" class="luckysheet-formula-text-color">(</span>');
+            _this.searchFunctionCell.textContent = functxt + '(';
             _this.setCaretPosition(_this.searchFunctionCell.nextElementSibling, 0, 1);
             formulaDialogs.formulaSearchC.hide();
             _this.helpFunctionExe(_this.searchFunctionCell.closest("div"), _this.searchFunctionCell.nextElementSibling);

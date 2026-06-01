@@ -4,7 +4,7 @@ class CellSelectedFocus {
 
     showAt(props) {
         if (!this.el) return this;
-        this.el.style.display = '';
+        this.el.style.display = 'block';
         for (const [k, v] of Object.entries(props)) this.el.style[k] = typeof v === 'number' ? v + 'px' : v;
         return this;
     }

@@ -197,11 +197,11 @@ const formulaString = {
             let _this = this;
 
             let obj = _this.getrangeseleciton();
-            if (!_this.iscelldata(obj.text())) {
+            if (!obj || !_this.iscelldata(obj.textContent)) {
                 return;
             }
 
-            let txt = obj.text(),
+            let txt = obj.textContent,
                 pos = window.getSelection().anchorOffset;
             let val = txt.split("!"),
                 rangetxt,
@@ -236,8 +236,8 @@ const formulaString = {
                 }
             }
 
-            obj.text(prefix + newtxt);
-            _this.setCaretPosition(obj.get(0), 0, newpos);
+            obj.textContent = prefix + newtxt;
+            _this.setCaretPosition(obj, 0, newpos);
         },
 
         updateparam: function(orient, txt, step) {

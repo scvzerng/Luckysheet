@@ -29,11 +29,12 @@ import gridWindow from "../../ui/gridWindow.js";
 import sheetContainer from "../../ui/sheetContainer.js";
 
 export default function scroll() {
-    sheetContainer.onMousewheel(function(event, delta) {
-        let scrollNum = event.deltaFactor < 40 ? 1 : event.deltaFactor < 80 ? 2 : 3;
+    sheetContainer.onMousewheel(function(event) {
+        let absDelta = Math.abs(event.deltaY);
+        let scrollNum = absDelta < 40 ? 1 : absDelta < 80 ? 2 : 3;
         let scrollLeft = sheetContainer.getScrollLeft();
         if (event.deltaY != 0) {
-            if (event.deltaY < 0) {
+            if (event.deltaY > 0) {
                 scrollLeft = scrollLeft + 10 * scrollNum;
             } else {
                 scrollLeft = scrollLeft - 10 * scrollNum;
@@ -51,14 +52,14 @@ export default function scroll() {
 
     cellMain
         .onScroll(function() {})
-        .onMousewheel(function(event, delta) {
+        .onMousewheel(function(event) {
             event.preventDefault();
         });
 
     context._locale = locale();
     context.locale_drag = context._locale.drag;
     context.locale_info = context._locale.info;
-    gridWindow.onMousewheel(function(event, delta) {
+    gridWindow.onMousewheel(function(event) {
         let scrollLeft = scrollBarX.getScrollLeft(),
             scrollTop = scrollBarY.getScrollTop();
         let visibledatacolumn_c = Store.visibledatacolumn,
@@ -98,12 +99,13 @@ export default function scroll() {
         let colscroll = 0;
         let rowscroll = 0;
 
-        let scrollNum = event.deltaFactor < 40 ? 1 : event.deltaFactor < 80 ? 2 : 3;
+        let absDelta = Math.abs(event.deltaY);
+        let scrollNum = absDelta < 40 ? 1 : absDelta < 80 ? 2 : 3;
         if (event.deltaY != 0) {
             let row_ed,
                 step = Math.round(scrollNum / Store.zoomRatio);
             step = step < 1 ? 1 : step;
-            if (event.deltaY < 0) {
+            if (event.deltaY > 0) {
                 row_ed = row_st + step;
 
                 if (row_ed >= visibledatarow_c.length) {
@@ -146,7 +148,7 @@ export default function scroll() {
         .onScroll(function() {
             luckysheetscrollevent();
         })
-        .onMousewheel(function(event, delta) {
+        .onMousewheel(function(event) {
             event.preventDefault();
         });
 
@@ -154,7 +156,7 @@ export default function scroll() {
         .onScroll(function() {
             luckysheetscrollevent();
         })
-        .onMousewheel(function(event, delta) {
+        .onMousewheel(function(event) {
             event.preventDefault();
         });
 

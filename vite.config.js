@@ -1,26 +1,14 @@
 import { defineConfig } from 'vite'
 import { resolve } from 'path'
-import inject from '@rollup/plugin-inject'
 
 export default defineConfig(({ command }) => {
   const isDev = command === 'serve'
 
   return {
-    plugins: [
-      !isDev && inject({
-        include: ['**/*.js', '**/*.ts'],
-        exclude: ['**/*.css', '**/*.min.js', '**/src/index.js', '**/src/jquery-bridge.js', '**/src/jquery-init.js', '**/src/controllers/keyboard.js'],
-        $: 'jquery',
-        jQuery: 'jquery',
-        'window.jQuery': 'jquery',
-      }),
-    ].filter(Boolean),
+    plugins: [],
 
     resolve: {
-      alias: isDev ? {
-        '@': resolve(__dirname, 'src'),
-        jquery: resolve(__dirname, 'src/jquery-bridge.js'),
-      } : {
+      alias: {
         '@': resolve(__dirname, 'src'),
       },
     },
@@ -42,11 +30,7 @@ export default defineConfig(({ command }) => {
       },
 
       rollupOptions: {
-        external: ['jquery'],
         output: {
-          globals: {
-            jquery: 'jQuery',
-          },
           assetFileNames: (assetInfo) => {
             if (assetInfo.name && assetInfo.name.endsWith('.css')) {
               return 'style.css'

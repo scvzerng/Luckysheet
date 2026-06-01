@@ -817,11 +817,11 @@ export function handleCellMousedown(event) {
                   luckysheetTableContent,
               );
   
-              //document.querySelector("#luckysheet-cols-h-c .luckysheet-cols-h-cells-c .luckysheet-cols-h-cells-clip .luckysheet-cols-h-cell-sel").classList.remove("luckysheet-cols-h-cell-sel").classList.add("luckysheet-cols-h-cell-nosel");
-  
+              //document.querySelector("#luckysheet-col-header .luckysheet-cols-h-cells-c .luckysheet-cols-h-cells-clip .luckysheet-cols-h-cell-sel").classList.remove("luckysheet-cols-h-cell-sel").classList.add("luckysheet-cols-h-cell-nosel");
+
               //document.querySelector("#luckysheet-rows-h .luckysheet-rows-h-cells .luckysheet-rows-h-cells-c .luckysheet-rows-h-cells-clip .luckysheet-rows-h-cell-sel").classList.remove("luckysheet-rows-h-cell-sel").classList.add("luckysheet-rows-h-cell-nosel");
-  
-              //document.querySelector("#luckysheet-cols-h-c .luckysheet-cols-h-cells-c .luckysheet-cols-h-cells-clip .luckysheet-cols-h-cell-nosel")[col_index].classList.remove("luckysheet-cols-h-cell-nosel").classList.add("luckysheet-cols-h-cell-sel");
+
+              //document.querySelector("#luckysheet-col-header .luckysheet-cols-h-cells-c .luckysheet-cols-h-cells-clip .luckysheet-cols-h-cell-nosel")[col_index].classList.remove("luckysheet-cols-h-cell-nosel").classList.add("luckysheet-cols-h-cell-sel");
   
               //document.querySelector("#luckysheet-rows-h .luckysheet-rows-h-cells .luckysheet-rows-h-cells-c .luckysheet-rows-h-cells-clip .luckysheet-rows-h-cell-nosel")[row_index].classList.remove("luckysheet-rows-h-cell-nosel").classList.add("luckysheet-rows-h-cell-sel");
   

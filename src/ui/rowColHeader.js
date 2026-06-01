@@ -23,7 +23,7 @@ class RowHeader {
 
 class ColHeader {
     constructor() { this._el = null; }
-    get el() { if (!this._el || !document.body.contains(this._el)) this._el = document.getElementById("luckysheet-cols-h-c"); return this._el; }
+    get el() { if (!this._el || !document.body.contains(this._el)) this._el = document.getElementById("luckysheet-col-header"); return this._el; }
 
     getScrollLeft() { if (!this.el) return 0; return this.el.scrollLeft; }
     setScrollLeft(value) { if (!this.el) return this; this.el.scrollLeft = value; return this; }

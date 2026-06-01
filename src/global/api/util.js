@@ -12,6 +12,7 @@ import formula from "../formula";
 import method from "../method";
 import { getRangeWithFlatten } from "./rangeRead";
 import { luckysheetrefreshgrid } from "../refresh";
+import sPage from "../../plugins/js/sPage.js";
 
 export function getRangeByTxt(txt){
 
@@ -43,23 +44,27 @@ export function getTxtByRange(range=Store.luckysheet_select_save){
 export function pagerInit (config) {
     const {prevPage, nextPage, total} = locale().button;
     document.getElementById("luckysheet-bottom-pager")?.remove()
-    const _sheetContent = document.getElementById("luckysheet-sheet-content"); if (_sheetContent) _sheetContent.after('<div id="luckysheet-bottom-pager" style="font-size: 14px; margin-left: 10px; display: inline-block;"></div>')
-    document.getElementById("luckysheet-bottom-pager")?.sPage({
-        page: config.pageIndex, //当前页码，必填
-        total: config.total, //数据总条数，必填
-        selectOption: config.selectOption, // 选择每页的行数，
-        pageSize: config.pageSize, //每页显示多少条数据，默认10条
-        showTotal: config.showTotal, // 是否显示总数，默认关闭：false
-        showSkip: config.showSkip, //是否显示跳页，默认关闭：false
-        showPN: config.showPN, //是否显示上下翻页，默认开启：true
-        prevPage: config.prevPage || prevPage, //上翻页文字描述，默认"上一页"
-        nextPage: config.nextPage || nextPage, //下翻页文字描述，默认"下一页"
-        totalTxt: config.totalTxt || total + config.total, // 数据总条数文字描述，{total}为占位符，默认"总共：{total}"
-        backFun: function (page) {
-            page.pageIndex = page.page
-            if(!method.createHookFunction("onTogglePager", page)){ return; }
-        }
-    });
+    const _sheetContent = document.getElementById("luckysheet-sheet-content");
+    if (_sheetContent) _sheetContent.insertAdjacentHTML('afterend', '<div id="luckysheet-bottom-pager" style="font-size: 14px; margin-left: 10px; display: inline-block;"></div>');
+    const pagerEl = document.getElementById("luckysheet-bottom-pager");
+    if (pagerEl) {
+        new sPage(pagerEl, {
+            page: config.pageIndex,
+            total: config.total,
+            selectOption: config.selectOption,
+            pageSize: config.pageSize,
+            showTotal: config.showTotal,
+            showSkip: config.showSkip,
+            showPN: config.showPN,
+            prevPage: config.prevPage || prevPage,
+            nextPage: config.nextPage || nextPage,
+            totalTxt: config.totalTxt || total + config.total,
+            backFun: function (page) {
+                page.pageIndex = page.page
+                if(!method.createHookFunction("onTogglePager", page)){ return; }
+            }
+        });
+    }
 }
 
 export function refreshFormula (success) {

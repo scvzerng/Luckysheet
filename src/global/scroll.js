@@ -42,7 +42,8 @@ export default function luckysheetscrollevent(isadjust) {
     colHeader.setScrollLeft(scrollLeft);
     rowHeader.setScrollTop(scrollTop);
     
-    cellMain.el.scrollLeft(scrollLeft).scrollTop(scrollTop);
+    cellMain.el.scrollLeft = scrollLeft;
+    cellMain.el.scrollTop = scrollTop;
 
     inputBoxIndex.setCss({
         "left": inputBox.getCss("left"),

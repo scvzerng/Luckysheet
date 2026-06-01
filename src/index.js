@@ -1,10 +1,6 @@
 import './utils/math'
-import jQuery from 'jquery'
 import { luckysheet } from './core'
 import __firefox from './utils/polyfill'
-
-window.jQuery = jQuery
-window.$ = jQuery
 
 import '@fortawesome/fontawesome-free/css/all.min.css'
 import './plugins/jquery.sPage.css'

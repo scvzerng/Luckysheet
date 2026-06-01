@@ -11,8 +11,8 @@ class FormulaDialog {
 
     isVisible() { return this.el ? this.el.offsetWidth > 0 : false; }
     hide() { if (this.el) this.el.style.display = 'none'; return this; }
-    show() { if (this.el) this.el.style.display = ''; return this; }
-    showAt(props) { if (this.el) { for (const [k, v] of Object.entries(props)) this.el.style[k] = typeof v === 'number' ? v + 'px' : v; this.el.style.display = ''; } return this; }
+    show() { if (this.el) this.el.style.display = 'block'; return this; }
+    showAt(props) { if (this.el) { for (const [k, v] of Object.entries(props)) this.el.style[k] = typeof v === 'number' ? v + 'px' : v; this.el.style.display = 'block'; } return this; }
     remove() { if (this.el) this.el.remove(); this._el = null; return this; }
     setContentCss(props) {
         const content = this.el?.querySelector(".luckysheet-modal-dialog-content");

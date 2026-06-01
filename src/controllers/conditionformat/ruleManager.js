@@ -10,7 +10,8 @@ import conditionformatDialog from '../../ui/conditionformatDialog.js';
 const ruleManagerModule = {
   getConditionRuleList: function (index) {
     let _this = this;
-    conditionformatDialog.adminRule.find(".ruleList .listBox").empty();
+    let listBox = conditionformatDialog.adminRule.find(".ruleList .listBox");
+    if (listBox) listBox.innerHTML = '';
     let ruleArr = _this.fileClone[getSheetIndex(index)].luckysheet_conditionformat_save; //条件格式规则集合
     if (ruleArr != null && ruleArr.length > 0) {
       const conditionformat_Text = locale().conditionformat;
@@ -52,13 +53,16 @@ const ruleManagerModule = {
 
         //条件格式规则列表dom
         let itemHtml = '<div class="item" data-item="' + i + '">' + '<div class="ruleName" title="' + ruleName + '">' + ruleName + '</div>' + '<div class="format">' + formatHtml + '</div>' + '<div class="ruleRange">' + '<input class="formulaInputFocus" readonly="true" value="' + rangeTxtArr.join(",") + '"/>' + '<i class="fa fa-table" aria-hidden="true" title="' + conditionformat_Text.selectRange + '"></i>' + '</div>' + '</div>';
-        conditionformatDialog.adminRule.find(".ruleList .listBox").prepend(itemHtml);
+        let listBox2 = conditionformatDialog.adminRule.find(".ruleList .listBox");
+        if (listBox2) listBox2.insertAdjacentHTML('afterbegin', itemHtml);
       }
-      conditionformatDialog.adminRule.find(".ruleList .listBox .item canvas").each(function (i) {
-        let x = this.closest(".item")?.getAttribute("data-item");
+      let listBox3 = conditionformatDialog.adminRule.find(".ruleList .listBox");
+      if (listBox3) {
+        listBox3.querySelectorAll(".item canvas").forEach(function (canvas) {
+          let x = canvas.closest(".item")?.getAttribute("data-item");
         let type = ruleArr[x]["type"];
         let format = ruleArr[x]["format"];
-        let can = this.getContext("2d");
+        let can = canvas.getContext("2d");
         if (type == "dataBar") {
           if (format.length == 2) {
             let my_gradient = can.createLinearGradient(0, 0, 46, 0);
@@ -117,7 +121,9 @@ const ruleManagerModule = {
           }
         }
       });
-      conditionformatDialog.adminRule.find(".ruleList .listBox .item").eq(0).addClass("on");
+      }
+      let firstItem = listBox3?.querySelector(".ruleList .listBox .item");
+      if (firstItem) firstItem.classList.add("on");
     }
   },
   getConditionRuleName: function (conditionName, conditionRange, conditionValue) {

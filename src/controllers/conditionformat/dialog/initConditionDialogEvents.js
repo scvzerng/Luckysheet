@@ -13,8 +13,10 @@ export function initConditionDialogEvents(_this) {
       // 删除规则
       offNS("CFdeleteConditionRule");
       onNS(document, "click.CFdeleteConditionRule", "#deleteConditionRule", function () {
-        let sheetIndex = conditionformatDialog.adminRule.find(".chooseSheet option:selected").val();
-        let itemIndex = conditionformatDialog.adminRule.find(".ruleList .listBox .item.on").attr("data-item");
+        let sheetEl = conditionformatDialog.adminRule.find(".chooseSheet");
+        let sheetIndex = sheetEl?.querySelector("option:checked")?.value;
+        let itemEl = conditionformatDialog.adminRule.find(".ruleList .listBox .item.on");
+        let itemIndex = itemEl?.getAttribute("data-item");
         _this.fileClone[getSheetIndex(sheetIndex)]["luckysheet_conditionformat_save"].splice(itemIndex, 1);
         _this.administerRuleDialog();
       });
@@ -23,7 +25,7 @@ export function initConditionDialogEvents(_this) {
       offNS("CFdefault");
       onNS(document, "click.CFdefault", "#luckysheet-conditionformat-dialog-confirm", function () {
         //条件名称
-        let conditionName = conditionformatDialog.main.find(".box").attr("data-itemvalue");
+        let conditionName = conditionformatDialog.main.find(".box")?.getAttribute("data-itemvalue");
   
         //条件单元�?
         let conditionRange = [];
@@ -31,7 +33,7 @@ export function initConditionDialogEvents(_this) {
         //条件�?
         let conditionValue = [];
         if (conditionName == "greaterThan" || conditionName == "lessThan" || conditionName == "equal" || conditionName == "textContains") {
-          let v = conditionformatDialog.main.find("#conditionVal").val().trim();
+          let v = conditionformatDialog.main.find("#conditionVal")?.value?.trim();
   
           let result = parseConditionRange(v, _this, conditionformat_Text);
           if (result == null) {
@@ -41,8 +43,8 @@ export function initConditionDialogEvents(_this) {
           conditionValue.push(...result.conditionValue);
         } else if (conditionName == "betweenness") {
           //介于
-          let v1 = conditionformatDialog.main.find("#conditionVal").val().trim();
-          let v2 = conditionformatDialog.main.find("#conditionVal2").val().trim();
+          let v1 = conditionformatDialog.main.find("#conditionVal")?.value?.trim();
+          let v2 = conditionformatDialog.main.find("#conditionVal2")?.value?.trim();
   
           let result1 = parseConditionRange(v1, _this, conditionformat_Text);
           if (result1 == null) {
@@ -63,7 +65,7 @@ export function initConditionDialogEvents(_this) {
           conditionValue.push(...result2.conditionValue);
         } else if (conditionName == "occurrenceDate") {
           //日期
-          let v = conditionformatDialog.main.find("#daterange-btn").val();
+          let v = conditionformatDialog.main.find("#daterange-btn")?.value;
           if (v == "" || v == null) {
             _this.infoDialog(conditionformat_Text.pleaseSelectADate, "");
             return;
@@ -71,9 +73,9 @@ export function initConditionDialogEvents(_this) {
           conditionValue.push(v);
         } else if (conditionName == "duplicateValue") {
           //重复�?
-          conditionValue.push(conditionformatDialog.main.find("#conditionVal option:selected").val());
+          conditionValue.push(conditionformatDialog.main.find("#conditionVal option:checked")?.value);
         } else if (conditionName == "top10" || conditionName == "top10%" || conditionName == "last10" || conditionName == "last10%") {
-          let v = conditionformatDialog.main.find("#conditionVal").val().trim();
+          let v = conditionformatDialog.main.find("#conditionVal")?.value?.trim();
           if (parseInt(v) != v || parseInt(v) < 1 || parseInt(v) > 1000) {
             _this.infoDialog(conditionformat_Text.pleaseEnterInteger, "");
             return;

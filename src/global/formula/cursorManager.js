@@ -224,7 +224,7 @@ const cursorManager = {
                 sel.addRange(range);
                 el.focus();
             } catch (err) {
-                luckysheetRangeLast(this.rangeResizeTo[0]);
+                luckysheetRangeLast(this.rangeResizeTo);
             }
         },
 
@@ -237,10 +237,11 @@ const cursorManager = {
                 let fri = _this.findrangeindex(v, vp);
 
                 if (fri == null) {
-                    currSelection.selectAllChildren(obj.get(0));
+                    currSelection.selectAllChildren(obj);
                     currSelection.collapseToEnd();
                 } else {
-                    _this.setCaretPosition(obj.find("span").get(fri[0]), 0, fri[1]);
+                    let spanEl = obj.querySelectorAll("span")[fri[0]];
+                    if (spanEl) _this.setCaretPosition(spanEl, 0, fri[1]);
                 }
             } else if (document.selection) {
                 //ie10 9 8 7 6 5

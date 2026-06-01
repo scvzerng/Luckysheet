@@ -8,8 +8,8 @@ class ImageDialog {
     get el() { if (!this._el || !document.body.contains(this._el)) this._el = document.querySelector(this._selector); return this._el; }
 
     isVisible() { if (!this.el) return false; return this.el.offsetWidth > 0; }
-    show() { if (!this.el) return this; this.el.style.display = ''; return this; }
-    showAt(props) { if (!this.el) return this; for (const [k, v] of Object.entries(props)) this.el.style[k] = typeof v === 'number' ? v + 'px' : v; this.el.style.display = ''; return this; }
+    show() { if (!this.el) return this; this.el.style.display = 'block'; return this; }
+    showAt(props) { if (!this.el) return this; for (const [k, v] of Object.entries(props)) this.el.style[k] = typeof v === 'number' ? v + 'px' : v; this.el.style.display = 'block'; return this; }
     hide() { if (!this.el) return this; this.el.style.display = 'none'; return this; }
     setCss(props) { if (!this.el) return this; for (const [k, v] of Object.entries(props)) this.el.style[k] = typeof v === 'number' ? v + 'px' : v; return this; }
     getOffset() {

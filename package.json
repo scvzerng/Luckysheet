@@ -63,25 +63,19 @@
     "escape-html": "^1.0.3",
     "flatpickr": "^4.6.13",
     "html2canvas": "^1.4.1",
-    "jquery-mousewheel": "^3.1.13",
     "jstat": "^1.9.6",
     "localforage": "^1.10.0",
     "numeral": "^2.0.6",
     "pako": "^2.1.0",
     "uuid": "^9.0.0"
   },
-  "peerDependencies": {
-    "jquery": ">=2.2.4"
-  },
   "devDependencies": {
-    "@rollup/plugin-inject": "^5.0.5",
     "@typescript-eslint/eslint-plugin": "^7.0.0",
     "@typescript-eslint/parser": "^7.0.0",
     "acorn": "^8.16.0",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-jsdoc": "^48.2.0",
-    "jquery": "^3.7.1",
     "jsdom": "^29.1.1",
     "prettier": "^3.2.5",
     "typescript": "^5.4.0",

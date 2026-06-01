@@ -7,7 +7,7 @@ class RightClickMenu {
     }
 
     hide() { if (!this.el) return this; this.el.style.display = 'none'; return this; }
-    show() { if (!this.el) return this; this.el.style.display = ''; return this; }
+    show() { if (!this.el) return this; this.el.style.display = 'block'; return this; }
     showAt(x, y) {
         if (!this.el) return this;
         let winH = document.documentElement.clientHeight, winW = document.documentElement.clientWidth;
@@ -18,7 +18,7 @@ class RightClickMenu {
         if (top < 0) { top = 0; }
         this.el.style.top = top + 'px';
         this.el.style.left = left + 'px';
-        this.el.style.display = '';
+        this.el.style.display = 'block';
         return this;
     }
     find(selector) { if (!this.el) return null; return this.el.querySelector(selector); }
