@@ -2,7 +2,7 @@ import './utils/math'
 import { luckysheet } from './core'
 import __firefox from './utils/polyfill'
 
-import '@fortawesome/fontawesome-free/css/all.min.css'
+import './css/fontawesome.min.css'
 import './plugins/pagination.css'
 import './css/core/index.css'
 import './css/luckysheet-zoom.css'
