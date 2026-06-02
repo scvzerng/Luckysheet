@@ -1,11 +1,31 @@
 import { defineConfig } from 'vite'
 import { resolve } from 'path'
+import { copyFileSync, mkdirSync, existsSync, readdirSync } from 'fs'
+
+function copyWebfonts() {
+  return {
+    name: 'copy-webfonts',
+    writeBundle() {
+      const srcDir = 'src/webfonts'
+      const destDir = 'dist/webfonts'
+      
+      if (!existsSync(destDir)) {
+        mkdirSync(destDir, { recursive: true })
+      }
+      
+      readdirSync(srcDir).forEach(file => {
+        copyFileSync(resolve(srcDir, file), resolve(destDir, file))
+        console.log('Copied webfont:', file)
+      })
+    }
+  }
+}
 
 export default defineConfig(({ command }) => {
   const isDev = command === 'serve'
 
   return {
-    plugins: [],
+    plugins: [copyWebfonts()],
 
     resolve: {
       alias: {
