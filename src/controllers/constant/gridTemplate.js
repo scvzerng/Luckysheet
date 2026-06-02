@@ -123,7 +123,7 @@ const gridHTML = function() {
                                             <td valign="top" class="luckysheet-paneswrapper">
                                                 <div class="luckysheet-cell-loading" id="luckysheet-cell-loading">
                                                     <div class="luckysheet-cell-loading-inner">
-                                                        <i class="fa fa-circle-o-notch fa-spin"></i>
+                                                        <i class="fa fa-circle-notch fa-spin"></i>
                                                         <span></span>
                                                     </div>
                                                 </div> 

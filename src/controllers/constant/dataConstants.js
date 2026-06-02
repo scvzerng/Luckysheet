@@ -59,7 +59,7 @@ const columeHeader_word = [
     colsmenuHTML = "";
 
 const sheetHTML =
-        '<div style="${style}" id="luckysheet-sheets-item${index}" data-index="${index}" class="luckysheet-sheets-item ${active}"><span class="luckysheet-sheets-item-name" spellcheck ="false" contenteditable="false">${name}</span> <span class="luckysheet-sheets-item-menu luckysheet-mousedown-cancel"><i class="fa fa-sort-desc luckysheet-mousedown-cancel"></i></span>${colorset}</div>',
+        '<div style="${style}" id="luckysheet-sheets-item${index}" data-index="${index}" class="luckysheet-sheets-item ${active}"><span class="luckysheet-sheets-item-name" spellcheck ="false" contenteditable="false">${name}</span> <span class="luckysheet-sheets-item-menu luckysheet-mousedown-cancel"><i class="fa fa-sort-down luckysheet-mousedown-cancel"></i></span>${colorset}</div>',
     columnHeaderHTML =
         '<div class="luckysheet-cols-h-cells luckysheetsheetchange"  id="luckysheet-cols-h-cells_${index}" style="width:${width}px;"> <div class="luckysheet-cols-h-cells-c"> <div class="luckysheet-grdblkpush"></div>${column}</div></div>',
     sheetselectlistHTML =
