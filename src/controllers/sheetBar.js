@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿import sheetmanage from './sheetmanage';
+﻿import sheetmanage from './sheetmanage';
 import { sheetselectlistitemHTML, sheetselectlistHTML, keycode } from './constant';
 import {
     replaceHtml,
@@ -152,17 +152,20 @@ let luckysheetsheetrightclick = function ($t, $cur, e) {
         document.querySelector("#luckysheet-formula-functionrange .luckysheet-formula-functionrange-highlight")?.remove();
     }
 
+    const _sheetListMenu = document.querySelector("#luckysheet-sheet-list, #luckysheet-rightclick-sheet-menu");
+    if (_sheetListMenu) _sheetListMenu.style.display = 'none';
+
+    if ($cur.classList.contains("luckysheet-sheets-item-menu") || $cur.classList.contains("fa-sort-down") || e.which == "3") {
+        luckysheetcurrentSheetitem = $cur.closest(".luckysheet-sheets-item");
+        showsheetconfigmenu();
+        luckysheetsizeauto();
+        return;
+    }
+
     document.querySelector("#luckysheet-sheet-area div.luckysheet-sheets-item")?.classList.remove("luckysheet-sheets-item-active");
     $t.classList.add("luckysheet-sheets-item-active");
     cleargridelement(e);
     sheetmanage.changeSheet($t.dataset.index);
-
-    document.querySelector("#luckysheet-sheet-list, #luckysheet-rightclick-sheet-menu").style.display = 'none';
-
-    if ($cur.classList.contains("luckysheet-sheets-item-menu") || $cur.classList.contains("fa-sort-desc") || e.which == "3") {
-        luckysheetcurrentSheetitem = $cur.closest(".luckysheet-sheets-item");
-        showsheetconfigmenu();
-    }
     luckysheetsizeauto();
 }
 
@@ -172,6 +175,7 @@ export function initialSheetBar(){
     isInitialSheetConfig = false
 
     document.getElementById("luckysheet-sheet-area")?.addEventListener("mousedown", function (e) {
+        if (e.target?.closest?.(".luckysheet-sheets-item-menu")) return;
         let _target = e.target?.closest?.("div.luckysheet-sheets-item");
         if (!_target) return;
         if(isEditMode()){
@@ -227,6 +231,15 @@ export function initialSheetBar(){
         }
 
         let $t = _target, $cur = e.target;
+        
+        if (e.target?.closest?.(".luckysheet-sheets-item-menu")) {
+            e.stopPropagation();
+            e.preventDefault();
+            luckysheetcurrentSheetitem = _target;
+            showsheetconfigmenu();
+            return;
+        }
+        
         luckysheetsheetrightclick($t, $cur, e);
     });
 
@@ -379,7 +392,8 @@ export function initialSheetBar(){
         }
         luckysheetsheetnameeditor(luckysheetcurrentSheetitem.querySelector("span.luckysheet-sheets-item-name"));
         resetInputBoxStyle();
-        document.querySelector("#luckysheet-sheet-list, #luckysheet-rightclick-sheet-menu").style.display = 'none';
+        const _sheetListMenu2 = document.querySelector("#luckysheet-sheet-list, #luckysheet-rightclick-sheet-menu");
+        if (_sheetListMenu2) _sheetListMenu2.style.display = 'none';
     });
 
     document.getElementById("luckysheetsheetconfigshow").addEventListener("click", function () {
@@ -436,7 +450,8 @@ export function initialSheetBar(){
     document.getElementById("luckysheetsheetconfigcopy").addEventListener("click", function (e) {
         sheetmanage.copySheet(luckysheetcurrentSheetitem.dataset.index, e);
         resetInputBoxStyle();
-        document.querySelector("#luckysheet-sheet-list, #luckysheet-rightclick-sheet-menu").style.display = 'none';
+        const _sheetListMenu6 = document.querySelector("#luckysheet-sheet-list, #luckysheet-rightclick-sheet-menu");
+        if (_sheetListMenu6) _sheetListMenu6.style.display = 'none';
     });
 
     document.getElementById("luckysheetsheetconfighide").addEventListener("click", function () {
@@ -511,7 +526,8 @@ export function initialSheetBar(){
             formula.updatecell(Store.luckysheetCellUpdate[0], Store.luckysheetCellUpdate[1]);
         }
 
-        document.getElementById("luckysheet-sheet-list").innerHTML = "";
+        const _sheetList = document.getElementById("luckysheet-sheet-list");
+        if (_sheetList) _sheetList.innerHTML = "";
 
         let item = "";
         for (let i = 0; i < Store.luckysheetfile.length; i++) {
