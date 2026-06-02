@@ -154,7 +154,7 @@ const sheetSwitchModule = {
     const _elSheet = document.getElementById("luckysheet-sheets-item" + index);
     window.luckysheet_getcelldata_cache = null;
     document.querySelectorAll("#luckysheet-sheet-area div.luckysheet-sheets-item").forEach(el => el.classList.remove("luckysheet-sheets-item-active"));
-    if (_elSheet) { _elSheet.classList.add("luckysheet-sheets-item-active"); _elSheet.style.display = 'block'; }
+    if (_elSheet) { _elSheet.classList.add("luckysheet-sheets-item-active"); _elSheet.style.removeProperty('display'); }
     cleargridelement();
     this.changeSheet(index, isNewSheet, isCopySheet);
     [document.getElementById("luckysheet-sheet-list"), document.getElementById("luckysheet-rightclick-sheet-menu")].forEach(el => { if (el) el.style.display = 'none'; });

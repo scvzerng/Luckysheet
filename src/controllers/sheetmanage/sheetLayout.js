@@ -50,8 +50,6 @@ const sheetLayoutModule = {
   },
   // *控制sheet栏的左右滚动按钮是否显示
   locationSheet: function () {
-    const _elContainer = document.getElementById(Store.container);
-    let winW = _elContainer ? _elContainer.getBoundingClientRect().width : 0;
     let $cursheet = sheetContainer.getActiveSheetItem();
     let scrollLeftpx = 0;
     let c_width = 0;
@@ -66,7 +64,9 @@ const sheetLayoutModule = {
     setTimeout(function () {
       sheetContainer.setScrollLeft(scrollLeftpx - 10);
       if (luckysheetConfigsetting.showsheetbarConfig.sheet) {
-        if (c_width >= winW * 0.7) {
+        let containerWidth = sheetContainer.getWidth();
+        let scrollWidth = sheetContainer.getScrollWidth();
+        if (scrollWidth > containerWidth) {
           document.querySelectorAll("#luckysheet-sheet-area .luckysheet-sheets-scroll").forEach(el => el.style.display = 'inline-block');
           document.querySelectorAll("#luckysheet-sheet-container .docs-sheet-fade-left").forEach(el => el.style.display = '');
         } else {
@@ -95,8 +95,17 @@ const sheetLayoutModule = {
     if (index != null) {
       const _elSheet = document.getElementById("luckysheet-sheets-item" + index);
       if (_elSheet) {
-        const rect = _elSheet.getBoundingClientRect();
-        sheetContainer.setScrollLeft(rect.left + window.pageXOffset);
+        let scrollLeftpx = 0;
+        let c_width = 0;
+        document.querySelectorAll("#luckysheet-sheet-area div.luckysheet-sheets-item").forEach(function (el) {
+          if (el.offsetWidth > 0) {
+            if (el.id === "luckysheet-sheets-item" + index) {
+              scrollLeftpx = c_width;
+            }
+            c_width += el.offsetWidth;
+          }
+        });
+        sheetContainer.setScrollLeft(scrollLeftpx - 10);
       }
     }
     let c_width = sheetContainer.getWidth(),
